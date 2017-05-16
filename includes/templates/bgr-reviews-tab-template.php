@@ -73,14 +73,11 @@ $reviews = new WP_Query($args);
 				</div>
 			</div>
 		</div>
-	</div>
-        <?php  if(isset($_POST['bgr-flag'])){ ?>
-                        <div id="message" class="success">
-                            <p><?php _e( "Review added. Your review will be published when group admin approved it.", BGR_DOMAIN); ?></p>
-                        </div><?php
-                       unset($_POST['bgr-flag']);	
-                }
-        ?>              
+	</div>        
+        <div id="message" class="success bgr-bp-success">
+            <p><?php _e( "Review added. Your review will be published when group admin approved it.", BGR_DOMAIN); ?></p>
+        </div>                       	
+            
 	<div class="group-reviews">
 		<div id="group-reviews-list">
                     <div id="request-review-list" class="item-list">
@@ -137,22 +134,17 @@ $reviews = new WP_Query($args);
                                                                 <?php    
                                                                 }
                                                             }
-                                                        endif;  
-                                                      
-                                                
-                                                ?> 
-                                                                        
+                                                        endif; 
+                                                    ?>                    
                                             </div>
                                         </div>
-                                        
                                     </div>
                                 </div>
                                 <div class="bgr-col-2">
-                                    <?php if(groups_is_user_admin( $member_id, bp_get_group_id() )):                                     
-                                     ?> 
-                                    <div class='remove-review generic-button'>
-                                        <a class='remove-review-button'> <?php _e('Delete',BGR_DOMAIN); ?> </a><input type="hidden" name="remove_review_id" value="<?php echo $post->ID; ?>"> 
-                                    </div>
+                                    <?php if(groups_is_user_admin( $member_id, bp_get_group_id() )): ?> 
+                                        <div class='remove-review generic-button'>
+                                            <a class='remove-review-button'> <?php _e('Delete',BGR_DOMAIN); ?> </a><input type="hidden" name="remove_review_id" value="<?php echo $post->ID; ?>"> 
+                                        </div>
                                     <?php endif; ?>                                  
                                 </div>
                                 

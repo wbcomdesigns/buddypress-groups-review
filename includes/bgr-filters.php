@@ -8,10 +8,10 @@ defined( 'ABSPATH' ) || exit;
 if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 	class BGR_Custom_Hooks{
 
-		/* Constructor for custom hooks
+		/*  Constructor for custom hooks
                  *  @since   1.0.0
                  *  @author  Wbcom Designs
-                */
+                 */
 		function __construct() {
 			add_action( 'wp', array( $this, 'bgr_add_groups_reviews_tab' ) );
 			add_action( 'init', array( $this, 'bgr_add_groups_reviews_taxonomy_term' ) );
@@ -22,10 +22,10 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 
 		}
 
-		/*Actions performed to show average rating on a group
+		/*  Actions performed to show average rating on a group
 		 *  @since   1.0.0
                  *  @author  Wbcom Designs
-                */
+                 */
 		function bgr_group_average_rating() {			
 			//Gather all the group reviews
 			$args = array(
@@ -45,26 +45,25 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
                         $bgr_admin_settings = get_option( 'bgr_admin_settings' );
                         $review_rating_fields = $bgr_admin_settings['add_review_rating_fields'];
                         if( !empty( $review_rating_fields ) ) { 
-                            if( !empty( $reviews ) ){ ?>
-                                    <span>Rating: </span>
-                                    <?php
-                                    $ttl_rating = 0;
+                            if( !empty( $reviews ) ){
+                                    _e('<span>Rating: </span>' , BGR_DOMAIN );
+                                    $ttl_rating    = 0;
                                     $reviews_count = 0;
-									$total_review_count = count($reviews);
+                                    $total_review_count = count($reviews);
                                     foreach( $reviews as $review ){                                   
 
                                             $rate = 0;
                                             $review_ratings       = get_post_meta( $review->ID, 'review_star_rating', false );                                               
                                             
-											$reviews_field_count  = 0;
+                                            $reviews_field_count  = 0;
                                             if(!empty($review_rating_fields) && !empty($review_ratings[0])):                                                  
                                                 foreach($review_ratings[0] as $field => $value){
                                                     if(in_array($field,$review_rating_fields)){
                                                         $rate += $value;
-														$reviews_field_count++;
+                                                        $reviews_field_count++;
                                                     }
                                                 }
-												$reviews_count++;
+                                                $reviews_count++;
                                                 $reviews_field_count == 0 ?  ($reviews_field_count = 1): $reviews_field_count;   
                                                 $ttl_rating += (int)$rate/$reviews_field_count;
                                             endif;                                       					
@@ -101,22 +100,22 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
                             } else {
                                     echo 'No Rating Available!';
                             }
-                    }    
+                        }    
 		}
 
-		/*Actions performed to remove edit from bulk options
+		/*  Actions performed to remove edit from bulk options
 		 *  @since   1.0.0
                  *  @author  Wbcom Designs
-                */
+                 */
 		function bgr_remove_edit_bulk_actions( $actions ) {
 			unset( $actions['edit'] );
 			return $actions;
 		}
 
-		/*Actions performed to disallow admin to edit review from review title
+		/*  Actions performed to disallow admin to edit review from review title
 		 *  @since   1.0.0
                  *  @author  Wbcom Designs
-                */
+                 */
 		function bgr_disable_review_title_edit_link() {
 			$post_type = sanitize_text_field( $_GET['post_type'] );
 			if( $post_type === 'review' ) {
@@ -131,7 +130,7 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 		/*Actions performed to hide row actions
 		 *  @since   1.0.0
                  *  @author  Wbcom Designs
-                */
+                 */
 		function bgr_group_reviews_row_actions( $actions, $post ) {
 			global $bp;
 			if( $post->post_type == 'review' ) {
@@ -153,10 +152,10 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 			return $actions;
 		}
 
-		/*Action performed to add taxonomy term for group reviews
+		/*  Action performed to add taxonomy term for group reviews
 		 *  @since   1.0.0
                  *  @author  Wbcom Designs
-                */
+                 */
 		function bgr_add_groups_reviews_taxonomy_term(){
 			$termExists = term_exists( 'Group', 'review_category' );
 			if( $termExists === 0 || $termExists === null ) {
@@ -164,10 +163,10 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 			}
 		}
 
-		/*Action performed to add a tab for group reviews
+		/*  Action performed to add a tab for group reviews
 		 *  @since   1.0.0
                  *  @author  Wbcom Designs
-                */
+                 */
 		function bgr_add_groups_reviews_tab() {
 			if ( bp_is_group_single() ) {
 				global $bp;
@@ -184,7 +183,7 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 						'suppress_filters' => true
 					);
 					
-                    $post_count = 0;
+                                        $post_count = 0;
 					$recent_posts = wp_get_recent_posts( $args );
 					if(!empty($recent_posts)):		
 						foreach( $recent_posts as $recent ){
@@ -206,10 +205,10 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 			}
 		}
 
-		/*Action performed to show screen of reviews listing tab
+		/*  Action performed to show screen of reviews listing tab
 		 *  @since   1.0.0
                  *  @author  Wbcom Designs
-                */
+                 */
 		function bgr_group_reviews_tab() {
 			add_action( 'bp_template_content', array( $this, 'bgr_group_reviews_tab_template' ) );
 
@@ -221,10 +220,10 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 			}
 		}
 
-		/*Action performed to show the content of reviews list tab
+		/*  Action performed to show the content of reviews list tab
 		 *  @since   1.0.0
                  *  @author  Wbcom Designs
-                */
+                 */
 		function bgr_group_reviews_tab_template() {
 			if( strpos( $_SERVER['REQUEST_URI'], 'reviews/view' ) !== false ) {
 				include 'templates/bgr-single-review-template.php';
@@ -232,11 +231,11 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 				include 'templates/bgr-reviews-tab-template.php';
 			}
 		}
-
-		/*Action performed to show screen of manage reviews listing tab
+ 
+		/*  Action performed to show screen of manage reviews listing tab
 		 *  @since   1.0.0
                  *  @author  Wbcom Designs
-                */
+                 */
 		function bgr_manage_group_reviews_tab() { die;
 			add_action( 'bp_template_content', array( $this, 'bgr_manage_group_reviews_tab_template' ) );
 
@@ -248,12 +247,12 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 			}
 		}
 
-		/*Action performed to show the content of reviews list tab
+		/*  Action performed to show the content of reviews list tab
 		 *  @since   1.0.0
                  *  @author  Wbcom Designs
-                */
+                 */
 		function bgr_manage_group_reviews_tab_template() {
-			echo "code here";
+			_e("code here",BGR_DOMAIN);
 		}
                 
 

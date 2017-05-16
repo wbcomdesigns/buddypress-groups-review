@@ -9,7 +9,7 @@ if( !class_exists( 'BGRScriptsStyles' ) ) {
 		/*Constructor
                  *  @since   1.0.0
                  *  @author  Wbcom Designs
-                */
+                 */
 		function __construct() {
 
 			//Add Scripts only on reviews tab
@@ -24,22 +24,18 @@ if( !class_exists( 'BGRScriptsStyles' ) ) {
 		/* Actions performed for enqueuing scripts and styles for site front
                  *  @since   1.0.0
                  *  @author  Wbcom Designs
-                */
-		function bgr_custom_variables() {
-			$curr_url = $_SERVER['REQUEST_URI'];
-			//if( strpos($curr_url, 'reviews') !== false ) {
-				wp_enqueue_style('bgr-reviews-css', BGR_PLUGIN_URL.'assets/css/bgr-reviews.css');
-                                wp_enqueue_style('bgr-front-css', BGR_PLUGIN_URL.'assets/css/bgr-front.css');
-				wp_enqueue_script('bgr-front-js', BGR_PLUGIN_URL.'assets/js/bgr-front.js', array('jquery'));
-			//}
-			wp_enqueue_style('bgr-front-css', BGR_PLUGIN_URL.'assets/css/bgr-front.css');
+                 */
+		function bgr_custom_variables() {			
+                        wp_enqueue_style('bgr-reviews-css', BGR_PLUGIN_URL.'assets/css/bgr-reviews.css');
+                        wp_enqueue_style('bgr-front-css', BGR_PLUGIN_URL.'assets/css/bgr-front.css');
+                        wp_enqueue_script('bgr-front-js', BGR_PLUGIN_URL.'assets/js/bgr-front.js', array('jquery'));
+                        wp_enqueue_style('bgr-front-css', BGR_PLUGIN_URL.'assets/css/bgr-front.css');
 		}
 		
 		/*Actions performed for enqueuing scripts and styles for admin page
                  *  @since   1.0.0
                  *  @author  Wbcom Designs
-                */
-                 
+                 */                 
 		function bgr_admin_custom_variables() {
 			wp_enqueue_script('bgr-js-admin',BGR_PLUGIN_URL.'admin/assets/js/bgr-admin.js', array('jquery'));
 			wp_enqueue_style('bgr-css-admin', BGR_PLUGIN_URL.'admin/assets/css/bgr-admin.css');

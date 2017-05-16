@@ -43,13 +43,13 @@
   cursor: pointer;
 } 
 .remove-review-button,.accept-button,.deny-button{
-	float: right;
+    float: right;
 }
 #buddypress #bgr-message{
-	display: none!important;
+    display: none!important;
 }
 #bgr-message{
-	margin: 0 0 15px;
+    margin: 0 0 15px;
 }
 .bgr-success{
     font-size: 1.12rem;
@@ -59,4 +59,10 @@
     border: 1px solid #cb2;
     color: #440;
     padding: 15px;
+}
+.bgr-bp-success{
+    display: none;
+}
+#bgr-message{
+    display: none;
 }

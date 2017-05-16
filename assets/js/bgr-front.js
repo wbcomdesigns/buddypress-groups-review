@@ -111,6 +111,7 @@ jQuery(document).ready(function(){
                 );
         });
 
+        // Show & hide full description
         jQuery(document).on('click','.expand-review-des', function() {
             var display = jQuery(this).parent().children('.review-full-description').css('display');
             if (display === 'block') {
@@ -127,4 +128,21 @@ jQuery(document).ready(function(){
             }
            
         });
+
+        jQuery('#bgr-add-review-form').submit(function(e) {  
+            e.preventDefault();
+            jQuery.post(
+                   ajaxurl,
+                       {
+                       'action' : 'bgr_submit_review',
+                       'data'   : jQuery(this).serialize(),
+                       },
+                       function(response) {
+                            jQuery('.bgr-bp-success').css("display","block");
+                            jQuery('.bgr-group-review-no-popup-add-block').hide();
+                            jQuery('#bgr-message').css("display","block");
+                            
+                       }
+                   );
+            });
 });

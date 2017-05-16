@@ -28,12 +28,12 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			parent::init( $args );
 		}
 
-		/**
+		/*
 		 * settings_screen_save() contains the catch-all logic for saving 
 		 * settings from the edit, create, and Dashboard admin panels
                  *  @since   1.0.0
                  *  @author  Wbcom Designs
-                */
+                 */
 		
 		function settings_screen_save( $group_id = NULL ) {
 			groups_update_groupmeta( $group_id, 'group_extension_course_setting_activities', $bp_learndash_course_activity );
@@ -48,11 +48,11 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			}
 			return $checked;
 		}
-                /**
+                /*
 		 *  Display all posted reviews that not checked by group admins.
                  *  @since   1.0.0
                  *  @author  Wbcom Designs
-                */
+                 */
                 function edit_screen($group_id= NULL){
                     global $bp,$wpdb,$post;             
                     //Admin Settings
@@ -60,22 +60,22 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
                     if( !empty( $bgr_admin_settings ) ) {
                         $reviews_per_page     = $bgr_admin_settings['reviews_per_page'];
                     }
-					if(empty($reviews_per_page)){
-						$reviews_per_page = -1;
-					}
+                    if(empty($reviews_per_page)){
+                            $reviews_per_page = -1;
+                    }
                     $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
                     $args = array(
 						'post_type' => 'review',
 						'posts_per_page' => -1,
 						'post_status' => 'draft',
-										'posts_per_page' => $reviews_per_page,
-										'paged' => $paged,
+                                                'posts_per_page' => $reviews_per_page,
+                                                'paged' => $paged,
 						'category' => 'group',
 						'meta_query' => array(
 							array(
-								'key'		=>	'linked_group',
-								'value'		=>	$bp->groups->current_group->id,
-								'compare'	=>	'=',
+								'key'	  =>	'linked_group',
+								'value'	  =>	$bp->groups->current_group->id,
+								'compare' =>	'=',
 							),
 						),
 			);
@@ -107,23 +107,22 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
                                                 ?>
                                             </div>    
                                             <div class="review-full-description bgr-col-12">
-												<div class="bgr-col-12">
-                                                <?php _e('<b>Review Full Description:</b> ',BGR_DOMAIN);
-                                                      the_content();
-												?>
-												</div>
-												<?php	
-                                                        $bgr_admin_settings   = get_option( 'bgr_admin_settings' );
-                                                        $review_rating_fields = $bgr_admin_settings['add_review_rating_fields'];
-                                                        $review_ratings       = get_post_meta( $post->ID, 'review_star_rating',false);
-                                                        if(!empty($review_rating_fields) && !empty($review_ratings[0])):                                                  
-                                                            foreach($review_ratings[0] as $field => $value){
-                                                                if(in_array($field,$review_rating_fields)){
-																	?>
-																	<div class="bgr-col-6"> 
-																	<?php
-                                                                    _e($field.' : ',BGR_DOMAIN);
-                                                                    
+                                                <div class="bgr-col-12">
+                                                    <?php _e('<b>Review Full Description:</b> ',BGR_DOMAIN);
+                                                    the_content();
+                                                    ?>
+                                                </div>
+						<?php	
+                                                    $bgr_admin_settings   = get_option( 'bgr_admin_settings' );
+                                                    $review_rating_fields = $bgr_admin_settings['add_review_rating_fields'];
+                                                    $review_ratings       = get_post_meta( $post->ID, 'review_star_rating',false);
+                                                    if(!empty($review_rating_fields) && !empty($review_ratings[0])):                                                  
+                                                        foreach($review_ratings[0] as $field => $value){
+                                                            if(in_array($field,$review_rating_fields)){
+                                                                ?>
+                                                                <div class="bgr-col-6"> 
+                                                                    <?php _e($field.' : ',BGR_DOMAIN);
+
                                                                     /*** Ratings *****/
                                                                     $stars_on  = $value;
                                                                     $stars_off = 5 - $stars_on; 
@@ -133,18 +132,16 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
                                                                     for( $i = 1; $i <= $stars_off; $i++ ){
                                                                         ?><img class="stars" src="<?php _e(BGR_PLUGIN_URL."assets/images/star_off.png", BGR_DOMAIN );?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
                                                                     }
-																	?>
-																	</div>
-																	<?php                                                                    
-                                                                }
+                                                                    ?>
+                                                                </div>
+                                                                <?php                                                                    
                                                             }
-                                                        endif;                                                      
-                                                
+                                                        }
+                                                    endif;                                          
                                                 ?>
                                             </div>
                                             <a class="expand-review-des"><?php _e('View More..',BGR_DOMAIN); ?> </a>
-                                        </div>
-                                        
+                                        </div>                                        
                                     </div>
                                 </div>
                                 <div class="bgr-col-2">
@@ -166,14 +163,13 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
                                     <?php
                                         $current_page = max(1, get_query_var('paged'));
                                         echo paginate_links(array(
-                                                'base' => get_pagenum_link(1) . '%_%',
-                                                'format' => 'page/%#%',
-                                                'current' => $current_page,
-                                                'total' => $total_pages,
+                                                'base'      => get_pagenum_link(1) . '%_%',
+                                                'format'    => 'page/%#%',
+                                                'current'   => $current_page,
+                                                'total'     => $total_pages,
                                                 'prev_text' => __('prev'),
                                                 'next_text' => __('next'),
                                                 ));?>
-
                                 </div><?php
                             }
                             wp_reset_postdata();
@@ -182,11 +178,10 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
                                 <p><?php _e( "Sorry, no reviews were found.", BGR_DOMAIN ); ?></p>
                             </div>
                             <?php endif; ?>
-                        </div>         
+                    </div>         
                     <?php
-                }
-               
-		
+                }	
 	}
     bp_register_group_extension( 'Group_Reviews_Management_Extn' );
+    
 endif; 
