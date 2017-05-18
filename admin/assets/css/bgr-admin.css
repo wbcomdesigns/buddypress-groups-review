@@ -1,14 +1,14 @@
 @CHARSET "ISO-8859-1";
 /****** css for display rows & columns ****/
 [class*="bgr-col-"] {
-    float: left;
-    padding: 10px 0;
+        float: left;
+        padding: 10px 0;
  }
 .bgr-row{
-    clear: both;
-    border-bottom: 1px solid #ddd;    
-    overflow: hidden;
-    padding-bottom: 5px;
+        clear: both;
+        border-bottom: 1px solid #ddd;    
+        overflow: hidden;
+        padding-bottom: 5px;
 }
 .bgr-col-1 {width: 8.33%;}
 .bgr-col-2 {width: 16.66%;}
@@ -30,194 +30,150 @@
 }   
 /*** css end ****/
 .bgr-shortcode-tbl td{
-  border-left:1px solid black;
+        border-left:1px solid black;
 }
 .bgr-shortcode-tbl tr{
-    border: 10px;
+       border: 10px;
 }
 .bgr-shortcode-tbl th{
-    padding-right: 10px;
+        padding-right: 10px;
 }
 .bgr-admin-settings-header p{
-    font-size: 24px;
-    padding: 0 5%;
+        font-size: 24px;
 }
-.bgr-admin-settings-spinner{
-    vertical-align: middle;
-    display: none;
+.bgr-admin-criteria-settings-spinner, .bgr-admin-display-settings-spinner, .bgr-admin-general-settings-spinner{
+        vertical-align: middle;
+        display: none;
 }
 .bgr-btn-ajax{
-    color: #66c6e4 !important;
+        color: #66c6e4 !important;
 }
 #bgr_settings_updated{
-    display: none;
-    margin-left: 0;
-    margin-bottom: 15px;
+        display: none;
+        margin-left: 0;
+        margin-bottom: 15px;
 }
 #bgr-settings-tbl td{
-    padding-left : 10px;
-    padding-bottom: 15px;
+        padding-left : 10px;
+        padding-bottom: 15px;
 }
 .rating-review-div{
-    margin-bottom: 10px;
+        margin-bottom: 10px;
 }
 .bgr-row-setting{
-    float: left;
+        float: left;
 }
 .bgr-remove{
-    margin-bottom: 10px!important;
+        margin-bottom: 10px!important;
 }
 
-/*** Admin panel new css ***/
-.bgr-admin-settings-block{
-    margin: 2% 5%;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-    background: #fff;
-}
 #bgr-save-admin-settings{
-    float: right;
-    margin: 0 10px;
+        margin: 0 10px;
 }
-/*** Group Review settings sidebar css ***/
-.bgr-setting-sidebar{
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-    height: 100%;
-    min-height: 600px;
+.bgr-row label{
+        font-weight: bold;
 }
-.bgrtablink{
-    background-color: #fff;
-    border: medium none;
-    display: block;
-    float: none;
-    outline: medium none;
-    padding: 9px 16px;
-    text-align: left;
-    white-space: normal;
-    width: 90%;
-    font-size: 14px;
-    margin-left: 5%;
+#BGRTextBoxContainer span{
+        font-weight: bold;
+        font-size: 15px;
+        padding: 5px;
 }
-.bgrtablink i,.bgr-menu-heading i{
-    margin-right: 10px;
-}
-.bgr-menu-heading{
-    border-bottom: 1px solid #ddd;
-    padding: 9px 16px;
-}
-.bgr-blue{
-    background-color: #0073AA;
-    color: #fff;
-}
-
 /*** Group Review settings sidebar css end ***/
-/*** Group Review settings tab content css ***/
-.bgr-setting-content{
-    padding: 10px;
-}
-.bgr-setting-content label{
-    font-weight: 600;
-}
- /* The bgr-switch - the box around the bgr-slider */
+/* The bgr-switch - the box around the bgr-slider */
 .bgr-switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
 }
 
 /* Hide default HTML checkbox */
-.bgr-switch input {display:none;}
-
+.bgr-switch input {
+        display:none;
+}
 /* The bgr-slider */
 .bgr-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
 }
 
 .bgr-slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
 }
 
 input:checked + .bgr-slider {
-    background-color: #0073AA;
+        background-color: #0073AA;
 }
 
 input:focus + .bgr-slider {
-    box-shadow: 0 0 1px #0073AA;
+        box-shadow: 0 0 1px #0073AA;
 }
 
 input:checked + .bgr-slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
 }
 
 /* Rounded bgr-sliders */
 .bgr-slider.round {
-    border-radius: 34px;
+        border-radius: 34px;
 }
 
 .bgr-slider.round:before {
-    border-radius: 50%;
+        border-radius: 50%;
 } 
 
-.w3-hide {
-    display: none;
-}
-.w3-show-block, .w3-show {
-    display: block;
-}
-
-
 /*** Accordion css start***/
-/* Style the buttons that are used to open and close the accordion panel */
-button.accordion {
-    background-color: #F1F1F1;
-    color: #000;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    text-align: left;
-    border: none;
-    outline: none;
-    transition: 0.4s;
-    font-weight: bold;
+/* Style the buttons that are used to open and close the bgr-faq-accordion bgr-faq-panel */
+button.bgr-faq-accordion {
+        background-color: #F1F1F1;
+        color: #000;
+        cursor: pointer;
+        padding: 18px;
+        width: 90%;
+        text-align: left;
+        border: none;
+        outline: none;
+        transition: 0.4s;
+        font-weight: bold;
 }
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-button.accordion.active, button.accordion:hover {
-    background-color: #0073AA;
-    color: #fff;
+button.bgr-faq-accordion-active, button.bgr-faq-accordion:hover{
+        background-color: #0073AA!important;
+        color: #fff;
 }
 
-/* Style the accordion panel. Note: hidden by default */
-div.panel {
-    padding: 0 18px;
-    background-color: white;
-    display: none;
+/* Style the bgr-faq-accordion bgr-faq-panel. Note: hidden by default */
+div.bgr-faq-panel {        
+        background-color: white;
+        display: none;
+        width: 90%;
+        border: 1px solid silver;
 }
-button.accordion.active::after {
-    content: "−";
+button.bgr-faq-accordion.active::after {
+        content: "−";
 }
-button.accordion::after {
-    content: "+";
-    float: right;
-    font-size: 13px;
-    font-weight: bold;
-    margin-left: 5px;
+button.bgr-faq-accordion::after {
+        content: "+";
+        float: right;
+        font-size: 13px;
+        font-weight: bold;
+        margin-left: 5px;
 }
 /*** Accordion css end ***/

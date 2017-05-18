@@ -57,7 +57,6 @@ add_action( 'plugins_loaded', 'bgr_plugins_files' );
                 'includes/bgr-ajax.php',
                 'includes/bgr-shortcodes.php',
                 'includes/widgets/bgr-review.php',
-               // 'includes/bgr-review-notifications.php'
             );
             foreach($include_files as $include_file) include $include_file;
         }else{

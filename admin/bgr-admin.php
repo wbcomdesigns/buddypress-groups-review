@@ -30,8 +30,32 @@ if( !class_exists( 'BGR_Admin' ) ) {
 			add_submenu_page( 'edit.php?post_type=review', __( 'Group Reviews Admin Settings', BGR_DOMAIN ), __( 'Group Review Settings', BGR_DOMAIN ), 'manage_options', 'group-review-settings', array( $this, 'bgr_admin_options_page' ) );
 		}
 
-		function bgr_admin_options_page() {
-			include 'review-admin-options-page.php';
+		function bgr_admin_options_page($current = 'general') {
+                    $bgr_tabs = array(
+                          'general'   	=> __("General" , BGR_DOMAIN ), 
+                          'criteria'  	=> __("Criteria" , BGR_DOMAIN ),
+                          'shortcode'   => __("Shortcode", BGR_DOMAIN ),
+                          'display'   	=> __("Display" , BGR_DOMAIN ), 
+                          'support'  	=> __("Support" , BGR_DOMAIN )    
+                    );
+                    ?>
+                    <div class="bgr-admin-settings-header">    
+                        <p><?php _e( 'Group Reviews Settings', BGR_DOMAIN );?></p>
+                    </div>
+                    <div id="bgr_settings_updated" class="updated settings-error notice is-dismissible">
+                        <p><strong><?php _e( 'Group Reviews Settings Saved.', BGR_DOMAIN );?></strong></p>
+                        <button type="button" class="notice-dismiss">
+                            <span class="screen-reader-text"><?php _e( 'Dismiss this notice.', BGR_DOMAIN );?></span>
+                        </button>
+                    </div> <?php 
+                    $bgr_tab_html =  '<h2 class="nav-tab-wrapper">';
+                    foreach( $bgr_tabs as $bgr_tab => $bupr_name ){                             
+                            $class = ($bgr_tab == $current) ? 'nav-tab-active' : '';                            
+                            $bgr_tab_html .=  '<a class="nav-tab ' . $class . '" href="admin.php?page=group-review-settings&tab=' . $bgr_tab . '">' . $bupr_name . '</a>';
+                    }
+                    $bgr_tab_html .= '</h2>';
+                    _e($bgr_tab_html , BGR_DOMAIN );
+                    include 'review-admin-options-page.php';
 		}
 
 		/**

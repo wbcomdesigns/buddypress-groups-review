@@ -14,8 +14,14 @@ if( !class_exists( 'BGR_AJAX' ) ) {
                  *  @author  Wbcom Designs
                  */
 		function __construct() {
-			add_action( 'wp_ajax_bgr_save_admin_settings', array( $this, 'bgr_save_admin_settings' ) );
-			add_action( 'wp_ajax_nopriv_bgr_save_admin_settings', array( $this, 'bgr_save_admin_settings' ) );
+			//add_action( 'wp_ajax_bgr_save_admin_settings', array( $this, 'bgr_save_admin_settings' ) );
+			//add_action( 'wp_ajax_nopriv_bgr_save_admin_settings', array( $this, 'bgr_save_admin_settings' ) );
+                        add_action( 'wp_ajax_bgr_save_admin_criteria_settings', array( $this, 'bgr_save_admin_criteria_settings' ) );
+			add_action( 'wp_ajax_nopriv_bgr_save_admin_criteria_settings', array( $this, 'bgr_save_admin_criteria_settings' ) );
+                        add_action( 'wp_ajax_bgr_save_admin_display_settings', array( $this, 'bgr_save_admin_display_settings' ) );
+			add_action( 'wp_ajax_nopriv_bgr_save_admin_display_settings', array( $this, 'bgr_save_admin_display_settings' ) );
+                        add_action( 'wp_ajax_bgr_save_admin_general_settings', array( $this, 'bgr_save_admin_general_settings' ) );
+			add_action( 'wp_ajax_nopriv_bgr_save_admin_general_settings', array( $this, 'bgr_save_admin_general_settings' ) );
                         add_action( 'wp_ajax_bgr_accept_review', array( $this, 'bgr_accept_review' ) );
 			add_action( 'wp_ajax_nopriv_bgr_accept_review', array( $this, 'bgr_accept_review' ) );
                         add_action( 'wp_ajax_bgr_deny_review', array( $this, 'bgr_deny_review' ) );
@@ -35,7 +41,7 @@ if( !class_exists( 'BGR_AJAX' ) ) {
 			if( isset( $_POST['action'] ) && $_POST['action'] === 'bgr_save_admin_settings' ) {
 				$allow_popup         = sanitize_text_field( $_POST['allow_popup'] );
                                 $reviews_per_page    = sanitize_text_field( $_POST['reviews_per_page'] );
-                                $rating_fields       = array_map('sanitize_text_field', wp_unslash($_POST['field_values']));
+                                $rating_fields       = array_map( 'sanitize_text_field', wp_unslash( $_POST['field_values'] ) );
                                 $rating_field_values = array_unique($rating_fields); 
                                 $manage_review_label = sanitize_text_field( $_POST['manage_review_label'] );
                                 $review_label        = sanitize_text_field( $_POST['review_label'] );
@@ -50,10 +56,78 @@ if( !class_exists( 'BGR_AJAX' ) ) {
                                           'bgr_rating_color'         => $bgr_rating_color
 				);
 				update_option( 'bgr_admin_settings', $bgr_admin_settings );
-				_e('admin-settings-saved',BGR_DOMAIN);                                                           
+				_e( 'admin-settings-saved', BGR_DOMAIN );                                                           
 				die;
 			}
 		}
+                /**
+		 *  Actions performed for saving admin criteria settings
+		 *  @since   1.0.0
+                 *  @author  Wbcom Designs
+                 */ 
+                function bgr_save_admin_criteria_settings() {
+                    if( isset( $_POST['action'] ) && $_POST['action'] === 'bgr_save_admin_criteria_settings' ) {
+                        $rating_fields       = array_map( 'sanitize_text_field', wp_unslash( $_POST['field_values'] ) );
+                        $rating_field_values = array_unique($rating_fields);  
+                        
+                        $bgr_admin_settings  = array(
+                            'add_review_rating_fields' => $rating_field_values,                              
+                        );
+                        
+                        update_option( 'bgr_admin_criteria_settings', $bgr_admin_settings );       
+                        _e( 'admin-criteria-settings-saved', BGR_DOMAIN );                                                           
+                        die;
+                    }
+                }
+                
+                /**
+		 *  Actions performed for saving admin general settings
+		 *  @since   1.0.0
+                 *  @author  Wbcom Designs
+                 */ 
+                function bgr_save_admin_general_settings(){
+                    if( isset( $_POST['action'] ) && $_POST['action'] === 'bgr_save_admin_general_settings' ) {
+                        $allow_popup         = sanitize_text_field( $_POST['allow_popup'] );
+                        $reviews_per_page    = sanitize_text_field( $_POST['reviews_per_page'] );
+                        $allow_email         = sanitize_text_field( $_POST['allow_email'] );
+                        $allow_notification  = sanitize_text_field( $_POST['allow_notification'] );
+      
+                        $bgr_admin_settings  = array(
+                                  'add_review_allow_popup'   => $allow_popup,
+                                  'reviews_per_page'         => $reviews_per_page, 
+                                  'allow_email'              => $allow_email,
+                                  'allow_notification'       => $allow_notification
+                        );
+                        update_option( 'bgr_admin_general_settings', $bgr_admin_settings );                                                         
+                        _e( 'admin-general-settings-saved', BGR_DOMAIN );  
+                        die;
+                    }
+                }
+                
+                /**
+		 *  Actions performed for saving admin display settings
+		 *  @since   1.0.0
+                 *  @author  Wbcom Designs
+                 */ 
+                function bgr_save_admin_display_settings(){
+                    if( isset( $_POST['action'] ) && $_POST['action'] === 'bgr_save_admin_display_settings' ) {
+                        $manage_review_label = sanitize_text_field( $_POST['manage_review_label'] );
+                        $review_label        = sanitize_text_field( $_POST['review_label'] );
+                        $bgr_rating_color    = sanitize_text_field( $_POST['bgr_rating_color'] );
+                        $bgr_rating_type     = sanitize_text_field( $_POST['bgr_rating_type'] );
+                        
+                        $bgr_admin_settings  = array(
+                                          'review_label'             => $review_label,
+                                          'manage_review_label'      => $manage_review_label,
+                                          'bgr_rating_color'         => $bgr_rating_color,
+                                          'bgr_rating_type'          => $bgr_rating_type
+                        );
+                        update_option( 'bgr_admin_display_settings', $bgr_admin_settings ); 
+                        _e( 'admin-display-settings-saved', BGR_DOMAIN );  
+                        die;
+                    }
+                }
+                
                 /**
 		 *  Actions performed when submit review
 		 *  @since   1.0.0
