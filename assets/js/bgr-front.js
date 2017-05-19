@@ -1,5 +1,4 @@
 jQuery(document).ready(function(){        
-	jQuery('.dataTables_filter input[type="search"]').attr('placeholder','Enter Keywords....');
 
 	//Open Add Review Form
 	jQuery(document).on('click', '#add-review', function(){

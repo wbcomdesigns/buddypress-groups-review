@@ -1,33 +1,38 @@
-#group-reviews-list{
-  width: 100%;
-}
-.group-reviews{
-	margin-top: 25px;
-}
-.group-add-form textarea{
-	width: 100%;
-}
-.group-add-form input{
-	width: 100%;
-}
-.group-add-form button{
-	width: 100%;
-}
-.group-add-form p{
-	text-align: center;
+#group-reviews-list {
+    width: 100%;
 }
 
-.bgr-add-review{
-	margin-left: 5px;
+.group-reviews {
+    margin-top: 25px;
 }
 
-.bgr-group-review-no-popup-add-block{
+.group-add-form textarea {
+    width: 100%;
+}
+
+.group-add-form input {
+    width: 100%;
+}
+
+.group-add-form button {
+    width: 100%;
+}
+.group-add-form p {
+    text-align: center;
+}
+
+.bgr-add-review {
+    margin-left: 5px;
+}
+
+.bgr-group-review-no-popup-add-block {
     display: none;
 }
 
-#request-review-list + #bp-group-edit-manage-reviews-submit-wrapper{
+#request-review-list + #bp-group-edit-manage-reviews-submit-wrapper {
     display: none;
 }
+
 /****************** MODAL CSS ***********************/
 /* The Modal (background) */
 .modal {
@@ -76,7 +81,7 @@
     color: white;
     float: right;
     font-size: 28px;
-    font-weight: bold;
+    font-weight: 700;
     position: absolute;
     right: 10px;
 }
@@ -95,4 +100,6 @@
     position: relative;
 }
 
-.modal-body {padding: 2px 16px;}
+.modal-body {
+    padding: 2px 16px;
+}

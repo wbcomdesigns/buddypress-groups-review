@@ -19,7 +19,6 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 			add_action( 'admin_footer-edit.php', array( $this, 'bgr_disable_review_title_edit_link' ) );
 			add_filter( 'bulk_actions-edit-review', array( $this, 'bgr_remove_edit_bulk_actions' ), 10, 1 );
 			add_action( 'bp_before_group_header_meta', array( $this, 'bgr_group_average_rating') );
-
 		}
 
 		/*  Actions performed to show average rating on a group
@@ -64,11 +63,11 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
                                                     }
                                                 }
                                                 $reviews_count++;
-                                                $reviews_field_count == 0 ?  ($reviews_field_count = 1): $reviews_field_count;   
+                                                $reviews_field_count = ($reviews_field_count== 0) ? 1 : $reviews_field_count;   
                                                 $ttl_rating += (int)$rate/$reviews_field_count;
                                             endif;                                       					
                                     }
-                                    $reviews_count == 0 ?  ($reviews_count = 1): $reviews_count;   
+                                    $reviews_count = ($reviews_count == 0) ? 1 : $reviews_count;   
                                     $avg_rating = $ttl_rating / $reviews_count;
                                     $type = gettype( $avg_rating );
                                     if( $type == 'integer' ){

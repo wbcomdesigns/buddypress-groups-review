@@ -1,57 +1,109 @@
-.stars{
-    display: inline-block;
-}
-.review-full-description{
-    padding-top: 20px;
-    display: none;
-}
+/**
+* #.# Section Div 
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
 [class*="bgr-col-"] {
     float: left;
     padding: 10px 0;
  }
-.bgr-row{
+ 
+.bgr-row {
     clear: both;
     border-bottom: 1px solid #ddd;    
     overflow: hidden;
     padding-bottom: 5px;
 }
-.bgr-col-1 {width: 8.33%;}
-.bgr-col-2 {width: 16.66%;}
-.bgr-col-3 {width: 25%;}
-.bgr-col-4 {width: 33.33%;}
-.bgr-col-5 {width: 41.66%;}
-.bgr-col-6 {width: 50%;}
-.bgr-col-7 {width: 58.33%;}
-.bgr-col-8 {width: 66.66%;}
-.bgr-col-9 {width: 75%;}
-.bgr-col-10 {width: 83.33%;}
-.bgr-col-11 {width: 91.66%;}
-.bgr-col-12 {width: 100%;}
 
-@media(max-width: 767px){
+.bgr-col-1 {
+    width: 8.33%;
+}
+
+.bgr-col-2 {
+    width: 16.66%;
+}
+
+.bgr-col-3 {
+    width: 25%;
+}
+
+.bgr-col-4 {
+    width: 33.33%;
+}
+
+.bgr-col-5 {
+    width: 41.66%;
+}
+
+.bgr-col-6 {
+    width: 50%;
+}
+
+.bgr-col-7 {
+    width: 58.33%;
+}
+
+.bgr-col-8 {
+    width: 66.66%;
+}
+
+.bgr-col-9 {
+    width: 75%;
+}
+
+.bgr-col-10 {
+    width: 83.33%;
+}
+
+.bgr-col-11 {
+    width: 91.66%;
+}
+
+.bgr-col-12 {
+    width: 100%;
+}
+
+@media (max-width: 767px) {
     [class*="bgr-col-"] {
         width: 100%;
     }
 }    
-.sidebar_review_avatar{
+
+/*** Section Div css end ***/
+.stars {
+    display: inline-block;
+}
+
+.review-full-description {
+    padding-top: 20px;
+    display: none;
+}   
+
+.sidebar_review_avatar {
     height: 50px;
     width : 50px;
     border-radius: 50%;
 }
 
-.expand-review-des{
+.expand-review-des {
   cursor: pointer;
 } 
-.remove-review-button,.accept-button,.deny-button{
+
+.remove-review-button,.accept-button,.deny-button {
     float: right;
 }
-#buddypress #bgr-message{
+
+#buddypress #bgr-message {
     display: none!important;
 }
-#bgr-message{
+
+#bgr-message {
     margin: 0 0 15px;
+    display: none;
 }
-.bgr-success{
+
+.bgr-success {
     font-size: 1.12rem;
     font-weight: 700;
     text-decoration: none;
@@ -60,9 +112,12 @@
     color: #440;
     padding: 15px;
 }
-.bgr-bp-success{
+
+.bgr-bp-success {
     display: none;
 }
-#bgr-message{
-    display: none;
+
+.group-request-list .avatar {
+    height: 80%;
+    width: 80%;
 }

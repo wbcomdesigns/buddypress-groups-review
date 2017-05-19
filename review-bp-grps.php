@@ -57,6 +57,7 @@ add_action( 'plugins_loaded', 'bgr_plugins_files' );
                 'includes/bgr-ajax.php',
                 'includes/bgr-shortcodes.php',
                 'includes/widgets/bgr-review.php',
+                'includes/bgr-notifications.php'
             );
             foreach($include_files as $include_file) include $include_file;
         }else{
@@ -101,7 +102,6 @@ add_action( 'plugins_loaded', 'bgr_plugins_files' );
             if (!in_array('buddypress/bp-loader.php', apply_filters('active_plugins', get_option('active_plugins')))) {
                     //Buddypress Plugin is inactive, hence deactivate this plugin
                     deactivate_plugins( plugin_basename( __FILE__ ) );
-
             }
     }
 
@@ -112,27 +112,6 @@ add_action( 'plugins_loaded', 'bgr_plugins_files' );
     */
     register_uninstall_hook(__FILE__, 'bgr_plugin_uninstall');
     function bgr_plugin_uninstall(){
-        global $wp_post_types;
-        $option_name = 'bgr_admin_settings'; 
-        delete_option($option_name); 
-        //Check if "BuddyPress User Profile Reviews" plugin is active or not
-        if (!in_array('bp-user-profile-review /bp-user-profile-review.php', apply_filters('active_plugins', get_option('active_plugins')))) {
-            $review_posts = get_posts( array(
-                    'numberposts' => -1,
-                    'post_type' => 'review',       
-                    'post_status' => 'any' ) );
-            if(!empty($review_posts)):
-                foreach($review_posts as $review_post){
-                    delete_post_meta( $review_post->ID, 'linked_group' );
-                    delete_post_meta( $review_post->ID, 'review_star_rating' );
-                    wp_delete_post( $review_post->ID, true );  
-                }          
-            endif;
-            $post_type = 'review';
-            if ( isset( $wp_post_types[ $post_type ] ) ) {
-                unset( $wp_post_types[ $post_type ] );
-            }
-        }
     }
 
     /**

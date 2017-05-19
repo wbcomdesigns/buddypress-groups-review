@@ -20,12 +20,12 @@ if(empty($reviews_per_page)){
 }
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $args = array(
-	'post_type' => 'review',	
-	'post_status' => 'publish',
-	'category' => 'group',
-        'posts_per_page' => $reviews_per_page,
-        'paged' => $paged,
-	'meta_query' => array(
+	'post_type'     => 'review',	
+	'post_status'   => 'publish',
+	'category'      => 'group',
+        'posts_per_page'=> $reviews_per_page,
+        'paged'         => $paged,
+	'meta_query'    => array(
 		array(
 			'key'		=>	'linked_group',
 			'value'		=>	bp_get_group_id(),
@@ -38,14 +38,14 @@ $reviews = new WP_Query($args);
 <div class="bgr-group-reviews-block">
 	<div class="reviews-header">
 		<p>
-			<?php _e('Reviews ',BGR_DOMAIN); ?>			
+			<?php _e('Reviews ', BGR_DOMAIN ); ?>			
 				<?php if( $allow_popup == 'yes' ) {?>
 					<span class="bgr-add-review">
-						<a href="javascript:void(0)" id="add-review"><?php _e('+Add ',BGR_DOMAIN); ?></a>
+						<a href="javascript:void(0)" id="add-review"><?php _e('+Add ', BGR_DOMAIN ); ?></a>
 					</span>
 				<?php } else {?>
 					<span class="bgr-add-review">
-						<a href="javascript:void(0)" id="add-review-no-popup"><?php _e('+Add ',BGR_DOMAIN); ?></a>
+						<a href="javascript:void(0)" id="add-review-no-popup"><?php _e('+Add ', BGR_DOMAIN ); ?></a>
 					</span>
 				<?php }?>			
 		</p>
@@ -65,7 +65,7 @@ $reviews = new WP_Query($args);
 		<div class="modal-content">
 			<div class="modal-header">
 				<span class="close close-modal">&times;</span>
-				<h2><?php _e('Add Review ',BGR_DOMAIN); ?></h2>
+				<h2><?php _e('Add Review ', BGR_DOMAIN ); ?></h2>
 			</div>
 			<div class="modal-body">
 				<div class="bgr-group-review-add-block">
@@ -73,16 +73,17 @@ $reviews = new WP_Query($args);
 				</div>
 			</div>
 		</div>
-	</div>        
-        <div id="message" class="success bgr-bp-success">
-            <p><?php _e( "Review added. Your review will be published when group admin approved it.", BGR_DOMAIN); ?></p>
-        </div>                       	
-            
+	</div> 
+        <div class="bgr-bp-success">
+            <div id="message" class="success">
+                <p><?php _e( "Review added. Your review will be published when group admin approved it.", BGR_DOMAIN ); ?></p>
+            </div>                       	
+        </div>    
 	<div class="group-reviews">
 		<div id="group-reviews-list">
                     <div id="request-review-list" class="item-list">
-		    <?php if ($reviews->have_posts()){
-                           while ($reviews->have_posts()): $reviews->the_post(); ?>
+		    <?php if ( $reviews->have_posts() ){
+                           while ( $reviews->have_posts() ): $reviews->the_post(); ?>
                             <div class="bgr-row item-list group-request-list">
                                 <div class="bgr-col-2"> 
                                     <?php $author = $reviews->post->post_author;                                          
@@ -97,38 +98,38 @@ $reviews = new WP_Query($args);
                                    
                                     <div class="item-description">
                                         <div class="review-subject">
-                                            <b> <?php _e('Review Subject: ',BGR_DOMAIN); ?> </b>
+                                            <b> <?php _e('Review Subject: ', BGR_DOMAIN ); ?> </b>
                                             <?php the_title(); ?>
                                         </div>
                                         <div class="review-description">
-                                            <b> <?php _e('Review Description: ',BGR_DOMAIN); ?> </b>
+                                            <b> <?php _e('Review Description: ', BGR_DOMAIN ); ?> </b>
                                                 <?php $trimexcerpt  = get_the_excerpt();	
                                                       $shortexcerpt = wp_trim_words( $trimexcerpt, $num_words = 10, $more = '… ' ); 
-                                                      _e($shortexcerpt,BGR_DOMAIN);                                                      
+                                                      _e($shortexcerpt, BGR_DOMAIN );                                                      
                                                 ?>
                                                 <?php $url = 'view/'.get_the_id(); ?>
-                                            <a href="<?php echo $url; ?>"><?php _e('Read More>> ',BGR_DOMAIN); ?></a>
+                                            <a href="<?php echo $url; ?>"><?php _e('Read More>> ', BGR_DOMAIN ); ?></a>
                                             <div class="review-ratings">
                                                 
                                                     <?php
                                                         $bgr_admin_settings   = get_option( 'bgr_admin_settings' );
                                                         $review_rating_fields = $bgr_admin_settings['add_review_rating_fields'];
                                                         $review_ratings       = get_post_meta( $post->ID, 'review_star_rating',false);
-                                                        if(!empty($review_rating_fields) && !empty($review_ratings[0])):                                                  
-                                                            foreach($review_ratings[0] as $field => $value){
-                                                                if(in_array($field,$review_rating_fields)){    ?>                                                               
+                                                        if( !empty( $review_rating_fields ) && !empty( $review_ratings[0] ) ):                                                  
+                                                            foreach( $review_ratings[0] as $field => $value ){
+                                                                if( in_array( $field,$review_rating_fields )){    ?>                                                               
                                                                    <div class="bgr-col-6"> 
                                                                     <?php        
-                                                                    _e($field,BGR_DOMAIN);                                                                    
+                                                                    _e($field, BGR_DOMAIN );                                                                    
                                                                     /*** Ratings *****/
                                                                     $stars_on  = $value;
                                                                     $stars_off = 5 - $stars_on; 
                                                                     
                                                                     for( $i = 1; $i <= $stars_on; $i++ ){
-                                                                        ?><img class="stars" src="<?php echo BGR_PLUGIN_URL."assets/images/star.png";?>" alt="star"><?php
+                                                                        ?><img class="stars" src="<?php _e( BGR_PLUGIN_URL."assets/images/star.png", BGR_DOMAIN );?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
                                                                     }
                                                                     for( $i = 1; $i <= $stars_off; $i++ ){
-                                                                        ?><img class="stars" src="<?php echo BGR_PLUGIN_URL."assets/images/star_off.png";?>" alt="star"><?php
+                                                                        ?><img class="stars" src="<?php _e( BGR_PLUGIN_URL."assets/images/star_off.png", BGR_DOMAIN );?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
                                                                     } ?>
                                                                     </div>
                                                                 <?php    
