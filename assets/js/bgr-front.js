@@ -139,6 +139,7 @@ jQuery(document).ready(function(){
                        function(response) {
                             jQuery('.bgr-bp-success').css("display","block");
                             jQuery('.bgr-group-review-no-popup-add-block').hide();
+			    jQuery('#bgr-add-review-modal').hide();
                             jQuery('#bgr-message').css("display","block");
                             
                        }
