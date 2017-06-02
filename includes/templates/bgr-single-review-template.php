@@ -1,6 +1,9 @@
 <?php
 // Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) { 
+    exit; 
+}
 
 $url = $_SERVER['REQUEST_URI'];
 $review_id = basename($url); 

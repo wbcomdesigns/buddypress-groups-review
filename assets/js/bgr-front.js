@@ -18,11 +18,12 @@ jQuery(document).ready(function(){
 		}
 	});
 
-	reviews_pluginurl = jQuery( '#reviews_pluginurl' ).val();
+	var reviews_pluginurl = jQuery( '#reviews_pluginurl' ).val();
 	
 	//Change the stars on hover
 	
-	jQuery('.stars').mouseenter(function(){            
+	jQuery('.stars').mouseenter(function(){ 
+                var i;
 		jQuery(this).parent().children().eq(1).val( 'not_clicked' );
 		var id = jQuery(this).attr('data-attr');
                 var parent_id = jQuery(this).parent().attr('id');                
@@ -31,7 +32,8 @@ jQuery(document).ready(function(){
 		}
 	});
 
-	jQuery('.stars').mouseleave(function(){    
+	jQuery('.stars').mouseleave(function(){   
+                var i;
                 var clicked_id = jQuery(this).parent().children().eq(2).val();
 		var id = jQuery(this).attr('data-attr');
                 var parent_id = jQuery(this).parent().attr('id');
@@ -45,16 +47,16 @@ jQuery(document).ready(function(){
 
 	//Color the stars on click
 	jQuery('.stars').on('click',function(){
-		attr = jQuery(this).attr('data-attr');
-		clicked_id = attr;
+                var i,j,k,attri;
+		attri = jQuery(this).attr('data-attr');		
                 var parent_id = jQuery(this).parent().attr('id');    
-		jQuery(this).parent().children().eq(2).val( attr );                          
+		jQuery(this).parent().children().eq(2).val( attri );                          
 		jQuery(this).parent().children().eq(1).val('clicked');
-		for( i = 1; i <= attr; i++ ) {
+		for( i = 1; i <= attri; i++ ) {
 			jQuery('#'+ parent_id).children('.'+ i).attr( 'src', reviews_pluginurl+'assets/images/star.png' );
 		}
 
-		var k = parseInt( attr ) + 1;
+		var k = parseInt( attri ) + 1;
 		for( j = k; j <= 5; j++ ) {
 			jQuery('#'+ parent_id).children('.'+ j).attr( 'src', reviews_pluginurl+'assets/images/star_off.png' );
 		}
@@ -74,7 +76,7 @@ jQuery(document).ready(function(){
                         'action'           : 'bgr_accept_review',
                         'accept_review_id' :  accept_review_id,
                         },
-                        function(response) {                           
+                        function() {                           
                            location.reload();                      
                         }
                 );
@@ -89,7 +91,7 @@ jQuery(document).ready(function(){
                         'action'         : 'bgr_deny_review',
                         'deny_review_id' :  deny_review_id,   
                         },
-                        function(response) {
+                        function() {
                            location.reload();                      
                         }
                 );
@@ -104,7 +106,7 @@ jQuery(document).ready(function(){
                         'action'         : 'bgr_remove_review',
                         'remove_review_id' :  remove_review_id,                                       
                         },
-                        function(response) {
+                        function() {
                            location.reload();                      
                         }
                 );
@@ -136,10 +138,9 @@ jQuery(document).ready(function(){
                        'action' : 'bgr_submit_review',
                        'data'   : jQuery(this).serialize(),
                        },
-                       function(response) {
+                       function() {
                             jQuery('.bgr-bp-success').css("display","block");
                             jQuery('.bgr-group-review-no-popup-add-block').hide();
-			    jQuery('#bgr-add-review-modal').hide();
                             jQuery('#bgr-message').css("display","block");
                             
                        }

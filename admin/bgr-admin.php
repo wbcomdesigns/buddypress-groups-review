@@ -1,15 +1,20 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; 
+}    
 
 //Add admin page for importing Review(s)
 if( !class_exists( 'BGR_Admin' ) ) {
 	class BGR_Admin{
 
-		/* constructor for admin settings
-                * @since    1.0.0                
+		/** constructor for admin settings
+                * @since    1.0.0  
+                * @access   public              
                 * @author   Wbcom Designs              
-                */            
-		function __construct() {
+                */   
+            
+		public function __construct() {
 			add_action( 'admin_menu', array( $this, 'bgr_add_submenu_page_admin_settings' ) );
 
 			$post_types = get_post_types();
@@ -21,26 +26,34 @@ if( !class_exists( 'BGR_Admin' ) ) {
 		}
 
 		
-                /* Actions performed on loading admin_menu
-                 * @since    1.0.0                
+                /** Actions performed on loading admin_menu
+                 * @since    1.0.0  
+                 * @access   public               
                  * @author   Wbcom Designs              
                 */
                 
-		function bgr_add_submenu_page_admin_settings() {
+		public function bgr_add_submenu_page_admin_settings() {
 			add_submenu_page( 'edit.php?post_type=review', __( 'Group Reviews Admin Settings', BGR_DOMAIN ), __( 'Group Review Settings', BGR_DOMAIN ), 'manage_options', 'group-review-settings', array( $this, 'bgr_admin_options_page' ) );
 		}
 
-		function bgr_admin_options_page() {
+                /** Actions performed for show admin option page
+                  * @since    1.0.0  
+                  * @access   public               
+                  * @author   Wbcom Designs              
+                */
+                
+		public function bgr_admin_options_page() {
 			include 'review-admin-options-page.php';
 		}
 
 		/**
 		  * Actions performed to create Review cpt
-		  * @since    1.0.0                
+		  * @since    1.0.0 
+                  * @access   public                   
                   * @author   Wbcom Designs              
                 */
                 
-		function bgr_review_cpt() {
+		public function bgr_review_cpt() {
 			$labels = array(
                         'name'				=>	__( 'Reviews', BGR_DOMAIN ),
                         'singular_name'			=>	__( 'Review', BGR_DOMAIN ),
@@ -80,10 +93,12 @@ if( !class_exists( 'BGR_Admin' ) ) {
 
 		/**
 		 * Actions performed to create Review cpt taxonomy
-		 * @since    1.0.0                
+		 * @since    1.0.0 
+                 * @access   public              
                  * @author   Wbcom Designs              
                 */
-		function bgr_review_taxonomy_cpt() {
+                
+		public function bgr_review_taxonomy_cpt() {
 			$category_labels = array(
 				'name'              =>  _x( 'Reviews Category', 'taxonomy general name' ),
 				'singular_name'     =>  _x( 'Review Category', 'taxonomy singular name' ),

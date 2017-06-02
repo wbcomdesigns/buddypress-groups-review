@@ -5,6 +5,7 @@ jQuery(document).ready(function(){
 		jQuery('.bgr-admin-settings-spinner').show();
                
                 var field_values = [];
+                var allow_popup;
                 jQuery("input[name=DynamicTextBox]").each(function () {
                     if(jQuery(this).val().trim()!= '') {         
                         field_values.push(jQuery(this).val());
@@ -30,8 +31,7 @@ jQuery(document).ready(function(){
 				if( response === 'admin-settings-saved' ) {
 					jQuery( '#bgr_settings_updated' ).show();
 					jQuery( '#bgr-save-admin-settings' ).removeClass('bgr-btn-ajax');
-					jQuery('.bgr-admin-settings-spinner').hide();
-					console.log( response );
+					jQuery('.bgr-admin-settings-spinner').hide();					
 				}
 			}
 		);

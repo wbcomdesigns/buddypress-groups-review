@@ -6,7 +6,8 @@ class bgr_review_widget extends WP_Widget {
          *  @access  public
          *  @author  Wbcom Designs
          */
-	function __construct() {
+    
+	public function __construct() {
 		$widget_ops = array('classname' => 'widget_bp_group_review_tab', 'description' => __('Display Group Reviews.', BGR_DOMAIN));
 		$control_ops = array('width' => 200, 'height' => 350);
 		parent::__construct('bgr_group_review_widget', __('BP Group Review Widget', BGR_DOMAIN), $widget_ops, $control_ops);
@@ -17,7 +18,8 @@ class bgr_review_widget extends WP_Widget {
         *  @access  public
         *  @author  Wbcom Designs
         */	
-	function form( $instance ) {        
+        
+	public function form( $instance ) {        
                 if( empty( $instance ) ){
                     $instance = wp_parse_args( (array) $instance, array( 
                     'widget_title' => '',
@@ -65,12 +67,13 @@ class bgr_review_widget extends WP_Widget {
             </div><!-- .bgr_review_listing_form -->
 	<?php }
         
-        /* Update Widget data
+        /** Update Widget data
         *  @since   1.0.0
         *  @access  public
         *  @author  Wbcom Designs
         */
-	function update( $new_instance, $old_instance ) {	
+        
+	public function update( $new_instance, $old_instance ) {	
 		$instance = $old_instance;
 		$instance['widget_title'] = strip_tags( $new_instance['widget_title'] );
 		$instance['listing_cat']  = $new_instance['listing_cat'];
@@ -79,101 +82,112 @@ class bgr_review_widget extends WP_Widget {
 		return $instance;	
 	}
         
-        /* Display Widget content
+        /** Display Widget content
         *  @since   1.0.0
         *  @access  public
         *  @author  Wbcom Designs
-        */        
-	function widget( $args, $instance ) {	
-		global $bp; $post;
-		extract($instance, EXTR_SKIP);
-		$widget_title 		= apply_filters( 'widget_title', $widget_title );
-		$widget_listing_cat     = apply_filters( 'listing_cat', $listing_cat );
-		$widget_post_num	= apply_filters( 'post_num', $post_num );
-		$widget_thumbnail	= apply_filters( 'thumbnail', $thumbnail );
-                $custom_args            = array(
-                                                'post_type'      => 'review',
-                                                'posts_per_page' => -1,
-                                                'post_status'    => 'publish',
-                                                'category'       => 'group',	
-                                                );
-                $reviews                = get_posts( $custom_args );
-                $bgr_admin_settings     = get_option( 'bgr_admin_settings' );
-                if( !empty( $bgr_admin_settings ) ){
-                    $review_rating_fields = $bgr_admin_settings['add_review_rating_fields'];
-                }
-
-                $review_groups       = array();	
-                $review_groups_count = array();
-                if( !empty( $reviews ) ){ 
-                        $ttl_rating     = 0;	
-                        foreach( $reviews as $review ){                                       
-                                $rate = 0;
-                                $linked_group        = get_post_meta( $review->ID, 'linked_group', false ); 
-                                $review_ratings      = get_post_meta( $review->ID, 'review_star_rating', false );                                               
-
-                                $reviews_field_count = 0;
-                                if(!empty( $review_rating_fields ) && !empty( $review_ratings[0] )):                                                  
-                                        foreach($review_ratings[0] as $field => $value){
-                                                if( in_array( $field, $review_rating_fields ) ){
-                                                        $rate += $value;
-                                                        $reviews_field_count++;
-                                                        }
-                                                }
-                                    
-                                    $reviews_field_count = ( $reviews_field_count == 0 ) ?   1   : $reviews_field_count; 
-                                    $ttl_rating = (int)$rate/$reviews_field_count;
-
-                                    //Rating Count    
-                                    if( array_key_exists( $linked_group[0], $review_groups ) ){							
-                                        $value = $review_groups[ $linked_group[0] ];
-                                        array_push($value,$ttl_rating);
-                                        $review_groups[ $linked_group[0] ] = $value;
-
-                                    }else{                                                   
-                                        $review_groups[ $linked_group[0] ] = array($ttl_rating)  ;                                                     
-                                    }						
-                                endif;      
-
-                                //Review count
-                                if( !empty( $linked_group[0] ) ){
-                                    if( array_key_exists( $linked_group[0], $review_groups_count ) ) {							
-                                         $value = $review_groups_count[ $linked_group[0] ]; 
-                                         $review_groups_count[ $linked_group[0] ] = (int)$value + 1;
-                                    }else{                                               
-                                         $review_groups_count[ $linked_group[0] ] = 1; 
-                                    } 
-                                }                                 
-
+        */  
+        
+	public function widget( $args, $instance ) {	
+			global $bp;
+			$bgr_admin_settings     = get_option( 'bgr_admin_settings' );
+			if( !empty( $bgr_admin_settings ) ){
+                            $review_rating_fields = $bgr_admin_settings['add_review_rating_fields'];
                         }
-
-                        /*** Sort Group ids according reviews & ratings ****/
-                        arsort( $review_groups_count );
-
-                        if( !empty( $review_groups ) ){
-                            foreach( $review_groups as $key=>$val ){					
-                                $count = count( $val );
-                                if($count > 1){                                         
-                                   $sum = array_sum( array_values( $val ) );
-                                   $review_groups[ $key ] = $sum/$count;
-                                }else{
-                                   $review_groups[ $key ] = $val[0];
-                                }
-                             }
-                            arsort($review_groups);
-                        }                            
-                }
+			
+			extract($instance, EXTR_SKIP);
+			$widget_title 		= apply_filters( 'widget_title', $widget_title );
+			$widget_listing_cat     = apply_filters( 'listing_cat', $listing_cat );
+			$widget_post_num	= apply_filters( 'post_num', $post_num );
+			$widget_thumbnail	= apply_filters( 'thumbnail', $thumbnail ); 
+			
+			$custom_args            =   array(
+                                                    'post_type'      	=> 'review',
+                                                    'posts_per_page' 	=> -1,
+                                                    'post_status'    	=> 'publish',
+                                                    'category'       	=> 'review_category',
+                                                    'meta_key'  	=> 'linked_group',
+                                                    );
+			$reviews = get_posts( $custom_args ); 
+			$review_groups       = array();	
+			$review_groups_count = array();
+			$single_review_count = 0;
+			
+			if( !empty( $reviews ) ) {
+				$single_rev_avg		 = array();
+				foreach( $reviews as $review ) {
+					$linked_group        = get_post_meta( $review->ID, 'linked_group', false ); 
+					$review_ratings      = get_post_meta( $review->ID, 'review_star_rating', false );
+					if( !empty( $review_ratings ) && !empty( $review_rating_fields ) ) {
+						$rev_rating_array = $review_ratings[0];
+						$total_review	  = 0;	
+						$single_review_count = 0;
+						foreach ( $review_rating_fields as $rating_field ) {
+							if( array_key_exists ( $rating_field, $rev_rating_array ) ) {		
+								$total_review += $rev_rating_array[ $rating_field ];
+								$single_review_count++;                                                        
+							}
+						}
+						if( !empty( $single_review_count ) ) { 					
+							$rev_avg                        = $total_review / $single_review_count;
+							$single_rev_avg[ $review->ID ]  = array( $linked_group[0] => $rev_avg );
+						}   											
+					}
+					
+					//Review count
+					if( !empty( $linked_group[0] ) ){
+						if( array_key_exists( $linked_group[0], $review_groups_count ) ) {							
+							$value = $review_groups_count[ $linked_group[0] ]; 
+							$review_groups_count[ $linked_group[0] ] = (int)$value + 1;
+						}else{                                               
+							$review_groups_count[ $linked_group[0] ] = 1; 
+						} 
+					}  
+				    		
+				}
+				/*** Sort Group ids according reviews & ratings ****/
+				if( !empty( $single_rev_avg ) ) {
+					$review_groups = array();
+					$rev_arr = array();
+					foreach( $single_rev_avg as $single_avg ) {
+						foreach ( $single_avg as $gid => $avg) {
+							if( array_key_exists( $gid, $review_groups) ) {
+								$rev_arr = $review_groups[ $gid ];							
+								array_push( $rev_arr, $avg );	
+								$review_groups[ $gid ] = $rev_arr ;	
+							} else {							
+								$review_groups[ $gid ] = array( $avg );
+							}						
+						}
+					}
+                                }        
+					arsort( $review_groups_count );
+					/**** Count Average ****/
+					if( !empty( $review_groups ) ){
+						foreach( $review_groups as $key=>$val ) {					
+									$count = count( $val );
+									if( $count > 1 ) {                                         
+									   $sum = array_sum( array_values( $val ) );
+									   $review_groups[ $key ] = $sum/$count;
+									} else {
+									   $review_groups[ $key ] = $val[0];
+									}
+						}
+						arsort( $review_groups );
+					}	
+				
+			}		
                 _e( $args['before_widget'], BGR_DOMAIN );                       
                 if ( ! empty( $widget_title ) ) { 
                     _e( $args['before_title'].$widget_title.$args['after_title'], BGR_DOMAIN ); 
                 }
-                 
+               
                 /*** Select Listing Type ***/
-                if( $widget_listing_cat == 'toprated' ){
+                if( $widget_listing_cat == 'toprated' ) {
                     $group_args = $review_groups;
-                }elseif( $widget_listing_cat == 'topreviewed' ){
+                } elseif( $widget_listing_cat == 'topreviewed' ) {
                     $group_args = $review_groups_count;
-                }else{
+                } else {
                     $group_args = '';
                 }                
                 
@@ -181,16 +195,16 @@ class bgr_review_widget extends WP_Widget {
                 if( !empty( $group_args ) ):   
                     $gids = array_keys( $group_args );
 
-                    foreach($gids as $gid) {  
+                    foreach( $gids as $gid ) {  
                         if( $post_num_counter < $widget_post_num ):
-                        $group = groups_get_group( array( 'group_id' => $gid) );                                
+                        $group = groups_get_group( array( 'group_id' => $gid ) );                                
                         $avatar_options = array ( 'item_id' => $gid, 'object' => 'group', 'type' => 'full', 'avatar_dir' => 'group-avatars', 'alt' => 'Group avatar', 'class' => 'sidebar_review_avatar' );
 
                         ?>
                         <div class="bgr-row">
-                            <?php if( $widget_thumbnail == 'show' ){ ?>
+                            <?php if( $widget_thumbnail == 'show' ) { ?>
                                 <div class="bgr-col-3">
-                                    <a href="<?php _e( site_url().'/groups/'.$group->slug, BGR_DOMAIN ); ?>"><?php echo bp_core_fetch_avatar($avatar_options); ?></a>
+                                    <a href="<?php _e( site_url().'/groups/'.$group->slug, BGR_DOMAIN ); ?>"><?php echo bp_core_fetch_avatar( $avatar_options ); ?></a>
                                 </div>
                                 <div class="bgr-col-7">
                             <?php } else { ?> 
@@ -199,40 +213,42 @@ class bgr_review_widget extends WP_Widget {
                                     <div class="item-title"><a href="<?php _e(site_url().'/groups/'.$group->slug, BGR_DOMAIN ); ?>"><?php _e( $group->name, BGR_DOMAIN ) ; ?></a></div>
                                     <div class="group-review">                                            
                                     <?php                                             
-                                        if(!empty( $review_groups )) {
-                                            $group_avg_rating = $review_groups[ $gid ];
-                                            $type = gettype( $group_avg_rating );
-                                            if( $type == 'integer' ){
-                                                    $stars_on   = $group_avg_rating;
-                                                    $stars_off  = 5 - $group_avg_rating;
-                                                    $stars_half = 0;
-                                            }
+                                        if( !empty( $review_groups ) ) {
+                                            if( array_key_exists( $gid, $review_groups )  ) {	
+                                                $group_avg_rating = $review_groups[ $gid ];
+                                                $type = gettype( $group_avg_rating );
+                                                if( $type == 'integer' ) {
+                                                        $stars_on   = $group_avg_rating;
+                                                        $stars_off  = 5 - $group_avg_rating;
+                                                        $stars_half = 0;
+                                                }
 
-                                            if( $type == 'double' ){
-                                                    $stars_on   = intval( $group_avg_rating );
-                                                    $stars_half = 1;
-                                                    $stars_off  = 5 - ( $stars_on + $stars_half );
-                                            }
+                                                if( $type == 'double' ) {
+                                                        $stars_on   = intval( $group_avg_rating );
+                                                        $stars_half = 1;
+                                                        $stars_off  = 5 - ( $stars_on + $stars_half );
+                                                }
 
-                                            for( $i = 1; $i <= $stars_on; $i++ ){
-                                                    ?><img class="stars" src="<?php _e(BGR_PLUGIN_URL."assets/images/star.png",BGR_DOMAIN);?>" alt="<?php _e('star',BGR_DOMAIN);?>"><?php
-                                            }
+                                                for( $i = 1; $i <= $stars_on; $i++ ) {
+                                                        ?><img class="stars" src="<?php _e( BGR_PLUGIN_URL."assets/images/star.png", BGR_DOMAIN );?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
+                                                }
 
-                                            for( $i = 1; $i <= $stars_half; $i++ ){
-                                                    ?><img class="stars" src="<?php _e(BGR_PLUGIN_URL."assets/images/star_half.png",BGR_DOMAIN);?>" alt="<?php _e('star',BGR_DOMAIN);?>"><?php
-                                            }
+                                                for( $i = 1; $i <= $stars_half; $i++ ) {
+                                                        ?><img class="stars" src="<?php _e( BGR_PLUGIN_URL."assets/images/star_half.png", BGR_DOMAIN );?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
+                                                }
 
-                                            for( $i = 1; $i <= $stars_off; $i++ ){
-                                                    ?><img class="stars" src="<?php _e(BGR_PLUGIN_URL."assets/images/star_off.png",BGR_DOMAIN);?>" alt="<?php _e('star',BGR_DOMAIN);?>"><?php
-                                            }
+                                                for( $i = 1; $i <= $stars_off; $i++ ) {
+                                                        ?><img class="stars" src="<?php _e( BGR_PLUGIN_URL."assets/images/star_off.png", BGR_DOMAIN );?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
+                                                }
 
-                                            $group_avg_rating = round( $group_avg_rating, 2 );
-                                            _e(" (".$group_avg_rating.") stars", BGR_DOMAIN );  
-                                        }    
+                                                $group_avg_rating = round( $group_avg_rating, 2 );
+                                                _e(" (".$group_avg_rating.") stars", BGR_DOMAIN );  
+                                            }    
+                                        }
                                         ?>
                                     </div>
                                     <div><?php     
-                                        _e("Total Reviews: ".$review_groups_count[$gid], BGR_DOMAIN );                                              
+                                        _e("Total Reviews: ".$review_groups_count[ $gid ], BGR_DOMAIN );                                              
                                         ?>
                                     </div>
                                 </div>                                                
@@ -246,7 +262,14 @@ class bgr_review_widget extends WP_Widget {
 
 }
 
+/** Register Review Widget
+ *  @since   1.0.0
+ *  @access  public
+ *  @author  Wbcom Designs
+*/  
+
 function bgr_review_register_widget() {
 	register_widget( "bgr_review_widget" );
 }
+
 add_action( 'widgets_init', 'bgr_review_register_widget' );

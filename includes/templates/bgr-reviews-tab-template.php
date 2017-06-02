@@ -1,6 +1,10 @@
 <?php
 // Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) { 
+    exit; 
+}   
+
 global $bp,$post;
 $current_user       = wp_get_current_user();
 $member_id          = $current_user->ID; 
@@ -107,7 +111,7 @@ $reviews = new WP_Query($args);
                                                       $shortexcerpt = wp_trim_words( $trimexcerpt, $num_words = 10, $more = '… ' ); 
                                                       _e($shortexcerpt, BGR_DOMAIN );                                                      
                                                 ?>
-                                                <?php $url = 'view/'.get_the_id(); ?>
+                                                <?php $url = bp_get_group_permalink().'reviews/view/'.get_the_id(); ?>
                                             <a href="<?php echo $url; ?>"><?php _e('Read More>> ', BGR_DOMAIN ); ?></a>
                                             <div class="review-ratings">
                                                 
@@ -116,8 +120,8 @@ $reviews = new WP_Query($args);
                                                         $review_rating_fields = $bgr_admin_settings['add_review_rating_fields'];
                                                         $review_ratings       = get_post_meta( $post->ID, 'review_star_rating',false);
                                                         if( !empty( $review_rating_fields ) && !empty( $review_ratings[0] ) ):                                                  
-                                                            foreach( $review_ratings[0] as $field => $value ){
-                                                                if( in_array( $field,$review_rating_fields )){    ?>                                                               
+                                                            foreach( $review_ratings[0] as $field => $value ) {
+                                                                if( in_array( $field,$review_rating_fields ) ) {    ?>                                                               
                                                                    <div class="bgr-col-6"> 
                                                                     <?php        
                                                                     _e($field, BGR_DOMAIN );                                                                    

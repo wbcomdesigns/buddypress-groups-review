@@ -1,5 +1,9 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) { 
+    exit; 
+}   
+
 $spinner_src = includes_url().'/images/spinner.gif';
 
 //Admin Settings

@@ -1,16 +1,20 @@
 <?php
 // Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) { 
+    exit; 
+}
 
 //Class to add custom scripts and styles
 if( !class_exists( 'BGRScriptsStyles' ) ) {
 	class BGRScriptsStyles{
 
-		/*Constructor
+		/** Constructor
                  *  @since   1.0.0
+                 *  @access   public   
                  *  @author  Wbcom Designs
                  */
-		function __construct() {
+            
+		public function __construct() {
 
 			//Add Scripts only on reviews tab
 			$curr_url = $_SERVER['REQUEST_URI'];
@@ -21,25 +25,29 @@ if( !class_exists( 'BGRScriptsStyles' ) ) {
 			}
 		}
 
-		/* Actions performed for enqueuing scripts and styles for site front
+		/** Actions performed for enqueuing scripts and styles for site front
                  *  @since   1.0.0
+                 *  @access   public   
                  *  @author  Wbcom Designs
                  */
-		function bgr_custom_variables() {			
+                
+		public function bgr_custom_variables() {			
                         wp_enqueue_style('bgr-reviews-css', BGR_PLUGIN_URL.'assets/css/bgr-reviews.css');
                         wp_enqueue_style('bgr-front-css', BGR_PLUGIN_URL.'assets/css/bgr-front.css');
                         wp_enqueue_script('bgr-front-js', BGR_PLUGIN_URL.'assets/js/bgr-front.js', array('jquery'));
                         wp_enqueue_style('bgr-front-css', BGR_PLUGIN_URL.'assets/css/bgr-front.css');
 		}
 		
-		/*Actions performed for enqueuing scripts and styles for admin page
+		/** Actions performed for enqueuing scripts and styles for admin page
                  *  @since   1.0.0
+                 *  @access  public   
                  *  @author  Wbcom Designs
-                 */                 
-		function bgr_admin_custom_variables() {
+                 */ 
+                
+		public function bgr_admin_custom_variables() {
 			wp_enqueue_script('bgr-js-admin',BGR_PLUGIN_URL.'admin/assets/js/bgr-admin.js', array('jquery'));
 			wp_enqueue_style('bgr-css-admin', BGR_PLUGIN_URL.'admin/assets/css/bgr-admin.css');
-                        wp_enqueue_script('bgr-ui-admin','https://code.jquery.com/ui/1.12.1/jquery-ui.js', array('jquery'));
+                        wp_enqueue_script( 'jquery-ui-sortable' );
 
 		}
 	}
