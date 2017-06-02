@@ -56,7 +56,7 @@ jQuery(document).ready(function(){
 			jQuery('#'+ parent_id).children('.'+ i).attr( 'src', reviews_pluginurl+'assets/images/star.png' );
 		}
 
-		var k = parseInt( attri ) + 1;
+		k = parseInt( attri ) + 1;
 		for( j = k; j <= 5; j++ ) {
 			jQuery('#'+ parent_id).children('.'+ j).attr( 'src', reviews_pluginurl+'assets/images/star_off.png' );
 		}

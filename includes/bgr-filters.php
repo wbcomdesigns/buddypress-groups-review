@@ -96,11 +96,8 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 		*/
                 
 		public function bgr_group_avg( $avg_rating ) {			
-			$type = gettype($avg_rating);
+			
 			$var = (int)$avg_rating - $avg_rating; 
-                        $stars_on = 0;
-                        $stars_off = 0;
-                        $stars_half = 0;
                         
 			if( $var == 0 ) {
 					$stars_on = $avg_rating;

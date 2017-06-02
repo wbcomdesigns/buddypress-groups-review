@@ -110,8 +110,7 @@ class bgr_review_widget extends WP_Widget {
                                                     );
 			$reviews = get_posts( $custom_args ); 
 			$review_groups       = array();	
-			$review_groups_count = array();
-			$single_review_count = 0;
+			$review_groups_count = array();			
 			
 			if( !empty( $reviews ) ) {
 				$single_rev_avg		 = array();
@@ -165,13 +164,13 @@ class bgr_review_widget extends WP_Widget {
 					/**** Count Average ****/
 					if( !empty( $review_groups ) ){
 						foreach( $review_groups as $key=>$val ) {					
-									$count = count( $val );
-									if( $count > 1 ) {                                         
-									   $sum = array_sum( array_values( $val ) );
-									   $review_groups[ $key ] = $sum/$count;
-									} else {
-									   $review_groups[ $key ] = $val[0];
-									}
+                                                    $count = count( $val );
+                                                    if( $count > 1 ) {                                         
+                                                       $sum = array_sum( array_values( $val ) );
+                                                       $review_groups[ $key ] = $sum/$count;
+                                                    } else {
+                                                       $review_groups[ $key ] = $val[0];
+                                                    }
 						}
 						arsort( $review_groups );
 					}	
