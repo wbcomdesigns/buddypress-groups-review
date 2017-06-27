@@ -3,114 +3,110 @@ class bgr_review_widget extends WP_Widget {
            
         /** Constructor
          *  @since   1.0.0
-         *  @access  public
          *  @author  Wbcom Designs
          */
-    
-	public function __construct() {
-		$widget_ops = array('classname' => 'widget_bp_group_review_tab', 'description' => __('Display Group Reviews.', BGR_DOMAIN));
-		$control_ops = array('width' => 200, 'height' => 350);
-		parent::__construct('bgr_group_review_widget', __('BP Group Review Widget', BGR_DOMAIN), $widget_ops, $control_ops);
-        }	
+		 
+		function __construct() {
+			$widget_ops = array( 'classname' => 'widget_bp_group_review_tab', 'description' => __('Display Group Reviews.', BGR_DOMAIN ) );
+			$control_ops = array('width' => 200, 'height' => 350);
+			parent::__construct('bgr_group_review_widget', __('BP Group Review Widget', BGR_DOMAIN ), $widget_ops, $control_ops );
+		}	
     
         /** Form display for widget in admin panel
         *  @since   1.0.0
-        *  @access  public
         *  @author  Wbcom Designs
         */	
-        
-	public function form( $instance ) {        
-                if( empty( $instance ) ){
-                    $instance = wp_parse_args( (array) $instance, array( 
-                    'widget_title' => '',
-                    'listing_cat'  => 'topreviewed',  
-                    'post_num'     => '5', 
-                    'thumbnail'    => 'show' 
-                    ));      
-                }
-                extract($instance);              
-        ?>
-            <div class="bgr_review_listing_form">
-                <p>
-                    <label for="<?php _e( $this->get_field_id( 'widget_title' ), BGR_DOMAIN ); ?>"><?php _e( 'Title:', BGR_DOMAIN ); ?></label> 
-                    <input class="widefat" id="<?php _e( $this->get_field_id( 'widget_title' ), BGR_DOMAIN ); ?>" name="<?php _e($this->get_field_name( 'widget_title' ), BGR_DOMAIN ); ?>" type="text" value="<?php _e(esc_attr( $widget_title ), BGR_DOMAIN ); ?>" />
-                </p>
-                <h4><?php _e('Select Listing Type', BGR_DOMAIN ); ?></h4>
-                <div class="bgr_review_select_listing_type">
-                    <label class="alignleft" for="listing_toprated">
-                            <input type="radio" class="" id="<?php _e($this->get_field_id("listing_cat"), BGR_DOMAIN ); ?>" name="<?php _e($this->get_field_name("listing_cat"), BGR_DOMAIN ); ?>" value="<?php _e('toprated', BGR_DOMAIN ); ?>" <?php if ($listing_cat=='toprated') { _e('checked', BGR_DOMAIN );} ?> />
-                            <?php _e( 'Top Rated', BGR_DOMAIN ); ?>
-                    </label>
-                    <label class="alignleft" for="listing_topreviewed">
-                            <input type="radio" class="" id="<?php _e( $this->get_field_id("listing_cat"), BGR_DOMAIN ); ?>" name="<?php _e($this->get_field_name("listing_cat"), BGR_DOMAIN ); ?>" value="<?php _e('topreviewed', BGR_DOMAIN ); ?>" <?php if ($listing_cat=='topreviewed') { _e('checked', BGR_DOMAIN ); } ?> />		
-                            <?php _e( 'Most Reviewed', BGR_DOMAIN ); ?>
-                    </label>			
-                </div>
-                <div class="clear"></div>        
-                <div class="bgr_review_options">        
-                    <p>
-                        <label for="<?php _e( $this->get_field_id('post_num'), BGR_DOMAIN ); ?>"><?php _e('Number of reviews to show:', BGR_DOMAIN); ?>                            
-                            <input id="<?php _e( $this->get_field_id('post_num'), BGR_DOMAIN ); ?>" name="<?php _e($this->get_field_name('post_num'),BGR_DOMAIN); ?>" type="number" min="1" step="1" value="<?php _e($post_num,BGR_DOMAIN); ?>" />
-                        </label>
-                    </p>
+		
+		function form( $instance ) {        
+					if( empty( $instance ) ){
+						$instance 		= wp_parse_args( (array) $instance, array( 
+											'widget_title' 	=> '',
+											'listing_cat' 	=> 'topreviewed',  
+											'post_num' 		=> '5', 
+											'thumbnail' 	=> 'show' 
+											));      
+					}
+					extract( $instance );              
+			?>
+				<div class="bgr_review_listing_form">
+					<p>
+						<label for="<?php _e( $this->get_field_id( 'widget_title' ), BGR_DOMAIN ); ?>"><?php _e( 'Title:', BGR_DOMAIN ); ?></label> 
+						<input class="widefat" id="<?php _e( $this->get_field_id( 'widget_title' ), BGR_DOMAIN ); ?>" name="<?php _e( $this->get_field_name( 'widget_title' ), BGR_DOMAIN ); ?>" type="text" value="<?php _e( esc_attr( $widget_title ), BGR_DOMAIN ); ?>" />
+					</p>
+					<h4><?php _e('Select Listing Type', BGR_DOMAIN ); ?></h4>
+					<div class="bgr_review_select_listing_type">
+						<label class="alignleft" for="listing_toprated">
+								<input type="radio" class="" id="<?php _e( $this->get_field_id("listing_cat"), BGR_DOMAIN ); ?>" name="<?php _e( $this->get_field_name("listing_cat"), BGR_DOMAIN ); ?>" value="<?php _e('toprated', BGR_DOMAIN ); ?>" <?php if ( 'toprated' == $listing_cat ) { _e('checked="checked"', BGR_DOMAIN );} ?> />
+								<?php _e( 'Top Rated', BGR_DOMAIN ); ?>
+						</label>
+						<label class="alignleft" for="listing_topreviewed">
+								<input type="radio" class="" id="<?php _e( $this->get_field_id("listing_cat"), BGR_DOMAIN ); ?>" name="<?php _e( $this->get_field_name("listing_cat"), BGR_DOMAIN); ?>" value="<?php _e('topreviewed',BGR_DOMAIN ); ?>" <?php if ( 'topreviewed' == $listing_cat ) { _e('checked="checked"', BGR_DOMAIN ); } ?> />		
+								<?php _e( 'Most Reviewed', BGR_DOMAIN ); ?>
+						</label>			
+					</div>
+					<div class="clear"></div>        
+					<div class="bgr_review_options">        
+						<p>
+							<label for="<?php _e( $this->get_field_id('post_num'), BGR_DOMAIN ); ?>"><?php _e('Number of reviews to show:', BGR_DOMAIN ); ?>                            
+								<input id="<?php _e( $this->get_field_id('post_num'), BGR_DOMAIN ); ?>" name="<?php _e( $this->get_field_name('post_num'), BGR_DOMAIN ); ?>" type="number" min="1" step="1" value="<?php _e( $post_num, BGR_DOMAIN ); ?>" />
+							</label>
+						</p>
 
-                    <p class="bgr_review_thumbnail">
-                        <label for="<?php _e($this->get_field_id('thumbnail'),BGR_DOMAIN); ?>"><?php _e('Thumbnail:', BGR_DOMAIN); ?></label> 
-                        <select id="<?php _e($this->get_field_id('thumbnail'),BGR_DOMAIN); ?>" name="<?php _e($this->get_field_name('thumbnail'),BGR_DOMAIN); ?>" style="margin-left: 12px;">
-                            <option value="<?php _e('hide',BGR_DOMAIN); ?>" <?php selected($thumbnail, 'hide', true); ?>><?php _e('Hide', BGR_DOMAIN); ?></option>
-                            <option value="<?php _e('show',BGR_DOMAIN); ?>" <?php selected($thumbnail, 'show', true); ?>><?php _e('Show', BGR_DOMAIN); ?></option>				
-                        </select>       
-                    </p>     
+						<p class="bgr_review_thumbnail">
+							<label for="<?php _e( $this->get_field_id('thumbnail'), BGR_DOMAIN ); ?>"><?php _e('Thumbnail:', BGR_DOMAIN ); ?></label> 
+							<select id="<?php _e( $this->get_field_id('thumbnail'), BGR_DOMAIN ); ?>" name="<?php _e( $this->get_field_name('thumbnail'), BGR_DOMAIN ); ?>" style="margin-left: 12px;">
+								<option value="<?php _e('hide', BGR_DOMAIN); ?>" <?php selected($thumbnail, 'hide', true); ?>><?php _e('Hide', BGR_DOMAIN ); ?></option>
+								<option value="<?php _e('show', BGR_DOMAIN); ?>" <?php selected($thumbnail, 'show', true); ?>><?php _e('Show', BGR_DOMAIN ); ?></option>				
+							</select>       
+						</p>     
 
-                    <div class="clear"></div>      
-                </div>
-            </div><!-- .bgr_review_listing_form -->
-	<?php }
+						<div class="clear"></div>    
+					</div>
+				</div><!-- .bgr_review_listing_form -->
+		<?php }
         
-        /** Update Widget data
+        /* Update Widget data
         *  @since   1.0.0
-        *  @access  public
         *  @author  Wbcom Designs
         */
+		
+		function update( $new_instance, $old_instance ) {	
+			$instance                 = $old_instance;
+			$instance['widget_title'] = strip_tags( $new_instance['widget_title'] );
+			$instance['listing_cat']  = $new_instance['listing_cat'];
+			$instance['post_num']     = $new_instance['post_num'];
+			$instance['thumbnail']    = $new_instance['thumbnail'];
+			return $instance;	
+		}
         
-	public function update( $new_instance, $old_instance ) {	
-		$instance = $old_instance;
-		$instance['widget_title'] = strip_tags( $new_instance['widget_title'] );
-		$instance['listing_cat']  = $new_instance['listing_cat'];
-		$instance['post_num']     = $new_instance['post_num'];
-		$instance['thumbnail']    = $new_instance['thumbnail'];
-		return $instance;	
-	}
-        
-        /** Display Widget content
+        /* Display Widget content
         *  @since   1.0.0
-        *  @access  public
         *  @author  Wbcom Designs
-        */  
-        
-	public function widget( $args, $instance ) {	
-			global $bp;
-			$bgr_admin_settings     = get_option( 'bgr_admin_settings' );
-			if( !empty( $bgr_admin_settings ) ){
-                            $review_rating_fields = $bgr_admin_settings['add_review_rating_fields'];
-                        }
+        */        
+		
+		function widget( $args, $instance ) {	
+			global $bp; $post;
+			global $bgr; 
+			$review_rating_fields = $bgr['review_rating_fields'];
+			$review_label		 	 = $bgr['review_label'];
 			
 			extract($instance, EXTR_SKIP);
-			$widget_title 		= apply_filters( 'widget_title', $widget_title );
-			$widget_listing_cat     = apply_filters( 'listing_cat', $listing_cat );
+			$widget_title 			= apply_filters( 'widget_title', $widget_title );
+			$widget_listing_cat = apply_filters( 'listing_cat', $listing_cat );
 			$widget_post_num	= apply_filters( 'post_num', $post_num );
 			$widget_thumbnail	= apply_filters( 'thumbnail', $thumbnail ); 
 			
-			$custom_args            =   array(
-                                                    'post_type'      	=> 'review',
-                                                    'posts_per_page' 	=> -1,
-                                                    'post_status'    	=> 'publish',
-                                                    'category'       	=> 'review_category',
-                                                    'meta_key'  	=> 'linked_group',
-                                                    );
+			$custom_args            = array(
+													'post_type'      		=> 'review',
+													'posts_per_page' 	=> -1,
+													'post_status'    		=> 'publish',
+													'category'       		=> 'review_category',
+													'meta_key'  	 		=> 'linked_group',
+													);
 			$reviews = get_posts( $custom_args ); 
 			$review_groups       = array();	
-			$review_groups_count = array();			
+			$review_groups_count = array();
+			$single_review_count = 0;
 			
 			if( !empty( $reviews ) ) {
 				$single_rev_avg		 = array();
@@ -128,8 +124,8 @@ class bgr_review_widget extends WP_Widget {
 							}
 						}
 						if( !empty( $single_review_count ) ) { 					
-							$rev_avg                        = $total_review / $single_review_count;
-							$single_rev_avg[ $review->ID ]  = array( $linked_group[0] => $rev_avg );
+							$rev_avg 		     = $total_review / $single_review_count;
+							$single_rev_avg[ $review->ID ] = array( $linked_group[0] => $rev_avg );
 						}   											
 					}
 					
@@ -142,7 +138,7 @@ class bgr_review_widget extends WP_Widget {
 							$review_groups_count[ $linked_group[0] ] = 1; 
 						} 
 					}  
-				    		
+						
 				}
 				/*** Sort Group ids according reviews & ratings ****/
 				if( !empty( $single_rev_avg ) ) {
@@ -159,116 +155,92 @@ class bgr_review_widget extends WP_Widget {
 							}						
 						}
 					}
-                                }        
 					arsort( $review_groups_count );
 					/**** Count Average ****/
 					if( !empty( $review_groups ) ){
-						foreach( $review_groups as $key=>$val ) {					
-                                                    $count = count( $val );
-                                                    if( $count > 1 ) {                                         
-                                                       $sum = array_sum( array_values( $val ) );
-                                                       $review_groups[ $key ] = $sum/$count;
-                                                    } else {
-                                                       $review_groups[ $key ] = $val[0];
-                                                    }
+						foreach( $review_groups as $key=>$val ){					
+									$count = count( $val );
+									if( $count > 1 ) {                                         
+									   $sum = array_sum( array_values( $val ) );
+									   $review_groups[ $key ] = $sum/$count;
+									} else {
+									   $review_groups[ $key ] = $val[0];
+									}
 						}
 						arsort( $review_groups );
 					}	
-				
-			}		
-                _e( $args['before_widget'], BGR_DOMAIN );                       
-                if ( ! empty( $widget_title ) ) { 
-                    _e( $args['before_title'].$widget_title.$args['after_title'], BGR_DOMAIN ); 
-                }
-               
-                /*** Select Listing Type ***/
-                if( $widget_listing_cat == 'toprated' ) {
-                    $group_args = $review_groups;
-                } elseif( $widget_listing_cat == 'topreviewed' ) {
-                    $group_args = $review_groups_count;
-                } else {
-                    $group_args = '';
-                }                
-                
-                $post_num_counter = 0;
-                if( !empty( $group_args ) ):   
-                    $gids = array_keys( $group_args );
+				}
+			}			
+			
+					_e( $args['before_widget'], BGR_DOMAIN );                       
+					if ( ! empty( $widget_title ) ) { 
+						_e( $args['before_title'].$widget_title.$args['after_title'], BGR_DOMAIN ); 
+					}
+					 
+					/*** Select Listing Type ***/
+					if( 'toprated' == $widget_listing_cat ){
+						$group_args = $review_groups;
+					}else if( 'topreviewed' == $widget_listing_cat ){
+						$group_args = $review_groups_count;
+					}else{
+						$group_args= '';
+					}
+					
+					$post_num_counter = 0;
+					if( !empty( $group_args ) ) {
+						$gids = array_keys( $group_args );
 
-                    foreach( $gids as $gid ) {  
-                        if( $post_num_counter < $widget_post_num ):
-                        $group = groups_get_group( array( 'group_id' => $gid ) );                                
-                        $avatar_options = array ( 'item_id' => $gid, 'object' => 'group', 'type' => 'full', 'avatar_dir' => 'group-avatars', 'alt' => 'Group avatar', 'class' => 'sidebar_review_avatar' );
+						foreach( $gids as $gid ) {  
+							if( $post_num_counter < $widget_post_num ):
+							$group = groups_get_group( array( 'group_id' => $gid ) );                                
+							$avatar_options = array ( 'item_id' => $gid, 'object' => 'group', 'type' => 'full', 'avatar_dir' => 'group-avatars', 'alt' => 'Group avatar', 'class' => 'sidebar_review_avatar' );
 
-                        ?>
-                        <div class="bgr-row">
-                            <?php if( $widget_thumbnail == 'show' ) { ?>
-                                <div class="bgr-col-3">
-                                    <a href="<?php _e( site_url().'/groups/'.$group->slug, BGR_DOMAIN ); ?>"><?php echo bp_core_fetch_avatar( $avatar_options ); ?></a>
-                                </div>
-                                <div class="bgr-col-7">
-                            <?php } else { ?> 
-                                <div class="bgr-col-12">
-                            <?php } ?>        
-                                    <div class="item-title"><a href="<?php _e(site_url().'/groups/'.$group->slug, BGR_DOMAIN ); ?>"><?php _e( $group->name, BGR_DOMAIN ) ; ?></a></div>
-                                    <div class="group-review">                                            
-                                    <?php                                             
-                                        if( !empty( $review_groups ) ) {
-                                            if( array_key_exists( $gid, $review_groups )  ) {	
-                                                $group_avg_rating = $review_groups[ $gid ];
-                                                $type = gettype( $group_avg_rating );
-                                                if( $type == 'integer' ) {
-                                                        $stars_on   = $group_avg_rating;
-                                                        $stars_off  = 5 - $group_avg_rating;
-                                                        $stars_half = 0;
-                                                }
-
-                                                if( $type == 'double' ) {
-                                                        $stars_on   = intval( $group_avg_rating );
-                                                        $stars_half = 1;
-                                                        $stars_off  = 5 - ( $stars_on + $stars_half );
-                                                }
-
-                                                for( $i = 1; $i <= $stars_on; $i++ ) {
-                                                        ?><img class="stars" src="<?php _e( BGR_PLUGIN_URL."assets/images/star.png", BGR_DOMAIN );?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
-                                                }
-
-                                                for( $i = 1; $i <= $stars_half; $i++ ) {
-                                                        ?><img class="stars" src="<?php _e( BGR_PLUGIN_URL."assets/images/star_half.png", BGR_DOMAIN );?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
-                                                }
-
-                                                for( $i = 1; $i <= $stars_off; $i++ ) {
-                                                        ?><img class="stars" src="<?php _e( BGR_PLUGIN_URL."assets/images/star_off.png", BGR_DOMAIN );?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
-                                                }
-
-                                                $group_avg_rating = round( $group_avg_rating, 2 );
-                                                _e(" (".$group_avg_rating.") stars", BGR_DOMAIN );  
-                                            }    
-                                        }
-                                        ?>
-                                    </div>
-                                    <div><?php     
-                                        _e("Total Reviews: ".$review_groups_count[ $gid ], BGR_DOMAIN );                                              
-                                        ?>
-                                    </div>
-                                </div>                                                
-                        </div>            
-                <?php  endif; $post_num_counter++;  }   
-                else: ?>
-                    <div id="message" class="info"><?php _e('No group has been reviewed yet!', BGR_DOMAIN ); ?></div>
-                <?php endif; 
-                    _e( $args['after_widget'], BGR_DOMAIN );
-	}            
+							?>
+							<div class="bgr-row">
+								<?php if( 'show' == $widget_thumbnail ) { ?>
+									<div class="bgr-col-3">
+										<a href="<?php _e( site_url().'/groups/'.$group->slug, BGR_DOMAIN ); ?>"><?php echo bp_core_fetch_avatar($avatar_options); ?></a>
+									</div>
+									<div class="bgr-col-7">
+								<?php } else { ?> 
+									<div class="bgr-col-12">
+								<?php } ?>        
+										<div class="item-title"><a href="<?php _e( site_url().'/groups/'.$group->slug, BGR_DOMAIN ); ?>"><?php _e( $group->name, BGR_DOMAIN ) ; ?></a></div>
+										<div class="group-review"> 
+											<div class="bgr-col-12">
+												<?php
+													if( !empty( $review_groups ) )  {
+														if( array_key_exists( $gid, $review_groups )  ) {														
+															do_action( 'bgr_display_widget_average_ratings', $review_groups[$gid] ); 
+														}
+													}		
+												?>
+											</div>
+										</div>
+										<div><?php     
+											_e("Total $review_label: ".$review_groups_count[ $gid ], BGR_DOMAIN );                                              
+											?>
+										</div>
+									</div>                                                
+							</div>            
+					<?php  endif; $post_num_counter++;  }   
+					} else { 
+						if( 'toprated' == $widget_listing_cat ){ ?>
+							<div id="message" class="info"><?php _e("No Rating has been given to any group yet!", BGR_DOMAIN ); ?></div>
+						<?php } else { ?>
+							<div id="message" class="info"><?php _e("No $review_label has been given to any group yet!", BGR_DOMAIN ); ?></div>
+						<?php } } 
+						_e( $args['after_widget'], BGR_DOMAIN );
+		}            
 
 }
 
-/** Register Review Widget
- *  @since   1.0.0
- *  @access  public
- *  @author  Wbcom Designs
-*/  
-
-function bgr_review_register_widget() {
-	register_widget( "bgr_review_widget" );
-}
-
-add_action( 'widgets_init', 'bgr_review_register_widget' );
+	/** Register Group Review Widget
+	*  @since   1.0.0
+	*  @author  Wbcom Designs
+	*/	
+	function bgr_review_register_widget() {
+		register_widget( "bgr_review_widget" );
+	}
+	
+	add_action( 'widgets_init', 'bgr_review_register_widget' );

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Review BuddyPress Groups
  * Plugin URI: https://wbcomdesigns.com/contact/
- * Description: This plugin allows site visitors to add reviews to the groups on the site.
+ * Description: This plugin allows buddypress members to add reviews to the groups on the site.
  * Version: 1.0.0
  * Author: Wbcom Designs
  * Author URI: http://wbcomdesigns.com
@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  *  @since   1.0.0
  *  @author  Wbcom Designs
 */
+
 add_action( 'init', 'bgr_load_textdomain' );
 function bgr_load_textdomain() {
 	$domain = "bp-group-reviews";
@@ -43,32 +44,47 @@ define( 'BGR_DOMAIN','bp-group-reviews');
 */
 add_action( 'plugins_loaded', 'bgr_plugins_files' );
 
-    function bgr_plugins_files(){
-        if (!in_array('buddypress/bp-loader.php', apply_filters('active_plugins', get_option('active_plugins')))) {
+    function bgr_plugins_files() {
+        global $bp;
+        if ( !in_array('buddypress/bp-loader.php', apply_filters('active_plugins', get_option('active_plugins')))) {
             add_action( 'admin_notices', 'bgr_admin_notice' );            
-        }else if( bp_is_active( 'groups' ) ){
+        } elseif ( bp_is_active( 'groups' ) ) {
             /**
             * Include needed files on init
             */
             $include_files = array(
+                'includes/bgr-globals.php',
                 'includes/bgr-scripts.php',
                 'admin/bgr-admin.php',
+				'includes/bgr-dynamic-css.php',
+				'includes/bgr-rating-display.php',
                 'includes/bgr-filters.php',
                 'includes/bgr-ajax.php',
                 'includes/bgr-shortcodes.php',
-                'includes/widgets/bgr-review.php'
+                'includes/widgets/bgr-review.php'            
             );
-            foreach($include_files as $include_file) include $include_file;
+            foreach($include_files as $include_file) {
+                include $include_file;
+            } 
+            
         }else{
             add_action( 'admin_notices', 'bgr_admin_group_notice' ); 
         }
     }
+	add_action( 'bp_init', 'bgr_bp_notifications_for_review', 12 );
     
+	function bgr_bp_notifications_for_review(){
+		include 'includes/bgr-notifications.php';		
+		buddypress()->bgr_bp_review = new BGR_Notifications();
+        buddypress()->bgr_bp_review->notification_callback = 'bgr_format_notifications'; 
+	}
+  
     /**
      * Show admin notice when buddypress not active or install
      *  @since   1.0.0
      *  @author  Wbcom Designs
     */
+	
     function bgr_admin_notice() {
         ?>
         <div class="error notice is-dismissible">
@@ -82,6 +98,7 @@ add_action( 'plugins_loaded', 'bgr_plugins_files' );
      *  @since   1.0.0
      *  @author  Wbcom Designs
     */   
+	
     function bgr_admin_group_notice(){
         ?>
         <div class="error notice is-dismissible">
@@ -95,12 +112,14 @@ add_action( 'plugins_loaded', 'bgr_plugins_files' );
      *  @since   1.0.0
      *  @author  Wbcom Designs
     */
+	
     register_activation_hook( __FILE__, 'bgr_plugin_activation' );
     function bgr_plugin_activation() {
             //Check if "Buddypress" plugin is active or not
             if (!in_array('buddypress/bp-loader.php', apply_filters('active_plugins', get_option('active_plugins')))) {
                     //Buddypress Plugin is inactive, hence deactivate this plugin
                     deactivate_plugins( plugin_basename( __FILE__ ) );
+
             }
     }
 
@@ -109,8 +128,10 @@ add_action( 'plugins_loaded', 'bgr_plugins_files' );
      *  @since   1.0.0
      *  @author  Wbcom Designs
     */
-    register_uninstall_hook(__FILE__, 'bgr_plugin_uninstall');
+	
+    register_uninstall_hook( __FILE__, 'bgr_plugin_uninstall' );
     function bgr_plugin_uninstall(){
+
     }
 
     /**
@@ -118,7 +139,8 @@ add_action( 'plugins_loaded', 'bgr_plugins_files' );
      *  @since   1.0.0
      *  @author  Wbcom Designs
     */
-    add_filter( 'plugin_action_links_'.plugin_basename(__FILE__), 'bgr_admin_page_link' );
+	
+    add_filter( 'plugin_action_links_'.plugin_basename( __FILE__ ), 'bgr_admin_page_link' );
     function bgr_admin_page_link( $links ) {
             $page_link = array('<a href="'.admin_url('admin.php?page=group-review-settings').'">Settings</a>');
             return array_merge( $links, $page_link );

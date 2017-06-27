@@ -71,6 +71,13 @@
 }    
 
 /*** Section Div css end ***/
+
+/**
+* #.# Section Front Page css 
+*
+* This section includes css for design front-end review ,manage review page content.
+*/
+
 .stars {
     display: inline-block;
 }
@@ -78,19 +85,21 @@
 .review-full-description {
     padding-top: 20px;
     display: none;
-}   
+}
 
 .sidebar_review_avatar {
     height: 50px;
-    width : 50px;
+    width: 50px;
     border-radius: 50%;
 }
 
-.expand-review-des {
-  cursor: pointer;
+.expand-review-des{
+    cursor: pointer;
 } 
 
-.remove-review-button,.accept-button,.deny-button {
+.remove-review-button,
+.accept-button,
+.deny-button {
     float: right;
 }
 
@@ -100,7 +109,6 @@
 
 #bgr-message {
     margin: 0 0 15px;
-    display: none;
 }
 
 .bgr-success {
@@ -117,7 +125,50 @@
     display: none;
 }
 
+#bgr-message {
+    display: none;
+}
+
+.bgr-widget-rating{
+    padding: 5px 0 10px;	
+}	
+
 .group-request-list .avatar {
     height: 80%;
     width: 80%;
+}
+
+.bgr-bp-success {
+    display: none;
+}
+
+.group-add-form p {
+	margin: 10px 0;
+}	
+/*** Section Front Page css  end ***/
+
+/**
+* #.# Section Media Queries css 
+*
+* This section includes css for design front-end review ,manage review page content.
+*/
+
+@media( max-width: 767px ) {
+	
+	.remove-review-button,
+	.accept-button,
+	.deny-button {
+		float: none;
+		display : block;
+	}
+	
+	.group-request-list .avatar {
+		margin: 0 auto;
+		display: block;
+	}
+
+	.group-request-list .item-title a {
+		text-align: center;
+		display: block;
+	}	
 }

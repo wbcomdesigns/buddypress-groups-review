@@ -1,22 +1,20 @@
-#group-reviews-list {
-    width: 100%;
-}
+/**
+* #.# Section Review 
+*
+* This section includes css for front-end review content.
+*/
 
 .group-reviews {
     margin-top: 25px;
 }
 
-.group-add-form textarea {
-    width: 100%;
-}
-
-.group-add-form input {
-    width: 100%;
-}
-
+#group-reviews-list,
+.group-add-form textarea,
+.group-add-form input,
 .group-add-form button {
     width: 100%;
 }
+
 .group-add-form p {
     text-align: center;
 }
@@ -67,13 +65,25 @@
 
 /* Add Animation */
 @-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0} 
-    to {top:0; opacity:1}
+    from {
+        top:-300px; 
+        opacity:0
+    } 
+    to {
+        top:0;
+        opacity:1
+    }
 }
 
 @keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
+    from { 
+        top:-300px;
+        opacity:0
+    }
+    to {
+        top:0; 
+        opacity:1
+    }
 }
 
 /* The Close Button */
@@ -81,7 +91,7 @@
     color: white;
     float: right;
     font-size: 28px;
-    font-weight: 700;
+    font-weight: bold;
     position: absolute;
     right: 10px;
 }
