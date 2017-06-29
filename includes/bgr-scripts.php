@@ -31,7 +31,6 @@ if( !class_exists( 'BGRScriptsStyles' ) ) {
             wp_enqueue_style(	'bgr-reviews-css',	BGR_PLUGIN_URL.'assets/css/bgr-reviews.css');
             wp_enqueue_style(	'bgr-front-css',	BGR_PLUGIN_URL.'assets/css/bgr-front.css');
             wp_enqueue_script(	'bgr-front-js',		BGR_PLUGIN_URL.'assets/js/bgr-front.js', array('jquery'));
-            wp_enqueue_style(	'bgr-front-css',	BGR_PLUGIN_URL.'assets/css/bgr-front.css');
             wp_enqueue_style(	'bgr-ratings-css',	BGR_PLUGIN_URL.'assets/css/bgr-ratings.css');
 			wp_enqueue_script(	'bgr-ratings-js',	BGR_PLUGIN_URL. 'assets/js/bgr-ratings.js', array('jquery') ); 											
 		}
@@ -42,17 +41,14 @@ if( !class_exists( 'BGRScriptsStyles' ) ) {
 		*/                 
 		
 		function bgr_admin_custom_variables() {
-						wp_enqueue_script( 'bgr-js-admin', BGR_PLUGIN_URL.'admin/assets/js/bgr-admin.js', array('jquery') );
-						wp_enqueue_style( 'bgr-css-admin', BGR_PLUGIN_URL.'admin/assets/css/bgr-admin.css' );
-						wp_enqueue_style( 'wp-color-picker' );   
-						wp_enqueue_script( 'bgr-colorpicker-handle', BGR_PLUGIN_URL. 'admin/assets/js/bgr-colorpicker.js', array( 'wp-color-picker' ), false, false ); 
-						wp_enqueue_script( 'jquery-ui-sortable' );
-						if ( !wp_script_is( 'jquery-ui-sortable', 'enqueued' ) ) {
-							wp_enqueue_script( 'jquery-ui-sortable' );
-						}
-						wp_enqueue_style( 'bgr-select2-css', BGR_PLUGIN_URL.'admin/assets/css/select2.min.css');                        
-						wp_enqueue_script( 'bgr-select2-js', BGR_PLUGIN_URL. 'admin/assets/js/select2.min.js', array('jquery') ); 	
-						
+			wp_enqueue_script( 'bgr-js-admin', BGR_PLUGIN_URL.'admin/assets/js/bgr-admin.js', array('jquery') );
+			wp_enqueue_style( 'bgr-css-admin', BGR_PLUGIN_URL.'admin/assets/css/bgr-admin.css' );
+			wp_enqueue_style( 'wp-color-picker' );   
+			wp_enqueue_script( 'bgr-colorpicker-handle', BGR_PLUGIN_URL. 'admin/assets/js/bgr-colorpicker.js', array( 'wp-color-picker' ), false, false ); 
+			wp_enqueue_script( 'jquery-ui-sortable' );
+			if ( !wp_script_is( 'jquery-ui-sortable', 'enqueued' ) ) {
+				wp_enqueue_script( 'jquery-ui-sortable' );
+			}
 		}
 	}
 	new BGRScriptsStyles();

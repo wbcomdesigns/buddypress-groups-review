@@ -217,15 +217,10 @@ button.bgr-faq-accordion:hover {
     color: #fff;
 }
 
-.select2 {
-    width: 200px!important;
-}
-
 .bgr-admin-des {
 	font-style : italic;
 }	
 
-.review_page_group-review-settings .select2-container-multi .select2-choices .select2-search-field,
 #bgr-exclude-group-review {
     width: 200px;
 }
