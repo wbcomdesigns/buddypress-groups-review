@@ -213,34 +213,6 @@ button.bgr-faq-accordion:hover {
     color: #fff;
 }
 
-/* Style the bgr-faq-accordion bgr-faq-panel. Note: hidden by default */
-div.bgr-faq-panel {     
-    display: none;
-    width: 100%;
-}
-
-div.bgr-faq-panel p {
-   padding: 0 15px;
-}
-
-button.bgr-faq-accordion.bgr-faq-accordion-active::after {
-    content: "−";
-}
-
-button.bgr-faq-accordion::after {
-    content: "+";
-    float: right;
-    font-size: 13px;
-    font-weight: 700;
-    margin-left: 5px;
-}
-
-.bgr-faqs-accordion-settings {
-    padding: 0 5%;
-}
-
-/*** Accordion css end ***/
-
 .select2 {
     width: 200px!important;
 }
@@ -252,4 +224,56 @@ button.bgr-faq-accordion::after {
 .review_page_group-review-settings .select2-container-multi .select2-choices .select2-search-field,
 #bgr-exclude-group-review {
     width: 200px;
+}
+
+.bgr-adming-setting{
+    float: left;
+    width: 90%;
+}
+button.bgr-accordion {
+    background-color: hsl(0, 0%, 87%);
+    border: medium none;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    color: hsl(0, 0%, 27%);
+    cursor: pointer;
+    font-size: 15px;
+    margin: 0 5%;
+    outline: medium none;
+    padding: 15px 20px;
+    text-align: left;
+    transition: all 0.4s ease 0s;
+    width: 90%;
+}
+button.bgr-accordion.active, button.bgr-accordion:hover {
+  background-color: hsl(207, 90%, 54%);
+  color:white;
+}
+div.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  margin:0px 5%;
+}
+button.bgr-accordion::after {
+  color: hsl(0, 0%, 47%);
+  content: "+";
+  float: right;
+  font-size: 13px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+button.bgr-accordion::after:hover {
+  color: white;
+}
+button.bgr-accordion.active::after {
+  content: "−";
+  color:white;
+}
+.bgr-admin-row{
+  clear: both;  
+  overflow: hidden;
+  padding-bottom: 5px;
 }

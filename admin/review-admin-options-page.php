@@ -10,27 +10,31 @@ if( isset( $_GET ) ) {
     }
 }
 
-/* Actions performed on Display review admin settings tabs
+/** Actions performed on Display review admin settings tabs
  * @since    1.0.0                
  * @author   Wbcom Designs              
  */
  
 function bgr_include_admin_setting_tabs( $bgr_setting_tab = 'general') {
     switch( $bgr_setting_tab ){
-        case 'criteria'  : bgr_criteria_setting();
-                           break;   
-        case 'shortcode' : bgr_shortcode_setting();
-                           break;   
-        case 'display'   : bgr_display_setting();
-                           break;   
-        case 'support'   : bgr_support_setting();
-                           break;   
-        default          : bgr_general_setting();                
-              
+        case 'criteria':
+            bgr_criteria_setting();
+            break;
+        case 'shortcode':
+            bgr_shortcode_setting();
+            break;
+        case 'display':
+            bgr_display_setting();
+            break;
+        case 'support':
+            bgr_support_setting();
+            break;
+        default:
+            bgr_general_setting();
     }
 }
 
- /* Actions performed on Group Reviews Settings : Criteria Tab Content
+/** Actions performed on Group Reviews Settings : Criteria Tab Content
  * @since    1.0.0                
  * @author   Wbcom Designs              
  */
@@ -151,21 +155,33 @@ function bgr_display_setting() {
  
 function bgr_support_setting() {  ?>
     <div class="bgr-col-12"><h2><?php _e( 'FAQ(s)', BGR_DOMAIN );?></h2></div>
-    <div class="bgr-row bgr-faqs-accordion-settings">
-        <button class="bgr-faq-accordion"><?php _e( 'Section 1', BGR_DOMAIN );?></button>
-        <div class="bgr-faq-panel">
-            <p>Lorem ipsum section1...</p>
+    <div id="bgr-settings-tbl">
+        <div class="bgr-admin-row">
+            <div>
+               <button class="bgr-accordion">
+                <?php _e( 'How can we submit a review to a group using this plugin?', BGR_DOMAIN );?>
+                </button>
+                <div class="panel">
+                    <p> 
+                        <?php _e( 'When visiting the "/groups" section in the site, go for single group view page, there you can see a menu namely, "Reviews" that will allow you if you are a site member to add group review.', BGR_DOMAIN );?>
+                    </p>
+                </div>
+            </div>
         </div>
 
-        <button class="bgr-faq-accordion"><?php _e( 'Section 2', BGR_DOMAIN );?></button>
-        <div class="bgr-faq-panel">
-            <p>Lorem ipsum section2...</p>
+        <div class="bgr-admin-row">
+            <div>
+               <button class="bgr-accordion">
+                <?php _e( 'How can I use the review form on any other page?', BGR_DOMAIN );?>
+                </button>
+                <div class="panel">
+                    <p>
+                        <?php _e( 'Yes you can use the review form on other page, just copy shortcode from review setting page and paste it on the other page.', BGR_DOMAIN );
+                        ?>
+                    </p>
+                </div>
+            </div>
         </div>
-
-        <button class="bgr-faq-accordion"><?php _e( 'Section 3', BGR_DOMAIN );?></button>
-        <div class="bgr-faq-panel">
-            <p>Lorem ipsum section 3...</p>
-        </div> 
     </div>
 <?php     
 }
@@ -190,77 +206,77 @@ function bgr_general_setting() {
 								); 
     $allgroups  			= groups_get_groups( $group_args ); 
     ?>  
-        <div class="bgr-col-12"><h2><?php _e( 'General Settings', BGR_DOMAIN );?></h2></div>
-        <div class="bgr-row">
-            <div class="bgr-col-6">
-                <label><?php _e( 'Add Review Popup', BGR_DOMAIN );?></label>
-            </div>
-            <div class="bgr-col-6">
-                <label class="bgr-switch" for="bgr-allow-popup">
-                    <input type="checkbox" id="bgr-allow-popup" <?php if( 'yes'  == $allow_popup ){  _e( 'checked="checked"', BGR_DOMAIN ); } ?>>
-                    <div class="bgr-slider round"></div>
-                </label>
-				<p class="bgr-admin-des"><?php _e( 'Enable this option,if you want to show <b>Add Review</b> in modal box.' , BGR_DOMAIN); ?></p>
-            </div>
+    <div class="bgr-col-12"><h2><?php _e( 'General Settings', BGR_DOMAIN );?></h2></div>
+    <div class="bgr-row">
+        <div class="bgr-col-6">
+            <label><?php _e( 'Add Review Popup', BGR_DOMAIN );?></label>
         </div>
-        <div class="bgr-row">
-            <div class="bgr-col-6">
-                <label for="reviews_per_page"><?php _e( 'Reviews pages show at most', BGR_DOMAIN );?></label>
-            </div>
-            <div class="bgr-col-6">
-                <input id="reviews_per_page" class="small-text" name="reviews_per_page" step="1" min="1" value="<?php _e( $reviews_per_page, BGR_DOMAIN ); ?>" type="number">
-                <?php _e( 'Reviews', BGR_DOMAIN ); ?>
-				<p class="bgr-admin-des"><?php _e( 'This option lets you limit number of reviews in <b> Group Reviews </b> page & <b>Manage Reviews </b> Page .' , BGR_DOMAIN); ?></p>
-            </div>
+        <div class="bgr-col-6">
+            <label class="bgr-switch" for="bgr-allow-popup">
+                <input type="checkbox" id="bgr-allow-popup" <?php if( 'yes'  == $allow_popup ){  _e( 'checked="checked"', BGR_DOMAIN ); } ?>>
+                <div class="bgr-slider round"></div>
+            </label>
+			<p class="bgr-admin-des"><?php _e( 'Enable this option,if you want to show <b>Add Review</b> in modal box.' , BGR_DOMAIN); ?></p>
         </div>
-        <div class="bgr-row">
-            <div class="bgr-col-6"><label><?php _e( 'Notifications', BGR_DOMAIN );?></label></div>
-            <div class="bgr-col-6">
-				<?php  if( bp_is_active( 'notifications' ) ) { ?>
-					<label class="bgr-switch" for="bgr-notification">
-						<input type="checkbox" id="bgr-notification" <?php if( $allow_notification == 'yes' ){ _e( 'checked="checked"', BGR_DOMAIN );} ?>>
-						<div class="bgr-slider round"></div>
-					</label>					
-					<p class="bgr-admin-des"><?php _e( 'Enable this option,if you want to group admin & reviewer revieve notification when add,accept & deny review .' , BGR_DOMAIN); ?></p>
-				<?php }  else { ?>
-					<p class="bgr-admin-des"><?php _e( 'This setting requires <b>BuddyPress Notifications </b>Component to be active.' , BGR_DOMAIN); ?></p>
-				<?php } ?>	
-            </div>
+    </div>
+    <div class="bgr-row">
+        <div class="bgr-col-6">
+            <label for="reviews_per_page"><?php _e( 'Reviews pages show at most', BGR_DOMAIN );?></label>
         </div>
-        <div class="bgr-row">
-            <div class="bgr-col-6"><label><?php _e( 'Emails', BGR_DOMAIN );?></label></div>
-            <div class="bgr-col-6">
-                <label class="bgr-switch" for="bgr-email">
-                    <input type="checkbox" id="bgr-email" <?php if( $allow_email == 'yes' ){ _e( 'checked="checked"', BGR_DOMAIN ); } ?>>
-                    <div class="bgr-slider round"></div>
-                </label>
-				<p class="bgr-admin-des"><?php _e( 'Enable this option,if you want to group admin & reviewer revieve email when add,accept & deny review .' , BGR_DOMAIN); ?></p>
-            </div>
+        <div class="bgr-col-6">
+            <input id="reviews_per_page" class="small-text" name="reviews_per_page" step="1" min="1" value="<?php _e( $reviews_per_page, BGR_DOMAIN ); ?>" type="number">
+            <?php _e( 'Reviews', BGR_DOMAIN ); ?>
+			<p class="bgr-admin-des"><?php _e( 'This option lets you limit number of reviews in <b> Group Reviews </b> page & <b>Manage Reviews </b> Page .' , BGR_DOMAIN); ?></p>
         </div>
-        <div class="bgr-row">
-            <div class="bgr-col-6"><label><?php _e( 'Exclude Groups from reviews.', BGR_DOMAIN ); ?></label></div>
-            <div class="bgr-col-6">
-                <select id="bgr-exclude-group-review" name="bgr-exclude-group[]" multiple > 
-                    <?php   if( $allgroups ) {
-                                foreach( $allgroups['groups'] as $group ): 
-                                    if( !empty( $exclude_groups ) ) {
-                                        if( in_array( $group->id, $exclude_groups ) ) {   ?>                                
-                                            <option value="<?php _e( $group->id, BGR_DOMAIN ); ?>" <?php _e( 'selected = selected', BGR_DOMAIN ); ?>><?php _e( $group->name, BGR_DOMAIN );?></option> 
-                                        <?php } else { ?>
-                                            <option value="<?php _e( $group->id, BGR_DOMAIN ); ?>"><?php _e( $group->name, BGR_DOMAIN );?></option> 
-                                        <?php } } else { ?>
-                                            <option value="<?php _e( $group->id, BGR_DOMAIN ); ?>"><?php _e( $group->name, BGR_DOMAIN );?></option> 
-                                    <?php  }  
-                                endforeach;                             
-							}  ?>
-                </select>
-				<p class="bgr-admin-des"><?php _e( "This option lets you to choose those groups that you don't want to provide review functionality.", BGR_DOMAIN); ?></p>
-            </div>
+    </div>
+    <div class="bgr-row">
+        <div class="bgr-col-6"><label><?php _e( 'Notifications', BGR_DOMAIN );?></label></div>
+        <div class="bgr-col-6">
+			<?php  if( bp_is_active( 'notifications' ) ) { ?>
+				<label class="bgr-switch" for="bgr-notification">
+					<input type="checkbox" id="bgr-notification" <?php if( $allow_notification == 'yes' ){ _e( 'checked="checked"', BGR_DOMAIN );} ?>>
+					<div class="bgr-slider round"></div>
+				</label>					
+				<p class="bgr-admin-des"><?php _e( 'Enable this option,if you want to group admin & reviewer revieve notification when add,accept & deny review .' , BGR_DOMAIN); ?></p>
+			<?php }  else { ?>
+				<p class="bgr-admin-des"><?php _e( 'This setting requires <b>BuddyPress Notifications </b>Component to be active.' , BGR_DOMAIN); ?></p>
+			<?php } ?>	
         </div>
-        <div class="bgr-col-12">
-            <div class="bgr-col-6">
-                <input type="button" class="button button-primary" id="bgr-save-admin-general-settings" value="<?php _e( 'Save Settings', BGR_DOMAIN );?>">
-                <img src="<?php _e( $spinner_src, BGR_DOMAIN );?>" class="bgr-admin-general-settings-spinner" />
-            </div>
-        </div> 
+    </div>
+    <div class="bgr-row">
+        <div class="bgr-col-6"><label><?php _e( 'Emails', BGR_DOMAIN );?></label></div>
+        <div class="bgr-col-6">
+            <label class="bgr-switch" for="bgr-email">
+                <input type="checkbox" id="bgr-email" <?php if( $allow_email == 'yes' ){ _e( 'checked="checked"', BGR_DOMAIN ); } ?>>
+                <div class="bgr-slider round"></div>
+            </label>
+			<p class="bgr-admin-des"><?php _e( 'Enable this option,if you want to group admin & reviewer revieve email when add,accept & deny review .' , BGR_DOMAIN); ?></p>
+        </div>
+    </div>
+    <div class="bgr-row">
+        <div class="bgr-col-6"><label><?php _e( 'Exclude Groups from reviews.', BGR_DOMAIN ); ?></label></div>
+        <div class="bgr-col-6">
+            <select id="bgr-exclude-group-review" name="bgr-exclude-group[]" multiple > 
+                <?php   if( $allgroups ) {
+                            foreach( $allgroups['groups'] as $group ): 
+                                if( !empty( $exclude_groups ) ) {
+                                    if( in_array( $group->id, $exclude_groups ) ) {   ?>                                
+                                        <option value="<?php _e( $group->id, BGR_DOMAIN ); ?>" <?php _e( 'selected = selected', BGR_DOMAIN ); ?>><?php _e( $group->name, BGR_DOMAIN );?></option> 
+                                    <?php } else { ?>
+                                        <option value="<?php _e( $group->id, BGR_DOMAIN ); ?>"><?php _e( $group->name, BGR_DOMAIN );?></option> 
+                                    <?php } } else { ?>
+                                        <option value="<?php _e( $group->id, BGR_DOMAIN ); ?>"><?php _e( $group->name, BGR_DOMAIN );?></option> 
+                                <?php  }  
+                            endforeach;                             
+						}  ?>
+            </select>
+			<p class="bgr-admin-des"><?php _e( "This option lets you to choose those groups that you don't want to provide review functionality.", BGR_DOMAIN); ?></p>
+        </div>
+    </div>
+    <div class="bgr-col-12">
+        <div class="bgr-col-6">
+            <input type="button" class="button button-primary" id="bgr-save-admin-general-settings" value="<?php _e( 'Save Settings', BGR_DOMAIN );?>">
+            <img src="<?php _e( $spinner_src, BGR_DOMAIN );?>" class="bgr-admin-general-settings-spinner" />
+        </div>
+    </div> 
 <?php }
