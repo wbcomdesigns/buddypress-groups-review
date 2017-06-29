@@ -17,7 +17,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
              */
 			 
             function __construct() {
-                add_shortcode( 'add_review_form', array( $this, 'add_new_review') );	
+                add_shortcode( 'add_group_review_form', array( $this, 'add_new_review') );	
             }
 			
             /**
@@ -33,7 +33,12 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
 				$active_rating_fields 			= $bgr['active_rating_fields'];
 				$review_label		  	  			= $bgr['review_label'];	
 				$admin_exclude_groups	  	= $bgr['exclude_groups'];	
-				$rating_color					  	= $bgr['rating_color'];	
+				$rating_color					  	= $bgr['rating_color'];
+
+				$current_group_id = 0;
+				if( !empty( bp_get_current_group_id() ) ) {
+					$current_group_id = bp_get_current_group_id();
+				}
                 ?>
                 <div id="bgr-message" class="bgr-success">
                     <?php _e( " Your $review_label added. This will be published when group admin approved it.", BGR_DOMAIN); ?>
@@ -64,10 +69,10 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
 					}	
                     //Get All groups
                     $group_args = array(  
-											'order' => 'DESC', 
-											'orderby' => 'date_created',                
-											'exclude' => $exclude_group, 
-										  ); 
+						'order' => 'DESC', 
+						'orderby' => 'date_created',                
+						'exclude' => $exclude_group, 
+					); 
                     $allgroups  = groups_get_groups( $group_args ); 
                 ?>
                     <form id="bgr-add-review-form" method="POST">
@@ -77,32 +82,35 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
                             <p>
                                 <?php _e( "<b>Fill In Details To Submit Your $review_label</b>", BGR_DOMAIN );?>
                             </p>
+
+                            <?php if( $current_group_id === 0 ) {?>
                             <p class="bgr-form-group-id">                               
-                                <select id="<?php _e('form-group-id', BGR_DOMAIN ); ?>" name="<?php _e('form-group-id', BGR_DOMAIN ); ?>" style="margin-left: 12px;" required>
-                                    <option value=""><?php _e('Select Group--', BGR_DOMAIN ); ?></option>
+                                <select id="form-group-id" name="form-group-id" style="margin-left: 12px;" required>
+                                    <option value=""><?php _e('--Select Group--', BGR_DOMAIN ); ?></option>
                                     <?php
                                     if( !empty( $allgroups ) ) {
                                         foreach ( $allgroups['groups'] as $formGroup ){ ?>                                            
                                             <option value="<?php _e( $formGroup->id, BGR_DOMAIN ); ?>" <?php if( bp_is_group() ) { if( bp_get_group_id() == $formGroup->id ): _e('selected="selected"', BGR_DOMAIN ); endif; } ?>><?php _e( $formGroup->name, BGR_DOMAIN ); ?></option>
-                                    <?php } }  ?>                                    
-                                </select>       
-                            </p> 
+                                    <?php } }  ?>
+                                </select>
+                            </p>
+                            <?php } else {?>
+                            	<input type="hidden" name="form-group-id" value="<?php echo $current_group_id;?>" />
+                           	<?php }?>
                             <p>
-                                <input name="review-subject" type="text" placeholder="<?php _e( $review_label." Subject", BGR_DOMAIN ); ?>" required = "required" >
+                            	<?php $review_subject = 'Review '.time();?>
+                                <input name="review-subject" type="hidden" value="<?php echo $review_subject;?>">
                             </p>
                             <p>
                                 <textarea name="review-desc" placeholder="<?php _e( $review_label." Description", BGR_DOMAIN ); ?>" rows="3" cols="50" required></textarea>
                             </p>
                             <p>
                                 <input type="hidden" name="bgr-flag" value="1">   
-                            </p>							
-							<?php $this->bgr_display_form_rating(); ?>                                          
-													
+                            </p>
+							<?php $this->bgr_display_form_rating();?>
                             <p>
-                                <?php wp_nonce_field( 'save-group-review', 'security-nonce'); ?>
-                                <button class="btn btn-default bgr-submit-review" name="bgr-submit-review">
-                                    <?php _e( "Submit $review_label", BGR_DOMAIN ); ?>
-                                </button>
+                                <?php wp_nonce_field( 'save-group-review', 'security-nonce');?>
+                                <button class="btn btn-default bgr-submit-review" name="bgr-submit-review"><?php _e( "Submit $review_label", BGR_DOMAIN );?></button>
                             </p>
                         </div>
                     </form>
@@ -110,7 +118,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
                 <div id="message" class="error">
                    <p><?php _e("You can't post $review_label on your own group.", BGR_DOMAIN ); ?> </p>
                 </div>    
-               <?php  } 			
+               <?php  }
             }
 			
 			function bgr_display_form_rating() {

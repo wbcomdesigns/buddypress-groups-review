@@ -143,6 +143,11 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 					$review_url = $group_url.'reviews/view/'.$post->ID;
 					
 					$actions['view_review'] = '<a href="'.$review_url.'" title="'.$review_title.'">View Review</a>';
+
+					//Add Approve Link for draft reviews
+					if( $post->post_status == 'draft' ) {
+						$actions['approve_review'] = '<a href="javascript:void(0);" title="'.$review_title.'" class="bgr-approve-review" data-rid="'.$post->ID.'">Approve</a>';
+					}
 				}
 			}
 			return $actions;

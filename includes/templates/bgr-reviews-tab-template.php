@@ -46,7 +46,7 @@ $reviews 				= new WP_Query($args);
 	<?php if( $allow_popup == 'no' ) { ?>
 		<!-- ADD REVIEW IF NO POPUP -->
 		<div class="bgr-group-review-no-popup-add-block">
-                    <?php do_shortcode( '[add_review_form]' ); ?>
+                    <?php do_shortcode( '[add_group_review_form]' ); ?>
 		</div>
 	<?php } ?>
 
@@ -61,7 +61,7 @@ $reviews 				= new WP_Query($args);
 			</div>
 			<div class="modal-body">
 				<div class="bgr-group-review-add-block">
-					<?php do_shortcode( '[add_review_form]' ); ?>	
+					<?php do_shortcode( '[add_group_review_form]' ); ?>	
 				</div>
 			</div>
 		</div>

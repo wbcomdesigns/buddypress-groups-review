@@ -102,21 +102,22 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			}					
 			$paged 	= ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 			$args 	= array(
-						'post_type' 		=> 'review',
-						'posts_per_page' 	=> -1,
-						'post_status' 		=> 'draft',
-						'posts_per_page' 	=> $reviews_per_page,
-						'paged' 			=> $paged,
-						'category' 			=> 'group',
-						'meta_query' 		=> array(
-													array(
-														'key'	  =>	'linked_group',
-														'value'	  =>	$bp->groups->current_group->id,
-														'compare' =>	'=',
-													),
-												),								
-						);
-			$reviews = new WP_Query($args); ?>
+				'post_type' 		=> 'review',
+				'post_status' 		=> 'draft',
+				'posts_per_page' 	=> $reviews_per_page,
+				'paged' 			=> $paged,
+				'category' 			=> 'group',
+				'meta_query' 		=> array(
+						array(
+							'key'	  =>	'linked_group',
+							'value'	  =>	$bp->groups->current_group->id,
+							'compare' =>	'=',
+						),
+					),								
+			);
+			$reviews = new WP_Query($args);
+
+			?>
 			<div id="request-review-list" class="item-list reviews-item-list">
 				<?php if ($reviews->have_posts()):                            	
 					 while ( $reviews->have_posts() ): $reviews->the_post(); 
@@ -131,10 +132,10 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 								<?php  _e( bp_core_get_userlink( $author ), BGR_DOMAIN ); ?>
 							</div>
 							<div class="item-description">
-								<div class="review-subject">
-									<b> <?php _e('Subject: ', BGR_DOMAIN ); ?> </b>
+								<!-- <div class="review-subject">
+									<b> <?php //_e('Subject: ', BGR_DOMAIN ); ?> </b>
 									<?php the_title(); ?>
-								</div>
+								</div> -->
 								<div class="review-description">                                                                       
 									<div class="review-excerpt bgr-col-12">
 										<b> <?php _e('Short Description: ', BGR_DOMAIN ); ?> </b>

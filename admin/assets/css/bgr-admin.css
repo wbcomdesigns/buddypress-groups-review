@@ -9,6 +9,10 @@
     float: left;
     padding: 10px 0;
  }
+
+.bgr-approve-review{
+    color: green;
+}
  
 .bgr-row {
     clear: both;

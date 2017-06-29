@@ -17,7 +17,7 @@ jQuery( document ).ready(function(){
                 var criteriaAttr = jQuery( this ).attr('data-attr');
                 criteria.push( criteriaAttr );                
             }
-        });         
+        });
         jQuery.post(
             ajaxurl,
             {
@@ -46,19 +46,21 @@ jQuery( document ).ready(function(){
         } else {
                 allow_popup = 'no';
         }
-        var reviews_per_page        = jQuery( '#reviews_per_page' ).val();
-        var bgr_allow_email         = jQuery( '#bgr-email' ).is( ':checked' )? 'yes' : 'no';
-        var bgr_allow_notification  = jQuery( '#bgr-notification' ).is( ':checked' )? 'yes' : 'no';
+        var bgr_auto_approve_reviews    = jQuery( '#bgr-auto-approve-reviews' ).is( ':checked' )? 'yes' : 'no';
+        var reviews_per_page            = jQuery( '#reviews_per_page' ).val();
+        var bgr_allow_email             = jQuery( '#bgr-email' ).is( ':checked' )? 'yes' : 'no';
+        var bgr_allow_notification      = jQuery( '#bgr-notification' ).is( ':checked' )? 'yes' : 'no';
 
         jQuery.post(
             ajaxurl,
             {
-            'action'             : 'bgr_save_admin_general_settings',
-            'allow_popup'        : allow_popup,
-            'reviews_per_page'   : reviews_per_page,
-            'allow_email'        : bgr_allow_email,
-            'allow_notification' : bgr_allow_notification,
-            'exclude_groups'     : exclude_groups
+                'action'                    : 'bgr_save_admin_general_settings',
+                'allow_popup'               : allow_popup,
+                'bgr_auto_approve_reviews'  : bgr_auto_approve_reviews,
+                'reviews_per_page'          : reviews_per_page,
+                'allow_email'               : bgr_allow_email,
+                'allow_notification'        : bgr_allow_notification,
+                'exclude_groups'            : exclude_groups
             },
             function ( response ) {
                 if( response === 'admin-general-settings-saved' ) {
@@ -149,6 +151,25 @@ jQuery( document ).ready(function(){
 
     jQuery(document).on('click', '.bgr-accordion', function(){
         return false;
+    });
+
+    jQuery(document).on('click', '.bgr-approve-review', function(){
+        var review_id = jQuery(this).data('rid');
+        jQuery(this).html('Approving..');
+        jQuery.post(
+            ajaxurl,
+            {
+                'action'        : 'bgr_admin_approve_review',
+                'review_id'     : review_id
+            },
+            function ( response ) {
+                if( response == 'review-approved-successfully' ) {
+                    window.location.href = window.location.href;
+                } else {
+                    console.log("Review not approved!");
+                }
+            }
+        );
     });
 });
 

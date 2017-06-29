@@ -31,6 +31,26 @@ if( !class_exists( 'BGR_AJAX' ) ) {
 			add_action( 'wp_ajax_nopriv_bgr_remove_review', array( $this, 'bgr_remove_review' ) );
 			add_action( 'wp_ajax_bgr_submit_review', array( $this, 'bgr_submit_review' ) );
 			add_action( 'wp_ajax_nopriv_bgr_submit_review', array( $this, 'bgr_submit_review' ) );
+
+			/* add action for approving reviews */ 
+			add_action( 'wp_ajax_bgr_admin_approve_review',array( $this, 'bgr_admin_approve_review' ) );
+			add_action( 'wp_ajax_nopriv_bgr_admin_approve_review', array( $this, 'bgr_admin_approve_review' ) );
+		}
+
+		/**
+		 * Actions performed to approve review at admin end
+		 */
+		public function bgr_admin_approve_review() {
+			if( isset( $_POST['action'] ) && $_POST['action'] == 'bgr_admin_approve_review' ) {
+				$rid = sanitize_text_field( $_POST['review_id'] );
+				$args = array(
+					'ID'			=>	$rid,
+					'post_status'	=>	'publish'
+				);
+				wp_update_post( $args );
+				echo 'review-approved-successfully';
+				die;
+			}
 		}
 
 		/**
@@ -98,16 +118,18 @@ if( !class_exists( 'BGR_AJAX' ) ) {
 		function bgr_save_admin_general_settings() {
 			if( isset( $_POST['action'] ) && $_POST['action'] === 'bgr_save_admin_general_settings' ) {
 				
-				$allow_popup         = sanitize_text_field( $_POST['allow_popup'] );
-				$reviews_per_page    = sanitize_text_field( $_POST['reviews_per_page'] );
-				$allow_email         = sanitize_text_field( $_POST['allow_email'] );
-				$allow_notification  = sanitize_text_field( $_POST['allow_notification'] );
-				$exclude_groups      = array_map( 'sanitize_text_field', wp_unslash( $_POST['exclude_groups'] ) );
+				$allow_popup         		= sanitize_text_field( $_POST['allow_popup'] );
+				$auto_approve_reviews		= sanitize_text_field( $_POST['bgr_auto_approve_reviews'] );
+				$reviews_per_page    		= sanitize_text_field( $_POST['reviews_per_page'] );
+				$allow_email         		= sanitize_text_field( $_POST['allow_email'] );
+				$allow_notification  		= sanitize_text_field( $_POST['allow_notification'] );
+				$exclude_groups      		= array_map( 'sanitize_text_field', wp_unslash( $_POST['exclude_groups'] ) );
 				if( empty( $exclude_groups ) ) {
 					$exclude_groups = array();
 				}
 				$bgr_admin_settings  = array(
 						  'add_review_allow_popup'   => $allow_popup,
+						  'auto_approve_reviews'   	 => $auto_approve_reviews,
 						  'reviews_per_page'         => $reviews_per_page, 
 						  'allow_email'              => $allow_email,
 						  'allow_notification'       => $allow_notification,
@@ -154,10 +176,18 @@ if( !class_exists( 'BGR_AJAX' ) ) {
 		function bgr_submit_review() {			
 			global $bp;
 			global $bgr;           
-			$active_rating_fields 	= $bgr['active_rating_fields'];  
+			$active_rating_fields 		= $bgr['active_rating_fields'];  
 			$allow_notification 		= $bgr['allow_notification'];
 			$allow_email        		= $bgr['allow_email']; 
 			$review_label				= $bgr['review_label'];
+			$auto_approve_reviews   	= $bgr['auto_approve_reviews'];
+			if( $auto_approve_reviews == 'yes' ) {
+				$review_add_msg = 'Your review about this group has been published.';
+				$review_status = 'publish';
+			} else {
+				$review_add_msg = 'Your review about this group has been saved and will be published when group admin approves it.';
+				$review_status = 'draft';
+			}
 			
 			parse_str( $_POST['data'], $formarray );             
 			$review_subject = sanitize_text_field( $formarray['review-subject'] );
@@ -176,7 +206,7 @@ if( !class_exists( 'BGR_AJAX' ) ) {
 					'post_type'    => 'review',
 					'post_title'   => $review_subject,
 					'post_content' => $review_desc,
-					'post_status'  => 'draft'
+					'post_status'  => $review_status
 			);
 			$review_id      = wp_insert_post( $add_review_args );
 			$post_author_id = get_post_field( 'post_author', $review_id );                    
@@ -207,8 +237,9 @@ if( !class_exists( 'BGR_AJAX' ) ) {
 				foreach( $group_admins->admins as $group_admin ) {
 					$author_email = get_the_author_meta('user_email', $group_admin->user_id );                               
 					wp_mail( $author_email, "A new $review_label posted. ", esc_html( $mail_content ) . esc_url( $mail_link ) );
-				}                            
-			}			   
+				}
+			}
+			echo $review_add_msg;
 			die;
 		}
                 

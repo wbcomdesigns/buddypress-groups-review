@@ -56,55 +56,54 @@ jQuery(document).ready(function(){
                 );
         });
         
-        // Delete review
-        jQuery(document).on('click', '.remove-review-button', function(){
-            var remove_review_id = jQuery(this).next().val();  
-            jQuery.post(
-                ajaxurl,
-                        {
-                        'action'            : 'bgr_remove_review',
-                        'remove_review_id'  :  remove_review_id                                       
-                        },
-                        function(response) {
-                           location.reload();                      
-                        }
-                );
-        });
+    // Delete review
+    jQuery(document).on('click', '.remove-review-button', function(){
+        var remove_review_id = jQuery(this).next().val();  
+        jQuery.post(
+            ajaxurl,
+                    {
+                    'action'            : 'bgr_remove_review',
+                    'remove_review_id'  :  remove_review_id                                       
+                    },
+                    function(response) {
+                       location.reload();                      
+                    }
+            );
+    });
 
-        // Show & hide full description
-        jQuery(document).on('click','.expand-review-des', function() {
-            var display = jQuery(this).parent().children('.review-full-description').css('display');
-            if (display === 'block') {
-                jQuery('.review-full-description').slideUp(500);
-                jQuery(this).parent().children('.review-excerpt').slideDown(500);
-                jQuery(this).text("View More...");
-            }else{
-                jQuery('.review-full-description').hide();
-                jQuery('.review-excerpt').show();
-                jQuery('.review-full-description').next().text("View More..");
-                jQuery(this).parent().children('.review-excerpt').slideUp(500);
-                jQuery(this).parent().children('.review-full-description').slideDown(500);
-                jQuery(this).text("View Less...");
-            }
-           
-        });
-		
-		 // Submit Group Review
-        jQuery('#bgr-add-review-form').submit(function(e) {  
-            e.preventDefault();
-            jQuery.post(
-                   ajaxurl,
-                       {
-                       'action' : 'bgr_submit_review',
-                       'data'   : jQuery(this).serialize()
-                       },
-                       function(response) {
-                            jQuery('.bgr-bp-success').css("display","block");
-                            jQuery('.bgr-group-review-no-popup-add-block').hide();
-                            jQuery('#bgr-add-review-modal').hide();
-                            jQuery('#bgr-message').css("display","block");
-                            
-                       }
-                   );
-            });
+    // Show & hide full description
+    jQuery(document).on('click','.expand-review-des', function() {
+        var display = jQuery(this).parent().children('.review-full-description').css('display');
+        if (display === 'block') {
+            jQuery('.review-full-description').slideUp(500);
+            jQuery(this).parent().children('.review-excerpt').slideDown(500);
+            jQuery(this).text("View More...");
+        }else{
+            jQuery('.review-full-description').hide();
+            jQuery('.review-excerpt').show();
+            jQuery('.review-full-description').next().text("View More..");
+            jQuery(this).parent().children('.review-excerpt').slideUp(500);
+            jQuery(this).parent().children('.review-full-description').slideDown(500);
+            jQuery(this).text("View Less...");
+        }
+       
+    });
+	
+	 // Submit Group Review
+    jQuery('#bgr-add-review-form').submit(function(e) {
+        e.preventDefault();
+        jQuery.post(
+            ajaxurl,
+           {
+               'action' : 'bgr_submit_review',
+               'data'   : jQuery(this).serialize()
+           },
+           function(response) {
+                jQuery('.bgr-bp-success p').html( response ).css("display","block");
+                jQuery('.bgr-group-review-no-popup-add-block').hide();
+                jQuery('#bgr-add-review-modal').hide();
+                jQuery('#bgr-message').css("display","block");
+           }
+        );
+    });
 });
