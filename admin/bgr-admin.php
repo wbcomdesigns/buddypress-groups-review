@@ -35,12 +35,10 @@ if( !class_exists( 'BGR_Admin' ) ) {
 		*/
 		
 		function bgr_admin_options_page(	$current = 'general'	) {
-                    if(	isset( $_GET	) ) {                           
-                        if( isset( $_GET['tab'] ) ) {
-                            $current = $_GET['tab'];
-                        } else {
-                            $current = 'general';
-                        }
+                    if( isset( $_GET['tab'] ) ) {
+                        $current = sanitize_text_field( $_GET['tab'] );
+                    } else {
+                        $current = 'general';
                     }
                     $bgr_tabs = array(
                           'general'   	=> __("General" , BGR_DOMAIN ), 
