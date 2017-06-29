@@ -40,7 +40,7 @@ jQuery( document ).ready(function(){
     jQuery( document ).on( 'click', '#bgr-save-admin-general-settings', function(){
         jQuery( this ).addClass( 'bgr-btn-ajax' );
         jQuery( '.bgr-admin-general-settings-spinner' ).show();
-        var exclude_groups = jQuery('#bgr-exclude-group-review').select2("val");
+        var exclude_groups = jQuery('#bgr-exclude-group-review').val();
         if( jQuery( '#bgr-allow-popup' ).is( ':checked' ) ) {
                 allow_popup = 'yes';
         } else {
@@ -69,7 +69,7 @@ jQuery( document ).ready(function(){
                     jQuery('.bgr-admin-general-settings-spinner').hide();                          
                 }
             }
-        ); 
+        );
     });
         
     // Save Display Settings
@@ -122,17 +122,13 @@ jQuery( document ).ready(function(){
             jQuery( '.bgr-faq-panel' ).hide();
             jQuery( '.bgr-faq-accordion' ).removeClass( 'bgr-faq-accordion-active' );
             jQuery(this).next().slideDown(500);
-            jQuery(this).addClass( 'bgr-faq-accordion-active' );                
+            jQuery(this).addClass( 'bgr-faq-accordion-active' );
         }           
     });        
     
-	/*** Make Draggable admin criteria input fields ***/        
+	/*** Make Draggable admin criteria input fields ***/
     jQuery( "#bgr-textbox-container" ).sortable();
-    jQuery( "#bgr-textbox-container" ).disableSelection();    
-	
-    /*** Show dropdown by select2 js ***/
-    jQuery("#bgr-rating-type").select2();
-    jQuery("#bgr-exclude-group-review").select2();
+    jQuery( "#bgr-textbox-container" ).disableSelection();
 
     //Support tab accordian
     var acc = document.getElementsByClassName("bgr-accordion");

@@ -20,6 +20,19 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 			add_action( 'admin_footer-edit.php', array( $this, 'bgr_disable_review_title_edit_link' ) );
 			add_filter( 'bulk_actions-edit-review', array( $this, 'bgr_remove_edit_bulk_actions' ), 10, 1 );
 			add_action( 'bp_before_group_header_meta', array( $this, 'bgr_group_average_rating') );
+
+			add_action( 'bp_group_header_actions', array( $this, 'bgr_group_header_review_btn' ) );
+		}
+
+		function bgr_group_header_review_btn() {
+			$current_group_id = bp_get_current_group_id();
+			$current_group_link = bp_get_group_permalink( groups_get_group( array( 'group_id' => $current_group_id ) ) );
+			$current_group_link .= 'reviews';
+			?>
+			<div class="group-button public generic-button" id="groupbutton-85">
+				<a href="<?php echo $current_group_link;?>" class="group-button join-group"><?php _e( 'Add Review', BGR_DOMAIN );?></a>
+			</div>
+			<?php
 		}
 
 		/*  Actions performed to show average rating on a group
