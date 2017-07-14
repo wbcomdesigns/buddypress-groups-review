@@ -3,7 +3,7 @@
  * Plugin Name: Review BuddyPress Groups
  * Plugin URI: https://wbcomdesigns.com/contact/
  * Description: This plugin allows buddypress members to add reviews to the groups on the site.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Wbcom Designs
  * Author URI: http://wbcomdesigns.com
  * License: GPLv2+
