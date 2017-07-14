@@ -3,8 +3,8 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 3.0.1
-Tested up to: 4.7
-Stable tag: 4.6
+Tested up to: 4.8
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +46,9 @@ The admin settings modifies the review creation template. If the popup allowed i
 == Changelog ==
 = 1.0.0 =
 * Initial release.
+
+= 1.0.1 =
+* Layout Improvement
 
 == Upgrade Notice ==
 = 1.0.0 =
