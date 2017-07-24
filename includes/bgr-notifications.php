@@ -189,7 +189,7 @@ if (!class_exists('BGR_Notifications')) {
         }
     }
 }
-add_filter( 'bp_notifications_get_notifications_for_user', 'bgr_format_notifications', 10, 1 );
+add_filter( 'bp_notifications_get_notifications_for_user', 'bgr_format_notifications', 10, 5 );
 
 	/*  Actions performed to add notifications
 	*  @since   1.0.0
