@@ -121,8 +121,12 @@ if (!class_exists('BGR_Notifications')) {
 			$group     	= groups_get_group( array( 'group_id' => $grp_id ) );
 			$group_name = $group->name;	
 			$user_info 	= get_userdata( $member_id );
-			$user_name = $user_info->user_login;			
-            $notification_link  = bp_get_group_permalink( $group )."admin/manage-reviews/";
+			$user_name = $user_info->user_login;
+			if( $bgr['auto_approve_reviews'] == 'no' )	{
+            	$notification_link  = bp_get_group_permalink( $group )."admin/manage-reviews/";				
+			} else {
+				$notification_link  = bp_get_group_permalink( $group )."reviews/";		
+			}		
             $notification_title = "A new $review_label posted.";
             $notification_content = "$user_name posted a $review_label for $group_name.";
 
