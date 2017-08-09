@@ -215,9 +215,14 @@ if( !class_exists( 'BGR_AJAX' ) ) {
 			$group     		= groups_get_group( array( 'group_id' => $form_group_id ) );
 			$group_name = $group->name;	
 			$user_info 	= get_userdata( $post_author_id );
-			$user_name 	= $user_info->user_login;		
+			$user_name 	= $user_info->user_login;			
 			
-			$mail_link 		 =   bp_get_groups_directory_permalink(). $group->slug ."/admin/manage-reviews/";
+			if( $auto_approve_reviews == 'yes' ) {
+				$mail_link 	=   bp_get_groups_directory_permalink(). $group->slug ."/reviews/";
+			} else {
+				$mail_link 	=   bp_get_groups_directory_permalink(). $group->slug ."/admin/manage-reviews/";
+			}
+
 			$mail_content  = "A new $review_label for $group_name added by  $user_name. Link :";
 			
 			if( !empty( $rated_stars ) ) {
