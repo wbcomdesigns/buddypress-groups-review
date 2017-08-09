@@ -56,6 +56,7 @@ function bgr_review_globals() {
 		$allow_email            = 'no';
 		$allow_notification     = 'no';
 		$exclude_groups         = array();
+		$auto_approve_reviews   = 'no';
 	}
 	
 	/**** Global variable values for Criteria settings ****/
