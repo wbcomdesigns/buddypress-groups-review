@@ -63,6 +63,13 @@
     animation-duration: 0.4s
 }
 
+@media( max-width: 1024px ) {
+    #bgr-add-review-modal .modal-content{
+        min-width: 300px;
+    }
+}
+
+
 /* Add Animation */
 @-webkit-keyframes animatetop {
     from {

@@ -49,6 +49,18 @@ $reviews 				= new WP_Query($args);
                     <?php do_shortcode( '[add_group_review_form]' ); ?>
 		</div>
 	<?php } ?>
+	<!-- MODAL FOR SUCCESS MESSAGE -->
+    <div id="bgr_review_success_msg_modal" class="modal">
+	<!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close close-modal">×</span>
+            </div>
+            <div class="modal-body">
+            	<p>Review added successfully</p>
+            </div>
+        </div>	
+    </div>
 
 	<!-- MODAL FOR USER LOGIN -->
 	
@@ -89,19 +101,16 @@ $reviews 				= new WP_Query($args);
                                         ?>
                                     </div>  
                                    
-                                    <div class="item-description">
-                                        <div class="review-subject">
-                                            <b> <?php _e( $review_label.' Subject: ', BGR_DOMAIN ); ?> </b>
-                                            <?php the_title(); ?>
-                                        </div>
+                                    <div class="item-description">                                        
                                         <div class="review-description">
-                                            <b> <?php _e( $review_label.' Description: ', BGR_DOMAIN ); ?> </b>
+                                            <b>
                                                 <?php $trimexcerpt  = get_the_excerpt();	
 														$shortexcerpt = wp_trim_words( $trimexcerpt, $num_words = 10, $more = '… ' ); 
 														_e($shortexcerpt, BGR_DOMAIN );                                                      
                                                 ?>
                                                 <?php $url = bp_get_group_permalink().'reviews/view/'.get_the_id(); ?>
-                                            <a href="<?php echo $url; ?>"><?php _e('Read More>> ', BGR_DOMAIN ); ?></a>
+                                            </b>    
+                                            <a href="<?php echo $url; ?>"><?php _e('read more... ', BGR_DOMAIN ); ?></a>
                                             <div class="review-ratings">
                                                 <?php do_action( 'bgr_display_ratings', $post->ID ); ?>                  
                                             </div>

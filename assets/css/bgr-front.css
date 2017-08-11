@@ -134,8 +134,8 @@
 }	
 
 .group-request-list .avatar {
-    height: 80%;
-    width: 80%;
+    height: 50%;
+    width: 50%;
 }
 
 .bgr-bp-success {
@@ -171,4 +171,28 @@
 		text-align: center;
 		display: block;
 	}	
+
+    .group-request-list .avatar {
+        height: 50px;
+        width: 50px;
+    }
+}
+
+#bgr_review_success_msg_modal .modal-content {
+    min-height: 200px;
+    min-width: 300px;
+    background-color: #f0f0f0;
+}
+
+#bgr_review_success_msg_modal .modal-header {
+    background-color: #f0f0f0;
+}
+
+#bgr_review_success_msg_modal p {
+    font-weight: 600; 
+    padding-top: 8%;   
+}
+
+#bgr_review_success_msg_modal .close {
+    color: #000;
 }

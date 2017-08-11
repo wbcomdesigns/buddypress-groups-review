@@ -1,4 +1,6 @@
 jQuery(document).ready(function(){
+
+        jQuery('#bgr_review_success_msg_modal').hide();
         //Open Add Review Form
         jQuery(document).on('click', '#add-review', function(){
                 jQuery( '#bgr-add-review-modal' ).css( 'display', 'block' );
@@ -7,6 +9,13 @@ jQuery(document).ready(function(){
         // When the user clicks on <span> (x), close the modal
         jQuery(document).on('click', '.close-modal', function(){
                 jQuery( '#bgr-add-review-modal' ).css( 'display', 'none' );
+        });
+
+        /*----------------------------------------
+        * Display message after review submit
+        *-----------------------------------------*/
+        jQuery(document).on('click', '#bgr_review_success_msg_modal .close', function (){
+            jQuery('#bgr_review_success_msg_modal').hide();
         });
 
         // When the user clicks anywhere outside of the modal, close it
@@ -103,6 +112,8 @@ jQuery(document).ready(function(){
                 jQuery('.bgr-group-review-no-popup-add-block').hide();
                 jQuery('#bgr-add-review-modal').hide();
                 jQuery('#bgr-message').css("display","block");
+                 jQuery('#bgr_review_success_msg_modal p').text(response);
+                jQuery('#bgr_review_success_msg_modal').show();
            }
         );
     });

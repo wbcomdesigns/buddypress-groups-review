@@ -182,10 +182,10 @@ if( !class_exists( 'BGR_AJAX' ) ) {
 			$review_label				= $bgr['review_label'];
 			$auto_approve_reviews   	= $bgr['auto_approve_reviews'];
 			if( $auto_approve_reviews == 'yes' ) {
-				$review_add_msg = 'Your review about this group has been published.';
+				$review_add_msg = "Thank you for taking the time to write this wonderful $review_label!";
 				$review_status = 'publish';
 			} else {
-				$review_add_msg = 'Your review about this group has been saved and will be published when group admin approves it.';
+				$review_add_msg = "Thank you for taking the time to write this wonderful $review_label. Your $review_label will display after moderator approval.";
 				$review_status = 'draft';
 			}
 			
