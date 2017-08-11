@@ -110,14 +110,14 @@ function bgr_display_setting() {
         <div class="bgr-col-3"><label for="bgrReviewLabel"><?php _e( 'Review', BGR_DOMAIN );?></label></div>
         <div class="bgr-col-9">
 			<input name = "bgrReviewLabel" id="bgrReviewLabel" type="text" value = "<?php _e( $bgrReviewLabel , BGR_DOMAIN ); ?>" />
-			<p class="bgr-admin-des"><?php _e( 'This option provide flexibility to change review label. By default it shows "Review"' , BGR_DOMAIN); ?></p>
+			<p class="bgr-admin-des"><?php _e( 'This option provide flexibility to change review label. By default it shows "Review".' , BGR_DOMAIN); ?></p>
 		</div>
     </div>   
     <div class="bgr-row">                    
         <div class="bgr-col-3"><label for="bgrManageReviewLabel"><?php _e( 'Review (In Manage Section)', BGR_DOMAIN );?></label></div>
         <div class="bgr-col-9">
 			<input name = "bgrManageReviewLabel" id="bgrManageReviewLabel" type="text" value = "<?php _e( $bgrManageReviewLabel , BGR_DOMAIN ); ?>" />
-			<p class="bgr-admin-des"><?php _e( 'This option provide flexibility to change review label in <b>Buddypress Group Manage </b> Section. By default it shows "Reviews"' , BGR_DOMAIN); ?></p>
+			<p class="bgr-admin-des"><?php _e( 'This option provides flexibility to change review label in <b>BuddyPress Group Manage</b> section. By default it shows "Reviews".' , BGR_DOMAIN); ?></p>
 		</div>
     </div> 
     <div class="bgr-col-12"><h3><?php _e( 'Colors', BGR_DOMAIN );?></h3></div>
@@ -137,7 +137,7 @@ function bgr_display_setting() {
                 <option value="<?php _e( 'numbers', BGR_DOMAIN );?>" <?php if( $bgr_rating_type == 'numbers' ) { _e( 'selected="selected"', BGR_DOMAIN ); } ?>><?php _e( 'Number Rating', BGR_DOMAIN );?></option>
                 <option value="<?php _e( 'bar', BGR_DOMAIN );?>" <?php if( $bgr_rating_type == 'bar' ) { _e( 'selected="selected"', BGR_DOMAIN ); } ?>><?php _e( 'Bar Rating', BGR_DOMAIN );?></option>
             </select>
-			<p class="bgr-admin-des"><?php _e( "This option lets you to choose display of ratings.By default <b>Star Rating</b> will be shown.", BGR_DOMAIN); ?></p>
+			<p class="bgr-admin-des"><?php _e( "This option lets you to choose display of ratings. By default <b>Star Rating</b> will be shown.", BGR_DOMAIN); ?></p>
         </div>
     </div> 
     <div class="bgr-col-12">
