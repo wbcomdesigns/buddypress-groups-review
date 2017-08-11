@@ -67,7 +67,7 @@ function bgr_criteria_setting() {
 						} ?>                 
             </div>			
             <input id="bgr-field-add" type="button" value="<?php _e( 'Add Criteria', BGR_DOMAIN );?>" class="button button-secondary"/>
-			<p class="bgr-admin-des"><?php _e( "This option provide you to add multple rating criteria. By default, no criteria will be shown until you active it.", BGR_DOMAIN); ?></p>
+			<p class="bgr-admin-des"><?php _e( "This option provide you to add multiple rating criteria. By default, no criteria will be shown until you active it.", BGR_DOMAIN); ?></p>
         </div>
     </div>
     <div class="bgr-col-12">
@@ -219,7 +219,7 @@ function bgr_general_setting() {
                 <input type="checkbox" id="bgr-allow-popup" <?php if( 'yes'  == $allow_popup ){  _e( 'checked="checked"', BGR_DOMAIN ); } ?>>
                 <div class="bgr-slider round"></div>
             </label>
-			<p class="bgr-admin-des"><?php _e( 'Enable this option,if you want to show <b>Add Review</b> in modal box.' , BGR_DOMAIN); ?></p>
+			<p class="bgr-admin-des"><?php _e( 'Enable this option, if you want to show <b>Add Review</b> in modal box.' , BGR_DOMAIN); ?></p>
         </div>
     </div>
 
@@ -232,7 +232,7 @@ function bgr_general_setting() {
                 <input type="checkbox" id="bgr-auto-approve-reviews" <?php if( 'yes'  == $auto_approve_reviews ){  _e( 'checked="checked"', BGR_DOMAIN ); } ?>>
                 <div class="bgr-slider round"></div>
             </label>
-            <p class="bgr-admin-des"><?php _e( 'Enable this option,if you want to have the reviews automatically approved, else manual approval will be required.' , BGR_DOMAIN); ?></p>
+            <p class="bgr-admin-des"><?php _e( 'Enable this option, if you want to have the reviews automatically approved, else manual approval will be required.' , BGR_DOMAIN); ?></p>
         </div>
     </div>
 
@@ -243,7 +243,7 @@ function bgr_general_setting() {
         <div class="bgr-col-9">
             <input id="reviews_per_page" class="small-text" name="reviews_per_page" step="1" min="1" value="<?php _e( $reviews_per_page, BGR_DOMAIN ); ?>" type="number">
             <?php _e( 'Reviews', BGR_DOMAIN ); ?>
-			<p class="bgr-admin-des"><?php _e( 'This option lets you limit number of reviews in <b> Group Reviews </b> page & <b>Manage Reviews </b> Page .' , BGR_DOMAIN); ?></p>
+			<p class="bgr-admin-des"><?php _e( 'This option lets you limit number of reviews in <b> Group Reviews </b> page & <b>Manage Reviews </b> Page.' , BGR_DOMAIN); ?></p>
         </div>
     </div>
     <div class="bgr-row">
@@ -254,7 +254,7 @@ function bgr_general_setting() {
 					<input type="checkbox" id="bgr-notification" <?php if( $allow_notification == 'yes' ){ _e( 'checked="checked"', BGR_DOMAIN );} ?>>
 					<div class="bgr-slider round"></div>
 				</label>					
-				<p class="bgr-admin-des"><?php _e( 'Enable this option,if you want to group admin & reviewer revieve notification when add,accept & deny review .' , BGR_DOMAIN); ?></p>
+				<p class="bgr-admin-des"><?php _e( 'Enable this option, if you want to group admin & reviewer receive notification when add, accept & deny review.' , BGR_DOMAIN); ?></p>
 			<?php }  else { ?>
 				<p class="bgr-admin-des"><?php _e( 'This setting requires <b>BuddyPress Notifications </b>Component to be active.' , BGR_DOMAIN); ?></p>
 			<?php } ?>	
@@ -267,7 +267,7 @@ function bgr_general_setting() {
                 <input type="checkbox" id="bgr-email" <?php if( $allow_email == 'yes' ){ _e( 'checked="checked"', BGR_DOMAIN ); } ?>>
                 <div class="bgr-slider round"></div>
             </label>
-			<p class="bgr-admin-des"><?php _e( 'Enable this option,if you want to group admin & reviewer revieve email when add,accept & deny review .' , BGR_DOMAIN); ?></p>
+			<p class="bgr-admin-des"><?php _e( 'Enable this option, if you want to group admin & reviewer receive email when add, accept & deny review.' , BGR_DOMAIN); ?></p>
         </div>
     </div>
     <div class="bgr-row">
