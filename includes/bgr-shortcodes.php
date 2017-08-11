@@ -34,6 +34,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
 				$review_label		  	  			= $bgr['review_label'];	
 				$admin_exclude_groups	  	= $bgr['exclude_groups'];	
 				$rating_color					  	= $bgr['rating_color'];
+				$auto_approve_reviews   	= $bgr['auto_approve_reviews'];
 
 				$current_group_id = 0;
 				if( !empty( bp_get_current_group_id() ) ) {
@@ -41,7 +42,13 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
 				}
                 ?>
                 <div id="bgr-message" class="bgr-success">
-                    <?php _e( " Your $review_label added. This will be published when group admin approved it.", BGR_DOMAIN); ?>
+                    <?php 
+                    	if( $auto_approve_reviews == 'yes' ) {
+                    		_e( " Thank you for taking the time to write this wonderful $review_label!", BGR_DOMAIN ); 
+                    	} else {
+                    		_e( " Thank you for taking the time to write this wonderful $review_label. Your $review_label will display after moderator approval.", BGR_DOMAIN );
+                    	}	
+                    ?>
                 </div>
                 <?php    
                 if(!is_user_logged_in()) { ?>
