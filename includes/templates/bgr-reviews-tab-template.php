@@ -104,9 +104,9 @@ $reviews 				= new WP_Query($args);
                                     <div class="item-description">                                        
                                         <div class="review-description">
                                             <b>
-                                                <?php $trimexcerpt  = get_the_excerpt();	
-														$shortexcerpt = wp_trim_words( $trimexcerpt, $num_words = 10, $more = '… ' ); 
-														_e($shortexcerpt, BGR_DOMAIN );                                                      
+                                                <?php   $trimexcerpt  = get_the_excerpt();	
+                                                        $shortexcerpt = substr( $trimexcerpt, 0, 150 );														
+														_e( $shortexcerpt, BGR_DOMAIN );                                                      
                                                 ?>
                                                 <?php $url = bp_get_group_permalink().'reviews/view/'.get_the_id(); ?>
                                             </b>    
