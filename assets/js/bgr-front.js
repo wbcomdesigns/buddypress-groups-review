@@ -5,14 +5,13 @@ jQuery(document).ready(function(e){
         jQuery(document).on('click', '#add-review', function(){
                 jQuery( '#bgr-add-review-modal' ).css( 'display', 'block' );
         });
-
-        var activediv = jQuery(location).attr('hash');
-        var hashval = activediv.split('=').pop();        
-        if( hashval == 'form-modal' ) {
-            jQuery('#bgr-add-review-modal').show();
-        }   else {
-            jQuery('.bgr-group-review-no-popup-add-block').show();
-        }
+      
+        jQuery(document).on('click', '#groupbutton-85 a', function(e){           
+            var show_content = jQuery( this ).attr('show');            
+            sessionStorage.reloadAfterPageLoad = true;           
+            jQuery.cookie('show_form', show_content);  
+      
+        });
         // When the user clicks on <span> (x), close the modal
         jQuery(document).on('click', '.close-modal', function(){
                 jQuery( '#bgr-add-review-modal' ).css( 'display', 'none' );
@@ -107,6 +106,7 @@ jQuery(document).ready(function(e){
 	
 	 // Submit Group Review
     jQuery('#bgr-add-review-form').submit(function(e) {
+        var loc;
         e.preventDefault();
         jQuery.post(
             ajaxurl,
@@ -119,9 +119,34 @@ jQuery(document).ready(function(e){
                 jQuery('.bgr-group-review-no-popup-add-block').hide();
                 jQuery('#bgr-add-review-modal').hide();
                 jQuery('#bgr-message').css("display","block");
-                 jQuery('#bgr_review_success_msg_modal p').text(response);
-                jQuery('#bgr_review_success_msg_modal').show();
+                sessionStorage.reloadAfterPageLoad = true;
+                var date = new Date();
+                date.setTime(date.getTime() + (20 * 1000));
+                jQuery.cookie('res_content', response, { expires: date });
+                window.location.reload(); 
            }
         );
     });
 });
+
+/*----------------------------------------
+* Display message after review submit
+*-----------------------------------------*/
+jQuery( function () {
+    if ( jQuery.cookie('res_content')) {
+        jQuery('.bgr-bp-success p').text(jQuery.cookie('res_content'));
+        jQuery('.bgr-bp-success').show();
+    }
+} );
+
+jQuery( function () {
+    if ( jQuery.cookie('show_form')) {
+        if( jQuery.cookie('show_form') == 'form-modal' ) {
+            jQuery('#bgr-add-review-modal').show();
+            jQuery.cookie("show_form", null);
+        }   else {
+            jQuery('.bgr-group-review-no-popup-add-block').show();
+            jQuery.cookie("show_form", null);           
+        }
+    }
+} );

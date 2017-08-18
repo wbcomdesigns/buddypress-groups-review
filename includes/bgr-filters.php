@@ -43,7 +43,7 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 			$current_group_link .= 'reviews';
 			?>
 			<div class="group-button public generic-button" id="groupbutton-85">
-				<a href='<?php echo $current_group_link."#addReview=$review_div"; ?>' class="group-button join-group"><?php _e( 'Add Review', BGR_DOMAIN );?></a>
+				<a href='<?php echo $current_group_link; ?>' class="group-button join-group" show ="<?php echo $review_div; ?>"><?php _e( 'Add Review', BGR_DOMAIN );?></a>
 			</div>
 			<?php
 		}

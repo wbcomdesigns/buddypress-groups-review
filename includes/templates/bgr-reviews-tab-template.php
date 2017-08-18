@@ -49,18 +49,6 @@ $reviews 				= new WP_Query($args);
                     <?php do_shortcode( '[add_group_review_form]' ); ?>
 		</div>
 	<?php } ?>
-	<!-- MODAL FOR SUCCESS MESSAGE -->
-    <div id="bgr_review_success_msg_modal" class="modal">
-	<!-- Modal content -->
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close close-modal">×</span>
-            </div>
-            <div class="modal-body">
-            	<p>Review added successfully</p>
-            </div>
-        </div>	
-    </div>
 
 	<!-- MODAL FOR USER LOGIN -->
 	
