@@ -225,12 +225,13 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 					endif;
 					wp_reset_query();
 					$user = bp_get_loggedin_user_username();
+					$count_notification = '<span>'.$post_count.'</span>';
                 if( !empty( $bgr_admin_general_settings ) ) {
                     $exclude_groups = $bgr['exclude_groups'];  
                     if( !empty( $exclude_groups )) {
                         if( !in_array( $bp->groups->current_group->id, $exclude_groups )) {
                             $tab_args = array(
-                           'name' => __( $review_label.'<span>'.$post_count.'</span>', BGR_DOMAIN ),
+                           'name' => __( $review_label .' '. $count_notification, BGR_DOMAIN ),
                            'slug' => 'reviews',
                            'parent_slug' => $bp->groups->current_group->slug,
                            'parent_url' => bp_get_group_permalink( $bp->groups->current_group ),
@@ -241,7 +242,7 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
                         }
                     } else {
                             $tab_args = array(
-                            'name' => __( $review_label.'<span>'.$post_count.'</span>', BGR_DOMAIN ),
+                            'name' => __( $review_label .' '. $count_notification, BGR_DOMAIN ),
                             'slug' => 'reviews',
                             'parent_slug' => $bp->groups->current_group->slug,
                             'parent_url' => bp_get_group_permalink( $bp->groups->current_group ),
@@ -252,7 +253,7 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
                     }
                 } else {
                         $tab_args = array(
-                        'name' => __( $review_label.'<span>'.$post_count.'</span>', BGR_DOMAIN ),
+                        'name' => __( $review_label .' '. $count_notification, BGR_DOMAIN ),
                         'slug' => 'reviews',
                         'parent_slug' => $bp->groups->current_group->slug,
                         'parent_url' => bp_get_group_permalink( $bp->groups->current_group ),
