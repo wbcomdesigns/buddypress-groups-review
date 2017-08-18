@@ -1,4 +1,4 @@
-jQuery(document).ready(function(){
+jQuery(document).ready(function(e){
 
         jQuery('#bgr_review_success_msg_modal').hide();
         //Open Add Review Form
@@ -6,6 +6,13 @@ jQuery(document).ready(function(){
                 jQuery( '#bgr-add-review-modal' ).css( 'display', 'block' );
         });
 
+        var activediv = jQuery(location).attr('hash');
+        var hashval = activediv.split('=').pop();        
+        if( hashval == 'form-modal' ) {
+            jQuery('#bgr-add-review-modal').show();
+        }   else {
+            jQuery('.bgr-group-review-no-popup-add-block').show();
+        }
         // When the user clicks on <span> (x), close the modal
         jQuery(document).on('click', '.close-modal', function(){
                 jQuery( '#bgr-add-review-modal' ).css( 'display', 'none' );
@@ -40,7 +47,7 @@ jQuery(document).ready(function(){
                         {
                         'action'           : 'bgr_accept_review',
                         'accept_review_id' :  accept_review_id,
-                        'group_id'         :  accept_gid  
+                        'group_id'         :  accept_gid
                         },
                         function(response) {                           
                            location.reload();                      
