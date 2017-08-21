@@ -7,11 +7,11 @@ jQuery(document).ready(function(e){
         });
       
         jQuery(document).on('click', '#groupbutton-85 a', function(e){           
-            var show_content = jQuery( this ).attr('show');            
-            sessionStorage.reloadAfterPageLoad = true;           
-            jQuery.cookie('show_form', show_content);  
+            var show_content = jQuery( this ).attr('show');                      
+            localStorage.setItem("bgr_show_form", show_content );  
       
         });
+
         // When the user clicks on <span> (x), close the modal
         jQuery(document).on('click', '.close-modal', function(){
                 jQuery( '#bgr-add-review-modal' ).css( 'display', 'none' );
@@ -140,13 +140,15 @@ jQuery( function () {
 } );
 
 jQuery( function () {
-    if ( jQuery.cookie('show_form')) {
-        if( jQuery.cookie('show_form') == 'form-modal' ) {
-            jQuery('#bgr-add-review-modal').show();
-            jQuery.cookie("show_form", null);
-        }   else {
-            jQuery('.bgr-group-review-no-popup-add-block').show();
-            jQuery.cookie("show_form", null);           
+    var show_last_form;
+    show_last_form = localStorage.getItem("bgr_show_form");
+    if ( show_last_form != null ) {            
+        if( show_last_form == 'form-modal' ) {
+            jQuery('#add-review').click();           
+            localStorage.setItem("bgr_show_form", null );
+        }  else {
+            jQuery('.bgr-group-review-no-popup-add-block').click();            
+            localStorage.setItem("bgr_show_form", null );                  
         }
     }
 } );
