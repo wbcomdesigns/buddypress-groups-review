@@ -30,8 +30,10 @@ $reviews 				= new WP_Query($args);
 <div class="bgr-group-reviews-block">
 	<div class="reviews-header">
 		<p>         
-			<?php _e( $review_label, BGR_DOMAIN ); ?>			
-				<?php if( $allow_popup == 'yes' ) {?>
+			<?php 
+			if( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in() ) {
+				_e( $review_label, BGR_DOMAIN ); ?>			
+				<?php if( $allow_popup == 'yes' ) { ?>
 					<span class="bgr-add-review">
 						<a href="javascript:void(0)" id="add-review"><?php _e('+Add ', BGR_DOMAIN ); ?></a>
 					</span>
@@ -39,7 +41,8 @@ $reviews 				= new WP_Query($args);
 					<span class="bgr-add-review">
 						<a href="javascript:void(0)" id="add-review-no-popup"><?php _e('+Add ', BGR_DOMAIN ); ?></a>
 					</span>
-				<?php } ?>			
+				<?php } 
+			} ?>			
 		</p>
 	</div>
           
