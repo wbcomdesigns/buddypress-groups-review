@@ -131,17 +131,20 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 							<div class="item-title">
 								<?php  _e( bp_core_get_userlink( $author ), BGR_DOMAIN ); ?>
 							</div>
-							<div class="item-description">
-								<!-- <div class="review-subject">
-									<b> <?php //_e('Subject: ', BGR_DOMAIN ); ?> </b>
-									<?php the_title(); ?>
-								</div> -->
+							<div class="item-description">								
 								<div class="review-description">                                                                       
 									<div class="review-excerpt bgr-col-12">
 										<b> <?php _e('Short Description: ', BGR_DOMAIN ); ?> </b>
-										<?php $content      = get_the_content();                                                     
-											  $shortContent = preg_split( '/(\.|!|\?)\s/', $content, 2, PREG_SPLIT_DELIM_CAPTURE );    
-											  _e( $shortContent[0].".", BGR_DOMAIN );
+										<?php $trimcontent = get_the_content();                                                     
+										  	if( !empty( $trimcontent ) ) {
+                                                $len = strlen( $trimcontent );  
+                                                if( $len > 150 ) {
+                                                    $shortexcerpt = substr( $trimcontent, 0, 150 );  
+                                                    echo $shortexcerpt;   
+                                                } else {
+                                                    echo $trimcontent;
+                                                } 
+                                            }
 										?>
 									</div> 
 									<div class="review-full-description bgr-col-12">
