@@ -41,11 +41,12 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 			$current_group_id = bp_get_current_group_id();
 			$current_group_link = bp_get_group_permalink( groups_get_group( array( 'group_id' => $current_group_id ) ) );
 			$current_group_link .= 'reviews';
+			if( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in() ) {
 			?>
 			<div class="group-button public generic-button" id="groupbutton-85">
 				<a href='<?php echo $current_group_link; ?>' class="group-button join-group" show ="<?php echo $review_div; ?>"><?php _e( 'Add Review', BGR_DOMAIN );?></a>
 			</div>
-			<?php
+			<?php }
 		}
 
 		/**
