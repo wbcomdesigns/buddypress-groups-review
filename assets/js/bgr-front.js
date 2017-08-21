@@ -136,6 +136,7 @@ jQuery( function () {
     if ( jQuery.cookie('res_content')) {
         jQuery('.bgr-bp-success p').text(jQuery.cookie('res_content'));
         jQuery('.bgr-bp-success').show();
+        jQuery.cookie('res_content' , "" , -1);
     }
 } );
 
