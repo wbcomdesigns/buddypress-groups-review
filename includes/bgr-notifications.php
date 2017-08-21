@@ -201,7 +201,7 @@ add_filter( 'bp_notifications_get_notifications_for_user', 'bgr_format_notificat
 	*/
 
 	function bgr_format_notifications($action,$item_id, $secondary_item_id, $user_id, $format = 'string') {
-		if( bp_is_active( 'notifications' ) ) { 
+		if( bp_is_active( 'notifications' ) &&  bp_is_active( 'groups' ) ) { 
 			switch ($action) {
 
 				case 'bgr_add_review_action':
