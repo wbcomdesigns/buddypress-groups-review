@@ -57,7 +57,7 @@ $reviews 				= new WP_Query($args);
 		<div class="modal-content">
 			<div class="modal-header">
 				<span class="close close-modal">&times;</span>
-				<h2><?php _e('Add '.$review_label, BGR_DOMAIN ); ?></h2>
+				<h2><?php _e('Add ', BGR_DOMAIN ); echo $review_label; ?></h2>
 			</div>
 			<div class="modal-body">
 				<div class="bgr-group-review-add-block">
@@ -85,20 +85,27 @@ $reviews 				= new WP_Query($args);
                                 </div>
                                 <div class="bgr-col-8">
                                     <div class="reviewer">
-                                        <?php _e( '<b>'.bp_core_get_userlink($author).'</b> ', BGR_DOMAIN );                                         
-                                        ?>
+                                    	<b><?php echo bp_core_get_userlink( $author ); ?></b>
                                     </div>  
                                    
                                     <div class="item-description">                                        
                                         <div class="review-description">
                                             <b>
-                                                <?php   $trimexcerpt  = get_the_excerpt();	
-                                                        $shortexcerpt = substr( $trimexcerpt, 0, 150 );														
-														_e( $shortexcerpt, BGR_DOMAIN );                                                      
-                                                ?>
-                                                <?php $url = bp_get_group_permalink().'reviews/view/'.get_the_id(); ?>
-                                            </b>    
-                                            <a href="<?php echo $url; ?>"><?php _e('read more... ', BGR_DOMAIN ); ?></a>
+                                                <?php 
+                                                	$trimcontent  = get_the_content(); 
+                                                	$url = bp_get_group_permalink().'reviews/view/'.get_the_id(); 
+		                                            if( !empty( $trimcontent ) ) {
+		                                                $len = strlen( $trimcontent );  
+		                                                if( $len > 150 ) {
+		                                                    $shortexcerpt = substr( $trimcontent, 0, 150 );  
+		                                                    echo $shortexcerpt;    ?>    
+		                                                    <a href="<?php echo $url; ?>"><i><?php _e('read more...', BGR_DOMAIN ); ?></i></a>
+		                                                <?php } else {
+		                                                    echo $trimcontent;
+		                                                } 
+		                                            }
+                                    		 	?>
+                                            </b>                                            
                                             <div class="review-ratings">
                                                 <?php do_action( 'bgr_display_ratings', $post->ID ); ?>                  
                                             </div>
