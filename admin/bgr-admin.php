@@ -6,10 +6,10 @@ if( !class_exists( 'BGR_Admin' ) ) {
 	class BGR_Admin{
 
 		/* constructor for admin settings
-		* @since    1.0.0                
-		* @author   Wbcom Designs              
-		*/     
-            
+		* @since    1.0.0
+		* @author   Wbcom Designs
+		*/
+
 		function __construct() {
 			add_action( 'admin_menu', array( $this, 'bgr_add_submenu_page_admin_settings' ) );
 			$post_types = get_post_types();
@@ -21,19 +21,19 @@ if( !class_exists( 'BGR_Admin' ) ) {
 		}
 
 		/* Actions performed on loading admin_menu
-		 * @since    1.0.0                
-		 * @author   Wbcom Designs              
+		 * @since    1.0.0
+		 * @author   Wbcom Designs
 		*/
-                
+
 		function bgr_add_submenu_page_admin_settings() {
 			add_submenu_page( 'edit.php?post_type=review', __( 'Group Reviews Admin Settings', BGR_DOMAIN ), __( 'BP Group Review Settings', BGR_DOMAIN ), 'manage_options', 'group-review-settings', array( $this, 'bgr_admin_options_page' ) );
 		}
 
 		/* Actions performed on changing admin settings tab
-		* @since    1.0.0                
-		* @author   Wbcom Designs              
+		* @since    1.0.0
+		* @author   Wbcom Designs
 		*/
-		
+
 		function bgr_admin_options_page(	$current = 'general'	) {
                     if( isset( $_GET['tab'] ) ) {
                         $current = sanitize_text_field( $_GET['tab'] );
@@ -41,38 +41,47 @@ if( !class_exists( 'BGR_Admin' ) ) {
                         $current = 'general';
                     }
                     $bgr_tabs = array(
-                          'general'   	=> __("General" , BGR_DOMAIN ), 
+                          'general'   	=> __("General" , BGR_DOMAIN ),
                           'criteria'  	=> __("Criteria" , BGR_DOMAIN ),
                           'shortcode'   => __("Shortcode", BGR_DOMAIN ),
-                          'display'   	=> __("Display" , BGR_DOMAIN ), 
-                          'support'  	=> __("Support" , BGR_DOMAIN )    
+                          'display'   	=> __("Display" , BGR_DOMAIN ),
+                          'support'  	=> __("Support" , BGR_DOMAIN )
                     );
                     ?>
-                    <div class="bgr-admin-settings-header">    
-                        <p><?php _e( 'Group Reviews Settings', BGR_DOMAIN );?></p>
-                    </div>
-                    <div id="bgr-settings-updated" class="updated settings-error notice is-dismissible">
-                        <p><strong><?php _e( 'Group Reviews Settings Saved.', BGR_DOMAIN );?></strong></p>
-                        <button type="button" class="notice-dismiss">
-                            <span class="screen-reader-text"><?php _e( 'Dismiss this notice.', BGR_DOMAIN );?></span>
-                        </button>
-                    </div> <?php 
-                    $bgr_tab_html =  '<h2 class="nav-tab-wrapper">';
-                    foreach( $bgr_tabs as $bgr_tab => $bgr_name ){                             
-                            $class = ($bgr_tab == $current) ? 'nav-tab-active' : '';                            
-                            $bgr_tab_html .=  '<a class="nav-tab ' . $class . '" href="admin.php?page=group-review-settings&tab=' . $bgr_tab . '">' . $bgr_name . '</a>';
-                    }
-                    $bgr_tab_html .= '</h2>';
-                    _e($bgr_tab_html , BGR_DOMAIN );
-                    include 'review-admin-options-page.php';
+                    <div id="wpbody-content" class="bgr-setting-page" aria-label="Main content" tabindex="0">
+						<div class="wrap">
+				        	<div class="bgr-header">
+								<div class="bgr-extra-actions">
+									<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/contact/', '_blank');"><i class="fa fa-envelope" aria-hidden="true"></i> <?php _e( 'Email Support', BGR_DOMAIN ); ?></button>
+									<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/helpdesk/article-categories/buddypress-group-reviews/', '_blank');"><i class="fa fa-file" aria-hidden="true"></i> <?php _e( 'User Manual', BGR_DOMAIN ); ?></button>
+									<button type="button" class="button button-secondary" onclick="window.open('https://wordpress.org/support/plugin/review-buddypress-groups/reviews/', '_blank');"><i class="fa fa-star" aria-hidden="true"></i> <?php _e( 'Rate Us on WordPress.org', BGR_DOMAIN ); ?></button>
+								</div>
+							</div>
+		                    <h1>
+		                        <?php _e( 'Group Reviews Settings', BGR_DOMAIN );?>
+		                    </h1>
+		                    <div id="bgr-settings-updated" class="updated settings-error notice is-dismissible">
+		                        <p><strong><?php _e( 'Group Reviews Settings Saved.', BGR_DOMAIN );?></strong></p>
+		                        <button type="button" class="notice-dismiss">
+		                            <span class="screen-reader-text"><?php _e( 'Dismiss this notice.', BGR_DOMAIN );?></span>
+		                        </button>
+		                    </div> <?php
+		                    $bgr_tab_html =  '<h2 class="nav-tab-wrapper">';
+		                    foreach( $bgr_tabs as $bgr_tab => $bgr_name ){
+		                            $class = ($bgr_tab == $current) ? 'nav-tab-active' : '';
+		                            $bgr_tab_html .=  '<a class="nav-tab ' . $class . '" href="admin.php?page=group-review-settings&tab=' . $bgr_tab . '">' . $bgr_name . '</a>';
+		                    }
+		                    $bgr_tab_html .= '</h2>';
+		                    _e($bgr_tab_html , BGR_DOMAIN );
+		                    include 'review-admin-options-page.php';
 		}
 
 		/**
 		* Actions performed to create Review cpt
-		* @since    1.0.0                
-		* @author   Wbcom Designs              
+		* @since    1.0.0
+		* @author   Wbcom Designs
 		*/
-                
+
 		function bgr_review_cpt() {
 			$labels = array(
 				'name'						=>	__( 'Reviews', BGR_DOMAIN ),
@@ -113,10 +122,10 @@ if( !class_exists( 'BGR_Admin' ) ) {
 
 		/**
 		* Actions performed to create Review cpt taxonomy
-		* @since    1.0.0                
-		* @author   Wbcom Designs              
+		* @since    1.0.0
+		* @author   Wbcom Designs
 		*/
-		
+
 		function bgr_review_taxonomy_cpt() {
 			$category_labels = array(
 				'name'              		=> _x( 'Reviews Category', 'taxonomy general name' ),

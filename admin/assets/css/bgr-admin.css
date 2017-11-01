@@ -1,6 +1,6 @@
 @CHARSET "ISO-8859-1";
 /**
-* #.# Section Div 
+* #.# Section Div
 *
 * This section includes div width for design admin settings page.
 */
@@ -13,10 +13,10 @@
 .bgr-approve-review{
     color: green;
 }
- 
+
 .bgr-row {
     clear: both;
-    border-bottom: 1px solid #ddd;    
+    border-bottom: 1px solid #ddd;
     overflow: hidden;
     padding-bottom: 5px;
 }
@@ -73,15 +73,20 @@
     [class*="bgr-col-"] {
         width: 100%;
     }
-}  
+}
 
 /*** Section Div end ***/
 
 /**
-* #.# Section Admin Settings 
+* #.# Section Admin Settings
 *
 * This section includes css for admin settings page content.
 */
+
+@font-face {
+    font-family: FontAwesome;
+    src: url('../fonts/FontAwesome.otf');
+}
 
 .bgr-admin-settings-header p {
     font-size: 24px;
@@ -219,7 +224,7 @@ button.bgr-faq-accordion:hover {
 
 .bgr-admin-des {
 	font-style : italic;
-}	
+}
 
 #bgr-exclude-group-review {
     width: 200px;
@@ -272,7 +277,10 @@ button.bgr-accordion.active::after {
   color:white;
 }
 .bgr-admin-row{
-  clear: both;  
+  clear: both;
   overflow: hidden;
   padding-bottom: 5px;
+}
+.bgr-extra-actions {
+    float: right;
 }
