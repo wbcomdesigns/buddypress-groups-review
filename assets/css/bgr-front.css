@@ -210,3 +210,14 @@
 .rating-bgr {
     overflow: hidden;
 }
+
+.bgr-header-row {
+    clear: both;
+    padding-bottom: 5px;
+}
+
+.bgr-group-header-ratings {
+    display: table;
+   /* margin: 0 auto;*/
+    padding: 10px 0;
+}

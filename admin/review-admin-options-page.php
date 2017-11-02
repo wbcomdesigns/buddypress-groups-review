@@ -178,12 +178,39 @@ function bgr_support_setting() {  ?>
         <div class="bgr-admin-row">
             <div>
                <button class="bgr-accordion">
+                <?php _e( 'I want', BGR_DOMAIN );?>
+                </button>
+                <div class="panel">
+                    <p>
+                        <?php _e( 'Yes, you can use the review form on other page, just copy shortcode from review setting page and paste it on the other page.', BGR_DOMAIN );
+                        ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bgr-admin-row">
+            <div>
+               <button class="bgr-accordion">
                 <?php _e( 'How can I use the review form on any other page?', BGR_DOMAIN );?>
                 </button>
                 <div class="panel">
                     <p>
-                        <?php _e( 'Yes you can use the review form on other page, just copy shortcode from review setting page and paste it on the other page.', BGR_DOMAIN );
+                        <?php _e( 'Yes, you can use the review form on other page, just copy shortcode from review setting page and paste it on the other page.', BGR_DOMAIN );
                         ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bgr-admin-row">
+            <div>
+               <button class="bgr-accordion">
+                <?php _e( 'Where do I ask for support?', BGR_DOMAIN );?>
+                </button>
+                <div class="panel">
+                    <p>
+                        <?php _e( 'Please visit <a href="http://wbcomdesigns.com/contact" rel="nofollow" target="_blank">Wbcom Designs</a> for any query related to plugin and BuddyPress.', BGR_DOMAIN ); ?>
                     </p>
                 </div>
             </div>

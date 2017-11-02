@@ -122,7 +122,7 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 					$reviews_count = ( $reviews_count == 0 ) ? 1 : $reviews_count;
 					$avg_rating = $ttl_rating / $reviews_count;
 					$avg_rating = round( $avg_rating, 2 );	 ?>
-					<div class="bgr-row"><div class="bgr-col-12 bgr-group-header-ratings"><div class="rating-bgr"><?php
+					<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr"><?php
 					do_action('bgr_display_group_average_ratings', $avg_rating );
 					echo "</div><div class='rating-text'>"; _e('Rating: ', BGR_DOMAIN ); echo "<span>($avg_rating)</span></div>";
 					echo "<div class='rating-total'>Total $review_label : $total_review_count</div></div></div>";
