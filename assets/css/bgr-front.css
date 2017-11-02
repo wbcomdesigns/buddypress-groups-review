@@ -1,5 +1,5 @@
 /**
-* #.# Section Div 
+* #.# Section Div
 *
 * This section includes div width for design front-end review ,manage review page.
 */
@@ -8,10 +8,10 @@
     float: left;
     padding: 10px 0;
  }
- 
+
 .bgr-row {
     clear: both;
-    border-bottom: 1px solid #ddd;    
+    border-bottom: 1px solid #ddd;
     overflow: hidden;
     padding-bottom: 5px;
 }
@@ -68,12 +68,12 @@
     [class*="bgr-col-"] {
         width: 100%;
     }
-}    
+}
 
 /*** Section Div css end ***/
 
 /**
-* #.# Section Front Page css 
+* #.# Section Front Page css
 *
 * This section includes css for design front-end review ,manage review page content.
 */
@@ -95,7 +95,7 @@
 
 .expand-review-des{
     cursor: pointer;
-} 
+}
 
 .remove-review-button,
 .accept-button,
@@ -130,8 +130,8 @@
 }
 
 .bgr-widget-rating{
-    padding: 5px 0 10px;	
-}	
+    padding: 5px 0 10px;
+}
 
 .group-request-list .avatar {
     height: 50%;
@@ -144,24 +144,24 @@
 
 .group-add-form p {
 	margin: 10px 0;
-}	
+}
 /*** Section Front Page css  end ***/
 
 /**
-* #.# Section Media Queries css 
+* #.# Section Media Queries css
 *
 * This section includes css for design front-end review ,manage review page content.
 */
 
 @media( max-width: 767px ) {
-	
+
 	.remove-review-button,
 	.accept-button,
 	.deny-button {
 		float: none;
 		display : block;
 	}
-	
+
 	.group-request-list .avatar {
 		margin: 0 auto;
 		display: block;
@@ -170,7 +170,7 @@
 	.group-request-list .item-title a {
 		text-align: center;
 		display: block;
-	}	
+	}
 
     .group-request-list .avatar {
         height: 50px;
@@ -189,10 +189,15 @@
 }
 
 #bgr_review_success_msg_modal p {
-    font-weight: 600; 
-    padding-top: 8%;   
+    font-weight: 600;
+    padding-top: 8%;
 }
 
 #bgr_review_success_msg_modal .close {
     color: #000;
+}
+
+.bgr-error-fields {
+    display: none;
+    color: red;
 }
