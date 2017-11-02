@@ -87,7 +87,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
                         <input type="hidden" id="bgr-rate-color" name="bgr-rate-color" value="<?php _e( $rating_color, BGR_DOMAIN ); ?>">
 						<div class="group-add-form">
                             <p>
-                                <?php _e( "<b>Write a $review_label</b>", BGR_DOMAIN ); ?>
+                                <b><?php _e( "Write a ", BGR_DOMAIN ); echo $review_label; ?></b>
                             </p>
 
                             <?php if( $current_group_id === 0 ) {?>

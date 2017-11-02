@@ -4,17 +4,17 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if( isset( $_GET ) ) {
     if( isset( $_GET['tab'] ) ) {
         $bgr_setting_tab = sanitize_text_field( $_GET['tab'] );
-        bgr_include_admin_setting_tabs( $bgr_setting_tab ); 
+        bgr_include_admin_setting_tabs( $bgr_setting_tab );
     }else{
 		bgr_include_admin_setting_tabs('general');
     }
 }
 
 /** Actions performed on Display review admin settings tabs
- * @since    1.0.0                
- * @author   Wbcom Designs              
+ * @since    1.0.0
+ * @author   Wbcom Designs
  */
- 
+
 function bgr_include_admin_setting_tabs( $bgr_setting_tab = 'general') {
     switch( $bgr_setting_tab ){
         case 'criteria':
@@ -35,17 +35,17 @@ function bgr_include_admin_setting_tabs( $bgr_setting_tab = 'general') {
 }
 
 /** Actions performed on Group Reviews Settings : Criteria Tab Content
- * @since    1.0.0                
- * @author   Wbcom Designs              
+ * @since    1.0.0
+ * @author   Wbcom Designs
  */
- 
+
 function bgr_criteria_setting() {
 	global $bgr;
         $spinner_src = includes_url().'images/spinner.gif';
 		$review_rating_fields = $bgr['review_rating_fields'];
 		$active_rating_fields = $bgr['active_rating_fields'];
-    
-?>    
+
+?>
     <div class="bgr-col-12"><h2><?php _e('Criteria Settings', BGR_DOMAIN ); ?></h2></div>
     <div class="bgr-row">
         <div class="bgr-col-3">
@@ -54,7 +54,7 @@ function bgr_criteria_setting() {
         </div>
         <div class="bgr-col-9">
             <div id="bgr-textbox-container">
-                <?php if( !empty( $review_rating_fields ) ) { 
+                <?php if( !empty( $review_rating_fields ) ) {
 							foreach( $review_rating_fields as $review_rating_field ): ?>
 								<div class="rating-review-div"><span>&equiv;</span><input name = "BGRDynamicTextBox" class="draggable" type="text" value = "<?php echo $review_rating_field; ?>" />
 									<input type="button" value="<?php _e( 'Remove', BGR_DOMAIN ); ?>" class="remove button button-secondary" />
@@ -62,10 +62,10 @@ function bgr_criteria_setting() {
 										<input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="<?php echo $review_rating_field; ?>" <?php if( in_array( $review_rating_field, $active_rating_fields ) ) { echo 'checked="checked"'; } ?>>
 										<div class="bgr-slider round"></div>
 									</label>
-								</div>    
-					<?php 	endforeach; 
-						} ?>                 
-            </div>			
+								</div>
+					<?php 	endforeach;
+						} ?>
+            </div>
             <input id="bgr-field-add" type="button" value="<?php _e( 'Add Criteria', BGR_DOMAIN );?>" class="button button-secondary"/>
 			<p class="bgr-admin-des"><?php _e( "This option provide you to add multiple rating criteria. By default, no criteria will be shown until you active it.", BGR_DOMAIN ); ?></p>
         </div>
@@ -75,53 +75,59 @@ function bgr_criteria_setting() {
             <input type="button" class="button button-primary" id="bgr-save-admin-criteria-settings" value="<?php _e( 'Save Settings', BGR_DOMAIN );?>">
             <img src="<?php echo $spinner_src; ?>" class="bgr-admin-criteria-settings-spinner" />
         </div>
-    </div> 
+    </div>
 <?php }
 
  /* Actions performed on Group Reviews Settings : Shortcode Tab Content
- * @since    1.0.0                
- * @author   Wbcom Designs              
- */ 
- 
+ * @since    1.0.0
+ * @author   Wbcom Designs
+ */
+
 function bgr_shortcode_setting() { ?>
     <div class="bgr-col-12"><h2><?php _e( 'Shortcodes', BGR_DOMAIN );?></h2></div>
-    <div class="bgr-row"> 
+    <div class="bgr-row">
         <div class="bgr-col-3"><label><?php echo '[add_group_review_form]'; ?></label></div>
         <div class="bgr-col-9"><?php _e( 'This shortcode will be display Group Review Form.', BGR_DOMAIN ); ?></div>
     </div>
 <?php }
 
 /* Actions performed on Group Reviews Settings : Display Tab Content
- * @since    1.0.0                
- * @author   Wbcom Designs              
- */ 
- 
+ * @since    1.0.0
+ * @author   Wbcom Designs
+ */
+
 function bgr_display_setting() {
         global $bgr;
         $spinner_src = includes_url().'images/spinner.gif';
         $bgrReviewLabel           = $bgr['review_label'];
         $bgrManageReviewLabel     = $bgr['manage_review_label'];
         $bgr_rating_color         = $bgr['rating_color'];
-        $bgr_rating_type          = $bgr['rating_type'];           
+        $bgr_rating_type          = $bgr['rating_type'];
     ?>
-    <div class="bgr-col-12"><h2><?php _e( 'Display Settings', BGR_DOMAIN );?></h2></div>
+    <div class="bgr-col-12">
+        <h2><?php _e( 'Display Settings', BGR_DOMAIN );?></h2>
+        <p class="description">
+            <b><?php _e( 'Note: ', BGR_DOMAIN ); ?></b>
+            <?php _e( 'Rating will be displayed in Review form, if and only if you added criteria for review.', BGR_DOMAIN );?>
+        </p>
+    </div>
     <div class="bgr-col-12"><h3><?php _e( 'Labels', BGR_DOMAIN );?></h3></div>
-    <div class="bgr-row">                    
+    <div class="bgr-row">
         <div class="bgr-col-3"><label for="bgrReviewLabel"><?php _e( 'Review', BGR_DOMAIN );?></label></div>
         <div class="bgr-col-9">
 			<input name = "bgrReviewLabel" id="bgrReviewLabel" type="text" value = "<?php echo $bgrReviewLabel; ?>" />
 			<p class="bgr-admin-des"><?php _e( 'This option provide flexibility to change review label. By default it shows "Review".' , BGR_DOMAIN); ?></p>
 		</div>
-    </div>   
-    <div class="bgr-row">                    
+    </div>
+    <div class="bgr-row">
         <div class="bgr-col-3"><label for="bgrManageReviewLabel"><?php _e( 'Review (In Manage Section)', BGR_DOMAIN );?></label></div>
         <div class="bgr-col-9">
 			<input name = "bgrManageReviewLabel" id="bgrManageReviewLabel" type="text" value = "<?php echo $bgrManageReviewLabel; ?>" />
 			<p class="bgr-admin-des"><?php _e( 'This option provides flexibility to change review label in <b>BuddyPress Group Manage</b> section. By default it shows "Reviews".' , BGR_DOMAIN); ?></p>
 		</div>
-    </div> 
+    </div>
     <div class="bgr-col-12"><h3><?php _e( 'Colors', BGR_DOMAIN );?></h3></div>
-    <div class="bgr-row"> 
+    <div class="bgr-row">
         <div class="bgr-col-3"><label for="bgr-rating-color"><?php _e( 'Rating Color', BGR_DOMAIN );?></label></div>
         <div class="bgr-col-9">
 			<input id="bgr-rating-color" class="bgr-review-color" type="text" data-default-color="#effeff" value="<?php echo $bgr_rating_color; ?>" />
@@ -129,30 +135,30 @@ function bgr_display_setting() {
 		</div>
     </div>
     <div class="bgr-col-12"><h3><?php _e( 'Rating Type', BGR_DOMAIN );?></h3></div>
-    <div class="bgr-row"> 
+    <div class="bgr-row">
         <div class="bgr-col-3"><label for="bgr-rating-type"><?php _e( 'Types', BGR_DOMAIN );?></label></div>
         <div class="bgr-col-9">
-            <select id="bgr-rating-type" name="bgr-rating-type">                
-                <option value="<?php _e( 'star', BGR_DOMAIN );?>" <?php if( $bgr_rating_type == 'star' ) { echo 'selected="selected"'; } ?>><?php _e( 'Star Rating', BGR_DOMAIN );?></option> 
+            <select id="bgr-rating-type" name="bgr-rating-type">
+                <option value="<?php _e( 'star', BGR_DOMAIN );?>" <?php if( $bgr_rating_type == 'star' ) { echo 'selected="selected"'; } ?>><?php _e( 'Star Rating', BGR_DOMAIN );?></option>
                 <option value="<?php _e( 'numbers', BGR_DOMAIN );?>" <?php if( $bgr_rating_type == 'numbers' ) { echo 'selected="selected"'; } ?>><?php _e( 'Number Rating', BGR_DOMAIN );?></option>
                 <option value="<?php _e( 'bar', BGR_DOMAIN );?>" <?php if( $bgr_rating_type == 'bar' ) { echo 'selected="selected"'; } ?>><?php _e( 'Bar Rating', BGR_DOMAIN );?></option>
             </select>
 			<p class="bgr-admin-des"><?php _e( "This option lets you to choose display of ratings. By default <b>Star Rating</b> will be shown.", BGR_DOMAIN); ?></p>
         </div>
-    </div> 
+    </div>
     <div class="bgr-col-12">
         <div class="bgr-col-6">
             <input type="button" class="button button-primary" id="bgr-save-admin-display-settings" value="<?php _e( 'Save Settings', BGR_DOMAIN );?>">
             <img src="<?php echo $spinner_src; ?>" class="bgr-admin-display-settings-spinner" />
         </div>
-    </div> 
+    </div>
 <?php }
 
  /* Actions performed on Group Reviews Settings : Support Tab Content
- * @since    1.0.0                
- * @author   Wbcom Designs              
- */ 
- 
+ * @since    1.0.0
+ * @author   Wbcom Designs
+ */
+
 function bgr_support_setting() {  ?>
     <div class="bgr-col-12"><h2><?php _e( 'FAQ(s)', BGR_DOMAIN );?></h2></div>
     <div id="bgr-settings-tbl">
@@ -162,7 +168,7 @@ function bgr_support_setting() {  ?>
                 <?php _e( 'How can we submit a review to a group using this plugin?', BGR_DOMAIN );?>
                 </button>
                 <div class="panel">
-                    <p> 
+                    <p>
                         <?php _e( 'When visiting the "/groups" section in the site, go for single group view page, there you can see a menu namely, "Reviews" that will allow you if you are a site member to add group review.', BGR_DOMAIN );?>
                     </p>
                 </div>
@@ -183,31 +189,31 @@ function bgr_support_setting() {  ?>
             </div>
         </div>
     </div>
-<?php     
+<?php
 }
 
  /* Actions performed on Group Reviews Settings : General Tab Content
- * @since    1.0.0                
- * @author   Wbcom Designs              
- */ 
- 
-function bgr_general_setting() { 
+ * @since    1.0.0
+ * @author   Wbcom Designs
+ */
+
+function bgr_general_setting() {
     global $bp, $bgr;
 
     $spinner_src       	  	= includes_url().'images/spinner.gif';
 	$allow_popup          	= $bgr['add_review_allow_popup'];
     $auto_approve_reviews   = $bgr['auto_approve_reviews'];
-	$reviews_per_page     	= $bgr['reviews_per_page']; 
-	$allow_email      	 	= $bgr['allow_email'];  
+	$reviews_per_page     	= $bgr['reviews_per_page'];
+	$allow_email      	 	= $bgr['allow_email'];
 	$allow_notification   	= $bgr['allow_notification'];
-	$exclude_groups       	= $bgr['exclude_groups']; 
-	$group_args 		  	= array(  
-		'order'       => 'DESC', 
+	$exclude_groups       	= $bgr['exclude_groups'];
+	$group_args 		  	= array(
+		'order'       => 'DESC',
 		'orderby'     => 'date_created',
         'per_page'    => -1
 	);
     $allgroups  			= groups_get_groups( $group_args );
-    
+
     ?>
     <div class="bgr-col-12"><h2><?php _e( 'General Settings', BGR_DOMAIN );?></h2></div>
     <div class="bgr-row">
@@ -253,11 +259,11 @@ function bgr_general_setting() {
 				<label class="bgr-switch" for="bgr-notification">
 					<input type="checkbox" id="bgr-notification" <?php if( $allow_notification == 'yes' ){ echo 'checked="checked"'; } ?>>
 					<div class="bgr-slider round"></div>
-				</label>					
+				</label>
 				<p class="bgr-admin-des"><?php _e( 'Enable this option, if you want to group admin & reviewer receive notification when add, accept & deny review.' , BGR_DOMAIN); ?></p>
 			<?php }  else { ?>
 				<p class="bgr-admin-des"><?php _e( 'This setting requires <b>BuddyPress Notifications </b>Component to be active.' , BGR_DOMAIN); ?></p>
-			<?php } ?>	
+			<?php } ?>
         </div>
     </div>
     <div class="bgr-row">
@@ -278,12 +284,12 @@ function bgr_general_setting() {
                     foreach( $allgroups['groups'] as $group ):
                         if( !empty( $exclude_groups ) ) {
                             if( in_array( $group->id, $exclude_groups ) ) {?>
-                                <option value="<?php echo $group->id; ?>" <?php _e( 'selected = selected', BGR_DOMAIN ); ?>><?php echo $group->name; ?></option> 
+                                <option value="<?php echo $group->id; ?>" <?php echo 'selected = selected'; ?>><?php echo $group->name; ?></option>
                             <?php } else { ?>
-                                <option value="<?php echo $group->id; ?>"><?php echo $group->name; ?></option> 
+                                <option value="<?php echo $group->id; ?>"><?php echo $group->name; ?></option>
                             <?php } } else { ?>
-                                <option value="<?php echo $group->id; ?>"><?php echo $group->name; ?></option> 
-                        <?php  }  
+                                <option value="<?php echo $group->id; ?>"><?php echo $group->name; ?></option>
+                        <?php  }
                     endforeach;
 				}?>
             </select>
@@ -295,5 +301,5 @@ function bgr_general_setting() {
             <input type="button" class="button button-primary" id="bgr-save-admin-general-settings" value="<?php _e( 'Save Settings', BGR_DOMAIN );?>">
             <img src="<?php echo $spinner_src; ?>" class="bgr-admin-general-settings-spinner" />
         </div>
-    </div> 
+    </div>
 <?php }

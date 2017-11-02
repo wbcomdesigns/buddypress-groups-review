@@ -72,7 +72,7 @@ if( !class_exists( 'BGR_Admin' ) ) {
 		                            $bgr_tab_html .=  '<a class="nav-tab ' . $class . '" href="admin.php?page=group-review-settings&tab=' . $bgr_tab . '">' . $bgr_name . '</a>';
 		                    }
 		                    $bgr_tab_html .= '</h2>';
-		                    _e($bgr_tab_html , BGR_DOMAIN );
+		                    echo $bgr_tab_html;
 		                    include 'review-admin-options-page.php';
 		}
 
@@ -129,24 +129,24 @@ if( !class_exists( 'BGR_Admin' ) ) {
 		function bgr_review_taxonomy_cpt() {
 			$category_labels = array(
 				'name'              		=> _x( 'Reviews Category', 'taxonomy general name' ),
-				'singular_name'     	=> _x( 'Review Category', 'taxonomy singular name' ),
-				'search_items'      	=> __( 'Search Categories' ),
+				'singular_name'     		=> _x( 'Review Category', 'taxonomy singular name' ),
+				'search_items'      		=> __( 'Search Categories' ),
 				'all_items'         		=> __( 'All Categories' ),
-				'parent_item'       	=> __( 'Parent Category' ),
-				'parent_item_colon' => __( 'Parent Category:' ),
+				'parent_item'       		=> __( 'Parent Category' ),
+				'parent_item_colon' 		=> __( 'Parent Category:' ),
 				'edit_item'         		=> __( 'Edit Category' ),
-				'update_item'       	=> __( 'Update Category' ),
-				'add_new_item'      => __( 'Add Category' ),
-				'new_item_name'    => __( 'New Category Name' ),
-				'menu_name'         => __( 'Category' ),
+				'update_item'       		=> __( 'Update Category' ),
+				'add_new_item'      		=> __( 'Add Category' ),
+				'new_item_name'    			=> __( 'New Category Name' ),
+				'menu_name'        		 	=> __( 'Category' ),
 			);
 			$category_args = array(
 				'hierarchical'      		=> true,
-				'labels'            			=> $category_labels,
+				'labels'            		=> $category_labels,
 				'show_ui'           		=> false,
-				'show_admin_column' => true,
+				'show_admin_column' 		=> true,
 				'query_var'         		=> true,
-				'rewrite'           			=> array( 'slug' => 'review_category' ),
+				'rewrite'           		=> array( 'slug' => 'review_category' ),
 			);
 			register_taxonomy( 'review_category', array( 'review' ), $category_args );
 		}

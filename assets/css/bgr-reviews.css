@@ -120,3 +120,6 @@
 .modal-body {
     padding: 2px 16px;
 }
+.bgr-group-review-add-block {
+    overflow: hidden;
+}

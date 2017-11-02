@@ -7,35 +7,35 @@ defined( 'ABSPATH' ) || exit;
  * The class_exists() check is recommended, to prevent problems during upgrade
  * or when the Groups component is disabled
  */
- 
+
 if ( class_exists( 'BP_Group_Extension' ) ) :
 
 	class Group_Reviews_Management_Extn extends BP_Group_Extension {
-                
+
 		function __construct() {
-                        
+
                         global $bp;
 						global $bgr;
                         $enabled = true;
 						$bgr_admin_display_settings  = get_option( 'bgr_admin_display_settings' );
                         $bgr_admin_general_settings  = get_option( 'bgr_admin_general_settings' );
                         if( !empty( $bgr_admin_display_settings ) ) {
-                            $review_label = $bgr_admin_display_settings['manage_review_label'];  
+                            $review_label = $bgr_admin_display_settings['manage_review_label'];
                             if( empty( $review_label )) {
                                 $review_label = 'Reviews ';
                             }
                         } else {
 							$review_label = 'Reviews ';
-						}	
+						}
                         if( !empty( $bgr_admin_general_settings ) ) {
-                            $exclude_groups = $bgr_admin_general_settings['exclude_groups'];                              
+                            $exclude_groups = $bgr_admin_general_settings['exclude_groups'];
                             if( !empty( $exclude_groups )) {
                                 if( in_array( bp_get_current_group_id() , $exclude_groups ) ) {
                                     $enabled = false;
                                 }
                             }
                         }
-                           
+
 						$args = array(
 							'slug'				=>	'manage-reviews',
 							'name'				=>	__('Manage Reviews', BGR_DOMAIN ),
@@ -50,18 +50,18 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 												'enabled' => false,
 												)),
 											'show_tab' => false,
-										 
+
 						);
 						parent::init( $args );
 		}
 
 		/*
-		* settings_screen_save() contains the catch-all logic for saving 
+		* settings_screen_save() contains the catch-all logic for saving
 		* settings from the edit, create, and Dashboard admin panels
 		*  @since   1.0.0
 		*  @author  Wbcom Designs
-		*/	
-		
+		*/
+
 		public function bp_is_checked( $value, $array ) {
 			if ( array_key_exists( $value, $array ) ) {
                             $checked = 'checked';
@@ -71,18 +71,18 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			}
 			return $checked;
 		}
-		
+
 		/*
 		*  Display all posted reviews that not checked by group admins.
 		*  @since   1.0.0
 		*  @author  Wbcom Designs
 		*/
-		
+
 		function edit_screen($group_id= NULL){
-			global $bp,$wpdb,$post;             
+			global $bp,$wpdb,$post;
 			//Admin Settings
-			$bgr_admin_settings 		 = get_option( 'bgr_admin_general_settings' ); 
-			$bgr_admin_display_settings  = get_option( 'bgr_admin_display_settings' );					
+			$bgr_admin_settings 		 = get_option( 'bgr_admin_general_settings' );
+			$bgr_admin_display_settings  = get_option( 'bgr_admin_display_settings' );
 			if( !empty( $bgr_admin_settings ) ) {
 				$reviews_per_page     = $bgr_admin_settings['reviews_per_page'];
 				if(empty($reviews_per_page)){
@@ -90,16 +90,16 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				}
 			} else {
 				$reviews_per_page = -1;
-			}  
+			}
 
 			if( !empty( $bgr_admin_display_settings ) ) {
-				$review_label = $bgr_admin_display_settings['review_label'];  
+				$review_label = $bgr_admin_display_settings['review_label'];
 				if( empty( $review_label )) {
 					$review_label = 'Reviews ';
 				}
 			} else {
 				$review_label = 'Reviews ';
-			}					
+			}
 			$paged 	= ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 			$args 	= array(
 				'post_type' 		=> 'review',
@@ -113,50 +113,51 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 							'value'	  =>	$bp->groups->current_group->id,
 							'compare' =>	'=',
 						),
-					),								
+					),
 			);
 			$reviews = new WP_Query($args);
 
 			?>
 			<div id="request-review-list" class="item-list reviews-item-list">
-				<?php if ($reviews->have_posts()):                            	
-					 while ( $reviews->have_posts() ): $reviews->the_post(); 
+				<?php if ($reviews->have_posts()):
+					 while ( $reviews->have_posts() ): $reviews->the_post();
 					?>
 						<div class="bgr-row item-list group-request-list">
-						<div class="bgr-col-2"> 
-							<?php $author =  $reviews->post->post_author;                                                                        
-							 bp_displayed_user_avatar( array( 'item_id' => $author ) ); ?> 
+						<div class="bgr-col-2">
+							<?php $author =  $reviews->post->post_author;
+							 bp_displayed_user_avatar( array( 'item_id' => $author ) ); ?>
 						</div>
 						<div class="bgr-col-8">
 							<div class="item-title">
 								<?php  _e( bp_core_get_userlink( $author ), BGR_DOMAIN ); ?>
 							</div>
-							<div class="item-description">								
-								<div class="review-description">                                                                       
+							<div class="item-description">
+								<div class="review-description">
 									<div class="review-excerpt bgr-col-12">
 										<b> <?php _e('Short Description: ', BGR_DOMAIN ); ?> </b>
-										<?php $trimcontent = get_the_content();                                                     
+										<?php $trimcontent = get_the_content();
 										  	if( !empty( $trimcontent ) ) {
-                                                $len = strlen( $trimcontent );  
+                                                $len = strlen( $trimcontent );
                                                 if( $len > 150 ) {
-                                                    $shortexcerpt = substr( $trimcontent, 0, 150 );  
-                                                    echo $shortexcerpt;   
+                                                    $shortexcerpt = substr( $trimcontent, 0, 150 );
+                                                    echo $shortexcerpt;
                                                 } else {
                                                     echo $trimcontent;
-                                                } 
+                                                }
                                             }
 										?>
-									</div> 
+									</div>
 									<div class="review-full-description bgr-col-12">
 										<div class="bgr-col-12">
-											<?php _e('<b> Full Description:</b> ', BGR_DOMAIN );
-											the_content();
-											?>
+											<b>
+												<?php _e('Full Description: ', BGR_DOMAIN ); ?>
+											</b>
+											<?php the_content(); ?>
 										</div>
 										<?php do_action( 'bgr_display_ratings', $post->ID ); ?>
 									</div>
 									<a class="expand-review-des"><?php _e('View More..', BGR_DOMAIN ); ?> </a>
-								</div>                                        
+								</div>
 							</div>
 						</div>
 						<div class="bgr-col-2">
@@ -167,10 +168,10 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 								<a class='deny-button' data-group-type='<?php _e($bp->groups->current_group->id, BGR_DOMAIN ); ?>'> <?php _e('Deny',BGR_DOMAIN); ?> </a><input type="hidden" name="deny_review_id" value="<?php _e( $post->ID, BGR_DOMAIN ); ?>">
 							</div>
 						</div>
-						
-						<div class="clear"></div>	                        
-						</div>                               
-					<?php                    
+
+						<div class="clear"></div>
+						</div>
+					<?php
 					endwhile;
 					$total_pages = $reviews->max_num_pages;
 					 if ($total_pages > 1) { ?>
@@ -193,10 +194,10 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						<p><?php _e( "Sorry, no $review_label were found.", BGR_DOMAIN ); ?></p>
 					</div>
 					<?php endif; ?>
-			</div>         
+			</div>
 			<?php
-		}	
+		}
 	}
     bp_register_group_extension( 'Group_Reviews_Management_Extn' );
-    
-endif; 
+
+endif;

@@ -1,0 +1,577 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Review BuddyPress Groups\n"
+"POT-Creation-Date: 2017-11-02 13:52+0530\n"
+"PO-Revision-Date: 2017-11-02 13:54+0530\n"
+"Last-Translator: \n"
+"Language-Team: wbcomdesigns\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.1\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_x\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/bgr-admin.php:29
+msgid "Group Reviews Admin Settings"
+msgstr ""
+
+#: admin/bgr-admin.php:29
+msgid "BP Group Review Settings"
+msgstr ""
+
+#: admin/bgr-admin.php:44
+msgid "General"
+msgstr ""
+
+#: admin/bgr-admin.php:45
+msgid "Criteria"
+msgstr ""
+
+#: admin/bgr-admin.php:46
+msgid "Shortcode"
+msgstr ""
+
+#: admin/bgr-admin.php:47
+msgid "Display"
+msgstr ""
+
+#: admin/bgr-admin.php:48
+msgid "Support"
+msgstr ""
+
+#: admin/bgr-admin.php:55
+msgid "Email Support"
+msgstr ""
+
+#: admin/bgr-admin.php:56
+msgid "User Manual"
+msgstr ""
+
+#: admin/bgr-admin.php:57
+msgid "Rate Us on WordPress.org"
+msgstr ""
+
+#: admin/bgr-admin.php:61
+msgid "Group Reviews Settings"
+msgstr ""
+
+#: admin/bgr-admin.php:64
+msgid "Group Reviews Settings Saved."
+msgstr ""
+
+#: admin/bgr-admin.php:66
+msgid "Dismiss this notice."
+msgstr ""
+
+#: admin/bgr-admin.php:87 admin/bgr-admin.php:89 admin/bgr-admin.php:90
+#: admin/review-admin-options-page.php:245
+msgid "Reviews"
+msgstr ""
+
+#: admin/bgr-admin.php:88 admin/review-admin-options-page.php:110
+msgid "Review"
+msgstr ""
+
+#: admin/bgr-admin.php:91 admin/bgr-admin.php:92
+msgid "Add New Review"
+msgstr ""
+
+#: admin/bgr-admin.php:93
+msgid "New Review"
+msgstr ""
+
+#: admin/bgr-admin.php:94
+msgid "View Reviews"
+msgstr ""
+
+#: admin/bgr-admin.php:95
+msgid "All Reviews"
+msgstr ""
+
+#: admin/bgr-admin.php:96
+msgid "Search Reviews"
+msgstr ""
+
+#: admin/bgr-admin.php:97
+msgid "Parent Review:"
+msgstr ""
+
+#: admin/bgr-admin.php:98
+msgid "No Review Found"
+msgstr ""
+
+#: admin/bgr-admin.php:99
+msgid "No Review Found In Trash"
+msgstr ""
+
+#: admin/bgr-admin.php:131
+msgid "Reviews Category"
+msgstr ""
+
+#: admin/bgr-admin.php:132
+msgid "Review Category"
+msgstr ""
+
+#: admin/bgr-admin.php:133
+msgid "Search Categories"
+msgstr ""
+
+#: admin/bgr-admin.php:134
+msgid "All Categories"
+msgstr ""
+
+#: admin/bgr-admin.php:135
+msgid "Parent Category"
+msgstr ""
+
+#: admin/bgr-admin.php:136
+msgid "Parent Category:"
+msgstr ""
+
+#: admin/bgr-admin.php:137
+msgid "Edit Category"
+msgstr ""
+
+#: admin/bgr-admin.php:138
+msgid "Update Category"
+msgstr ""
+
+#: admin/bgr-admin.php:139
+msgid "Add Category"
+msgstr ""
+
+#: admin/bgr-admin.php:140
+msgid "New Category Name"
+msgstr ""
+
+#: admin/bgr-admin.php:141
+msgid "Category"
+msgstr ""
+
+#: admin/review-admin-options-page.php:49
+msgid "Criteria Settings"
+msgstr ""
+
+#: admin/review-admin-options-page.php:52
+msgid "Criteria(s)"
+msgstr ""
+
+#: admin/review-admin-options-page.php:60
+msgid "Remove"
+msgstr ""
+
+#: admin/review-admin-options-page.php:69
+msgid "Add Criteria"
+msgstr ""
+
+#: admin/review-admin-options-page.php:70
+msgid ""
+"This option provide you to add multiple rating criteria. By default, no "
+"criteria will be shown until you active it."
+msgstr ""
+
+#: admin/review-admin-options-page.php:75
+#: admin/review-admin-options-page.php:145
+#: admin/review-admin-options-page.php:295
+msgid "Save Settings"
+msgstr ""
+
+#: admin/review-admin-options-page.php:87
+msgid "Shortcodes"
+msgstr ""
+
+#: admin/review-admin-options-page.php:90
+msgid "This shortcode will be display Group Review Form."
+msgstr ""
+
+#: admin/review-admin-options-page.php:107
+msgid "Display Settings"
+msgstr ""
+
+#: admin/review-admin-options-page.php:108
+msgid "Labels"
+msgstr ""
+
+#: admin/review-admin-options-page.php:113
+msgid ""
+"This option provide flexibility to change review label. By default it shows "
+"\"Review\"."
+msgstr ""
+
+#: admin/review-admin-options-page.php:117
+msgid "Review (In Manage Section)"
+msgstr ""
+
+#: admin/review-admin-options-page.php:120
+msgid ""
+"This option provides flexibility to change review label in <b>BuddyPress "
+"Group Manage</b> section. By default it shows \"Reviews\"."
+msgstr ""
+
+#: admin/review-admin-options-page.php:123
+msgid "Colors"
+msgstr ""
+
+#: admin/review-admin-options-page.php:125
+msgid "Rating Color"
+msgstr ""
+
+#: admin/review-admin-options-page.php:128
+msgid "This option lets you to change rating type color( except star rating )."
+msgstr ""
+
+#: admin/review-admin-options-page.php:131
+msgid "Rating Type"
+msgstr ""
+
+#: admin/review-admin-options-page.php:133
+msgid "Types"
+msgstr ""
+
+#: admin/review-admin-options-page.php:136 includes/bgr-rating-display.php:63
+#: includes/bgr-rating-display.php:66 includes/bgr-rating-display.php:230
+#: includes/bgr-rating-display.php:234 includes/bgr-rating-display.php:238
+#: includes/bgr-shortcodes.php:171
+msgid "star"
+msgstr ""
+
+#: admin/review-admin-options-page.php:136
+msgid "Star Rating"
+msgstr ""
+
+#: admin/review-admin-options-page.php:137
+msgid "numbers"
+msgstr ""
+
+#: admin/review-admin-options-page.php:137
+msgid "Number Rating"
+msgstr ""
+
+#: admin/review-admin-options-page.php:138 includes/bgr-rating-display.php:97
+#: includes/bgr-rating-display.php:100 includes/bgr-rating-display.php:133
+#: includes/bgr-rating-display.php:137 includes/bgr-rating-display.php:250
+#: includes/bgr-rating-display.php:254 includes/bgr-rating-display.php:258
+#: includes/bgr-rating-display.php:271 includes/bgr-rating-display.php:276
+#: includes/bgr-rating-display.php:281 includes/bgr-shortcodes.php:202
+#: includes/bgr-shortcodes.php:233
+msgid "bar"
+msgstr ""
+
+#: admin/review-admin-options-page.php:138
+msgid "Bar Rating"
+msgstr ""
+
+#: admin/review-admin-options-page.php:140
+msgid ""
+"This option lets you to choose display of ratings. By default <b>Star "
+"Rating</b> will be shown."
+msgstr ""
+
+#: admin/review-admin-options-page.php:157
+msgid "FAQ(s)"
+msgstr ""
+
+#: admin/review-admin-options-page.php:162
+msgid "How can we submit a review to a group using this plugin?"
+msgstr ""
+
+#: admin/review-admin-options-page.php:166
+msgid ""
+"When visiting the \"/groups\" section in the site, go for single group view "
+"page, there you can see a menu namely, \"Reviews\" that will allow you if "
+"you are a site member to add group review."
+msgstr ""
+
+#: admin/review-admin-options-page.php:175
+msgid "How can I use the review form on any other page?"
+msgstr ""
+
+#: admin/review-admin-options-page.php:179
+msgid ""
+"Yes you can use the review form on other page, just copy shortcode from "
+"review setting page and paste it on the other page."
+msgstr ""
+
+#: admin/review-admin-options-page.php:212
+msgid "General Settings"
+msgstr ""
+
+#: admin/review-admin-options-page.php:215
+msgid "Add Review Popup"
+msgstr ""
+
+#: admin/review-admin-options-page.php:222
+msgid "Enable this option, if you want to show <b>Add Review</b> in modal box."
+msgstr ""
+
+#: admin/review-admin-options-page.php:228
+msgid "Auto Approve Reviews"
+msgstr ""
+
+#: admin/review-admin-options-page.php:235
+msgid ""
+"Enable this option, if you want to have the reviews automatically approved, "
+"else manual approval will be required."
+msgstr ""
+
+#: admin/review-admin-options-page.php:241
+msgid "Reviews pages show at most"
+msgstr ""
+
+#: admin/review-admin-options-page.php:246
+msgid ""
+"This option lets you limit number of reviews in <b> Group Reviews </b> page "
+"& <b>Manage Reviews </b> Page."
+msgstr ""
+
+#: admin/review-admin-options-page.php:250
+msgid "Notifications"
+msgstr ""
+
+#: admin/review-admin-options-page.php:257
+msgid ""
+"Enable this option, if you want to group admin & reviewer receive "
+"notification when add, accept & deny review."
+msgstr ""
+
+#: admin/review-admin-options-page.php:259
+msgid ""
+"This setting requires <b>BuddyPress Notifications </b>Component to be active."
+msgstr ""
+
+#: admin/review-admin-options-page.php:264
+msgid "Emails"
+msgstr ""
+
+#: admin/review-admin-options-page.php:270
+msgid ""
+"Enable this option, if you want to group admin & reviewer receive email when "
+"add, accept & deny review."
+msgstr ""
+
+#: admin/review-admin-options-page.php:274
+msgid "Exclude Groups from reviews."
+msgstr ""
+
+#: admin/review-admin-options-page.php:290
+msgid ""
+"This option lets you to choose those groups that you don't want to provide "
+"review functionality."
+msgstr ""
+
+#: includes/bgr-ajax.php:82
+msgid "admin-settings-saved"
+msgstr ""
+
+#: includes/bgr-ajax.php:107
+msgid "admin-criteria-settings-saved"
+msgstr ""
+
+#: includes/bgr-ajax.php:139
+msgid "admin-general-settings-saved"
+msgstr ""
+
+#: includes/bgr-ajax.php:165
+msgid "admin-display-settings-saved"
+msgstr ""
+
+#: includes/bgr-filters.php:47
+msgid "Add Review"
+msgstr ""
+
+#: includes/bgr-filters.php:127
+msgid "Rating: "
+msgstr ""
+
+#: includes/bgr-filters.php:130
+msgid "No Rating Available!"
+msgstr ""
+
+#: includes/bgr-filters.php:235 includes/bgr-filters.php:246
+#: includes/bgr-filters.php:257
+msgid " "
+msgstr ""
+
+#: includes/bgr-grp-extn.php:41
+msgid "Manage Reviews"
+msgstr ""
+
+#: includes/bgr-grp-extn.php:137
+msgid "Short Description: "
+msgstr ""
+
+#: includes/bgr-grp-extn.php:153
+msgid "Full Description: "
+msgstr ""
+
+#: includes/bgr-grp-extn.php:159
+msgid "View More.."
+msgstr ""
+
+#: includes/bgr-grp-extn.php:165
+msgid "Accept"
+msgstr ""
+
+#: includes/bgr-grp-extn.php:168
+msgid "Deny"
+msgstr ""
+
+#: includes/bgr-grp-extn.php:186
+#: includes/templates/bgr-reviews-tab-template.php:138
+msgid "prev"
+msgstr ""
+
+#: includes/bgr-grp-extn.php:187
+#: includes/templates/bgr-reviews-tab-template.php:139
+msgid "next"
+msgstr ""
+
+#: includes/bgr-notifications.php:19
+msgid "Group Reviews"
+msgstr ""
+
+#: includes/bgr-rating-display.php:58 includes/bgr-rating-display.php:89
+#: includes/bgr-rating-display.php:124
+msgid " : "
+msgstr ""
+
+#: includes/bgr-rating-display.php:63
+msgid "assets/images/star.png"
+msgstr ""
+
+#: includes/bgr-rating-display.php:66
+msgid "assets/images/star_off.png"
+msgstr ""
+
+#: includes/bgr-rating-display.php:184
+msgid "Rating : "
+msgstr ""
+
+#: includes/bgr-shortcodes.php:96
+msgid "--Select Group--"
+msgstr ""
+
+#: includes/bgr-shortcodes.php:100
+msgid "selected=\"selected\""
+msgstr ""
+
+#: includes/bgr-shortcodes.php:104 includes/bgr-shortcodes.php:116
+#: includes/bgr-shortcodes.php:174 includes/bgr-shortcodes.php:205
+#: includes/bgr-shortcodes.php:236
+msgid "This field is required."
+msgstr ""
+
+#: includes/bgr-shortcodes.php:114
+msgid " Description"
+msgstr ""
+
+#: includes/bgr-shortcodes.php:231
+msgid "rated_bars"
+msgstr ""
+
+#: includes/templates/bgr-reviews-tab-template.php:38
+#: includes/templates/bgr-reviews-tab-template.php:42
+msgid "+Add "
+msgstr ""
+
+#: includes/templates/bgr-reviews-tab-template.php:63
+msgid "Add "
+msgstr ""
+
+#: includes/templates/bgr-reviews-tab-template.php:74
+msgid ""
+"Your Response added. This will be published when group admin approved it."
+msgstr ""
+
+#: includes/templates/bgr-reviews-tab-template.php:104
+msgid "read more..."
+msgstr ""
+
+#: includes/templates/bgr-reviews-tab-template.php:119
+msgid "Delete"
+msgstr ""
+
+#: includes/widgets/bgr-review.php:10
+msgid "Display Group Reviews."
+msgstr ""
+
+#: includes/widgets/bgr-review.php:12
+msgid "BP Group Review Widget"
+msgstr ""
+
+#: includes/widgets/bgr-review.php:33
+msgid "Title:"
+msgstr ""
+
+#: includes/widgets/bgr-review.php:36
+msgid "Select Listing Type"
+msgstr ""
+
+#: includes/widgets/bgr-review.php:39
+msgid "toprated"
+msgstr ""
+
+#: includes/widgets/bgr-review.php:39 includes/widgets/bgr-review.php:43
+msgid "checked=\"checked\""
+msgstr ""
+
+#: includes/widgets/bgr-review.php:40
+msgid "Top Rated"
+msgstr ""
+
+#: includes/widgets/bgr-review.php:43
+msgid "topreviewed"
+msgstr ""
+
+#: includes/widgets/bgr-review.php:44
+msgid "Most Reviewed"
+msgstr ""
+
+#: includes/widgets/bgr-review.php:50
+msgid "Number of reviews to show:"
+msgstr ""
+
+#: includes/widgets/bgr-review.php:56
+msgid "Thumbnail:"
+msgstr ""
+
+#: includes/widgets/bgr-review.php:58
+msgid "hide"
+msgstr ""
+
+#: includes/widgets/bgr-review.php:58
+msgid "Hide"
+msgstr ""
+
+#: includes/widgets/bgr-review.php:59
+msgid "show"
+msgstr ""
+
+#: includes/widgets/bgr-review.php:59
+msgid "Show"
+msgstr ""
+
+#: includes/widgets/bgr-review.php:202 includes/widgets/bgr-review.php:208
+msgid "/groups/"
+msgstr ""
+
+#: includes/widgets/bgr-review.php:229
+msgid "No Rating has been given to any group yet!"
+msgstr ""
+
+#: review-bp-grps.php:75
+msgid ""
+"The <b>Review BuddyPress Groups</b> plugin requires <b>Buddypress</b> plugin "
+"to be installed and active."
+msgstr ""
+
+#: review-bp-grps.php:89
+msgid ""
+"The <b>Review BuddyPress Groups</b> plugin requires <b>BuddyPress User "
+"Groups </b>Component to be active."
+msgstr ""

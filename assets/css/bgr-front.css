@@ -206,3 +206,7 @@
 #form-group-id {
     width: 100%;
 }
+
+.rating-bgr {
+    overflow: hidden;
+}
