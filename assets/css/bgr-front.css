@@ -200,4 +200,9 @@
 .bgr-error-fields {
     display: none;
     color: red;
+    float: left;
+}
+
+#form-group-id {
+    width: 100%;
 }

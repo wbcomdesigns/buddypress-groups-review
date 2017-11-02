@@ -1,5 +1,5 @@
 /**
-* #.# Section Review 
+* #.# Section Review
 *
 * This section includes css for front-end review content.
 */
@@ -73,9 +73,9 @@
 /* Add Animation */
 @-webkit-keyframes animatetop {
     from {
-        top:-300px; 
+        top:-300px;
         opacity:0
-    } 
+    }
     to {
         top:0;
         opacity:1
@@ -83,12 +83,12 @@
 }
 
 @keyframes animatetop {
-    from { 
+    from {
         top:-300px;
         opacity:0
     }
     to {
-        top:0; 
+        top:0;
         opacity:1
     }
 }

@@ -95,36 +95,63 @@ jQuery(document).ready(function(e){
         jQuery( this ).siblings('.bgr-error-fields').hide();
     });
 
+    jQuery('.stars').on('click',function() {
+        jQuery( this ).parent().next('.bgr-error-fields').hide();
+    });
+
+    jQuery('.bgr-bars').on('click',function(){
+        jQuery( this ).parent().next('.bgr-error-fields').hide();
+    });
+
+    jQuery('.bgr-numbers').on('click',function(){
+        jQuery( this ).parent().next('.bgr-error-fields').hide();
+    });
+
 	 // Submit Group Review
     jQuery('#bgr-add-review-form').submit(function(e) {
         var loc;
         e.preventDefault();
-        var bgr_groupid         = jQuery("#form-group-id", this).val();
-        var bgr_review_desc     = jQuery('textarea[name*= "review-desc"]', this).val();
+        var rating_exist         = [];
+        var bgr_groupid          = jQuery("#form-group-id", this).val();
+        var bgr_review_desc      = jQuery('textarea[name*= "review-desc"]', this).val();
         var rating_field_counter = jQuery(this).children().find('#rating_field_counter').val();
-        if ( rating_field_counter > 0 ) {
+        var empty_rate = 0;
+
+        jQuery('.bgr_mrating', this).each(function() {
+            var rate_val = jQuery( this ).val();
+            if( rate_val > 0 ) {
+                empty_rate = empty_rate + 1;
+            } else {
+                jQuery(this).parent().next('.bgr-error-fields').show();
+            }
+            rating_exist.push(rate_val);
+        });
+        if (( rating_field_counter > 0 )) {
             if( bgr_groupid == '' ) {
                 jQuery("#form-group-id", this).siblings('.bgr-error-fields').show();
             } else {
-                jQuery.post(
-                    ajaxurl,
-                   {
-                       'action' : 'bgr_submit_review',
-                       'data'   : jQuery(this).serialize()
-                   },
-                    function(response) {
-                        jQuery('.bgr-bp-success p').html( response ).css("display","block");
-                        jQuery('.bgr-group-review-no-popup-add-block').hide();
-                        jQuery('#bgr-add-review-modal').hide();
-                        jQuery('#bgr-message').css("display","block");
-                        sessionStorage.reloadAfterPageLoad = true;
-                        var date = new Date();
-                        date.setTime(date.getTime() + (20 * 1000));
-                        jQuery.cookie('res_content', response, { expires: date });
-                        window.location.reload();
-                    }
-                );
+                if(jQuery.inArray('0', rating_exist) == -1 ) {
+                    jQuery.post(
+                        ajaxurl,
+                       {
+                           'action' : 'bgr_submit_review',
+                           'data'   : jQuery(this).serialize()
+                       },
+                        function(response) {
+                            jQuery('.bgr-bp-success p').html( response ).css("display","block");
+                            jQuery('.bgr-group-review-no-popup-add-block').hide();
+                            jQuery('#bgr-add-review-modal').hide();
+                            jQuery('#bgr-message').css("display","block");
+                            sessionStorage.reloadAfterPageLoad = true;
+                            var date = new Date();
+                            date.setTime(date.getTime() + (20 * 1000));
+                            jQuery.cookie('res_content', response, { expires: date });
+                            window.location.reload();
+                        }
+                    );
+                }
             }
+
         } else {
             if( bgr_groupid == '' || bgr_review_desc == ''  ) {
                 if( bgr_groupid == '' ) {
