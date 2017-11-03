@@ -119,57 +119,57 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 
 			?>
 			<div id="request-review-list" class="item-list reviews-item-list">
-				<?php if ($reviews->have_posts()):
+				<?php if ( $reviews->have_posts() ):
 					 while ( $reviews->have_posts() ): $reviews->the_post();
 					?>
 						<div class="bgr-row item-list group-request-list">
-						<div class="bgr-col-2">
-							<?php $author =  $reviews->post->post_author;
-							 bp_displayed_user_avatar( array( 'item_id' => $author ) ); ?>
-						</div>
-						<div class="bgr-col-8">
-							<div class="item-title">
-								<?php  _e( bp_core_get_userlink( $author ), BGR_DOMAIN ); ?>
+							<div class="bgr-col-2">
+								<?php $author =  $reviews->post->post_author;
+								 bp_displayed_user_avatar( array( 'item_id' => $author ) ); ?>
 							</div>
-							<div class="item-description">
-								<div class="review-description">
-									<div class="review-excerpt bgr-col-12">
-										<b> <?php _e('Short Description: ', BGR_DOMAIN ); ?> </b>
-										<?php $trimcontent = get_the_content();
-										  	if( !empty( $trimcontent ) ) {
-                                                $len = strlen( $trimcontent );
-                                                if( $len > 150 ) {
-                                                    $shortexcerpt = substr( $trimcontent, 0, 150 );
-                                                    echo $shortexcerpt;
-                                                } else {
-                                                    echo $trimcontent;
-                                                }
-                                            }
-										?>
-									</div>
-									<div class="review-full-description bgr-col-12">
-										<div class="bgr-col-12">
-											<b>
-												<?php _e('Full Description: ', BGR_DOMAIN ); ?>
-											</b>
-											<?php the_content(); ?>
+							<div class="bgr-col-8">
+								<div class="item-title">
+									<?php  _e( bp_core_get_userlink( $author ), BGR_DOMAIN ); ?>
+								</div>
+								<div class="item-description">
+									<div class="review-description">
+										<div class="review-excerpt bgr-col-12">
+											<b> <?php _e('Short Description: ', BGR_DOMAIN ); ?> </b>
+											<?php $trimcontent = get_the_content();
+											  	if( !empty( $trimcontent ) ) {
+	                                                $len = strlen( $trimcontent );
+	                                                if( $len > 150 ) {
+	                                                    $shortexcerpt = substr( $trimcontent, 0, 150 );
+	                                                    echo $shortexcerpt;
+	                                                } else {
+	                                                    echo $trimcontent;
+	                                                }
+	                                            }
+											?>
 										</div>
-										<?php do_action( 'bgr_display_ratings', $post->ID ); ?>
+										<div class="review-full-description bgr-col-12">
+											<div class="bgr-col-12">
+												<b>
+													<?php _e('Full Description: ', BGR_DOMAIN ); ?>
+												</b>
+												<?php the_content(); ?>
+											</div>
+											<?php do_action( 'bgr_display_ratings', $post->ID ); ?>
+										</div>
+										<a class="expand-review-des"><?php _e('View More..', BGR_DOMAIN ); ?> </a>
 									</div>
-									<a class="expand-review-des"><?php _e('View More..', BGR_DOMAIN ); ?> </a>
 								</div>
 							</div>
-						</div>
-						<div class="bgr-col-2">
-							<div class='bgr-col-12 accept-review generic-button'>
-								<a class='accept-button' data-group-type='<?php _e( $bp->groups->current_group->id, BGR_DOMAIN ); ?>'> <?php _e('Accept',BGR_DOMAIN); ?> </a><input type="hidden" name="accept_review_id" value="<?php _e( $post->ID, BGR_DOMAIN ); ?>">
+							<div class="bgr-col-2">
+								<div class='bgr-col-12 accept-review generic-button'>
+									<a class='accept-button' data-group-type='<?php _e( $bp->groups->current_group->id, BGR_DOMAIN ); ?>'> <?php _e('Accept',BGR_DOMAIN); ?> </a><input type="hidden" name="accept_review_id" value="<?php _e( $post->ID, BGR_DOMAIN ); ?>">
+								</div>
+								<div class='bgr-col-12 deny-review generic-button'>
+									<a class='deny-button' data-group-type='<?php _e($bp->groups->current_group->id, BGR_DOMAIN ); ?>'> <?php _e('Deny',BGR_DOMAIN); ?> </a><input type="hidden" name="deny_review_id" value="<?php _e( $post->ID, BGR_DOMAIN ); ?>">
+								</div>
 							</div>
-							<div class='bgr-col-12 deny-review generic-button'>
-								<a class='deny-button' data-group-type='<?php _e($bp->groups->current_group->id, BGR_DOMAIN ); ?>'> <?php _e('Deny',BGR_DOMAIN); ?> </a><input type="hidden" name="deny_review_id" value="<?php _e( $post->ID, BGR_DOMAIN ); ?>">
-							</div>
-						</div>
 
-						<div class="clear"></div>
+							<div class="clear"></div>
 						</div>
 					<?php
 					endwhile;

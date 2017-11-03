@@ -25,8 +25,8 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
              *  @since   1.0.0
              *  @author  Wbcom Designs
              */
-            function add_new_review() {
 
+            function add_new_review() {
                 global $bp;
                 global $bgr;
 				$review_rating_fields 			= $bgr['review_rating_fields'];
@@ -35,20 +35,33 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
 				$admin_exclude_groups	  		= $bgr['exclude_groups'];
 				$rating_color					= $bgr['rating_color'];
 				$auto_approve_reviews   		= $bgr['auto_approve_reviews'];
+				$multi_reviews   				= $bgr['multi_reviews'];
+				$current_user   				= wp_get_current_user();
+                $member_id          			= $current_user->ID;
 
 				$current_group_id = 0;
 				if( !empty( bp_get_current_group_id() ) ) {
 					$current_group_id = bp_get_current_group_id();
 				}
+				$group_args 	= array(
+					'post_type' 		=> 'review',
+					'category' 			=> 'group',
+					'post_status' 		=> array(
+									        'draft',
+									        'publish'
+									    ),
+					'author' 			=> $member_id,
+					'meta_query' 		=> array(
+							array(
+								'key'	  =>	'linked_group',
+								'value'	  =>	$current_group_id,
+								'compare' =>	'=',
+							),
+						),
+				);
+				$reviews_args = new WP_Query($group_args);
                 ?>
                 <div id="bgr-message" class="bgr-success">
-                    <?php
-                    	if( $auto_approve_reviews == 'yes' ) {
-                    		_e( " Thank you for taking the time to write this wonderful $review_label!", BGR_DOMAIN );
-                    	} else {
-                    		_e( " Thank you for taking the time to write this wonderful $review_label. Your $review_label will display after moderator approval.", BGR_DOMAIN );
-                    	}
-                    ?>
                 </div>
                 <?php
                 if(!is_user_logged_in()) { ?>
@@ -58,78 +71,98 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
                 <?php }
                 elseif( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) && is_user_logged_in() ) {
                     //Get All groups of user in which user is admin.
-                    $current_user   	= wp_get_current_user();
-                    $member_id      = $current_user->ID;
-                    $user_groups    = BP_Groups_Member::get_is_admin_of( $member_id );
-                    $exclude_group = array();
+                    if( bp_is_group_single() ) {
+                    	if( $multi_reviews == 'no' ) {
+	                    	$user_post_count = $reviews_args->post_count;
+	                    } else {
+	                    	$user_post_count = 0;
+	                    }
 
-                    if( !empty( $user_groups ) ) {
-                        foreach ( $user_groups['groups'] as $user_group ) {
-                            array_push( $exclude_group, $user_group->id );
-                        }
+	                    if( $user_post_count == 0 ) {
+	                    	$this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $rating_color, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
+	                    } else { ?>
+	                    	<div id="message" class="error">
+			                   <p><?php _e("You already posted a review for this group.", BGR_DOMAIN ); ?> </p>
+			                </div>
+	                    <?php }
+
+                    } else {
+                    	$this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $rating_color, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
                     }
-
-					if( !empty( $admin_exclude_groups ) ) {
-						foreach ( $admin_exclude_groups as $admin_exclude_group ){
-							array_push( $exclude_group, $admin_exclude_group );
-						}
-					}
-                    //Get All groups
-                    $group_args = array(
-						'order' => 'DESC',
-						'orderby' => 'date_created',
-						'exclude' => $exclude_group,
-					);
-                    $allgroups  = groups_get_groups( $group_args );
-                ?>
-                    <form id="bgr-add-review-form" method="POST">
-                        <input type="hidden" id="reviews_pluginurl"  name="reviews_pluginurl" value="<?php _e( BGR_PLUGIN_URL, BGR_DOMAIN );?>">
-                        <input type="hidden" id="bgr-rate-color" name="bgr-rate-color" value="<?php _e( $rating_color, BGR_DOMAIN ); ?>">
-						<div class="group-add-form">
-                            <p>
-                                <b><?php _e( "Write a ", BGR_DOMAIN ); echo $review_label; ?></b>
-                            </p>
-
-                            <?php if( $current_group_id === 0 ) {?>
-                            <p class="bgr-form-group-id">
-                                <select id="form-group-id" name="form-group-id">
-                                    <option value=""><?php _e('--Select Group--', BGR_DOMAIN ); ?></option>
-                                    <?php
-                                    if( !empty( $allgroups ) ) {
-                                        foreach ( $allgroups['groups'] as $formGroup ){ ?>
-                                            <option value="<?php _e( $formGroup->id, BGR_DOMAIN ); ?>" <?php if( bp_is_group() ) { if( bp_get_group_id() == $formGroup->id ): _e('selected="selected"', BGR_DOMAIN ); endif; } ?>><?php _e( $formGroup->name, BGR_DOMAIN ); ?></option>
-                                    <?php } }  ?>
-                                </select>
-                                <br/>
-								<span class="bgr-error-fields">*<?php _e('This field is required.', BGR_DOMAIN ); ?></span>
-                            </p>
-                            <?php } else {?>
-                            	<input type="hidden" name="form-group-id" value="<?php echo $current_group_id;?>" />
-                           	<?php }?>
-                            <p>
-                            	<?php $review_subject = 'Review '.time();?>
-                                <input name="review-subject" type="hidden" value="<?php echo $review_subject;?>">
-                            </p>
-                            <p>
-                                <textarea name="review-desc" placeholder="<?php _e( $review_label." Description", BGR_DOMAIN ); ?>" rows="3" cols="50"></textarea>
-                                <br/>
-								<span class="bgr-error-fields">*<?php _e('This field is required.', BGR_DOMAIN ); ?></span>
-                            </p>
-                            <p>
-                                <input type="hidden" name="bgr-flag" value="1">
-                            </p>
-							<?php $this->bgr_display_form_rating();?>
-                            <p>
-                                <?php wp_nonce_field( 'save-group-review', 'security-nonce');?>
-                                <button class="btn btn-default bgr-submit-review" name="bgr-submit-review"><?php _e( "Submit $review_label", BGR_DOMAIN );?></button>
-                            </p>
-                        </div>
-                    </form>
-                <?php } else { ?>
+                 }  else { ?>
 	                <div id="message" class="error">
 	                   <p><?php _e("You can't post $review_label on your own group.", BGR_DOMAIN ); ?> </p>
 	                </div>
                <?php  }
+            }
+
+            function bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $rating_color, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id ) {
+                global $bp;
+                $user_groups    = BP_Groups_Member::get_is_admin_of( $member_id );
+                $exclude_group = array();
+
+                if( !empty( $user_groups ) ) {
+                    foreach ( $user_groups['groups'] as $user_group ) {
+                        array_push( $exclude_group, $user_group->id );
+                    }
+                }
+
+				if( !empty( $admin_exclude_groups ) ) {
+					foreach ( $admin_exclude_groups as $admin_exclude_group ){
+						array_push( $exclude_group, $admin_exclude_group );
+					}
+				}
+                //Get All groups
+                $group_args = array(
+					'order' => 'DESC',
+					'orderby' => 'date_created',
+					'exclude' => $exclude_group,
+				);
+                $allgroups  = groups_get_groups( $group_args );
+            	?>
+                <form id="bgr-add-review-form" method="POST">
+                    <input type="hidden" id="reviews_pluginurl"  name="reviews_pluginurl" value="<?php _e( BGR_PLUGIN_URL, BGR_DOMAIN );?>">
+                    <input type="hidden" id="bgr-rate-color" name="bgr-rate-color" value="<?php _e( $rating_color, BGR_DOMAIN ); ?>">
+					<div class="group-add-form">
+                        <p>
+                            <b><?php _e( "Write a ", BGR_DOMAIN ); echo $review_label; ?></b>
+                        </p>
+
+                        <?php if( $current_group_id === 0 ) {?>
+                        <p class="bgr-form-group-id">
+                            <select id="form-group-id" name="form-group-id">
+                                <option value=""><?php _e('--Select Group--', BGR_DOMAIN ); ?></option>
+                                <?php
+                                if( !empty( $allgroups ) ) {
+                                    foreach ( $allgroups['groups'] as $formGroup ){ ?>
+                                        <option value="<?php _e( $formGroup->id, BGR_DOMAIN ); ?>" <?php if( bp_is_group() ) { if( bp_get_group_id() == $formGroup->id ): _e('selected="selected"', BGR_DOMAIN ); endif; } ?>><?php _e( $formGroup->name, BGR_DOMAIN ); ?></option>
+                                <?php } }  ?>
+                            </select>
+                            <br/>
+							<span class="bgr-error-fields">*<?php _e('This field is required.', BGR_DOMAIN ); ?></span>
+                        </p>
+                        <?php } else {?>
+                        	<input type="hidden" name="form-group-id" value="<?php echo $current_group_id;?>" />
+                       	<?php }?>
+                        <p>
+                        	<?php $review_subject = 'Review '.time();?>
+                            <input name="review-subject" type="hidden" value="<?php echo $review_subject;?>">
+                        </p>
+                        <p>
+                            <textarea name="review-desc" placeholder="<?php _e( $review_label." Description", BGR_DOMAIN ); ?>" rows="3" cols="50"></textarea>
+                            <br/>
+							<span class="bgr-error-fields">*<?php _e('This field is required.', BGR_DOMAIN ); ?></span>
+                        </p>
+                        <p>
+                            <input type="hidden" name="bgr-flag" value="1">
+                        </p>
+						<?php $this->bgr_display_form_rating();?>
+                        <p>
+                            <?php wp_nonce_field( 'save-group-review', 'security-nonce');?>
+                            <button class="btn btn-default bgr-submit-review" name="bgr-submit-review"><?php _e( "Submit $review_label", BGR_DOMAIN );?></button>
+                        </p>
+                    </div>
+                </form> <?php
             }
 
 			function bgr_display_form_rating() {

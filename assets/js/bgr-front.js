@@ -107,6 +107,23 @@ jQuery(document).ready(function(e){
         jQuery( this ).parent().next('.bgr-error-fields').hide();
     });
 
+    // Show & hide full description
+    jQuery(document).on('click','.expand-review-des', function() {
+        var display = jQuery(this).parent().children('.review-full-description').css('display');
+        if (display === 'block') {
+            jQuery('.review-full-description').slideUp(500);
+            jQuery(this).parent().children('.review-excerpt').slideDown(500);
+            jQuery(this).text("View More...");
+        }else{
+            jQuery('.review-full-description').hide();
+            jQuery('.review-excerpt').show();
+            jQuery('.review-full-description').next().text("View More..");
+            jQuery(this).parent().children('.review-excerpt').slideUp(500);
+            jQuery(this).parent().children('.review-full-description').slideDown(500);
+            jQuery(this).text("View Less...");
+        }
+    });
+
 	 // Submit Group Review
     jQuery('#bgr-add-review-form').submit(function(e) {
         var loc;
@@ -141,6 +158,7 @@ jQuery(document).ready(function(e){
                             jQuery('.bgr-bp-success p').html( response ).css("display","block");
                             jQuery('.bgr-group-review-no-popup-add-block').hide();
                             jQuery('#bgr-add-review-modal').hide();
+                            jQuery('#bgr-message').html( response );
                             jQuery('#bgr-message').css("display","block");
                             sessionStorage.reloadAfterPageLoad = true;
                             var date = new Date();
@@ -171,6 +189,7 @@ jQuery(document).ready(function(e){
                         jQuery('.bgr-bp-success p').html( response ).css("display","block");
                         jQuery('.bgr-group-review-no-popup-add-block').hide();
                         jQuery('#bgr-add-review-modal').hide();
+                        jQuery('#bgr-message').html( response );
                         jQuery('#bgr-message').css("display","block");
                         sessionStorage.reloadAfterPageLoad = true;
                         var date = new Date();

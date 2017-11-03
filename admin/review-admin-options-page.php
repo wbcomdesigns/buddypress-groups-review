@@ -178,12 +178,63 @@ function bgr_support_setting() {  ?>
         <div class="bgr-admin-row">
             <div>
                <button class="bgr-accordion">
-                <?php _e( 'I want', BGR_DOMAIN );?>
+                <?php _e( 'If I don\'t want to provide review functionality to any group, then what will I do?', BGR_DOMAIN );?>
                 </button>
                 <div class="panel">
                     <p>
-                        <?php _e( 'Yes, you can use the review form on other page, just copy shortcode from review setting page and paste it on the other page.', BGR_DOMAIN );
-                        ?>
+                        <?php _e( 'If you don\'t want to provide review functionality to any group, you can exclude that group for this functionality. For exclude, the plugin has to set in the General tab. Here, you exclude one or more groups from reviews.', BGR_DOMAIN ); ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bgr-admin-row">
+            <div>
+               <button class="bgr-accordion">
+                <?php _e( 'How to hide some rating criteria from Review form?', BGR_DOMAIN );?>
+                </button>
+                <div class="panel">
+                    <p>
+                        <?php _e( 'You can hide criteria by disable criteria in \'Criteria\' tab.', BGR_DOMAIN );?>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bgr-admin-row">
+            <div>
+               <button class="bgr-accordion">
+                    <?php _e( 'How change label of \'Reviews\' tab or label of \'Reviews\' sub-tab under \'Manage\' tab?', BGR_DOMAIN ); ?>
+                </button>
+                <div class="panel">
+                    <p>
+                        <?php _e( 'This plugin provides settings to change labels, you can see settings in plugin\'s settings \'Display\' tab.', BGR_DOMAIN ); ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bgr-admin-row">
+            <div>
+               <button class="bgr-accordion">
+                    <?php _e( 'Why \'Add Review\' option is not displaying in a group created by me?', BGR_DOMAIN ); ?>
+                </button>
+                <div class="panel">
+                    <p>
+                        <?php _e( 'This option is not displaying because group admin can\'t review own group, you can add the review to only that groups in which you are not the admin.', BGR_DOMAIN ); ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bgr-admin-row">
+            <div>
+               <button class="bgr-accordion">
+                <?php _e( 'How to display groups average reviews according to reviews or ratings in sidebar or footer?', BGR_DOMAIN );?>
+                </button>
+                <div class="panel">
+                    <p>
+                        <?php _e( 'This plugin provides a widget to show average ratings or reviews of BuddyPress Groups, you can use it for display average rating & reviews.', BGR_DOMAIN ); ?>
                     </p>
                 </div>
             </div>
@@ -196,8 +247,7 @@ function bgr_support_setting() {  ?>
                 </button>
                 <div class="panel">
                     <p>
-                        <?php _e( 'Yes, you can use the review form on other page, just copy shortcode from review setting page and paste it on the other page.', BGR_DOMAIN );
-                        ?>
+                        <?php _e( 'Yes, you can use the review form on other page, just copy shortcode from review setting page and paste it on the other page.', BGR_DOMAIN ); ?>
                     </p>
                 </div>
             </div>
@@ -234,6 +284,7 @@ function bgr_general_setting() {
 	$allow_email      	 	= $bgr['allow_email'];
 	$allow_notification   	= $bgr['allow_notification'];
 	$exclude_groups       	= $bgr['exclude_groups'];
+    $multi_reviews          = $bgr['multi_reviews'];
 	$group_args 		  	= array(
 		'order'       => 'DESC',
 		'orderby'     => 'date_created',
@@ -253,6 +304,19 @@ function bgr_general_setting() {
                 <div class="bgr-slider round"></div>
             </label>
 			<p class="bgr-admin-des"><?php _e( 'Enable this option, if you want to show <b>Add Review</b> in modal box.' , BGR_DOMAIN); ?></p>
+        </div>
+    </div>
+
+    <div class="bgr-row">
+        <div class="bgr-col-3">
+            <label><?php _e( 'Multiple Review', BGR_DOMAIN );?></label>
+        </div>
+        <div class="bgr-col-9">
+            <label class="bgr-switch" for="bgr-multi-reviews">
+                <input type="checkbox" id="bgr-multi-reviews" <?php if( 'yes'  == $multi_reviews ){  echo 'checked="checked"'; } ?>>
+                <div class="bgr-slider round"></div>
+            </label>
+            <p class="bgr-admin-des"><?php _e( 'Enable this option, if you want to add functionality to user can send multiple review to same group.' , BGR_DOMAIN); ?></p>
         </div>
     </div>
 

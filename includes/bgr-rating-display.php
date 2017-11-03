@@ -54,18 +54,23 @@ if( !class_exists( 'BGR_Rating_Display' ) ) {
 					foreach( $review_rating_fields as $review_field ) {
 						if( array_key_exists( $review_field, $review_ratings[0] ) ) {
 							?>
-							<div class="bgr-col-6">
-								<?php _e( $review_field.' : ', BGR_DOMAIN );
-								/*** Ratings *****/
-								$stars_on  = $review_ratings[0][ $review_field ];
-								$stars_off = 5 - $stars_on;
-								for( $i = 1; $i <= $stars_on; $i++ ){
-									?><img class="stars" src="<?php _e( BGR_PLUGIN_URL."assets/images/star.png", BGR_DOMAIN );?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
-								}
-								for( $i = 1; $i <= $stars_off; $i++ ){
-									?><img class="stars" src="<?php _e( BGR_PLUGIN_URL."assets/images/star_off.png", BGR_DOMAIN );?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
-								}
-								?>
+							<div class="bgr-col-12">
+								<div class="bgr-col-6">
+									<?php _e( $review_field.' : ', BGR_DOMAIN ); ?>
+								</div>
+								<div class="bgr-col-6">
+								<?php
+									/*** Ratings *****/
+									$stars_on  = $review_ratings[0][ $review_field ];
+									$stars_off = 5 - $stars_on;
+									for( $i = 1; $i <= $stars_on; $i++ ){
+										?><img class="stars" src="<?php _e( BGR_PLUGIN_URL."assets/images/star.png", BGR_DOMAIN );?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
+									}
+									for( $i = 1; $i <= $stars_off; $i++ ){
+										?><img class="stars" src="<?php _e( BGR_PLUGIN_URL."assets/images/star_off.png", BGR_DOMAIN );?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
+									}
+									?>
+								</div>
 							</div>
 							<?php
 						}
