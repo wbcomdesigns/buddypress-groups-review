@@ -26,7 +26,7 @@ if( !class_exists( 'BGR_Admin' ) ) {
 		*/
 
 		function bgr_add_submenu_page_admin_settings() {
-			add_submenu_page( 'edit.php?post_type=review', __( 'Group Reviews Admin Settings', BGR_DOMAIN ), __( 'Group Review Settings', BGR_DOMAIN ), 'manage_options', 'group-review-settings', array( $this, 'bgr_admin_options_page' ) );
+			add_submenu_page( 'edit.php?post_type=review', __( 'Group Reviews Admin Settings', BGR_DOMAIN ), __( 'Group Settings', BGR_DOMAIN ), 'manage_options', 'group-review-settings', array( $this, 'bgr_admin_options_page' ) );
 		}
 
 		/* Actions performed on changing admin settings tab
