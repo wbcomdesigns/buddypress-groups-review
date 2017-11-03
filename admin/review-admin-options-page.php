@@ -195,7 +195,7 @@ function bgr_support_setting() {  ?>
                 </button>
                 <div class="panel">
                     <p>
-                        <?php _e( 'If you don\'t want to provide review functionality to any group, you can exclude that group for this functionality. For exclude, the plugin has to set in the General tab. Here, you exclude one or more groups from reviews.', BGR_DOMAIN ); ?>
+                        <?php _e( 'If you don\'t want to provide review functionality to any group, you can exclude that group for this functionality. For exclude, the plugin has option to exclude groups in the General tab. Here, you exclude one or more groups from reviews.', BGR_DOMAIN ); ?>
                     </p>
                 </div>
             </div>
