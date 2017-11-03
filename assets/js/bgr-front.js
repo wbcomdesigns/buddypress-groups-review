@@ -3,13 +3,12 @@ jQuery(document).ready(function(e){
         jQuery('#bgr_review_success_msg_modal').hide();
         //Open Add Review Form
         jQuery(document).on('click', '#add-review', function(){
-                jQuery( '#bgr-add-review-modal' ).css( 'display', 'block' );
+            jQuery( '#bgr-add-review-modal' ).css( 'display', 'block' );
         });
 
         jQuery(document).on('click', '#groupbutton-85 a', function(e){
             var show_content = jQuery( this ).attr('show');
             localStorage.setItem("bgr_show_form", show_content );
-
         });
 
         // When the user clicks on <span> (x), close the modal
@@ -221,8 +220,8 @@ jQuery( function () {
         if( show_last_form == 'form-modal' ) {
             jQuery('#add-review').click();
             localStorage.setItem("bgr_show_form", null );
-        }  else {
-            jQuery('.bgr-group-review-no-popup-add-block').click();
+        }  else if( show_last_form == 'form' ) {
+            jQuery('.bgr-group-review-no-popup-add-block').show();
             localStorage.setItem("bgr_show_form", null );
         }
     }
