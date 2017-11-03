@@ -49,7 +49,7 @@ function bgr_criteria_setting() {
     <div class="bgr-col-12"><h2><?php _e('Criteria Settings', BGR_DOMAIN ); ?></h2></div>
     <div class="bgr-row">
         <div class="bgr-col-3">
-            <label><?php _e('Criteria(s)', BGR_DOMAIN );?></label>
+            <label><?php _e('Reviews Criteria(s)', BGR_DOMAIN );?></label>
             </span>
         </div>
         <div class="bgr-col-9">
@@ -66,7 +66,7 @@ function bgr_criteria_setting() {
 					<?php 	endforeach;
 						} ?>
             </div>
-            <input id="bgr-field-add" type="button" value="<?php _e( 'Add Criteria', BGR_DOMAIN );?>" class="button button-secondary"/>
+            <input id="bgr-field-add" type="button" value="<?php _e( 'Add Review Criteria', BGR_DOMAIN );?>" class="button button-secondary"/>
 			<p class="bgr-admin-des"><?php _e( "This option provide you to add multiple rating criteria. By default, no criteria will be shown until you active it.", BGR_DOMAIN ); ?></p>
         </div>
     </div>
@@ -84,7 +84,7 @@ function bgr_criteria_setting() {
  */
 
 function bgr_shortcode_setting() { ?>
-    <div class="bgr-col-12"><h2><?php _e( 'Shortcodes', BGR_DOMAIN );?></h2></div>
+    <div class="bgr-col-12"><h2><?php _e( 'Shortcode to display Group Review Form', BGR_DOMAIN );?></h2></div>
     <div class="bgr-row">
         <div class="bgr-col-3"><label><?php echo '[add_group_review_form]'; ?></label></div>
         <div class="bgr-col-9"><?php _e( 'This shortcode will be display Group Review Form.', BGR_DOMAIN ); ?></div>
@@ -309,20 +309,20 @@ function bgr_general_setting() {
     <div class="bgr-col-12"><h2><?php _e( 'General Settings', BGR_DOMAIN );?></h2></div>
     <div class="bgr-row">
         <div class="bgr-col-3">
-            <label><?php _e( 'Add Review Popup', BGR_DOMAIN );?></label>
+            <label><?php _e( 'Enable popup', BGR_DOMAIN );?></label>
         </div>
         <div class="bgr-col-9">
             <label class="bgr-switch" for="bgr-allow-popup">
                 <input type="checkbox" id="bgr-allow-popup" <?php if( 'yes'  == $allow_popup ){  echo 'checked="checked"'; } ?>>
                 <div class="bgr-slider round"></div>
             </label>
-			<p class="bgr-admin-des"><?php _e( 'Enable this option, if you want to show <b>Add Review</b> in modal box.' , BGR_DOMAIN); ?></p>
+			<p class="bgr-admin-des"><?php _e( 'Enable this option, if you want to show <b>Add Review</b> form in modal box.' , BGR_DOMAIN); ?></p>
         </div>
     </div>
 
     <div class="bgr-row">
         <div class="bgr-col-3">
-            <label><?php _e( 'Multiple Review', BGR_DOMAIN );?></label>
+            <label><?php _e( 'Enable Multiple Review', BGR_DOMAIN );?></label>
         </div>
         <div class="bgr-col-9">
             <label class="bgr-switch" for="bgr-multi-reviews">
@@ -335,7 +335,7 @@ function bgr_general_setting() {
 
     <div class="bgr-row">
         <div class="bgr-col-3">
-            <label><?php _e( 'Auto Approve Reviews', BGR_DOMAIN );?></label>
+            <label><?php _e( 'Enable auto approval of Reviews', BGR_DOMAIN );?></label>
         </div>
         <div class="bgr-col-9">
             <label class="bgr-switch" for="bgr-auto-approve-reviews">
@@ -348,7 +348,7 @@ function bgr_general_setting() {
 
     <div class="bgr-row">
         <div class="bgr-col-3">
-            <label for="reviews_per_page"><?php _e( 'Reviews pages show at most', BGR_DOMAIN );?></label>
+            <label for="reviews_per_page"><?php _e( 'Reviews show at most', BGR_DOMAIN );?></label>
         </div>
         <div class="bgr-col-9">
             <input id="reviews_per_page" class="small-text" name="reviews_per_page" step="1" min="1" value="<?php echo $reviews_per_page; ?>" type="number">
@@ -357,7 +357,7 @@ function bgr_general_setting() {
         </div>
     </div>
     <div class="bgr-row">
-        <div class="bgr-col-3"><label><?php _e( 'Notifications', BGR_DOMAIN );?></label></div>
+        <div class="bgr-col-3"><label><?php _e( 'Enable BuddyPress notifications', BGR_DOMAIN );?></label></div>
         <div class="bgr-col-9">
 			<?php  if( bp_is_active( 'notifications' ) ) { ?>
 				<label class="bgr-switch" for="bgr-notification">
