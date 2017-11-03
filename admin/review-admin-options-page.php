@@ -107,7 +107,7 @@ function bgr_display_setting() {
     <div class="bgr-col-12">
         <h2><?php _e( 'Display Settings', BGR_DOMAIN );?></h2>
         <p class="description">
-            <b><?php _e( 'Note: ', BGR_DOMAIN ); ?></b>
+            <b><?php _e( 'Note:', BGR_DOMAIN ); ?></b>
             <?php _e( 'Rating will be displayed in Review form, if and only if you added criteria for review.', BGR_DOMAIN );?>
         </p>
     </div>

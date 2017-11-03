@@ -35,11 +35,11 @@ $reviews 				= new WP_Query($args);
 				_e( $review_label, BGR_DOMAIN ); ?>
 				<?php if( $allow_popup == 'yes' ) { ?>
 					<span class="bgr-add-review">
-						<a href="javascript:void(0)" id="add-review"><?php _e('+Add ', BGR_DOMAIN ); ?></a>
+						<a href="javascript:void(0)" id="add-review"><?php _e('Add ', BGR_DOMAIN ); echo $review_label; ?></a>
 					</span>
 				<?php } else { ?>
 					<span class="bgr-add-review">
-						<a href="javascript:void(0)" id="add-review-no-popup"><?php _e('+Add ', BGR_DOMAIN ); ?></a>
+						<a href="javascript:void(0)" id="add-review-no-popup"><?php _e('Add ', BGR_DOMAIN ); echo $review_label; ?></a>
 					</span>
 				<?php }
 			} ?>
