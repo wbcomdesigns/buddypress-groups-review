@@ -1,17 +1,17 @@
-=== BuddyPress Group Reviews ===
+=== Review BuddyPress Groups ===
 Contributors: wbcomdesigns
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
-Requires at least: 3.0.1
-Tested up to: 4.8.1
+Requires at least: 4.0
+Tested up to: 4.8.3
 Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-This plugin allows the BuddyPress Memebers to add reviews to the buddypress groups on the site. The review form allows the users to even rate the group out of 5 points.
-
+This plugin allows the BuddyPress Memebers to give reviews to the BuddyPress groups on the site. The review form allows the users to give text review, even rate the group on the basis of multiple criterias.
+Review BuddyPress Groups
 If you need additional help you can contact us for [Custom Development](https://wbcomdesigns.com/contact/).
 
 == Installation ==
@@ -65,19 +65,17 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 
 == Changelog ==
 
-= 1.0.3 =
-* Fix : Changed review form validations.
-* Enhancement : Added functionality of multiple review.
-* Fix : Fixed UI issues in reviews page, single review page.
-
 = 1.0.2 =
-* Notice fixes
-* Remove "Add" button for admins
-* Incorrect link in mail
-* Message language edit
-* Incorrect link in notification
+* Fix : Notice fixes
+* Fix : Remove "Add" button for admins
+* Fix : Incorrect link in e-mail
+* Fix : Incorrect link in notification
+* Fix : Change message when auto approve review setting is enabled.
+* Fix : Changed review form validations.
+* Fix : Fixed UI issues in reviews page, single review page.
+* Enhancement : Add Review button on group header.
 * Enhancement : Add few new extra settings
-* Change message when auto approve review setting is enabled.
+* Enhancement : Added functionality of multiple review.
 
 = 1.0.1 =
 * Layout Improvement

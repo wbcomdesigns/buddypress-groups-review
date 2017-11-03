@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Review BuddyPress Groups
  * Plugin URI: https://wbcomdesigns.com/contact/
- * Description: This plugin allows buddypress members to add reviews to the groups on the site.
- * Version: 1.0.1
+ * Description: This plugin allows the BuddyPress Memebers to give reviews to the BuddyPress groups on the site. The review form allows the users to give text review, even rate the group on the basis of multiple criterias.
+ * Version: 1.0.2
  * Author: Wbcom Designs
  * Author URI: http://wbcomdesigns.com
  * License: GPLv2+
@@ -25,7 +25,7 @@ function bgr_load_textdomain() {
 	$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
 	load_textdomain( $domain, 'languages/'.$domain.'-' . $locale . '.mo' );
 	$var = load_plugin_textdomain( $domain, false, plugin_basename( dirname(__FILE__) ) . '/languages' );
-        
+
 }
 
 /**
@@ -46,7 +46,7 @@ add_action( 'plugins_loaded', 'bgr_plugin_init' );
 function bgr_plugin_init() {
     $bp_active_components = get_option( 'bp-active-components', true );
     if ( !in_array('buddypress/bp-loader.php', apply_filters('active_plugins', get_option('active_plugins')))) {
-        add_action( 'admin_notices', 'bgr_admin_notice' );            
+        add_action( 'admin_notices', 'bgr_admin_notice' );
     } elseif ( !array_key_exists( 'groups' ,$bp_active_components ) ) {
         add_action( 'admin_notices', 'bgr_admin_group_notice' );
     }else{
@@ -58,9 +58,9 @@ function bgr_plugin_init() {
 add_action( 'bp_init', 'bgr_bp_notifications_for_review', 12 );
 
 function bgr_bp_notifications_for_review(){
-	include 'includes/bgr-notifications.php';		
+	include 'includes/bgr-notifications.php';
 	buddypress()->bgr_bp_review = new BGR_Notifications();
-    buddypress()->bgr_bp_review->notification_callback = 'bgr_format_notifications'; 
+    buddypress()->bgr_bp_review->notification_callback = 'bgr_format_notifications';
 }
 
 /**
@@ -81,14 +81,14 @@ function bgr_admin_notice() {
  * Show admin notice when buddypress user groups component not active
  *  @since   1.0.0
  *  @author  Wbcom Designs
-*/   
+*/
 
 function bgr_admin_group_notice(){
     ?>
     <div class="error notice is-dismissible">
         <p><?php _e( 'The <b>Review BuddyPress Groups</b> plugin requires <b>BuddyPress User Groups </b>Component to be active.', BGR_DOMAIN ); ?></p>
     </div>
-    <?php  
+    <?php
 }
 
 /**
@@ -118,7 +118,7 @@ function run_bp_group_reviews_plugin() {
         'includes/bgr-filters.php',
         'includes/bgr-ajax.php',
         'includes/bgr-shortcodes.php',
-        'includes/widgets/bgr-review.php'            
+        'includes/widgets/bgr-review.php'
     );
     foreach($include_files as $include_file) include $include_file;
 }
