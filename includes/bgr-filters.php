@@ -124,7 +124,7 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 					$avg_rating = round( $avg_rating, 2 );	 ?>
 					<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr"><?php
 					do_action('bgr_display_group_average_ratings', $avg_rating );
-					echo "</div><div class='rating-text'>"; _e('Rating: ', BGR_DOMAIN ); echo "<span>($avg_rating)</span></div>";
+					echo "</div><div class='rating-text'>"; _e('Rating:', BGR_DOMAIN ); echo "<span>($avg_rating)</span></div>";
 					echo "<div class='rating-total'>Total $review_label : $total_review_count</div></div></div>";
 				} else {
 						_e('No Rating Available!', BGR_DOMAIN );
