@@ -1,20 +1,25 @@
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Review BuddyPress Groups 1.0.2\n"
-"POT-Creation-Date: 2017-11-03 12:41+0530\n"
-"PO-Revision-Date: 2017-11-03 12:41+0530\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Review BuddyPress Groups\n"
+"POT-Creation-Date: 2017-11-03 16:27+0530\n"
+"PO-Revision-Date: 2017-11-03 16:27+0530\n"
 "Last-Translator: \n"
-"Language-Team: wbcomdesigns\n"
-"Language: en_US\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.0.4\n"
 "X-Poedit-Basepath: ..\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: review-bp-grps.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_x\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: admin/bgr-admin.php:29
 msgid "Group Reviews Admin Settings"
@@ -110,10 +115,12 @@ msgid "No Review Found In Trash"
 msgstr ""
 
 #: admin/bgr-admin.php:131
+msgctxt "taxonomy general name"
 msgid "Reviews Category"
 msgstr ""
 
 #: admin/bgr-admin.php:132
+msgctxt "taxonomy singular name"
 msgid "Review Category"
 msgstr ""
 
@@ -158,7 +165,7 @@ msgid "Criteria Settings"
 msgstr ""
 
 #: admin/review-admin-options-page.php:52
-msgid "Criteria(s)"
+msgid "Reviews Criteria(s)"
 msgstr ""
 
 #: admin/review-admin-options-page.php:60
@@ -166,7 +173,7 @@ msgid "Remove"
 msgstr ""
 
 #: admin/review-admin-options-page.php:69
-msgid "Add Criteria"
+msgid "Add Review Criteria"
 msgstr ""
 
 #: admin/review-admin-options-page.php:70
@@ -182,7 +189,7 @@ msgid "Save Settings"
 msgstr ""
 
 #: admin/review-admin-options-page.php:87
-msgid "Shortcodes"
+msgid "Shortcode to display Group Review Form"
 msgstr ""
 
 #: admin/review-admin-options-page.php:90
@@ -194,7 +201,7 @@ msgid "Display Settings"
 msgstr ""
 
 #: admin/review-admin-options-page.php:110
-msgid "Note: "
+msgid "Note:"
 msgstr ""
 
 #: admin/review-admin-options-page.php:111
@@ -388,15 +395,16 @@ msgid "General Settings"
 msgstr ""
 
 #: admin/review-admin-options-page.php:312
-msgid "Add Review Popup"
+msgid "Enable popup"
 msgstr ""
 
 #: admin/review-admin-options-page.php:319
-msgid "Enable this option, if you want to show <b>Add Review</b> in modal box."
+msgid ""
+"Enable this option, if you want to show <b>Add Review</b> form in modal box."
 msgstr ""
 
 #: admin/review-admin-options-page.php:325
-msgid "Multiple Review"
+msgid "Enable Multiple Review"
 msgstr ""
 
 #: admin/review-admin-options-page.php:332
@@ -406,7 +414,7 @@ msgid ""
 msgstr ""
 
 #: admin/review-admin-options-page.php:338
-msgid "Auto Approve Reviews"
+msgid "Enable auto approval of Reviews"
 msgstr ""
 
 #: admin/review-admin-options-page.php:345
@@ -416,7 +424,7 @@ msgid ""
 msgstr ""
 
 #: admin/review-admin-options-page.php:351
-msgid "Reviews pages show at most"
+msgid "Reviews show at most"
 msgstr ""
 
 #: admin/review-admin-options-page.php:356
@@ -426,7 +434,7 @@ msgid ""
 msgstr ""
 
 #: admin/review-admin-options-page.php:360
-msgid "Notifications"
+msgid "Enable BuddyPress notifications"
 msgstr ""
 
 #: admin/review-admin-options-page.php:367
@@ -465,7 +473,7 @@ msgid "Add Review"
 msgstr ""
 
 #: includes/bgr-filters.php:127
-msgid "Rating: "
+msgid "Rating:"
 msgstr ""
 
 #: includes/bgr-filters.php:130
@@ -548,9 +556,6 @@ msgstr ""
 
 #: includes/templates/bgr-reviews-tab-template.php:38
 #: includes/templates/bgr-reviews-tab-template.php:42
-msgid "+Add "
-msgstr ""
-
 #: includes/templates/bgr-reviews-tab-template.php:63
 msgid "Add "
 msgstr ""
@@ -634,4 +639,27 @@ msgstr ""
 msgid ""
 "The <b>Review BuddyPress Groups</b> plugin requires <b>BuddyPress User "
 "Groups </b>Component to be active."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Review BuddyPress Groups"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://wbcomdesigns.com/contact/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"This plugin allows the BuddyPress Memebers to give reviews to the BuddyPress "
+"groups on the site. The review form allows the users to give text review, "
+"even rate the group on the basis of multiple criterias."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Wbcom Designs"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://wbcomdesigns.com"
 msgstr ""
