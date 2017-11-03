@@ -51,17 +51,10 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 
 == Screenshots ==
 1. The screenshot shows the admin settings of general settings corresponds to screenshot-1.(png|jpg|jpeg|gif).
-2. The screenshot shows the admin settings to show shortcodes and corresponds to screenshot-2.(png|jpg|jpeg|gif).
-3. The screenshot shows the admin settings of criteria settings and corresponds to screenshot-3.(png|jpg|jpeg|gif).
-4. The screenshot shows the admin settings of display settings and corresponds to screenshot-4.(png|jpg|jpeg|gif).
+2. The screenshot shows the admin settings to show multi rating criteria to screenshot-2.(png|jpg|jpeg|gif).
+3. The screenshot shows the admin settings of display settings and corresponds to screenshot-3.(png|jpg|jpeg|gif).
+4. The screenshot shows add review form to screenshot-4.(png|jpg|jpeg|gif).
 5. The screenshot shows the reviews listing and multi-rating on single group page and corresponds to screenshot-5.(png|jpg|jpeg|gif).
-6. The screenshot shows the add review form when the popup is not allowed and corresponds to screenshot-6.(png|jpg|jpeg|gif).
-7. The screenshot shows the add review form when the popup is allowed and corresponds to screenshot-7.(png|jpg|jpeg|gif).
-8. The screenshot shows the review posted by members in manage review section in single group page and corresponds to screenshot-8.(png|jpg|jpeg|gif).
-9. The screenshot shows the average rating in the single group header section and corresponds to screenshot-9.(png|jpg|jpeg|gif).
-10. The screenshot shows the single review details and corresponds to screenshot-10.(png|jpg|jpeg|gif).
-11. The screenshot shows the review widget in widgets and in front-end and corresponds to screenshot-11 and screenshot-11b. (png|jpg|jpeg|gif).
-12. The screenshot shows notifications when review add,accept or deny and corresponds to screenshot-12. (png|jpg|jpeg|gif).
 
 == Changelog ==
 
