@@ -178,6 +178,19 @@ function bgr_support_setting() {  ?>
         <div class="bgr-admin-row">
             <div>
                <button class="bgr-accordion">
+                <?php _e( 'How to allow users to give multiple reviews on the same group?', BGR_DOMAIN );?>
+                </button>
+                <div class="panel">
+                    <p>
+                        <?php _e( 'A new functionality "Multiple Review" is added to this version of the plugin. In general settings, you can enable or disable it.', BGR_DOMAIN ); ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bgr-admin-row">
+            <div>
+               <button class="bgr-accordion">
                 <?php _e( 'If I don\'t want to provide review functionality to any group, then what will I do?', BGR_DOMAIN );?>
                 </button>
                 <div class="panel">
