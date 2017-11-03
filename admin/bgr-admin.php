@@ -94,7 +94,7 @@ if( !class_exists( 'BGR_Admin' ) ) {
 				'view_item'					=>	__( 'View Reviews', BGR_DOMAIN ),
 				'all_items'					=>	__( 'All Reviews', BGR_DOMAIN ),
 				'search_items'			=>	__( 'Search Reviews', BGR_DOMAIN ),
-				'parent_item_colon'	=>	__( 'Parent Review:', BGR_DOMAIN ),
+				'parent_item_colon'	=>	__( 'Parent Review', BGR_DOMAIN ),
 				'not_found'					=>	__( 'No Review Found', BGR_DOMAIN ),
 				'not_found_in_trash'	=>	__( 'No Review Found In Trash', BGR_DOMAIN ),
 			);

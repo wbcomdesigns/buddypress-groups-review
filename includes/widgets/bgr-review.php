@@ -30,30 +30,30 @@ class bgr_review_widget extends WP_Widget {
 			?>
 				<div class="bgr_review_listing_form">
 					<p>
-						<label for="<?php echo $this->get_field_id( 'widget_title' ); ?>"><?php _e( 'Title:', BGR_DOMAIN ); ?></label>
+						<label for="<?php echo $this->get_field_id( 'widget_title' ); ?>"><?php _e( 'Title', BGR_DOMAIN ); ?>:</label>
 						<input class="widefat" id="<?php echo $this->get_field_id( 'widget_title' ); ?>" name="<?php echo $this->get_field_name( 'widget_title' ); ?>" type="text" value="<?php echo esc_attr( $widget_title ); ?>" />
 					</p>
 					<h4><?php _e('Select Listing Type', BGR_DOMAIN ); ?></h4>
 					<div class="bgr_review_select_listing_type">
 						<label class="alignleft" for="listing_toprated">
-								<input type="radio" class="" id="<?php echo $this->get_field_id("listing_cat"); ?>" name="<?php echo $this->get_field_name("listing_cat"); ?>" value="<?php _e('toprated', BGR_DOMAIN ); ?>" <?php if ( 'toprated' == $listing_cat ) { echo 'checked="checked"'; } ?> />
+								<input type="radio" class="" id="<?php echo $this->get_field_id("listing_cat"); ?>" name="<?php echo $this->get_field_name("listing_cat"); ?>" value="<?php  echo 'toprated'; ?>" <?php if ( 'toprated' == $listing_cat ) { echo 'checked="checked"'; } ?> />
 								<?php _e( 'Top Rated', BGR_DOMAIN ); ?>
 						</label>
 						<label class="alignleft" for="listing_topreviewed">
-								<input type="radio" class="" id="<?php echo $this->get_field_id("listing_cat"); ?>" name="<?php echo $this->get_field_name("listing_cat"); ?>" value="<?php _e('topreviewed',BGR_DOMAIN ); ?>" <?php if ( 'topreviewed' == $listing_cat ) { echo 'checked="checked"'; } ?> />
+								<input type="radio" class="" id="<?php echo $this->get_field_id("listing_cat"); ?>" name="<?php echo $this->get_field_name("listing_cat"); ?>" value="<?php echo 'topreviewed'; ?>" <?php if ( 'topreviewed' == $listing_cat ) { echo 'checked="checked"'; } ?> />
 								<?php _e( 'Most Reviewed', BGR_DOMAIN ); ?>
 						</label>
 					</div>
 					<div class="clear"></div>
 					<div class="bgr_review_options">
 						<p>
-							<label for="<?php echo $this->get_field_id('post_num'); ?>"><?php _e('Number of reviews to show:', BGR_DOMAIN ); ?>
+							<label for="<?php echo $this->get_field_id('post_num'); ?>"><?php _e('Number of reviews to show', BGR_DOMAIN ); ?>:
 								<input id="<?php echo $this->get_field_id('post_num'); ?>" name="<?php echo $this->get_field_name('post_num'); ?>" type="number" min="1" step="1" value="<?php echo $post_num; ?>" />
 							</label>
 						</p>
 
 						<p class="bgr_review_thumbnail">
-							<label for="<?php echo $this->get_field_id('thumbnail'); ?>"><?php _e('Thumbnail:', BGR_DOMAIN ); ?></label>
+							<label for="<?php echo $this->get_field_id('thumbnail'); ?>"><?php _e('Thumbnail', BGR_DOMAIN ); ?>:</label>
 							<select id="<?php echo $this->get_field_id('thumbnail'); ?>" name="<?php echo $this->get_field_name('thumbnail'); ?>" style="margin-left: 12px;">
 								<option value="<?php echo 'hide'; ?>" <?php selected($thumbnail, 'hide', true); ?>><?php _e('Hide', BGR_DOMAIN ); ?></option>
 								<option value="<?php echo 'show'; ?>" <?php selected($thumbnail, 'show', true); ?>><?php _e('Show', BGR_DOMAIN ); ?></option>

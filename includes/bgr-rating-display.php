@@ -56,7 +56,7 @@ if( !class_exists( 'BGR_Rating_Display' ) ) {
 							?>
 							<div class="bgr-col-12">
 								<div class="bgr-col-6">
-									<?php _e( $review_field.' : ', BGR_DOMAIN ); ?>
+									<?php echo $review_field.' : '; ?>
 								</div>
 								<div class="bgr-col-6">
 								<?php
@@ -91,7 +91,7 @@ if( !class_exists( 'BGR_Rating_Display' ) ) {
 						?>
 						<div class="bgr-col-12">
 							<div class="bgr-col-6">
-								<?php _e( $review_field.' : ', BGR_DOMAIN ); ?>
+								<?php echo $review_field.' : '; ?>
 							</div>
 							<div class="bgr-col-6 bgr-bar-div">
 								<?php
@@ -126,7 +126,7 @@ if( !class_exists( 'BGR_Rating_Display' ) ) {
 						?>
 						<div class="bgr-col-12">
 							<div class="bgr-col-6">
-								<?php _e( $review_field.' : ', BGR_DOMAIN ); ?>
+								<?php echo $review_field.' : '; ?>
 							</div>
 							<div class="bgr-col-6 bgr-num-div">
 								<?php
@@ -186,8 +186,8 @@ if( !class_exists( 'BGR_Rating_Display' ) ) {
 
 			$group_avg_rating = round( $group_avg_rating, 2 );
 			echo "</div><div>";
-			_e("Rating : ", BGR_DOMAIN );
-			echo "(".$group_avg_rating.")";
+			_e("Rating", BGR_DOMAIN );
+			echo " : (".$group_avg_rating.")";
 		}
 
 		/**

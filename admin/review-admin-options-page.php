@@ -67,7 +67,7 @@ function bgr_criteria_setting() {
 						} ?>
             </div>
             <input id="bgr-field-add" type="button" value="<?php _e( 'Add Review Criteria', BGR_DOMAIN );?>" class="button button-secondary"/>
-			<p class="bgr-admin-des"><?php _e( "This option provide you to add multiple rating criteria. By default, no criteria will be shown until you active it.", BGR_DOMAIN ); ?></p>
+			<p class="bgr-admin-des"><?php _e( 'This option provide you to add multiple rating criteria. By default, no criteria will be shown until you active it.', BGR_DOMAIN ); ?></p>
         </div>
     </div>
     <div class="bgr-col-12">
@@ -84,7 +84,7 @@ function bgr_criteria_setting() {
  */
 
 function bgr_shortcode_setting() { ?>
-    <div class="bgr-col-12"><h2><?php _e( 'Shortcode to display Group Review Form', BGR_DOMAIN );?></h2></div>
+    <div class="bgr-col-12"><h2><?php _e( 'Shortcode to display Group Review Form', BGR_DOMAIN ); ?></h2></div>
     <div class="bgr-row">
         <div class="bgr-col-3"><label><?php echo '[add_group_review_form]'; ?></label></div>
         <div class="bgr-col-9"><?php _e( 'This shortcode will be display Group Review Form.', BGR_DOMAIN ); ?></div>
@@ -107,7 +107,7 @@ function bgr_display_setting() {
     <div class="bgr-col-12">
         <h2><?php _e( 'Display Settings', BGR_DOMAIN );?></h2>
         <p class="description">
-            <b><?php _e( 'Note:', BGR_DOMAIN ); ?></b>
+            <b><?php _e( 'Note', BGR_DOMAIN ); ?>:</b>
             <?php _e( 'Rating will be displayed in Review form, if and only if you added criteria for review.', BGR_DOMAIN );?>
         </p>
     </div>
@@ -123,7 +123,7 @@ function bgr_display_setting() {
         <div class="bgr-col-3"><label for="bgrManageReviewLabel"><?php _e( 'Review (In Manage Section)', BGR_DOMAIN );?></label></div>
         <div class="bgr-col-9">
 			<input name = "bgrManageReviewLabel" id="bgrManageReviewLabel" type="text" value = "<?php echo $bgrManageReviewLabel; ?>" />
-			<p class="bgr-admin-des"><?php _e( 'This option provides flexibility to change review label in <b>BuddyPress Group Manage</b> section. By default it shows "Reviews".' , BGR_DOMAIN); ?></p>
+			<p class="bgr-admin-des"><?php _e( 'This option provides flexibility to change review label in "BuddyPress Group Manage" section. By default it shows "Reviews".' , BGR_DOMAIN); ?></p>
 		</div>
     </div>
     <div class="bgr-col-12"><h3><?php _e( 'Colors', BGR_DOMAIN );?></h3></div>
@@ -143,7 +143,7 @@ function bgr_display_setting() {
                 <option value="<?php _e( 'numbers', BGR_DOMAIN );?>" <?php if( $bgr_rating_type == 'numbers' ) { echo 'selected="selected"'; } ?>><?php _e( 'Number Rating', BGR_DOMAIN );?></option>
                 <option value="<?php _e( 'bar', BGR_DOMAIN );?>" <?php if( $bgr_rating_type == 'bar' ) { echo 'selected="selected"'; } ?>><?php _e( 'Bar Rating', BGR_DOMAIN );?></option>
             </select>
-			<p class="bgr-admin-des"><?php _e( "This option lets you to choose display of ratings. By default <b>Star Rating</b> will be shown.", BGR_DOMAIN); ?></p>
+			<p class="bgr-admin-des"><?php _e( "This option lets you to choose display of ratings. By default, Star Rating will be shown.", BGR_DOMAIN); ?></p>
         </div>
     </div>
     <div class="bgr-col-12">
@@ -273,7 +273,9 @@ function bgr_support_setting() {  ?>
                 </button>
                 <div class="panel">
                     <p>
-                        <?php _e( 'Please visit <a href="http://wbcomdesigns.com/contact" rel="nofollow" target="_blank">Wbcom Designs</a> for any query related to plugin and BuddyPress.', BGR_DOMAIN ); ?>
+                        <?php
+                           echo sprintf(__('Please visit %1$s for any query related to plugin and BuddyPress.', BGR_DOMAIN), '<a href="http://wbcomdesigns.com/contact" rel="nofollow" target="_blank"> Wbcom Designs </a>');
+                        ?>
                     </p>
                 </div>
             </div>
@@ -316,7 +318,7 @@ function bgr_general_setting() {
                 <input type="checkbox" id="bgr-allow-popup" <?php if( 'yes'  == $allow_popup ){  echo 'checked="checked"'; } ?>>
                 <div class="bgr-slider round"></div>
             </label>
-			<p class="bgr-admin-des"><?php _e( 'Enable this option, if you want to show <b>Add Review</b> form in modal box.' , BGR_DOMAIN); ?></p>
+			<p class="bgr-admin-des"><?php _e( 'Enable this option, if you want to show Add Review form in modal box.' , BGR_DOMAIN); ?></p>
         </div>
     </div>
 
@@ -352,8 +354,8 @@ function bgr_general_setting() {
         </div>
         <div class="bgr-col-9">
             <input id="reviews_per_page" class="small-text" name="reviews_per_page" step="1" min="1" value="<?php echo $reviews_per_page; ?>" type="number">
-            <?php _e( 'Reviews', BGR_DOMAIN ); ?>
-			<p class="bgr-admin-des"><?php _e( 'This option lets you limit number of reviews in <b> Group Reviews </b> page & <b>Manage Reviews </b> Page.' , BGR_DOMAIN ); ?></p>
+            <?php _e('Reviews', BGR_DOMAIN ); ?>
+			<p class="bgr-admin-des"><?php _e('This option lets you limit number of reviews in "Group Reviews" page & "Manage Reviews" Page.', BGR_DOMAIN ); ?></p>
         </div>
     </div>
     <div class="bgr-row">
@@ -364,9 +366,9 @@ function bgr_general_setting() {
 					<input type="checkbox" id="bgr-notification" <?php if( $allow_notification == 'yes' ){ echo 'checked="checked"'; } ?>>
 					<div class="bgr-slider round"></div>
 				</label>
-				<p class="bgr-admin-des"><?php _e( 'Enable this option, if you want to group admin & reviewer receive notification when add, accept & deny review.' , BGR_DOMAIN); ?></p>
+				<p class="bgr-admin-des"><?php _e('Enable this option, if you want to group admin & reviewer receive notification when add, accept & deny review.' , BGR_DOMAIN); ?></p>
 			<?php }  else { ?>
-				<p class="bgr-admin-des"><?php _e( 'This setting requires <b>BuddyPress Notifications </b>Component to be active.' , BGR_DOMAIN); ?></p>
+				<p class="bgr-admin-des"><?php _e('This setting requires BuddyPress Notifications Component to be active.' , BGR_DOMAIN); ?></p>
 			<?php } ?>
         </div>
     </div>

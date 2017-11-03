@@ -134,7 +134,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 								<div class="item-description">
 									<div class="review-description">
 										<div class="review-excerpt bgr-col-12">
-											<b> <?php _e('Short Description: ', BGR_DOMAIN ); ?> </b>
+											<b> <?php _e('Short Description ', BGR_DOMAIN ); ?>: </b>
 											<?php $trimcontent = get_the_content();
 											  	if( !empty( $trimcontent ) ) {
 	                                                $len = strlen( $trimcontent );
@@ -150,7 +150,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 										<div class="review-full-description bgr-col-12">
 											<div class="bgr-col-12">
 												<b>
-													<?php _e('Full Description: ', BGR_DOMAIN ); ?>
+													<?php _e('Full Description', BGR_DOMAIN ); ?> :
 												</b>
 												<?php the_content(); ?>
 											</div>

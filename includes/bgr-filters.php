@@ -124,7 +124,7 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 					$avg_rating = round( $avg_rating, 2 );	 ?>
 					<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr"><?php
 					do_action('bgr_display_group_average_ratings', $avg_rating );
-					echo "</div><div class='rating-text'>"; _e('Rating:', BGR_DOMAIN ); echo "<span>($avg_rating)</span></div>";
+					echo "</div><div class='rating-text'>"; _e('Rating', BGR_DOMAIN ); echo " : <span>($avg_rating)</span></div>";
 					echo "<div class='rating-total'>Total $review_label : $total_review_count</div></div></div>";
 				} else {
 						_e('No Rating Available!', BGR_DOMAIN );
@@ -232,7 +232,7 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
                     if( !empty( $exclude_groups )) {
                         if( !in_array( $bp->groups->current_group->id, $exclude_groups )) {
                             $tab_args = array(
-                           'name' => __( $review_label .' '. $count_notification, BGR_DOMAIN ),
+                           'name' => $review_label .' '. $count_notification,
                            'slug' => 'reviews',
                            'parent_slug' => $bp->groups->current_group->slug,
                            'parent_url' => bp_get_group_permalink( $bp->groups->current_group ),
@@ -243,7 +243,7 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
                         }
                     } else {
                             $tab_args = array(
-                            'name' => __( $review_label .' '. $count_notification, BGR_DOMAIN ),
+                            'name' => $review_label .' '. $count_notification,
                             'slug' => 'reviews',
                             'parent_slug' => $bp->groups->current_group->slug,
                             'parent_url' => bp_get_group_permalink( $bp->groups->current_group ),
@@ -254,7 +254,7 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
                     }
                 } else {
                         $tab_args = array(
-                        'name' => __( $review_label .' '. $count_notification, BGR_DOMAIN ),
+                        'name' => $review_label .' '. $count_notification,
                         'slug' => 'reviews',
                         'parent_slug' => $bp->groups->current_group->slug,
                         'parent_url' => bp_get_group_permalink( $bp->groups->current_group ),
