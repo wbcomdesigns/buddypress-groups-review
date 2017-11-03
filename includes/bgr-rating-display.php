@@ -64,10 +64,10 @@ if( !class_exists( 'BGR_Rating_Display' ) ) {
 									$stars_on  = $review_ratings[0][ $review_field ];
 									$stars_off = 5 - $stars_on;
 									for( $i = 1; $i <= $stars_on; $i++ ){
-										?><img class="stars" src="<?php _e( BGR_PLUGIN_URL."assets/images/star.png", BGR_DOMAIN );?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
+										?><img class="stars" src="<?php echo BGR_PLUGIN_URL."assets/images/star.png";?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
 									}
 									for( $i = 1; $i <= $stars_off; $i++ ){
-										?><img class="stars" src="<?php _e( BGR_PLUGIN_URL."assets/images/star_off.png", BGR_DOMAIN );?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
+										?><img class="stars" src="<?php echo BGR_PLUGIN_URL."assets/images/star_off.png";?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
 									}
 									?>
 								</div>

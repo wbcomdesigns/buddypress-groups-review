@@ -122,7 +122,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
             	?>
                 <form id="bgr-add-review-form" method="POST">
                     <input type="hidden" id="reviews_pluginurl"  name="reviews_pluginurl" value="<?php _e( BGR_PLUGIN_URL, BGR_DOMAIN );?>">
-                    <input type="hidden" id="bgr-rate-color" name="bgr-rate-color" value="<?php _e( $rating_color, BGR_DOMAIN ); ?>">
+                    <input type="hidden" id="bgr-rate-color" name="bgr-rate-color" value="<?php echo $rating_color; ?>">
 					<div class="group-add-form">
                         <p>
                             <b><?php _e( "Write a ", BGR_DOMAIN ); echo $review_label; ?></b>
@@ -135,7 +135,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
                                 <?php
                                 if( !empty( $allgroups ) ) {
                                     foreach ( $allgroups['groups'] as $formGroup ){ ?>
-                                        <option value="<?php _e( $formGroup->id, BGR_DOMAIN ); ?>" <?php if( bp_is_group() ) { if( bp_get_group_id() == $formGroup->id ): _e('selected="selected"', BGR_DOMAIN ); endif; } ?>><?php _e( $formGroup->name, BGR_DOMAIN ); ?></option>
+                                        <option value="<?php echo $formGroup->id; ?>" <?php if( bp_is_group() ) { if( bp_get_group_id() == $formGroup->id ): echo 'selected="selected"'; endif; } ?>><?php _e( $formGroup->name, BGR_DOMAIN ); ?></option>
                                 <?php } }  ?>
                             </select>
                             <br/>
@@ -201,7 +201,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
 											<input type="hidden" name="rated_stars[]" class="rated_stars bgr_mrating" id="<?php echo 'rated_stars'.$field_counter; ?>" value="0">
 											<?php for( $i = 1; $i <= 5; $i++ ) {    ?>
 													<?php $star_img = BGR_PLUGIN_URL.'assets/images/star_off.png';?>
-													<img class="stars <?php echo $i; ?>" alt="<?php _e( 'star', BGR_DOMAIN ); ?>" id="<?php _e( $field_counter.$i, BGR_DOMAIN ); ?>" src="<?php _e( $star_img, BGR_DOMAIN ); ?>" data-attr="<?php _e( $i, BGR_DOMAIN ); ?>">
+													<img class="stars <?php echo $i; ?>" alt="<?php _e( 'star', BGR_DOMAIN ); ?>" id="<?php echo $field_counter.$i; ?>" src="<?php echo $star_img; ?>" data-attr="<?php echo $i; ?>">
 											<?php } ?>
 									</div>
 									<div class="bgr-col-12 bgr-error-fields">*<?php _e('This field is required.', BGR_DOMAIN ); ?></div>
@@ -232,7 +232,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
 										<input type="hidden" id="<?php echo 'clicked'.$field_counter; ?>" value="not_clicked">
 										<input type="hidden" name="rated_stars[]" class="rated_bars bgr_mrating" id="<?php echo 'rated_bars'.$field_counter; ?>" value="0">
 										<?php for( $i = 1; $i <= 5; $i++ ) {    ?>
-												<a class="bgr-bars <?php echo $i;?>" alt="<?php _e( 'bar', BGR_DOMAIN ); ?>" id="<?php _e( $field_counter.$i, BGR_DOMAIN ); ?>" data-attr="<?php _e( $i, BGR_DOMAIN ); ?>"></a>
+												<a class="bgr-bars <?php echo $i;?>" alt="<?php _e( 'bar', BGR_DOMAIN ); ?>" id="<?php echo $field_counter.$i; ?>" data-attr="<?php echo $i; ?>"></a>
 										<?php } ?>
 									</div>
 									<div class="bgr-col-12 bgr-error-fields">*<?php _e('This field is required.', BGR_DOMAIN ); ?></div>
@@ -261,9 +261,9 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
 									<div class="bgr-col-6"><label><?php _e( $review_rating_field, BGR_DOMAIN ); ?></label></div>
 									<div id="bgrnumbers<?php echo $field_counter;?>" class="bgr-col-6" >
 										<input type="hidden" id="<?php echo 'clicked'.$field_counter; ?>" value="not_clicked">
-										<input type="hidden" name="rated_stars[]" class="rated_bars bgr_mrating" id="<?php _e( 'rated_bars'.$field_counter, BGR_DOMAIN ); ?>" value="0">
+										<input type="hidden" name="rated_stars[]" class="rated_bars bgr_mrating" id="<?php echo 'rated_bars'.$field_counter; ?>" value="0">
 										<?php for( $i = 1; $i <= 5; $i++ ) {  ?>
-												<a class="bgr-numbers <?php echo $i;?>" alt="<?php _e( 'bar', BGR_DOMAIN ); ?>" id="<?php _e( $field_counter.$i, BGR_DOMAIN ); ?>" data-attr="<?php _e( $i, BGR_DOMAIN ); ?>"><?php _e( $i, BGR_DOMAIN ); ?></a>
+												<a class="bgr-numbers <?php echo $i;?>" alt="<?php echo 'bar'; ?>" id="<?php echo $field_counter.$i; ?>" data-attr="<?php echo $i; ?>"><?php echo $i; ?></a>
 										<?php } ?>
 									</div>
 									<div class="bgr-col-12 bgr-error-fields">*<?php _e('This field is required.', BGR_DOMAIN ); ?></div>
