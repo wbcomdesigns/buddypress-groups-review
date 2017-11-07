@@ -101,6 +101,7 @@ function bgr_display_setting() {
         $spinner_src = includes_url().'images/spinner.gif';
         $bgrReviewLabel           = $bgr['review_label'];
         $bgrManageReviewLabel     = $bgr['manage_review_label'];
+        $bgr_rating_color         = $bgr['rating_color'];
     ?>
     <div class="bgr-col-12">
         <h2><?php _e( 'Display Settings', BGR_DOMAIN );?></h2>
@@ -124,6 +125,15 @@ function bgr_display_setting() {
 			<p class="bgr-admin-des"><?php _e( 'This option provides flexibility to change review label in "BuddyPress Group Manage" section. By default it shows "Reviews".' , BGR_DOMAIN); ?></p>
 		</div>
     </div>
+    <div class="bgr-col-12"><h3><?php _e( 'Colors', BGR_DOMAIN );?></h3></div>
+    <div class="bgr-row">
+        <div class="bgr-col-3"><label for="bgr-rating-color"><?php _e( 'Rating Color', BGR_DOMAIN );?></label></div>
+        <div class="bgr-col-9">
+            <input id="bgr-rating-color" class="bgr-review-color" type="text" data-default-color="#effeff" value="<?php echo $bgr_rating_color; ?>" />
+            <p class="bgr-admin-des"><?php _e( 'This option lets you to change star rating color.' , BGR_DOMAIN); ?></p>
+        </div>
+    </div>
+
     <div class="bgr-col-12">
         <div class="bgr-col-6">
             <input type="button" class="button button-primary" id="bgr-save-admin-display-settings" value="<?php _e( 'Save Settings', BGR_DOMAIN );?>">

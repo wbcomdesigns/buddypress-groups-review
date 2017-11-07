@@ -55,12 +55,12 @@ if( !class_exists( 'BGR_Rating_Display' ) ) {
 									$stars_on  = $review_ratings[0][ $review_field ];
 									$stars_off = 5 - $stars_on;
 									for( $i = 1; $i <= $stars_on; $i++ ){
-										?><img class="stars" src="<?php echo BGR_PLUGIN_URL."assets/images/star.png";?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
+										?><span class="fa fa-star stars bgr-star-rate"></span><?php
 									}
 									for( $i = 1; $i <= $stars_off; $i++ ){
-										?><img class="stars" src="<?php echo BGR_PLUGIN_URL."assets/images/star_off.png";?>" alt="<?php _e('star', BGR_DOMAIN ); ?>"><?php
+										?><span class="fa fa-star-o stars bgr-star-rate"></span><?php
 									}
-									?>
+								?>
 								</div>
 							</div>
 							<?php
@@ -130,15 +130,15 @@ if( !class_exists( 'BGR_Rating_Display' ) ) {
 
 		function bgr_average_star_rating( $stars_on, $stars_half, $stars_off ) {
 				for( $i = 1; $i <= $stars_on; $i++ ) {
-					?><img class="stars" src="<?php echo BGR_PLUGIN_URL."assets/images/star.png"; ?>" alt="<?php _e('star', BGR_DOMAIN );?>"><?php
+					?><span class="fa fa-star stars bgr-star-rate"></span><?php
 				}
 
 				for( $i = 1; $i <= $stars_half; $i++ ) {
-					?><img class="stars" src="<?php echo BGR_PLUGIN_URL."assets/images/star_half.png"; ?>" alt="<?php _e('star', BGR_DOMAIN );?>"><?php
+					?><span class="fa fa-star-half-o stars bgr-star-rate"></span><?php
 				}
 
 				for( $i = 1; $i <= $stars_off; $i++ ) {
-					?><img class="stars" src="<?php echo BGR_PLUGIN_URL."assets/images/star_off.png"; ?>" alt="<?php _e('star', BGR_DOMAIN );?>"><?php
+					?><span class="fa fa-star-o stars bgr-star-rate"></span><?php
 				}
 		}
 

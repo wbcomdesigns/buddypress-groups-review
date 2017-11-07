@@ -122,10 +122,12 @@ if( !class_exists( 'BGR_AJAX' ) ) {
 
 				$manage_review_label = sanitize_text_field( $_POST['manage_review_label'] );
 				$review_label        = sanitize_text_field( $_POST['review_label'] );
+				$bgr_rating_color    = sanitize_text_field( $_POST['bgr_rating_color'] );
 
 				$bgr_admin_settings  = array(
 								  'review_label'             => $review_label,
-								  'manage_review_label'      => $manage_review_label
+								  'manage_review_label'      => $manage_review_label,
+								  'bgr_rating_color'         => $bgr_rating_color
 				);
 				update_option( 'bgr_admin_display_settings', $bgr_admin_settings );
 				echo 'admin-display-settings-saved';
@@ -179,13 +181,13 @@ if( !class_exists( 'BGR_AJAX' ) ) {
 				$user_post_count = 0;
 			}
 			if( $user_post_count > 0 ) {
-				$review_add_msg = 'You already posted a review for this group';
+				$review_add_msg = __('You already posted a review for this group', BGR_DOMAIN );
 			} else {
 				if( $auto_approve_reviews == 'yes' ) {
-					$review_add_msg = "Thank you for taking the time to write this wonderful $review_label!";
+					$review_add_msg = __("Thank you for taking the time to write this wonderful $review_label!", BGR_DOMAIN );
 					$review_status = 'publish';
 				} else {
-					$review_add_msg = "Thank you for taking the time to write this wonderful $review_label. Your $review_label will display after moderator approval.";
+					$review_add_msg = __("Thank you for taking the time to write this wonderful $review_label. Your $review_label will display after moderator approval.", BGR_DOMAIN );
 					$review_status = 'draft';
 				}
 

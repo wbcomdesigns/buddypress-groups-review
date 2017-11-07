@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Review BuddyPress Groups 1.0.2\n"
-"POT-Creation-Date: 2017-11-07 15:16+0530\n"
+"POT-Creation-Date: 2017-11-07 18:16+0530\n"
 "PO-Revision-Date: 2017-11-03 17:59+0530\n"
 "Last-Translator: \n"
 "Language-Team: wbcomdesigns\n"
@@ -70,11 +70,11 @@ msgid "Dismiss this notice."
 msgstr ""
 
 #: admin/bgr-admin.php:87 admin/bgr-admin.php:89 admin/bgr-admin.php:90
-#: admin/review-admin-options-page.php:321
+#: admin/review-admin-options-page.php:331
 msgid "Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:88 admin/review-admin-options-page.php:114
+#: admin/bgr-admin.php:88 admin/review-admin-options-page.php:115
 msgid "Review"
 msgstr ""
 
@@ -177,8 +177,8 @@ msgid ""
 msgstr ""
 
 #: admin/review-admin-options-page.php:75
-#: admin/review-admin-options-page.php:129
-#: admin/review-admin-options-page.php:371
+#: admin/review-admin-options-page.php:139
+#: admin/review-admin-options-page.php:381
 msgid "Save Settings"
 msgstr ""
 
@@ -190,72 +190,84 @@ msgstr ""
 msgid "This shortcode will be display Group Review Form."
 msgstr ""
 
-#: admin/review-admin-options-page.php:106
+#: admin/review-admin-options-page.php:107
 msgid "Display Settings"
 msgstr ""
 
-#: admin/review-admin-options-page.php:108
+#: admin/review-admin-options-page.php:109
 msgid "Note"
 msgstr ""
 
-#: admin/review-admin-options-page.php:109
+#: admin/review-admin-options-page.php:110
 msgid ""
 "Rating will be displayed in Review form, if and only if you added criteria "
 "for review."
 msgstr ""
 
-#: admin/review-admin-options-page.php:112
+#: admin/review-admin-options-page.php:113
 msgid "Labels"
 msgstr ""
 
-#: admin/review-admin-options-page.php:117
+#: admin/review-admin-options-page.php:118
 msgid ""
 "This option provide flexibility to change review label. By default it shows "
 "\"Review\"."
 msgstr ""
 
-#: admin/review-admin-options-page.php:121
+#: admin/review-admin-options-page.php:122
 msgid "Review (In Manage Section)"
 msgstr ""
 
-#: admin/review-admin-options-page.php:124
+#: admin/review-admin-options-page.php:125
 msgid ""
 "This option provides flexibility to change review label in \"BuddyPress "
 "Group Manage\" section. By default it shows \"Reviews\"."
 msgstr ""
 
-#: admin/review-admin-options-page.php:141
+#: admin/review-admin-options-page.php:128
+msgid "Colors"
+msgstr ""
+
+#: admin/review-admin-options-page.php:130
+msgid "Rating Color"
+msgstr ""
+
+#: admin/review-admin-options-page.php:133
+msgid "This option lets you to change star rating color."
+msgstr ""
+
+#: admin/review-admin-options-page.php:151
 msgid "FAQ(s)"
 msgstr ""
 
-#: admin/review-admin-options-page.php:146
+#: admin/review-admin-options-page.php:156
 msgid "How can we submit a review to a group using this plugin?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:150
+#: admin/review-admin-options-page.php:160
 msgid ""
 "When visiting the \"/groups\" section in the site, go for single group view "
 "page, there you can see a menu namely, \"Reviews\" that will allow you if "
 "you are a site member to add group review."
 msgstr ""
 
-#: admin/review-admin-options-page.php:159
+#: admin/review-admin-options-page.php:169
 msgid "How to allow users to give multiple reviews on the same group?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:163
+#: admin/review-admin-options-page.php:173
 msgid ""
 "A new functionality \"Multiple Review\" is added to this version of the "
 "plugin. In general settings, you can enable or disable it."
 msgstr ""
 
-#: admin/review-admin-options-page.php:172
+#: admin/review-admin-options-page.php:182
 msgid ""
 "If I don't want to provide review functionality to any group, then what will "
 "I do?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:176
+#: admin/review-admin-options-page.php:186
 msgid ""
 "If you don't want to provide review functionality to any group, you can "
 "exclude that group for this functionality. For exclude, the plugin has "
@@ -263,133 +275,137 @@ msgid ""
 "groups from reviews."
 msgstr ""
 
-#: admin/review-admin-options-page.php:185
+#: admin/review-admin-options-page.php:195
 msgid "How to hide some rating criteria from Review form?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:189
+#: admin/review-admin-options-page.php:199
 msgid "You can hide criteria by disable criteria in 'Criteria' tab."
 msgstr ""
 
-#: admin/review-admin-options-page.php:198
+#: admin/review-admin-options-page.php:208
 msgid ""
 "How change label of 'Reviews' tab or label of 'Reviews' sub-tab under "
 "'Manage' tab?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:202
+#: admin/review-admin-options-page.php:212
 msgid ""
 "This plugin provides settings to change labels, you can see settings in "
 "plugin's settings 'Display' tab."
 msgstr ""
 
-#: admin/review-admin-options-page.php:211
+#: admin/review-admin-options-page.php:221
 msgid "Why 'Add Review' option is not displaying in a group created by me?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:215
+#: admin/review-admin-options-page.php:225
 msgid ""
 "This option is not displaying because group admin can't review own group, "
 "you can add the review to only that groups in which you are not the admin."
 msgstr ""
 
-#: admin/review-admin-options-page.php:224
+#: admin/review-admin-options-page.php:234
 msgid ""
 "How to display groups average reviews according to reviews or ratings in "
 "sidebar or footer?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:228
+#: admin/review-admin-options-page.php:238
 msgid ""
 "This plugin provides a widget to show average ratings or reviews of "
 "BuddyPress Groups, you can use it for display average rating & reviews."
 msgstr ""
 
-#: admin/review-admin-options-page.php:237
+#: admin/review-admin-options-page.php:247
 msgid "How can I use the review form on any other page?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:241
+#: admin/review-admin-options-page.php:251
 msgid ""
 "Yes, you can use the review form on other page, just copy shortcode from "
 "review setting page and paste it on the other page."
 msgstr ""
 
-#: admin/review-admin-options-page.php:250
+#: admin/review-admin-options-page.php:260
 msgid "Where do I ask for support?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:255
+#: admin/review-admin-options-page.php:265
 #, php-format
 msgid "Please visit %1$s for any query related to plugin and BuddyPress."
 msgstr ""
 
-#: admin/review-admin-options-page.php:287
+#: admin/review-admin-options-page.php:297
 msgid "General Settings"
 msgstr ""
 
-#: admin/review-admin-options-page.php:291
+#: admin/review-admin-options-page.php:301
 msgid "Enable Multiple Review"
 msgstr ""
 
-#: admin/review-admin-options-page.php:298
+#: admin/review-admin-options-page.php:308
 msgid ""
 "Enable this option, if you want to add functionality to user can send "
 "multiple review to same group."
 msgstr ""
 
-#: admin/review-admin-options-page.php:304
+#: admin/review-admin-options-page.php:314
 msgid "Enable auto approval of Reviews"
 msgstr ""
 
-#: admin/review-admin-options-page.php:311
+#: admin/review-admin-options-page.php:321
 msgid ""
 "Enable this option, if you want to have the reviews automatically approved, "
 "else manual approval will be required."
 msgstr ""
 
-#: admin/review-admin-options-page.php:317
+#: admin/review-admin-options-page.php:327
 msgid "Reviews show at most"
 msgstr ""
 
-#: admin/review-admin-options-page.php:322
+#: admin/review-admin-options-page.php:332
 msgid ""
 "This option lets you limit number of reviews in \"Group Reviews\" page & "
 "\"Manage Reviews\" Page."
 msgstr ""
 
-#: admin/review-admin-options-page.php:326
+#: admin/review-admin-options-page.php:336
 msgid "Enable BuddyPress notifications"
 msgstr ""
 
-#: admin/review-admin-options-page.php:333
+#: admin/review-admin-options-page.php:343
 msgid ""
 "Enable this option, if you want to group admin & reviewer receive "
 "notification when add, accept & deny review."
 msgstr ""
 
-#: admin/review-admin-options-page.php:335
+#: admin/review-admin-options-page.php:345
 msgid "This setting requires BuddyPress Notifications Component to be active."
 msgstr ""
 
-#: admin/review-admin-options-page.php:340
+#: admin/review-admin-options-page.php:350
 msgid "Emails"
 msgstr ""
 
-#: admin/review-admin-options-page.php:346
+#: admin/review-admin-options-page.php:356
 msgid ""
 "Enable this option, if you want to group admin & reviewer receive email when "
 "add, accept & deny review."
 msgstr ""
 
-#: admin/review-admin-options-page.php:350
+#: admin/review-admin-options-page.php:360
 msgid "Exclude Groups from reviews."
 msgstr ""
 
-#: admin/review-admin-options-page.php:366
+#: admin/review-admin-options-page.php:376
 msgid ""
 "This option lets you to choose those groups that you don't want to provide "
 "review functionality."
+msgstr ""
+
+#: includes/bgr-ajax.php:184
+msgid "You already posted a review for this group"
 msgstr ""
 
 #: includes/bgr-filters.php:44 includes/bgr-filters.php:51
@@ -445,12 +461,6 @@ msgstr ""
 msgid "Group Reviews"
 msgstr ""
 
-#: includes/bgr-rating-display.php:58 includes/bgr-rating-display.php:61
-#: includes/bgr-rating-display.php:133 includes/bgr-rating-display.php:137
-#: includes/bgr-rating-display.php:141 includes/bgr-shortcodes.php:192
-msgid "star"
-msgstr ""
-
 #: includes/bgr-shortcodes.php:84
 msgid "You already posted a review for this group."
 msgstr ""
@@ -464,7 +474,7 @@ msgid "--Select Group--"
 msgstr ""
 
 #: includes/bgr-shortcodes.php:140 includes/bgr-shortcodes.php:152
-#: includes/bgr-shortcodes.php:195
+#: includes/bgr-shortcodes.php:194
 msgid "This field is required."
 msgstr ""
 

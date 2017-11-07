@@ -113,6 +113,7 @@ function run_bp_group_reviews_plugin() {
         'includes/bgr-globals.php',
         'includes/bgr-scripts.php',
         'admin/bgr-admin.php',
+        'includes/bgr-dynamic-css.php',
         'includes/bgr-rating-display.php',
         'includes/bgr-filters.php',
         'includes/bgr-ajax.php',

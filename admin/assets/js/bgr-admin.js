@@ -58,7 +58,6 @@ jQuery( document ).ready(function(){
             ajaxurl,
             {
                 'action'                    : 'bgr_save_admin_general_settings',
-                'allow_popup'               : allow_popup,
                 'multi_reviews'             : bgr_multi_reviews,
                 'bgr_auto_approve_reviews'  : bgr_auto_approve_reviews,
                 'reviews_per_page'          : reviews_per_page,
@@ -83,15 +82,13 @@ jQuery( document ).ready(function(){
         var review_label        = jQuery( '#bgrReviewLabel' ).val();
         var manage_review_label = jQuery( '#bgrManageReviewLabel' ).val();
         var bgr_rating_color    = jQuery( '#bgr-rating-color' ).val();
-        var bgr_rating_type     = jQuery( '#bgr-rating-type' ).val();
         jQuery.post(
             ajaxurl,
             {
             'action'             : 'bgr_save_admin_display_settings',
             'review_label'       : review_label,
             'manage_review_label': manage_review_label,
-            'bgr_rating_color'   : bgr_rating_color,
-            'bgr_rating_type'    : bgr_rating_type
+            'bgr_rating_color'   : bgr_rating_color
             },
             function ( response ) {
                 if( response === 'admin-display-settings-saved' ) {
