@@ -14,46 +14,103 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 
 		function __construct() {
 
-                        global $bp;
-						global $bgr;
-                        $enabled = true;
-						$bgr_admin_display_settings  = get_option( 'bgr_admin_display_settings' );
-                        $bgr_admin_general_settings  = get_option( 'bgr_admin_general_settings' );
-                        if( !empty( $bgr_admin_display_settings ) ) {
-                            $review_label = $bgr_admin_display_settings['manage_review_label'];
-                            if( empty( $review_label )) {
-                                $review_label = 'Reviews ';
-                            }
-                        } else {
-							$review_label = 'Reviews ';
-						}
-                        if( !empty( $bgr_admin_general_settings ) ) {
-                            $exclude_groups = $bgr_admin_general_settings['exclude_groups'];
-                            if( !empty( $exclude_groups )) {
-                                if( in_array( bp_get_current_group_id() , $exclude_groups ) ) {
-                                    $enabled = false;
-                                }
-                            }
-                        }
+            global $bp;
+			global $bgr;
+            $enabled = true;
+            $add_review_nav = false;
+			$bgr_admin_display_settings  = get_option( 'bgr_admin_display_settings' );
+            $bgr_admin_general_settings  = get_option( 'bgr_admin_general_settings' );
+            if( !empty( $bgr_admin_display_settings ) ) {
+                $review_label = $bgr_admin_display_settings['manage_review_label'];
+                $add_review_label = $bgr_admin_display_settings['review_label'];
+                if( empty( $review_label )) {
+                    $review_label = 'Reviews ';
+                }
+                if( empty( $add_review_label )) {
+                    $add_review_label = 'Review';
+                }
+            } else {
+				$review_label = 'Reviews ';
+				$add_review_label = 'Review';
+			}
+            if( !empty( $bgr_admin_general_settings ) ) {
+                $exclude_groups = $bgr_admin_general_settings['exclude_groups'];
+                if( !empty( $exclude_groups )) {
+                    if( in_array( bp_get_current_group_id() , $exclude_groups ) ) {
+                        $enabled = false;
+                    }
+                }
+            }
 
-						$args = array(
-							'slug'				=>	'manage-reviews',
-							'name'				=>	__('Manage Reviews', BGR_DOMAIN ),
-							'nav_item_position'		=>	99,
-							'enable_nav_item'		=>	false,
-											'screens' => array(
-												'edit' => array(
-													'name' => $review_label,
-													'enabled' => $enabled,
-												),
-												'create' => array(
-												'enabled' => false,
-												)),
-											'show_tab' => false,
+            if( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in() ) {
+            	$add_review_nav = true;
+            }
+
+         	if( !empty( $bgr_admin_general_settings ) ) {
+                if( !empty( $exclude_groups )) {
+                    if( !in_array( bp_get_current_group_id(), $exclude_groups )) {
+					$args = array(
+							'slug'				=>	'add-review',
+							'nav_item_position'	=>	99,
+							'nav_item_name'		=> sprintf( __("Add %s", BGR_DOMAIN), $add_review_label ),
+							'enable_nav_item'	=>	$add_review_nav,
+							'screens' 			=> array(
+													'edit' => array(
+														'name' => $review_label,
+														'slug' => 'manage-reviews',
+														'enabled' => $enabled,
+													)),
+							'show_tab' 			=> false
 
 						);
 						parent::init( $args );
+					}
+				} else {
+					$args = array(
+							'slug'				=>	'add-review',
+							'nav_item_position'	=>	99,
+							'nav_item_name'		=> sprintf( __("Add %s", BGR_DOMAIN), $add_review_label ),
+							'enable_nav_item'	=>	true,
+							'screens' 			=> array(
+													'edit' => array(
+														'name' => $review_label,
+														'slug' => 'manage-reviews',
+														'enabled' => $enabled,
+													)),
+							'show_tab' 			=> false
+
+						);
+					parent::init( $args );
+				}
+			}	else {
+				$args = array(
+							'slug'				=>	'add-review',
+							'nav_item_position'	=>	99,
+							'nav_item_name'		=> sprintf( __("Add %s", BGR_DOMAIN), $add_review_label ),
+							'enable_nav_item'	=>	true,
+							'screens' 			=> array(
+													'edit' => array(
+														'name' => $review_label,
+														'slug' => 'manage-reviews',
+														'enabled' => $enabled,
+													)),
+							'show_tab' 			=> false
+
+						);
+						parent::init( $args );
+			}
 		}
+
+		public function display ( $group_id = null ) { ?>
+			<div class="bgr-bp-success">
+				<div id="message" class="success bgr-bp-success">
+					<p><?php _e( "Your Response added. This will be published when group admin approved it.", BGR_DOMAIN); ?></p>
+				</div>
+			</div>
+			<div class="bgr-group-review-no-popup-add-block">
+		        <?php do_shortcode( '[add_group_review_form]' ); ?>
+			</div>
+		<?php }
 
 		/*
 		* settings_screen_save() contains the catch-all logic for saving
@@ -64,7 +121,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 
 		public function bp_is_checked( $value, $array ) {
 			if ( array_key_exists( $value, $array ) ) {
-                            $checked = 'checked';
+                $checked = 'checked';
 			}
 			else {
 				$checked = '';
@@ -199,5 +256,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		}
 	}
     bp_register_group_extension( 'Group_Reviews_Management_Extn' );
+
+
 
 endif;

@@ -5,8 +5,6 @@ global $bp,$post;
 global $bgr;
 $current_user       	= wp_get_current_user();
 $member_id          	= $current_user->ID;
-
-$allow_popup          	= $bgr['add_review_allow_popup'];
 $reviews_per_page     	= $bgr['reviews_per_page'];
 $review_rating_fields 	= $bgr['review_rating_fields'];
 $review_label 		  	= $bgr['review_label'];
@@ -28,53 +26,6 @@ $args				 	= 	array(
 $reviews 				= new WP_Query($args);
 ?>
 <div class="bgr-group-reviews-block">
-	<div class="reviews-header">
-		<p>
-			<?php
-			if( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in() ) {
-				_e( $review_label, BGR_DOMAIN ); ?>
-				<?php if( $allow_popup == 'yes' ) { ?>
-					<span class="bgr-add-review">
-						<a href="javascript:void(0)" id="add-review"><?php _e('Add ', BGR_DOMAIN ); echo $review_label; ?></a>
-					</span>
-				<?php } else { ?>
-					<span class="bgr-add-review">
-						<a href="javascript:void(0)" id="add-review-no-popup"><?php _e('Add ', BGR_DOMAIN ); echo $review_label; ?></a>
-					</span>
-				<?php }
-			} ?>
-		</p>
-	</div>
-
-	<?php if( $allow_popup == 'no' ) { ?>
-		<!-- ADD REVIEW IF NO POPUP -->
-		<div class="bgr-group-review-no-popup-add-block">
-                    <?php do_shortcode( '[add_group_review_form]' ); ?>
-		</div>
-	<?php } ?>
-
-	<!-- MODAL FOR USER LOGIN -->
-
-	<div id="bgr-add-review-modal" class="modal">
-		<!-- Modal content -->
-		<div class="modal-content">
-			<div class="modal-header">
-				<span class="close close-modal">&times;</span>
-				<h2><?php _e('Add ', BGR_DOMAIN ); echo $review_label; ?></h2>
-			</div>
-			<div class="modal-body">
-				<div class="bgr-group-review-add-block">
-					<?php do_shortcode( '[add_group_review_form]' ); ?>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="bgr-bp-success">
-		<div id="message" class="success bgr-bp-success">
-			<p><?php _e( "Your Response added. This will be published when group admin approved it.", BGR_DOMAIN); ?></p>
-		</div>
-	</div>
-
 	<div class="group-reviews">
 		<div id="group-reviews-list">
 			<div id="request-review-list" class="item-list">

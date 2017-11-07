@@ -1,7 +1,9 @@
 jQuery.noConflict();
 jQuery( document ).ready(function(){
     // Save Criteria Settings
-	 jQuery( '#bgr-settings-updated' ).hide();
+	jQuery( '#bgr-settings-updated' ).hide();
+    jQuery('#bgr-exclude-group-review').selectize();
+
     jQuery( document ).on( 'click', '#bgr-save-admin-criteria-settings', function(){
         jQuery( this ).addClass( 'bgr-btn-ajax' );
         jQuery( '.bgr-admin-criteria-settings-spinner' ).show();

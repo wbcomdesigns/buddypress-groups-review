@@ -23,7 +23,6 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 			add_action( 'bp_group_header_actions', array( $this, 'bgr_group_header_review_btn' ) );
 		}
 
-
 		/**
 		*  Actions performed to show review button on group header
 		*  @since   1.0.0
@@ -33,20 +32,26 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 
 		public function bgr_group_header_review_btn() {
 			global $bgr;
-			if( $bgr['add_review_allow_popup'] == 'no' ) {
-				$review_div = 'form';
-			} else {
-				$review_div = 'form-modal';
-			}
+			$review_div = 'form';
+			$exclude_groups = $bgr['exclude_groups'];
 			$current_group_id = bp_get_current_group_id();
 			$current_group_link = bp_get_group_permalink( groups_get_group( array( 'group_id' => $current_group_id ) ) );
-			$current_group_link .= 'reviews';
-			if( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in() ) {
-			?>
-			<div class="group-button public generic-button" id="groupbutton-85">
-				<a href='<?php echo $current_group_link; ?>' class="group-button join-group" show ="<?php echo $review_div; ?>"><?php _e( 'Add Review', BGR_DOMAIN );?></a>
-			</div>
-			<?php }
+			$current_group_link .= 'add-review';
+			if( !empty( $exclude_groups )) {
+                if( !in_array( bp_get_current_group_id(), $exclude_groups )) {
+					if( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in() ) { ?>
+						<div class="group-button public generic-button" id="groupbutton-85">
+							<a href='<?php echo $current_group_link; ?>' class="group-button join-group" show ="<?php echo $review_div; ?>"><?php _e( 'Add Review', BGR_DOMAIN );?></a>
+						</div>
+					<?php }
+				}
+			}	else {
+				if( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in() ) { ?>
+					<div class="group-button public generic-button" id="groupbutton-85">
+						<a href='<?php echo $current_group_link; ?>' class="group-button join-group" show ="<?php echo $review_div; ?>"><?php _e( 'Add Review', BGR_DOMAIN );?></a>
+					</div>
+				<?php }
+			}
 		}
 
 		/**
@@ -126,8 +131,6 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 					do_action('bgr_display_group_average_ratings', $avg_rating );
 					echo "</div><div class='rating-text'>"; _e('Rating', BGR_DOMAIN ); echo " : <span>($avg_rating)</span></div>";
 					echo "<div class='rating-total'>Total $review_label : $total_review_count</div></div></div>";
-				} else {
-						_e('No Rating Available!', BGR_DOMAIN );
 				}
 			}
 		}
@@ -266,6 +269,17 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 			}
 		}
 
+		public function bgr_group_add_review_tab() {
+			add_action( 'bp_template_content', array( $this, 'bgr_group_reviews_tab_template' ) );
+
+			$templates = array('groups/single/plugins.php','plugin-template.php');
+			if( strstr( locate_template($templates), 'groups/single/plugins.php' ) ) {
+				bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'groups/single/plugins' ) );
+			} else {
+				bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'plugin-template' ) );
+			}
+		}
+
 		/**
 		* Action performed to show screen of reviews listing tab
 		*
@@ -295,7 +309,7 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 		public function bgr_group_reviews_tab_template() {
 			if( strpos( $_SERVER['REQUEST_URI'], 'reviews/view' ) !== false ) {
 				include 'templates/bgr-single-review-template.php';
-			} else {
+			} else if( strpos( $_SERVER['REQUEST_URI'], 'reviews' ) !== false ) {
 				include 'templates/bgr-reviews-tab-template.php';
 			}
 		}

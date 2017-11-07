@@ -284,3 +284,13 @@ button.bgr-accordion.active::after {
 .bgr-extra-actions {
     float: right;
 }
+
+.bgr-col-9 .selectize-control {
+    width: 50%!important;
+}
+
+@media( max-width: 767px ) {
+    .bgr-col-9 .selectize-control {
+        width: 100%!important;
+    }
+}

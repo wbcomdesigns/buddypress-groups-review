@@ -13,9 +13,6 @@ function bgr_review_globals() {
 	/**** Global variable values for General settings ****/
 
 	if( !empty( $bgr_admin_general_settings ) ) {
-		if( array_key_exists( 'add_review_allow_popup', $bgr_admin_general_settings ) ) {
-			$add_review_allow_popup = $bgr_admin_general_settings['add_review_allow_popup'];
-		}
 		if( array_key_exists( 'auto_approve_reviews', $bgr_admin_general_settings ) ) {
 			$auto_approve_reviews = $bgr_admin_general_settings['auto_approve_reviews'];
 		}
@@ -34,9 +31,7 @@ function bgr_review_globals() {
 		if( array_key_exists( 'multi_reviews', $bgr_admin_general_settings ) ) {
 			$multi_reviews     	    = $bgr_admin_general_settings['multi_reviews'];
 		}
-		if( empty( $add_review_allow_popup )) {
-			$add_review_allow_popup = 'no';
-		}
+
 		if( empty( $multi_reviews )) {
 			$multi_reviews = 'no';
 		}
@@ -56,7 +51,6 @@ function bgr_review_globals() {
 			$exclude_groups = array();
 		}
 	} else {
-		$add_review_allow_popup = 'no';
 		$multi_reviews          = 'no';
 		$reviews_per_page       = 3;
 		$allow_email            = 'no';
@@ -94,34 +88,18 @@ function bgr_review_globals() {
 		if( array_key_exists( 'manage_review_label', $bgr_admin_display_settings ) ) {
 			$manage_review_label = $bgr_admin_display_settings['manage_review_label'];
 		}
-		if( array_key_exists( 'bgr_rating_color', $bgr_admin_display_settings ) ) {
-			$rating_color        = $bgr_admin_display_settings['bgr_rating_color'];
-		}
-		if( array_key_exists( 'bgr_rating_type', $bgr_admin_display_settings ) ) {
-			$rating_type         = $bgr_admin_display_settings['bgr_rating_type'];
-		}
 		if( empty( $review_label )) {
-			$review_label = 'Review';
+			$review_label = 'Reviews';
 		}
 		if( empty( $manage_review_label ) ) {
-		   $manage_review_label = 'Review';
-		}
-		if( empty( $rating_color ) ) {
-		   $rating_color = '#FFC400';
-		}
-		if( empty( $rating_type ) ) {
-			$rating_type = 'star';
+		   $manage_review_label = 'Reviews';
 		}
 	} else {
 		$review_label           = 'Review';
-		$manage_review_label    = 'Review';
-		$rating_color           = '#FFC400';
-		$rating_type            = 'star';
+		$manage_review_label    = 'Reviews';
 	}
 
-
 	$bgr = array(
-		'add_review_allow_popup' => $add_review_allow_popup,
 		'multi_reviews'          => $multi_reviews,
 		'auto_approve_reviews'	 => $auto_approve_reviews,
 		'reviews_per_page'       => $reviews_per_page,
@@ -131,9 +109,7 @@ function bgr_review_globals() {
 		'review_rating_fields'   => $review_rating_fields,
 		'active_rating_fields'   => $active_rating_fields,
 		'review_label'           => $review_label,
-		'manage_review_label'    => $manage_review_label,
-		'rating_color'           => $rating_color,
-		'rating_type'            => $rating_type
+		'manage_review_label'    => $manage_review_label
 	);
 }
 add_action( 'init', 'bgr_review_globals' );

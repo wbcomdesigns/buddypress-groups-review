@@ -33,7 +33,6 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
 				$active_rating_fields 			= $bgr['active_rating_fields'];
 				$review_label		  	  		= $bgr['review_label'];
 				$admin_exclude_groups	  		= $bgr['exclude_groups'];
-				$rating_color					= $bgr['rating_color'];
 				$auto_approve_reviews   		= $bgr['auto_approve_reviews'];
 				$multi_reviews   				= $bgr['multi_reviews'];
 				$current_user   				= wp_get_current_user();
@@ -79,7 +78,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
 	                    }
 
 	                    if( $user_post_count == 0 ) {
-	                    	$this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $rating_color, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
+	                    	$this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
 	                    } else { ?>
 	                    	<div id="message" class="error">
 			                   <p><?php _e("You already posted a review for this group.", BGR_DOMAIN ); ?> </p>
@@ -87,7 +86,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
 	                    <?php }
 
                     } else {
-                    	$this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $rating_color, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
+                    	$this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
                     }
                  }  else { ?>
 	                <div id="message" class="error">
@@ -96,7 +95,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
                <?php  }
             }
 
-            function bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $rating_color, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id ) {
+            function bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id ) {
                 global $bp;
                 $user_groups    = BP_Groups_Member::get_is_admin_of( $member_id );
                 $exclude_group = array();
@@ -122,7 +121,6 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
             	?>
                 <form id="bgr-add-review-form" method="POST">
                     <input type="hidden" id="reviews_pluginurl"  name="reviews_pluginurl" value="<?php _e( BGR_PLUGIN_URL, BGR_DOMAIN );?>">
-                    <input type="hidden" id="bgr-rate-color" name="bgr-rate-color" value="<?php echo $rating_color; ?>">
 					<div class="group-add-form">
                         <p>
                             <b><?php _e( "Write a ", BGR_DOMAIN ); echo $review_label; ?></b>
@@ -167,17 +165,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
 
 			function bgr_display_form_rating() {
 				global $bgr;
-				$rating_type = $bgr['rating_type'];
-
-				switch( $rating_type ) {
-
-					case 'star'			: 	$this->bgr_display_form_star_rating();
-												break;
-					case 'bar'			: 	$this->bgr_display_form_bar_rating();
-												break;
-					case 'numbers'		: 	$this->bgr_display_form_numbers_rating();
-												break;
-				}
+				$this->bgr_display_form_star_rating();
 			}
 
 			/**
@@ -211,69 +199,6 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
 					<input type="hidden" id="rating_field_counter" value="<?php echo --$field_counter; ?>">
 				<?php   }
 			}
-
-			/**
-			*  Display Ratings when rating type = bar
-			*  @since   1.0.0
-			*  @author  Wbcom Designs
-			*/
-
-			function bgr_display_form_bar_rating() {
-				global $bgr;
-				$review_rating_fields 			= $bgr['review_rating_fields'];
-				$active_rating_fields 			= $bgr['active_rating_fields'];
-				if ( !empty( $review_rating_fields ) ) {
-					$field_counter = 1;
-						foreach( $review_rating_fields as $review_rating_field ):
-							if( in_array( $review_rating_field, $active_rating_fields ) ) { ?>
-								<div class="bgr-row">
-									<div class="bgr-col-6"><label><?php _e( $review_rating_field, BGR_DOMAIN ); ?></label></div>
-									<div id="bgrbar<?php echo $field_counter;?>" class="bgr-col-6" >
-										<input type="hidden" id="<?php echo 'clicked'.$field_counter; ?>" value="not_clicked">
-										<input type="hidden" name="rated_stars[]" class="rated_bars bgr_mrating" id="<?php echo 'rated_bars'.$field_counter; ?>" value="0">
-										<?php for( $i = 1; $i <= 5; $i++ ) {    ?>
-												<a class="bgr-bars <?php echo $i;?>" alt="<?php _e( 'bar', BGR_DOMAIN ); ?>" id="<?php echo $field_counter.$i; ?>" data-attr="<?php echo $i; ?>"></a>
-										<?php } ?>
-									</div>
-									<div class="bgr-col-12 bgr-error-fields">*<?php _e('This field is required.', BGR_DOMAIN ); ?></div>
-								</div>
-							<?php $field_counter++; }
-						endforeach; ?>
-					<input type="hidden" id="rating_field_counter" value="<?php echo --$field_counter; ?>">
-				<?php   }
-			}
-
-			/**
-			*  Display Ratings when rating type = numbers
-			*  @since   1.0.0
-			*  @author  Wbcom Designs
-			*/
-
-			function bgr_display_form_numbers_rating() {
-				global $bgr;
-				$review_rating_fields 			= $bgr['review_rating_fields'];
-				$active_rating_fields 			= $bgr['active_rating_fields'];
-				if ( !empty( $review_rating_fields ) ) {
-					$field_counter = 1;
-						foreach( $review_rating_fields as $review_rating_field ):
-							if( in_array( $review_rating_field, $active_rating_fields ) ) { ?>
-								<div class="bgr-row">
-									<div class="bgr-col-6"><label><?php _e( $review_rating_field, BGR_DOMAIN ); ?></label></div>
-									<div id="bgrnumbers<?php echo $field_counter;?>" class="bgr-col-6" >
-										<input type="hidden" id="<?php echo 'clicked'.$field_counter; ?>" value="not_clicked">
-										<input type="hidden" name="rated_stars[]" class="rated_bars bgr_mrating" id="<?php echo 'rated_bars'.$field_counter; ?>" value="0">
-										<?php for( $i = 1; $i <= 5; $i++ ) {  ?>
-												<a class="bgr-numbers <?php echo $i;?>" alt="<?php echo 'bar'; ?>" id="<?php echo $field_counter.$i; ?>" data-attr="<?php echo $i; ?>"><?php echo $i; ?></a>
-										<?php } ?>
-									</div>
-									<div class="bgr-col-12 bgr-error-fields">*<?php _e('This field is required.', BGR_DOMAIN ); ?></div>
-								</div>
-							<?php $field_counter++; }
-						endforeach; ?>
-					<input type="hidden" id="rating_field_counter" value="<?php echo --$field_counter; ?>">
-				<?php  }
-			}
-
     }
     new BGR_Shortcodes();
 }

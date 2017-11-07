@@ -24,7 +24,7 @@
 }
 
 .bgr-group-review-no-popup-add-block {
-    display: none;
+    display: block;
 }
 
 #request-review-list + #bp-group-edit-manage-reviews-submit-wrapper {

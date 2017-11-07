@@ -53,36 +53,6 @@ if( !class_exists( 'BGR_AJAX' ) ) {
 			}
 		}
 
-		/**
-		*  Actions performed for saving admin settings
-		*  @since   1.0.0
-		*  @author  Wbcom Designs
-		*/
-
-		function bgr_save_admin_settings() {
-			if( isset( $_POST['action'] ) && $_POST['action'] === 'bgr_save_admin_settings' ) {
-
-				$allow_popup         = sanitize_text_field( $_POST['allow_popup'] );
-				$reviews_per_page    = sanitize_text_field( $_POST['reviews_per_page'] );
-				$rating_fields       = array_map( 'sanitize_text_field', wp_unslash( $_POST['field_values'] ) );
-				$rating_field_values = array_unique($rating_fields);
-				$manage_review_label = sanitize_text_field( $_POST['manage_review_label'] );
-				$review_label        = sanitize_text_field( $_POST['review_label'] );
-				$bgr_rating_color    = sanitize_text_field( $_POST['bgr_rating_color'] );
-
-				$bgr_admin_settings  = array(
-                                    	  'add_review_allow_popup'   => $allow_popup,
-                                          'reviews_per_page'         => $reviews_per_page,
-                                          'add_review_rating_fields' => $rating_field_values,
-                                          'review_label'             => $review_label,
-                                          'manage_review_label'      => $manage_review_label,
-                                          'bgr_rating_color'         => $bgr_rating_color
-										);
-				update_option( 'bgr_admin_settings', $bgr_admin_settings );
-				echo 'admin-settings-saved';
-				die;
-			}
-		}
 
 		/**
 		*  Actions performed for saving admin criteria settings
@@ -118,7 +88,6 @@ if( !class_exists( 'BGR_AJAX' ) ) {
 		function bgr_save_admin_general_settings() {
 			if( isset( $_POST['action'] ) && $_POST['action'] === 'bgr_save_admin_general_settings' ) {
 
-				$allow_popup         		= sanitize_text_field( $_POST['allow_popup'] );
 				$multi_reviews         		= sanitize_text_field( $_POST['multi_reviews'] );
 				$auto_approve_reviews		= sanitize_text_field( $_POST['bgr_auto_approve_reviews'] );
 				$reviews_per_page    		= sanitize_text_field( $_POST['reviews_per_page'] );
@@ -129,7 +98,6 @@ if( !class_exists( 'BGR_AJAX' ) ) {
 					$exclude_groups = array();
 				}
 				$bgr_admin_settings  = array(
-						  'add_review_allow_popup'   => $allow_popup,
 						  'multi_reviews'  			 => $multi_reviews,
 						  'auto_approve_reviews'   	 => $auto_approve_reviews,
 						  'reviews_per_page'         => $reviews_per_page,
@@ -154,14 +122,10 @@ if( !class_exists( 'BGR_AJAX' ) ) {
 
 				$manage_review_label = sanitize_text_field( $_POST['manage_review_label'] );
 				$review_label        = sanitize_text_field( $_POST['review_label'] );
-				$bgr_rating_color    = sanitize_text_field( $_POST['bgr_rating_color'] );
-				$bgr_rating_type     = sanitize_text_field( $_POST['bgr_rating_type'] );
 
 				$bgr_admin_settings  = array(
 								  'review_label'             => $review_label,
-								  'manage_review_label'      => $manage_review_label,
-								  'bgr_rating_color'         => $bgr_rating_color,
-								  'bgr_rating_type'          => $bgr_rating_type
+								  'manage_review_label'      => $manage_review_label
 				);
 				update_option( 'bgr_admin_display_settings', $bgr_admin_settings );
 				echo 'admin-display-settings-saved';

@@ -217,10 +217,7 @@ jQuery( function () {
     var show_last_form;
     show_last_form = localStorage.getItem("bgr_show_form");
     if ( show_last_form != null ) {
-        if( show_last_form == 'form-modal' ) {
-            jQuery('#add-review').click();
-            localStorage.setItem("bgr_show_form", null );
-        }  else if( show_last_form == 'form' ) {
+        if( show_last_form == 'form' ) {
             jQuery('.bgr-group-review-no-popup-add-block').show();
             localStorage.setItem("bgr_show_form", null );
         }

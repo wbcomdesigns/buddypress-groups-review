@@ -41,9 +41,9 @@ function bgr_include_admin_setting_tabs( $bgr_setting_tab = 'general') {
 
 function bgr_criteria_setting() {
 	global $bgr;
-        $spinner_src = includes_url().'images/spinner.gif';
-		$review_rating_fields = $bgr['review_rating_fields'];
-		$active_rating_fields = $bgr['active_rating_fields'];
+    $spinner_src = includes_url().'images/spinner.gif';
+	$review_rating_fields = $bgr['review_rating_fields'];
+	$active_rating_fields = $bgr['active_rating_fields'];
 
 ?>
     <div class="bgr-col-12"><h2><?php _e('Criteria Settings', BGR_DOMAIN ); ?></h2></div>
@@ -101,8 +101,6 @@ function bgr_display_setting() {
         $spinner_src = includes_url().'images/spinner.gif';
         $bgrReviewLabel           = $bgr['review_label'];
         $bgrManageReviewLabel     = $bgr['manage_review_label'];
-        $bgr_rating_color         = $bgr['rating_color'];
-        $bgr_rating_type          = $bgr['rating_type'];
     ?>
     <div class="bgr-col-12">
         <h2><?php _e( 'Display Settings', BGR_DOMAIN );?></h2>
@@ -125,26 +123,6 @@ function bgr_display_setting() {
 			<input name = "bgrManageReviewLabel" id="bgrManageReviewLabel" type="text" value = "<?php echo $bgrManageReviewLabel; ?>" />
 			<p class="bgr-admin-des"><?php _e( 'This option provides flexibility to change review label in "BuddyPress Group Manage" section. By default it shows "Reviews".' , BGR_DOMAIN); ?></p>
 		</div>
-    </div>
-    <div class="bgr-col-12"><h3><?php _e( 'Colors', BGR_DOMAIN );?></h3></div>
-    <div class="bgr-row">
-        <div class="bgr-col-3"><label for="bgr-rating-color"><?php _e( 'Rating Color', BGR_DOMAIN );?></label></div>
-        <div class="bgr-col-9">
-			<input id="bgr-rating-color" class="bgr-review-color" type="text" data-default-color="#effeff" value="<?php echo $bgr_rating_color; ?>" />
-			<p class="bgr-admin-des"><?php _e( 'This option lets you to change rating type color( except star rating ).' , BGR_DOMAIN); ?></p>
-		</div>
-    </div>
-    <div class="bgr-col-12"><h3><?php _e( 'Rating Type', BGR_DOMAIN );?></h3></div>
-    <div class="bgr-row">
-        <div class="bgr-col-3"><label for="bgr-rating-type"><?php _e( 'Types', BGR_DOMAIN );?></label></div>
-        <div class="bgr-col-9">
-            <select id="bgr-rating-type" name="bgr-rating-type">
-                <option value="<?php _e( 'star', BGR_DOMAIN );?>" <?php if( $bgr_rating_type == 'star' ) { echo 'selected="selected"'; } ?>><?php _e( 'Star Rating', BGR_DOMAIN );?></option>
-                <option value="<?php _e( 'numbers', BGR_DOMAIN );?>" <?php if( $bgr_rating_type == 'numbers' ) { echo 'selected="selected"'; } ?>><?php _e( 'Number Rating', BGR_DOMAIN );?></option>
-                <option value="<?php _e( 'bar', BGR_DOMAIN );?>" <?php if( $bgr_rating_type == 'bar' ) { echo 'selected="selected"'; } ?>><?php _e( 'Bar Rating', BGR_DOMAIN );?></option>
-            </select>
-			<p class="bgr-admin-des"><?php _e( "This option lets you to choose display of ratings. By default, Star Rating will be shown.", BGR_DOMAIN); ?></p>
-        </div>
     </div>
     <div class="bgr-col-12">
         <div class="bgr-col-6">
@@ -293,7 +271,6 @@ function bgr_general_setting() {
     global $bp, $bgr;
 
     $spinner_src       	  	= includes_url().'images/spinner.gif';
-	$allow_popup          	= $bgr['add_review_allow_popup'];
     $auto_approve_reviews   = $bgr['auto_approve_reviews'];
 	$reviews_per_page     	= $bgr['reviews_per_page'];
 	$allow_email      	 	= $bgr['allow_email'];
@@ -306,21 +283,8 @@ function bgr_general_setting() {
         'per_page'    => -1
 	);
     $allgroups  			= groups_get_groups( $group_args );
-
     ?>
     <div class="bgr-col-12"><h2><?php _e( 'General Settings', BGR_DOMAIN );?></h2></div>
-    <div class="bgr-row">
-        <div class="bgr-col-3">
-            <label><?php _e( 'Enable popup', BGR_DOMAIN );?></label>
-        </div>
-        <div class="bgr-col-9">
-            <label class="bgr-switch" for="bgr-allow-popup">
-                <input type="checkbox" id="bgr-allow-popup" <?php if( 'yes'  == $allow_popup ){  echo 'checked="checked"'; } ?>>
-                <div class="bgr-slider round"></div>
-            </label>
-			<p class="bgr-admin-des"><?php _e( 'Enable this option, if you want to show Add Review form in modal box.' , BGR_DOMAIN); ?></p>
-        </div>
-    </div>
 
     <div class="bgr-row">
         <div class="bgr-col-3">
