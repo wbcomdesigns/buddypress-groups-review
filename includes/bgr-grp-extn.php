@@ -70,7 +70,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 							'slug'				=>	'add-review',
 							'nav_item_position'	=>	99,
 							'nav_item_name'		=> sprintf( __("Add %s", BGR_DOMAIN), $add_review_label ),
-							'enable_nav_item'	=>	true,
+							'enable_nav_item'	=>	$add_review_nav,
 							'screens' 			=> array(
 													'edit' => array(
 														'name' => $review_label,
@@ -87,7 +87,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 							'slug'				=>	'add-review',
 							'nav_item_position'	=>	99,
 							'nav_item_name'		=> sprintf( __("Add %s", BGR_DOMAIN), $add_review_label ),
-							'enable_nav_item'	=>	true,
+							'enable_nav_item'	=>	$add_review_nav,
 							'screens' 			=> array(
 													'edit' => array(
 														'name' => $review_label,
@@ -111,23 +111,6 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		        <?php do_shortcode( '[add_group_review_form]' ); ?>
 			</div>
 		<?php }
-
-		/*
-		* settings_screen_save() contains the catch-all logic for saving
-		* settings from the edit, create, and Dashboard admin panels
-		*  @since   1.0.0
-		*  @author  Wbcom Designs
-		*/
-
-		public function bp_is_checked( $value, $array ) {
-			if ( array_key_exists( $value, $array ) ) {
-                $checked = 'checked';
-			}
-			else {
-				$checked = '';
-			}
-			return $checked;
-		}
 
 		/*
 		*  Display all posted reviews that not checked by group admins.

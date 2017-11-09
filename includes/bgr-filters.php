@@ -17,7 +17,6 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 			add_action( 'wp', array( $this, 'bgr_add_groups_reviews_tab' ) );
 			add_action( 'init', array( $this, 'bgr_add_groups_reviews_taxonomy_term' ) );
 			add_filter( 'post_row_actions', array( $this, 'bgr_group_reviews_row_actions' ), 10, 2 );
-			add_action( 'admin_footer-edit.php', array( $this, 'bgr_disable_review_title_edit_link' ) );
 			add_filter( 'bulk_actions-edit-review', array( $this, 'bgr_remove_edit_bulk_actions' ), 10, 1 );
 			add_action( 'bp_before_group_header_meta', array( $this, 'bgr_group_average_rating') );
 			add_action( 'bp_group_header_actions', array( $this, 'bgr_group_header_review_btn' ) );
@@ -41,14 +40,14 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
                 if( !in_array( bp_get_current_group_id(), $exclude_groups )) {
 					if( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in() ) { ?>
 						<div class="group-button public generic-button" id="groupbutton-85">
-							<a href='<?php echo $current_group_link; ?>' class="group-button join-group" show ="<?php echo $review_div; ?>"><?php _e( 'Add Review', BGR_DOMAIN );?></a>
+							<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>"><?php _e( 'Add Review', BGR_DOMAIN );?></a>
 						</div>
 					<?php }
 				}
 			}	else {
 				if( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in() ) { ?>
 					<div class="group-button public generic-button" id="groupbutton-85">
-						<a href='<?php echo $current_group_link; ?>' class="group-button join-group" show ="<?php echo $review_div; ?>"><?php _e( 'Add Review', BGR_DOMAIN );?></a>
+						<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>"><?php _e( 'Add Review', BGR_DOMAIN );?></a>
 					</div>
 				<?php }
 			}
@@ -79,9 +78,9 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 														),
 					);
 			$reviews = get_posts( $args );
-			$review_rating_fields = $bgr['review_rating_fields'];
+			$review_rating_fields   = $bgr['review_rating_fields'];
 			$review_label 			= $bgr['review_label'];
-			$exclude_groups		= $bgr['exclude_groups'];
+			$exclude_groups		    = $bgr['exclude_groups'];
 			if( !empty( $exclude_groups ) ) {
 				if( !in_array( bp_get_group_id(), $exclude_groups )) {
 					$this->bgr_group_average_rating_data( $reviews, $review_rating_fields, $review_label );

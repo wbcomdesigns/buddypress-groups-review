@@ -217,8 +217,7 @@
 }
 
 .bgr-group-header-ratings {
-    display: table;
-   /* margin: 0 auto;*/
+    display: block;
     padding: 10px 0;
 }
 
