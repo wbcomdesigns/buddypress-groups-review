@@ -58,7 +58,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 													'edit' => array(
 														'name' => $review_label,
 														'slug' => 'manage-reviews',
-														'enabled' => $enabled,
+														'enabled' => $enabled
 													)),
 							'show_tab' 			=> false
 
@@ -75,7 +75,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 													'edit' => array(
 														'name' => $review_label,
 														'slug' => 'manage-reviews',
-														'enabled' => $enabled,
+														'enabled' => $enabled
 													)),
 							'show_tab' 			=> false
 
@@ -92,7 +92,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 													'edit' => array(
 														'name' => $review_label,
 														'slug' => 'manage-reviews',
-														'enabled' => $enabled,
+														'enabled' => $enabled
 													)),
 							'show_tab' 			=> false
 

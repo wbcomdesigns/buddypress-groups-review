@@ -194,6 +194,7 @@ class bgr_review_widget extends WP_Widget {
 							if( $post_num_counter < $widget_post_num ):
 							$group = groups_get_group( array( 'group_id' => $gid ) );
 							$avatar_options = array ( 'item_id' => $gid, 'object' => 'group', 'type' => 'full', 'avatar_dir' => 'group-avatars', 'alt' => 'Group avatar', 'class' => 'sidebar_review_avatar' );
+							if($group->id !== 0) {
 
 							?>
 							<div class="bgr-row">
@@ -225,7 +226,7 @@ class bgr_review_widget extends WP_Widget {
 										</div>
 									</div>
 							</div>
-					<?php  endif; $post_num_counter++;  }
+					<?php  } endif; $post_num_counter++;  }
 					} else {
 						if( 'toprated' == $widget_listing_cat ){ ?>
 							<div id="message" class="info"><?php _e("No Rating has been given to any group yet!", BGR_DOMAIN ); ?></div>

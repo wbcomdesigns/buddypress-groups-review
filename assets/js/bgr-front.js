@@ -11,25 +11,6 @@ jQuery(document).ready(function(e){
             localStorage.setItem("bgr_show_form", show_content );
         });
 
-        // When the user clicks on <span> (x), close the modal
-        jQuery(document).on('click', '.close-modal', function(){
-                jQuery( '#bgr-add-review-modal' ).css( 'display', 'none' );
-        });
-
-        /*----------------------------------------
-        * Display message after review submit
-        *-----------------------------------------*/
-        jQuery(document).on('click', '#bgr_review_success_msg_modal .close', function (){
-            jQuery('#bgr_review_success_msg_modal').hide();
-        });
-
-        // When the user clicks anywhere outside of the modal, close it
-        jQuery(document.body).click(function(event){
-                var modal = document.getElementById('bgr-add-review-modal');
-                if( event.target == modal ) {
-                        jQuery( '#bgr-add-review-modal' ).css( 'display', 'none' );
-                }
-        });
 
 		//Slide the add review form
 		jQuery(document).on('click', '#add-review-no-popup', function(){
@@ -94,15 +75,7 @@ jQuery(document).ready(function(e){
         jQuery( this ).siblings('.bgr-error-fields').hide();
     });
 
-    jQuery('.stars').on('click',function() {
-        jQuery( this ).parent().next('.bgr-error-fields').hide();
-    });
-
-    jQuery('.bgr-bars').on('click',function(){
-        jQuery( this ).parent().next('.bgr-error-fields').hide();
-    });
-
-    jQuery('.bgr-numbers').on('click',function(){
+    jQuery('.bgr-stars').on('click',function() {
         jQuery( this ).parent().next('.bgr-error-fields').hide();
     });
 

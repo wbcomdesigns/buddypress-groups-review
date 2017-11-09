@@ -224,3 +224,7 @@
 .bgr-star-rate {
     margin-right: 4px;
 }
+
+#request-review-list + #bp-group-edit-add-review-submit-wrapper {
+    display: none;
+}
