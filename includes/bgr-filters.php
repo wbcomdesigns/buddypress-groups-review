@@ -40,14 +40,14 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
                 if( !in_array( bp_get_current_group_id(), $exclude_groups )) {
 					if( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in() ) { ?>
 						<div class="group-button public generic-button" id="groupbutton-85">
-							<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>"><?php _e( 'Add Review', BGR_DOMAIN );?></a>
+							<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>"><?php _e( 'Add ', BGR_DOMAIN ); echo $bgr['review_label']; ?></a>
 						</div>
 					<?php }
 				}
 			}	else {
 				if( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in() ) { ?>
 					<div class="group-button public generic-button" id="groupbutton-85">
-						<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>"><?php _e( 'Add Review', BGR_DOMAIN );?></a>
+						<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>"><?php _e( 'Add ', BGR_DOMAIN ); echo $bgr['review_label']; ?></a>
 					</div>
 				<?php }
 			}
