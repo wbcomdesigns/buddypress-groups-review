@@ -69,6 +69,8 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 * Enhancement : Add Review button on group header.
 * Enhancement : Add few new extra settings
 * Enhancement : Added functionality of multiple review.
+* Enhancement : Added ratings in group directory.
+* Enhancement : Added filter for change group header rating additional details.
 
 = 1.0.1 =
 * Layout Improvement
