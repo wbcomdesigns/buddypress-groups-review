@@ -244,7 +244,7 @@ function bgr_display_setting() {
 <div class="bgr-admin-row">
     <div>
        <button class="bgr-accordion">
-        <?php _e( 'How can I use the review form on any other page?', BGR_DOMAIN );?>
+        <?php _e( 'Can I use the review form on any other page?', BGR_DOMAIN );?>
     </button>
     <div class="panel">
         <p>
@@ -253,7 +253,31 @@ function bgr_display_setting() {
     </div>
 </div>
 </div>
+<div class="bgr-admin-row">
+    <div>
+       <button class="bgr-accordion">
+        <?php _e( 'How to show only star rating in Group header?', BGR_DOMAIN );?>
+    </button>
+    <div class="panel">
+        <p>
+            <?php _e( "If you want to remove additional rating details in group header, you can use 'bgr_filter_group_header_rating_details' filter.", BGR_DOMAIN ); ?>
+<pre>
+    // You can remove details for specific group id
+    add_filter('bgr_filter_group_header_rating_details', 'remove_rating_addittional_details', 15, 5);
+    function remove_rating_addittional_details(  $content, $avg_rating, $review_label, $total_review_count, $group_id ) {
+        if( $group_id !== 1 ) {
+            return $content;
+        }
+        return false;
+    }
 
+    // Remove details from all groups
+    add_filter('bgr_filter_group_header_rating_details', '__return_false');
+</pre>
+        </p>
+    </div>
+</div>
+</div>
 <div class="bgr-admin-row">
     <div>
        <button class="bgr-accordion">

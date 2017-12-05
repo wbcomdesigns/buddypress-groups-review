@@ -20,6 +20,7 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 			add_filter( 'bulk_actions-edit-review', array( $this, 'bgr_remove_edit_bulk_actions' ), 10, 1 );
 			add_action( 'bp_before_group_header_meta', array( $this, 'bgr_group_average_rating') );
 			add_action( 'bp_group_header_actions', array( $this, 'bgr_group_header_review_btn' ) );
+			add_action( 'bp_directory_groups_actions', array( $this, 'bgr_group_directory_rating' ) );
 		}
 
 		/**
@@ -50,6 +51,84 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 						<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>"><?php _e( 'Add ', BGR_DOMAIN ); echo $bgr['review_label']; ?></a>
 					</div>
 				<?php }
+			}
+		}
+
+		/**
+		*  Actions performed to add ratings in group directory page
+		*  @since   1.0.0
+		*  @access public
+		*  @author  Wbcom Designs
+		*/
+		public function bgr_group_directory_rating() {
+			global $bgr;
+			global $bp;
+			$args = array(
+						'post_type' 		=> 'review',
+						'posts_per_page' 	=> -1,
+						'post_status' 		=> 'publish',
+						'category' 			=> 'group',
+						'meta_query' 		=> array(
+															array(
+																'key'		=>	'linked_group',
+																'value'		=>	bp_get_group_id(),
+																'compare'	=>	'=',
+															),
+														),
+					);
+			$reviews = get_posts( $args );
+			$review_rating_fields   = $bgr['review_rating_fields'];
+			$review_label 			= $bgr['review_label'];
+			$exclude_groups		    = $bgr['exclude_groups'];
+			if( !empty( $exclude_groups ) ) {
+				if( !in_array( bp_get_group_id(), $exclude_groups )) {
+					$this->bgr_single_group_average_rating_data( $reviews, $review_rating_fields, $review_label );
+				}
+			}	else {
+				$this->bgr_single_group_average_rating_data( $reviews, $review_rating_fields, $review_label );
+			}
+		}
+
+
+		/**
+		*  Actions performed to show rating on groups directing page
+		*  @since   1.0.0
+		*  @access public
+		*  @author  Wbcom Designs
+		*/
+		public function bgr_single_group_average_rating_data( $reviews, $review_rating_fields, $review_label ) {
+			if( !empty( $review_rating_fields ) ) {
+				if( !empty( $reviews ) ) {
+					$ttl_rating    = 0;
+					$reviews_count = 0;
+					$total_review_count = count($reviews);
+					foreach( $reviews as $review ) {
+						$rate = 0;
+						$review_ratings       = get_post_meta( $review->ID, 'review_star_rating', false );
+
+						$reviews_field_count  = 0;
+						if( !empty( $review_rating_fields ) && !empty( $review_ratings[0] ) ):
+							foreach( $review_ratings[0] as $field => $value ) {
+								if( in_array( $field, $review_rating_fields  )) {
+									$rate += $value;
+									$reviews_field_count++;
+								}
+							}
+							if($reviews_field_count > 0 ) {
+								$reviews_count++;
+								$reviews_field_count = ( $reviews_field_count == 0 ) ? 1 : $reviews_field_count;
+								$ttl_rating += (int)$rate/$reviews_field_count;
+							}
+						endif;
+					}
+
+					$reviews_count = ( $reviews_count == 0 ) ? 1 : $reviews_count;
+					$avg_rating = $ttl_rating / $reviews_count;
+					$avg_rating = round( $avg_rating, 2 );	 ?>
+					<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr"><?php
+					do_action('bgr_display_group_average_ratings', $avg_rating );
+					echo "</div></div></div>";
+				}
 			}
 		}
 
@@ -128,8 +207,10 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 					$avg_rating = round( $avg_rating, 2 );	 ?>
 					<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr"><?php
 					do_action('bgr_display_group_average_ratings', $avg_rating );
-					echo "</div><div class='rating-text'>"; _e('Rating', BGR_DOMAIN ); echo " : <span>($avg_rating)</span></div>";
-					echo "<div class='rating-total'>Total $review_label : $total_review_count</div></div></div>";
+					echo "</div>";
+					$content  = "<div class='rating-text'>".__('Rating', BGR_DOMAIN )." : <span>(".$avg_rating.")</span></div><div class='rating-total'>".__('Total', BGR_DOMAIN ). $review_label .": ".$total_review_count."</div>";
+					echo apply_filters('bgr_filter_group_header_rating_details', $content, $avg_rating, $review_label, $total_review_count, bp_get_group_id() );
+					echo "</div></div>";
 				}
 			}
 		}
