@@ -1,6 +1,6 @@
 jQuery(document).ready(function(e){
 
-        jQuery('#bgr_review_success_msg_modal').hide();
+    jQuery('#bgr_review_success_msg_modal').hide();
         //Open Add Review Form
         jQuery(document).on('click', '#add-review', function(){
             jQuery( '#bgr-add-review-modal' ).css( 'display', 'block' );
@@ -23,15 +23,15 @@ jQuery(document).ready(function(e){
             var accept_gid       = jQuery(this).attr("data-group-type");
             jQuery.post(
                 ajaxurl,
-                        {
-                        'action'           : 'bgr_accept_review',
-                        'accept_review_id' :  accept_review_id,
-                        'group_id'         :  accept_gid
-                        },
-                        function(response) {
-                           location.reload();
-                        }
-                );
+                {
+                    'action'           : 'bgr_accept_review',
+                    'accept_review_id' :  accept_review_id,
+                    'group_id'         :  accept_gid
+                },
+                function(response) {
+                 location.reload();
+             }
+             );
         });
 
         // Deny review
@@ -40,15 +40,15 @@ jQuery(document).ready(function(e){
             var deny_gid         = jQuery(this).attr("data-group-type");
             jQuery.post(
                 ajaxurl,
-                        {
-                        'action'         : 'bgr_deny_review',
-                        'deny_review_id' :  deny_review_id,
-                        'group_id'       :  deny_gid
-                        },
-                        function(response) {
-							location.reload();
-                        }
-                );
+                {
+                    'action'         : 'bgr_deny_review',
+                    'deny_review_id' :  deny_review_id,
+                    'group_id'       :  deny_gid
+                },
+                function(response) {
+                 location.reload();
+             }
+             );
         });
 
     // Delete review
@@ -56,14 +56,14 @@ jQuery(document).ready(function(e){
         var remove_review_id = jQuery(this).next().val();
         jQuery.post(
             ajaxurl,
-                    {
-                    'action'            : 'bgr_remove_review',
-                    'remove_review_id'  :  remove_review_id
-                    },
-                    function(response) {
-                       location.reload();
-                    }
-            );
+            {
+                'action'            : 'bgr_remove_review',
+                'remove_review_id'  :  remove_review_id
+            },
+            function(response) {
+             location.reload();
+         }
+         );
     });
 
     // Remove error mark on change of input field
@@ -97,7 +97,7 @@ jQuery(document).ready(function(e){
     });
 
 	 // Submit Group Review
-    jQuery('#bgr-add-review-form').submit(function(e) {
+     jQuery('#bgr-add-review-form').submit(function(e) {
         var loc;
         e.preventDefault();
         var rating_exist         = [];
@@ -122,22 +122,22 @@ jQuery(document).ready(function(e){
                 if(jQuery.inArray('0', rating_exist) == -1 ) {
                     jQuery.post(
                         ajaxurl,
-                       {
-                           'action' : 'bgr_submit_review',
-                           'data'   : jQuery(this).serialize()
-                       },
-                        function(response) {
-                            jQuery('.bgr-bp-success p').html( response ).css("display","block");
-                            jQuery('.bgr-group-review-no-popup-add-block').hide();
-                            jQuery('#bgr-add-review-modal').hide();
-                            jQuery('#bgr-message').html( response );
-                            jQuery('#bgr-message').css("display","block");
-                            sessionStorage.reloadAfterPageLoad = true;
-                            var date = new Date();
-                            date.setTime(date.getTime() + (20 * 1000));
-                            jQuery.cookie('res_content', response, { expires: date });
-                            window.location.reload();
-                        }
+                        {
+                         'action' : 'bgr_submit_review',
+                         'data'   : jQuery(this).serialize()
+                     },
+                     function(response) {
+                        jQuery('.bgr-bp-success p').html( response ).css("display","block");
+                        jQuery('.bgr-group-review-no-popup-add-block').hide();
+                        jQuery('#bgr-add-review-modal').hide();
+                        jQuery('#bgr-message').html( response );
+                        jQuery('#bgr-message').css("display","block");
+                        sessionStorage.reloadAfterPageLoad = true;
+                        var date = new Date();
+                        date.setTime(date.getTime() + (20 * 1000));
+                        jQuery.cookie('res_content', response, { expires: date });
+                        window.location.reload();
+                    }
                     );
                 }
             }
@@ -153,33 +153,35 @@ jQuery(document).ready(function(e){
             } else {
                 jQuery.post(
                     ajaxurl,
-                   {
-                       'action' : 'bgr_submit_review',
-                       'data'   : jQuery(this).serialize()
-                   },
-                    function(response) {
-                        jQuery('.bgr-bp-success p').html( response ).css("display","block");
-                        jQuery('.bgr-group-review-no-popup-add-block').hide();
-                        jQuery('#bgr-add-review-modal').hide();
-                        jQuery('#bgr-message').html( response );
-                        jQuery('#bgr-message').css("display","block");
-                        sessionStorage.reloadAfterPageLoad = true;
-                        var date = new Date();
-                        date.setTime(date.getTime() + (20 * 1000));
-                        jQuery.cookie('res_content', response, { expires: date });
-                        window.location.reload();
-                    }
+                    {
+                     'action' : 'bgr_submit_review',
+                     'data'   : jQuery(this).serialize()
+                 },
+                 function(response) {
+                    response = JSON.parse(response);
+                    jQuery('.bgr-bp-success p').html( response.message ).css("display","block");
+                    jQuery('.bgr-group-review-no-popup-add-block').hide();
+                    jQuery('#bgr-add-review-modal').hide();
+                    jQuery('#bgr-message').html( response.message );
+                    jQuery('#bgr-message').css("display","block");
+                    sessionStorage.reloadAfterPageLoad = true;
+                    var date = new Date();
+                    date.setTime(date.getTime() + (20 * 1000));
+                    jQuery.cookie('res_content', response.message, { expires: date });
+                    window.location.reload();
+                }
                 );
             }
         }
     });
-});
+ });
 
 /*----------------------------------------
 * Display message after review submit
 *-----------------------------------------*/
 jQuery( function () {
     if ( jQuery.cookie('res_content')) {
+        jQuery('.error').hide();
         jQuery('.bgr-bp-success p').text(jQuery.cookie('res_content'));
         jQuery('.bgr-bp-success').show();
         jQuery.cookie('res_content' , "" , -1);

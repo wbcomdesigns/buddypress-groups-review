@@ -242,7 +242,8 @@ if( !class_exists( 'BGR_AJAX' ) ) {
 					}
 				}
 			}
-			echo $review_add_msg;
+			$response = array( 'message' => $review_add_msg, 'auto_approve' => $auto_approve_reviews );
+			echo json_encode( $response );
 			die;
 		}
 

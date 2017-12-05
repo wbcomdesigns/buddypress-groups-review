@@ -81,7 +81,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
 	                    	$this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
 	                    } else { ?>
 	                    	<div id="message" class="error">
-			                   <p><?php _e("You already posted a review for this group.", BGR_DOMAIN ); ?> </p>
+			                   <p><?php _e("You already posted a review for this group.", BGR_DOMAIN ); ?></p>
 			                </div>
 	                    <?php }
 
