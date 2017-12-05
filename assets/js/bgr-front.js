@@ -158,16 +158,15 @@ jQuery(document).ready(function(e){
                      'data'   : jQuery(this).serialize()
                  },
                  function(response) {
-                    response = JSON.parse(response);
-                    jQuery('.bgr-bp-success p').html( response.message ).css("display","block");
+                    jQuery('.bgr-bp-success p').html( response ).css("display","block");
                     jQuery('.bgr-group-review-no-popup-add-block').hide();
                     jQuery('#bgr-add-review-modal').hide();
-                    jQuery('#bgr-message').html( response.message );
+                    jQuery('#bgr-message').html( response );
                     jQuery('#bgr-message').css("display","block");
                     sessionStorage.reloadAfterPageLoad = true;
                     var date = new Date();
                     date.setTime(date.getTime() + (20 * 1000));
-                    jQuery.cookie('res_content', response.message, { expires: date });
+                    jQuery.cookie('res_content', response, { expires: date });
                     window.location.reload();
                 }
                 );
