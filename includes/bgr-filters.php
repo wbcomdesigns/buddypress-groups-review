@@ -38,18 +38,18 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 			$current_group_link = bp_get_group_permalink( groups_get_group( array( 'group_id' => $current_group_id ) ) );
 			$current_group_link .= 'add-review';
 			if( !empty( $exclude_groups )) {
-                if( !in_array( bp_get_current_group_id(), $exclude_groups )) {
+				if( !in_array( bp_get_current_group_id(), $exclude_groups )) {
 					if( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in() ) { ?>
-						<div class="group-button public generic-button" id="groupbutton-85">
-							<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>"><?php _e( 'Add ', BGR_DOMAIN ); echo $bgr['review_label']; ?></a>
-						</div>
+					<div class="group-button public generic-button" id="groupbutton-85">
+						<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>"><?php _e( 'Add ', BGR_DOMAIN ); echo $bgr['review_label']; ?></a>
+					</div>
 					<?php }
 				}
 			}	else {
 				if( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in() ) { ?>
-					<div class="group-button public generic-button" id="groupbutton-85">
-						<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>"><?php _e( 'Add ', BGR_DOMAIN ); echo $bgr['review_label']; ?></a>
-					</div>
+				<div class="group-button public generic-button" id="groupbutton-85">
+					<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>"><?php _e( 'Add ', BGR_DOMAIN ); echo $bgr['review_label']; ?></a>
+				</div>
 				<?php }
 			}
 		}
@@ -64,18 +64,18 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 			global $bgr;
 			global $bp;
 			$args = array(
-						'post_type' 		=> 'review',
-						'posts_per_page' 	=> -1,
-						'post_status' 		=> 'publish',
-						'category' 			=> 'group',
-						'meta_query' 		=> array(
-															array(
-																'key'		=>	'linked_group',
-																'value'		=>	bp_get_group_id(),
-																'compare'	=>	'=',
-															),
-														),
-					);
+				'post_type' 		=> 'review',
+				'posts_per_page' 	=> -1,
+				'post_status' 		=> 'publish',
+				'category' 			=> 'group',
+				'meta_query' 		=> array(
+					array(
+						'key'		=>	'linked_group',
+						'value'		=>	bp_get_group_id(),
+						'compare'	=>	'=',
+					),
+				),
+			);
 			$reviews = get_posts( $args );
 			$review_rating_fields   = $bgr['review_rating_fields'];
 			$review_label 			= $bgr['review_label'];
@@ -97,10 +97,13 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 		*  @author  Wbcom Designs
 		*/
 		public function bgr_single_group_average_rating_data( $reviews, $review_rating_fields, $review_label ) {
+			$group_id = bp_get_current_group_id();
+
 			if( !empty( $review_rating_fields ) ) {
 				if( !empty( $reviews ) ) {
 					$ttl_rating    = 0;
 					$reviews_count = 0;
+					$rating_count = 0;
 					$total_review_count = count($reviews);
 					foreach( $reviews as $review ) {
 						$rate = 0;
@@ -118,14 +121,27 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 								$reviews_count++;
 								$reviews_field_count = ( $reviews_field_count == 0 ) ? 1 : $reviews_field_count;
 								$ttl_rating += (int)$rate/$reviews_field_count;
+								$rating_count++;
 							}
 						endif;
 					}
 
 					$reviews_count = ( $reviews_count == 0 ) ? 1 : $reviews_count;
 					$avg_rating = $ttl_rating / $reviews_count;
-					$avg_rating = round( $avg_rating, 2 );	 ?>
-					<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr"><?php
+					$avg_rating = round( $avg_rating, 2 );
+					if( $avg_rating > 0 ) {
+					?>
+					<div class="buddypress-single-group-reviews-stars" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+						<span itemprop="ratingValue"  content="<?php echo $avg_rating; ?>"></span>
+						<span itemprop="bestRating"   content="5"></span>
+						<span itemprop="reviewCount"  content="<?php echo $total_review_count; ?>"></span>
+						<span itemprop="ratingCount"  content="<?php echo $rating_count; ?>"></span>
+						<span itemprop="itemReviewed" content="Person"></span>
+						<span itemprop="name" content="<?php echo bp_get_current_group_name(); ?>"></span>
+						<span itemprop="url" content="<?php echo bp_get_group_permalink( groups_get_current_group() ); ?>"></span>
+					</div>
+					<?php } ?>
+					<div class="bgr-header-row"><div class="bgr-group-header-ratings"><div class="rating-bgr"><?php
 					do_action('bgr_display_group_average_ratings', $avg_rating );
 					echo "</div></div></div>";
 				}
@@ -144,18 +160,18 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 			global $bgr;
 			global $bp;
 			$args = array(
-						'post_type' 		=> 'review',
-						'posts_per_page' 	=> -1,
-						'post_status' 		=> 'publish',
-						'category' 			=> 'group',
-						'meta_query' 		=> array(
-															array(
-																'key'		=>	'linked_group',
-																'value'		=>	bp_get_group_id(),
-																'compare'	=>	'=',
-															),
-														),
-					);
+				'post_type' 		=> 'review',
+				'posts_per_page' 	=> -1,
+				'post_status' 		=> 'publish',
+				'category' 			=> 'group',
+				'meta_query' 		=> array(
+					array(
+						'key'		=>	'linked_group',
+						'value'		=>	bp_get_group_id(),
+						'compare'	=>	'=',
+					),
+				),
+			);
 			$reviews = get_posts( $args );
 			$review_rating_fields   = $bgr['review_rating_fields'];
 			$review_label 			= $bgr['review_label'];
@@ -204,13 +220,26 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 
 					$reviews_count = ( $reviews_count == 0 ) ? 1 : $reviews_count;
 					$avg_rating = $ttl_rating / $reviews_count;
-					$avg_rating = round( $avg_rating, 2 );	 ?>
+					$avg_rating = round( $avg_rating, 2 );
+					if( $avg_rating > 0 ) {
+					?>
+					<div class="buddypress-single-group-reviews-stars" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+						<span itemprop="ratingValue"  content="<?php echo $avg_rating; ?>"></span>
+						<span itemprop="bestRating"   content="5"></span>
+						<span itemprop="reviewCount"  content="<?php echo $total_review_count; ?>"></span>
+						<span itemprop="ratingCount"  content="<?php echo $rating_count; ?>"></span>
+						<span itemprop="itemReviewed" content="Person"></span>
+						<span itemprop="name" content="<?php echo bp_get_current_group_name(); ?>"></span>
+						<span itemprop="url" content="<?php echo bp_get_group_permalink( groups_get_current_group() ); ?>"></span>
+					</div>
+					<?php } ?>
 					<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr"><?php
 					do_action('bgr_display_group_average_ratings', $avg_rating );
-					echo "</div>";
-					$content  = "<div class='rating-text'>".__('Rating', BGR_DOMAIN )." : <span>(".$avg_rating.")</span></div><div class='rating-total'>".__('Total', BGR_DOMAIN ). $review_label .": ".$total_review_count."</div>";
+
+					$content  = "<div class='rating-text'><span>".__('Rating ', BGR_DOMAIN )." : ".$avg_rating."/5 - ".$total_review_count.' '. $review_label."</span</div>";
+
 					echo apply_filters('bgr_filter_group_header_rating_details', $content, $avg_rating, $review_label, $total_review_count, bp_get_group_id() );
-					echo "</div></div>";
+					echo "</div></div></div></div>";
 				}
 			}
 		}
@@ -289,63 +318,63 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 				$bgr_admin_general_settings  = get_option( 'bgr_admin_general_settings' );
 				$review_label	= $bgr['review_label'];
 
-					$args = array(
-						'category' => 'group',
-						'orderby' => 'post_date',
-						'order' => 'DESC',
-						'meta_key' => 'linked_group',
-						'meta_value' => $bp->groups->current_group->id,
-						'post_type' => 'review',
-						'post_status' => 'publish',
-						'suppress_filters' => true
-					);
+				$args = array(
+					'category' => 'group',
+					'orderby' => 'post_date',
+					'order' => 'DESC',
+					'meta_key' => 'linked_group',
+					'meta_value' => $bp->groups->current_group->id,
+					'post_type' => 'review',
+					'post_status' => 'publish',
+					'suppress_filters' => true
+				);
 
-					$post_count = 0;
-					$recent_posts = wp_get_recent_posts( $args );
-					if( !empty( $recent_posts ) ) :
-						foreach( $recent_posts as $recent ) {
-							$post_count++;
+				$post_count = 0;
+				$recent_posts = wp_get_recent_posts( $args );
+				if( !empty( $recent_posts ) ) :
+					foreach( $recent_posts as $recent ) {
+						$post_count++;
+					}
+				endif;
+				wp_reset_query();
+				$user = bp_get_loggedin_user_username();
+				$count_notification = '<span>'.$post_count.'</span>';
+				if( !empty( $bgr_admin_general_settings ) ) {
+					$exclude_groups = $bgr['exclude_groups'];
+					if( !empty( $exclude_groups )) {
+						if( !in_array( $bp->groups->current_group->id, $exclude_groups )) {
+							$tab_args = array(
+								'name' => $review_label .' '. $count_notification,
+								'slug' => 'reviews',
+								'parent_slug' => $bp->groups->current_group->slug,
+								'parent_url' => bp_get_group_permalink( $bp->groups->current_group ),
+								'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
+								'position' => 199,
+							);
+							bp_core_new_subnav_item( $tab_args );
 						}
-					endif;
-					wp_reset_query();
-					$user = bp_get_loggedin_user_username();
-					$count_notification = '<span>'.$post_count.'</span>';
-                if( !empty( $bgr_admin_general_settings ) ) {
-                    $exclude_groups = $bgr['exclude_groups'];
-                    if( !empty( $exclude_groups )) {
-                        if( !in_array( $bp->groups->current_group->id, $exclude_groups )) {
-                            $tab_args = array(
-                           'name' => $review_label .' '. $count_notification,
-                           'slug' => 'reviews',
-                           'parent_slug' => $bp->groups->current_group->slug,
-                           'parent_url' => bp_get_group_permalink( $bp->groups->current_group ),
-                           'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
-                           'position' => 199,
-                           );
-                           bp_core_new_subnav_item( $tab_args );
-                        }
-                    } else {
-                            $tab_args = array(
-                            'name' => $review_label .' '. $count_notification,
-                            'slug' => 'reviews',
-                            'parent_slug' => $bp->groups->current_group->slug,
-                            'parent_url' => bp_get_group_permalink( $bp->groups->current_group ),
-                            'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
-                            'position' => 199,
-                            );
-                            bp_core_new_subnav_item( $tab_args );
-                    }
-                } else {
-                        $tab_args = array(
-                        'name' => $review_label .' '. $count_notification,
-                        'slug' => 'reviews',
-                        'parent_slug' => $bp->groups->current_group->slug,
-                        'parent_url' => bp_get_group_permalink( $bp->groups->current_group ),
-                        'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
-                        'position' => 199,
-                        );
-                        bp_core_new_subnav_item( $tab_args );
-                }
+					} else {
+						$tab_args = array(
+							'name' => $review_label .' '. $count_notification,
+							'slug' => 'reviews',
+							'parent_slug' => $bp->groups->current_group->slug,
+							'parent_url' => bp_get_group_permalink( $bp->groups->current_group ),
+							'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
+							'position' => 199,
+						);
+						bp_core_new_subnav_item( $tab_args );
+					}
+				} else {
+					$tab_args = array(
+						'name' => $review_label .' '. $count_notification,
+						'slug' => 'reviews',
+						'parent_slug' => $bp->groups->current_group->slug,
+						'parent_url' => bp_get_group_permalink( $bp->groups->current_group ),
+						'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
+						'position' => 199,
+					);
+					bp_core_new_subnav_item( $tab_args );
+				}
 			}
 		}
 
