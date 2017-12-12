@@ -112,7 +112,7 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 						$reviews_field_count  = 0;
 						if( !empty( $review_rating_fields ) && !empty( $review_ratings[0] ) ):
 							foreach( $review_ratings[0] as $field => $value ) {
-								if( in_array( $field, $review_rating_fields  )) {
+								if( in_array( $field, $review_rating_fields ) ) {
 									$rate += $value;
 									$reviews_field_count++;
 								}
@@ -196,7 +196,7 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 			if( !empty( $review_rating_fields ) ) {
 				if( !empty( $reviews ) ) {
 					$ttl_rating    = 0;
-					$reviews_count = 0;
+					$reviews_count = $rating_count = 0;
 					$total_review_count = count($reviews);
 					foreach( $reviews as $review ) {
 						$rate = 0;
@@ -214,6 +214,7 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 								$reviews_count++;
 								$reviews_field_count = ( $reviews_field_count == 0 ) ? 1 : $reviews_field_count;
 								$ttl_rating += (int)$rate/$reviews_field_count;
+								$rating_count++;
 							}
 						endif;
 					}
