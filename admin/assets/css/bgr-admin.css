@@ -6,73 +6,73 @@
 */
 
 [class*="bgr-col-"] {
-	float: left;
-	padding: 10px 0;
+    float: left;
+    padding: 10px 0;
  }
 
 .bgr-approve-review{
-	color: green;
+    color: green;
 }
 
 .bgr-row {
-	clear: both;
-	border-bottom: 1px solid #ddd;
-	overflow: hidden;
-	padding-bottom: 5px;
+    clear: both;
+    border-bottom: 1px solid #ddd;
+    overflow: hidden;
+    padding-bottom: 5px;
 }
 
 .bgr-col-1 {
-	width: 8.33%;
+    width: 8.33%;
 }
 
 .bgr-col-2 {
-	width: 16.66%;
+    width: 16.66%;
 }
 
 .bgr-col-3 {
-	width: 25%;
+    width: 25%;
 }
 
 .bgr-col-4 {
-	width: 33.33%;
+    width: 33.33%;
 }
 
 .bgr-col-5 {
-	width: 41.66%;
+    width: 41.66%;
 }
 
 .bgr-col-6 {
-	width: 50%;
+    width: 50%;
 }
 
 .bgr-col-7 {
-	width: 58.33%;
+    width: 58.33%;
 }
 
 .bgr-col-8 {
-	width: 66.66%;
+    width: 66.66%;
 }
 
 .bgr-col-9 {
-	width: 75%;
+    width: 75%;
 }
 
 .bgr-col-10 {
-	width: 83.33%;
+    width: 83.33%;
 }
 
 .bgr-col-11 {
-	width: 91.66%;
+    width: 91.66%;
 }
 
 .bgr-col-12 {
-	width: 100%;
+    width: 100%;
 }
 
 @media(max-width: 767px) {
-	[class*="bgr-col-"] {
-		width: 100%;
-	}
+    [class*="bgr-col-"] {
+        width: 100%;
+    }
 }
 
 /*** Section Div end ***/
@@ -84,142 +84,142 @@
 */
 
 @font-face {
-	font-family: FontAwesome;
-	src: url('../fonts/FontAwesome.otf');
+    font-family: FontAwesome;
+    src: url('../fonts/FontAwesome.otf');
 }
 
 .bgr-admin-settings-header p {
-	font-size: 24px;
+    font-size: 24px;
 }
 
 .bgr-admin-criteria-settings-spinner,
 .bgr-admin-display-settings-spinner,
 .bgr-admin-general-settings-spinner {
-	vertical-align: middle;
-	display: none;
+    vertical-align: middle;
+    display: none;
 }
 
 .bgr-btn-ajax {
-	color: #66c6e4 !important;
+    color: #66c6e4 !important;
 }
 
 #bgr-settings-updated {
-	display: none;
-	margin-left: 0;
-	margin-bottom: 15px;
+    display: none;
+    margin-left: 0;
+    margin-bottom: 15px;
 }
 
 .rating-review-div {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .bgr-row-setting {
-	float: left;
+    float: left;
 }
 
 .bgr-remove {
-	margin-bottom: 10px !important;
+    margin-bottom: 10px !important;
 }
 
 #bgr-save-admin-settings {
-	margin: 0 10px;
+    margin: 0 10px;
 }
 
 .bgr-row label {
-	font-weight: 700;
+    font-weight: 700;
 }
 
 #bgr-textbox-container span {
-	font-weight: 700;
-	font-size: 15px;
-	padding: 5px;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 5px;
 }
 
 /* The bgr-switch - the toggle-switch in admin settings */
 .bgr-switch {
-	position: relative;
-	display: inline-block;
-	width: 60px;
-	height: 34px;
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
 }
 
 /* Hide default HTML checkbox */
 .bgr-switch input {
-	display: none;
+    display: none;
 }
 
 /* The bgr-slider */
 .bgr-slider {
-	position: absolute;
-	cursor: pointer;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #ccc;
-	-webkit-transition: .4s;
-	transition: .4s;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
 }
 
 .bgr-slider:before {
-	position: absolute;
-	content: "";
-	height: 26px;
-	width: 26px;
-	left: 4px;
-	bottom: 4px;
-	background-color: white;
-	-webkit-transition: .4s;
-	transition: .4s;
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
 }
 
 input:checked + .bgr-slider {
-	background-color: #0073AA;
+    background-color: #0073AA;
 }
 
 input:focus + .bgr-slider {
-	box-shadow: 0 0 1px #0073AA;
+    box-shadow: 0 0 1px #0073AA;
 }
 
 input:checked + .bgr-slider:before {
-	-webkit-transform: translateX(26px);
-	-ms-transform: translateX(26px);
-	transform: translateX(26px);
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
 }
 
 /* Rounded bgr-toggle switch */
 .bgr-slider.round {
-	border-radius: 34px;
+    border-radius: 34px;
 }
 
 .bgr-slider.round:before {
-	border-radius: 50%;
+    border-radius: 50%;
 }
 
 /*** Accordion css start***/
 /* Style the buttons that are used to open and close the bgr-faq-accordion bgr-faq-panel */
 button.bgr-faq-accordion {
-	background-color: #fff ;
-	color: #000;
-	cursor: pointer;
-	padding: 18px;
-	width: 100%;
-	text-align: left;
-	outline: none;
-	transition: 0.4s;
-	font-weight: 700;
-	border-bottom: 2px solid #bbb;
-	border-top: 1px solid #ddd;
-	border-radius: 10px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
+    background-color: #fff ;
+    color: #000;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    transition: 0.4s;
+    font-weight: 700;
+    border-bottom: 2px solid #bbb;
+    border-top: 1px solid #ddd;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 button.bgr-faq-accordion-active,
 button.bgr-faq-accordion:hover {
-	background-color: #0073AA !important;
-	color: #fff;
+    background-color: #0073AA !important;
+    color: #fff;
 }
 
 .bgr-admin-des {
@@ -227,27 +227,27 @@ button.bgr-faq-accordion:hover {
 }
 
 #bgr-exclude-group-review {
-	width: 200px;
+    width: 200px;
 }
 
 .bgr-adming-setting{
-	float: left;
-	width: 90%;
+    float: left;
+    width: 90%;
 }
 button.bgr-accordion {
-	background-color: hsl(0, 0%, 87%);
-	border: medium none;
-	border-top-right-radius: 10px;
-	border-top-left-radius: 10px;
-	color: hsl(0, 0%, 27%);
-	cursor: pointer;
-	font-size: 15px;
-	margin: 0 5%;
-	outline: medium none;
-	padding: 15px 20px;
-	text-align: left;
-	transition: all 0.4s ease 0s;
-	width: 90%;
+    background-color: hsl(0, 0%, 87%);
+    border: medium none;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    color: hsl(0, 0%, 27%);
+    cursor: pointer;
+    font-size: 15px;
+    margin: 0 5%;
+    outline: medium none;
+    padding: 15px 20px;
+    text-align: left;
+    transition: all 0.4s ease 0s;
+    width: 90%;
 }
 button.bgr-accordion.active, button.bgr-accordion:hover {
   background-color: hsl(207, 90%, 54%);
@@ -282,15 +282,15 @@ button.bgr-accordion.active::after {
   padding-bottom: 5px;
 }
 .bgr-extra-actions {
-	float: right;
+    float: right;
 }
 
 .bgr-col-9 .selectize-control {
-	width: 50%!important;
+    width: 50%!important;
 }
 
 @media( max-width: 767px ) {
-	.bgr-col-9 .selectize-control {
-		width: 100%!important;
-	}
+    .bgr-col-9 .selectize-control {
+        width: 100%!important;
+    }
 }
