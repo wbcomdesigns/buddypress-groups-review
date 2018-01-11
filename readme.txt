@@ -1,10 +1,10 @@
-=== Review BuddyPress Groups ===
-Contributors: wbcomdesigns
+=== BuddyPress Groups Review ===
+Contributors: wbcomdesigns , vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
-Tested up to: 4.8.3
-Stable tag: 1.0.2
+Tested up to: 4.9.1
+Stable tag: 4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,23 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin allows the BuddyPress Members to give reviews to the BuddyPress groups on the site. The review form allows the users to give text review, even rate the group on the basis of multiple criterias.
 
-If you need additional help you can contact us for [Custom Development](https://wbcomdesigns.com/contact/).
+Group Ratings will also be visible at group directory page.
+
+* Allows review moderation
+* Allows BuddyPress notification for group admin for new reviews 
+* Allows BuddyPress Email Notification for group admin for new reviews
+* Allows to exclude certain groups from review criteria
+* Allows to add multiple criteria as per your choice
+
+It is built to be reliable, scalable, secure and flexible. We have worked hard to make it easy to use and we will love your feedback in making it better.
+
+= Links =
+
+*	[Plugin url](https://wbcomdesigns.com/downloads/buddypress-group-reviews/ "BuddyPress Group Reviews" )
+*	[Demo]( https://demos.wbcomdesigns.com/wbcomplugins/ "BuddyPress Group Reviews Demo")
+*	[Support](https://wbcomdesigns.com/helpdesk/article-categories/buddypress-group-reviews/)
+*	[Github Development Repo](https://github.com/wbcomdesigns/buddypress-groups-review)
+
 
 == Installation ==
 
@@ -20,6 +36,9 @@ If you need additional help you can contact us for [Custom Development](https://
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 
 == Frequently Asked Questions ==
+
+= Where do I get support?
+We request you to use [Wbcom Designs](https://wbcomdesigns.com/contact/) for all the support questions. We love helping. Using Wbcom Designs allows us to assist you better and quicker.
 
 = How can we submit a review to a group using this plugin? =
 When visiting the "/groups" section in the site, go for single group view page, there you can see a menu namely, "Reviews" that will allow you if you are a site member to add group review.
@@ -50,13 +69,19 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 
 
 == Screenshots ==
-1. The screenshot shows the admin settings of general settings corresponds to screenshot-1.(png|jpg|jpeg|gif).
-2. The screenshot shows the admin settings to show multi rating criteria to screenshot-2.(png|jpg|jpeg|gif).
-3. The screenshot shows the admin settings of display settings and corresponds to screenshot-3.(png|jpg|jpeg|gif).
-4. The screenshot shows add review form to screenshot-4.(png|jpg|jpeg|gif).
-5. The screenshot shows the reviews listing and multi-rating on single group page and corresponds to screenshot-5.(png|jpg|jpeg|gif).
+1. Reviews at group directory.(png|jpg|jpeg|gif).
+2. Review at single group.(png|jpg|jpeg|gif).
+3. Add review at single group.(png|jpg|jpeg|gif).
+4. Plugin settings.(png|jpg|jpeg|gif).
 
 == Changelog ==
+
+= 1.0.3 =
+* Enhancement : Added rating section at group directory
+* Enhancement - Added Google Rating Snippet meta tags
+* Enhancement - Simplified rating view on single group page
+* Fix - Removed JS tab for add review and added real sub nav to add reviews
+
 
 = 1.0.2 =
 * Fix : Notice fixes
