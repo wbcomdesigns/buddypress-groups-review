@@ -1,4 +1,4 @@
-=== BuddyPress Groups Review ===
+=== BuddyPress Group Reviews ===
 Contributors: wbcomdesigns , vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
