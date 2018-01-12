@@ -86,8 +86,8 @@ $reviews 				= new WP_Query($args);
                                             'format'    => 'page/%#%',
                                             'current'   => $current_page,
                                             'total'     => $total_pages,
-                                            'prev_text' => __('prev'),
-                                            'next_text' => __('next'),
+                                            'prev_text' => __('prev','bp-group-reviews'),
+                                            'next_text' => __('next','bp-group-reviews'),
                                             ));?>
 
                             </div><?php

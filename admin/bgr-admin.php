@@ -128,17 +128,17 @@ if( !class_exists( 'BGR_Admin' ) ) {
 
 		function bgr_review_taxonomy_cpt() {
 			$category_labels = array(
-				'name'              		=> _x( 'Reviews Category', 'taxonomy general name' ),
-				'singular_name'     		=> _x( 'Review Category', 'taxonomy singular name' ),
-				'search_items'      		=> __( 'Search Categories' ),
-				'all_items'         		=> __( 'All Categories' ),
-				'parent_item'       		=> __( 'Parent Category' ),
-				'parent_item_colon' 		=> __( 'Parent Category:' ),
-				'edit_item'         		=> __( 'Edit Category' ),
-				'update_item'       		=> __( 'Update Category' ),
-				'add_new_item'      		=> __( 'Add Category' ),
-				'new_item_name'    			=> __( 'New Category Name' ),
-				'menu_name'        		 	=> __( 'Category' ),
+				'name'              		=> _x( 'Reviews Category', 'taxonomy general name', 'bp-group-reviews'  ),
+				'singular_name'     		=> _x( 'Review Category', 'taxonomy singular name', 'bp-group-reviews' ),
+				'search_items'      		=> __( 'Search Categories', 'bp-group-reviews'  ),
+				'all_items'         		=> __( 'All Categories', 'bp-group-reviews'  ),
+				'parent_item'       		=> __( 'Parent Category', 'bp-group-reviews'  ),
+				'parent_item_colon' 		=> __( 'Parent Category:', 'bp-group-reviews'  ),
+				'edit_item'         		=> __( 'Edit Category' , 'bp-group-reviews' ),
+				'update_item'       		=> __( 'Update Category', 'bp-group-reviews'  ),
+				'add_new_item'      		=> __( 'Add Category', 'bp-group-reviews'  ),
+				'new_item_name'    			=> __( 'New Category Name', 'bp-group-reviews'  ),
+				'menu_name'        		 	=> __( 'Category' , 'bp-group-reviews' ),
 			);
 			$category_args = array(
 				'hierarchical'      		=> true,

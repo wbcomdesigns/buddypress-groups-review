@@ -48,11 +48,11 @@ module.exports = function ( grunt ) {
                     domainPath: 'languages/', // Where to save the POT file.
                     exclude: [ 'node_modules/*', 'options/framework/*' ], // List of files or directories to ignore.
                     mainFile: 'index.php', // Main project file.
-                    potFilename: 'reign.pot', // Name of the POT file.
+                    potFilename: 'bp-group-reviews.pot', // Name of the POT file.
                     potHeaders: { // Headers to add to the generated POT file.
                         poedit: true, // Includes common Poedit headers.
-                        'Last-Translator': 'Reign',
-                        'Language-Team': 'Reign',
+                        'Last-Translator': 'Varun Dubey',
+                        'Language-Team': 'Wbcom Designs',
                         'report-msgid-bugs-to': '',
                         'x-poedit-keywordslist': true // Include a list of all possible gettext functions.
                     },
@@ -64,5 +64,5 @@ module.exports = function ( grunt ) {
     } );
 
     // register task  'checktextdomain', 'makepot',
-    grunt.registerTask( 'default', [ 'sass', 'autoprefixer', 'uglify', 'watch' ] );
+    grunt.registerTask( 'default', [ 'sass', 'autoprefixer', 'uglify', 'watch','checktextdomain','makepot' ] );
 };
