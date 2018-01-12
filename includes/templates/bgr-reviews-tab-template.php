@@ -10,19 +10,19 @@ $review_rating_fields 	= $bgr['review_rating_fields'];
 $review_label 		  	= $bgr['review_label'];
 $paged 					= ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 $args				 	= 	array(
-								'post_type' 		=> 'review',
-								'post_status' 		=> 'publish',
-								'category' 			=> 'group',
-								'posts_per_page' 	=> $reviews_per_page,
-								'paged'				=> $paged,
-								'meta_query' 		=> array(
-															array(
-																'key'		=>	'linked_group',
-																'value'		=>	bp_get_group_id(),
-																'compare'	=>	'=',
-															),
-														),
-							);
+                                'post_type' 		=> 'review',
+                                'post_status' 		=> 'publish',
+                                'category' 			=> 'group',
+                                'posts_per_page' 	=> $reviews_per_page,
+                                'paged'				=> $paged,
+                                'meta_query' 		=> array(
+                                                            array(
+                                                                'key'		=>	'linked_group',
+                                                                'value'		=>	bp_get_group_id(),
+                                                                'compare'	=>	'=',
+                                                            ),
+                                                        ),
+                            );
 $reviews 				= new WP_Query($args);
 ?>
 <div class="bgr-group-reviews-block">
@@ -30,7 +30,7 @@ $reviews 				= new WP_Query($args);
 		<div id="group-reviews-list">
 			<div id="request-review-list" class="item-list">
 				<?php if ( $reviews->have_posts() ){
-                           while ( $reviews->have_posts() ): $reviews->the_post(); ?>
+                            while ( $reviews->have_posts() ): $reviews->the_post(); ?>
                             <div class="bgr-row item-list group-request-list">
                                 <div class="bgr-col-2">
                                     <?php $author = $reviews->post->post_author;
@@ -45,19 +45,19 @@ $reviews 				= new WP_Query($args);
                                     <div class="item-description">
                                         <div class="review-description">
                                             <?php
-                                            	$trimcontent  = get_the_content();
-                                            	$url = bp_get_group_permalink().'reviews/view/'.get_the_id();
-	                                            if( !empty( $trimcontent ) ) {
-	                                                $len = strlen( $trimcontent );
-	                                                if( $len > 150 ) {
-	                                                    $shortexcerpt = substr( $trimcontent, 0, 150 );
-	                                                    echo $shortexcerpt;    ?>
+                                                $trimcontent  = get_the_content();
+                                                $url = bp_get_group_permalink().'reviews/view/'.get_the_id();
+                                                if( !empty( $trimcontent ) ) {
+                                                    $len = strlen( $trimcontent );
+                                                    if( $len > 150 ) {
+                                                        $shortexcerpt = substr( $trimcontent, 0, 150 );
+                                                        echo $shortexcerpt;    ?>
 	                                                    <a href="<?php echo $url; ?>"><i><b><?php _e('read more...', 'bp-group-reviews' ); ?></b></i></a>
 	                                                <?php } else {
-	                                                    echo $trimcontent;
-	                                                }
-	                                            }
-                                		 	?>
+                                                        echo $trimcontent;
+                                                    }
+                                                }
+                                                ?>
                                             <div class="review-ratings">
                                                 <?php do_action( 'bgr_display_ratings', $post->ID ); ?>
                                             </div>
@@ -95,7 +95,7 @@ $reviews 				= new WP_Query($args);
                             wp_reset_postdata();
 
                     } else {
-                     ?>
+                        ?>
                     <div id="message" class="info">
                         <p><?php _e( "Sorry, No $review_label were found.", 'bp-group-reviews' ); ?></p>
                     </div>

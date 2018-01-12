@@ -7,141 +7,141 @@ defined( 'ABSPATH' ) || exit;
  */
 
 if( !class_exists( 'BGR_Rating_Display' ) ) {
-	class BGR_Rating_Display{
+    class BGR_Rating_Display{
 
-		/**
-		* Constructor for Group Rating Display
-		*  @since   1.0.0
-		*  @author  Wbcom Designs
-		*/
+        /**
+         * Constructor for Group Rating Display
+         *  @since   1.0.0
+         *  @author  Wbcom Designs
+         */
 
-		function __construct() {
-			add_action( 'bgr_display_ratings', array( $this, 'bgr_select_rating_type' ) );
-			add_action( 'bgr_display_widget_average_ratings', array( $this, 'bgr_widget_average_ratings' ) );
-			add_action( 'bgr_display_group_average_ratings', array( $this, 'bgr_group_average_ratings' ) );
-		}
+        function __construct() {
+            add_action( 'bgr_display_ratings', array( $this, 'bgr_select_rating_type' ) );
+            add_action( 'bgr_display_widget_average_ratings', array( $this, 'bgr_widget_average_ratings' ) );
+            add_action( 'bgr_display_group_average_ratings', array( $this, 'bgr_group_average_ratings' ) );
+        }
 
-		/**
-		*  Actions performed for rating display in Review , Manage Review & Single Review Page
-		*  @since   1.0.0
-		*  @author  Wbcom Designs
-		*/
+        /**
+         *  Actions performed for rating display in Review , Manage Review & Single Review Page
+         *  @since   1.0.0
+         *  @author  Wbcom Designs
+         */
 
-		function bgr_select_rating_type( $post_id ) {
-			global $bgr;
-			$review_rating_fields  		= $bgr['review_rating_fields'];
-			$review_ratings    	   		= get_post_meta( $post_id, 'review_star_rating',false);
-			$this->bgr_display_star_rating( $review_rating_fields, $review_ratings );
-		}
+        function bgr_select_rating_type( $post_id ) {
+            global $bgr;
+            $review_rating_fields  		= $bgr['review_rating_fields'];
+            $review_ratings    	   		= get_post_meta( $post_id, 'review_star_rating',false);
+            $this->bgr_display_star_rating( $review_rating_fields, $review_ratings );
+        }
 
-		/**
-		*  Actions performed for rating display type : Star
-		*  @since   1.0.0
-		*  @author  Wbcom Designs
-		*/
+        /**
+         *  Actions performed for rating display type : Star
+         *  @since   1.0.0
+         *  @author  Wbcom Designs
+         */
 
-		function bgr_display_star_rating( $review_rating_fields, $review_ratings ) {
-				if( !empty( $review_rating_fields ) && !empty( $review_ratings[0] ) ) :
-					foreach( $review_rating_fields as $review_field ) {
-						if( array_key_exists( $review_field, $review_ratings[0] ) ) {
-							?>
+        function bgr_display_star_rating( $review_rating_fields, $review_ratings ) {
+                if( !empty( $review_rating_fields ) && !empty( $review_ratings[0] ) ) :
+                    foreach( $review_rating_fields as $review_field ) {
+                        if( array_key_exists( $review_field, $review_ratings[0] ) ) {
+                            ?>
 							<div class="bgr-col-12">
 								<div class="bgr-col-6">
 									<?php echo $review_field.' : '; ?>
 								</div>
 								<div class="bgr-col-6">
 								<?php
-									/*** Ratings *****/
-									$stars_on  = $review_ratings[0][ $review_field ];
-									$stars_off = 5 - $stars_on;
-									for( $i = 1; $i <= $stars_on; $i++ ){
-										?><span class="fa fa-star stars bgr-star-rate"></span><?php
-									}
-									for( $i = 1; $i <= $stars_off; $i++ ){
-										?><span class="fa fa-star-o stars bgr-star-rate"></span><?php
-									}
-								?>
+                                    /*** Ratings *****/
+                                    $stars_on  = $review_ratings[0][ $review_field ];
+                                    $stars_off = 5 - $stars_on;
+                                    for( $i = 1; $i <= $stars_on; $i++ ){
+                                        ?><span class="fa fa-star stars bgr-star-rate"></span><?php
+                                    }
+                                    for( $i = 1; $i <= $stars_off; $i++ ){
+                                        ?><span class="fa fa-star-o stars bgr-star-rate"></span><?php
+                                    }
+                                ?>
 								</div>
 							</div>
 							<?php
-						}
-					}
-				endif;
-		}
+                        }
+                    }
+                endif;
+        }
 
-		/**
-		*  Actions performed for rating display in  Widgets
-		*  @since   1.0.0
-		*  @author  Wbcom Designs
-		*/
+        /**
+         *  Actions performed for rating display in  Widgets
+         *  @since   1.0.0
+         *  @author  Wbcom Designs
+         */
 
-		function bgr_widget_average_ratings( $review_groups ) {
-			global $bgr;
-			$group_avg_rating = $review_groups;
-			$remaining = $group_avg_rating - (int) $group_avg_rating;
+        function bgr_widget_average_ratings( $review_groups ) {
+            global $bgr;
+            $group_avg_rating = $review_groups;
+            $remaining = $group_avg_rating - (int) $group_avg_rating;
 
-			if( $remaining > 0 ) {
-					$stars_on = intval( $group_avg_rating );
-					$stars_half = 1;
-					$stars_off = 5 - ( $stars_on + $stars_half );
-			} else {
-					$stars_on = $group_avg_rating;
-					$stars_off = 5 - $group_avg_rating;
-					$stars_half = 0;
-			}
+            if( $remaining > 0 ) {
+                    $stars_on = intval( $group_avg_rating );
+                    $stars_half = 1;
+                    $stars_off = 5 - ( $stars_on + $stars_half );
+            } else {
+                    $stars_on = $group_avg_rating;
+                    $stars_off = 5 - $group_avg_rating;
+                    $stars_half = 0;
+            }
 
-			$this->bgr_average_star_rating( $stars_on, $stars_half, $stars_off );
+            $this->bgr_average_star_rating( $stars_on, $stars_half, $stars_off );
 
-			$group_avg_rating = round( $group_avg_rating, 2 );
-			echo "</div><div>";
-			_e("Rating", 'bp-group-reviews' );
-			echo " : (".$group_avg_rating.")";
-		}
+            $group_avg_rating = round( $group_avg_rating, 2 );
+            echo "</div><div>";
+            _e("Rating", 'bp-group-reviews' );
+            echo " : (".$group_avg_rating.")";
+        }
 
-		/**
-		*  Actions performed for rating display in  Group Header
-		*  @since   1.0.0
-		*  @author  Wbcom Designs
-		*/
+        /**
+         *  Actions performed for rating display in  Group Header
+         *  @since   1.0.0
+         *  @author  Wbcom Designs
+         */
 
-		function bgr_group_average_ratings( $avg_rating ) {
-			global $bgr;
-			$type = gettype($avg_rating);
-			$var = (int)$avg_rating - $avg_rating;
-			if( $var == 0 ) {
-					$stars_on = $avg_rating;
-					$stars_off = 5 - $avg_rating;
-					$stars_half = 0;
-			}
-			else {
-					$stars_on = intval( $avg_rating );
-					$stars_half = 1;
-					$stars_off = 5 - ( $stars_on + $stars_half );
-			}
+        function bgr_group_average_ratings( $avg_rating ) {
+            global $bgr;
+            $type = gettype($avg_rating);
+            $var = (int)$avg_rating - $avg_rating;
+            if( $var == 0 ) {
+                    $stars_on = $avg_rating;
+                    $stars_off = 5 - $avg_rating;
+                    $stars_half = 0;
+            }
+            else {
+                    $stars_on = intval( $avg_rating );
+                    $stars_half = 1;
+                    $stars_off = 5 - ( $stars_on + $stars_half );
+            }
 
-			$this->bgr_average_star_rating( $stars_on, $stars_half, $stars_off );
-		}
+            $this->bgr_average_star_rating( $stars_on, $stars_half, $stars_off );
+        }
 
-		/**
-		*  Actions performed for Widget rating display type : Star
-		*  @since   1.0.0
-		*  @author  Wbcom Designs
-		*/
+        /**
+         *  Actions performed for Widget rating display type : Star
+         *  @since   1.0.0
+         *  @author  Wbcom Designs
+         */
 
-		function bgr_average_star_rating( $stars_on, $stars_half, $stars_off ) {
-				for( $i = 1; $i <= $stars_on; $i++ ) {
-					?><span class="fa fa-star stars bgr-star-rate"></span><?php
-				}
+        function bgr_average_star_rating( $stars_on, $stars_half, $stars_off ) {
+                for( $i = 1; $i <= $stars_on; $i++ ) {
+                    ?><span class="fa fa-star stars bgr-star-rate"></span><?php
+                }
 
-				for( $i = 1; $i <= $stars_half; $i++ ) {
-					?><span class="fa fa-star-half-o stars bgr-star-rate"></span><?php
-				}
+                for( $i = 1; $i <= $stars_half; $i++ ) {
+                    ?><span class="fa fa-star-half-o stars bgr-star-rate"></span><?php
+                }
 
-				for( $i = 1; $i <= $stars_off; $i++ ) {
-					?><span class="fa fa-star-o stars bgr-star-rate"></span><?php
-				}
-		}
+                for( $i = 1; $i <= $stars_off; $i++ ) {
+                    ?><span class="fa fa-star-o stars bgr-star-rate"></span><?php
+                }
+        }
 
-	}
-	new BGR_Rating_Display();
+    }
+    new BGR_Rating_Display();
 }

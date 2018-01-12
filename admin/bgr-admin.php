@@ -3,49 +3,49 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 //Add admin page for importing Review(s)
 if( !class_exists( 'BGR_Admin' ) ) {
-	class BGR_Admin{
+    class BGR_Admin{
 
-		/* constructor for admin settings
+        /* constructor for admin settings
 		* @since    1.0.0
 		* @author   Wbcom Designs
 		*/
 
-		function __construct() {
-			add_action( 'admin_menu', array( $this, 'bgr_add_submenu_page_admin_settings' ) );
-			$post_types = get_post_types();
-			if( !in_array( 'review', $post_types ) ) {
-				//Custom Post Type
-				add_action( 'init', array( $this, 'bgr_review_cpt' ) );
-				add_action( 'init', array( $this, 'bgr_review_taxonomy_cpt' ) );
-			}
-		}
+        function __construct() {
+            add_action( 'admin_menu', array( $this, 'bgr_add_submenu_page_admin_settings' ) );
+            $post_types = get_post_types();
+            if( !in_array( 'review', $post_types ) ) {
+                //Custom Post Type
+                add_action( 'init', array( $this, 'bgr_review_cpt' ) );
+                add_action( 'init', array( $this, 'bgr_review_taxonomy_cpt' ) );
+            }
+        }
 
-		/* Actions performed on loading admin_menu
+        /* Actions performed on loading admin_menu
 		 * @since    1.0.0
 		 * @author   Wbcom Designs
 		*/
 
-		function bgr_add_submenu_page_admin_settings() {
-			add_submenu_page( 'edit.php?post_type=review', __( 'Group Reviews Admin Settings', 'bp-group-reviews' ), __( 'Group Settings', 'bp-group-reviews' ), 'manage_options', 'group-review-settings', array( $this, 'bgr_admin_options_page' ) );
-		}
+        function bgr_add_submenu_page_admin_settings() {
+            add_submenu_page( 'edit.php?post_type=review', __( 'Group Reviews Admin Settings', 'bp-group-reviews' ), __( 'Group Settings', 'bp-group-reviews' ), 'manage_options', 'group-review-settings', array( $this, 'bgr_admin_options_page' ) );
+        }
 
-		/* Actions performed on changing admin settings tab
+        /* Actions performed on changing admin settings tab
 		* @since    1.0.0
 		* @author   Wbcom Designs
 		*/
 
-		function bgr_admin_options_page(	$current = 'general'	) {
+        function bgr_admin_options_page(	$current = 'general'	) {
                     if( isset( $_GET['tab'] ) ) {
                         $current = sanitize_text_field( $_GET['tab'] );
                     } else {
                         $current = 'general';
                     }
                     $bgr_tabs = array(
-                          'general'   	=> __("General" , 'bp-group-reviews' ),
-                          'criteria'  	=> __("Criteria" , 'bp-group-reviews' ),
-                          'shortcode'   => __("Shortcode", 'bp-group-reviews' ),
-                          'display'   	=> __("Display" , 'bp-group-reviews' ),
-                          'support'  	=> __("Support" , 'bp-group-reviews' )
+                            'general'   	=> __("General" , 'bp-group-reviews' ),
+                            'criteria'  	=> __("Criteria" , 'bp-group-reviews' ),
+                            'shortcode'   => __("Shortcode", 'bp-group-reviews' ),
+                            'display'   	=> __("Display" , 'bp-group-reviews' ),
+                            'support'  	=> __("Support" , 'bp-group-reviews' )
                     );
                     ?>
                     <div id="wpbody-content" class="bgr-setting-page" aria-label="Main content" tabindex="0">
@@ -84,19 +84,19 @@ if( !class_exists( 'BGR_Admin' ) ) {
 
 		function bgr_review_cpt() {
 			$labels = array(
-				'name'						=>	__( 'Reviews', 'bp-group-reviews' ),
-				'singular_name'			=>	__( 'Review', 'bp-group-reviews' ),
-				'menu_name'				=>	__( 'Reviews', 'bp-group-reviews' ),
-				'name_admin_bar'		=>	__( 'Reviews', 'bp-group-reviews' ),
-				'add_new'					=>	__( 'Add New Review', 'bp-group-reviews' ),
-				'add_new_item'			=>	__( 'Add New Review', 'bp-group-reviews' ),
-				'new_item'					=>	__( 'New Review', 'bp-group-reviews' ),
-				'view_item'					=>	__( 'View Reviews', 'bp-group-reviews' ),
-				'all_items'					=>	__( 'All Reviews', 'bp-group-reviews' ),
-				'search_items'			=>	__( 'Search Reviews', 'bp-group-reviews' ),
-				'parent_item_colon'	=>	__( 'Parent Review', 'bp-group-reviews' ),
-				'not_found'					=>	__( 'No Review Found', 'bp-group-reviews' ),
-				'not_found_in_trash'	=>	__( 'No Review Found In Trash', 'bp-group-reviews' ),
+				'name'						=>	__('Reviews', 'bp-group-reviews'),
+				'singular_name'			=>	__('Review', 'bp-group-reviews'),
+				'menu_name'				=>	__('Reviews', 'bp-group-reviews'),
+				'name_admin_bar'		=>	__('Reviews', 'bp-group-reviews'),
+				'add_new'					=>	__('Add New Review', 'bp-group-reviews'),
+				'add_new_item'			=>	__('Add New Review', 'bp-group-reviews'),
+				'new_item'					=>	__('New Review', 'bp-group-reviews'),
+				'view_item'					=>	__('View Reviews', 'bp-group-reviews'),
+				'all_items'					=>	__('All Reviews', 'bp-group-reviews'),
+				'search_items'			=>	__('Search Reviews', 'bp-group-reviews'),
+				'parent_item_colon'	=>	__('Parent Review', 'bp-group-reviews'),
+				'not_found'					=>	__('No Review Found', 'bp-group-reviews'),
+				'not_found_in_trash'	=>	__('No Review Found In Trash', 'bp-group-reviews'),
 			);
 			$args = array(
 				'labels'						=>	$labels,
@@ -106,7 +106,7 @@ if( !class_exists( 'BGR_Admin' ) ) {
 				'show_ui'					=>	true,
 				'show_in_menu'			=>	true,
 				'query_var'					=>	true,
-				'rewrite'						=>	array( 'slug' => 'review', 'with_front' => false ),
+				'rewrite'						=>	array('slug' => 'review', 'with_front' => false),
 				'capability_type'			=>	'post',
 				'capabilities'				=>	array(
 					'create_posts'		=>	'do_not_allow'
@@ -115,9 +115,9 @@ if( !class_exists( 'BGR_Admin' ) ) {
 				'has_archive'				=>	true,
 				'hierarchical'				=>	false,
 				'menu_position'			=>	null,
-				'supports'					=>	array( 'title', 'editor', 'author', 'thumbnail' ),
+				'supports'					=>	array('title', 'editor', 'author', 'thumbnail'),
 			);
-			register_post_type( 'review', $args );
+			register_post_type('review', $args);
 		}
 
 		/**
@@ -146,9 +146,9 @@ if( !class_exists( 'BGR_Admin' ) ) {
 				'show_ui'           		=> false,
 				'show_admin_column' 		=> true,
 				'query_var'         		=> true,
-				'rewrite'           		=> array( 'slug' => 'review_category' ),
+				'rewrite'           		=> array('slug' => 'review_category'),
 			);
-			register_taxonomy( 'review_category', array( 'review' ), $category_args );
+			register_taxonomy('review_category', array('review'), $category_args);
 		}
 	}
 	new BGR_Admin();
