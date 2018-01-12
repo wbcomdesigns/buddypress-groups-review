@@ -181,13 +181,13 @@ if( !class_exists( 'BGR_AJAX' ) ) {
 				$user_post_count = 0;
 			}
 			if( $user_post_count > 0 ) {
-				$review_add_msg = __('You already posted a review for this group', BGR_DOMAIN );
+				$review_add_msg = __('You already posted a review for this group', 'bp-group-reviews' );
 			} else {
 				if( $auto_approve_reviews == 'yes' ) {
-					$review_add_msg = __("Thank you for taking the time to write this wonderful $review_label!", BGR_DOMAIN );
+					$review_add_msg = __("Thank you for taking the time to write this wonderful $review_label!", 'bp-group-reviews' );
 					$review_status = 'publish';
 				} else {
-					$review_add_msg = __("Thank you for taking the time to write this wonderful $review_label. Your $review_label will display after moderator approval.", BGR_DOMAIN );
+					$review_add_msg = __("Thank you for taking the time to write this wonderful $review_label. Your $review_label will display after moderator approval.", 'bp-group-reviews' );
 					$review_status = 'draft';
 				}
 

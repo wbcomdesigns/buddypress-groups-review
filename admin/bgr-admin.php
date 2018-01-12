@@ -26,7 +26,7 @@ if( !class_exists( 'BGR_Admin' ) ) {
 		*/
 
 		function bgr_add_submenu_page_admin_settings() {
-			add_submenu_page( 'edit.php?post_type=review', __( 'Group Reviews Admin Settings', BGR_DOMAIN ), __( 'Group Settings', BGR_DOMAIN ), 'manage_options', 'group-review-settings', array( $this, 'bgr_admin_options_page' ) );
+			add_submenu_page( 'edit.php?post_type=review', __( 'Group Reviews Admin Settings', 'bp-group-reviews' ), __( 'Group Settings', 'bp-group-reviews' ), 'manage_options', 'group-review-settings', array( $this, 'bgr_admin_options_page' ) );
 		}
 
 		/* Actions performed on changing admin settings tab
@@ -41,29 +41,29 @@ if( !class_exists( 'BGR_Admin' ) ) {
                         $current = 'general';
                     }
                     $bgr_tabs = array(
-                          'general'   	=> __("General" , BGR_DOMAIN ),
-                          'criteria'  	=> __("Criteria" , BGR_DOMAIN ),
-                          'shortcode'   => __("Shortcode", BGR_DOMAIN ),
-                          'display'   	=> __("Display" , BGR_DOMAIN ),
-                          'support'  	=> __("Support" , BGR_DOMAIN )
+                          'general'   	=> __("General" , 'bp-group-reviews' ),
+                          'criteria'  	=> __("Criteria" , 'bp-group-reviews' ),
+                          'shortcode'   => __("Shortcode", 'bp-group-reviews' ),
+                          'display'   	=> __("Display" , 'bp-group-reviews' ),
+                          'support'  	=> __("Support" , 'bp-group-reviews' )
                     );
                     ?>
                     <div id="wpbody-content" class="bgr-setting-page" aria-label="Main content" tabindex="0">
 						<div class="wrap">
 				        	<div class="bgr-header">
 								<div class="bgr-extra-actions">
-									<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/contact/', '_blank');"><i class="fa fa-envelope" aria-hidden="true"></i> <?php _e( 'Email Support', BGR_DOMAIN ); ?></button>
-									<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/helpdesk/article-categories/buddypress-group-reviews/', '_blank');"><i class="fa fa-file" aria-hidden="true"></i> <?php _e( 'User Manual', BGR_DOMAIN ); ?></button>
-									<button type="button" class="button button-secondary" onclick="window.open('https://wordpress.org/support/plugin/review-buddypress-groups/reviews/', '_blank');"><i class="fa fa-star" aria-hidden="true"></i> <?php _e( 'Rate Us on WordPress.org', BGR_DOMAIN ); ?></button>
+									<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/contact/', '_blank');"><i class="fa fa-envelope" aria-hidden="true"></i> <?php _e( 'Email Support', 'bp-group-reviews' ); ?></button>
+									<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/helpdesk/article-categories/buddypress-group-reviews/', '_blank');"><i class="fa fa-file" aria-hidden="true"></i> <?php _e( 'User Manual', 'bp-group-reviews' ); ?></button>
+									<button type="button" class="button button-secondary" onclick="window.open('https://wordpress.org/support/plugin/review-buddypress-groups/reviews/', '_blank');"><i class="fa fa-star" aria-hidden="true"></i> <?php _e( 'Rate Us on WordPress.org', 'bp-group-reviews' ); ?></button>
 								</div>
 							</div>
 		                    <h1>
-		                        <?php _e( 'Group Reviews Settings', BGR_DOMAIN );?>
+		                        <?php _e( 'Group Reviews Settings', 'bp-group-reviews' );?>
 		                    </h1>
 		                    <div id="bgr-settings-updated" class="updated settings-error notice is-dismissible">
-		                        <p><strong><?php _e( 'Group Reviews Settings Saved.', BGR_DOMAIN );?></strong></p>
+		                        <p><strong><?php _e( 'Group Reviews Settings Saved.', 'bp-group-reviews' );?></strong></p>
 		                        <button type="button" class="notice-dismiss">
-		                            <span class="screen-reader-text"><?php _e( 'Dismiss this notice.', BGR_DOMAIN );?></span>
+		                            <span class="screen-reader-text"><?php _e( 'Dismiss this notice.', 'bp-group-reviews' );?></span>
 		                        </button>
 		                    </div> <?php
 		                    $bgr_tab_html =  '<h2 class="nav-tab-wrapper">';
@@ -84,19 +84,19 @@ if( !class_exists( 'BGR_Admin' ) ) {
 
 		function bgr_review_cpt() {
 			$labels = array(
-				'name'						=>	__( 'Reviews', BGR_DOMAIN ),
-				'singular_name'			=>	__( 'Review', BGR_DOMAIN ),
-				'menu_name'				=>	__( 'Reviews', BGR_DOMAIN ),
-				'name_admin_bar'		=>	__( 'Reviews', BGR_DOMAIN ),
-				'add_new'					=>	__( 'Add New Review', BGR_DOMAIN ),
-				'add_new_item'			=>	__( 'Add New Review', BGR_DOMAIN ),
-				'new_item'					=>	__( 'New Review', BGR_DOMAIN ),
-				'view_item'					=>	__( 'View Reviews', BGR_DOMAIN ),
-				'all_items'					=>	__( 'All Reviews', BGR_DOMAIN ),
-				'search_items'			=>	__( 'Search Reviews', BGR_DOMAIN ),
-				'parent_item_colon'	=>	__( 'Parent Review', BGR_DOMAIN ),
-				'not_found'					=>	__( 'No Review Found', BGR_DOMAIN ),
-				'not_found_in_trash'	=>	__( 'No Review Found In Trash', BGR_DOMAIN ),
+				'name'						=>	__( 'Reviews', 'bp-group-reviews' ),
+				'singular_name'			=>	__( 'Review', 'bp-group-reviews' ),
+				'menu_name'				=>	__( 'Reviews', 'bp-group-reviews' ),
+				'name_admin_bar'		=>	__( 'Reviews', 'bp-group-reviews' ),
+				'add_new'					=>	__( 'Add New Review', 'bp-group-reviews' ),
+				'add_new_item'			=>	__( 'Add New Review', 'bp-group-reviews' ),
+				'new_item'					=>	__( 'New Review', 'bp-group-reviews' ),
+				'view_item'					=>	__( 'View Reviews', 'bp-group-reviews' ),
+				'all_items'					=>	__( 'All Reviews', 'bp-group-reviews' ),
+				'search_items'			=>	__( 'Search Reviews', 'bp-group-reviews' ),
+				'parent_item_colon'	=>	__( 'Parent Review', 'bp-group-reviews' ),
+				'not_found'					=>	__( 'No Review Found', 'bp-group-reviews' ),
+				'not_found_in_trash'	=>	__( 'No Review Found In Trash', 'bp-group-reviews' ),
 			);
 			$args = array(
 				'labels'						=>	$labels,

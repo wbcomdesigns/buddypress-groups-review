@@ -52,7 +52,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					$args = array(
 							'slug'				=>	'add-review',
 							'nav_item_position'	=>	99,
-							'nav_item_name'		=> sprintf( __("Add %s", BGR_DOMAIN), $add_review_label ),
+							'nav_item_name'		=> sprintf( __("Add %s", 'bp-group-reviews'), $add_review_label ),
 							'enable_nav_item'	=>	$add_review_nav,
 							'screens' 			=> array(
 													'edit' => array(
@@ -69,7 +69,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					$args = array(
 							'slug'				=>	'add-review',
 							'nav_item_position'	=>	99,
-							'nav_item_name'		=> sprintf( __("Add %s", BGR_DOMAIN), $add_review_label ),
+							'nav_item_name'		=> sprintf( __("Add %s", 'bp-group-reviews'), $add_review_label ),
 							'enable_nav_item'	=>	$add_review_nav,
 							'screens' 			=> array(
 													'edit' => array(
@@ -86,7 +86,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				$args = array(
 							'slug'				=>	'add-review',
 							'nav_item_position'	=>	99,
-							'nav_item_name'		=> sprintf( __("Add %s", BGR_DOMAIN), $add_review_label ),
+							'nav_item_name'		=> sprintf( __("Add %s", 'bp-group-reviews'), $add_review_label ),
 							'enable_nav_item'	=>	$add_review_nav,
 							'screens' 			=> array(
 													'edit' => array(
@@ -104,7 +104,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		public function display ( $group_id = null ) { ?>
 			<div class="bgr-bp-success">
 				<div id="message" class="success bgr-bp-success">
-					<p><?php _e( "Your Response added. This will be published when group admin approved it.", BGR_DOMAIN); ?></p>
+					<p><?php _e( "Your Response added. This will be published when group admin approved it.", 'bp-group-reviews'); ?></p>
 				</div>
 			</div>
 			<div class="bgr-group-review-no-popup-add-block">
@@ -169,12 +169,12 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 							</div>
 							<div class="bgr-col-8">
 								<div class="item-title">
-									<?php  _e( bp_core_get_userlink( $author ), BGR_DOMAIN ); ?>
+									<?php  _e( bp_core_get_userlink( $author ), 'bp-group-reviews' ); ?>
 								</div>
 								<div class="item-description">
 									<div class="review-description">
 										<div class="review-excerpt bgr-col-12">
-											<b> <?php _e('Short Description ', BGR_DOMAIN ); ?>: </b>
+											<b> <?php _e('Short Description ', 'bp-group-reviews' ); ?>: </b>
 											<?php $trimcontent = get_the_content();
 											  	if( !empty( $trimcontent ) ) {
 	                                                $len = strlen( $trimcontent );
@@ -190,22 +190,22 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 										<div class="review-full-description bgr-col-12">
 											<div class="bgr-col-12">
 												<b>
-													<?php _e('Full Description', BGR_DOMAIN ); ?> :
+													<?php _e('Full Description', 'bp-group-reviews' ); ?> :
 												</b>
 												<?php the_content(); ?>
 											</div>
 											<?php do_action( 'bgr_display_ratings', $post->ID ); ?>
 										</div>
-										<a class="expand-review-des"><?php _e('View More..', BGR_DOMAIN ); ?> </a>
+										<a class="expand-review-des"><?php _e('View More..', 'bp-group-reviews' ); ?> </a>
 									</div>
 								</div>
 							</div>
 							<div class="bgr-col-2">
 								<div class='bgr-col-12 accept-review generic-button'>
-									<a class='accept-button' data-group-type='<?php _e( $bp->groups->current_group->id, BGR_DOMAIN ); ?>'> <?php _e('Accept',BGR_DOMAIN); ?> </a><input type="hidden" name="accept_review_id" value="<?php _e( $post->ID, BGR_DOMAIN ); ?>">
+									<a class='accept-button' data-group-type='<?php _e( $bp->groups->current_group->id, 'bp-group-reviews' ); ?>'> <?php _e('Accept','bp-group-reviews'); ?> </a><input type="hidden" name="accept_review_id" value="<?php _e( $post->ID, 'bp-group-reviews' ); ?>">
 								</div>
 								<div class='bgr-col-12 deny-review generic-button'>
-									<a class='deny-button' data-group-type='<?php _e($bp->groups->current_group->id, BGR_DOMAIN ); ?>'> <?php _e('Deny',BGR_DOMAIN); ?> </a><input type="hidden" name="deny_review_id" value="<?php _e( $post->ID, BGR_DOMAIN ); ?>">
+									<a class='deny-button' data-group-type='<?php _e($bp->groups->current_group->id, 'bp-group-reviews' ); ?>'> <?php _e('Deny','bp-group-reviews'); ?> </a><input type="hidden" name="deny_review_id" value="<?php _e( $post->ID, 'bp-group-reviews' ); ?>">
 								</div>
 							</div>
 
@@ -231,7 +231,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					wp_reset_postdata();
 					else: ?>
 					<div id="message" class="info">
-						<p><?php _e( "Sorry, no $review_label were found.", BGR_DOMAIN ); ?></p>
+						<p><?php _e( "Sorry, no $review_label were found.", 'bp-group-reviews' ); ?></p>
 					</div>
 					<?php endif; ?>
 			</div>

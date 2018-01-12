@@ -65,7 +65,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
                 <?php
                 if(!is_user_logged_in()) { ?>
                     <div id="message" class="info">
-                        <p><?php _e("You should log in for post $review_label.", BGR_DOMAIN ); ?></p>
+                        <p><?php _e("You should log in for post $review_label.", 'bp-group-reviews' ); ?></p>
                     </div>
                 <?php }
                 elseif( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) && is_user_logged_in() ) {
@@ -81,7 +81,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
 	                    	$this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
 	                    } else { ?>
 	                    	<div id="message" class="error">
-			                   <p><?php _e("You already posted a review for this group.", BGR_DOMAIN ); ?></p>
+			                   <p><?php _e("You already posted a review for this group.", 'bp-group-reviews' ); ?></p>
 			                </div>
 	                    <?php }
 
@@ -90,7 +90,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
                     }
                  }  else { ?>
 	                <div id="message" class="error">
-	                   <p><?php _e("You can't post $review_label on your own group.", BGR_DOMAIN ); ?> </p>
+	                   <p><?php _e("You can't post $review_label on your own group.", 'bp-group-reviews' ); ?> </p>
 	                </div>
                <?php  }
             }
@@ -120,24 +120,24 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
                 $allgroups  = groups_get_groups( $group_args );
             	?>
                 <form id="bgr-add-review-form" method="POST">
-                    <input type="hidden" id="reviews_pluginurl"  name="reviews_pluginurl" value="<?php _e( BGR_PLUGIN_URL, BGR_DOMAIN );?>">
+                    <input type="hidden" id="reviews_pluginurl"  name="reviews_pluginurl" value="<?php _e( BGR_PLUGIN_URL, 'bp-group-reviews' );?>">
 					<div class="group-add-form">
                         <p>
-                            <b><?php _e( "Write a ", BGR_DOMAIN ); echo $review_label; ?></b>
+                            <b><?php _e( "Write a ", 'bp-group-reviews' ); echo $review_label; ?></b>
                         </p>
 
                         <?php if( $current_group_id === 0 ) {?>
                         <p class="bgr-form-group-id">
                             <select id="form-group-id" name="form-group-id">
-                                <option value=""><?php _e('--Select Group--', BGR_DOMAIN ); ?></option>
+                                <option value=""><?php _e('--Select Group--', 'bp-group-reviews' ); ?></option>
                                 <?php
                                 if( !empty( $allgroups ) ) {
                                     foreach ( $allgroups['groups'] as $formGroup ){ ?>
-                                        <option value="<?php echo $formGroup->id; ?>" <?php if( bp_is_group() ) { if( bp_get_group_id() == $formGroup->id ): echo 'selected="selected"'; endif; } ?>><?php _e( $formGroup->name, BGR_DOMAIN ); ?></option>
+                                        <option value="<?php echo $formGroup->id; ?>" <?php if( bp_is_group() ) { if( bp_get_group_id() == $formGroup->id ): echo 'selected="selected"'; endif; } ?>><?php _e( $formGroup->name, 'bp-group-reviews' ); ?></option>
                                 <?php } }  ?>
                             </select>
                             <br/>
-							<span class="bgr-error-fields">*<?php _e('This field is required.', BGR_DOMAIN ); ?></span>
+							<span class="bgr-error-fields">*<?php _e('This field is required.', 'bp-group-reviews' ); ?></span>
                         </p>
                         <?php } else {?>
                         	<input type="hidden" name="form-group-id" value="<?php echo $current_group_id;?>" />
@@ -147,9 +147,9 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
                             <input name="review-subject" type="hidden" value="<?php echo $review_subject;?>">
                         </p>
                         <p>
-                            <textarea name="review-desc" placeholder="<?php _e( $review_label." Description", BGR_DOMAIN ); ?>" rows="3" cols="50"></textarea>
+                            <textarea name="review-desc" placeholder="<?php _e( $review_label." Description", 'bp-group-reviews' ); ?>" rows="3" cols="50"></textarea>
                             <br/>
-							<span class="bgr-error-fields">*<?php _e('This field is required.', BGR_DOMAIN ); ?></span>
+							<span class="bgr-error-fields">*<?php _e('This field is required.', 'bp-group-reviews' ); ?></span>
                         </p>
                         <p>
                             <input type="hidden" name="bgr-flag" value="1">
@@ -157,7 +157,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
 						<?php $this->bgr_display_form_rating();?>
                         <p>
                             <?php wp_nonce_field( 'save-group-review', 'security-nonce');?>
-                            <button class="btn btn-default bgr-submit-review" name="bgr-submit-review"><?php _e( "Submit $review_label", BGR_DOMAIN );?></button>
+                            <button class="btn btn-default bgr-submit-review" name="bgr-submit-review"><?php _e( "Submit $review_label", 'bp-group-reviews' );?></button>
                         </p>
                     </div>
                 </form> <?php
@@ -183,7 +183,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
 						foreach( $review_rating_fields as $review_rating_field ):
 							if( in_array( $review_rating_field, $active_rating_fields ) ) { ?>
 								<div class="bgr-row">
-									<div class="bgr-col-6"><label><?php _e( $review_rating_field, BGR_DOMAIN ); ?></label></div>
+									<div class="bgr-col-6"><label><?php _e( $review_rating_field, 'bp-group-reviews' ); ?></label></div>
 									<div id="review<?php echo $field_counter;?>" class="bgr-col-6">
 											<input type="hidden" id="<?php echo 'clicked'.$field_counter; ?>" value="not_clicked">
 											<input type="hidden" name="rated_stars[]" class="rated_stars bgr_mrating" id="<?php echo 'rated_stars'.$field_counter; ?>" value="0">
@@ -191,7 +191,7 @@ if( !class_exists( 'BGR_Shortcodes' ) ) {
                                                 <span class="fa fa-star-o bgr-stars bgr-star-rate <?php echo $i; ?>" id="<?php echo $field_counter.$i; ?>" data-attr="<?php echo $i; ?>" ></span>
 											<?php } ?>
 									</div>
-									<div class="bgr-col-12 bgr-error-fields">*<?php _e('This field is required.', BGR_DOMAIN ); ?></div>
+									<div class="bgr-col-12 bgr-error-fields">*<?php _e('This field is required.', 'bp-group-reviews' ); ?></div>
 								</div>
 							<?php $field_counter++; }
 						endforeach; ?>

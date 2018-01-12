@@ -94,7 +94,7 @@ if( !class_exists( 'BGR_Rating_Display' ) ) {
 
 			$group_avg_rating = round( $group_avg_rating, 2 );
 			echo "</div><div>";
-			_e("Rating", BGR_DOMAIN );
+			_e("Rating", 'bp-group-reviews' );
 			echo " : (".$group_avg_rating.")";
 		}
 

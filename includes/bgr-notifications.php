@@ -16,7 +16,7 @@ if (!class_exists('BGR_Notifications')) {
             $this->slug = $this->_component_name;
 
             parent::start(
-                $this->_component_name, __('Group Reviews', BGR_DOMAIN ), dirname(__FILE__)
+                $this->_component_name, __('Group Reviews', 'bp-group-reviews' ), dirname(__FILE__)
             );
 
             buddypress()->active_components[$this->_component_name] = '1';

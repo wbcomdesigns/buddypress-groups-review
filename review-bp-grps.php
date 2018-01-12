@@ -35,7 +35,6 @@ function bgr_load_textdomain() {
 */
 define( 'BGR_PLUGIN_PATH', plugin_dir_path(__FILE__) );
 define( 'BGR_PLUGIN_URL', plugin_dir_url(__FILE__) );
-define( 'BGR_DOMAIN','bp-group-reviews');
 
 /**
  * Include needed files on init
@@ -72,7 +71,7 @@ function bgr_bp_notifications_for_review(){
 function bgr_admin_notice() {
     ?>
     <div class="error notice is-dismissible">
-        <p><?php _e( 'The Review BuddyPress Groups plugin requires Buddypress plugin to be installed and active.', BGR_DOMAIN ); ?></p>
+        <p><?php _e( 'The Review BuddyPress Groups plugin requires Buddypress plugin to be installed and active.', 'bp-group-reviews' ); ?></p>
     </div>
     <?php
 }
@@ -86,7 +85,7 @@ function bgr_admin_notice() {
 function bgr_admin_group_notice(){
     ?>
     <div class="error notice is-dismissible">
-        <p><?php _e( 'The Review BuddyPress Groups plugin requires BuddyPress User Groups Component to be active.', BGR_DOMAIN ); ?></p>
+        <p><?php _e( 'The Review BuddyPress Groups plugin requires BuddyPress User Groups Component to be active.', 'bp-group-reviews' ); ?></p>
     </div>
     <?php
 }

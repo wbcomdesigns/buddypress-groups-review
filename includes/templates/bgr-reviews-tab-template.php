@@ -52,7 +52,7 @@ $reviews 				= new WP_Query($args);
 	                                                if( $len > 150 ) {
 	                                                    $shortexcerpt = substr( $trimcontent, 0, 150 );
 	                                                    echo $shortexcerpt;    ?>
-	                                                    <a href="<?php echo $url; ?>"><i><b><?php _e('read more...', BGR_DOMAIN ); ?></b></i></a>
+	                                                    <a href="<?php echo $url; ?>"><i><b><?php _e('read more...', 'bp-group-reviews' ); ?></b></i></a>
 	                                                <?php } else {
 	                                                    echo $trimcontent;
 	                                                }
@@ -67,7 +67,7 @@ $reviews 				= new WP_Query($args);
                                 <div class="bgr-col-2">
                                     <?php if( groups_is_user_admin( $member_id, bp_get_group_id() ) ): ?>
                                         <div class='remove-review generic-button'>
-                                            <a class='remove-review-button'> <?php _e('Delete', BGR_DOMAIN ); ?> </a><input type="hidden" name="remove_review_id" value="<?php _e( $post->ID, BGR_DOMAIN ); ?>">
+                                            <a class='remove-review-button'> <?php _e('Delete', 'bp-group-reviews' ); ?> </a><input type="hidden" name="remove_review_id" value="<?php _e( $post->ID, 'bp-group-reviews' ); ?>">
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -97,7 +97,7 @@ $reviews 				= new WP_Query($args);
                     } else {
                      ?>
                     <div id="message" class="info">
-                        <p><?php _e( "Sorry, No $review_label were found.", BGR_DOMAIN ); ?></p>
+                        <p><?php _e( "Sorry, No $review_label were found.", 'bp-group-reviews' ); ?></p>
                     </div>
                     <?php } ?>
 			</div>

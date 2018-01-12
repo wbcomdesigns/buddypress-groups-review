@@ -41,14 +41,14 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 				if( !in_array( bp_get_current_group_id(), $exclude_groups )) {
 					if( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in() ) { ?>
 					<div class="group-button public generic-button" id="groupbutton-85">
-						<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>"><?php _e( 'Add ', BGR_DOMAIN ); echo $bgr['review_label']; ?></a>
+						<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>"><?php _e( 'Add ', 'bp-group-reviews' ); echo $bgr['review_label']; ?></a>
 					</div>
 					<?php }
 				}
 			}	else {
 				if( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in() ) { ?>
 				<div class="group-button public generic-button" id="groupbutton-85">
-					<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>"><?php _e( 'Add ', BGR_DOMAIN ); echo $bgr['review_label']; ?></a>
+					<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>"><?php _e( 'Add ', 'bp-group-reviews' ); echo $bgr['review_label']; ?></a>
 				</div>
 				<?php }
 			}
@@ -237,7 +237,7 @@ if( !class_exists( 'BGR_Custom_Hooks' ) ) {
 					<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr"><?php
 					do_action('bgr_display_group_average_ratings', $avg_rating );
 
-					$content  = "<div class='rating-text'><span>".__('Rating ', BGR_DOMAIN )." : ".$avg_rating."/5 - ".$total_review_count.' '. $review_label."</span</div>";
+					$content  = "<div class='rating-text'><span>".__('Rating ', 'bp-group-reviews' )." : ".$avg_rating."/5 - ".$total_review_count.' '. $review_label."</span</div>";
 
 					echo apply_filters('bgr_filter_group_header_rating_details', $content, $avg_rating, $review_label, $total_review_count, bp_get_group_id() );
 					echo "</div></div></div></div>";
