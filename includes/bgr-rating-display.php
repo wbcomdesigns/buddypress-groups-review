@@ -84,7 +84,7 @@ if (!class_exists('BGR_Rating_Display')) {
                     $stars_on = intval($group_avg_rating);
                     $stars_half = 1;
                     $stars_off = 5 - ($stars_on + $stars_half);
-            }else {
+            } else {
                     $stars_on = $group_avg_rating;
                     $stars_off = 5 - $group_avg_rating;
                     $stars_half = 0;
@@ -112,8 +112,7 @@ if (!class_exists('BGR_Rating_Display')) {
                     $stars_on = $avg_rating;
                     $stars_off = 5 - $avg_rating;
                     $stars_half = 0;
-            }
-            else {
+            } else {
                     $stars_on = intval($avg_rating);
                     $stars_half = 1;
                     $stars_off = 5 - ($stars_on + $stars_half);

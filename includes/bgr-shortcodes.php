@@ -72,22 +72,22 @@ if (!class_exists('BGR_Shortcodes')) {
                     if (bp_is_group_single()) {
                         if ($multi_reviews == 'no') {
                             $user_post_count = $reviews_args->post_count;
-                        }else {
+                        } else {
                             $user_post_count = 0;
                         }
 
                         if ($user_post_count == 0) {
                             $this->bgr_review_form($review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id);
-                        }else { ?>
+                        } else { ?>
 	                    	<div id="message" class="error">
 			                   <p><?php _e("You already posted a review for this group.", 'bp-group-reviews'); ?></p>
 			                </div>
 	                    <?php }
 
-                    }else {
+                    } else {
                         $this->bgr_review_form($review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id);
                     }
-                    }else { ?>
+                    } else { ?>
 	                <div id="message" class="error">
 	                   <p><?php _e("You can't post $review_label on your own group.", 'bp-group-reviews'); ?> </p>
 	                </div>
@@ -138,7 +138,7 @@ if (!class_exists('BGR_Shortcodes')) {
                             <br/>
 							<span class="bgr-error-fields">*<?php _e('This field is required.', 'bp-group-reviews'); ?></span>
                         </p>
-                        <?php }else {?>
+                        <?php } else {?>
                         	<input type="hidden" name="form-group-id" value="<?php echo $current_group_id; ?>" />
                        	<?php }?>
                         <p>

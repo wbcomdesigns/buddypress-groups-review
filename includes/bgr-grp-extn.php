@@ -29,7 +29,7 @@ if (class_exists('BP_Group_Extension')) :
                 if (empty($add_review_label)) {
                     $add_review_label = 'Review';
                 }
-            }else {
+            } else {
                 $review_label = 'Reviews ';
                 $add_review_label = 'Review';
             }
@@ -65,7 +65,7 @@ if (class_exists('BP_Group_Extension')) :
                         );
                         parent::init($args);
                     }
-                }else {
+                } else {
                     $args = array(
                             'slug'				=>	'add-review',
                             'nav_item_position'	=>	99,
@@ -82,7 +82,7 @@ if (class_exists('BP_Group_Extension')) :
                         );
                     parent::init($args);
                 }
-            }else {
+            } else {
                 $args = array(
                             'slug'				=>	'add-review',
                             'nav_item_position'	=>	99,
@@ -128,7 +128,7 @@ if (class_exists('BP_Group_Extension')) :
                 if (empty($reviews_per_page)) {
                     $reviews_per_page = -1;
                 }
-            }else {
+            } else {
                 $reviews_per_page = -1;
             }
 
@@ -137,7 +137,7 @@ if (class_exists('BP_Group_Extension')) :
                 if (empty($review_label)) {
                     $review_label = 'Reviews ';
                 }
-            }else {
+            } else {
                 $review_label = 'Reviews ';
             }
             $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
@@ -181,7 +181,7 @@ if (class_exists('BP_Group_Extension')) :
                                                     if ($len > 150) {
                                                         $shortexcerpt = substr($trimcontent, 0, 150);
                                                         echo $shortexcerpt;
-                                                    }else {
+                                                    } else {
                                                         echo $trimcontent;
                                                     }
                                                 }
@@ -219,20 +219,20 @@ if (class_exists('BP_Group_Extension')) :
 							<?php
                                 $current_page = max(1, get_query_var('paged'));
                                 echo paginate_links(array(
-                                        'base'      => get_pagenum_link(1) . '%_%',
+                                        'base'      => get_pagenum_link(1).'%_%',
                                         'format'    => 'page/%#%',
                                         'current'   => $current_page,
                                         'total'     => $total_pages,
-                                        'prev_text' => __('prev','bp-group-reviews'),
-                                        'next_text' => __('next','bp-group-reviews'),
-                                        ));?>
+                                        'prev_text' => __('prev', 'bp-group-reviews'),
+                                        'next_text' => __('next', 'bp-group-reviews'),
+                                        )); ?>
 						</div><?php
                     }
                     wp_reset_postdata();
                     else {
                         : ?>
 					<div id="message" class="info">
-						<p><?php _e( "Sorry, no $review_label were found.", 'bp-group-reviews' );
+						<p><?php _e("Sorry, no $review_label were found.", 'bp-group-reviews');
                     }
                     ?></p>
 					</div>
@@ -241,7 +241,7 @@ if (class_exists('BP_Group_Extension')) :
 			<?php
         }
     }
-    bp_register_group_extension( 'Group_Reviews_Management_Extn' );
+    bp_register_group_extension('Group_Reviews_Management_Extn');
 
 
 

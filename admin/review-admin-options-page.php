@@ -8,7 +8,7 @@ if (isset($_GET)) {
     if (isset($_GET['tab'])) {
         $bgr_setting_tab = sanitize_text_field($_GET['tab']);
         bgr_include_admin_setting_tabs($bgr_setting_tab);
-    } else {
+    }else {
         bgr_include_admin_setting_tabs('general');
     }
 }
@@ -368,7 +368,7 @@ function bgr_display_setting() {
              <div class="bgr-slider round"></div>
          </label>
          <p class="bgr-admin-des"><?php _e('Enable this option, if you want to group admin & reviewer receive notification when add, accept & deny review.', 'bp-group-reviews'); ?></p>
-         <?php }else { ?>
+         <?php } else { ?>
          <p class="bgr-admin-des"><?php _e('This setting requires BuddyPress Notifications Component to be active.', 'bp-group-reviews'); ?></p>
          <?php } ?>
      </div>
@@ -392,9 +392,9 @@ function bgr_display_setting() {
                     if (!empty($exclude_groups)) {
                         if (in_array($group->id, $exclude_groups)) {?>
                         <option value="<?php echo $group->id; ?>" <?php echo 'selected = selected'; ?>><?php echo $group->name; ?></option>
-                        <?php }else { ?>
+                        <?php } else { ?>
                         <option value="<?php echo $group->id; ?>"><?php echo $group->name; ?></option>
-                        <?php } }else { ?>
+                        <?php } } else { ?>
                         <option value="<?php echo $group->id; ?>"><?php echo $group->name; ?></option>
                         <?php  }
                     endforeach;

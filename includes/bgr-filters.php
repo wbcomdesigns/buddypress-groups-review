@@ -45,7 +45,7 @@ if (!class_exists('BGR_Custom_Hooks')) {
 					</div>
 					<?php }
                 }
-            }else {
+            } else {
                 if (!groups_is_user_admin(bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in()) { ?>
 				<div class="group-button public generic-button" id="groupbutton-85">
 					<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>"><?php _e('Add ', 'bp-group-reviews'); echo $bgr['review_label']; ?></a>
@@ -84,7 +84,7 @@ if (!class_exists('BGR_Custom_Hooks')) {
                 if (!in_array(bp_get_group_id(), $exclude_groups)) {
                     $this->bgr_single_group_average_rating_data($reviews, $review_rating_fields, $review_label);
                 }
-            }else {
+            } else {
                 $this->bgr_single_group_average_rating_data($reviews, $review_rating_fields, $review_label);
             }
         }
@@ -180,7 +180,7 @@ if (!class_exists('BGR_Custom_Hooks')) {
                 if (!in_array(bp_get_group_id(), $exclude_groups)) {
                     $this->bgr_group_average_rating_data($reviews, $review_rating_fields, $review_label);
                 }
-            }else {
+            } else {
                 $this->bgr_group_average_rating_data($reviews, $review_rating_fields, $review_label);
             }
         }
@@ -354,7 +354,7 @@ if (!class_exists('BGR_Custom_Hooks')) {
                             );
                             bp_core_new_subnav_item($tab_args);
                         }
-                    }else {
+                    } else {
                         $tab_args = array(
                             'name' => $review_label.' '.$count_notification,
                             'slug' => 'reviews',
@@ -365,7 +365,7 @@ if (!class_exists('BGR_Custom_Hooks')) {
                         );
                         bp_core_new_subnav_item($tab_args);
                     }
-                }else {
+                } else {
                     $tab_args = array(
                         'name' => $review_label.' '.$count_notification,
                         'slug' => 'reviews',
@@ -385,7 +385,7 @@ if (!class_exists('BGR_Custom_Hooks')) {
             $templates = array('groups/single/plugins.php', 'plugin-template.php');
             if (strstr(locate_template($templates), 'groups/single/plugins.php')) {
                 bp_core_load_template(apply_filters('bp_core_template_plugin', 'groups/single/plugins'));
-            }else {
+            } else {
                 bp_core_load_template(apply_filters('bp_core_template_plugin', 'plugin-template'));
             }
         }
@@ -404,7 +404,7 @@ if (!class_exists('BGR_Custom_Hooks')) {
             $templates = array('groups/single/plugins.php', 'plugin-template.php');
             if (strstr(locate_template($templates), 'groups/single/plugins.php')) {
                 bp_core_load_template(apply_filters('bp_core_template_plugin', 'groups/single/plugins'));
-            }else {
+            } else {
                 bp_core_load_template(apply_filters('bp_core_template_plugin', 'plugin-template'));
             }
         }
@@ -419,7 +419,7 @@ if (!class_exists('BGR_Custom_Hooks')) {
         public function bgr_group_reviews_tab_template() {
             if (strpos($_SERVER['REQUEST_URI'], 'reviews/view') !== false) {
                 include 'templates/bgr-single-review-template.php';
-            }else if (strpos($_SERVER['REQUEST_URI'], 'reviews') !== false) {
+            } else if (strpos($_SERVER['REQUEST_URI'], 'reviews') !== false) {
                 include 'templates/bgr-reviews-tab-template.php';
             }
         }

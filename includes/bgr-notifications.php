@@ -5,8 +5,8 @@ if (!defined('ABSPATH')) {
 }
 // Exit if accessed directly
 /**
-     * Class to add custom scripts on woocommerce hooks
-     */
+ * Class to add custom scripts on woocommerce hooks
+ */
 if (!class_exists('BGR_Notifications')) {
 
     class BGR_Notifications extends BP_Component {
@@ -126,7 +126,7 @@ if (!class_exists('BGR_Notifications')) {
             $user_name = $user_info->user_login;
             if ($bgr['auto_approve_reviews'] == 'no') {
                 $notification_link = bp_get_group_permalink($group)."admin/manage-reviews/";
-            }else {
+            } else {
                 $notification_link = bp_get_group_permalink($group)."reviews/";
             }
             $notification_title = "A new $review_label posted.";
@@ -134,7 +134,7 @@ if (!class_exists('BGR_Notifications')) {
 
             if ('string' == $format) {
                 $return = sprintf("<a href='%s' title='%s'>%s</a>", esc_url($notification_link), esc_attr($notification_title), esc_html($notification_content));
-            } else {
+            }else {
                 $return = array(
                     'text' => $notification_content,
                     'link' => $notification_link,
@@ -159,7 +159,7 @@ if (!class_exists('BGR_Notifications')) {
 
             if ('string' == $format) {
                 $return = sprintf("<a href='%s' title='%s'>%s</a>", esc_url($notification_link), esc_attr($notification_title), esc_html($notification_content));
-            } else {
+            }else {
                 $return = array(
                     'text' => $notification_content,
                     'link' => $notification_link,
@@ -185,7 +185,7 @@ if (!class_exists('BGR_Notifications')) {
 
             if ('string' == $format) {
                 $return = sprintf("<a href='%s' title='%s'>%s</a>", esc_url($notification_link), esc_attr($notification_title), esc_html($notification_content));
-            } else {
+            }else {
                 $return = array(
                     'text' => $notification_content,
                     'link' => $notification_link,
@@ -219,7 +219,8 @@ add_filter('bp_notifications_get_notifications_for_user', 'bgr_format_notificati
                         $return = '';
                         break;
             }
-            if ($return)
-                return $return;
+            if ($return) {
+                            return $return;
+            }
         }
     }
