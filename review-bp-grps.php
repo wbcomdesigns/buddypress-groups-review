@@ -10,7 +10,10 @@
  * Text Domain: bp-group-reviews
  * Domain Path: /languages
  */
-if (!defined('ABSPATH')) exit; // Exit if accessed directly
+if (!defined('ABSPATH')) {
+    exit;
+}
+// Exit if accessed directly
 
 /**
  * Load plugin textdomain.
@@ -21,10 +24,10 @@ if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 add_action('init', 'bgr_load_textdomain');
 function bgr_load_textdomain() {
-	$domain = "bp-group-reviews";
-	$locale = apply_filters('plugin_locale', get_locale(), $domain);
-	load_textdomain($domain, 'languages/'.$domain.'-'.$locale.'.mo');
-	$var = load_plugin_textdomain($domain, false, plugin_basename(dirname(__FILE__)).'/languages');
+    $domain = "bp-group-reviews";
+    $locale = apply_filters('plugin_locale', get_locale(), $domain);
+    load_textdomain($domain, 'languages/'.$domain.'-'.$locale.'.mo');
+    $var = load_plugin_textdomain($domain, false, plugin_basename(dirname(__FILE__)).'/languages');
 
 }
 
@@ -48,7 +51,7 @@ function bgr_plugin_init() {
         add_action('admin_notices', 'bgr_admin_notice');
     } elseif (!array_key_exists('groups', $bp_active_components)) {
         add_action('admin_notices', 'bgr_admin_group_notice');
-    }else {
+    } else {
         run_bp_group_reviews_plugin();
         add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'bgr_admin_page_link');
         add_action('bp_include', 'include_files_bp');
@@ -57,8 +60,8 @@ function bgr_plugin_init() {
 add_action('bp_init', 'bgr_bp_notifications_for_review', 12);
 
 function bgr_bp_notifications_for_review() {
-	include 'includes/bgr-notifications.php';
-	buddypress()->bgr_bp_review = new BGR_Notifications();
+    include 'includes/bgr-notifications.php';
+    buddypress()->bgr_bp_review = new BGR_Notifications();
     buddypress()->bgr_bp_review->notification_callback = 'bgr_format_notifications';
 }
 
@@ -119,5 +122,7 @@ function run_bp_group_reviews_plugin() {
         'includes/bgr-shortcodes.php',
         'includes/widgets/bgr-review.php'
     );
-    foreach ($include_files as $include_file) include $include_file;
-}
+    foreach ($include_files as $include_file) {
+        include $include_file;
+    }
+    }

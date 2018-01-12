@@ -18,41 +18,41 @@ if (class_exists('BP_Group_Extension')) :
             global $bgr;
             $enabled = true;
             $add_review_nav = false;
-            $bgr_admin_display_settings  = get_option( 'bgr_admin_display_settings' );
-            $bgr_admin_general_settings  = get_option( 'bgr_admin_general_settings' );
-            if( !empty( $bgr_admin_display_settings ) ) {
+            $bgr_admin_display_settings  = get_option('bgr_admin_display_settings');
+            $bgr_admin_general_settings  = get_option('bgr_admin_general_settings');
+            if (!empty($bgr_admin_display_settings)) {
                 $review_label = $bgr_admin_display_settings['manage_review_label'];
                 $add_review_label = $bgr_admin_display_settings['review_label'];
-                if( empty( $review_label )) {
+                if (empty($review_label)) {
                     $review_label = 'Reviews ';
                 }
-                if( empty( $add_review_label )) {
+                if (empty($add_review_label)) {
                     $add_review_label = 'Review';
                 }
-            } else {
+            }else {
                 $review_label = 'Reviews ';
                 $add_review_label = 'Review';
             }
-            if( !empty( $bgr_admin_general_settings ) ) {
+            if (!empty($bgr_admin_general_settings)) {
                 $exclude_groups = $bgr_admin_general_settings['exclude_groups'];
-                if( !empty( $exclude_groups )) {
-                    if( in_array( bp_get_current_group_id() , $exclude_groups ) ) {
+                if (!empty($exclude_groups)) {
+                    if (in_array(bp_get_current_group_id(), $exclude_groups)) {
                         $enabled = false;
                     }
                 }
             }
 
-            if( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in() ) {
+            if (!groups_is_user_admin(bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in()) {
                 $add_review_nav = true;
             }
 
-                if( !empty( $bgr_admin_general_settings ) ) {
-                if( !empty( $exclude_groups )) {
-                    if( !in_array( bp_get_current_group_id(), $exclude_groups )) {
+                if (!empty($bgr_admin_general_settings)) {
+                if (!empty($exclude_groups)) {
+                    if (!in_array(bp_get_current_group_id(), $exclude_groups)) {
                     $args = array(
                             'slug'				=>	'add-review',
                             'nav_item_position'	=>	99,
-                            'nav_item_name'		=> sprintf( __("Add %s", 'bp-group-reviews'), $add_review_label ),
+                            'nav_item_name'		=> sprintf(__("Add %s", 'bp-group-reviews'), $add_review_label),
                             'enable_nav_item'	=>	$add_review_nav,
                             'screens' 			=> array(
                                                     'edit' => array(
@@ -63,13 +63,13 @@ if (class_exists('BP_Group_Extension')) :
                             'show_tab' 			=> false
 
                         );
-                        parent::init( $args );
+                        parent::init($args);
                     }
-                } else {
+                }else {
                     $args = array(
                             'slug'				=>	'add-review',
                             'nav_item_position'	=>	99,
-                            'nav_item_name'		=> sprintf( __("Add %s", 'bp-group-reviews'), $add_review_label ),
+                            'nav_item_name'		=> sprintf(__("Add %s", 'bp-group-reviews'), $add_review_label),
                             'enable_nav_item'	=>	$add_review_nav,
                             'screens' 			=> array(
                                                     'edit' => array(
@@ -80,13 +80,13 @@ if (class_exists('BP_Group_Extension')) :
                             'show_tab' 			=> false
 
                         );
-                    parent::init( $args );
+                    parent::init($args);
                 }
-            }	else {
+            }else {
                 $args = array(
                             'slug'				=>	'add-review',
                             'nav_item_position'	=>	99,
-                            'nav_item_name'		=> sprintf( __("Add %s", 'bp-group-reviews'), $add_review_label ),
+                            'nav_item_name'		=> sprintf(__("Add %s", 'bp-group-reviews'), $add_review_label),
                             'enable_nav_item'	=>	$add_review_nav,
                             'screens' 			=> array(
                                                     'edit' => array(
@@ -97,18 +97,18 @@ if (class_exists('BP_Group_Extension')) :
                             'show_tab' 			=> false
 
                         );
-                        parent::init( $args );
+                        parent::init($args);
             }
         }
 
-        public function display ( $group_id = null ) { ?>
+        public function display($group_id = null) { ?>
 			<div class="bgr-bp-success">
 				<div id="message" class="success bgr-bp-success">
-					<p><?php _e( "Your Response added. This will be published when group admin approved it.", 'bp-group-reviews'); ?></p>
+					<p><?php _e("Your Response added. This will be published when group admin approved it.", 'bp-group-reviews'); ?></p>
 				</div>
 			</div>
 			<div class="bgr-group-review-no-popup-add-block">
-		        <?php do_shortcode( '[add_group_review_form]' ); ?>
+		        <?php do_shortcode('[add_group_review_form]'); ?>
 			</div>
 		<?php }
 
@@ -118,30 +118,30 @@ if (class_exists('BP_Group_Extension')) :
 		*  @author  Wbcom Designs
 		*/
 
-        function edit_screen($group_id= NULL){
-            global $bp,$wpdb,$post;
+        function edit_screen($group_id = NULL) {
+            global $bp, $wpdb, $post;
             //Admin Settings
-            $bgr_admin_settings 		 = get_option( 'bgr_admin_general_settings' );
-            $bgr_admin_display_settings  = get_option( 'bgr_admin_display_settings' );
-            if( !empty( $bgr_admin_settings ) ) {
+            $bgr_admin_settings = get_option('bgr_admin_general_settings');
+            $bgr_admin_display_settings = get_option('bgr_admin_display_settings');
+            if (!empty($bgr_admin_settings)) {
                 $reviews_per_page     = $bgr_admin_settings['reviews_per_page'];
-                if(empty($reviews_per_page)){
+                if (empty($reviews_per_page)) {
                     $reviews_per_page = -1;
                 }
-            } else {
+            }else {
                 $reviews_per_page = -1;
             }
 
-            if( !empty( $bgr_admin_display_settings ) ) {
+            if (!empty($bgr_admin_display_settings)) {
                 $review_label = $bgr_admin_display_settings['review_label'];
-                if( empty( $review_label )) {
+                if (empty($review_label)) {
                     $review_label = 'Reviews ';
                 }
-            } else {
+            }else {
                 $review_label = 'Reviews ';
             }
-            $paged 	= ( get_query_var('paged') ) ? get_query_var('paged') : 1;
-            $args 	= array(
+            $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+            $args = array(
                 'post_type' 		=> 'review',
                 'post_status' 		=> 'draft',
                 'posts_per_page' 	=> $reviews_per_page,
@@ -159,29 +159,29 @@ if (class_exists('BP_Group_Extension')) :
 
             ?>
 			<div id="request-review-list" class="item-list reviews-item-list">
-				<?php if ( $reviews->have_posts() ):
-                     while ( $reviews->have_posts() ): $reviews->the_post();
+				<?php if ($reviews->have_posts()):
+                     while ($reviews->have_posts()): $reviews->the_post();
                     ?>
 						<div class="bgr-row item-list group-request-list">
 							<div class="bgr-col-2">
-								<?php $author =  $reviews->post->post_author;
-                                    bp_displayed_user_avatar( array( 'item_id' => $author ) ); ?>
+								<?php $author = $reviews->post->post_author;
+                                    bp_displayed_user_avatar(array('item_id' => $author)); ?>
 							</div>
 							<div class="bgr-col-8">
 								<div class="item-title">
-									<?php  _e( bp_core_get_userlink( $author ), 'bp-group-reviews' ); ?>
+									<?php  _e(bp_core_get_userlink($author), 'bp-group-reviews'); ?>
 								</div>
 								<div class="item-description">
 									<div class="review-description">
 										<div class="review-excerpt bgr-col-12">
-											<b> <?php _e('Short Description ', 'bp-group-reviews' ); ?>: </b>
+											<b> <?php _e('Short Description ', 'bp-group-reviews'); ?>: </b>
 											<?php $trimcontent = get_the_content();
-                                                    if( !empty( $trimcontent ) ) {
-                                                    $len = strlen( $trimcontent );
-                                                    if( $len > 150 ) {
-                                                        $shortexcerpt = substr( $trimcontent, 0, 150 );
+                                                    if (!empty($trimcontent)) {
+                                                    $len = strlen($trimcontent);
+                                                    if ($len > 150) {
+                                                        $shortexcerpt = substr($trimcontent, 0, 150);
                                                         echo $shortexcerpt;
-                                                    } else {
+                                                    }else {
                                                         echo $trimcontent;
                                                     }
                                                 }
@@ -212,35 +212,35 @@ if (class_exists('BP_Group_Extension')) :
 							<div class="clear"></div>
 						</div>
 					<?php
-					endwhile;
-					$total_pages = $reviews->max_num_pages;
-					 if ($total_pages > 1) { ?>
+                    endwhile;
+                    $total_pages = $reviews->max_num_pages;
+                        if ($total_pages > 1) { ?>
 						<div class="review-pagination">
 							<?php
-								$current_page = max(1, get_query_var('paged'));
-								echo paginate_links(array(
-										'base'      => get_pagenum_link(1) . '%_%',
-										'format'    => 'page/%#%',
-										'current'   => $current_page,
-										'total'     => $total_pages,
-										'prev_text' => __('prev','bp-group-reviews'),
-										'next_text' => __('next','bp-group-reviews'),
-										));?>
+                                $current_page = max(1, get_query_var('paged'));
+                                echo paginate_links(array(
+                                        'base'      => get_pagenum_link(1) . '%_%',
+                                        'format'    => 'page/%#%',
+                                        'current'   => $current_page,
+                                        'total'     => $total_pages,
+                                        'prev_text' => __('prev','bp-group-reviews'),
+                                        'next_text' => __('next','bp-group-reviews'),
+                                        ));?>
 						</div><?php
-					}
-					wp_reset_postdata();
-					else {
-					    : ?>
+                    }
+                    wp_reset_postdata();
+                    else {
+                        : ?>
 					<div id="message" class="info">
 						<p><?php _e( "Sorry, no $review_label were found.", 'bp-group-reviews' );
-					}
-					?></p>
+                    }
+                    ?></p>
 					</div>
 					<?php endif; ?>
 			</div>
 			<?php
-		}
-	}
+        }
+    }
     bp_register_group_extension( 'Group_Reviews_Management_Extn' );
 
 
