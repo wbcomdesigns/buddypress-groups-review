@@ -5,121 +5,121 @@
 */
 
 .group-reviews {
-    margin-top: 25px;
+	margin-top: 25px;
 }
 
 #group-reviews-list,
 .group-add-form textarea,
 .group-add-form input,
 .group-add-form button {
-    width: 100%;
+	width: 100%;
 }
 
 .group-add-form p {
-    text-align: center;
+	text-align: center;
 }
 
 .bgr-add-review {
-    margin-left: 5px;
+	margin-left: 5px;
 }
 
 .bgr-group-review-no-popup-add-block {
-    display: block;
+	display: block;
 }
 
 #request-review-list + #bp-group-edit-manage-reviews-submit-wrapper {
-    display: none;
+	display: none;
 }
 
 /****************** MODAL CSS ***********************/
 /* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    z-index: 9999;
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	z-index: 9999;
 }
 
 /* Modal Content */
 .modal-content {
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    border: 1px solid #888;
-    width: 26%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s
+	position: relative;
+	background-color: #fefefe;
+	margin: auto;
+	padding: 0;
+	border: 1px solid #888;
+	width: 26%;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
 }
 
 @media( max-width: 1024px ) {
-    #bgr-add-review-modal .modal-content{
-        min-width: 300px;
-    }
+	#bgr-add-review-modal .modal-content{
+		min-width: 300px;
+	}
 }
 
 
 /* Add Animation */
 @-webkit-keyframes animatetop {
-    from {
-        top:-300px;
-        opacity:0
-    }
-    to {
-        top:0;
-        opacity:1
-    }
+	from {
+		top:-300px;
+		opacity:0
+	}
+	to {
+		top:0;
+		opacity:1
+	}
 }
 
 @keyframes animatetop {
-    from {
-        top:-300px;
-        opacity:0
-    }
-    to {
-        top:0;
-        opacity:1
-    }
+	from {
+		top:-300px;
+		opacity:0
+	}
+	to {
+		top:0;
+		opacity:1
+	}
 }
 
 /* The Close Button */
 .close {
-    color: white;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    right: 10px;
+	color: white;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	position: absolute;
+	right: 10px;
 }
 
 .close:hover,
 .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 .modal-header {
-    padding: 19px 0 6px 24px;
-    background-color: #C5C5C5;
-    color: white;
-    position: relative;
+	padding: 19px 0 6px 24px;
+	background-color: #C5C5C5;
+	color: white;
+	position: relative;
 }
 
 .modal-body {
-    padding: 2px 16px;
+	padding: 2px 16px;
 }
 .bgr-group-review-add-block {
-    overflow: hidden;
+	overflow: hidden;
 }

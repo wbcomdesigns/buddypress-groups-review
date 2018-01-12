@@ -1,6 +1,5 @@
-jQuery(document).ready(function(){
-    jQuery('.bgr-review-color').wpColorPicker();
-});     
-
-
-
+jQuery( document ).ready(
+	function(){
+		jQuery( '.bgr-review-color' ).wpColorPicker();
+	}
+);

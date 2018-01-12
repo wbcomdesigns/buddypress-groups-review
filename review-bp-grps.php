@@ -10,119 +10,124 @@
  * Text Domain: bp-group-reviews
  * Domain Path: /languages
  */
-if (!defined('ABSPATH')) {
-    exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 // Exit if accessed directly
-
 /**
  * Load plugin textdomain.
+ *
  * @since 1.0.0
  *  @since   1.0.0
  *  @author  Wbcom Designs
 */
 
-add_action('init', 'bgr_load_textdomain');
+add_action( 'init', 'bgr_load_textdomain' );
 function bgr_load_textdomain() {
-    $domain = "bp-group-reviews";
-    $locale = apply_filters('plugin_locale', get_locale(), $domain);
-    load_textdomain($domain, 'languages/'.$domain.'-'.$locale.'.mo');
-    $var = load_plugin_textdomain($domain, false, plugin_basename(dirname(__FILE__)).'/languages');
+	$domain = 'bp-group-reviews';
+	$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
+	load_textdomain( $domain, 'languages/' . $domain . '-' . $locale . '.mo' );
+	$var = load_plugin_textdomain( $domain, false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
 
 }
 
 /**
  * Constants used in the plugin
+ *
  *  @since   1.0.0
  *  @author  Wbcom Designs
 */
-define('BGR_PLUGIN_PATH', plugin_dir_path(__FILE__));
-define('BGR_PLUGIN_URL', plugin_dir_url(__FILE__));
+define( 'BGR_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+define( 'BGR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 /**
  * Include needed files on init
+ *
  *  @since   1.0.0
  *  @author  Wbcom Designs
 */
-add_action('plugins_loaded', 'bgr_plugin_init');
+add_action( 'plugins_loaded', 'bgr_plugin_init' );
 function bgr_plugin_init() {
-    $bp_active_components = get_option('bp-active-components', true);
-    if (!in_array('buddypress/bp-loader.php', apply_filters('active_plugins', get_option('active_plugins')))) {
-        add_action('admin_notices', 'bgr_admin_notice');
-    } elseif (!array_key_exists('groups', $bp_active_components)) {
-        add_action('admin_notices', 'bgr_admin_group_notice');
-    }else {
-        run_bp_group_reviews_plugin();
-        add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'bgr_admin_page_link');
-        add_action('bp_include', 'include_files_bp');
-    }
+	$bp_active_components = get_option( 'bp-active-components', true );
+	if ( ! in_array( 'buddypress/bp-loader.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		add_action( 'admin_notices', 'bgr_admin_notice' );
+	} elseif ( ! array_key_exists( 'groups', $bp_active_components ) ) {
+		add_action( 'admin_notices', 'bgr_admin_group_notice' );
+	} else {
+		run_bp_group_reviews_plugin();
+		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bgr_admin_page_link' );
+		add_action( 'bp_include', 'include_files_bp' );
+	}
 }
-add_action('bp_init', 'bgr_bp_notifications_for_review', 12);
+add_action( 'bp_init', 'bgr_bp_notifications_for_review', 12 );
 
 function bgr_bp_notifications_for_review() {
-    include 'includes/bgr-notifications.php';
-    buddypress()->bgr_bp_review = new BGR_Notifications();
-    buddypress()->bgr_bp_review->notification_callback = 'bgr_format_notifications';
+	include 'includes/bgr-notifications.php';
+	buddypress()->bgr_bp_review                        = new BGR_Notifications();
+	buddypress()->bgr_bp_review->notification_callback = 'bgr_format_notifications';
 }
 
 /**
  * Show admin notice when buddypress not active or install
+ *
  *  @since   1.0.0
  *  @author  Wbcom Designs
-*/
+ */
 
 function bgr_admin_notice() {
-    ?>
-    <div class="error notice is-dismissible">
-        <p><?php _e('The Review BuddyPress Groups plugin requires Buddypress plugin to be installed and active.', 'bp-group-reviews'); ?></p>
-    </div>
-    <?php
+	?>
+	<div class="error notice is-dismissible">
+		<p><?php _e( 'The Review BuddyPress Groups plugin requires Buddypress plugin to be installed and active.', 'bp-group-reviews' ); ?></p>
+	</div>
+	<?php
 }
 
 /**
  * Show admin notice when buddypress user groups component not active
+ *
  *  @since   1.0.0
  *  @author  Wbcom Designs
-*/
+ */
 
 function bgr_admin_group_notice() {
-    ?>
-    <div class="error notice is-dismissible">
-        <p><?php _e('The Review BuddyPress Groups plugin requires BuddyPress User Groups Component to be active.', 'bp-group-reviews'); ?></p>
-    </div>
-    <?php
+	?>
+	<div class="error notice is-dismissible">
+		<p><?php _e( 'The Review BuddyPress Groups plugin requires BuddyPress User Groups Component to be active.', 'bp-group-reviews' ); ?></p>
+	</div>
+	<?php
 }
 
 /**
  * Settings link for this plugin
+ *
  *  @since   1.0.0
  *  @author  Wbcom Designs
-*/
-function bgr_admin_page_link($links) {
-        $page_link = array('<a href="'.admin_url('admin.php?page=group-review-settings').'">Settings</a>');
-        return array_merge($links, $page_link);
+ */
+function bgr_admin_page_link( $links ) {
+		$page_link = array( '<a href="' . admin_url( 'admin.php?page=group-review-settings' ) . '">Settings</a>' );
+		return array_merge( $links, $page_link );
 }
 
 function include_files_bp() {
-    include 'includes/bgr-grp-extn.php';
+	include 'includes/bgr-grp-extn.php';
 }
 
 /**
  * Run the plugin, include the required files
  */
 function run_bp_group_reviews_plugin() {
-    $include_files = array(
-        'includes/bgr-globals.php',
-        'includes/bgr-scripts.php',
-        'admin/bgr-admin.php',
-        'includes/bgr-dynamic-css.php',
-        'includes/bgr-rating-display.php',
-        'includes/bgr-filters.php',
-        'includes/bgr-ajax.php',
-        'includes/bgr-shortcodes.php',
-        'includes/widgets/bgr-review.php'
-    );
-    foreach ($include_files as $include_file) {
-        include $include_file;
-    }
-    }
+	$include_files = array(
+		'includes/bgr-globals.php',
+		'includes/bgr-scripts.php',
+		'admin/bgr-admin.php',
+		'includes/bgr-dynamic-css.php',
+		'includes/bgr-rating-display.php',
+		'includes/bgr-filters.php',
+		'includes/bgr-ajax.php',
+		'includes/bgr-shortcodes.php',
+		'includes/widgets/bgr-review.php',
+	);
+	foreach ( $include_files as $include_file ) {
+		include $include_file;
+	}
+}
