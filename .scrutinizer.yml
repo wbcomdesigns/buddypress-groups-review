@@ -1,4 +1,7 @@
 checks:
+    tools:
+    php_code_sniffer:
+        config: { standard: WordPress }
     php:
         fix_php_opening_tag: false
         remove_php_closing_tag: false
