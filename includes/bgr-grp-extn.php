@@ -1,6 +1,6 @@
 <?php
 // Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Group Course settings tab
@@ -8,17 +8,17 @@ defined( 'ABSPATH' ) || exit;
  * or when the Groups component is disabled
  */
 
-if ( class_exists( 'BP_Group_Extension' ) ) :
+if (class_exists('BP_Group_Extension')) :
 
-	class Group_Reviews_Management_Extn extends BP_Group_Extension {
+    class Group_Reviews_Management_Extn extends BP_Group_Extension {
 
-		function __construct() {
+        function __construct() {
 
             global $bp;
-			global $bgr;
+            global $bgr;
             $enabled = true;
             $add_review_nav = false;
-			$bgr_admin_display_settings  = get_option( 'bgr_admin_display_settings' );
+            $bgr_admin_display_settings  = get_option( 'bgr_admin_display_settings' );
             $bgr_admin_general_settings  = get_option( 'bgr_admin_general_settings' );
             if( !empty( $bgr_admin_display_settings ) ) {
                 $review_label = $bgr_admin_display_settings['manage_review_label'];
@@ -30,9 +30,9 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
                     $add_review_label = 'Review';
                 }
             } else {
-				$review_label = 'Reviews ';
-				$add_review_label = 'Review';
-			}
+                $review_label = 'Reviews ';
+                $add_review_label = 'Review';
+            }
             if( !empty( $bgr_admin_general_settings ) ) {
                 $exclude_groups = $bgr_admin_general_settings['exclude_groups'];
                 if( !empty( $exclude_groups )) {
@@ -43,65 +43,65 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
             }
 
             if( !groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id()) || !is_user_logged_in() ) {
-            	$add_review_nav = true;
+                $add_review_nav = true;
             }
 
-         	if( !empty( $bgr_admin_general_settings ) ) {
+                if( !empty( $bgr_admin_general_settings ) ) {
                 if( !empty( $exclude_groups )) {
                     if( !in_array( bp_get_current_group_id(), $exclude_groups )) {
-					$args = array(
-							'slug'				=>	'add-review',
-							'nav_item_position'	=>	99,
-							'nav_item_name'		=> sprintf( __("Add %s", 'bp-group-reviews'), $add_review_label ),
-							'enable_nav_item'	=>	$add_review_nav,
-							'screens' 			=> array(
-													'edit' => array(
-														'name' => $review_label,
-														'slug' => 'manage-reviews',
-														'enabled' => $enabled
-													)),
-							'show_tab' 			=> false
+                    $args = array(
+                            'slug'				=>	'add-review',
+                            'nav_item_position'	=>	99,
+                            'nav_item_name'		=> sprintf( __("Add %s", 'bp-group-reviews'), $add_review_label ),
+                            'enable_nav_item'	=>	$add_review_nav,
+                            'screens' 			=> array(
+                                                    'edit' => array(
+                                                        'name' => $review_label,
+                                                        'slug' => 'manage-reviews',
+                                                        'enabled' => $enabled
+                                                    )),
+                            'show_tab' 			=> false
 
-						);
-						parent::init( $args );
-					}
-				} else {
-					$args = array(
-							'slug'				=>	'add-review',
-							'nav_item_position'	=>	99,
-							'nav_item_name'		=> sprintf( __("Add %s", 'bp-group-reviews'), $add_review_label ),
-							'enable_nav_item'	=>	$add_review_nav,
-							'screens' 			=> array(
-													'edit' => array(
-														'name' => $review_label,
-														'slug' => 'manage-reviews',
-														'enabled' => $enabled
-													)),
-							'show_tab' 			=> false
+                        );
+                        parent::init( $args );
+                    }
+                } else {
+                    $args = array(
+                            'slug'				=>	'add-review',
+                            'nav_item_position'	=>	99,
+                            'nav_item_name'		=> sprintf( __("Add %s", 'bp-group-reviews'), $add_review_label ),
+                            'enable_nav_item'	=>	$add_review_nav,
+                            'screens' 			=> array(
+                                                    'edit' => array(
+                                                        'name' => $review_label,
+                                                        'slug' => 'manage-reviews',
+                                                        'enabled' => $enabled
+                                                    )),
+                            'show_tab' 			=> false
 
-						);
-					parent::init( $args );
-				}
-			}	else {
-				$args = array(
-							'slug'				=>	'add-review',
-							'nav_item_position'	=>	99,
-							'nav_item_name'		=> sprintf( __("Add %s", 'bp-group-reviews'), $add_review_label ),
-							'enable_nav_item'	=>	$add_review_nav,
-							'screens' 			=> array(
-													'edit' => array(
-														'name' => $review_label,
-														'slug' => 'manage-reviews',
-														'enabled' => $enabled
-													)),
-							'show_tab' 			=> false
+                        );
+                    parent::init( $args );
+                }
+            }	else {
+                $args = array(
+                            'slug'				=>	'add-review',
+                            'nav_item_position'	=>	99,
+                            'nav_item_name'		=> sprintf( __("Add %s", 'bp-group-reviews'), $add_review_label ),
+                            'enable_nav_item'	=>	$add_review_nav,
+                            'screens' 			=> array(
+                                                    'edit' => array(
+                                                        'name' => $review_label,
+                                                        'slug' => 'manage-reviews',
+                                                        'enabled' => $enabled
+                                                    )),
+                            'show_tab' 			=> false
 
-						);
-						parent::init( $args );
-			}
-		}
+                        );
+                        parent::init( $args );
+            }
+        }
 
-		public function display ( $group_id = null ) { ?>
+        public function display ( $group_id = null ) { ?>
 			<div class="bgr-bp-success">
 				<div id="message" class="success bgr-bp-success">
 					<p><?php _e( "Your Response added. This will be published when group admin approved it.", 'bp-group-reviews'); ?></p>
@@ -112,60 +112,60 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			</div>
 		<?php }
 
-		/*
+        /*
 		*  Display all posted reviews that not checked by group admins.
 		*  @since   1.0.0
 		*  @author  Wbcom Designs
 		*/
 
-		function edit_screen($group_id= NULL){
-			global $bp,$wpdb,$post;
-			//Admin Settings
-			$bgr_admin_settings 		 = get_option( 'bgr_admin_general_settings' );
-			$bgr_admin_display_settings  = get_option( 'bgr_admin_display_settings' );
-			if( !empty( $bgr_admin_settings ) ) {
-				$reviews_per_page     = $bgr_admin_settings['reviews_per_page'];
-				if(empty($reviews_per_page)){
-					$reviews_per_page = -1;
-				}
-			} else {
-				$reviews_per_page = -1;
-			}
+        function edit_screen($group_id= NULL){
+            global $bp,$wpdb,$post;
+            //Admin Settings
+            $bgr_admin_settings 		 = get_option( 'bgr_admin_general_settings' );
+            $bgr_admin_display_settings  = get_option( 'bgr_admin_display_settings' );
+            if( !empty( $bgr_admin_settings ) ) {
+                $reviews_per_page     = $bgr_admin_settings['reviews_per_page'];
+                if(empty($reviews_per_page)){
+                    $reviews_per_page = -1;
+                }
+            } else {
+                $reviews_per_page = -1;
+            }
 
-			if( !empty( $bgr_admin_display_settings ) ) {
-				$review_label = $bgr_admin_display_settings['review_label'];
-				if( empty( $review_label )) {
-					$review_label = 'Reviews ';
-				}
-			} else {
-				$review_label = 'Reviews ';
-			}
-			$paged 	= ( get_query_var('paged') ) ? get_query_var('paged') : 1;
-			$args 	= array(
-				'post_type' 		=> 'review',
-				'post_status' 		=> 'draft',
-				'posts_per_page' 	=> $reviews_per_page,
-				'paged' 			=> $paged,
-				'category' 			=> 'group',
-				'meta_query' 		=> array(
-						array(
-							'key'	  =>	'linked_group',
-							'value'	  =>	$bp->groups->current_group->id,
-							'compare' =>	'=',
-						),
-					),
-			);
-			$reviews = new WP_Query($args);
+            if( !empty( $bgr_admin_display_settings ) ) {
+                $review_label = $bgr_admin_display_settings['review_label'];
+                if( empty( $review_label )) {
+                    $review_label = 'Reviews ';
+                }
+            } else {
+                $review_label = 'Reviews ';
+            }
+            $paged 	= ( get_query_var('paged') ) ? get_query_var('paged') : 1;
+            $args 	= array(
+                'post_type' 		=> 'review',
+                'post_status' 		=> 'draft',
+                'posts_per_page' 	=> $reviews_per_page,
+                'paged' 			=> $paged,
+                'category' 			=> 'group',
+                'meta_query' 		=> array(
+                        array(
+                            'key'	  =>	'linked_group',
+                            'value'	  =>	$bp->groups->current_group->id,
+                            'compare' =>	'=',
+                        ),
+                    ),
+            );
+            $reviews = new WP_Query($args);
 
-			?>
+            ?>
 			<div id="request-review-list" class="item-list reviews-item-list">
 				<?php if ( $reviews->have_posts() ):
-					 while ( $reviews->have_posts() ): $reviews->the_post();
-					?>
+                     while ( $reviews->have_posts() ): $reviews->the_post();
+                    ?>
 						<div class="bgr-row item-list group-request-list">
 							<div class="bgr-col-2">
 								<?php $author =  $reviews->post->post_author;
-								 bp_displayed_user_avatar( array( 'item_id' => $author ) ); ?>
+                                    bp_displayed_user_avatar( array( 'item_id' => $author ) ); ?>
 							</div>
 							<div class="bgr-col-8">
 								<div class="item-title">
@@ -176,36 +176,36 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 										<div class="review-excerpt bgr-col-12">
 											<b> <?php _e('Short Description ', 'bp-group-reviews' ); ?>: </b>
 											<?php $trimcontent = get_the_content();
-											  	if( !empty( $trimcontent ) ) {
-	                                                $len = strlen( $trimcontent );
-	                                                if( $len > 150 ) {
-	                                                    $shortexcerpt = substr( $trimcontent, 0, 150 );
-	                                                    echo $shortexcerpt;
-	                                                } else {
-	                                                    echo $trimcontent;
-	                                                }
-	                                            }
-											?>
+                                                    if( !empty( $trimcontent ) ) {
+                                                    $len = strlen( $trimcontent );
+                                                    if( $len > 150 ) {
+                                                        $shortexcerpt = substr( $trimcontent, 0, 150 );
+                                                        echo $shortexcerpt;
+                                                    } else {
+                                                        echo $trimcontent;
+                                                    }
+                                                }
+                                            ?>
 										</div>
 										<div class="review-full-description bgr-col-12">
 											<div class="bgr-col-12">
 												<b>
-													<?php _e('Full Description', 'bp-group-reviews' ); ?> :
+													<?php _e('Full Description', 'bp-group-reviews'); ?> :
 												</b>
 												<?php the_content(); ?>
 											</div>
-											<?php do_action( 'bgr_display_ratings', $post->ID ); ?>
+											<?php do_action('bgr_display_ratings', $post->ID); ?>
 										</div>
-										<a class="expand-review-des"><?php _e('View More..', 'bp-group-reviews' ); ?> </a>
+										<a class="expand-review-des"><?php _e('View More..', 'bp-group-reviews'); ?> </a>
 									</div>
 								</div>
 							</div>
 							<div class="bgr-col-2">
 								<div class='bgr-col-12 accept-review generic-button'>
-									<a class='accept-button' data-group-type='<?php _e( $bp->groups->current_group->id, 'bp-group-reviews' ); ?>'> <?php _e('Accept','bp-group-reviews'); ?> </a><input type="hidden" name="accept_review_id" value="<?php _e( $post->ID, 'bp-group-reviews' ); ?>">
+									<a class='accept-button' data-group-type='<?php _e($bp->groups->current_group->id, 'bp-group-reviews'); ?>'> <?php _e('Accept', 'bp-group-reviews'); ?> </a><input type="hidden" name="accept_review_id" value="<?php _e($post->ID, 'bp-group-reviews'); ?>">
 								</div>
 								<div class='bgr-col-12 deny-review generic-button'>
-									<a class='deny-button' data-group-type='<?php _e($bp->groups->current_group->id, 'bp-group-reviews' ); ?>'> <?php _e('Deny','bp-group-reviews'); ?> </a><input type="hidden" name="deny_review_id" value="<?php _e( $post->ID, 'bp-group-reviews' ); ?>">
+									<a class='deny-button' data-group-type='<?php _e($bp->groups->current_group->id, 'bp-group-reviews'); ?>'> <?php _e('Deny', 'bp-group-reviews'); ?> </a><input type="hidden" name="deny_review_id" value="<?php _e($post->ID, 'bp-group-reviews'); ?>">
 								</div>
 							</div>
 
@@ -229,9 +229,12 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						</div><?php
 					}
 					wp_reset_postdata();
-					else: ?>
+					else {
+					    : ?>
 					<div id="message" class="info">
-						<p><?php _e( "Sorry, no $review_label were found.", 'bp-group-reviews' ); ?></p>
+						<p><?php _e( "Sorry, no $review_label were found.", 'bp-group-reviews' );
+					}
+					?></p>
 					</div>
 					<?php endif; ?>
 			</div>
