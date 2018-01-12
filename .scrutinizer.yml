@@ -1,4 +1,29 @@
 checks:
     php:
-        code_rating: true
-        duplication: true
+        fix_php_opening_tag: false
+        remove_php_closing_tag: false
+        no_mixed_inline_html: false
+        require_braces_around_control_structures: false
+        psr2_control_structure_declaration: false
+        avoid_superglobals: false
+        security_vulnerabilities: false
+        no_exit: false
+    javascript: true
+filter:
+    excluded_paths:
+        - '*.min.js'
+coding_style:
+    php:
+        indentation:
+            general:
+                size: 1
+        spaces:
+            around_operators:
+                concatenation: true
+build:
+    nodes:
+        tests: true
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run
