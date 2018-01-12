@@ -51,7 +51,7 @@ function bgr_plugin_init() {
         add_action('admin_notices', 'bgr_admin_notice');
     } elseif (!array_key_exists('groups', $bp_active_components)) {
         add_action('admin_notices', 'bgr_admin_group_notice');
-    } else {
+    }else {
         run_bp_group_reviews_plugin();
         add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'bgr_admin_page_link');
         add_action('bp_include', 'include_files_bp');

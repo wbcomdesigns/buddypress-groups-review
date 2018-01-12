@@ -53,7 +53,7 @@ $reviews = new WP_Query($args);
                                                         $shortexcerpt = substr($trimcontent, 0, 150);
                                                         echo $shortexcerpt; ?>
 	                                                    <a href="<?php echo $url; ?>"><i><b><?php _e('read more...', 'bp-group-reviews'); ?></b></i></a>
-	                                                <?php }else {
+	                                                <?php } else {
                                                         echo $trimcontent;
                                                     }
                                                 }
@@ -94,7 +94,7 @@ $reviews = new WP_Query($args);
                             }
                             wp_reset_postdata();
 
-                    }else {
+                    } else {
                         ?>
                     <div id="message" class="info">
                         <p><?php _e("Sorry, No $review_label were found.", 'bp-group-reviews'); ?></p>

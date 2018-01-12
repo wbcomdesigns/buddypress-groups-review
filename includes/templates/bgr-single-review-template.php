@@ -1,21 +1,21 @@
 <?php
 // Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 global $bgr;
-$review_rating_fields 	= $bgr['review_rating_fields'];
-$url 					= $_SERVER['REQUEST_URI'];
-$review_id				= basename($url);
-$review 				= get_post( $review_id );
+$review_rating_fields = $bgr['review_rating_fields'];
+$url = $_SERVER['REQUEST_URI'];
+$review_id = basename($url);
+$review = get_post($review_id);
 
 $review_title   		= $review->post_title;
 $author         		= $review->post_author;
-$author_details 		= get_userdata( $author );
+$author_details 		= get_userdata($author);
 ?>
 <div class="bgr-single-review">
     <div class="bgr-row item-list group-request-list">
             <div class="bgr-col-2">
-                <?php bp_displayed_user_avatar( array( 'item_id' => $author ) ); ?>
+                <?php bp_displayed_user_avatar(array('item_id' => $author)); ?>
             </div>
             <div class="bgr-col-10">
                 <div class="reviewer">
@@ -31,7 +31,7 @@ $author_details 		= get_userdata( $author );
                         </div>
 						<?php
                             $review_ratings       = get_post_meta( $review_id, 'review_star_rating', false );
-    						do_action( 'bgr_display_ratings', $review_id );
+                            do_action( 'bgr_display_ratings', $review_id );
                         ?>
                     </div>
                 </div>

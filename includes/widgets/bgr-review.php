@@ -134,7 +134,7 @@ class bgr_review_widget extends WP_Widget {
                         if (array_key_exists($linked_group[0], $review_groups_count)) {
                             $value = $review_groups_count[$linked_group[0]];
                             $review_groups_count[$linked_group[0]] = (int) $value + 1;
-                        }else {
+                        } else {
                             $review_groups_count[$linked_group[0]] = 1;
                         }
                     }
@@ -150,7 +150,7 @@ class bgr_review_widget extends WP_Widget {
                                 $rev_arr = $review_groups[$gid];
                                 array_push($rev_arr, $avg);
                                 $review_groups[$gid] = $rev_arr;
-                            }else {
+                            } else {
                                 $review_groups[$gid] = array($avg);
                             }
                         }
@@ -163,7 +163,7 @@ class bgr_review_widget extends WP_Widget {
                             if ($count > 1) {
                                 $sum = array_sum(array_values($val));
                                 $review_groups[$key] = $sum / $count;
-                            }else {
+                            } else {
                                 $review_groups[$key] = $val[0];
                             }
                         }
@@ -180,9 +180,9 @@ class bgr_review_widget extends WP_Widget {
             /*** Select Listing Type ***/
             if ('toprated' == $widget_listing_cat) {
                 $group_args = $review_groups;
-            }else if ('topreviewed' == $widget_listing_cat) {
+            } else if ('topreviewed' == $widget_listing_cat) {
                 $group_args = $review_groups_count;
-            }else {
+            } else {
                 $group_args = '';
             }
 
@@ -204,7 +204,7 @@ class bgr_review_widget extends WP_Widget {
         							<a href="<?php echo $group_url; ?>"><?php echo bp_core_fetch_avatar($avatar_options); ?></a>
         						</div>
         						<div class="bgr-col-7">
-        							<?php }else { ?>
+        							<?php } else { ?>
         							<div class="bgr-col-12">
         								<?php } ?>
         								<div class="item-title"><a href="<?php echo $group_url; ?>"><?php echo $group->name; ?></a></div>
@@ -237,10 +237,10 @@ class bgr_review_widget extends WP_Widget {
         									</div>
         								</div>
         								<?php  } endif; $post_num_counter++; }
-                                    }else {
+                                    } else {
                                         if ('toprated' == $widget_listing_cat) { ?>
         								<div id="message" class="info"><?php _e("No Rating has been given to any group yet!", 'bp-group-reviews'); ?></div>
-        								<?php }else { ?>
+        								<?php } else { ?>
         								<div id="message" class="info"><?php _e("No $review_label has been given to any group yet!", 'bp-group-reviews'); ?></div>
         								<?php } }
                                         echo $args['after_widget'];
