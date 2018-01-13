@@ -1,12 +1,5 @@
 filter:
-  excluded_paths:
-  - core/Pimple/*
-  - assets/*
-  - languages/*
-  - tests/*
-  - templates/*
-  - tmp/*
-  - vendor/*
+    excluded_paths: [admin/assets/js/selectize.min.js]
 
 checks:
   php:
