@@ -6,7 +6,10 @@ filter:
 
 tools:
     # Runs the JSHint static analysis tool (https://scrutinizer-ci.com/docs/tools/javascript/jshint/)
-
+    php:
+    coding_standard:
+        name: WordPress
+        
     php_mess_detector:
         config:
             code_size_rules: { cyclomatic_complexity: true }
@@ -18,7 +21,7 @@ tools:
         config:
             level: custom
             fixers: { linefeed: true, trailing_spaces: true, visibility: true, return: true, short_tag: true, php_closing_tag: true, controls_spaces: true, elseif: true, eof_ending: true }
-
+    
     # PHP Analyzer (https://scrutinizer-ci.com/docs/tools/php/php-analyzer/)
     php_analyzer:
         config:
@@ -60,8 +63,8 @@ tools:
     # SensioLabs Security Checker (https://scrutinizer-ci.com/docs/tools/php/security-advisory-checker/)
     sensiolabs_security_checker: true
 
-    # Testing?
-    # php_code_coverage: true
+    # Testing
+    external_code_coverage: true
 
     # PHP Copy/Paste Detector (https://scrutinizer-ci.com/docs/tools/php/copy-paste-detector/)
     php_cpd: true
