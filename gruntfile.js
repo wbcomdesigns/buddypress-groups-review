@@ -66,5 +66,5 @@ module.exports = function ( grunt ) {
 	);
 
 	// register task  'checktextdomain', 'makepot',
-	grunt.registerTask( 'default', [ 'sass', 'autoprefixer', 'uglify', 'watch','checktextdomain','makepot' ] );
+	grunt.registerTask( 'default', [ 'checktextdomain','makepot' ] );
 };
