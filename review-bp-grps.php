@@ -10,10 +10,11 @@
  * Text Domain: bp-group-reviews
  * Domain Path: /languages
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-// Exit if accessed directly
+// Exit if accessed directly.
 /**
  * Load plugin textdomain.
  *
@@ -23,6 +24,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 */
 
 add_action( 'init', 'bgr_load_textdomain' );
+
+/**
+ *  Adding setting links
+ *
+ *  @since    1.0.0
+ *  @author   Wbcom Designs
+ */
 function bgr_load_textdomain() {
 	$domain = 'bp-group-reviews';
 	$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
@@ -47,6 +55,13 @@ define( 'BGR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
  *  @author  Wbcom Designs
 */
 add_action( 'plugins_loaded', 'bgr_plugin_init' );
+
+/**
+ *  Adding setting links
+ *
+ *  @since    1.0.0
+ *  @author   Wbcom Designs
+ */
 function bgr_plugin_init() {
 	$bp_active_components = get_option( 'bp-active-components', true );
 	if ( ! in_array( 'buddypress/bp-loader.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
@@ -61,6 +76,12 @@ function bgr_plugin_init() {
 }
 add_action( 'bp_init', 'bgr_bp_notifications_for_review', 12 );
 
+/**
+ *  Adding notifications
+ *
+ *  @since    1.0.0
+ *  @author   Wbcom Designs
+ */
 function bgr_bp_notifications_for_review() {
 	include 'includes/bgr-notifications.php';
 	buddypress()->bgr_bp_review                        = new BGR_Notifications();
@@ -73,7 +94,6 @@ function bgr_bp_notifications_for_review() {
  *  @since   1.0.0
  *  @author  Wbcom Designs
  */
-
 function bgr_admin_notice() {
 	?>
 	<div class="error notice is-dismissible">
@@ -88,7 +108,6 @@ function bgr_admin_notice() {
  *  @since   1.0.0
  *  @author  Wbcom Designs
  */
-
 function bgr_admin_group_notice() {
 	?>
 	<div class="error notice is-dismissible">
@@ -98,16 +117,23 @@ function bgr_admin_group_notice() {
 }
 
 /**
- * Settings link for this plugin
+ *  Adding setting links
  *
- *  @since   1.0.0
- *  @author  Wbcom Designs
+ *  @since    1.0.0
+ *  @param    string $links for this plugin.
+ *  @author   Wbcom Designs
  */
 function bgr_admin_page_link( $links ) {
 		$page_link = array( '<a href="' . admin_url( 'admin.php?page=group-review-settings' ) . '">Settings</a>' );
 		return array_merge( $links, $page_link );
 }
 
+/**
+ * Settings link for this plugin
+ *
+ *  @since   1.0.0
+ *  @author  Wbcom Designs
+ */
 function include_files_bp() {
 	include 'includes/bgr-grp-extn.php';
 }
