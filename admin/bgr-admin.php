@@ -1,18 +1,18 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 
-// Add admin page for importing Review(s)
+// Add admin page for importing Review(s).
 if ( ! class_exists( 'BGR_Admin' ) ) {
 	class BGR_Admin {
 
-		/*
-		 constructor for admin settings
-		* @since    1.0.0
-		* @author   Wbcom Designs
-		*/
-
+		/**
+		 * Constructor for admin settings
+		 *
+		 * @since    1.0.0
+		 * @author   Wbcom Designs
+		 */
 		function __construct() {
 			add_action( 'admin_menu', array( $this, 'bgr_add_submenu_page_admin_settings' ) );
 			$post_types = get_post_types();
@@ -23,22 +23,23 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 			}
 		}
 
-		/*
-		 Actions performed on loading admin_menu
+		/**
+		 * Actions performed on loading admin_menu.
+		 *
 		 * @since    1.0.0
 		 * @author   Wbcom Designs
-		*/
-
+		 */
 		function bgr_add_submenu_page_admin_settings() {
 			add_submenu_page( 'edit.php?post_type=review', __( 'Group Reviews Admin Settings', 'bp-group-reviews' ), __( 'Group Settings', 'bp-group-reviews' ), 'manage_options', 'group-review-settings', array( $this, 'bgr_admin_options_page' ) );
 		}
 
-		/*
-		 Actions performed on changing admin settings tab
-		* @since    1.0.0
-		* @author   Wbcom Designs
-		*/
-
+		/**
+		 * Actions performed on changing admin settings tab
+		 *
+		 * @since    1.0.0
+		 * @param string $current for the admin options.
+		 * @author   Wbcom Designs
+		 */
 		function bgr_admin_options_page( $current = 'general' ) {
 			if ( isset( $_GET['tab'] ) ) {
 				$current = sanitize_text_field( $_GET['tab'] );
@@ -70,7 +71,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 								<button type="button" class="notice-dismiss">
 									<span class="screen-reader-text"><?php _e( 'Dismiss this notice.', 'bp-group-reviews' ); ?></span>
 								</button>
-							</div> 
+							</div>
 							<?php
 							$bgr_tab_html = '<h2 class="nav-tab-wrapper">';
 							foreach ( $bgr_tabs as $bgr_tab => $bgr_name ) {

@@ -42,7 +42,6 @@ function bgr_include_admin_setting_tabs( $bgr_setting_tab = 'general' ) {
  * @since    1.0.0
  * @author   Wbcom Designs
  */
-
 function bgr_criteria_setting() {
 	global $bgr;
 	$spinner_src          = includes_url() . 'images/spinner.gif';
@@ -62,20 +61,20 @@ function bgr_criteria_setting() {
 			if ( ! empty( $review_rating_fields ) ) {
 				foreach ( $review_rating_fields as $review_rating_field ) :
 				?>
-			   <div class="rating-review-div"><span>&equiv;</span><input name = "BGRDynamicTextBox" class="draggable" type="text" value = "<?php echo $review_rating_field; ?>" />
-				 <input type="button" value="<?php _e( 'Remove', 'bp-group-reviews' ); ?>" class="remove button button-secondary" />
-				 <label class="bgr-switch">
-				  <input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="<?php echo $review_rating_field; ?>" 
+			<div class="rating-review-div"><span>&equiv;</span><input name = "BGRDynamicTextBox" class="draggable" type="text" value = "<?php echo $review_rating_field; ?>" />
+				<input type="button" value="<?php _e( 'Remove', 'bp-group-reviews' ); ?>" class="remove button button-secondary" />
+				<label class="bgr-switch">
+				<input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="<?php echo $review_rating_field; ?>"
 																													<?php
 																													if ( in_array( $review_rating_field, $active_rating_fields ) ) {
 																														echo 'checked="checked"'; }
 ?>
 >
-				  <div class="bgr-slider round"></div>
-			  </label>
-		  </div>
+				<div class="bgr-slider round"></div>
+			</label>
+		</div>
 		<?php
-		  endforeach;
+		endforeach;
 			}
 ?>
 </div>
@@ -92,28 +91,28 @@ function bgr_criteria_setting() {
 <?php
 }
 
-	/*
-	 Actions performed on Group Reviews Settings : Shortcode Tab Content
- * @since    1.0.0
- * @author   Wbcom Designs
- */
-
+	/**
+	 * Actions performed on Group Reviews Settings : Shortcode Tab Content
+	 *
+	 * @since    1.0.0
+	 * @author   Wbcom Designs
+	 */
 function bgr_shortcode_setting() {
 ?>
- <div class="bgr-col-12"><h2><?php _e( 'Shortcode to display Group Review Form', 'bp-group-reviews' ); ?></h2></div>
- <div class="bgr-row">
+<div class="bgr-col-12"><h2><?php _e( 'Shortcode to display Group Review Form', 'bp-group-reviews' ); ?></h2></div>
+<div class="bgr-row">
 	<div class="bgr-col-3"><label><?php echo '[add_group_review_form]'; ?></label></div>
 	<div class="bgr-col-9"><?php _e( 'This shortcode will be display Group Review Form.', 'bp-group-reviews' ); ?></div>
 </div>
 <?php
 }
 
-/*
- Actions performed on Group Reviews Settings : Display Tab Content
+/**
+ *Actions performed on Group Reviews Settings : Display Tab Content
+ *
  * @since    1.0.0
  * @author   Wbcom Designs
  */
-
 function bgr_display_setting() {
 	global $bgr;
 	$spinner_src          = includes_url() . 'images/spinner.gif';
@@ -132,16 +131,16 @@ function bgr_display_setting() {
 	<div class="bgr-row">
 		<div class="bgr-col-3"><label for="bgrReviewLabel"><?php _e( 'Review', 'bp-group-reviews' ); ?></label></div>
 		<div class="bgr-col-9">
-		   <input name = "bgrReviewLabel" id="bgrReviewLabel" type="text" value = "<?php echo $bgrReviewLabel; ?>" />
-		   <p class="bgr-admin-des"><?php _e( 'This option provide flexibility to change review label. By default it shows "Review".', 'bp-group-reviews' ); ?></p>
-	   </div>
-   </div>
-   <div class="bgr-row">
+		<input name = "bgrReviewLabel" id="bgrReviewLabel" type="text" value = "<?php echo $bgrReviewLabel; ?>" />
+		<p class="bgr-admin-des"><?php _e( 'This option provide flexibility to change review label. By default it shows "Review".', 'bp-group-reviews' ); ?></p>
+	</div>
+	</div>
+<div class="bgr-row">
 	<div class="bgr-col-3"><label for="bgrManageReviewLabel"><?php _e( 'Review (In Manage Section)', 'bp-group-reviews' ); ?></label></div>
 	<div class="bgr-col-9">
-	   <input name = "bgrManageReviewLabel" id="bgrManageReviewLabel" type="text" value = "<?php echo $bgrManageReviewLabel; ?>" />
-	   <p class="bgr-admin-des"><?php _e( 'This option provides flexibility to change review label in "BuddyPress Group Manage" section. By default it shows "Reviews".', 'bp-group-reviews' ); ?></p>
-   </div>
+	<input name = "bgrManageReviewLabel" id="bgrManageReviewLabel" type="text" value = "<?php echo $bgrManageReviewLabel; ?>" />
+	<p class="bgr-admin-des"><?php _e( 'This option provides flexibility to change review label in "BuddyPress Group Manage" section. By default it shows "Reviews".', 'bp-group-reviews' ); ?></p>
+</div>
 </div>
 <div class="bgr-col-12"><h3><?php _e( 'Colors', 'bp-group-reviews' ); ?></h3></div>
 <div class="bgr-row">
@@ -212,7 +211,7 @@ function bgr_support_setting() {
 
 <div class="bgr-admin-row">
 	<div>
-	   <button class="bgr-accordion">
+	<button class="bgr-accordion">
 		<?php _e( 'How to hide some rating criteria from Review form?', 'bp-group-reviews' ); ?>
 	</button>
 	<div class="panel">
@@ -225,7 +224,7 @@ function bgr_support_setting() {
 
 <div class="bgr-admin-row">
 	<div>
-	   <button class="bgr-accordion">
+	<button class="bgr-accordion">
 		<?php _e( 'How change label of \'Reviews\' tab or label of \'Reviews\' sub-tab under \'Manage\' tab?', 'bp-group-reviews' ); ?>
 	</button>
 	<div class="panel">
@@ -238,7 +237,7 @@ function bgr_support_setting() {
 
 <div class="bgr-admin-row">
 	<div>
-	   <button class="bgr-accordion">
+	<button class="bgr-accordion">
 		<?php _e( 'Why \'Add Review\' option is not displaying in a group created by me?', 'bp-group-reviews' ); ?>
 	</button>
 	<div class="panel">
@@ -251,7 +250,7 @@ function bgr_support_setting() {
 
 <div class="bgr-admin-row">
 	<div>
-	   <button class="bgr-accordion">
+	<button class="bgr-accordion">
 		<?php _e( 'How to display groups average reviews according to reviews or ratings in sidebar or footer?', 'bp-group-reviews' ); ?>
 	</button>
 	<div class="panel">
@@ -264,7 +263,7 @@ function bgr_support_setting() {
 
 <div class="bgr-admin-row">
 	<div>
-	   <button class="bgr-accordion">
+	<button class="bgr-accordion">
 		<?php _e( 'Can I use the review form on any other page?', 'bp-group-reviews' ); ?>
 	</button>
 	<div class="panel">
@@ -276,7 +275,7 @@ function bgr_support_setting() {
 </div>
 <div class="bgr-admin-row">
 	<div>
-	   <button class="bgr-accordion">
+	<button class="bgr-accordion">
 		<?php _e( 'How to show only star rating in Group header?', 'bp-group-reviews' ); ?>
 	</button>
 	<div class="panel">
@@ -301,7 +300,7 @@ function bgr_support_setting() {
 </div>
 <div class="bgr-admin-row">
 	<div>
-	   <button class="bgr-accordion">
+	<button class="bgr-accordion">
 		<?php _e( 'Where do I ask for support?', 'bp-group-reviews' ); ?>
 	</button>
 	<div class="panel">
@@ -317,12 +316,12 @@ function bgr_support_setting() {
 <?php
 }
 
-	/*
-	 Actions performed on Group Reviews Settings : General Tab Content
- * @since    1.0.0
- * @author   Wbcom Designs
- */
-
+		/**
+		 * Actions performed on Group Reviews Settings : General Tab Content
+		 *
+		 * @since    1.0.0
+		 * @author   Wbcom Designs
+		 */
 function bgr_general_setting() {
 	global $bp, $bgr;
 
@@ -348,7 +347,7 @@ function bgr_general_setting() {
 	</div>
 	<div class="bgr-col-9">
 		<label class="bgr-switch" for="bgr-multi-reviews">
-			<input type="checkbox" id="bgr-multi-reviews" 
+			<input type="checkbox" id="bgr-multi-reviews"
 			<?php
 			if ( 'yes' == $multi_reviews ) {
 				echo 'checked="checked"'; }
@@ -366,7 +365,7 @@ function bgr_general_setting() {
 	</div>
 	<div class="bgr-col-9">
 		<label class="bgr-switch" for="bgr-auto-approve-reviews">
-			<input type="checkbox" id="bgr-auto-approve-reviews" 
+			<input type="checkbox" id="bgr-auto-approve-reviews"
 			<?php
 			if ( 'yes' == $auto_approve_reviews ) {
 				echo 'checked="checked"'; }
@@ -392,26 +391,26 @@ function bgr_general_setting() {
 	<div class="bgr-col-3"><label><?php _e( 'Enable BuddyPress notifications', 'bp-group-reviews' ); ?></label></div>
 	<div class="bgr-col-9">
 		<?php if ( bp_is_active( 'notifications' ) ) { ?>
-		   <label class="bgr-switch" for="bgr-notification">
-			 <input type="checkbox" id="bgr-notification" 
+		<label class="bgr-switch" for="bgr-notification">
+			<input type="checkbox" id="bgr-notification"
 				<?php
 				if ( $allow_notification == 'yes' ) {
 					echo 'checked="checked"'; }
 ?>
 >
-			 <div class="bgr-slider round"></div>
-		 </label>
-		 <p class="bgr-admin-des"><?php _e( 'Enable this option, if you want to group admin & reviewer receive notification when add, accept & deny review.', 'bp-group-reviews' ); ?></p>
+			<div class="bgr-slider round"></div>
+		</label>
+		<p class="bgr-admin-des"><?php _e( 'Enable this option, if you want to group admin & reviewer receive notification when add, accept & deny review.', 'bp-group-reviews' ); ?></p>
 			<?php } else { ?>
-		 <p class="bgr-admin-des"><?php _e( 'This setting requires BuddyPress Notifications Component to be active.', 'bp-group-reviews' ); ?></p>
+		<p class="bgr-admin-des"><?php _e( 'This setting requires BuddyPress Notifications Component to be active.', 'bp-group-reviews' ); ?></p>
 			<?php } ?>
- </div>
- </div>
- <div class="bgr-row">
+</div>
+</div>
+<div class="bgr-row">
 	<div class="bgr-col-3"><label><?php _e( 'Emails', 'bp-group-reviews' ); ?></label></div>
 	<div class="bgr-col-9">
 	<label class="bgr-switch" for="bgr-email">
-		<input type="checkbox" id="bgr-email" 
+		<input type="checkbox" id="bgr-email"
 		<?php
 		if ( $allow_email == 'yes' ) {
 			echo 'checked="checked"'; }
