@@ -1,279 +1,272 @@
-#, fuzzy
+# <!=Copyright (C) 2018 
+# This file is distributed under the same license as the  package.=!>
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: BuddyPress Group Reviews\n"
-"POT-Creation-Date: 2018-01-12 15:40+0530\n"
-"PO-Revision-Date: 2018-01-12 15:13+0530\n"
-"Last-Translator: Varun Dubey <varun@wbcomdesigns.com>\n"
-"Language-Team: Varun Dubey <varun@wbcomdesigns.com>\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-17 13:07:55+00:00\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.5\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
-"X-Poedit-WPHeader: review-bp-grps.php\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Varun Dubey\n"
+"Language-Team: Wbcom Designs\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-Basepath: ../\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: grunt-wp-i18n1.0.1\n"
 
-#: admin/bgr-admin.php:29
+#: admin/bgr-admin.php:33
 msgid "Group Reviews Admin Settings"
 msgstr ""
 
-#: admin/bgr-admin.php:29
+#: admin/bgr-admin.php:33
 msgid "Group Settings"
 msgstr ""
 
-#: admin/bgr-admin.php:44
+#: admin/bgr-admin.php:49
 msgid "General"
 msgstr ""
 
-#: admin/bgr-admin.php:45
+#: admin/bgr-admin.php:50
 msgid "Criteria"
 msgstr ""
 
-#: admin/bgr-admin.php:46
+#: admin/bgr-admin.php:51
 msgid "Shortcode"
 msgstr ""
 
-#: admin/bgr-admin.php:47
+#: admin/bgr-admin.php:52
 msgid "Display"
 msgstr ""
 
-#: admin/bgr-admin.php:48
+#: admin/bgr-admin.php:53
 msgid "Support"
 msgstr ""
 
-#: admin/bgr-admin.php:55
+#: admin/bgr-admin.php:60
 msgid "Email Support"
 msgstr ""
 
-#: admin/bgr-admin.php:56
+#: admin/bgr-admin.php:61
 msgid "User Manual"
 msgstr ""
 
-#: admin/bgr-admin.php:57
+#: admin/bgr-admin.php:62
 msgid "Rate Us on WordPress.org"
 msgstr ""
 
-#: admin/bgr-admin.php:61
+#: admin/bgr-admin.php:66
 msgid "Group Reviews Settings"
 msgstr ""
 
-#: admin/bgr-admin.php:64
+#: admin/bgr-admin.php:69
 msgid "Group Reviews Settings Saved."
 msgstr ""
 
-#: admin/bgr-admin.php:66
+#: admin/bgr-admin.php:71
 msgid "Dismiss this notice."
 msgstr ""
 
-#: admin/bgr-admin.php:87 admin/bgr-admin.php:89 admin/bgr-admin.php:90
-#: admin/review-admin-options-page.php:355
+#: admin/bgr-admin.php:94 admin/bgr-admin.php:96 admin/bgr-admin.php:97
+#: admin/review-admin-options-page.php:387
 msgid "Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:88 admin/review-admin-options-page.php:115
+#: admin/bgr-admin.php:95 admin/review-admin-options-page.php:133
 msgid "Review"
 msgstr ""
 
-#: admin/bgr-admin.php:91 admin/bgr-admin.php:92
+#: admin/bgr-admin.php:98 admin/bgr-admin.php:99
 msgid "Add New Review"
 msgstr ""
 
-#: admin/bgr-admin.php:93
+#: admin/bgr-admin.php:100
 msgid "New Review"
 msgstr ""
 
-#: admin/bgr-admin.php:94
+#: admin/bgr-admin.php:101
 msgid "View Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:95
+#: admin/bgr-admin.php:102
 msgid "All Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:96
+#: admin/bgr-admin.php:103
 msgid "Search Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:97
+#: admin/bgr-admin.php:104
 msgid "Parent Review"
 msgstr ""
 
-#: admin/bgr-admin.php:98
+#: admin/bgr-admin.php:105
 msgid "No Review Found"
 msgstr ""
 
-#: admin/bgr-admin.php:99
+#: admin/bgr-admin.php:106
 msgid "No Review Found In Trash"
 msgstr ""
 
-#: admin/bgr-admin.php:131
-msgctxt "taxonomy general name"
-msgid "Reviews Category"
-msgstr ""
-
-#: admin/bgr-admin.php:132
-msgctxt "taxonomy singular name"
-msgid "Review Category"
-msgstr ""
-
-#: admin/bgr-admin.php:133
+#: admin/bgr-admin.php:144
 msgid "Search Categories"
 msgstr ""
 
-#: admin/bgr-admin.php:134
+#: admin/bgr-admin.php:145
 msgid "All Categories"
 msgstr ""
 
-#: admin/bgr-admin.php:135
+#: admin/bgr-admin.php:146
 msgid "Parent Category"
 msgstr ""
 
-#: admin/bgr-admin.php:136
+#: admin/bgr-admin.php:147
 msgid "Parent Category:"
 msgstr ""
 
-#: admin/bgr-admin.php:137
+#: admin/bgr-admin.php:148
 msgid "Edit Category"
 msgstr ""
 
-#: admin/bgr-admin.php:138
+#: admin/bgr-admin.php:149
 msgid "Update Category"
 msgstr ""
 
-#: admin/bgr-admin.php:139
+#: admin/bgr-admin.php:150
 msgid "Add Category"
 msgstr ""
 
-#: admin/bgr-admin.php:140
+#: admin/bgr-admin.php:151
 msgid "New Category Name"
 msgstr ""
 
-#: admin/bgr-admin.php:141
+#: admin/bgr-admin.php:152
 msgid "Category"
 msgstr ""
 
-#: admin/review-admin-options-page.php:49
+#: admin/review-admin-options-page.php:53
 msgid "Criteria Settings"
 msgstr ""
 
-#: admin/review-admin-options-page.php:52
+#: admin/review-admin-options-page.php:56
 msgid "Reviews Criteria(s)"
 msgstr ""
 
-#: admin/review-admin-options-page.php:60
+#: admin/review-admin-options-page.php:66
 msgid "Remove"
 msgstr ""
 
-#: admin/review-admin-options-page.php:69
+#: admin/review-admin-options-page.php:82
 msgid "Add Review Criteria"
 msgstr ""
 
-#: admin/review-admin-options-page.php:70
+#: admin/review-admin-options-page.php:83
 msgid ""
 "This option provide you to add multiple rating criteria. By default, no "
 "criteria will be shown until you active it."
 msgstr ""
 
-#: admin/review-admin-options-page.php:75
-#: admin/review-admin-options-page.php:139
-#: admin/review-admin-options-page.php:405
+#: admin/review-admin-options-page.php:88
+#: admin/review-admin-options-page.php:157
+#: admin/review-admin-options-page.php:454
 msgid "Save Settings"
 msgstr ""
 
-#: admin/review-admin-options-page.php:87
+#: admin/review-admin-options-page.php:103
 msgid "Shortcode to display Group Review Form"
 msgstr ""
 
-#: admin/review-admin-options-page.php:90
+#: admin/review-admin-options-page.php:106
 msgid "This shortcode will be display Group Review Form."
 msgstr ""
 
-#: admin/review-admin-options-page.php:107
+#: admin/review-admin-options-page.php:125
 msgid "Display Settings"
 msgstr ""
 
-#: admin/review-admin-options-page.php:109
+#: admin/review-admin-options-page.php:127
 msgid "Note"
 msgstr ""
 
-#: admin/review-admin-options-page.php:110
+#: admin/review-admin-options-page.php:128
 msgid ""
 "Rating will be displayed in Review form, if and only if you added criteria "
 "for review."
 msgstr ""
 
-#: admin/review-admin-options-page.php:113
+#: admin/review-admin-options-page.php:131
 msgid "Labels"
 msgstr ""
 
-#: admin/review-admin-options-page.php:118
+#: admin/review-admin-options-page.php:136
 msgid ""
 "This option provide flexibility to change review label. By default it shows "
 "\"Review\"."
 msgstr ""
 
-#: admin/review-admin-options-page.php:122
+#: admin/review-admin-options-page.php:140
 msgid "Review (In Manage Section)"
 msgstr ""
 
-#: admin/review-admin-options-page.php:125
+#: admin/review-admin-options-page.php:143
 msgid ""
 "This option provides flexibility to change review label in \"BuddyPress "
 "Group Manage\" section. By default it shows \"Reviews\"."
 msgstr ""
 
-#: admin/review-admin-options-page.php:128
+#: admin/review-admin-options-page.php:146
 msgid "Colors"
 msgstr ""
 
-#: admin/review-admin-options-page.php:130
+#: admin/review-admin-options-page.php:148
 msgid "Rating Color"
 msgstr ""
 
-#: admin/review-admin-options-page.php:133
+#: admin/review-admin-options-page.php:151
 msgid "This option lets you to change star rating color."
 msgstr ""
 
-#: admin/review-admin-options-page.php:151
+#: admin/review-admin-options-page.php:172
 msgid "FAQ(s)"
 msgstr ""
 
-#: admin/review-admin-options-page.php:156
+#: admin/review-admin-options-page.php:177
 msgid "How can we submit a review to a group using this plugin?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:160
+#: admin/review-admin-options-page.php:181
 msgid ""
 "When visiting the \"/groups\" section in the site, go for single group view "
 "page, there you can see a menu namely, \"Reviews\" that will allow you if "
 "you are a site member to add group review."
 msgstr ""
 
-#: admin/review-admin-options-page.php:169
+#: admin/review-admin-options-page.php:190
 msgid "How to allow users to give multiple reviews on the same group?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:173
+#: admin/review-admin-options-page.php:194
 msgid ""
 "A new functionality \"Multiple Review\" is added to this version of the "
 "plugin. In general settings, you can enable or disable it."
 msgstr ""
 
-#: admin/review-admin-options-page.php:182
+#: admin/review-admin-options-page.php:203
 msgid ""
-"If I don't want to provide review functionality to any group, then what will "
-"I do?"
+"If I don't want to provide review functionality to any group, then what "
+"will I do?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:186
+#: admin/review-admin-options-page.php:207
 msgid ""
 "If you don't want to provide review functionality to any group, you can "
 "exclude that group for this functionality. For exclude, the plugin has "
@@ -281,485 +274,294 @@ msgid ""
 "groups from reviews."
 msgstr ""
 
-#: admin/review-admin-options-page.php:195
+#: admin/review-admin-options-page.php:216
 msgid "How to hide some rating criteria from Review form?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:199
+#: admin/review-admin-options-page.php:220
 msgid "You can hide criteria by disable criteria in 'Criteria' tab."
 msgstr ""
 
-#: admin/review-admin-options-page.php:208
+#: admin/review-admin-options-page.php:229
 msgid ""
 "How change label of 'Reviews' tab or label of 'Reviews' sub-tab under "
 "'Manage' tab?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:212
+#: admin/review-admin-options-page.php:233
 msgid ""
 "This plugin provides settings to change labels, you can see settings in "
 "plugin's settings 'Display' tab."
 msgstr ""
 
-#: admin/review-admin-options-page.php:221
+#: admin/review-admin-options-page.php:242
 msgid "Why 'Add Review' option is not displaying in a group created by me?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:225
+#: admin/review-admin-options-page.php:246
 msgid ""
 "This option is not displaying because group admin can't review own group, "
 "you can add the review to only that groups in which you are not the admin."
 msgstr ""
 
-#: admin/review-admin-options-page.php:234
+#: admin/review-admin-options-page.php:255
 msgid ""
 "How to display groups average reviews according to reviews or ratings in "
 "sidebar or footer?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:238
+#: admin/review-admin-options-page.php:259
 msgid ""
 "This plugin provides a widget to show average ratings or reviews of "
 "BuddyPress Groups, you can use it for display average rating & reviews."
 msgstr ""
 
-#: admin/review-admin-options-page.php:247
+#: admin/review-admin-options-page.php:268
 msgid "Can I use the review form on any other page?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:251
+#: admin/review-admin-options-page.php:272
 msgid ""
 "Yes, you can use the review form on other page, just copy shortcode from "
 "review setting page and paste it on the other page."
 msgstr ""
 
-#: admin/review-admin-options-page.php:259
+#: admin/review-admin-options-page.php:280
 msgid "How to show only star rating in Group header?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:263
+#: admin/review-admin-options-page.php:284
 msgid ""
-"If you want to remove additional rating details in group header, you can use "
-"'bgr_filter_group_header_rating_details' filter."
+"If you want to remove additional rating details in group header, you can "
+"use 'bgr_filter_group_header_rating_details' filter."
 msgstr ""
 
-#: admin/review-admin-options-page.php:284
+#: admin/review-admin-options-page.php:305
 msgid "Where do I ask for support?"
 msgstr ""
 
-#: admin/review-admin-options-page.php:289
-#, php-format
+#: admin/review-admin-options-page.php:310
 msgid "Please visit %1$s for any query related to plugin and BuddyPress."
 msgstr ""
 
-#: admin/review-admin-options-page.php:321
+#: admin/review-admin-options-page.php:343
 msgid "General Settings"
 msgstr ""
 
-#: admin/review-admin-options-page.php:325
+#: admin/review-admin-options-page.php:347
 msgid "Enable Multiple Review"
 msgstr ""
 
-#: admin/review-admin-options-page.php:332
+#: admin/review-admin-options-page.php:359
 msgid ""
 "Enable this option, if you want to add functionality to user can send "
 "multiple review to same group."
 msgstr ""
 
-#: admin/review-admin-options-page.php:338
+#: admin/review-admin-options-page.php:365
 msgid "Enable auto approval of Reviews"
 msgstr ""
 
-#: admin/review-admin-options-page.php:345
+#: admin/review-admin-options-page.php:377
 msgid ""
 "Enable this option, if you want to have the reviews automatically approved, "
 "else manual approval will be required."
 msgstr ""
 
-#: admin/review-admin-options-page.php:351
+#: admin/review-admin-options-page.php:383
 msgid "Reviews show at most"
 msgstr ""
 
-#: admin/review-admin-options-page.php:356
+#: admin/review-admin-options-page.php:388
 msgid ""
 "This option lets you limit number of reviews in \"Group Reviews\" page & "
 "\"Manage Reviews\" Page."
 msgstr ""
 
-#: admin/review-admin-options-page.php:360
+#: admin/review-admin-options-page.php:392
 msgid "Enable BuddyPress notifications"
 msgstr ""
 
-#: admin/review-admin-options-page.php:367
+#: admin/review-admin-options-page.php:404
 msgid ""
 "Enable this option, if you want to group admin & reviewer receive "
 "notification when add, accept & deny review."
 msgstr ""
 
-#: admin/review-admin-options-page.php:369
+#: admin/review-admin-options-page.php:406
 msgid "This setting requires BuddyPress Notifications Component to be active."
 msgstr ""
 
-#: admin/review-admin-options-page.php:374
+#: admin/review-admin-options-page.php:411
 msgid "Emails"
 msgstr ""
 
-#: admin/review-admin-options-page.php:380
+#: admin/review-admin-options-page.php:422
 msgid ""
-"Enable this option, if you want to group admin & reviewer receive email when "
-"add, accept & deny review."
+"Enable this option, if you want to group admin & reviewer receive email "
+"when add, accept & deny review."
 msgstr ""
 
-#: admin/review-admin-options-page.php:384
+#: admin/review-admin-options-page.php:426
 msgid "Exclude Groups from reviews."
 msgstr ""
 
-#: admin/review-admin-options-page.php:400
+#: admin/review-admin-options-page.php:449
 msgid ""
 "This option lets you to choose those groups that you don't want to provide "
 "review functionality."
 msgstr ""
 
-#: includes/bgr-ajax.php:184
+#: includes/bgr-ajax.php:189
 msgid "You already posted a review for this group"
 msgstr ""
 
-#: includes/bgr-filters.php:44 includes/bgr-filters.php:51
+#: includes/bgr-filters.php:48 includes/bgr-filters.php:62
 msgid "Add "
 msgstr ""
 
-#: includes/bgr-filters.php:240
+#: includes/bgr-filters.php:261
 msgid "Rating "
 msgstr ""
 
-#: includes/bgr-grp-extn.php:55 includes/bgr-grp-extn.php:72
-#: includes/bgr-grp-extn.php:89
-#, php-format
+#: includes/bgr-grp-extn.php:55 includes/bgr-grp-extn.php:73
+#: includes/bgr-grp-extn.php:91
 msgid "Add %s"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:107
-msgid ""
-"Your Response added. This will be published when group admin approved it."
+#: includes/bgr-grp-extn.php:110
+msgid "Your Response added. This will be published when group admin approved it."
 msgstr ""
 
-#: includes/bgr-grp-extn.php:177
+#: includes/bgr-grp-extn.php:185
 msgid "Short Description "
 msgstr ""
 
-#: includes/bgr-grp-extn.php:193
+#: includes/bgr-grp-extn.php:202
 msgid "Full Description"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:199
+#: includes/bgr-grp-extn.php:208
 msgid "View More.."
 msgstr ""
 
-#: includes/bgr-grp-extn.php:205
+#: includes/bgr-grp-extn.php:214
 msgid "Accept"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:208
+#: includes/bgr-grp-extn.php:217
 msgid "Deny"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:226
-#: includes/templates/bgr-reviews-tab-template.php:89
+#: includes/bgr-grp-extn.php:237
+#: includes/templates/bgr-reviews-tab-template.php:98
 msgid "prev"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:227
-#: includes/templates/bgr-reviews-tab-template.php:90
+#: includes/bgr-grp-extn.php:238
+#: includes/templates/bgr-reviews-tab-template.php:99
 msgid "next"
 msgstr ""
 
-#: includes/bgr-notifications.php:19
+#: includes/bgr-notifications.php:21
 msgid "Group Reviews"
 msgstr ""
 
-#: includes/bgr-rating-display.php:97
+#: includes/bgr-rating-display.php:105
 msgid "Rating"
 msgstr ""
 
-#: includes/bgr-shortcodes.php:84
+#: includes/bgr-shortcodes.php:89
 msgid "You already posted a review for this group."
 msgstr ""
 
-#: includes/bgr-shortcodes.php:126
+#: includes/bgr-shortcodes.php:135
 msgid "Write a "
 msgstr ""
 
-#: includes/bgr-shortcodes.php:132
+#: includes/bgr-shortcodes.php:144
 msgid "--Select Group--"
 msgstr ""
 
-#: includes/bgr-shortcodes.php:140 includes/bgr-shortcodes.php:152
-#: includes/bgr-shortcodes.php:194
+#: includes/bgr-shortcodes.php:163 includes/bgr-shortcodes.php:175
+#: includes/bgr-shortcodes.php:220
 msgid "This field is required."
 msgstr ""
 
-#: includes/bgr-shortcodes.php:150
-msgid " Description"
-msgstr ""
-
-#: includes/templates/bgr-reviews-tab-template.php:55
+#: includes/templates/bgr-reviews-tab-template.php:60
 msgid "read more..."
 msgstr ""
 
-#: includes/templates/bgr-reviews-tab-template.php:70
+#: includes/templates/bgr-reviews-tab-template.php:76
 msgid "Delete"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:10
+#: includes/widgets/bgr-review.php:13
 msgid "Display Group Reviews."
 msgstr ""
 
-#: includes/widgets/bgr-review.php:12
+#: includes/widgets/bgr-review.php:19
 msgid "BP Group Review Widget"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:33
+#: includes/widgets/bgr-review.php:43
 msgid "Title"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:36
+#: includes/widgets/bgr-review.php:46
 msgid "Select Listing Type"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:40
+#: includes/widgets/bgr-review.php:55
 msgid "Top Rated"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:44
+#: includes/widgets/bgr-review.php:64
 msgid "Most Reviewed"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:50
+#: includes/widgets/bgr-review.php:70
 msgid "Number of reviews to show"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:56
+#: includes/widgets/bgr-review.php:76
 msgid "Thumbnail"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:58
+#: includes/widgets/bgr-review.php:78
 msgid "Hide"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:59
+#: includes/widgets/bgr-review.php:79
 msgid "Show"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:233
+#: includes/widgets/bgr-review.php:265
 msgid "Total "
 msgstr ""
 
-#: includes/widgets/bgr-review.php:242
+#: includes/widgets/bgr-review.php:277
 msgid "No Rating has been given to any group yet!"
 msgstr ""
 
-#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:3
-#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:5
-#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:9
-#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:10
-#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:14
-#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:15
-#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:4
-#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:6
-#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:10
-#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:11
-#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:15
-#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:16
-#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:3
-#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:5
-#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:9
-#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:10
-#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:14
-#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:15
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:3
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:5
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:9
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:10
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:14
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:15
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:3
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:5
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:9
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:10
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:14
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:15
-#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:3
-#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:5
-#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:9
-#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:10
-#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:14
-#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:15
-#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:4
-#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:6
-#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:10
-#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:11
-#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:15
-#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:16
-msgid "Hello World"
-msgstr ""
-
-#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:4
-#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:6
-#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:11
-#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:16
-#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:5
-#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:7
-#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:12
-#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:17
-#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:4
-#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:6
-#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:11
-#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:16
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:4
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:6
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:11
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:16
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:4
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:6
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:11
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:16
-#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:4
-#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:6
-#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:11
-#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:16
-#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:5
-#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:7
-#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:12
-#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:17
-msgctxt "verb"
-msgid "Post"
-msgstr ""
-
-#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:20
-#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:24
-#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:21
-#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:25
-#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:20
-#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:24
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:20
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:24
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:20
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:24
-#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:20
-#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:24
-#: node_modules/grunt-checktextdomain/test/fixtures/plurals.php:3
-#: node_modules/grunt-checktextdomain/test/fixtures/plurals.php:8
-#: node_modules/grunt-checktextdomain/test/fixtures/plurals.php:15
-#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:21
-#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:25
-#, php-format
-msgid "%d apple"
-msgid_plural "%d apples"
-msgstr[0] ""
-msgstr[1] ""
-
-#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:21
-#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:25
-#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:22
-#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:26
-#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:21
-#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:25
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:21
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:25
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:21
-#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:25
-#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:25
-#: node_modules/grunt-checktextdomain/test/fixtures/plurals.php:4
-#: node_modules/grunt-checktextdomain/test/fixtures/plurals.php:9
-#: node_modules/grunt-checktextdomain/test/fixtures/plurals.php:16
-#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:22
-#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:26
-#, php-format
-msgctxt "noun, job positions"
-msgid "%d post"
-msgid_plural "%d posts"
-msgstr[0] ""
-msgstr[1] ""
-
-#: node_modules/grunt-wp-i18n/test/fixtures/basic-theme/exclude/file.php:3
-#: node_modules/grunt-wp-i18n/test/fixtures/plugin-include/plugin-include.php:6
-msgid "Exclude"
-msgstr ""
-
-#: node_modules/grunt-wp-i18n/test/fixtures/plugin-include/include/file.php:2
-msgid "Include"
-msgstr ""
-
-#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/add-domain.php:2
-#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:2
-#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:3
-#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:4
-#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-domains.php:2
-#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-domains.php:3
-msgid "String"
-msgstr ""
-
-#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:6
-#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:7
-#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:8
-msgctxt "a string"
-msgid "String"
-msgstr ""
-
-#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:9
-#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:10
-#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:11
-#, php-format
-msgid "1 Star"
-msgid_plural "%s Stars"
-msgstr[0] ""
-msgstr[1] ""
-
-#. translators: A single line translators comment.
-#: node_modules/grunt-wp-i18n/test/fixtures/translator-comments/translator-comments.php:7
-msgid "A"
-msgstr ""
-
-#. translators: A
-#. multiline
-#. translators
-#. comment.
-#.
-#: node_modules/grunt-wp-i18n/test/fixtures/translator-comments/translator-comments.php:15
-msgid "B"
-msgstr ""
-
-#: review-bp-grps.php:74
+#: review-bp-grps.php:80
 msgid ""
 "The Review BuddyPress Groups plugin requires Buddypress plugin to be "
 "installed and active."
 msgstr ""
 
-#: review-bp-grps.php:88
+#: review-bp-grps.php:95
 msgid ""
 "The Review BuddyPress Groups plugin requires BuddyPress User Groups "
 "Component to be active."
 msgstr ""
 
-#. Plugin Name of the plugin/theme
-msgid "BuddyPress Group Reviews"
+#: admin/bgr-admin.php:142
+msgctxt "taxonomy general name"
+msgid "Reviews Category"
 msgstr ""
 
-#. Plugin URI of the plugin/theme
-msgid "https://wbcomdesigns.com/contact/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"This plugin allows the BuddyPress Members to give reviews to the BuddyPress "
-"groups on the site. The review form allows the users to give text review, "
-"even rate the group on the basis of multiple criterias."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "Wbcom Designs"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "http://wbcomdesigns.com"
+#: admin/bgr-admin.php:143
+msgctxt "taxonomy singular name"
+msgid "Review Category"
 msgstr ""

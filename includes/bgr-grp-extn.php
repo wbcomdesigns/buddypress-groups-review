@@ -168,11 +168,11 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					while ( $reviews->have_posts() ) :
 						$reviews->the_post();
 					?>
-					   <div class="bgr-row item-list group-request-list">
-						   <div class="bgr-col-2">
+					<div class="bgr-row item-list group-request-list">
+						<div class="bgr-col-2">
 								<?php
 								$author = $reviews->post->post_author;
-								   bp_displayed_user_avatar( array( 'item_id' => $author ) );
+								bp_displayed_user_avatar( array( 'item_id' => $author ) );
 									?>
 							</div>
 							<div class="bgr-col-8">
@@ -198,9 +198,9 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 										</div>
 										<div class="review-full-description bgr-col-12">
 											<div class="bgr-col-12">
-											   <b>
+											<b>
 													<?php _e( 'Full Description', 'bp-group-reviews' ); ?> :
-											   </b>
+											</b>
 												<?php the_content(); ?>
 											</div>
 											<?php do_action( 'bgr_display_ratings', $post->ID ); ?>
@@ -243,18 +243,12 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						<?php
 					}
 					wp_reset_postdata();
-					else {
-						:
-						?>
-					<div id="message" class="info">
-						<p>
-						<?php
-						_e( "Sorry, no $review_label were found.", 'bp-group-reviews' );
-					}
+				else :
 					?>
-					</p>
-					</div>
-					<?php endif; ?>
+				<div id="message" class="info">
+					<p><?php _e( "Sorry, no $review_label were found.", 'bp-group-reviews' ); ?></p>
+				</div>
+				<?php endif; ?>
 			</div>
 			<?php
 		}
