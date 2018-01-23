@@ -76,8 +76,13 @@ function bgr_review_globals() {
 			$active_rating_fields = array();
 		}
 	} else {
-		$review_rating_fields = array();
-		$active_rating_fields = array();
+		$review_rating_fields = array( 'Friendliness', 'Usability', 'Ease of Access' );
+		$active_rating_fields = array( 'Friendliness', 'Usability', 'Ease of Access' );
+		$bgr_admin_settings   = array(
+			'add_review_rating_fields' => $review_rating_fields,
+			'active_rating_fields'     => $active_rating_fields,
+		);
+		update_option( 'bgr_admin_criteria_settings', $bgr_admin_settings );
 	}
 
 	/**** Global variable values for Display settings */

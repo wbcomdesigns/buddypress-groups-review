@@ -108,7 +108,7 @@ function bgr_shortcode_setting() {
 }
 
 /**
- *Actions performed on Group Reviews Settings : Display Tab Content
+ * Actions performed on Group Reviews Settings : Display Tab Content
  *
  * @since    1.0.0
  * @author   Wbcom Designs

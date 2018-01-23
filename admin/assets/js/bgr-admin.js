@@ -14,7 +14,9 @@ jQuery( document ).ready(
 				jQuery( "input[name=BGRDynamicTextBox]" ).each(
 					function () {
 						if (jQuery( this ).val().trim() != '') {
-							field_values.push( jQuery( this ).val() );
+							var criteria_val = jQuery( this ).val();
+							field_values.push( criteria_val );
+							jQuery( this ).siblings( '.bgr-switch' ).children('.bgr-criteria-state').attr( 'data-attr', criteria_val );
 						}
 					}
 				);
@@ -116,7 +118,7 @@ jQuery( document ).ready(
 			"click", function () {
 				var div = jQuery( "<div/>" );
 				div.html( BGRGetBGRDynamicTextBox( "" ) );
-				jQuery( "#bgr-textbox-container" ).append( div );
+				jQuery( "#bgr-textbox-container" ).append( div ).css( 'class', 'rating-review-div ui-sortable-handle' );
 			}
 		);
 
@@ -195,5 +197,5 @@ jQuery( document ).ready(
 /*** Function for add new criteria text field ***/
 function BGRGetBGRDynamicTextBox( value ) {
 	return '<span>&equiv;</span><input name = "BGRDynamicTextBox" class="draggable" type="text" value = "' + value + '" />&nbsp;' +
-		   '<input type="button" value="Remove" class="remove button button-secondary bgr-remove" />';
+		   '<input type="button" value="Remove" class="remove button button-secondary bgr-remove" /><label class="bgr-switch"><input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="" checked="checked" ><div class="bgr-slider round"></div></label>';
 }
