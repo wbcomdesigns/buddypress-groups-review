@@ -72,7 +72,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 
 				$bgr_admin_settings = array(
 					'add_review_rating_fields' => $rating_field_values,
-					'active_rating_fields'     => $active_rating_fields_values
+					'active_rating_fields'     => $active_rating_fields_values,
 				);
 
 				update_option( 'bgr_admin_criteria_settings', $bgr_admin_settings );
