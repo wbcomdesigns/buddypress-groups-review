@@ -76,6 +76,9 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 
 == Changelog ==
 
+= 1.0.5 =
+* Fix - Blank description issue for bbpress notifications.
+
 = 1.0.4 =
 * Fix - updated hooks to fix 404 errors on Group Review buttons
 

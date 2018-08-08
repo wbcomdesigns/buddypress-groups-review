@@ -215,25 +215,30 @@ add_filter( 'bp_notifications_get_notifications_for_user', 'bgr_format_notificat
 	*  @author  Wbcom Designs
 	*/
 
-function bgr_format_notifications( $action, $item_id, $secondary_item_id, $user_id, $format = 'string' ) {
-	if ( bp_is_active( 'notifications' ) && bp_is_active( 'groups' ) ) {
-		switch ( $action ) {
+function bgr_format_notifications($action,$item_id, $secondary_item_id, $user_id, $format = 'string') {
+		if( bp_is_active( 'notifications' ) &&  bp_is_active( 'groups' ) && $action != 'bbp_new_reply') {
+			switch ($action) {
 
-			case 'bgr_add_review_action':
-					$return = buddypress()->bgr_bp_review->bgr_add_review_notification_format( $item_id, $secondary_item_id, $user_id, $format );
-				break;
-			case 'bgr_accept_review_action':
-					$return = buddypress()->bgr_bp_review->bgr_accept_review_notification_format( $item_id, $secondary_item_id, $format );
-				break;
-			case 'bgr_deny_review_action':
-					$return = buddypress()->bgr_bp_review->bgr_deny_review_notification_format( $item_id, $secondary_item_id, $format );
-				break;
-			default:
-					$return = '';
-				break;
-		}
-		if ( $return ) {
-						return $return;
+				case 'bgr_add_review_action':
+						$return = buddypress()->bgr_bp_review->bgr_add_review_notification_format( $item_id, $secondary_item_id, $user_id, $format );
+						break;
+				case 'bgr_accept_review_action':
+						$return = buddypress()->bgr_bp_review->bgr_accept_review_notification_format( $item_id, $secondary_item_id, $format );
+						break;
+				case 'bgr_deny_review_action':
+						$return = buddypress()->bgr_bp_review->bgr_deny_review_notification_format( $item_id, $secondary_item_id, $format );
+						break;
+				default:
+						$return = '';
+						break;
+
+				return $return;
+			}
+			if($return){
+				return $return;
+			}else{
+				return $action;
+			}
+			
 		}
 	}
-}
