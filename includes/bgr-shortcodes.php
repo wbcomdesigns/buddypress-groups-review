@@ -84,10 +84,15 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 					if ( $user_post_count == 0 ) {
 						$this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
 					} else {
-						?>
-							<div id="message" class="error">
-							   <p><?php _e( 'You already posted a review for this group.', 'bp-group-reviews' ); ?></p>
-							</div>
+						$bp_template_option = bp_get_option('_bp_theme_package_id');
+						if( 'nouveau' == $bp_template_option ) { ?>
+						<div id="message" class="info bp-feedback bp-messages bp-template-notice">
+							<span class="bp-icon" aria-hidden="true"></span>
+						<?php } else { ?>
+							<div id="message" class="info">
+						<?php } ?>
+							<p><?php _e( "You already posted a $review_label for this group.", 'bp-group-reviews' ); ?></p>
+						</div>
 						<?php
 					}
 				} else {
