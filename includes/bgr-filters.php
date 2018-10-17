@@ -21,7 +21,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			add_filter( 'bulk_actions-edit-review', array( $this, 'bgr_remove_edit_bulk_actions' ), 10, 1 );
 			add_action( 'bp_before_group_header_meta', array( $this, 'bgr_group_average_rating' ) );
 			add_action( 'bp_group_header_actions', array( $this, 'bgr_group_header_review_btn' ) );
-			add_action( 'bp_directory_groups_actions', array( $this, 'bgr_group_directory_rating' ) );
+			add_action( 'bp_directory_groups_item', array( $this, 'bgr_group_directory_rating' ) );
 		}
 
 		/**
@@ -342,7 +342,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				global $bgr;
 				global $post, $wpdb;
 				$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
-				$review_label               = $bgr['review_label'];
+				$review_label               = $bgr['manage_review_label'];
 
 				$args = array(
 					'category'         => 'group',

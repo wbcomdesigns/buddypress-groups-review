@@ -136,10 +136,10 @@ function bgr_display_setting() {
 	</div>
 	</div>
 <div class="bgr-row">
-	<div class="bgr-col-3"><label for="bgrManageReviewLabel"><?php _e( 'Review (In Manage Section)', 'bp-group-reviews' ); ?></label></div>
+	<div class="bgr-col-3"><label for="bgrManageReviewLabel"><?php _e( 'Reviews ( Plural )', 'bp-group-reviews' ); ?></label></div>
 	<div class="bgr-col-9">
 	<input name = "bgrManageReviewLabel" id="bgrManageReviewLabel" type="text" value = "<?php echo $bgrManageReviewLabel; ?>" />
-	<p class="bgr-admin-des"><?php _e( 'This option provides flexibility to change review label in "BuddyPress Group Manage" section. By default it shows "Reviews".', 'bp-group-reviews' ); ?></p>
+	<p class="bgr-admin-des"><?php _e( 'This option provides flexibility to change plural of Review.', 'bp-group-reviews' ); ?></p>
 </div>
 </div>
 <div class="bgr-col-12"><h3><?php _e( 'Colors', 'bp-group-reviews' ); ?></h3></div>

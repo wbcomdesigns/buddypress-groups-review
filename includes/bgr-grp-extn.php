@@ -244,12 +244,15 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					}
 					wp_reset_postdata();
 				else :
-					?>
-				<div id="message" class="info">
-					<p><?php _e( "Sorry, no $review_label were found.", 'bp-group-reviews' ); ?></p>
-				</div>
-				<?php endif; ?>
-			</div>
+					$bp_template_option = bp_get_option('_bp_theme_package_id');
+					if( 'nouveau' == $bp_template_option ) { 	?>
+					<div id="message" class="info bp-feedback bp-messages bp-template-notice">
+						<span class="bp-icon" aria-hidden="true"></span>
+					<?php } else { ?>
+						<div id="message" class="info">
+					<?php } endif; ?>
+						<p><?php _e( "Sorry, no $review_label were found.", 'bp-group-reviews' ); ?></p>
+					</div>
 			<?php
 		}
 	}
