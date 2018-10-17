@@ -106,7 +106,14 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 
 		public function display( $group_id = null ) { ?>
 			<div class="bgr-bp-success">
-				<div id="message" class="success bgr-bp-success">
+				<?php
+				$bp_template_option = bp_get_option('_bp_theme_package_id');
+				if( 'nouveau' == $bp_template_option ) { ?>
+					<div id="message" class="success bp-feedback bp-messages bp-template-notice">
+						<span class="bp-icon" aria-hidden="true"></span>
+				<?php } else { ?>		
+					<div id="message" class="success bgr-bp-success">
+				<?php } ?>		
 					<p><?php _e( 'Your Response added. This will be published when group admin approved it.', 'bp-group-reviews' ); ?></p>
 				</div>
 			</div>
@@ -245,15 +252,15 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					wp_reset_postdata();
 				else :
 					$bp_template_option = bp_get_option('_bp_theme_package_id');
-					if( 'nouveau' == $bp_template_option ) { 	?>
+					if( 'nouveau' == $bp_template_option ) { ?>
 					<div id="message" class="info bp-feedback bp-messages bp-template-notice">
 						<span class="bp-icon" aria-hidden="true"></span>
 					<?php } else { ?>
 						<div id="message" class="info">
-					<?php } endif; ?>
+					<?php } ?>
 						<p><?php _e( "Sorry, no $review_label were found.", 'bp-group-reviews' ); ?></p>
 					</div>
-			<?php
+			<?php endif;
 		}
 	}
 	bp_register_group_extension( 'Group_Reviews_Management_Extn' );
