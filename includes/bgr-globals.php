@@ -98,17 +98,17 @@ function bgr_review_globals() {
 			$rating_color = $bgr_admin_display_settings['bgr_rating_color'];
 		}
 		if ( empty( $review_label ) ) {
-			$review_label = 'Reviews';
+			$review_label = esc_html__( 'Review', 'bp-group-reviews' );
 		}
 		if ( empty( $manage_review_label ) ) {
-			$manage_review_label = 'Reviews';
+			$manage_review_label = esc_html__( 'Reviews', 'bp-group-reviews' );
 		}
 		if ( empty( $rating_color ) ) {
 			$rating_color = '#FFC400';
 		}
 	} else {
-		$review_label        = 'Review';
-		$manage_review_label = 'Reviews';
+		$review_label        = esc_html__( 'Review', 'bp-group-reviews' );
+		$manage_review_label = esc_html__( 'Reviews', 'bp-group-reviews' );
 		$rating_color        = '#FFC400';
 	}
 

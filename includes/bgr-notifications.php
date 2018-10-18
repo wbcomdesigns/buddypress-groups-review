@@ -18,7 +18,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$this->slug = $this->_component_name;
 
 			parent::start(
-				$this->_component_name, __( 'Group Reviews', 'bp-group-reviews' ), dirname( __FILE__ )
+				$this->_component_name, esc_html__( 'Group Reviews', 'bp-group-reviews' ), dirname( __FILE__ )
 			);
 
 			buddypress()->active_components[ $this->_component_name ] = '1';
@@ -139,11 +139,11 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			} else {
 				$notification_link = bp_get_group_permalink( $group ) . 'reviews/';
 			}
-			$notification_title   = "A new $review_label posted.";
-			$notification_content = "$user_name posted a $review_label for $group_name.";
-
+			$notification_title   = sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
+			$notification_content = sprintf( esc_html__( '%1$s posted a %2$s for %3$s.', 'bp-group-reviews' ), $user_name, $review_label, $group_name );
+			
 			if ( 'string' == $format ) {
-				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), esc_attr( $notification_title ), esc_html( $notification_content ) );
+				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), $notification_title, $notification_content );
 			} else {
 				$return = array(
 					'text' => $notification_content,
@@ -165,11 +165,11 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$group                = groups_get_group( array( 'group_id' => $grp_id ) );
 			$group_name           = $group->name;
 			$notification_link    = bp_get_group_permalink( $group ) . "reviews/view/$review_id/";
-			$notification_title   = "$review_label accepted.";
-			$notification_content = "Your $review_label for $group_name accepted by group admin.";
+			$notification_title   = sprintf( esc_html__( '%1$s accepted.', 'bp-group-reviews' ), $review_label );
+			$notification_content = sprintf( esc_html__( 'Your %1$s for %2$s accepted by group admin.', 'bp-group-reviews' ), $review_label, $group_name );
 
 			if ( 'string' == $format ) {
-				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), esc_attr( $notification_title ), esc_html( $notification_content ) );
+				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), $notification_title, $notification_content );
 			} else {
 				$return = array(
 					'text' => $notification_content,
@@ -192,11 +192,13 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$group                = groups_get_group( array( 'group_id' => $grp_id ) );
 			$group_name           = $group->name;
 			$notification_link    = bp_get_group_permalink( $group ) . 'reviews/';
-			$notification_title   = "$review_label Denied.";
-			$notification_content = "Your $review_label for $group_name denied by group admin.";
+
+			$notification_title   = sprintf( esc_html__( '%1$s denied.', 'bp-group-reviews' ), $review_label );
+			$notification_content = sprintf( esc_html__( 'Your %1$s for %2$s denied by group admin.', 'bp-group-reviews' ), $review_label, $group_name );
+
 
 			if ( 'string' == $format ) {
-				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), esc_attr( $notification_title ), esc_html( $notification_content ) );
+				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), $notification_title, $notification_content );
 			} else {
 				$return = array(
 					'text' => $notification_content,

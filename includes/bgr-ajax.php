@@ -186,13 +186,13 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$user_post_count = 0;
 			}
 			if ( $user_post_count > 0 ) {
-				$review_add_msg = __( 'You already posted a review for this group', 'bp-group-reviews' );
+				$review_add_msg = sprintf( __( 'You already posted a %1$s for this group.', 'bp-group-reviews' ), $review_label  );
 			} else {
 				if ( $auto_approve_reviews == 'yes' ) {
-					$review_add_msg = __( "Thank you for taking the time to write this wonderful $review_label!", 'bp-group-reviews' );
+					$review_add_msg = sprintf( esc_html__( 'Thank you for taking the time to write this wonderful %1$s.', 'bp-group-reviews' ), $review_label );
 					$review_status  = 'publish';
 				} else {
-					$review_add_msg = __( "Thank you for taking the time to write this wonderful $review_label. Your $review_label will display after moderator approval.", 'bp-group-reviews' );
+					$review_add_msg = sprintf( esc_html__( 'Thank you for taking the time to write this wonderful %1$s. Your %1$s will display after moderator approval.', 'bp-group-reviews' ), $review_label );
 					$review_status  = 'draft';
 				}
 
@@ -224,8 +224,8 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				} else {
 					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/admin/manage-reviews/';
 				}
-
-				$mail_content = "A new $review_label for $group_name added by  $user_name. Link :";
+				$mail_title = sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
+				$mail_content = sprintf( esc_html__( 'A new %1$s for %2$s added by %3$s. Link: %4$s', 'bp-group-reviews' ), $review_label, $group_name, $user_name, esc_url( $mail_link ) );
 
 				if ( ! empty( $rated_stars ) ) {
 					update_post_meta( $review_id, 'review_star_rating', $rated_stars );
@@ -243,7 +243,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				if ( 'yes' == $allow_email ) {
 					foreach ( $group_admins->admins as $group_admin ) {
 						$author_email = get_the_author_meta( 'user_email', $group_admin->user_id );
-						wp_mail( $author_email, "A new $review_label posted. ", esc_html( $mail_content ) . esc_url( $mail_link ) );
+						wp_mail( $author_email, $mail_title, $mail_content );
 					}
 				}
 			}
@@ -272,7 +272,8 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$group              = groups_get_group( array( 'group_id' => $group_id ) );
 			$group_name         = $group->name;
 			$review_link        = bp_get_groups_directory_permalink() . $group->slug . "/reviews/view/$post_id/";
-			$mail_content       = "Your $review_label for $group_name accepted by group admin. Link: ";
+			$mail_title         = sprintf( esc_html__( '%1$s accepted.', 'bp-group-reviews' ), $review_label );
+			$mail_content       = sprintf( esc_html__( 'Your %1$s for %2$s accepted by group admin. Link: %3$s.', 'bp-group-reviews' ), $review_label, $group_name, esc_url( $review_link ) );
 
 			if ( 'yes' == $allow_notification ) {
 				do_action( 'bgr_group_accept_review', $post_id );
@@ -280,7 +281,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 
 			if ( 'yes' == $allow_email ) {
 				$author_email = get_the_author_meta( 'user_email', $post_author_id );
-				wp_mail( $author_email, "$review_label accepted", esc_html( $mail_content ) . esc_url( $review_link ) );
+				wp_mail( $author_email, $mail_title, $mail_content );
 			}
 
 			die;
@@ -306,7 +307,8 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$group_id           = get_post_meta( $post_id, 'linked_group', true );
 			$group              = groups_get_group( array( 'group_id' => $group_id ) );
 			$group_name         = $group->name;
-			$mail_content       = "Your $review_label for $group_name denied by group admin.";
+			$mail_title         = sprintf( esc_html__( '%1$s denied.', 'bp-group-reviews' ), $review_label );
+			$mail_content       = sprintf( esc_html__( 'Your %1$s for %2$s denied by group admin.', 'bp-group-reviews' ), $review_label, $group_name );
 
 			if ( 'yes' == $allow_notification ) {
 				do_action( 'bgr_group_deny_review', $post_id );
@@ -314,7 +316,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 
 			if ( 'yes' == $allow_email ) {
 				$author_email = get_the_author_meta( 'user_email', $post_author_id );
-				wp_mail( $author_email, "$review_label Denied", esc_html( $mail_content ) );
+				wp_mail( $author_email, $mail_title, $mail_content );
 			}
 
 			die;

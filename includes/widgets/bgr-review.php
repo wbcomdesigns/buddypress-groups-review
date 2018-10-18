@@ -10,13 +10,13 @@ class bgr_review_widget extends WP_Widget {
 	function __construct() {
 		$widget_ops  = array(
 			'classname'   => 'widget_bp_group_review_tab',
-			'description' => __( 'Display Group Reviews.', 'bp-group-reviews' ),
+			'description' => esc_html__( 'Display Group Reviews.', 'bp-group-reviews' ),
 		);
 		$control_ops = array(
 			'width'  => 200,
 			'height' => 350,
 		);
-		parent::__construct( 'bgr_group_review_widget', __( 'BP Group Review Widget', 'bp-group-reviews' ), $widget_ops, $control_ops );
+		parent::__construct( 'bgr_group_review_widget', esc_html__( 'BP Group Review Widget', 'bp-group-reviews' ), $widget_ops, $control_ops );
 	}
 
 		/** Form display for widget in admin panel
@@ -52,7 +52,7 @@ class bgr_review_widget extends WP_Widget {
 																	echo 'checked="checked"'; }
 ?>
  />
-					<?php _e( 'Top Rated', 'bp-group-reviews' ); ?>
+					<?php esc_html_e( 'Top Rated', 'bp-group-reviews' ); ?>
 				</label>
 				<label class="alignleft" for="listing_topreviewed">
 					<input type="radio" class="" id="<?php echo $this->get_field_id( 'listing_cat' ); ?>" name="<?php echo $this->get_field_name( 'listing_cat' ); ?>" value="<?php echo 'topreviewed'; ?>" 
@@ -61,7 +61,7 @@ class bgr_review_widget extends WP_Widget {
 																	echo 'checked="checked"'; }
 ?>
  />
-					<?php _e( 'Most Reviewed', 'bp-group-reviews' ); ?>
+					<?php esc_html_e( 'Most Reviewed', 'bp-group-reviews' ); ?>
 				</label>
 			</div>
 			<div class="clear"></div>
@@ -262,8 +262,8 @@ class bgr_review_widget extends WP_Widget {
 												</div>
 												<div>
 													<?php
-													_e( 'Total ', 'bp-group-reviews' );
-													echo $review_label . ' : ' . $review_groups_count[ $gid ];
+													esc_html_e( 'Total', 'bp-group-reviews' );
+													echo ' '. $review_label . ' : ' . $review_groups_count[ $gid ];
 													?>
 												</div>
 											</div>
@@ -274,11 +274,14 @@ class bgr_review_widget extends WP_Widget {
 		} else {
 			if ( 'toprated' == $widget_listing_cat ) {
 									?>
-										<div id="message" class="info"><?php _e( 'No Rating has been given to any group yet!', 'bp-group-reviews' ); ?></div>
+										<div id="message" class="info"><?php			
+										esc_html_e( 'No Rating has been given to any group yet!', 'bp-group-reviews' ); ?></div>
 										<?php } else { ?>
-										<div id="message" class="info"><?php _e( "No $review_label has been given to any group yet!", 'bp-group-reviews' ); ?></div>
+										<div id="message" class="info"><?php 
+										echo sprintf( esc_html__( 'No %1$s has been given to any group yet!', 'bp-group-reviews' ), $review_label );
+										?></div>
 										<?php
-}
+			}
 		}
 									echo $args['after_widget'];
 	}

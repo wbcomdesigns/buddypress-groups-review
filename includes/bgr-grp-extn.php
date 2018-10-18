@@ -24,14 +24,14 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				$review_label     = $bgr_admin_display_settings['manage_review_label'];
 				$add_review_label = $bgr_admin_display_settings['review_label'];
 				if ( empty( $review_label ) ) {
-					$review_label = 'Reviews ';
+					$review_label = esc_html__( 'Reviews', 'bp-group-reviews' );
 				}
 				if ( empty( $add_review_label ) ) {
-					$add_review_label = 'Review';
+					$add_review_label = esc_html__( 'Review', 'bp-group-reviews' );
 				}
 			} else {
-				$review_label     = 'Reviews ';
-				$add_review_label = 'Review';
+				$review_label     = esc_html__( 'Reviews', 'bp-group-reviews' );
+				$add_review_label = esc_html__( 'Review', 'bp-group-reviews' );
 			}
 			if ( ! empty( $bgr_admin_general_settings ) ) {
 				$exclude_groups = $bgr_admin_general_settings['exclude_groups'];
@@ -114,7 +114,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				<?php } else { ?>		
 					<div id="message" class="success bgr-bp-success">
 				<?php } ?>		
-					<p><?php _e( 'Your Response added. This will be published when group admin approved it.', 'bp-group-reviews' ); ?></p>
+					<p><?php esc_html_e( 'Your Response added. This will be published when group admin approved it.', 'bp-group-reviews' ); ?></p>
 				</div>
 			</div>
 			<div class="bgr-group-review-no-popup-add-block">
@@ -146,10 +146,10 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			if ( ! empty( $bgr_admin_display_settings ) ) {
 				$review_label = $bgr_admin_display_settings['review_label'];
 				if ( empty( $review_label ) ) {
-					$review_label = 'Reviews ';
+					$review_label = esc_html__( 'Reviews', 'bp-group-reviews' );
 				}
 			} else {
-				$review_label = 'Reviews ';
+				$review_label = esc_html__( 'Reviews', 'bp-group-reviews' );
 			}
 			$paged   = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 			$args    = array(
@@ -184,12 +184,12 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 							</div>
 							<div class="bgr-col-8">
 								<div class="item-title">
-									<?php _e( bp_core_get_userlink( $author ), 'bp-group-reviews' ); ?>
+									<?php echo bp_core_get_userlink( $author ); ?>
 								</div>
 								<div class="item-description">
 									<div class="review-description">
 										<div class="review-excerpt bgr-col-12">
-											<b> <?php _e( 'Short Description ', 'bp-group-reviews' ); ?>: </b>
+											<b> <?php esc_html_e( 'Short Description ', 'bp-group-reviews' ); ?>: </b>
 											<?php
 											$trimcontent = get_the_content();
 											if ( ! empty( $trimcontent ) ) {
@@ -206,22 +206,22 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 										<div class="review-full-description bgr-col-12">
 											<div class="bgr-col-12">
 											<b>
-													<?php _e( 'Full Description', 'bp-group-reviews' ); ?> :
+													<?php esc_html_e( 'Full Description', 'bp-group-reviews' ); ?> :
 											</b>
 												<?php the_content(); ?>
 											</div>
 											<?php do_action( 'bgr_display_ratings', $post->ID ); ?>
 										</div>
-										<a class="expand-review-des"><?php _e( 'View More..', 'bp-group-reviews' ); ?> </a>
+										<a class="expand-review-des"><?php esc_html_e( 'View More..', 'bp-group-reviews' ); ?> </a>
 									</div>
 								</div>
 							</div>
 							<div class="bgr-col-2">
 								<div class='bgr-col-12 accept-review generic-button'>
-									<a class='accept-button' data-group-type='<?php _e( $bp->groups->current_group->id, 'bp-group-reviews' ); ?>'> <?php _e( 'Accept', 'bp-group-reviews' ); ?> </a><input type="hidden" name="accept_review_id" value="<?php _e( $post->ID, 'bp-group-reviews' ); ?>">
+									<a class='accept-button' data-group-type='<?php _e( $bp->groups->current_group->id, 'bp-group-reviews' ); ?>'> <?php esc_html_e( 'Accept', 'bp-group-reviews' ); ?> </a><input type="hidden" name="accept_review_id" value="<?php echo esc_attr( $post->ID ); ?>">
 								</div>
 								<div class='bgr-col-12 deny-review generic-button'>
-									<a class='deny-button' data-group-type='<?php _e( $bp->groups->current_group->id, 'bp-group-reviews' ); ?>'> <?php _e( 'Deny', 'bp-group-reviews' ); ?> </a><input type="hidden" name="deny_review_id" value="<?php _e( $post->ID, 'bp-group-reviews' ); ?>">
+									<a class='deny-button' data-group-type='<?php _e( $bp->groups->current_group->id, 'bp-group-reviews' ); ?>'> <?php esc_html_e( 'Deny', 'bp-group-reviews' ); ?> </a><input type="hidden" name="deny_review_id" value="<?php echo esc_attr( $post->ID ); ?>">
 								</div>
 							</div>
 
@@ -241,8 +241,8 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 									'format'    => 'page/%#%',
 									'current'   => $current_page,
 									'total'     => $total_pages,
-									'prev_text' => __( 'prev', 'bp-group-reviews' ),
-									'next_text' => __( 'next', 'bp-group-reviews' ),
+									'prev_text' => esc_html__( 'prev', 'bp-group-reviews' ),
+									'next_text' => esc_html__( 'next', 'bp-group-reviews' ),
 								)
 							);
 									?>
@@ -258,7 +258,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					<?php } else { ?>
 						<div id="message" class="info">
 					<?php } ?>
-						<p><?php _e( "Sorry, no $review_label were found.", 'bp-group-reviews' ); ?></p>
+						<p><?php echo sprintf( __( 'Sorry, no %s were found.', 'bp-group-reviews' ), $review_label ); ?></p>
 					</div>
 			<?php endif;
 		}

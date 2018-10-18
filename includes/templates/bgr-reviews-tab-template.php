@@ -57,7 +57,7 @@ $reviews              = new WP_Query( $args );
 											$shortexcerpt = substr( $trimcontent, 0, 150 );
 											echo $shortexcerpt;
 												?>
-														<a href="<?php echo $url; ?>"><i><b><?php _e( 'read more...', 'bp-group-reviews' ); ?></b></i></a>
+														<a href="<?php echo $url; ?>"><i><b><?php esc_html_e( 'read more...', 'bp-group-reviews' ); ?></b></i></a>
 													<?php
 										} else {
 											echo $trimcontent;
@@ -73,7 +73,7 @@ $reviews              = new WP_Query( $args );
 								<div class="bgr-col-2">
 									<?php if ( groups_is_user_admin( $member_id, bp_get_group_id() ) ) : ?>
 										<div class='remove-review generic-button'>
-											<a class='remove-review-button'> <?php _e( 'Delete', 'bp-group-reviews' ); ?> </a><input type="hidden" name="remove_review_id" value="<?php _e( $post->ID, 'bp-group-reviews' ); ?>">
+											<a class='remove-review-button'> <?php _e( 'Delete', 'bp-group-reviews' ); ?> </a><input type="hidden" name="remove_review_id" value="<?php echo esc_attr( $post->ID ); ?>">
 										</div>
 									<?php endif; ?>
 								</div>
@@ -95,8 +95,8 @@ $reviews              = new WP_Query( $args );
 										'format'    => 'page/%#%',
 										'current'   => $current_page,
 										'total'     => $total_pages,
-										'prev_text' => __( 'prev', 'bp-group-reviews' ),
-										'next_text' => __( 'next', 'bp-group-reviews' ),
+										'prev_text' => esc_html__( 'prev', 'bp-group-reviews' ),
+										'next_text' => esc_html__( 'next', 'bp-group-reviews' ),
 									)
 								);
 										?>
@@ -114,8 +114,9 @@ $reviews              = new WP_Query( $args );
 						<span class="bp-icon" aria-hidden="true"></span>
 					<?php } else { ?>
 						<div id="message" class="info">
-					<?php } ?>
-						<p><?php _e( "Sorry, no $review_label were found.", 'bp-group-reviews' ); ?></p>
+					<?php } 
+						echo '<p>' . sprintf( esc_html__( 'Sorry, no %1$s were found.', 'bp-group-reviews' ), $review_label ) . '</p>';
+						?>
 					</div>
 					<?php } ?>
 			</div>

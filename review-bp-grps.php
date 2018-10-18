@@ -97,7 +97,7 @@ function bgr_bp_notifications_for_review() {
 function bgr_admin_notice() {
 	?>
 	<div class="error notice is-dismissible">
-		<p><?php _e( 'The Review BuddyPress Groups plugin requires Buddypress plugin to be installed and active.', 'bp-group-reviews' ); ?></p>
+		<p><?php esc_html_e( 'The Review BuddyPress Groups plugin requires Buddypress plugin to be installed and active.', 'bp-group-reviews' ); ?></p>
 	</div>
 	<?php
 }
@@ -111,7 +111,7 @@ function bgr_admin_notice() {
 function bgr_admin_group_notice() {
 	?>
 	<div class="error notice is-dismissible">
-		<p><?php _e( 'The Review BuddyPress Groups plugin requires BuddyPress User Groups Component to be active.', 'bp-group-reviews' ); ?></p>
+		<p><?php esc_html_e( 'The Review BuddyPress Groups plugin requires BuddyPress User Groups Component to be active.', 'bp-group-reviews' ); ?></p>
 	</div>
 	<?php
 }
@@ -124,7 +124,7 @@ function bgr_admin_group_notice() {
  *  @author   Wbcom Designs
  */
 function bgr_admin_page_link( $links ) {
-		$page_link = array( '<a href="' . admin_url( 'admin.php?page=group-review-settings' ) . '">Settings</a>' );
+		$page_link = array( '<a href="' . admin_url( 'admin.php?page=group-review-settings' ) . '">'. esc_html__( 'Settings', 'bp-group-reviews' ). '</a>' );
 		return array_merge( $links, $page_link );
 }
 

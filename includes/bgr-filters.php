@@ -45,8 +45,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					<div class="group-button public generic-button" id="groupbutton-85">
 						<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>">
 											<?php
-											_e( 'Add ', 'bp-group-reviews' );
-											echo $bgr['review_label'];
+											echo sprintf( __( 'Add %1$s', 'bp-group-reviews' ), $bgr['review_label'] );
 ?>
 </a>
 					</div>
@@ -59,8 +58,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				<div class="group-button public generic-button" id="groupbutton-85">
 					<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>">
 										<?php
-										_e( 'Add ', 'bp-group-reviews' );
-										echo $bgr['review_label'];
+										echo sprintf( __( 'Add %1$s', 'bp-group-reviews' ), $bgr['review_label'] );
 ?>
 </a>
 				</div>
@@ -258,7 +256,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					<?php
 					do_action( 'bgr_display_group_average_ratings', $avg_rating );
 
-					$content = "<div class='rating-text'><span>" . __( 'Rating ', 'bp-group-reviews' ) . ' : ' . $avg_rating . '/5 - ' . $total_review_count . ' ' . $review_label . '</span</div>';
+					$content = "<div class='rating-text'><span>" . esc_html__( 'Rating ', 'bp-group-reviews' ) . ' : ' . $avg_rating . '/5 - ' . $total_review_count . ' ' . $review_label . '</span</div>';
 
 					echo apply_filters( 'bgr_filter_group_header_rating_details', $content, $avg_rating, $review_label, $total_review_count, bp_get_group_id() );
 					echo '</div></div></div></div>';
@@ -302,11 +300,11 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$group_url    = bp_get_group_permalink( $group );
 					$review_url   = $group_url . 'reviews/view/' . $post->ID;
 
-					$actions['view_review'] = '<a href="' . $review_url . '" title="' . $review_title . '">View Review</a>';
+					$actions['view_review'] = '<a href="' . $review_url . '" title="' . $review_title . '">' . esc_html__( 'View Review', 'bp-group-reviews' ). '</a>';
 
 					// Add Approve Link for draft reviews
 					if ( $post->post_status == 'draft' ) {
-						$actions['approve_review'] = '<a href="javascript:void(0);" title="' . $review_title . '" class="bgr-approve-review" data-rid="' . $post->ID . '">Approve</a>';
+						$actions['approve_review'] = '<a href="javascript:void(0);" title="' . $review_title . '" class="bgr-approve-review" data-rid="' . $post->ID . '">'. esc_html__( 'Approve', 'bp-group-reviews' ) .'</a>';
 					}
 				}
 			}
