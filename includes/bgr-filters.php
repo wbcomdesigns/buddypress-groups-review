@@ -300,7 +300,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$group_url    = bp_get_group_permalink( $group );
 					$review_url   = $group_url . 'reviews/view/' . $post->ID;
 
-					$actions['view_review'] = '<a href="' . $review_url . '" title="' . $review_title . '">' . esc_html__( 'View Review', 'bp-group-reviews' ). '</a>';
+					$actions['view_review'] = '<a href="' . $review_url . '" title="' . $review_title . '">' . esc_html__( 'View', 'bp-group-reviews' ). '</a>';
 
 					// Add Approve Link for draft reviews
 					if ( $post->post_status == 'draft' ) {
