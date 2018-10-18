@@ -29,6 +29,14 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 			wp_enqueue_style( 'bgr-reviews-css', BGR_PLUGIN_URL . 'assets/css/bgr-reviews.css' );
 			wp_enqueue_style( 'bgr-front-css', BGR_PLUGIN_URL . 'assets/css/bgr-front.css' );
 			wp_enqueue_script( 'bgr-front-js', BGR_PLUGIN_URL . 'assets/js/bgr-front.js', array( 'jquery' ) );
+			wp_localize_script(
+				'bgr-front-js',
+				'bgr_front_js_object',
+				array(
+					'view_more_text' => esc_html__( 'View More..', 'bp-group-reviews' ),
+					'view_less_text' => esc_html__( 'View Less..', 'bp-group-reviews' ),
+				)
+			);
 			wp_enqueue_style( 'bgr-ratings-css', BGR_PLUGIN_URL . 'assets/css/bgr-ratings.css' );
 			wp_enqueue_script( 'bgr-ratings-js', BGR_PLUGIN_URL . 'assets/js/bgr-ratings.js', array( 'jquery' ) );
 			wp_enqueue_style( 'bgr-font-awesome', BGR_PLUGIN_URL . 'admin/assets/css/font-awesome.min.css' );

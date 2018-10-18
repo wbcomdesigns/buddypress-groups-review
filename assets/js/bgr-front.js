@@ -104,14 +104,14 @@ jQuery( document ).ready(
 				if (display === 'block') {
 					jQuery( '.review-full-description' ).slideUp( 500 );
 					jQuery( this ).parent().children( '.review-excerpt' ).slideDown( 500 );
-					jQuery( this ).text( "View More..." );
+					jQuery( this ).text( bgr_front_js_object.view_more_text );
 				} else {
 					jQuery( '.review-full-description' ).hide();
 					jQuery( '.review-excerpt' ).show();
 					jQuery( '.review-full-description' ).next().text( "View More.." );
 					jQuery( this ).parent().children( '.review-excerpt' ).slideUp( 500 );
 					jQuery( this ).parent().children( '.review-full-description' ).slideDown( 500 );
-					jQuery( this ).text( "View Less..." );
+					jQuery( this ).text( bgr_front_js_object.view_less_text );
 				}
 			}
 		);

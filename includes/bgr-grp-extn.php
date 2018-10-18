@@ -202,7 +202,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 												}
 											}
 											?>
-										</div>
+										</div>									
 										<div class="review-full-description bgr-col-12">
 											<div class="bgr-col-12">
 											<b>
@@ -218,10 +218,10 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 							</div>
 							<div class="bgr-col-2">
 								<div class='bgr-col-12 accept-review generic-button'>
-									<a class='accept-button' data-group-type='<?php _e( $bp->groups->current_group->id, 'bp-group-reviews' ); ?>'> <?php esc_html_e( 'Accept', 'bp-group-reviews' ); ?> </a><input type="hidden" name="accept_review_id" value="<?php echo esc_attr( $post->ID ); ?>">
+									<a class='accept-button' data-group-type='<?php echo $bp->groups->current_group->id; ?>'> <?php esc_html_e( 'Accept', 'bp-group-reviews' ); ?> </a><input type="hidden" name="accept_review_id" value="<?php echo esc_attr( $post->ID ); ?>">
 								</div>
 								<div class='bgr-col-12 deny-review generic-button'>
-									<a class='deny-button' data-group-type='<?php _e( $bp->groups->current_group->id, 'bp-group-reviews' ); ?>'> <?php esc_html_e( 'Deny', 'bp-group-reviews' ); ?> </a><input type="hidden" name="deny_review_id" value="<?php echo esc_attr( $post->ID ); ?>">
+									<a class='deny-button' data-group-type='<?php echo $bp->groups->current_group->id; ?>'> <?php esc_html_e( 'Deny', 'bp-group-reviews' ); ?> </a><input type="hidden" name="deny_review_id" value="<?php echo esc_attr( $post->ID ); ?>">
 								</div>
 							</div>
 
