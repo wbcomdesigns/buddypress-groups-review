@@ -301,6 +301,20 @@ function bgr_support_setting() {
 <div class="bgr-admin-row">
 	<div>
 	<button class="bgr-accordion">
+		<?php esc_html_e( 'What to do if I unable/fail to publish shortcode page after update to WordPress 5.0?', 'bp-group-reviews' ); ?>
+	</button>
+	<div class="panel">
+		<p>
+			<?php
+			esc_html_e( 'Install the Classic Editor plugin. Then, in the right sidebar, you’ll see a link for “use classic editor.”', 'bp-group-reviews' );
+			?>
+		</p>
+	</div>
+</div>
+</div>
+<div class="bgr-admin-row">
+	<div>
+	<button class="bgr-accordion">
 		<?php esc_html_e( 'Where do I ask for support?', 'bp-group-reviews' ); ?>
 	</button>
 	<div class="panel">

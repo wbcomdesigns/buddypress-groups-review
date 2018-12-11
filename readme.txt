@@ -3,8 +3,8 @@ Contributors: wbcomdesigns , vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
-Tested up to: 4.9.8
-Stable tag: 1.0.5
+Tested up to: 5.0
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,6 +75,9 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 4. Plugin settings.(png|jpg|jpeg|gif).
 
 == Changelog ==
+
+= 1.0.6 =
+* Fix - Compatibility with BuddyPress 4.1.0. #20
 
 = 1.0.5 =
 * Fix - Blank description issue for bbpress notifications.
