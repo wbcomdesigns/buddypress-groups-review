@@ -59,12 +59,12 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 								$stars_off = 5 - $stars_on;
 							for ( $i = 1; $i <= $stars_on; $i++ ) {
 								?>
-									<span class="fa fa-star stars bgr-star-rate"></span>
+									<span class="fas fa-star stars bgr-star-rate"></span>
 									<?php
 							}
 							for ( $i = 1; $i <= $stars_off; $i++ ) {
 								?>
-									<span class="fa fa-star-o stars bgr-star-rate"></span>
+									<span class="far fa-star stars bgr-star-rate"></span>
 									<?php
 							}
 								?>
@@ -82,7 +82,6 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		 *  @since   1.0.0
 		 *  @author  Wbcom Designs
 		 */
-
 		function bgr_widget_average_ratings( $review_groups ) {
 			global $bgr;
 			$group_avg_rating = $review_groups;
@@ -140,19 +139,19 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		function bgr_average_star_rating( $stars_on, $stars_half, $stars_off ) {
 			for ( $i = 1; $i <= $stars_on; $i++ ) {
 				?>
-					<span class="fa fa-star stars bgr-star-rate"></span>
+					<span class="fas fa-star stars bgr-star-rate"></span>
 					<?php
 			}
 
 			for ( $i = 1; $i <= $stars_half; $i++ ) {
 				?>
-					<span class="fa fa-star-half-o stars bgr-star-rate"></span>
+					<span class="fas fa-star-half-alt stars bgr-star-rate"></span>
 					<?php
 			}
 
 			for ( $i = 1; $i <= $stars_off; $i++ ) {
 				?>
-					<span class="fa fa-star-o stars bgr-star-rate"></span>
+					<span class="far fa-star stars bgr-star-rate"></span>
 					<?php
 			}
 		}

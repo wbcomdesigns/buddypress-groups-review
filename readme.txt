@@ -78,7 +78,8 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 
 = 2.0.0 =
 * Fix - Compatibility with BuddyPress 4.1.0. #20
-* Enhancement - Improve Backend UI where you can manage all wbcom plugin's settings at one place. #22
+* Enhancement - Improved Backend UI where you can manage all wbcom plugin's settings at one place. #22
+* Enhancement - Used latest fontawesome library. #23
 
 = 1.0.5 =
 * Fix - Blank description issue for bbpress notifications.

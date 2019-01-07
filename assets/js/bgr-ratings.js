@@ -11,7 +11,7 @@ jQuery( document ).ready(
 				var id        = jQuery( this ).attr( 'data-attr' );
 				var parent_id = jQuery( this ).parent().attr( 'id' );
 				for ( i = 1; i <= id; i++ ) {
-					jQuery( '#' + parent_id ).children( '.' + i ).addClass( 'fa-star' ).removeClass( 'fa-star-o' );
+					jQuery( '#' + parent_id ).children( '.' + i ).addClass( 'fas' ).removeClass( 'far' );
 				}
 			}
 		);
@@ -24,7 +24,7 @@ jQuery( document ).ready(
 				if ( jQuery( this ).parent().children().eq( 0 ).val() !== 'clicked' ) {
 					var j = parseInt( clicked_id ) + 1;
 					for ( i = j; i <= 5; i++ ) {
-						jQuery( '#' + parent_id ).children( '.' + i ).addClass( 'fa-star-o' ).removeClass( 'fa-star' );
+						jQuery( '#' + parent_id ).children( '.' + i ).addClass( 'far' ).removeClass( 'fas' );
 					}
 				}
 			}
@@ -39,12 +39,12 @@ jQuery( document ).ready(
 				jQuery( this ).parent().children().eq( 1 ).val( attr );
 				jQuery( this ).parent().children().eq( 0 ).val( 'clicked' );
 				for ( i = 1; i <= attr; i++ ) {
-					jQuery( '#' + parent_id ).children( '.' + i ).addClass( 'fa-star' ).removeClass( 'fa-star-o' );
+					jQuery( '#' + parent_id ).children( '.' + i ).addClass( 'fas' ).removeClass( 'far' );					
 				}
 
 				var k = parseInt( attr ) + 1;
 				for ( j = k; j <= 5; j++ ) {
-					jQuery( '#' + parent_id ).children( '.' + j ).addClass( 'fa-star-o' ).removeClass( 'fa-star' );
+					jQuery( '#' + parent_id ).children( '.' + j ).addClass( 'far' ).removeClass( 'fas' );
 				}
 			}
 		);

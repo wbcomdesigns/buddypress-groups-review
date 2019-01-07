@@ -220,7 +220,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 										<input type="hidden" id="<?php echo 'clicked' . $field_counter; ?>" value="not_clicked">
 										<input type="hidden" name="rated_stars[]" class="rated_stars bgr_mrating" id="<?php echo 'rated_stars' . $field_counter; ?>" value="0">
 										<?php for ( $i = 1; $i <= 5; $i++ ) { ?>
-												<span class="fa fa-star-o bgr-stars bgr-star-rate <?php echo $i; ?>" id="<?php echo $field_counter . $i; ?>" data-attr="<?php echo $i; ?>" ></span>
+												<span class="far fa-star bgr-stars bgr-star-rate <?php echo $i; ?>" id="<?php echo $field_counter . $i; ?>" data-attr="<?php echo $i; ?>" ></span>
 											<?php } ?>
 								</div>
 								<div class="bgr-col-12 bgr-error-fields">*<?php esc_html_e( 'This field is required.', 'bp-group-reviews' ); ?></div>

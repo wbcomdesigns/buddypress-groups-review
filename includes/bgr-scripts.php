@@ -26,6 +26,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 		*/
 
 		function bgr_custom_variables() {
+			wp_enqueue_style( 'bgr-font-awesome', 'https://use.fontawesome.com/releases/v5.4.2/css/all.css' );
 			wp_enqueue_style( 'bgr-reviews-css', BGR_PLUGIN_URL . 'assets/css/bgr-reviews.css' );
 			wp_enqueue_style( 'bgr-front-css', BGR_PLUGIN_URL . 'assets/css/bgr-front.css' );
 			wp_enqueue_script( 'bgr-front-js', BGR_PLUGIN_URL . 'assets/js/bgr-front.js', array( 'jquery' ) );
@@ -38,8 +39,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				)
 			);
 			wp_enqueue_style( 'bgr-ratings-css', BGR_PLUGIN_URL . 'assets/css/bgr-ratings.css' );
-			wp_enqueue_script( 'bgr-ratings-js', BGR_PLUGIN_URL . 'assets/js/bgr-ratings.js', array( 'jquery' ) );
-			wp_enqueue_style( 'bgr-font-awesome', BGR_PLUGIN_URL . 'admin/assets/css/font-awesome.min.css' );
+			wp_enqueue_script( 'bgr-ratings-js', BGR_PLUGIN_URL . 'assets/js/bgr-ratings.js', array( 'jquery' ) );			
 		}
 
 		/*
