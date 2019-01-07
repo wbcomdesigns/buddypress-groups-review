@@ -4,3 +4,4 @@ npm-debug.log
 
 # The build directory.
 build
+*.json
