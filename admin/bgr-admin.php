@@ -30,7 +30,11 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * @author   Wbcom Designs
 		 */
 		function bgr_add_submenu_page_admin_settings() {
-			add_submenu_page( 'edit.php?post_type=review', esc_html__( 'Group Reviews Admin Settings', 'bp-group-reviews' ), esc_html__( 'Group Settings', 'bp-group-reviews' ), 'manage_options', 'group-review-settings', array( $this, 'bgr_admin_options_page' ) );
+			if ( empty ( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
+				add_menu_page( esc_html__( 'WB Plugins', 'bp-group-reviews' ), esc_html__( 'WB Plugins', 'bp-group-reviews' ), 'manage_options', 'wbcomplugins', array( $this, 'bgr_admin_options_page' ), 'dashicons-lightbulb', 59 );
+		 		add_submenu_page( 'wbcomplugins', esc_html__( 'General', 'bp-group-reviews' ), esc_html__( 'General', 'bp-group-reviews' ), 'manage_options', 'wbcomplugins' );
+			}
+			add_submenu_page( 'wbcomplugins', esc_html__( 'Group Reviews', 'bp-group-reviews' ), esc_html__( 'Group Reviews', 'bp-group-reviews' ), 'manage_options', 'group-review-settings', array( $this, 'bgr_admin_options_page' ) );
 		}
 
 		/**
@@ -51,36 +55,33 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 						'criteria'  => esc_html__( 'Criteria', 'bp-group-reviews' ),
 						'shortcode' => esc_html__( 'Shortcode', 'bp-group-reviews' ),
 						'display'   => esc_html__( 'Display', 'bp-group-reviews' ),
-						'support'   => esc_html__( 'Support', 'bp-group-reviews' ),
 					);
 					?>
-					<div id="wpbody-content" class="bgr-setting-page" aria-label="Main content" tabindex="0">
-						<div class="wrap">
+					<div class="wrap">
 							<div class="bgr-header">
-								<div class="bgr-extra-actions">
-									<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/contact/', '_blank');"><i class="fa fa-envelope" aria-hidden="true"></i> <?php esc_html_e( 'Email Support', 'bp-group-reviews' ); ?></button>
-									<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/helpdesk/article-categories/buddypress-group-reviews/', '_blank');"><i class="fa fa-file" aria-hidden="true"></i> <?php esc_html_e( 'User Manual', 'bp-group-reviews' ); ?></button>
-									<button type="button" class="button button-secondary" onclick="window.open('https://wordpress.org/support/plugin/review-buddypress-groups/reviews/', '_blank');"><i class="fa fa-star" aria-hidden="true"></i> <?php esc_html_e( 'Rate Us on WordPress.org', 'bp-group-reviews' ); ?></button>
+								<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
+								<h1 class="wbcom-plugin-heading">
+									<?php esc_html_e( 'Group Reviews Settings', 'bp-group-reviews' ); ?>
+								</h1>
+							</div>
+							<div class="wbcom-admin-settings-page">
+								<div id="bgr-settings-updated" class="updated settings-error notice is-dismissible">
+									<p><strong><?php _e( 'Group Reviews Settings Saved.', 'bp-group-reviews' ); ?></strong></p>
+									<button type="button" class="notice-dismiss">
+										<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'bp-group-reviews' ); ?></span>
+									</button>
 								</div>
-							</div>
-							<h1>
-								<?php esc_html_e( 'Group Reviews Settings', 'bp-group-reviews' ); ?>
-							</h1>
-							<div id="bgr-settings-updated" class="updated settings-error notice is-dismissible">
-								<p><strong><?php _e( 'Group Reviews Settings Saved.', 'bp-group-reviews' ); ?></strong></p>
-								<button type="button" class="notice-dismiss">
-									<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'bp-group-reviews' ); ?></span>
-								</button>
-							</div>
-							<?php
-							$bgr_tab_html = '<h2 class="nav-tab-wrapper">';
-							foreach ( $bgr_tabs as $bgr_tab => $bgr_name ) {
-									$class         = ( $bgr_tab == $current ) ? 'nav-tab-active' : '';
-									$bgr_tab_html .= '<a class="nav-tab ' . $class . '" href="admin.php?page=group-review-settings&tab=' . $bgr_tab . '">' . $bgr_name . '</a>';
-							}
-							$bgr_tab_html .= '</h2>';
-							echo $bgr_tab_html;
-							include 'review-admin-options-page.php';
+								<?php
+								$bgr_tab_html = '<div class="wbcom-tabs-section"><h2 class="nav-tab-wrapper">';
+								foreach ( $bgr_tabs as $bgr_tab => $bgr_name ) {
+										$class         = ( $bgr_tab == $current ) ? 'nav-tab-active' : '';
+										$bgr_tab_html .= '<a class="nav-tab ' . $class . '" href="admin.php?page=group-review-settings&tab=' . $bgr_tab . '">' . $bgr_name . '</a>';
+								}
+								$bgr_tab_html .= '</h2></div>';
+								echo $bgr_tab_html;
+								echo '<div class="wbcom-tab-content">';
+								include 'review-admin-options-page.php';
+							echo '</div></div>';	
 		}
 
 		/**

@@ -3,7 +3,7 @@
  * Plugin Name: BuddyPress Group Reviews
  * Plugin URI: https://wbcomdesigns.com/contact/
  * Description: This plugin allows the BuddyPress Members to give reviews to the BuddyPress groups on the site. The review form allows the users to give text review, even rate the group on the basis of multiple criterias.
- * Version: 1.0.6
+ * Version: 2.0.0
  * Author: Wbcom Designs
  * Author URI: http://wbcomdesigns.com
  * License: GPLv2+
@@ -145,6 +145,7 @@ function run_bp_group_reviews_plugin() {
 	$include_files = array(
 		'includes/bgr-globals.php',
 		'includes/bgr-scripts.php',
+		'admin/wbcom/wbcom-admin-settings.php',
 		'admin/bgr-admin.php',
 		'includes/bgr-dynamic-css.php',
 		'includes/bgr-rating-display.php',

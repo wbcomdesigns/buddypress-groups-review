@@ -29,9 +29,6 @@ function bgr_include_admin_setting_tabs( $bgr_setting_tab = 'general' ) {
 		case 'display':
 			bgr_display_setting();
 			break;
-		case 'support':
-			bgr_support_setting();
-			break;
 		default:
 			bgr_general_setting();
 	}
@@ -47,9 +44,7 @@ function bgr_criteria_setting() {
 	$spinner_src          = includes_url() . 'images/spinner.gif';
 	$review_rating_fields = $bgr['review_rating_fields'];
 	$active_rating_fields = $bgr['active_rating_fields'];
-
 	?>
-	<div class="bgr-col-12"><h2><?php esc_html_e( 'Criteria Settings', 'bp-group-reviews' ); ?></h2></div>
 	<div class="bgr-row">
 		<div class="bgr-col-3">
 			<label><?php esc_html_e( 'Reviews Criteria(s)', 'bp-group-reviews' ); ?></label>
@@ -82,12 +77,8 @@ function bgr_criteria_setting() {
 <p class="bgr-admin-des"><?php esc_html_e( 'This option provide you to add multiple rating criteria. By default, no criteria will be shown until you active it.', 'bp-group-reviews' ); ?></p>
 </div>
 </div>
-<div class="bgr-col-12">
-	<div class="bgr-col-6">
-		<input type="button" class="button button-primary" id="bgr-save-admin-criteria-settings" value="<?php esc_html_e( 'Save Settings', 'bp-group-reviews' ); ?>">
-		<img src="<?php echo $spinner_src; ?>" class="bgr-admin-criteria-settings-spinner" />
-	</div>
-</div>
+<input type="button" class="button button-primary" id="bgr-save-admin-criteria-settings" value="<?php esc_html_e( 'Save Settings', 'bp-group-reviews' ); ?>">
+<img src="<?php echo $spinner_src; ?>" class="bgr-admin-criteria-settings-spinner" />
 <?php
 }
 
@@ -99,7 +90,6 @@ function bgr_criteria_setting() {
 	 */
 function bgr_shortcode_setting() {
 ?>
-<div class="bgr-col-12"><h2><?php esc_html_e( 'Shortcode to display Group Review Form', 'bp-group-reviews' ); ?></h2></div>
 <div class="bgr-row">
 	<div class="bgr-col-3"><label><?php echo '[add_group_review_form]'; ?></label></div>
 	<div class="bgr-col-9"><?php esc_html_e( 'This shortcode will be display Group Review Form.', 'bp-group-reviews' ); ?></div>
@@ -120,13 +110,6 @@ function bgr_display_setting() {
 	$bgrManageReviewLabel = $bgr['manage_review_label'];
 	$bgr_rating_color     = $bgr['rating_color'];
 	?>
-	<div class="bgr-col-12">
-		<h2><?php esc_html_e( 'Display Settings', 'bp-group-reviews' ); ?></h2>
-		<p class="description">
-			<b><?php esc_html_e( 'Note', 'bp-group-reviews' ); ?>:</b>
-			<?php esc_html_e( 'Rating will be displayed in Review form, if and only if you added criteria for review.', 'bp-group-reviews' ); ?>
-		</p>
-	</div>
 	<div class="bgr-col-12"><h3><?php esc_html_e( 'Labels', 'bp-group-reviews' ); ?></h3></div>
 	<div class="bgr-row">
 		<div class="bgr-col-3"><label for="bgrReviewLabel"><?php esc_html_e( 'Review', 'bp-group-reviews' ); ?></label></div>
@@ -135,207 +118,33 @@ function bgr_display_setting() {
 		<p class="bgr-admin-des"><?php esc_html_e( 'This option provide flexibility to change review label. By default it shows "Review".', 'bp-group-reviews' ); ?></p>
 	</div>
 	</div>
-<div class="bgr-row">
-	<div class="bgr-col-3"><label for="bgrManageReviewLabel"><?php esc_html_e( 'Reviews ( Plural )', 'bp-group-reviews' ); ?></label></div>
-	<div class="bgr-col-9">
-	<input name = "bgrManageReviewLabel" id="bgrManageReviewLabel" type="text" value = "<?php echo $bgrManageReviewLabel; ?>" />
-	<p class="bgr-admin-des"><?php esc_html_e( 'This option provides flexibility to change plural of Review.', 'bp-group-reviews' ); ?></p>
-</div>
-</div>
-<div class="bgr-col-12"><h3><?php esc_html_e( 'Colors', 'bp-group-reviews' ); ?></h3></div>
-<div class="bgr-row">
-	<div class="bgr-col-3"><label for="bgr-rating-color"><?php esc_html_e( 'Rating Color', 'bp-group-reviews' ); ?></label></div>
-	<div class="bgr-col-9">
-		<input id="bgr-rating-color" class="bgr-review-color" type="text" data-default-color="#effeff" value="<?php echo $bgr_rating_color; ?>" />
-		<p class="bgr-admin-des"><?php esc_html_e( 'This option lets you to change star rating color.', 'bp-group-reviews' ); ?></p>
+	<div class="bgr-row">
+		<div class="bgr-col-3"><label for="bgrManageReviewLabel"><?php esc_html_e( 'Reviews ( Plural )', 'bp-group-reviews' ); ?></label></div>
+		<div class="bgr-col-9">
+		<input name = "bgrManageReviewLabel" id="bgrManageReviewLabel" type="text" value = "<?php echo $bgrManageReviewLabel; ?>" />
+		<p class="bgr-admin-des"><?php esc_html_e( 'This option provides flexibility to change plural of Review.', 'bp-group-reviews' ); ?></p>
 	</div>
-</div>
-
-<div class="bgr-col-12">
-	<div class="bgr-col-6">
-		<input type="button" class="button button-primary" id="bgr-save-admin-display-settings" value="<?php esc_html_e( 'Save Settings', 'bp-group-reviews' ); ?>">
-		<img src="<?php echo $spinner_src; ?>" class="bgr-admin-display-settings-spinner" />
 	</div>
-</div>
+	<div class="bgr-col-12"><h3><?php esc_html_e( 'Colors', 'bp-group-reviews' ); ?></h3></div>
+	<div class="bgr-row">
+		<div class="bgr-col-3"><label for="bgr-rating-color"><?php esc_html_e( 'Rating Color', 'bp-group-reviews' ); ?></label></div>
+		<div class="bgr-col-9">
+			<input id="bgr-rating-color" class="bgr-review-color" type="text" data-default-color="#effeff" value="<?php echo $bgr_rating_color; ?>" />
+			<p class="bgr-admin-des"><?php esc_html_e( 'This option lets you to change star rating color.', 'bp-group-reviews' ); ?></p>
+		</div>
+	</div>
+	<input type="button" class="button button-primary" id="bgr-save-admin-display-settings" value="<?php esc_html_e( 'Save Settings', 'bp-group-reviews' ); ?>">
+	<img src="<?php echo $spinner_src; ?>" class="bgr-admin-display-settings-spinner" />
 <?php
 }
 
-	/*
-	 Actions performed on Group Reviews Settings : Support Tab Content
+
+/**
+ * Actions performed on Group Reviews Settings : General Tab Content
+ *
  * @since    1.0.0
  * @author   Wbcom Designs
  */
-
-function bgr_support_setting() {
-?>
- <div class="bgr-col-12"><h2><?php esc_html_e( 'FAQ(s)', 'bp-group-reviews' ); ?></h2></div>
- <div id="bgr-settings-tbl">
-	<div class="bgr-admin-row">
-		<div>
-		   <button class="bgr-accordion">
-			<?php esc_html_e( 'How can we submit a review to a group using this plugin?', 'bp-group-reviews' ); ?>
-		</button>
-		<div class="panel">
-			<p>
-				<?php esc_html_e( 'When visiting the "/groups" section in the site, go for single group view page, there you can see a menu namely, "Reviews" that will allow you if you are a site member to add group review.', 'bp-group-reviews' ); ?>
-			</p>
-		</div>
-	</div>
-</div>
-
-<div class="bgr-admin-row">
-	<div>
-	   <button class="bgr-accordion">
-		<?php esc_html_e( 'How to allow users to give multiple reviews on the same group?', 'bp-group-reviews' ); ?>
-	</button>
-	<div class="panel">
-		<p>
-			<?php esc_html_e( 'A new functionality "Multiple Review" is added to this version of the plugin. In general settings, you can enable or disable it.', 'bp-group-reviews' ); ?>
-		</p>
-	</div>
-</div>
-</div>
-
-<div class="bgr-admin-row">
-	<div>
-	   <button class="bgr-accordion">
-		<?php esc_html_e( 'If I don\'t want to provide review functionality to any group, then what will I do?', 'bp-group-reviews' ); ?>
-	</button>
-	<div class="panel">
-		<p>
-			<?php esc_html_e( 'If you don\'t want to provide review functionality to any group, you can exclude that group for this functionality. For exclude, the plugin has option to exclude groups in the General tab. Here, you exclude one or more groups from reviews.', 'bp-group-reviews' ); ?>
-		</p>
-	</div>
-</div>
-</div>
-
-<div class="bgr-admin-row">
-	<div>
-	<button class="bgr-accordion">
-		<?php esc_html_e( 'How to hide some rating criteria from Review form?', 'bp-group-reviews' ); ?>
-	</button>
-	<div class="panel">
-		<p>
-			<?php esc_html_e( 'You can hide criteria by disable criteria in \'Criteria\' tab.', 'bp-group-reviews' ); ?>
-		</p>
-	</div>
-</div>
-</div>
-
-<div class="bgr-admin-row">
-	<div>
-	<button class="bgr-accordion">
-		<?php esc_html_e( 'How change label of \'Reviews\' tab or label of \'Reviews\' sub-tab under \'Manage\' tab?', 'bp-group-reviews' ); ?>
-	</button>
-	<div class="panel">
-		<p>
-			<?php esc_html_e( 'This plugin provides settings to change labels, you can see settings in plugin\'s settings \'Display\' tab.', 'bp-group-reviews' ); ?>
-		</p>
-	</div>
-</div>
-</div>
-
-<div class="bgr-admin-row">
-	<div>
-	<button class="bgr-accordion">
-		<?php esc_html_e( 'Why \'Add Review\' option is not displaying in a group created by me?', 'bp-group-reviews' ); ?>
-	</button>
-	<div class="panel">
-		<p>
-			<?php esc_html_e( 'This option is not displaying because group admin can\'t review own group, you can add the review to only that groups in which you are not the admin.', 'bp-group-reviews' ); ?>
-		</p>
-	</div>
-</div>
-</div>
-
-<div class="bgr-admin-row">
-	<div>
-	<button class="bgr-accordion">
-		<?php esc_html_e( 'How to display groups average reviews according to reviews or ratings in sidebar or footer?', 'bp-group-reviews' ); ?>
-	</button>
-	<div class="panel">
-		<p>
-			<?php esc_html_e( 'This plugin provides a widget to show average ratings or reviews of BuddyPress Groups, you can use it for display average rating & reviews.', 'bp-group-reviews' ); ?>
-		</p>
-	</div>
-</div>
-</div>
-
-<div class="bgr-admin-row">
-	<div>
-	<button class="bgr-accordion">
-		<?php esc_html_e( 'Can I use the review form on any other page?', 'bp-group-reviews' ); ?>
-	</button>
-	<div class="panel">
-		<p>
-			<?php esc_html_e( 'Yes, you can use the review form on other page, just copy shortcode from review setting page and paste it on the other page.', 'bp-group-reviews' ); ?>
-		</p>
-	</div>
-</div>
-</div>
-<div class="bgr-admin-row">
-	<div>
-	<button class="bgr-accordion">
-		<?php esc_html_e( 'How to show only star rating in Group header?', 'bp-group-reviews' ); ?>
-	</button>
-	<div class="panel">
-		<p>
-			<?php esc_html_e( "If you want to remove additional rating details in group header, you can use 'bgr_filter_group_header_rating_details' filter.", 'bp-group-reviews' ); ?>
-<pre>
-	// You can remove details for specific group id
-	add_filter('bgr_filter_group_header_rating_details', 'remove_rating_addittional_details', 15, 5);
-	function remove_rating_addittional_details(  $content, $avg_rating, $review_label, $total_review_count, $group_id ) {
-		if( $group_id !== 1 ) {
-			return $content;
-		}
-		return false;
-	}
-
-	// Remove details from all groups
-	add_filter('bgr_filter_group_header_rating_details', '__return_false');
-</pre>
-		</p>
-	</div>
-</div>
-</div>
-<div class="bgr-admin-row">
-	<div>
-	<button class="bgr-accordion">
-		<?php esc_html_e( 'What to do if I unable/fail to publish shortcode page after update to WordPress 5.0?', 'bp-group-reviews' ); ?>
-	</button>
-	<div class="panel">
-		<p>
-			<?php
-			esc_html_e( 'Install the Classic Editor plugin. Then, in the right sidebar, you’ll see a link for “use classic editor.”', 'bp-group-reviews' );
-			?>
-		</p>
-	</div>
-</div>
-</div>
-<div class="bgr-admin-row">
-	<div>
-	<button class="bgr-accordion">
-		<?php esc_html_e( 'Where do I ask for support?', 'bp-group-reviews' ); ?>
-	</button>
-	<div class="panel">
-		<p>
-			<?php
-			echo sprintf( __( 'Please visit %1$s for any query related to plugin and BuddyPress.', 'bp-group-reviews' ), '<a href="http://wbcomdesigns.com/contact" rel="nofollow" target="_blank"> Wbcom Designs </a>' );
-			?>
-		</p>
-	</div>
-</div>
-</div>
-</div>
-<?php
-}
-
-		/**
-		 * Actions performed on Group Reviews Settings : General Tab Content
-		 *
-		 * @since    1.0.0
-		 * @author   Wbcom Designs
-		 */
 function bgr_general_setting() {
 	global $bp, $bgr;
 
@@ -353,7 +162,6 @@ function bgr_general_setting() {
 	);
 	$allgroups            = groups_get_groups( $group_args );
 ?>
-<div class="bgr-col-12"><h2><?php esc_html_e( 'General Settings', 'bp-group-reviews' ); ?></h2></div>
 
 	<div class="bgr-row">
 	<div class="bgr-col-3">
@@ -436,7 +244,7 @@ function bgr_general_setting() {
 	</div>
 </div>
 <div class="bgr-row">
-	<div class="bgr-col-3"><label><?php esc_html_e( 'Exclude Groups from reviews.', 'bp-group-reviews' ); ?></label></div>
+	<div class="bgr-col-3"><label><?php esc_html_e( 'Exclude Groups from reviews', 'bp-group-reviews' ); ?></label></div>
 	<div class="bgr-col-9">
 	<select id="bgr-exclude-group-review" name="bgr-exclude-group[]" multiple >
 		<?php
@@ -462,11 +270,7 @@ function bgr_general_setting() {
 			<p class="bgr-admin-des"><?php esc_html_e( "This option lets you to choose those groups that you don't want to provide review functionality.", 'bp-group-reviews' ); ?></p>
 		</div>
 	</div>
-	<div class="bgr-col-12">
-		<div class="bgr-col-6">
-			<input type="button" class="button button-primary" id="bgr-save-admin-general-settings" value="<?php esc_html_e( 'Save Settings', 'bp-group-reviews' ); ?>">
-			<img src="<?php echo $spinner_src; ?>" class="bgr-admin-general-settings-spinner" />
-		</div>
-	</div>
+	<input type="button" class="button button-primary" id="bgr-save-admin-general-settings" value="<?php esc_html_e( 'Save Settings', 'bp-group-reviews' ); ?>">
+	<img src="<?php echo $spinner_src; ?>" class="bgr-admin-general-settings-spinner" />
 	<?php
 }
