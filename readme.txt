@@ -1,10 +1,10 @@
 === BuddyPress Group Reviews ===
-Contributors: wbcomdesigns , vapvarun
+Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
-Tested up to: 5.0.2
-Stable tag: 2.0.0
+Tested up to: 5.2
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,6 +75,9 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 4. Plugin settings.(png|jpg|jpeg|gif).
 
 == Changelog ==
+
+= 2.0.1 =
+* Fix - Compatibility with BuddyPress 4.3.0. #25
 
 = 2.0.0 =
 * Fix - Compatibility with BuddyPress 4.1.0. #20
