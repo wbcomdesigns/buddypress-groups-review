@@ -294,3 +294,10 @@ button.bgr-accordion.active::after {
 		width: 100%!important;
 	}
 }
+
+.selectize-dropdown-content{
+	max-height: 85px;
+}
+.selectize-control{
+	position: inherit;
+}
