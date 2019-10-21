@@ -3,7 +3,10 @@ jQuery( document ).ready(
 	function(){
 		// Save Criteria Settings
 		jQuery( '#bgr-settings-updated' ).hide();
-		jQuery( '#bgr-exclude-group-review' ).selectize();
+		jQuery( '#bgr-exclude-group-review' ).selectize({
+			placeholder		: "Select groups",
+			plugins			: ['remove_button']
+		});
 
 		jQuery( document ).on(
 			'click', '#bgr-save-admin-criteria-settings', function(){
