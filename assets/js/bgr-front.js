@@ -221,6 +221,24 @@ jQuery( document ).ready(
 				}
 			);
 		});
+
+		// Reviews tab filter.
+		jQuery( document ).on(
+			'click', '#bp-group-reviews-filter-by > option', function(event){
+			event.preventDefault();
+			var jQ = jQuery( this );
+			var filter = jQ.val();
+			jQuery.post(
+				ajaxurl,
+				{
+					'action' : 'bgr_reviews_filter',
+					'filter' : filter,
+				},
+				function(response) {
+					jQuery( '#request-review-list' ).html( response );
+				}
+			);
+		});	
 	}
 );
 

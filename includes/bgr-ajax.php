@@ -39,6 +39,159 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			// Filter widget ratings.
 			add_action( 'wp_ajax_bgr_filter_ratings', array( $this, 'bgr_filter_ratings' ) );
 			add_action( 'wp_ajax_nopriv_bgr_filter_ratings', array( $this, 'bgr_filter_ratings' ) );
+
+			// Filter Reviews listings.
+			add_action( 'wp_ajax_bgr_reviews_filter', array( $this, 'bgr_reviews_filter' ) );
+			add_action( 'wp_ajax_nopriv_bgr_reviews_filter', array( $this, 'bgr_reviews_filter' ) );
+		}
+
+		/**
+		 * Actions performed to filter member reviews.
+		 *
+		 * @since    1.0.0
+		 * @access   public
+		 * @author   Wbcom Designs
+		 */
+		public function bgr_reviews_filter() {
+			if ( filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING ) && filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING ) === 'bgr_reviews_filter' ) {
+				global $bp, $post;
+				global $bgr;
+				$filter               = sanitize_text_field( filter_input( INPUT_POST, 'filter' ) );
+				$limit                = $bgr['reviews_per_page'];
+				$review_rating_fields = $bgr['review_rating_fields'];
+				$custom_args         = array(
+					'post_type'      => 'review',
+					'posts_per_page' => -1,
+					'post_status'    => 'publish',
+					'category'       => 'review_category',
+					'meta_key'       => 'linked_group',
+					'meta_value'     => bp_get_current_group_id()
+				);
+				$reviews_arr         = get_posts( $custom_args );
+				$html                = '';
+				
+				$single_review_count = 0;
+				$final_review_obj    = array();
+				if ( ! empty( $reviews_arr ) ) {
+					$single_rev_avg = array();
+					foreach ( $reviews_arr as $review ) {
+						$linked_group   = get_post_meta( $review->ID, 'linked_group', false );
+						$review_ratings = get_post_meta( $review->ID, 'review_star_rating', false );
+						if ( ! empty( $review_ratings ) && ! empty( $review_rating_fields ) ) {
+							$rev_rating_array    = $review_ratings[0];
+							$total_review        = 0;
+							$single_review_count = 0;
+							foreach ( $review_rating_fields as $rating_field ) {
+								if ( array_key_exists( $rating_field, $rev_rating_array ) ) {
+									$total_review += $rev_rating_array[ $rating_field ];
+									$single_review_count++;
+								}
+							}
+							if ( ! empty( $single_review_count ) ) {
+								$rev_avg                         = $total_review / $single_review_count;
+								$single_rev_avg[ $review->ID ]   = $rev_avg;
+								$final_review_obj[ $review->ID ] = $review;
+							}
+						}
+					}
+				}
+				if ( ! empty( $single_rev_avg ) ) {
+					if ( 'highest' === $filter ) {
+						arsort( $single_rev_avg );
+					} else if ( 'lowest' === $filter ) {
+						asort( $single_rev_avg );
+					} else {
+						$single_rev_avg = $single_rev_avg;
+					}
+				}
+
+				$args                 = array(
+					'post_type'      => 'review',
+					'post_status'    => 'publish',
+					'category'       => 'group',
+					'posts_per_page' => $limit,
+					'paged'          => get_query_var( 'page', 1 ),
+					'post__in'       => array_keys( $single_rev_avg ),
+					'orderby'        => 'post__in',
+					'meta_query'     => array(
+						array(
+							'key'     => 'linked_group',
+							'value'   => bp_get_current_group_id(),
+							'compare' => '=',
+						),
+					),
+				);
+				$reviews              = new WP_Query( $args );
+
+				if ( $reviews->have_posts() ) {
+					while ( $reviews->have_posts() ) :
+						$reviews->the_post();
+						$html .= '<div class="bgr-row item-list group-request-list"><div class="bgr-col-2">';
+						$author = $reviews->post->post_author;
+						$html .= bp_get_displayed_user_avatar( array( 'item_id' => $author ) );
+						$html .= '</div><div class="bgr-col-8"><div class="reviewer"><b>'.  bp_core_get_userlink( $author ) .'</b></div>';
+
+						$html .= '<div class="item-description"><div class="review-description">';
+						$trimcontent = get_the_content();
+						$url         = bp_get_group_permalink() . 'reviews/view/' . get_the_id();
+						if ( ! empty( $trimcontent ) ) {
+							$len = strlen( $trimcontent );
+							if ( $len > 150 ) {
+								$shortexcerpt = substr( $trimcontent, 0, 150 );
+								$html .= $shortexcerpt;
+								$html .= '<a href="'. $url .'"><i><b>'. esc_html__( 'read more...', 'bp-group-reviews' ) .'</b></i></a>';
+							} else {
+								$html .= $trimcontent;
+							}
+						}
+						$html .= '<div class="review-ratings">';
+						ob_start();
+						do_action( 'bgr_display_ratings', $post->ID );
+						$html .= ob_get_clean();
+						$html .= '</div></div></div></div>';
+						$html .= '<div class="bgr-col-2">';
+						if ( groups_is_user_admin( $member_id, bp_get_group_id() ) ) :
+							$html .= '<div class="remove-review generic-button">';
+							$html .= '<a class="remove-review-button">' .  __( 'Delete', 'bp-group-reviews' ) .'</a><input type="hidden" name="remove_review_id" value="'. esc_attr( $post->ID ) .'"></div>';
+						endif;
+						$html .= '</div><div class="clear"></div></div>';
+				endwhile;
+				$total_pages = $reviews->max_num_pages;
+				if ( $total_pages > 1 ) {
+					$html .= '<div class="review-pagination">';
+					$current_page = max( 1, get_query_var( 'paged' ) );
+					$html .= paginate_links(
+								array(
+									'base'      => get_pagenum_link( 1 ) . '%_%',
+									'format'    => 'page/%#%',
+									'current'   => $current_page,
+									'total'     => $total_pages,
+									'prev_text' => esc_html__( 'prev', 'bp-group-reviews' ),
+									'next_text' => esc_html__( 'next', 'bp-group-reviews' ),
+								)
+							);
+					$html .= '</div>';
+				}
+				wp_reset_postdata();
+
+			} else {
+
+				$bp_template_option = bp_get_option('_bp_theme_package_id');
+				if( 'nouveau' == $bp_template_option ) {
+				$html .= '<div id="message" class="info bp-feedback bp-messages bp-template-notice">
+					<span class="bp-icon" aria-hidden="true"></span>';
+				} else {
+				$html .= '<div id="message" class="info">';
+				} 
+				$html .= '<p>' . sprintf( esc_html__( 'Sorry, no %1$s were found.', 'bp-group-reviews' ), $review_label ) . '</p>';
+				$html .= '</div>';
+				}
+				$html .= '</div>';
+
+				echo stripslashes( $html );
+				die;
+
+			}
 		}
 
 		/**
