@@ -36,6 +36,129 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			/* add action for approving reviews */
 			add_action( 'wp_ajax_bgr_admin_approve_review', array( $this, 'bgr_admin_approve_review' ) );
 			add_action( 'wp_ajax_nopriv_bgr_admin_approve_review', array( $this, 'bgr_admin_approve_review' ) );
+			// Filter widget ratings.
+			add_action( 'wp_ajax_bgr_filter_ratings', array( $this, 'bgr_filter_ratings' ) );
+			add_action( 'wp_ajax_nopriv_bgr_filter_ratings', array( $this, 'bgr_filter_ratings' ) );
+		}
+
+		/**
+		 * Actions performed to filter member ratings.
+		 *
+		 * @access   public
+		 * @author   Wbcom Designs
+		 */
+		public function bgr_filter_ratings() {
+			if ( filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING ) && filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING ) === 'bgr_filter_ratings' ) {
+				global $bp, $post;
+				global $bgr;
+				$filter = sanitize_text_field( filter_input( INPUT_POST, 'filter' ) );
+				$limit  = sanitize_text_field( filter_input( INPUT_POST, 'limit' ) );
+				$html   = '';
+				$review_rating_fields = $bgr['review_rating_fields'];
+				
+				$custom_args         = array(
+					'post_type'      => 'review',
+					'posts_per_page' => -1,
+					'post_status'    => 'publish',
+					'category'       => 'review_category',
+					'meta_key'       => 'linked_group',
+					'meta_value'     => bp_get_current_group_id()
+				);
+				$reviews             = get_posts( $custom_args );
+
+				$final_review_obj    = array();
+				$single_rev_avg      = array();
+				if ( ! empty( $reviews ) ) {
+					foreach ( $reviews as $review ) {
+						$review_ratings = get_post_meta( $review->ID, 'review_star_rating', false );
+						if ( ! empty( $review_ratings ) && ! empty( $review_rating_fields ) ) {
+							$rev_rating_array    = $review_ratings[0];
+							$total_review        = 0;
+							$single_review_count = 0;
+							foreach ( $review_rating_fields as $rating_field ) {
+								if ( array_key_exists( $rating_field, $rev_rating_array ) ) {
+									$total_review += $rev_rating_array[ $rating_field ];
+									$single_review_count++;
+								}
+							}
+							if ( ! empty( $single_review_count ) ) {
+								$rev_avg                         = $total_review / $single_review_count;
+								$single_rev_avg[ $review->ID ]   = $rev_avg;
+								$final_review_obj[ $review->ID ] = $review;
+							}
+						}
+					}
+				}
+				$bgr_user_count = 0;
+				if ( ! empty( $single_rev_avg ) ) {
+					if ( 'highest' == $filter ) {
+						arsort( $single_rev_avg );
+					} elseif ( 'lowest' == $filter ) {
+						asort( $single_rev_avg );
+					} else {
+						$single_rev_avg = $single_rev_avg;
+					}
+					foreach ( $single_rev_avg as $bgrKey => $bgrValue ) {
+						if ( $bgr_user_count == $limit ) {
+							break;
+						} else {				
+							$html .= '<li class="vcard"><div class="item-avatar">';
+							$html .= get_avatar( $final_review_obj[$bgrKey]->ID, 65 );
+							$html .= '</div>';
+							$html .= '<div class="item">';
+							
+							$members_profile = bp_core_get_userlink( $final_review_obj[$bgrKey]->post_author );
+							$html .= '<div class="item-title fn">';
+							$html .= $members_profile;
+							$html .= '</div>';
+
+							$bgr_avg_rating     = $bgrValue;
+							$stars_on           = $stars_off = $stars_half = '';
+							$remaining          = $bgr_avg_rating - (int) $bgr_avg_rating;
+							if ( $remaining > 0 ) {
+								$stars_on        = intval( $bgr_avg_rating );
+								$stars_half      = 1;
+								$bgr_half_squar  = 1;
+								$stars_off       = 5 - ( $stars_on + $stars_half );
+							} else {
+								$stars_on   = $bgr_avg_rating;
+								$stars_off  = 5 - $bgr_avg_rating;
+								$stars_half = 0;
+							}
+							$html .= '<div class="item-meta">';
+							for ( $i = 1; $i <= $stars_on; $i++ ) {
+								$html .='<span class="fas fa-star stars bgr-star-rate"></span>';
+							}
+
+							for ( $i = 1; $i <= $stars_half; $i++ ) {
+								$html .='<span class="fas fa-star-half-alt stars bgr-star-rate"></span>';
+							}
+
+							for ( $i = 1; $i <= $stars_off; $i++ ) {
+								$html .= '<span class="far fa-star stars bgr-star-rate"></span>';
+							}
+
+							$html .= '</div>';
+
+							$bgr_avg_rating = round( $bgr_avg_rating, 2 );
+							$html .= '<span class="bgr-meta">';
+							$html .= sprintf( esc_html__( 'Rating : ( %1$s )', 'bp-group-reviews' ), esc_html( $bgr_avg_rating ) );
+							$html .= '</span>';
+							$html .= '</div></li>';
+							
+						}
+
+						$bgr_user_count++;
+					}
+				} else {
+					$html .= '<p>' . esc_html__( 'No Rating has been given by any member yet!.', 'bp-group-reviews' ) . '</p>';
+				}
+				$result = array(
+					'html'    => $html,
+				);
+				echo json_encode( $result );
+			}
+			die;
 		}
 
 		/**

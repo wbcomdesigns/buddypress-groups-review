@@ -153,6 +153,7 @@ function run_bp_group_reviews_plugin() {
 		'includes/bgr-ajax.php',
 		'includes/bgr-shortcodes.php',
 		'includes/widgets/bgr-review.php',
+		'includes/widgets/group-rating.php',
 	);
 	foreach ( $include_files as $include_file ) {
 		include $include_file;

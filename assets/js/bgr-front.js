@@ -197,6 +197,30 @@ jQuery( document ).ready(
 				}
 			}
 		);
+
+		// Ratings Widget filter.
+		jQuery( document ).on(
+			'click', '#bp-group-rating-list-options > a', function(event){
+			event.preventDefault();
+			var jQ = jQuery( this );
+			jQ.siblings('a').removeClass('selected');
+			var filter = jQ.attr('attr-val');
+			var limit  = jQ.parent().siblings('.group-rating-limit').val();
+			console.log(limit);
+			jQuery.post(
+				ajaxurl,
+				{
+					'action' : 'bgr_filter_ratings',
+					'filter' : filter,
+					'limit'  : limit,
+				},
+				function(response) {
+					var obj = JSON.parse( response );
+					jQ.addClass('selected');
+					jQ.parent().siblings( '#bp-group-rating' ).html( obj.html );
+				}
+			);
+		});
 	}
 );
 

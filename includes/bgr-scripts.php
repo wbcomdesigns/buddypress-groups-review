@@ -29,7 +29,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 			wp_enqueue_style( 'bgr-font-awesome', 'https://use.fontawesome.com/releases/v5.4.2/css/all.css' );
 			wp_enqueue_style( 'bgr-reviews-css', BGR_PLUGIN_URL . 'assets/css/bgr-reviews.css' );
 			wp_enqueue_style( 'bgr-front-css', BGR_PLUGIN_URL . 'assets/css/bgr-front.css' );
-			wp_enqueue_script( 'bgr-front-js', BGR_PLUGIN_URL . 'assets/js/bgr-front.js', array( 'jquery' ) );
+			wp_enqueue_script( 'bgr-front-js', BGR_PLUGIN_URL . 'assets/js/bgr-front.js', array( 'jquery' ), time() );
 			wp_localize_script(
 				'bgr-front-js',
 				'bgr_front_js_object',

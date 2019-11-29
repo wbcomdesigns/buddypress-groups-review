@@ -51,7 +51,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					if ( ! in_array( bp_get_current_group_id(), $exclude_groups ) ) {
 						$args = array(
 							'slug'              => 'add-review',
-							'nav_item_position' => 99,
+							'nav_item_position' => 200,
 							'nav_item_name'     => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
 							'enable_nav_item'   => $add_review_nav,
 							'screens'           => array(
@@ -69,7 +69,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				} else {
 					$args = array(
 						'slug'              => 'add-review',
-						'nav_item_position' => 99,
+						'nav_item_position' => 200,
 						'nav_item_name'     => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
 						'enable_nav_item'   => $add_review_nav,
 						'screens'           => array(
@@ -87,7 +87,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			} else {
 				$args = array(
 					'slug'              => 'add-review',
-					'nav_item_position' => 99,
+					'nav_item_position' => 200,
 					'nav_item_name'     => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
 					'enable_nav_item'   => $add_review_nav,
 					'screens'           => array(
