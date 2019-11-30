@@ -212,7 +212,7 @@ class bgr_review_widget extends WP_Widget {
 		$post_num_counter = 0;
 		if ( ! empty( $group_args ) ) {
 			$gids = array_keys( $group_args );
-
+			echo '<ul class="bupr-group-main">';
 			foreach ( $gids as $gid ) {
 				if ( $post_num_counter < $widget_post_num ) :
 					$group          = groups_get_group( array( 'group_id' => $gid ) );
@@ -223,23 +223,27 @@ class bgr_review_widget extends WP_Widget {
 						'type'       => 'full',
 						'avatar_dir' => 'group-avatars',
 						'alt'        => 'Group avatar',
-						'class'      => 'sidebar_review_avatar',
+						'class'      => 'sidebar_review_avatar avatar',
 					);
 					if ( $group->id !== 0 ) {
 
 						?>
-						<div class="bgr-row">
+
+						
+
+							<li class="bupr-group">
 							<?php if ( 'show' == $widget_thumbnail ) { ?>
-								<div class="bgr-col-3">
+								<div class="bupr-img-widget">
 									<a href="<?php echo $group_url; ?>"><?php echo bp_core_fetch_avatar( $avatar_options ); ?></a>
 								</div>
-								<div class="bgr-col-7">
+								<div class="bupr-content-widget">
+									
 									<?php } else { ?>
-									<div class="bgr-col-12">
+									
+									
 										<?php } ?>
-									<div class="item-title"><a href="<?php echo $group_url; ?>"><?php echo $group->name; ?></a></div>
-									<div class="group-review">
-										<div class="bgr-col-12">
+										<div class="bupr-group-title"><a href="<?php echo $group_url; ?>"><?php echo $group->name; ?></a></div>
+										<div class="bupr-group-rating">										
 											<?php
 											if ( ! empty( $review_groups ) ) {
 												if ( array_key_exists( $gid, $review_groups ) ) {
@@ -257,29 +261,31 @@ class bgr_review_widget extends WP_Widget {
 														<?php
 												}
 											}
-													?>
-													</div>
-												</div>
-												<div>
-													<?php
-													esc_html_e( 'Total', 'bp-group-reviews' );
-													echo ' '. $review_label . ' : ' . $review_groups_count[ $gid ];
-													?>
-												</div>
-											</div>
+											?>
 										</div>
-										<?php
-					} endif;
+										<div class="bupr-meta">
+											<?php
+											esc_html_e( 'Total', 'bp-group-reviews' );
+											echo ' '. $review_label . ' : ' . $review_groups_count[ $gid ];
+											?>
+										</div>
+									<?php } ?>	
+								</div>
+							</li>						
+					<?php
+										
+					 endif;
 				$post_num_counter++; }
+				echo '</ul>';
 		} else {
 			if ( 'toprated' == $widget_listing_cat ) {
 									?>
 										<div id="message" class="info"><?php			
-										esc_html_e( 'No Rating has been given to any group yet!', 'bp-group-reviews' ); ?></div>
-										<?php } else { ?>
+											esc_html_e( 'No Rating has been given to any group yet!', 'bp-group-reviews' ); ?></div>
+											<?php } else { ?>
 										<div id="message" class="info"><?php 
-										echo sprintf( esc_html__( 'No %1$s has been given to any group yet!', 'bp-group-reviews' ), $review_label );
-										?></div>
+											echo sprintf( esc_html__( 'No %1$s has been given to any group yet!', 'bp-group-reviews' ), $review_label );
+											?></div>
 										<?php
 			}
 		}

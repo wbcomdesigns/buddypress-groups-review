@@ -8,7 +8,7 @@ class bgr_single_group_rating_widget extends WP_Widget {
 	 */
 	function __construct() {
 		$widget_ops  = array(
-			'classname'   => 'widget_bp_group_review_tab',
+			'classname'   => 'widget_bp_group_review_tab buddypress',
 			'description' => esc_html__( 'Display displayed group ratings.', 'bp-group-reviews' ),
 		);
 		$control_ops = array(

@@ -135,11 +135,9 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				<input type="hidden" id="reviews_pluginurl"  name="reviews_pluginurl" value="<?php echo BGR_PLUGIN_URL; ?>">
 				<div class="group-add-form">
 					<p>
-						<b>
 						<?php
 						echo sprintf( __( 'Write a %1$s', 'bp-group-reviews' ), $review_label );
 						?>
-						</b>
 					</p>
 
 					<?php if ( $current_group_id === 0 ) { ?>
@@ -171,15 +169,15 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 						<?php } else { ?>
 							<input type="hidden" name="form-group-id" value="<?php echo $current_group_id; ?>" />
 						<?php } ?>
-						<p>
+						<p class="bupr-hide-subject">
 							<?php $review_subject = 'Review ' . time(); ?>
 							<input name="review-subject" type="hidden" value="<?php echo $review_subject; ?>">
 						</p>
-						<p>
-							<textarea name="review-desc" placeholder="<?php echo sprintf( __( '%1$s Description', 'bp-group-reviews' ), $review_label ); ?>" rows="3" cols="50"></textarea>
+					
+							<textarea class="review_desc" name="review-desc" placeholder="<?php echo sprintf( __( '%1$s Description', 'bp-group-reviews' ), $review_label ); ?>" rows="3" cols="50"></textarea>
 							<br/>
 							<span class="bgr-error-fields">*<?php esc_html_e( 'This field is required.', 'bp-group-reviews' ); ?></span>
-						</p>
+						
 						<p>
 							<input type="hidden" name="bgr-flag" value="1">
 						</p>
@@ -214,9 +212,9 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				foreach ( $review_rating_fields as $review_rating_field ) :
 					if ( in_array( $review_rating_field, $active_rating_fields ) ) {
 						?>
-							<div class="bgr-row">
-								<div class="bgr-col-6"><label><?php echo esc_html( $review_rating_field ); ?></label></div>
-								<div id="review<?php echo $field_counter; ?>" class="bgr-col-6">
+							<div class="multi-review">
+								<div class="bgr-col-4"><?php echo esc_html( $review_rating_field ); ?></div>
+								<div id="review<?php echo $field_counter; ?>" class="bgr-col-4">
 										<input type="hidden" id="<?php echo 'clicked' . $field_counter; ?>" value="not_clicked">
 										<input type="hidden" name="rated_stars[]" class="rated_stars bgr_mrating" id="<?php echo 'rated_stars' . $field_counter; ?>" value="0">
 										<?php for ( $i = 1; $i <= 5; $i++ ) { ?>

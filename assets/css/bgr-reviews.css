@@ -123,3 +123,110 @@
 .bgr-group-review-add-block {
 	overflow: hidden;
 }
+
+.widget-area .widget.buddypress div.item-options#bp-group-rating-list-options a {
+    margin: 0;
+}
+
+.bp-nouveau .widget-area .widget.buddypress #bp-group-rating div.item {
+    padding: 0;
+}
+ul.bupr-group-main li.bupr-group .bupr-img-widget{
+	float: left;
+}
+.widget ul#bp-group-rating .item-avatar, 
+ul.bupr-group-main li.bupr-group img.avatar {
+    width: 50px;
+    height: 50px;
+    float: left;
+}
+
+.widget ul#bp-group-rating .item, 
+ul.bupr-group-main li.bupr-group .bupr-content-widget {
+    margin-left: 70px;
+}
+
+.widget_bp_group_review_tab ul.bupr-group-main li.bupr-group, 
+.widget ul#bp-group-rating li {
+    height: auto;
+    width: 100%;
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: .5em 0;
+}
+.widget_bp_group_review_tab ul.bupr-member-main li:first-child, 
+.widget ul#bp-member-rating li:first-child {
+    padding-top: 0;
+}
+
+
+ul.bupr-group-main {
+    margin: 0;
+    list-style: none;
+    padding: 0px;
+}
+
+ul.bupr-group-main li.bupr-group .bupr-meta {
+    display: block;
+    font-size: 90%;
+    line-height: normal;
+    margin-top: 5px;
+}
+
+.group-add-form,
+.bgr-group-reviews-block{
+	background: #FFF;
+    margin-top: 15px;
+    padding: 15px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+
+.group-add-form p {
+    text-align: left;
+    margin: 10px 0;
+}
+.bgr-group-review-no-popup-add-block .review_desc{
+    width: 100%;
+    padding: 10px;
+}
+.multi-review {
+    display: inline-block;
+    width: 100%;
+    background: #f7f7f7;
+    padding: 3px 10px;
+    border-radius: 3px;
+    margin-top: 5px;
+}
+.multi-review > div {
+    padding: 0px;
+}
+
+.bgr-group-review-no-popup-add-block .bgr-submit-review {
+    width: 100%;
+    margin: 0;
+    max-width: 160px;
+    height: auto !important;
+}
+.bp-nouveau .bgr-row{
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #fff;
+    border: 0;
+    box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
+}
+.bgr-group-profiles{
+    text-align: center;
+    width: 80px;
+    float: left;
+}
+.bgr-group-profiles img.avatar {
+    max-width: 50px;
+    max-height: 50px;
+    height: auto;
+    width: 100%;
+}
+.bgr-group-content{
+    margin-left: 100px;
+}

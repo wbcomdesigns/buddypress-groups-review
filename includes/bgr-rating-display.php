@@ -48,7 +48,7 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 				foreach ( $review_rating_fields as $review_field ) {
 					if ( array_key_exists( $review_field, $review_ratings[0] ) ) {
 						?>
-						<div class="bgr-col-12">
+						<div class="multi-review">
 							<div class="bgr-col-6">
 								<?php echo $review_field . ' : '; ?>
 							</div>
@@ -100,7 +100,7 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 			$this->bgr_average_star_rating( $stars_on, $stars_half, $stars_off );
 
 			$group_avg_rating = round( $group_avg_rating, 2 );
-			echo '</div><div>';
+			echo '</div><div class="bupr-meta">';
 			esc_html_e( 'Rating', 'bp-group-reviews' );
 			echo ' : (' . $group_avg_rating . ')';
 		}

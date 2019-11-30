@@ -42,45 +42,46 @@ $reviews              = new WP_Query( $args );
 						$reviews->the_post();
 					?>
 							<div class="bgr-row item-list group-request-list">
-								<div class="bgr-col-2">
+								<div class="bgr-group-profiles">
 									<?php
 									$author = $reviews->post->post_author;
 									bp_displayed_user_avatar( array( 'item_id' => $author ) );
 									?>
 								</div>
-								<div class="bgr-col-8">
+								<div class="bgr-group-content">
 									<div class="reviewer">
-								<b><?php echo bp_core_get_userlink( $author ); ?></b>
+										<b><?php echo bp_core_get_userlink( $author ); ?></b>
 									</div>
 
 									<div class="item-description">
-								<div class="review-description">
-									<?php
-										$trimcontent = get_the_content();
-										$url         = bp_get_group_permalink() . 'reviews/view/' . get_the_id();
-									if ( ! empty( $trimcontent ) ) {
-										$len = strlen( $trimcontent );
-										if ( $len > 150 ) {
-											$shortexcerpt = substr( $trimcontent, 0, 150 );
-											echo $shortexcerpt;
+										<div class="review-description">
+											<?php
+												$trimcontent = get_the_content();
+												$url         = bp_get_group_permalink() . 'reviews/view/' . get_the_id();
+												if ( ! empty( $trimcontent ) ) {
+													$len = strlen( $trimcontent );
+													if ( $len > 150 ) {
+														$shortexcerpt = substr( $trimcontent, 0, 150 );
+														echo $shortexcerpt;
+															?>
+															<a href="<?php echo $url; ?>"><i><b><?php esc_html_e( 'read more...', 'bp-group-reviews' ); ?></b></i></a>
+																<?php
+													} else {
+														echo $trimcontent;
+													}
+												}
 												?>
-														<a href="<?php echo $url; ?>"><i><b><?php esc_html_e( 'read more...', 'bp-group-reviews' ); ?></b></i></a>
-													<?php
-										} else {
-											echo $trimcontent;
-										}
-									}
-										?>
-									<div class="review-ratings">
-										<?php do_action( 'bgr_display_ratings', $post->ID ); ?>
-											</div>
+												<div class="review-ratings">
+													<?php do_action( 'bgr_display_ratings', $post->ID ); ?>
+												</div>
 										</div>
 									</div>
 								</div>
 								<div class="bgr-col-2">
 									<?php if ( groups_is_user_admin( $member_id, bp_get_group_id() ) ) : ?>
 										<div class='remove-review generic-button'>
-											<a class='remove-review-button'> <?php _e( 'Delete', 'bp-group-reviews' ); ?> </a><input type="hidden" name="remove_review_id" value="<?php echo esc_attr( $post->ID ); ?>">
+											<a class='remove-review-button'> <?php _e( 'Delete', 'bp-group-reviews' ); ?> </a>
+											<input type="hidden" name="remove_review_id" value="<?php echo esc_attr( $post->ID ); ?>">
 										</div>
 									<?php endif; ?>
 								</div>
