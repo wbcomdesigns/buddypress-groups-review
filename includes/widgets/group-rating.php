@@ -133,7 +133,7 @@ class bgr_single_group_rating_widget extends WP_Widget {
 		if ( empty( $widget_title ) ) {
 			$group                = groups_get_group( array( 'group_id' => bp_get_current_group_id() ) );
 			$group_name           = $group->name;
-			$widget_title         = sprintf( __( "%s's Ratings", 'bp-member-reviews' ), $group_name );
+			$widget_title         = sprintf( __( "%s's Ratings", 'bp-group-reviews' ), $group_name );
 		}
 
 		echo $args['before_title'] . $widget_title . $args['after_title'];

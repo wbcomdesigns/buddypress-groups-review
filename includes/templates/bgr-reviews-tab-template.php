@@ -28,9 +28,9 @@ $reviews              = new WP_Query( $args );
 <div class="bgr-group-reviews-block">
 	<div class="select-wrap">
 		<select id="bp-group-reviews-filter-by">
-			<option value="latest"><?php esc_html_e( 'Latest', 'bp-member-reviews' ); ?></option>
-			<option value="highest"><?php esc_html_e( 'Highest', 'bp-member-reviews' ); ?></option>
-			<option value="lowest"><?php esc_html_e( 'Lowest', 'bp-member-reviews' ); ?></option>
+			<option value="latest"><?php esc_html_e( 'Latest', 'bp-group-reviews' ); ?></option>
+			<option value="highest"><?php esc_html_e( 'Highest', 'bp-group-reviews' ); ?></option>
+			<option value="lowest"><?php esc_html_e( 'Lowest', 'bp-group-reviews' ); ?></option>
 		</select>
 	</div>
 	<div class="group-reviews">
