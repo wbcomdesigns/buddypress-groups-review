@@ -3,8 +3,8 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
-Tested up to: 5.2.4
-Stable tag: 2.1.0
+Tested up to: 5.3.2
+Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,6 +75,13 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 4. Plugin settings.(png|jpg|jpeg|gif).
 
 == Changelog ==
+
+= 2.2.0 =
+* Fix: Translation Fixes
+* Fix: Admin notice fixed
+* Enhancement: Added reviews tab filters.
+* Enhancement: Added group rating widget.
+* Enhancement: Group widget and add review 
 
 = 2.1.0 =
 * Fix - (#26) - Delete icon in exclude groups selectize
