@@ -1,14 +1,14 @@
-# Copyright (C) 2019
+# Copyright (C) 2020
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-07 22:11:04+00:00\n"
+"POT-Creation-Date: 2020-02-10 09:16:27+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Varun Dubey\n"
 "Language-Team: Wbcom Designs\n"
 "Language: en\n"
@@ -773,41 +773,72 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: includes/bgr-ajax.php:189 includes/bgr-shortcodes.php:94
+#: includes/bgr-ajax.php:142 includes/templates/bgr-reviews-tab-template.php:67
+msgid "read more..."
+msgstr ""
+
+#: includes/bgr-ajax.php:155 includes/templates/bgr-reviews-tab-template.php:83
+msgid "Delete"
+msgstr ""
+
+#: includes/bgr-ajax.php:169 includes/bgr-grp-extn.php:244
+#: includes/templates/bgr-reviews-tab-template.php:106
+msgid "prev"
+msgstr ""
+
+#: includes/bgr-ajax.php:170 includes/bgr-grp-extn.php:245
+#: includes/templates/bgr-reviews-tab-template.php:107
+msgid "next"
+msgstr ""
+
+#: includes/bgr-ajax.php:186
+#: includes/templates/bgr-reviews-tab-template.php:126
+msgid "Sorry, no %1$s were found."
+msgstr ""
+
+#: includes/bgr-ajax.php:298 includes/widgets/group-rating.php:207
+msgid "Rating : ( %1$s )"
+msgstr ""
+
+#: includes/bgr-ajax.php:307
+msgid "No Rating has been given by any member yet!."
+msgstr ""
+
+#: includes/bgr-ajax.php:465 includes/bgr-shortcodes.php:94
 msgid "You already posted a %1$s for this group."
 msgstr ""
 
-#: includes/bgr-ajax.php:192
+#: includes/bgr-ajax.php:468
 msgid "Thank you for taking the time to write this wonderful %1$s."
 msgstr ""
 
-#: includes/bgr-ajax.php:195
+#: includes/bgr-ajax.php:471
 msgid ""
 "Thank you for taking the time to write this wonderful %1$s. Your %1$s will "
 "display after moderator approval."
 msgstr ""
 
-#: includes/bgr-ajax.php:227 includes/bgr-notifications.php:142
+#: includes/bgr-ajax.php:503 includes/bgr-notifications.php:142
 msgid "A new %1$s posted."
 msgstr ""
 
-#: includes/bgr-ajax.php:228
+#: includes/bgr-ajax.php:504
 msgid "A new %1$s for %2$s added by %3$s. Link: %4$s"
 msgstr ""
 
-#: includes/bgr-ajax.php:275 includes/bgr-notifications.php:168
+#: includes/bgr-ajax.php:551 includes/bgr-notifications.php:168
 msgid "%1$s accepted."
 msgstr ""
 
-#: includes/bgr-ajax.php:276
+#: includes/bgr-ajax.php:552
 msgid "Your %1$s for %2$s accepted by group admin. Link: %3$s."
 msgstr ""
 
-#: includes/bgr-ajax.php:310 includes/bgr-notifications.php:196
+#: includes/bgr-ajax.php:586 includes/bgr-notifications.php:196
 msgid "%1$s denied."
 msgstr ""
 
-#: includes/bgr-ajax.php:311 includes/bgr-notifications.php:197
+#: includes/bgr-ajax.php:587 includes/bgr-notifications.php:197
 msgid "Your %1$s for %2$s denied by group admin."
 msgstr ""
 
@@ -852,16 +883,6 @@ msgstr ""
 msgid "Deny"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:244
-#: includes/templates/bgr-reviews-tab-template.php:98
-msgid "prev"
-msgstr ""
-
-#: includes/bgr-grp-extn.php:245
-#: includes/templates/bgr-reviews-tab-template.php:99
-msgid "next"
-msgstr ""
-
 #: includes/bgr-grp-extn.php:261
 msgid "Sorry, no %s were found."
 msgstr ""
@@ -886,37 +907,40 @@ msgstr ""
 msgid "You should log in for post %1$s."
 msgstr ""
 
-#: includes/bgr-shortcodes.php:140
+#: includes/bgr-shortcodes.php:139
 msgid "Write a %1$s"
 msgstr ""
 
-#: includes/bgr-shortcodes.php:148
+#: includes/bgr-shortcodes.php:146
 msgid "--Select Group--"
 msgstr ""
 
-#: includes/bgr-shortcodes.php:169 includes/bgr-shortcodes.php:181
-#: includes/bgr-shortcodes.php:226
+#: includes/bgr-shortcodes.php:167 includes/bgr-shortcodes.php:179
+#: includes/bgr-shortcodes.php:224
 msgid "This field is required."
 msgstr ""
 
-#: includes/bgr-shortcodes.php:179
+#: includes/bgr-shortcodes.php:177
 msgid "%1$s Description"
 msgstr ""
 
-#: includes/bgr-shortcodes.php:189
+#: includes/bgr-shortcodes.php:187
 msgid "Submit %1$s"
 msgstr ""
 
-#: includes/templates/bgr-reviews-tab-template.php:60
-msgid "read more..."
+#: includes/templates/bgr-reviews-tab-template.php:31
+#: includes/widgets/group-rating.php:53 includes/widgets/group-rating.php:151
+msgid "Latest"
 msgstr ""
 
-#: includes/templates/bgr-reviews-tab-template.php:76
-msgid "Delete"
+#: includes/templates/bgr-reviews-tab-template.php:32
+#: includes/widgets/group-rating.php:54 includes/widgets/group-rating.php:152
+msgid "Highest"
 msgstr ""
 
-#: includes/templates/bgr-reviews-tab-template.php:118
-msgid "Sorry, no %1$s were found."
+#: includes/templates/bgr-reviews-tab-template.php:33
+#: includes/widgets/group-rating.php:55 includes/widgets/group-rating.php:153
+msgid "Lowest"
 msgstr ""
 
 #: includes/widgets/bgr-review.php:13
@@ -927,7 +951,7 @@ msgstr ""
 msgid "BP Group Review Widget"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:43
+#: includes/widgets/bgr-review.php:43 includes/widgets/group-rating.php:42
 msgid "Title"
 msgstr ""
 
@@ -943,7 +967,7 @@ msgstr ""
 msgid "Most Reviewed"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:70
+#: includes/widgets/bgr-review.php:70 includes/widgets/group-rating.php:46
 msgid "Number of reviews to show"
 msgstr ""
 
@@ -959,16 +983,36 @@ msgstr ""
 msgid "Show"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:265
+#: includes/widgets/bgr-review.php:268
 msgid "Total"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:278
+#: includes/widgets/bgr-review.php:284
 msgid "No Rating has been given to any group yet!"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:281
+#: includes/widgets/bgr-review.php:287
 msgid "No %1$s has been given to any group yet!"
+msgstr ""
+
+#: includes/widgets/group-rating.php:12
+msgid "Display displayed group ratings."
+msgstr ""
+
+#: includes/widgets/group-rating.php:18
+msgid "BP Displayed Group Rating Widget"
+msgstr ""
+
+#: includes/widgets/group-rating.php:51
+msgid "Default ratings to show:"
+msgstr ""
+
+#: includes/widgets/group-rating.php:136
+msgid "%s's Ratings"
+msgstr ""
+
+#: includes/widgets/group-rating.php:218
+msgid "No Rating has been given by any member yet!"
 msgstr ""
 
 #: review-bp-grps.php:100
