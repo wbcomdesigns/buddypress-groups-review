@@ -15,6 +15,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 */
 		function __construct() {
 			add_action( 'admin_menu', array( $this, 'bgr_add_submenu_page_admin_settings' ) );
+			add_action( 'admin_menu', array( $this, 'bgr_get_review_count' ) );
 			$post_types = get_post_types();
 			if ( ! in_array( 'review', $post_types ) ) {
 				// Custom Post Type
@@ -30,9 +31,9 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * @author   Wbcom Designs
 		 */
 		function bgr_add_submenu_page_admin_settings() {
-			if ( empty ( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
+			if ( empty( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
 				add_menu_page( esc_html__( 'WB Plugins', 'bp-group-reviews' ), esc_html__( 'WB Plugins', 'bp-group-reviews' ), 'manage_options', 'wbcomplugins', array( $this, 'bgr_admin_options_page' ), 'dashicons-lightbulb', 59 );
-		 		add_submenu_page( 'wbcomplugins', esc_html__( 'General', 'bp-group-reviews' ), esc_html__( 'General', 'bp-group-reviews' ), 'manage_options', 'wbcomplugins' );
+				add_submenu_page( 'wbcomplugins', esc_html__( 'General', 'bp-group-reviews' ), esc_html__( 'General', 'bp-group-reviews' ), 'manage_options', 'wbcomplugins' );
 			}
 			add_submenu_page( 'wbcomplugins', esc_html__( 'Group Reviews', 'bp-group-reviews' ), esc_html__( 'Group Reviews', 'bp-group-reviews' ), 'manage_options', 'group-review-settings', array( $this, 'bgr_admin_options_page' ) );
 		}
@@ -81,7 +82,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 								echo $bgr_tab_html;
 								echo '<div class="wbcom-tab-content">';
 								include 'review-admin-options-page.php';
-							echo '</div></div>';	
+								echo '</div></div>';
 		}
 
 		/**
@@ -163,6 +164,24 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 			);
 			register_taxonomy( 'review_category', array( 'review' ), $category_args );
 		}
+
+		/**
+		 * [bgr_get_review_count] Function count group review.
+		 *
+		 * @return [type] [description]
+		 */
+		public function bgr_get_review_count() {
+			global $bgr, $menu;
+			if ( $bgr['auto_approve_reviews'] != 'yes' ) {
+				$count = wp_count_posts( 'review' );
+				if ( $count ) {
+					$count      = $count->draft;
+					$count_html = ( $count == 0 ) ? '' : '<span class="awaiting-mod">' . $count . '</span>';
+				}
+				$menu[27][0] = 'Review' . ' ' . $count_html;
+			}
+		}
+
 	}
 	new BGR_Admin();
 }
