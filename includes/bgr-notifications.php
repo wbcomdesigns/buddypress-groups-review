@@ -18,7 +18,9 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$this->slug = $this->_component_name;
 
 			parent::start(
-				$this->_component_name, esc_html__( 'Group Reviews', 'bp-group-reviews' ), dirname( __FILE__ )
+				$this->_component_name,
+				esc_html__( 'Group Reviews', 'bp-group-reviews' ),
+				dirname( __FILE__ )
 			);
 
 			buddypress()->active_components[ $this->_component_name ] = '1';
@@ -54,6 +56,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 
 		function bgr_add_review_notification( $group_id, $group_admin ) {
 			if ( bp_is_active( 'notifications' ) ) {
+
 				$current_user = wp_get_current_user();
 				$member_id    = $current_user->ID;
 				$args         = array(
@@ -141,7 +144,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			}
 			$notification_title   = sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
 			$notification_content = sprintf( esc_html__( '%1$s posted a %2$s for %3$s.', 'bp-group-reviews' ), $user_name, $review_label, $group_name );
-			
+
 			if ( 'string' == $format ) {
 				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), $notification_title, $notification_content );
 			} else {
@@ -188,14 +191,13 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		function bgr_deny_review_notification_format( $grp_id, $review_id, $format = '' ) {
 			global $bgr;
 			global $bp;
-			$review_label         = $bgr['review_label'];
-			$group                = groups_get_group( array( 'group_id' => $grp_id ) );
-			$group_name           = $group->name;
-			$notification_link    = bp_get_group_permalink( $group ) . 'reviews/';
+			$review_label      = $bgr['review_label'];
+			$group             = groups_get_group( array( 'group_id' => $grp_id ) );
+			$group_name        = $group->name;
+			$notification_link = bp_get_group_permalink( $group ) . 'reviews/';
 
 			$notification_title   = sprintf( esc_html__( '%1$s denied.', 'bp-group-reviews' ), $review_label );
 			$notification_content = sprintf( esc_html__( 'Your %1$s for %2$s denied by group admin.', 'bp-group-reviews' ), $review_label, $group_name );
-
 
 			if ( 'string' == $format ) {
 				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), $notification_title, $notification_content );
@@ -217,30 +219,29 @@ add_filter( 'bp_notifications_get_notifications_for_user', 'bgr_format_notificat
 	*  @author  Wbcom Designs
 	*/
 
-function bgr_format_notifications($action,$item_id, $secondary_item_id, $user_id, $format = 'string') {
-		if( bp_is_active( 'notifications' ) &&  bp_is_active( 'groups' ) && $action != 'bbp_new_reply') {
-			switch ($action) {
+function bgr_format_notifications( $action, $item_id, $secondary_item_id, $user_id, $format = 'string' ) {
+	if ( bp_is_active( 'notifications' ) && bp_is_active( 'groups' ) && $action != 'bbp_new_reply' ) {
+		switch ( $action ) {
 
-				case 'bgr_add_review_action':
-						$return = buddypress()->bgr_bp_review->bgr_add_review_notification_format( $item_id, $secondary_item_id, $user_id, $format );
-						break;
-				case 'bgr_accept_review_action':
-						$return = buddypress()->bgr_bp_review->bgr_accept_review_notification_format( $item_id, $secondary_item_id, $format );
-						break;
-				case 'bgr_deny_review_action':
-						$return = buddypress()->bgr_bp_review->bgr_deny_review_notification_format( $item_id, $secondary_item_id, $format );
-						break;
-				default:
-						$return = '';
-						break;
+			case 'bgr_add_review_action':
+					$return = buddypress()->bgr_bp_review->bgr_add_review_notification_format( $item_id, $secondary_item_id, $user_id, $format );
+				break;
+			case 'bgr_accept_review_action':
+					$return = buddypress()->bgr_bp_review->bgr_accept_review_notification_format( $item_id, $secondary_item_id, $format );
+				break;
+			case 'bgr_deny_review_action':
+					$return = buddypress()->bgr_bp_review->bgr_deny_review_notification_format( $item_id, $secondary_item_id, $format );
+				break;
+			default:
+					$return = '';
+				break;
 
-				return $return;
-			}
-			if($return){
-				return $return;
-			}else{
-				return $action;
-			}
-			
+			return $return;
+		}
+		if ( $return ) {
+			return $return;
+		} else {
+			return $action;
 		}
 	}
+}

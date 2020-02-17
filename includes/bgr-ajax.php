@@ -157,7 +157,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 						$html .= '</div><div class="clear"></div></div>';
 				endwhile;
 					$total_pages = $reviews->max_num_pages;
-					if ( $total_pages > 1 ) {
+					if ( $total_pages > 3 ) {
 						$html        .= '<div class="review-pagination">';
 						$current_page = max( 1, get_query_var( 'paged' ) );
 						$html        .= paginate_links(
@@ -496,7 +496,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$user_name  = $user_info->user_login;
 
 				if ( $auto_approve_reviews == 'yes' ) {
-					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/reviews/';
+					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '//reviews//';
 				} else {
 					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/admin/manage-reviews/';
 				}
