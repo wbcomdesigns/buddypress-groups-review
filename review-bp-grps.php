@@ -124,7 +124,7 @@ function bgr_admin_group_notice() {
  *  @author   Wbcom Designs
  */
 function bgr_admin_page_link( $links ) {
-		$page_link = array( '<a href="' . admin_url( 'admin.php?page=group-review-settings' ) . '">'. esc_html__( 'Settings', 'bp-group-reviews' ). '</a>' );
+		$page_link = array( '<a href="' . admin_url( 'admin.php?page=group-review-settings' ) . '">' . esc_html__( 'Settings', 'bp-group-reviews' ) . '</a>' );
 		return array_merge( $links, $page_link );
 }
 
@@ -147,6 +147,7 @@ function run_bp_group_reviews_plugin() {
 		'includes/bgr-scripts.php',
 		'admin/wbcom/wbcom-admin-settings.php',
 		'admin/bgr-admin.php',
+		'admin/bgr-admin-feedback.php',
 		'includes/bgr-dynamic-css.php',
 		'includes/bgr-rating-display.php',
 		'includes/bgr-filters.php',
