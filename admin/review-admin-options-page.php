@@ -92,7 +92,7 @@ function bgr_shortcode_setting() {
 ?>
 <div class="bgr-row">
 	<div class="bgr-col-3"><label><?php echo '[add_group_review_form]'; ?></label></div>
-	<div class="bgr-col-9"><?php esc_html_e( 'This shortcode will be display Group Review Form.', 'bp-group-reviews' ); ?></div>
+	<div class="bgr-col-9"><?php esc_html_e( 'This shortcode will display Group Review Form.', 'bp-group-reviews' ); ?></div>
 </div>
 <?php
 }
@@ -115,7 +115,7 @@ function bgr_display_setting() {
 		<div class="bgr-col-3"><label for="bgrReviewLabel"><?php esc_html_e( 'Review', 'bp-group-reviews' ); ?></label></div>
 		<div class="bgr-col-9">
 		<input name = "bgrReviewLabel" id="bgrReviewLabel" type="text" value = "<?php echo $bgrReviewLabel; ?>" />
-		<p class="bgr-admin-des"><?php esc_html_e( 'This option provide flexibility to change review label. By default it shows "Review".', 'bp-group-reviews' ); ?></p>
+		<p class="bgr-admin-des"><?php esc_html_e( 'This option provides flexibility to change review label. By default it shows "Review".', 'bp-group-reviews' ); ?></p>
 	</div>
 	</div>
 	<div class="bgr-row">
@@ -177,7 +177,7 @@ function bgr_general_setting() {
 >
 			<div class="bgr-slider round"></div>
 		</label>
-		<p class="bgr-admin-des"><?php esc_html_e( 'Enable this option, if you want to add functionality to user can send multiple review to same group.', 'bp-group-reviews' ); ?></p>
+		<p class="bgr-admin-des"><?php esc_html_e( 'Enable this option, if you want to add functionality for user to send multiple review to same group.', 'bp-group-reviews' ); ?></p>
 	</div>
 	</div>
 
@@ -240,7 +240,7 @@ function bgr_general_setting() {
 >
 		<div class="bgr-slider round"></div>
 	</label>
-	<p class="bgr-admin-des"><?php esc_html_e( 'Enable this option, if you want to group admin & reviewer receive email when add, accept & deny review.', 'bp-group-reviews' ); ?></p>
+	<p class="bgr-admin-des"><?php esc_html_e( 'Enable this option, if you want group admin & reviewer receive email when someone adds, accepts & denies review.', 'bp-group-reviews' ); ?></p>
 	</div>
 </div>
 <div class="bgr-row">
@@ -267,7 +267,7 @@ function bgr_general_setting() {
 		}
 			?>
 			</select>
-			<p class="bgr-admin-des"><?php esc_html_e( "This option lets you to choose those groups that you don't want to provide review functionality.", 'bp-group-reviews' ); ?></p>
+			<p class="bgr-admin-des"><?php esc_html_e( "This option lets you choose those groups that you don't want to provide review functionality.", 'bp-group-reviews' ); ?></p>
 		</div>
 	</div>
 	<input type="button" class="button button-primary" id="bgr-save-admin-general-settings" value="<?php esc_html_e( 'Save Settings', 'bp-group-reviews' ); ?>">

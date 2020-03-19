@@ -304,7 +304,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 						$bgr_user_count++;
 					}
 				} else {
-					$html .= '<p>' . esc_html__( 'No Rating has been given by any member yet!.', 'bp-group-reviews' ) . '</p>';
+					$html .= '<p>' . esc_html__( 'No Rating has been given by any member yet!', 'bp-group-reviews' ) . '</p>';
 				}
 				$result = array(
 					'html' => $html,
@@ -465,10 +465,10 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$review_add_msg = sprintf( __( 'You already posted a %1$s for this group.', 'bp-group-reviews' ), $review_label );
 			} else {
 				if ( $auto_approve_reviews == 'yes' ) {
-					$review_add_msg = sprintf( esc_html__( 'Thank you for taking the time to write this wonderful %1$s.', 'bp-group-reviews' ), $review_label );
+					$review_add_msg = sprintf( esc_html__( 'Thank you for taking time to write this wonderful %1$s.', 'bp-group-reviews' ), $review_label );
 					$review_status  = 'publish';
 				} else {
-					$review_add_msg = sprintf( esc_html__( 'Thank you for taking the time to write this wonderful %1$s. Your %1$s will display after moderator approval.', 'bp-group-reviews' ), $review_label );
+					$review_add_msg = sprintf( esc_html__( 'Thank you for taking time to write this wonderful %1$s. Your %1$s will display after moderator\'s approval.', 'bp-group-reviews' ), $review_label );
 					$review_status  = 'draft';
 				}
 
