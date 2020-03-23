@@ -2,6 +2,8 @@ jQuery(document).ready(
   function(e) {
 
     jQuery('#bgr_review_success_msg_modal').hide();
+    jQuery('#request-review-list #bp-group-edit-add-review-submit').hide();
+
     // Open Add Review Form
     jQuery(document).on(
       'click', '#add-review',
