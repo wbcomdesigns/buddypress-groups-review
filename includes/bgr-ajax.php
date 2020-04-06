@@ -59,17 +59,17 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$filter               = sanitize_text_field( filter_input( INPUT_POST, 'filter' ) );
 				$limit                = $bgr['reviews_per_page'];
 				$review_rating_fields = $bgr['review_rating_fields'];
-				$custom_args         = array(
+				$custom_args          = array(
 					'post_type'      => 'review',
 					'posts_per_page' => -1,
 					'post_status'    => 'publish',
 					'category'       => 'review_category',
 					'meta_key'       => 'linked_group',
-					'meta_value'     => bp_get_current_group_id()
+					'meta_value'     => bp_get_current_group_id(),
 				);
-				$reviews_arr         = get_posts( $custom_args );
-				$html                = '';
-				
+				$reviews_arr          = get_posts( $custom_args );
+				$html                 = '';
+
 				$single_review_count = 0;
 				$final_review_obj    = array();
 				if ( ! empty( $reviews_arr ) ) {
@@ -98,14 +98,14 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				if ( ! empty( $single_rev_avg ) ) {
 					if ( 'highest' === $filter ) {
 						arsort( $single_rev_avg );
-					} else if ( 'lowest' === $filter ) {
+					} elseif ( 'lowest' === $filter ) {
 						asort( $single_rev_avg );
 					} else {
 						$single_rev_avg = $single_rev_avg;
 					}
 				}
 
-				$args                 = array(
+				$args    = array(
 					'post_type'      => 'review',
 					'post_status'    => 'publish',
 					'category'       => 'group',
@@ -121,25 +121,25 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 						),
 					),
 				);
-				$reviews              = new WP_Query( $args );
+				$reviews = new WP_Query( $args );
 
 				if ( $reviews->have_posts() ) {
 					while ( $reviews->have_posts() ) :
 						$reviews->the_post();
-						$html .= '<div class="bgr-row item-list group-request-list"><div class="bgr-col-2">';
+						$html  .= '<div class="bgr-row item-list group-request-list"><div class="bgr-col-2">';
 						$author = $reviews->post->post_author;
-						$html .= bp_get_displayed_user_avatar( array( 'item_id' => $author ) );
-						$html .= '</div><div class="bgr-col-8"><div class="reviewer"><b>'.  bp_core_get_userlink( $author ) .'</b></div>';
+						$html  .= bp_get_displayed_user_avatar( array( 'item_id' => $author ) );
+						$html  .= '</div><div class="bgr-col-8"><div class="reviewer"><b>' . bp_core_get_userlink( $author ) . '</b></div>';
 
-						$html .= '<div class="item-description"><div class="review-description">';
+						$html       .= '<div class="item-description"><div class="review-description">';
 						$trimcontent = get_the_content();
 						$url         = bp_get_group_permalink() . 'reviews/view/' . get_the_id();
 						if ( ! empty( $trimcontent ) ) {
 							$len = strlen( $trimcontent );
 							if ( $len > 150 ) {
 								$shortexcerpt = substr( $trimcontent, 0, 150 );
-								$html .= $shortexcerpt;
-								$html .= '<a href="'. $url .'"><i><b>'. esc_html__( 'read more...', 'bp-group-reviews' ) .'</b></i></a>';
+								$html        .= $shortexcerpt;
+								$html        .= '<a href="' . $url . '"><i><b>' . esc_html__( 'read more...', 'bp-group-reviews' ) . '</b></i></a>';
 							} else {
 								$html .= $trimcontent;
 							}
@@ -152,39 +152,39 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 						$html .= '<div class="bgr-col-2">';
 						if ( groups_is_user_admin( $member_id, bp_get_group_id() ) ) :
 							$html .= '<div class="remove-review generic-button">';
-							$html .= '<a class="remove-review-button">' .  __( 'Delete', 'bp-group-reviews' ) .'</a><input type="hidden" name="remove_review_id" value="'. esc_attr( $post->ID ) .'"></div>';
+							$html .= '<a class="remove-review-button">' . __( 'Delete', 'bp-group-reviews' ) . '</a><input type="hidden" name="remove_review_id" value="' . esc_attr( $post->ID ) . '"></div>';
 						endif;
 						$html .= '</div><div class="clear"></div></div>';
 				endwhile;
-				$total_pages = $reviews->max_num_pages;
-				if ( $total_pages > 1 ) {
-					$html .= '<div class="review-pagination">';
-					$current_page = max( 1, get_query_var( 'paged' ) );
-					$html .= paginate_links(
-								array(
-									'base'      => get_pagenum_link( 1 ) . '%_%',
-									'format'    => 'page/%#%',
-									'current'   => $current_page,
-									'total'     => $total_pages,
-									'prev_text' => esc_html__( 'prev', 'bp-group-reviews' ),
-									'next_text' => esc_html__( 'next', 'bp-group-reviews' ),
-								)
-							);
-					$html .= '</div>';
-				}
-				wp_reset_postdata();
+					$total_pages = $reviews->max_num_pages;
+					if ( $total_pages > 3 ) {
+						$html        .= '<div class="review-pagination">';
+						$current_page = max( 1, get_query_var( 'paged' ) );
+						$html        .= paginate_links(
+							array(
+								'base'      => get_pagenum_link( 1 ) . '%_%',
+								'format'    => 'page/%#%',
+								'current'   => $current_page,
+								'total'     => $total_pages,
+								'prev_text' => esc_html__( 'prev', 'bp-group-reviews' ),
+								'next_text' => esc_html__( 'next', 'bp-group-reviews' ),
+							)
+						);
+						$html        .= '</div>';
+					}
+					wp_reset_postdata();
 
-			} else {
-
-				$bp_template_option = bp_get_option('_bp_theme_package_id');
-				if( 'nouveau' == $bp_template_option ) {
-				$html .= '<div id="message" class="info bp-feedback bp-messages bp-template-notice">
-					<span class="bp-icon" aria-hidden="true"></span>';
 				} else {
-				$html .= '<div id="message" class="info">';
-				} 
-				$html .= '<p>' . sprintf( esc_html__( 'Sorry, no %1$s were found.', 'bp-group-reviews' ), $review_label ) . '</p>';
-				$html .= '</div>';
+
+					$bp_template_option = bp_get_option( '_bp_theme_package_id' );
+					if ( 'nouveau' == $bp_template_option ) {
+						$html .= '<div id="message" class="info bp-feedback bp-messages bp-template-notice">
+					<span class="bp-icon" aria-hidden="true"></span>';
+					} else {
+						$html .= '<div id="message" class="info">';
+					}
+					$html .= '<p>' . sprintf( esc_html__( 'Sorry, no %1$s were found.', 'bp-group-reviews' ), $review_label ) . '</p>';
+					$html .= '</div>';
 				}
 				$html .= '</div>';
 
@@ -204,23 +204,23 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			if ( filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING ) && filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING ) === 'bgr_filter_ratings' ) {
 				global $bp, $post;
 				global $bgr;
-				$filter = sanitize_text_field( filter_input( INPUT_POST, 'filter' ) );
-				$limit  = sanitize_text_field( filter_input( INPUT_POST, 'limit' ) );
-				$html   = '';
+				$filter               = sanitize_text_field( filter_input( INPUT_POST, 'filter' ) );
+				$limit                = sanitize_text_field( filter_input( INPUT_POST, 'limit' ) );
+				$html                 = '';
 				$review_rating_fields = $bgr['review_rating_fields'];
-				
-				$custom_args         = array(
+
+				$custom_args = array(
 					'post_type'      => 'review',
 					'posts_per_page' => -1,
 					'post_status'    => 'publish',
 					'category'       => 'review_category',
 					'meta_key'       => 'linked_group',
-					'meta_value'     => bp_get_current_group_id()
+					'meta_value'     => bp_get_current_group_id(),
 				);
-				$reviews             = get_posts( $custom_args );
+				$reviews     = get_posts( $custom_args );
 
-				$final_review_obj    = array();
-				$single_rev_avg      = array();
+				$final_review_obj = array();
+				$single_rev_avg   = array();
 				if ( ! empty( $reviews ) ) {
 					foreach ( $reviews as $review ) {
 						$review_ratings = get_post_meta( $review->ID, 'review_star_rating', false );
@@ -254,25 +254,25 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					foreach ( $single_rev_avg as $bgrKey => $bgrValue ) {
 						if ( $bgr_user_count == $limit ) {
 							break;
-						} else {				
+						} else {
 							$html .= '<li class="vcard"><div class="item-avatar">';
-							$html .= get_avatar( $final_review_obj[$bgrKey]->ID, 65 );
+							$html .= get_avatar( $final_review_obj[ $bgrKey ]->ID, 65 );
 							$html .= '</div>';
 							$html .= '<div class="item">';
-							
-							$members_profile = bp_core_get_userlink( $final_review_obj[$bgrKey]->post_author );
-							$html .= '<div class="item-title fn">';
-							$html .= $members_profile;
-							$html .= '</div>';
 
-							$bgr_avg_rating     = $bgrValue;
-							$stars_on           = $stars_off = $stars_half = '';
-							$remaining          = $bgr_avg_rating - (int) $bgr_avg_rating;
+							$members_profile = bp_core_get_userlink( $final_review_obj[ $bgrKey ]->post_author );
+							$html           .= '<div class="item-title fn">';
+							$html           .= $members_profile;
+							$html           .= '</div>';
+
+							$bgr_avg_rating = $bgrValue;
+							$stars_on       = $stars_off = $stars_half = '';
+							$remaining      = $bgr_avg_rating - (int) $bgr_avg_rating;
 							if ( $remaining > 0 ) {
-								$stars_on        = intval( $bgr_avg_rating );
-								$stars_half      = 1;
-								$bgr_half_squar  = 1;
-								$stars_off       = 5 - ( $stars_on + $stars_half );
+								$stars_on       = intval( $bgr_avg_rating );
+								$stars_half     = 1;
+								$bgr_half_squar = 1;
+								$stars_off      = 5 - ( $stars_on + $stars_half );
 							} else {
 								$stars_on   = $bgr_avg_rating;
 								$stars_off  = 5 - $bgr_avg_rating;
@@ -280,11 +280,11 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 							}
 							$html .= '<div class="item-meta">';
 							for ( $i = 1; $i <= $stars_on; $i++ ) {
-								$html .='<span class="fas fa-star stars bgr-star-rate"></span>';
+								$html .= '<span class="fas fa-star stars bgr-star-rate"></span>';
 							}
 
 							for ( $i = 1; $i <= $stars_half; $i++ ) {
-								$html .='<span class="fas fa-star-half-alt stars bgr-star-rate"></span>';
+								$html .= '<span class="fas fa-star-half-alt stars bgr-star-rate"></span>';
 							}
 
 							for ( $i = 1; $i <= $stars_off; $i++ ) {
@@ -294,20 +294,20 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 							$html .= '</div>';
 
 							$bgr_avg_rating = round( $bgr_avg_rating, 2 );
-							$html .= '<span class="bgr-meta">';
-							$html .= sprintf( esc_html__( 'Rating : ( %1$s )', 'bp-group-reviews' ), esc_html( $bgr_avg_rating ) );
-							$html .= '</span>';
-							$html .= '</div></li>';
-							
+							$html          .= '<span class="bgr-meta">';
+							$html          .= sprintf( esc_html__( 'Rating : ( %1$s )', 'bp-group-reviews' ), esc_html( $bgr_avg_rating ) );
+							$html          .= '</span>';
+							$html          .= '</div></li>';
+
 						}
 
 						$bgr_user_count++;
 					}
 				} else {
-					$html .= '<p>' . esc_html__( 'No Rating has been given by any member yet!.', 'bp-group-reviews' ) . '</p>';
+					$html .= '<p>' . esc_html__( 'No Rating has been given by any member yet!', 'bp-group-reviews' ) . '</p>';
 				}
 				$result = array(
-					'html'    => $html,
+					'html' => $html,
 				);
 				echo json_encode( $result );
 			}
@@ -462,13 +462,13 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$user_post_count = 0;
 			}
 			if ( $user_post_count > 0 ) {
-				$review_add_msg = sprintf( __( 'You already posted a %1$s for this group.', 'bp-group-reviews' ), $review_label  );
+				$review_add_msg = sprintf( __( 'You already posted a %1$s for this group.', 'bp-group-reviews' ), $review_label );
 			} else {
 				if ( $auto_approve_reviews == 'yes' ) {
-					$review_add_msg = sprintf( esc_html__( 'Thank you for taking the time to write this wonderful %1$s.', 'bp-group-reviews' ), $review_label );
+					$review_add_msg = sprintf( esc_html__( 'Thank you for taking time to write this wonderful %1$s.', 'bp-group-reviews' ), $review_label );
 					$review_status  = 'publish';
 				} else {
-					$review_add_msg = sprintf( esc_html__( 'Thank you for taking the time to write this wonderful %1$s. Your %1$s will display after moderator approval.', 'bp-group-reviews' ), $review_label );
+					$review_add_msg = sprintf( esc_html__( 'Thank you for taking time to write this wonderful %1$s. Your %1$s will display after moderator\'s approval.', 'bp-group-reviews' ), $review_label );
 					$review_status  = 'draft';
 				}
 
@@ -496,11 +496,11 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$user_name  = $user_info->user_login;
 
 				if ( $auto_approve_reviews == 'yes' ) {
-					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/reviews/';
+					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '//reviews//';
 				} else {
 					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/admin/manage-reviews/';
 				}
-				$mail_title = sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
+				$mail_title   = sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
 				$mail_content = sprintf( esc_html__( 'A new %1$s for %2$s added by %3$s. Link: %4$s', 'bp-group-reviews' ), $review_label, $group_name, $user_name, esc_url( $mail_link ) );
 
 				if ( ! empty( $rated_stars ) ) {

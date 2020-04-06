@@ -64,9 +64,7 @@ add_action( 'plugins_loaded', 'bgr_plugin_init' );
  */
 function bgr_plugin_init() {
 	$bp_active_components = get_option( 'bp-active-components', true );
-	if ( ! in_array( 'buddypress/bp-loader.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
-		add_action( 'admin_notices', 'bgr_admin_notice' );
-	} elseif ( ! array_key_exists( 'groups', $bp_active_components ) ) {
+	if ( ! class_exists( 'BuddyPress' ) && ! array_key_exists( 'groups', $bp_active_components ) ) {
 		add_action( 'admin_notices', 'bgr_admin_group_notice' );
 	} else {
 		run_bp_group_reviews_plugin();
@@ -89,17 +87,33 @@ function bgr_bp_notifications_for_review() {
 }
 
 /**
+ *  Check if buddypress activate.
+ */
+function bgr_requires_buddypress() {
+	if ( ! class_exists( 'Buddypress' ) ) {
+		deactivate_plugins( plugin_basename( __FILE__ ) );
+		add_action( 'admin_notices', 'bgr_admin_notice' );
+		unset( $_GET['activate'] );
+	}
+}
+add_action( 'admin_init', 'bgr_requires_buddypress' );
+
+/**
  * Show admin notice when buddypress not active or install
  *
  *  @since   1.0.0
  *  @author  Wbcom Designs
  */
 function bgr_admin_notice() {
-	?>
-	<div class="error notice is-dismissible">
-		<p><?php esc_html_e( 'The Review BuddyPress Groups plugin requires Buddypress plugin to be installed and active.', 'bp-group-reviews' ); ?></p>
-	</div>
-	<?php
+	$bpquotes_plugin = esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' );
+	$bp_plugin       = esc_html__( 'BuddyPress', 'bp-group-reviews' );
+	echo '<div class="error"><p>';
+	echo sprintf( esc_html__( '%1$s is ineffective now as it requires %2$s to be installed and active.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>' );
+	echo '</p></div>';
+	if ( isset( $_GET['activate'] ) ) {
+		unset( $_GET['activate'] );
+	}
+
 }
 
 /**

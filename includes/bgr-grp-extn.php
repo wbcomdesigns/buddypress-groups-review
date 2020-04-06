@@ -114,7 +114,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				<?php } else { ?>		
 					<div id="message" class="success bgr-bp-success">
 				<?php } ?>		
-					<p><?php esc_html_e( 'Your Response added. This will be published when group admin approved it.', 'bp-group-reviews' ); ?></p>
+					<p><?php esc_html_e( 'Your Response added. This will be published when group admin has approved it.', 'bp-group-reviews' ); ?></p>
 				</div>
 			</div>
 			<div class="bgr-group-review-no-popup-add-block">
