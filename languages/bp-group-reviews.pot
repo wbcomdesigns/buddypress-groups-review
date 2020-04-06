@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-10 09:16:27+00:00\n"
+"POT-Creation-Date: 2020-04-06 20:22:48+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,43 +24,122 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: admin/bgr-admin.php:34
+#: admin/bgr-admin-feedback.php:88
+#. translators: Number of years
+msgid "%s years"
+msgstr ""
+
+#: admin/bgr-admin-feedback.php:90
+msgid "a year"
+msgstr ""
+
+#: admin/bgr-admin-feedback.php:97
+#. translators: Number of weeks
+msgid "%s weeks"
+msgstr ""
+
+#: admin/bgr-admin-feedback.php:99
+msgid "a week"
+msgstr ""
+
+#: admin/bgr-admin-feedback.php:106
+#. translators: Number of days
+msgid "%s days"
+msgstr ""
+
+#: admin/bgr-admin-feedback.php:108
+msgid "a day"
+msgstr ""
+
+#: admin/bgr-admin-feedback.php:115
+#. translators: Number of hours
+msgid "%s hours"
+msgstr ""
+
+#: admin/bgr-admin-feedback.php:117
+msgid "an hour"
+msgstr ""
+
+#: admin/bgr-admin-feedback.php:124
+#. translators: Number of minutes
+msgid "%s minutes"
+msgstr ""
+
+#: admin/bgr-admin-feedback.php:126
+msgid "a minute"
+msgstr ""
+
+#: admin/bgr-admin-feedback.php:133
+#. translators: Number of seconds
+msgid "%s seconds"
+msgstr ""
+
+#: admin/bgr-admin-feedback.php:135
+msgid "a second"
+msgstr ""
+
+#: admin/bgr-admin-feedback.php:271 admin/bgr-admin-feedback.php:311
+#: admin/wbcom/wbcom-admin-settings.php:219 review-bp-grps.php:108
+msgid "BuddyPress Group Reviews"
+msgstr ""
+
+#: admin/bgr-admin-feedback.php:274
+msgid "Are you enjoying BuddyPress Group Reviews?"
+msgstr ""
+
+#: admin/bgr-admin-feedback.php:277
+#. translators: 1. Name
+msgid ""
+"We hope you're enjoying %1$s! Could you please do us a BIG favor and give "
+"it a 5-star rating on WordPress to help us spread the word and boost our "
+"motivation?"
+msgstr ""
+
+#: admin/bgr-admin-feedback.php:281
+msgid "Leave a Review"
+msgstr ""
+
+#: admin/bgr-admin-feedback.php:282
+msgid "No thanks / I already have"
+msgstr ""
+
+#: admin/bgr-admin.php:35
 msgid "WB Plugins"
 msgstr ""
 
-#: admin/bgr-admin.php:35 admin/bgr-admin.php:54
+#: admin/bgr-admin.php:36 admin/bgr-admin.php:55
 msgid "General"
 msgstr ""
 
-#: admin/bgr-admin.php:37 includes/bgr-notifications.php:21
+#: admin/bgr-admin.php:38 includes/bgr-notifications.php:22
 msgid "Group Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:55
+#: admin/bgr-admin.php:56
 msgid "Criteria"
 msgstr ""
 
-#: admin/bgr-admin.php:56
+#: admin/bgr-admin.php:57
 msgid "Shortcode"
 msgstr ""
 
-#: admin/bgr-admin.php:57
+#: admin/bgr-admin.php:58
 msgid "Display"
 msgstr ""
 
-#: admin/bgr-admin.php:64
+#: admin/bgr-admin.php:65
 msgid "Group Reviews Settings"
 msgstr ""
 
-#: admin/bgr-admin.php:69
+#: admin/bgr-admin.php:70
 msgid "Group Reviews Settings Saved."
 msgstr ""
 
-#: admin/bgr-admin.php:71
+#: admin/bgr-admin.php:72
 msgid "Dismiss this notice."
 msgstr ""
 
-#: admin/bgr-admin.php:96 admin/bgr-admin.php:98 admin/bgr-admin.php:99
+#: admin/bgr-admin.php:97 admin/bgr-admin.php:99 admin/bgr-admin.php:100
 #: admin/review-admin-options-page.php:208 includes/bgr-globals.php:104
 #: includes/bgr-globals.php:111 includes/bgr-grp-extn.php:27
 #: includes/bgr-grp-extn.php:33 includes/bgr-grp-extn.php:149
@@ -68,77 +147,77 @@ msgstr ""
 msgid "Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:97 admin/review-admin-options-page.php:115
+#: admin/bgr-admin.php:98 admin/review-admin-options-page.php:115
 #: includes/bgr-globals.php:101 includes/bgr-globals.php:110
 #: includes/bgr-grp-extn.php:30 includes/bgr-grp-extn.php:34
 msgid "Review"
 msgstr ""
 
-#: admin/bgr-admin.php:100 admin/bgr-admin.php:101
+#: admin/bgr-admin.php:101 admin/bgr-admin.php:102
 msgid "Add New Review"
 msgstr ""
 
-#: admin/bgr-admin.php:102
+#: admin/bgr-admin.php:103
 msgid "New Review"
 msgstr ""
 
-#: admin/bgr-admin.php:103
+#: admin/bgr-admin.php:104
 msgid "View Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:104
+#: admin/bgr-admin.php:105
 msgid "All Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:105
+#: admin/bgr-admin.php:106
 msgid "Search Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:106
+#: admin/bgr-admin.php:107
 msgid "Parent Review"
 msgstr ""
 
-#: admin/bgr-admin.php:107
+#: admin/bgr-admin.php:108
 msgid "No Review Found"
 msgstr ""
 
-#: admin/bgr-admin.php:108
+#: admin/bgr-admin.php:109
 msgid "No Review Found In Trash"
 msgstr ""
 
-#: admin/bgr-admin.php:146
+#: admin/bgr-admin.php:147
 msgid "Search Categories"
 msgstr ""
 
-#: admin/bgr-admin.php:147
+#: admin/bgr-admin.php:148
 msgid "All Categories"
 msgstr ""
 
-#: admin/bgr-admin.php:148
+#: admin/bgr-admin.php:149
 msgid "Parent Category"
 msgstr ""
 
-#: admin/bgr-admin.php:149
+#: admin/bgr-admin.php:150
 msgid "Parent Category:"
 msgstr ""
 
-#: admin/bgr-admin.php:150
+#: admin/bgr-admin.php:151
 msgid "Edit Category"
 msgstr ""
 
-#: admin/bgr-admin.php:151
+#: admin/bgr-admin.php:152
 msgid "Update Category"
 msgstr ""
 
-#: admin/bgr-admin.php:152
+#: admin/bgr-admin.php:153
 msgid "Add Category"
 msgstr ""
 
-#: admin/bgr-admin.php:153
+#: admin/bgr-admin.php:154
 msgid "New Category Name"
 msgstr ""
 
-#: admin/bgr-admin.php:154
+#: admin/bgr-admin.php:155
 msgid "Category"
 msgstr ""
 
@@ -167,7 +246,7 @@ msgid "Save Settings"
 msgstr ""
 
 #: admin/review-admin-options-page.php:95
-msgid "This shortcode will be display Group Review Form."
+msgid "This shortcode will display Group Review Form."
 msgstr ""
 
 #: admin/review-admin-options-page.php:113
@@ -176,8 +255,8 @@ msgstr ""
 
 #: admin/review-admin-options-page.php:118
 msgid ""
-"This option provide flexibility to change review label. By default it shows "
-"\"Review\"."
+"This option provides flexibility to change review label. By default it "
+"shows \"Review\"."
 msgstr ""
 
 #: admin/review-admin-options-page.php:122
@@ -206,7 +285,7 @@ msgstr ""
 
 #: admin/review-admin-options-page.php:180
 msgid ""
-"Enable this option, if you want to add functionality to user can send "
+"Enable this option, if you want to add functionality for user to send "
 "multiple review to same group."
 msgstr ""
 
@@ -250,8 +329,8 @@ msgstr ""
 
 #: admin/review-admin-options-page.php:243
 msgid ""
-"Enable this option, if you want to group admin & reviewer receive email "
-"when add, accept & deny review."
+"Enable this option, if you want group admin & reviewer receive email when "
+"someone adds, accepts & denies review."
 msgstr ""
 
 #: admin/review-admin-options-page.php:247
@@ -260,7 +339,7 @@ msgstr ""
 
 #: admin/review-admin-options-page.php:270
 msgid ""
-"This option lets you to choose those groups that you don't want to provide "
+"This option lets you choose those groups that you don't want to provide "
 "review functionality."
 msgstr ""
 
@@ -297,25 +376,24 @@ msgid "Support"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-support-page.php:5
-msgid "Having any question or issue ?"
+msgid "Have any question or issue ?"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-support-page.php:7
 msgid ""
-"Our team is here to help you out at anytime. If you have any idea about how "
-"we could improve. You can share access to your site on our helpdesk if it "
-"can help getting faster. There are two ways to in touch with us :"
+"Our team is here to help you out anytime. If you have any idea about how we "
+"can improve, you can share it on our helpdesk along with your site access "
+"for faster response. There are two ways to stay in touch with us:"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-support-page.php:19
-msgid "Tickets Support"
+msgid "Support Tickets"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-support-page.php:20
 msgid ""
-"Open a ticket on our helpdesk, we don't guarantee a fast response but "
-"within a week. Except if you've purchased one of our product we'll reply "
-"within 24 hours."
+"You can open a support ticket on our helpdesk. If you have purchased one of "
+"our products, we will get back to you within next 24 hours."
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-support-page.php:24
@@ -329,9 +407,8 @@ msgstr ""
 
 #: admin/wbcom/templates/wbcom-support-page.php:40
 msgid ""
-"Create a new thread on our plugin page, participation is open to anyone "
-"from all around the world. We'll be there to help as well but can't "
-"guarantee any delay."
+"For any other queries, you can contact us via our Contact Us page. We will "
+"make sure to get back to you as soon as possible."
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-themes-page.php:4
@@ -514,10 +591,6 @@ msgid ""
 "This plugin allows only site members to add reviews to the buddypress "
 "members on the site and even rate the member’s profile out of 5 points with "
 "multiple review criteria."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:219
-msgid "BuddyPress Group Reviews"
 msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:221
@@ -769,7 +842,7 @@ msgstr ""
 msgid "Themes"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:601 review-bp-grps.php:127
+#: admin/wbcom/wbcom-admin-settings.php:601 review-bp-grps.php:141
 msgid "Settings"
 msgstr ""
 
@@ -800,8 +873,8 @@ msgstr ""
 msgid "Rating : ( %1$s )"
 msgstr ""
 
-#: includes/bgr-ajax.php:307
-msgid "No Rating has been given by any member yet!."
+#: includes/bgr-ajax.php:307 includes/widgets/group-rating.php:218
+msgid "No Rating has been given by any member yet!"
 msgstr ""
 
 #: includes/bgr-ajax.php:465 includes/bgr-shortcodes.php:94
@@ -809,16 +882,16 @@ msgid "You already posted a %1$s for this group."
 msgstr ""
 
 #: includes/bgr-ajax.php:468
-msgid "Thank you for taking the time to write this wonderful %1$s."
+msgid "Thank you for taking time to write this wonderful %1$s."
 msgstr ""
 
 #: includes/bgr-ajax.php:471
 msgid ""
-"Thank you for taking the time to write this wonderful %1$s. Your %1$s will "
-"display after moderator approval."
+"Thank you for taking time to write this wonderful %1$s. Your %1$s will "
+"display after moderator's approval."
 msgstr ""
 
-#: includes/bgr-ajax.php:503 includes/bgr-notifications.php:142
+#: includes/bgr-ajax.php:503 includes/bgr-notifications.php:145
 msgid "A new %1$s posted."
 msgstr ""
 
@@ -826,7 +899,7 @@ msgstr ""
 msgid "A new %1$s for %2$s added by %3$s. Link: %4$s"
 msgstr ""
 
-#: includes/bgr-ajax.php:551 includes/bgr-notifications.php:168
+#: includes/bgr-ajax.php:551 includes/bgr-notifications.php:171
 msgid "%1$s accepted."
 msgstr ""
 
@@ -834,11 +907,11 @@ msgstr ""
 msgid "Your %1$s for %2$s accepted by group admin. Link: %3$s."
 msgstr ""
 
-#: includes/bgr-ajax.php:586 includes/bgr-notifications.php:196
+#: includes/bgr-ajax.php:586 includes/bgr-notifications.php:199
 msgid "%1$s denied."
 msgstr ""
 
-#: includes/bgr-ajax.php:587 includes/bgr-notifications.php:197
+#: includes/bgr-ajax.php:587 includes/bgr-notifications.php:200
 msgid "Your %1$s for %2$s denied by group admin."
 msgstr ""
 
@@ -860,7 +933,9 @@ msgid "Add %s"
 msgstr ""
 
 #: includes/bgr-grp-extn.php:117
-msgid "Your Response added. This will be published when group admin approved it."
+msgid ""
+"Your Response added. This will be published when group admin has approved "
+"it."
 msgstr ""
 
 #: includes/bgr-grp-extn.php:192
@@ -887,11 +962,11 @@ msgstr ""
 msgid "Sorry, no %s were found."
 msgstr ""
 
-#: includes/bgr-notifications.php:143
+#: includes/bgr-notifications.php:146
 msgid "%1$s posted a %2$s for %3$s."
 msgstr ""
 
-#: includes/bgr-notifications.php:169
+#: includes/bgr-notifications.php:172
 msgid "Your %1$s for %2$s accepted by group admin."
 msgstr ""
 
@@ -1011,28 +1086,26 @@ msgstr ""
 msgid "%s's Ratings"
 msgstr ""
 
-#: includes/widgets/group-rating.php:218
-msgid "No Rating has been given by any member yet!"
+#: review-bp-grps.php:109
+msgid "BuddyPress"
 msgstr ""
 
-#: review-bp-grps.php:100
-msgid ""
-"The Review BuddyPress Groups plugin requires Buddypress plugin to be "
-"installed and active."
+#: review-bp-grps.php:111
+msgid "%1$s is ineffective now as it requires %2$s to be installed and active."
 msgstr ""
 
-#: review-bp-grps.php:114
+#: review-bp-grps.php:128
 msgid ""
 "The Review BuddyPress Groups plugin requires BuddyPress User Groups "
 "Component to be active."
 msgstr ""
 
-#: admin/bgr-admin.php:144
+#: admin/bgr-admin.php:145
 msgctxt "taxonomy general name"
 msgid "Reviews Category"
 msgstr ""
 
-#: admin/bgr-admin.php:145
+#: admin/bgr-admin.php:146
 msgctxt "taxonomy singular name"
 msgid "Review Category"
 msgstr ""

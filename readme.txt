@@ -3,7 +3,7 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
-Tested up to: 5.3.2
+Tested up to: 5.4.0
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -15,7 +15,7 @@ This plugin allows the BuddyPress Members to give reviews to the BuddyPress grou
 Group Ratings will also be visible at group directory page.
 
 * Allows review moderation
-* Allows BuddyPress notification for group admin for new reviews 
+* Allows BuddyPress notification for group admin for new reviews
 * Allows BuddyPress Email Notification for group admin for new reviews
 * Allows to exclude certain groups from review criteria
 * Allows to add multiple criteria as per your choice
@@ -75,13 +75,21 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 4. Plugin settings.(png|jpg|jpeg|gif).
 
 == Changelog ==
+= 2.3.0 =
+* Fix: (#33) Fixed BuddyPress as activated still shows notices
+* Fix: (#40) Fix Show the label for no. of review at review tab
+* Fix: (#39) Fixed tab filter with chrome
+* Fix: (#41) Fix BuddyPress Notifications are not being triggered on posting
+* Fix: (#40) Bug Fix of review count for review admin menu
+* Fix: Add admin review notice
+* Fix: String changes
 
 = 2.2.0 =
 * Fix: Translation Fixes
 * Fix: Admin notice fixed
 * Enhancement: Added reviews tab filters.
 * Enhancement: Added group rating widget.
-* Enhancement: Group widget and add review 
+* Enhancement: Group widget and add review
 
 = 2.1.0 =
 * Fix - (#26) - Delete icon in exclude groups selectize
@@ -132,4 +140,3 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 == Upgrade Notice ==
 = 1.0.0 =
 This version is the pro version of the plugin with advance functionality of add review to BuddyPress Groups.
-
