@@ -465,10 +465,10 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$review_add_msg = sprintf( __( 'You already posted a %1$s for this group.', 'bp-group-reviews' ), $review_label );
 			} else {
 				if ( $auto_approve_reviews == 'yes' ) {
-					$review_add_msg = sprintf( esc_html__( 'Thank you for taking time to write this wonderful %1$s.', 'bp-group-reviews' ), $review_label );
+					$review_add_msg = sprintf( esc_html__( 'Thank you for taking time to write this %1$s.', 'bp-group-reviews' ), $review_label );
 					$review_status  = 'publish';
 				} else {
-					$review_add_msg = sprintf( __( 'Thank you for taking time to write this wonderful %1$s. Your %1$s will display after moderator\'s approval.', 'bp-group-reviews' ), $review_label );
+					$review_add_msg = sprintf( __( 'Thank you for taking time to write this %1$s. Your %1$s will display after moderator\'s approval.', 'bp-group-reviews' ), $review_label );
 					$review_status  = 'draft';
 				}
 
