@@ -45,8 +45,12 @@ function bgr_load_textdomain() {
  *  @since   1.0.0
  *  @author  Wbcom Designs
 */
-define( 'BGR_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
-define( 'BGR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+if ( ! defined( 'BGR_PLUGIN_PATH' ) ) {
+	define( 'BGR_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+}
+if ( ! defined( 'BGR_PLUGIN_URL' ) ) {
+	define( 'BGR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+}
 
 /**
  * Include needed files on init
