@@ -9,6 +9,7 @@ defined( 'ABSPATH' ) || exit;
  *  @author   Wbcom Designs
  */
 if ( ! class_exists( 'BGR_Shortcodes' ) ) {
+
 	class BGR_Shortcodes {
 
 			/**
@@ -84,14 +85,15 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 					if ( $user_post_count == 0 ) {
 						$this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
 					} else {
-						$bp_template_option = bp_get_option('_bp_theme_package_id');
-						if( 'nouveau' == $bp_template_option ) { ?>
+						$bp_template_option = bp_get_option( '_bp_theme_package_id' );
+						if ( 'nouveau' == $bp_template_option ) {
+							?>
 						<div id="message" class="info bp-feedback bp-messages bp-template-notice">
 							<span class="bp-icon" aria-hidden="true"></span>
 						<?php } else { ?>
 							<div id="message" class="info">
 						<?php } ?>
-							<p><?php  echo sprintf( __( 'You already posted a %1$s for this group.', 'bp-group-reviews' ), $review_label ); ?></p>
+							<p><?php echo sprintf( __( 'You already posted a %1$s for this group.', 'bp-group-reviews' ), $review_label ); ?></p>
 						</div>
 						<?php
 					}
@@ -147,8 +149,8 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 								<?php
 								if ( ! empty( $allgroups ) ) {
 									foreach ( $allgroups['groups'] as $formGroup ) {
-									?>
-										<option value="<?php echo $formGroup->id; ?>" 
+										?>
+										<option value="<?php echo $formGroup->id; ?>"
 											<?php
 											if ( bp_is_group() ) {
 												if ( bp_get_group_id() == $formGroup->id ) {
@@ -158,10 +160,10 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 											?>
 											><?php echo esc_html( $formGroup->name ); ?>
 										</option>
-									<?php
+										<?php
 									}
 								}
-							?>
+								?>
 							</select>
 							<br/>
 							<span class="bgr-error-fields">*<?php esc_html_e( 'This field is required.', 'bp-group-reviews' ); ?></span>
@@ -173,11 +175,11 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 							<?php $review_subject = 'Review ' . time(); ?>
 							<input name="review-subject" type="hidden" value="<?php echo $review_subject; ?>">
 						</p>
-					
+
 							<textarea class="review_desc" name="review-desc" placeholder="<?php echo sprintf( __( '%1$s Description', 'bp-group-reviews' ), $review_label ); ?>" rows="3" cols="50"></textarea>
 							<br/>
 							<span class="bgr-error-fields">*<?php esc_html_e( 'This field is required.', 'bp-group-reviews' ); ?></span>
-						
+
 						<p>
 							<input type="hidden" name="bgr-flag" value="1">
 						</p>
@@ -187,7 +189,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 							<button class="btn btn-default bgr-submit-review" name="bgr-submit-review"><?php echo sprintf( __( 'Submit %1$s', 'bp-group-reviews' ), $review_label ); ?></button>
 						</p>
 					</div>
-				</form> 
+				</form>
 				<?php
 		}
 
@@ -226,7 +228,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 							<?php
 							$field_counter++; }
 						endforeach;
-						?>
+				?>
 					<input type="hidden" id="rating_field_counter" value="<?php echo --$field_counter; ?>">
 				<?php
 			}

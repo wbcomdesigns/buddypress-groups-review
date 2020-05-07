@@ -2,8 +2,11 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-// Class to add custom scripts and styles
+
 if ( ! class_exists( 'BGRScriptsStyles' ) ) {
+
+	// Class to add custom scripts and styles
+
 	class BGRScriptsStyles {
 
 		/*
@@ -39,7 +42,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				)
 			);
 			wp_enqueue_style( 'bgr-ratings-css', BGR_PLUGIN_URL . 'assets/css/bgr-ratings.css' );
-			wp_enqueue_script( 'bgr-ratings-js', BGR_PLUGIN_URL . 'assets/js/bgr-ratings.js', array( 'jquery' ) );			
+			wp_enqueue_script( 'bgr-ratings-js', BGR_PLUGIN_URL . 'assets/js/bgr-ratings.js', array( 'jquery' ) );
 		}
 
 		/*

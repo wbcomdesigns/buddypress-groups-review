@@ -107,20 +107,21 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		public function display( $group_id = null ) { ?>
 			<div class="bgr-bp-success">
 				<?php
-				$bp_template_option = bp_get_option('_bp_theme_package_id');
-				if( 'nouveau' == $bp_template_option ) { ?>
+				$bp_template_option = bp_get_option( '_bp_theme_package_id' );
+				if ( 'nouveau' == $bp_template_option ) {
+					?>
 					<div id="message" class="success bp-feedback bp-messages bp-template-notice">
 						<span class="bp-icon" aria-hidden="true"></span>
-				<?php } else { ?>		
+				<?php } else { ?>
 					<div id="message" class="success bgr-bp-success">
-				<?php } ?>		
+				<?php } ?>
 					<p><?php esc_html_e( 'Your Response added. This will be published when group admin has approved it.', 'bp-group-reviews' ); ?></p>
 				</div>
 			</div>
 			<div class="bgr-group-review-no-popup-add-block">
 				<?php do_shortcode( '[add_group_review_form]' ); ?>
 			</div>
-		<?php
+			<?php
 		}
 
 		/*
@@ -174,13 +175,13 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				if ( $reviews->have_posts() ) :
 					while ( $reviews->have_posts() ) :
 						$reviews->the_post();
-					?>
+						?>
 					<div class="bgr-row item-list group-request-list">
 						<div class="bgr-col-2">
 								<?php
 								$author = $reviews->post->post_author;
 								bp_displayed_user_avatar( array( 'item_id' => $author ) );
-									?>
+								?>
 							</div>
 							<div class="bgr-col-8">
 								<div class="item-title">
@@ -202,7 +203,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 												}
 											}
 											?>
-										</div>									
+										</div>
 										<div class="review-full-description bgr-col-12">
 											<div class="bgr-col-12">
 											<b>
@@ -227,11 +228,11 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 
 							<div class="clear"></div>
 						</div>
-					<?php
+						<?php
 					endwhile;
 					$total_pages = $reviews->max_num_pages;
 					if ( $total_pages > 1 ) {
-					?>
+						?>
 						<div class="review-pagination">
 							<?php
 							$current_page = max( 1, get_query_var( 'paged' ) );
@@ -245,14 +246,15 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 									'next_text' => esc_html__( 'next', 'bp-group-reviews' ),
 								)
 							);
-									?>
+							?>
 						</div>
 						<?php
 					}
 					wp_reset_postdata();
 				else :
-					$bp_template_option = bp_get_option('_bp_theme_package_id');
-					if( 'nouveau' == $bp_template_option ) { ?>
+					$bp_template_option = bp_get_option( '_bp_theme_package_id' );
+					if ( 'nouveau' == $bp_template_option ) {
+						?>
 					<div id="message" class="info bp-feedback bp-messages bp-template-notice">
 						<span class="bp-icon" aria-hidden="true"></span>
 					<?php } else { ?>
@@ -260,7 +262,8 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					<?php } ?>
 						<p><?php echo sprintf( __( 'Sorry, no %s were found.', 'bp-group-reviews' ), $review_label ); ?></p>
 					</div>
-			<?php endif;
+					<?php
+			endif;
 		}
 	}
 	bp_register_group_extension( 'Group_Reviews_Management_Extn' );

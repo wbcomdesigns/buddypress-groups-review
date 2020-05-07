@@ -2,11 +2,12 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Class to serve AJAX Calls
- */
-
 if ( ! class_exists( 'BGR_AJAX' ) ) {
+
+	/**
+	 * Class to serve AJAX Calls
+	 */
+
 	class BGR_AJAX {
 
 		/**

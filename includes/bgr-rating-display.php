@@ -2,11 +2,13 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Class to serve Rating Display
- */
 
 if ( ! class_exists( 'BGR_Rating_Display' ) ) {
+
+	/**
+	 * Class to serve Rating Display
+	 */
+
 	class BGR_Rating_Display {
 
 		/**
@@ -67,7 +69,7 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 									<span class="far fa-star stars bgr-star-rate"></span>
 									<?php
 							}
-								?>
+							?>
 								</div>
 							</div>
 							<?php

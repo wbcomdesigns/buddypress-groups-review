@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Add admin page for importing Review(s).
 if ( ! class_exists( 'BGR_Admin' ) ) {
+
 	class BGR_Admin {
 
 		/**
