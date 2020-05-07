@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-06 20:22:48+00:00\n"
+"POT-Creation-Date: 2020-05-07 08:21:15+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -79,7 +79,7 @@ msgid "a second"
 msgstr ""
 
 #: admin/bgr-admin-feedback.php:271 admin/bgr-admin-feedback.php:311
-#: admin/wbcom/wbcom-admin-settings.php:219 review-bp-grps.php:108
+#: admin/wbcom/wbcom-admin-settings.php:219 review-bp-grps.php:112
 msgid "BuddyPress Group Reviews"
 msgstr ""
 
@@ -103,121 +103,121 @@ msgstr ""
 msgid "No thanks / I already have"
 msgstr ""
 
-#: admin/bgr-admin.php:35
+#: admin/bgr-admin.php:36
 msgid "WB Plugins"
 msgstr ""
 
-#: admin/bgr-admin.php:36 admin/bgr-admin.php:55
+#: admin/bgr-admin.php:37 admin/bgr-admin.php:56
 msgid "General"
 msgstr ""
 
-#: admin/bgr-admin.php:38 includes/bgr-notifications.php:22
+#: admin/bgr-admin.php:39 includes/bgr-notifications.php:22
 msgid "Group Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:56
+#: admin/bgr-admin.php:57
 msgid "Criteria"
 msgstr ""
 
-#: admin/bgr-admin.php:57
+#: admin/bgr-admin.php:58
 msgid "Shortcode"
 msgstr ""
 
-#: admin/bgr-admin.php:58
+#: admin/bgr-admin.php:59
 msgid "Display"
 msgstr ""
 
-#: admin/bgr-admin.php:65
+#: admin/bgr-admin.php:66
 msgid "Group Reviews Settings"
 msgstr ""
 
-#: admin/bgr-admin.php:70
+#: admin/bgr-admin.php:71
 msgid "Group Reviews Settings Saved."
 msgstr ""
 
-#: admin/bgr-admin.php:72
+#: admin/bgr-admin.php:73
 msgid "Dismiss this notice."
 msgstr ""
 
-#: admin/bgr-admin.php:97 admin/bgr-admin.php:99 admin/bgr-admin.php:100
+#: admin/bgr-admin.php:98 admin/bgr-admin.php:100 admin/bgr-admin.php:101
 #: admin/review-admin-options-page.php:208 includes/bgr-globals.php:104
 #: includes/bgr-globals.php:111 includes/bgr-grp-extn.php:27
-#: includes/bgr-grp-extn.php:33 includes/bgr-grp-extn.php:149
-#: includes/bgr-grp-extn.php:152
+#: includes/bgr-grp-extn.php:33 includes/bgr-grp-extn.php:150
+#: includes/bgr-grp-extn.php:153
 msgid "Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:98 admin/review-admin-options-page.php:115
+#: admin/bgr-admin.php:99 admin/review-admin-options-page.php:115
 #: includes/bgr-globals.php:101 includes/bgr-globals.php:110
 #: includes/bgr-grp-extn.php:30 includes/bgr-grp-extn.php:34
 msgid "Review"
 msgstr ""
 
-#: admin/bgr-admin.php:101 admin/bgr-admin.php:102
+#: admin/bgr-admin.php:102 admin/bgr-admin.php:103
 msgid "Add New Review"
 msgstr ""
 
-#: admin/bgr-admin.php:103
+#: admin/bgr-admin.php:104
 msgid "New Review"
 msgstr ""
 
-#: admin/bgr-admin.php:104
+#: admin/bgr-admin.php:105
 msgid "View Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:105
+#: admin/bgr-admin.php:106
 msgid "All Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:106
+#: admin/bgr-admin.php:107
 msgid "Search Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:107
+#: admin/bgr-admin.php:108
 msgid "Parent Review"
 msgstr ""
 
-#: admin/bgr-admin.php:108
+#: admin/bgr-admin.php:109
 msgid "No Review Found"
 msgstr ""
 
-#: admin/bgr-admin.php:109
+#: admin/bgr-admin.php:110
 msgid "No Review Found In Trash"
 msgstr ""
 
-#: admin/bgr-admin.php:147
+#: admin/bgr-admin.php:148
 msgid "Search Categories"
 msgstr ""
 
-#: admin/bgr-admin.php:148
+#: admin/bgr-admin.php:149
 msgid "All Categories"
 msgstr ""
 
-#: admin/bgr-admin.php:149
+#: admin/bgr-admin.php:150
 msgid "Parent Category"
 msgstr ""
 
-#: admin/bgr-admin.php:150
+#: admin/bgr-admin.php:151
 msgid "Parent Category:"
 msgstr ""
 
-#: admin/bgr-admin.php:151
+#: admin/bgr-admin.php:152
 msgid "Edit Category"
 msgstr ""
 
-#: admin/bgr-admin.php:152
+#: admin/bgr-admin.php:153
 msgid "Update Category"
 msgstr ""
 
-#: admin/bgr-admin.php:153
+#: admin/bgr-admin.php:154
 msgid "Add Category"
 msgstr ""
 
-#: admin/bgr-admin.php:154
+#: admin/bgr-admin.php:155
 msgid "New Category Name"
 msgstr ""
 
-#: admin/bgr-admin.php:155
+#: admin/bgr-admin.php:156
 msgid "Category"
 msgstr ""
 
@@ -365,7 +365,7 @@ msgstr ""
 msgid "Paid Addons"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-plugins-page.php:67 includes/bgr-filters.php:303
+#: admin/wbcom/templates/wbcom-plugins-page.php:67 includes/bgr-filters.php:305
 msgid "View"
 msgstr ""
 
@@ -842,88 +842,88 @@ msgstr ""
 msgid "Themes"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:601 review-bp-grps.php:141
+#: admin/wbcom/wbcom-admin-settings.php:601 review-bp-grps.php:145
 msgid "Settings"
 msgstr ""
 
-#: includes/bgr-ajax.php:142 includes/templates/bgr-reviews-tab-template.php:67
+#: includes/bgr-ajax.php:143 includes/templates/bgr-reviews-tab-template.php:67
 msgid "read more..."
 msgstr ""
 
-#: includes/bgr-ajax.php:155 includes/templates/bgr-reviews-tab-template.php:83
+#: includes/bgr-ajax.php:156 includes/templates/bgr-reviews-tab-template.php:83
 msgid "Delete"
 msgstr ""
 
-#: includes/bgr-ajax.php:169 includes/bgr-grp-extn.php:244
+#: includes/bgr-ajax.php:170 includes/bgr-grp-extn.php:245
 #: includes/templates/bgr-reviews-tab-template.php:106
 msgid "prev"
 msgstr ""
 
-#: includes/bgr-ajax.php:170 includes/bgr-grp-extn.php:245
+#: includes/bgr-ajax.php:171 includes/bgr-grp-extn.php:246
 #: includes/templates/bgr-reviews-tab-template.php:107
 msgid "next"
 msgstr ""
 
-#: includes/bgr-ajax.php:186
+#: includes/bgr-ajax.php:187
 #: includes/templates/bgr-reviews-tab-template.php:126
 msgid "Sorry, no %1$s were found."
 msgstr ""
 
-#: includes/bgr-ajax.php:298 includes/widgets/group-rating.php:207
+#: includes/bgr-ajax.php:299 includes/widgets/group-rating.php:230
 msgid "Rating : ( %1$s )"
 msgstr ""
 
-#: includes/bgr-ajax.php:307 includes/widgets/group-rating.php:218
+#: includes/bgr-ajax.php:308 includes/widgets/group-rating.php:243
 msgid "No Rating has been given by any member yet!"
 msgstr ""
 
-#: includes/bgr-ajax.php:465 includes/bgr-shortcodes.php:94
+#: includes/bgr-ajax.php:466 includes/bgr-shortcodes.php:96
 msgid "You already posted a %1$s for this group."
 msgstr ""
 
-#: includes/bgr-ajax.php:468
-msgid "Thank you for taking time to write this wonderful %1$s."
+#: includes/bgr-ajax.php:469
+msgid "Thank you for taking time to write this %1$s."
 msgstr ""
 
-#: includes/bgr-ajax.php:471
+#: includes/bgr-ajax.php:472
 msgid ""
-"Thank you for taking time to write this wonderful %1$s. Your %1$s will "
-"display after moderator's approval."
+"Thank you for taking time to write this %1$s. Your %1$s will display after "
+"moderator's approval."
 msgstr ""
 
-#: includes/bgr-ajax.php:503 includes/bgr-notifications.php:145
+#: includes/bgr-ajax.php:504 includes/bgr-notifications.php:145
 msgid "A new %1$s posted."
 msgstr ""
 
-#: includes/bgr-ajax.php:504
+#: includes/bgr-ajax.php:505
 msgid "A new %1$s for %2$s added by %3$s. Link: %4$s"
 msgstr ""
 
-#: includes/bgr-ajax.php:551 includes/bgr-notifications.php:171
+#: includes/bgr-ajax.php:552 includes/bgr-notifications.php:171
 msgid "%1$s accepted."
 msgstr ""
 
-#: includes/bgr-ajax.php:552
+#: includes/bgr-ajax.php:553
 msgid "Your %1$s for %2$s accepted by group admin. Link: %3$s."
 msgstr ""
 
-#: includes/bgr-ajax.php:586 includes/bgr-notifications.php:199
+#: includes/bgr-ajax.php:587 includes/bgr-notifications.php:199
 msgid "%1$s denied."
 msgstr ""
 
-#: includes/bgr-ajax.php:587 includes/bgr-notifications.php:200
+#: includes/bgr-ajax.php:588 includes/bgr-notifications.php:200
 msgid "Your %1$s for %2$s denied by group admin."
 msgstr ""
 
-#: includes/bgr-filters.php:48 includes/bgr-filters.php:61
+#: includes/bgr-filters.php:50 includes/bgr-filters.php:63
 msgid "Add %1$s"
 msgstr ""
 
-#: includes/bgr-filters.php:259
+#: includes/bgr-filters.php:261
 msgid "Rating "
 msgstr ""
 
-#: includes/bgr-filters.php:307
+#: includes/bgr-filters.php:309
 msgid "Approve"
 msgstr ""
 
@@ -932,33 +932,33 @@ msgstr ""
 msgid "Add %s"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:117
+#: includes/bgr-grp-extn.php:118
 msgid ""
 "Your Response added. This will be published when group admin has approved "
 "it."
 msgstr ""
 
-#: includes/bgr-grp-extn.php:192
+#: includes/bgr-grp-extn.php:193
 msgid "Short Description "
 msgstr ""
 
-#: includes/bgr-grp-extn.php:209
+#: includes/bgr-grp-extn.php:210
 msgid "Full Description"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:215 includes/bgr-scripts.php:37
+#: includes/bgr-grp-extn.php:216 includes/bgr-scripts.php:40
 msgid "View More.."
 msgstr ""
 
-#: includes/bgr-grp-extn.php:221
+#: includes/bgr-grp-extn.php:222
 msgid "Accept"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:224
+#: includes/bgr-grp-extn.php:225
 msgid "Deny"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:261
+#: includes/bgr-grp-extn.php:263
 msgid "Sorry, no %s were found."
 msgstr ""
 
@@ -970,142 +970,142 @@ msgstr ""
 msgid "Your %1$s for %2$s accepted by group admin."
 msgstr ""
 
-#: includes/bgr-rating-display.php:104
+#: includes/bgr-rating-display.php:106
 msgid "Rating"
 msgstr ""
 
-#: includes/bgr-scripts.php:38
+#: includes/bgr-scripts.php:41
 msgid "View Less.."
 msgstr ""
 
-#: includes/bgr-shortcodes.php:72
+#: includes/bgr-shortcodes.php:73
 msgid "You should log in for post %1$s."
 msgstr ""
 
-#: includes/bgr-shortcodes.php:139
+#: includes/bgr-shortcodes.php:141
 msgid "Write a %1$s"
 msgstr ""
 
-#: includes/bgr-shortcodes.php:146
+#: includes/bgr-shortcodes.php:148
 msgid "--Select Group--"
 msgstr ""
 
-#: includes/bgr-shortcodes.php:167 includes/bgr-shortcodes.php:179
-#: includes/bgr-shortcodes.php:224
+#: includes/bgr-shortcodes.php:169 includes/bgr-shortcodes.php:181
+#: includes/bgr-shortcodes.php:226
 msgid "This field is required."
 msgstr ""
 
-#: includes/bgr-shortcodes.php:177
+#: includes/bgr-shortcodes.php:179
 msgid "%1$s Description"
 msgstr ""
 
-#: includes/bgr-shortcodes.php:187
+#: includes/bgr-shortcodes.php:189
 msgid "Submit %1$s"
 msgstr ""
 
 #: includes/templates/bgr-reviews-tab-template.php:31
-#: includes/widgets/group-rating.php:53 includes/widgets/group-rating.php:151
+#: includes/widgets/group-rating.php:63 includes/widgets/group-rating.php:166
 msgid "Latest"
 msgstr ""
 
 #: includes/templates/bgr-reviews-tab-template.php:32
-#: includes/widgets/group-rating.php:54 includes/widgets/group-rating.php:152
+#: includes/widgets/group-rating.php:64 includes/widgets/group-rating.php:171
 msgid "Highest"
 msgstr ""
 
 #: includes/templates/bgr-reviews-tab-template.php:33
-#: includes/widgets/group-rating.php:55 includes/widgets/group-rating.php:153
+#: includes/widgets/group-rating.php:65 includes/widgets/group-rating.php:176
 msgid "Lowest"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:13
+#: includes/widgets/bgr-review.php:23
 msgid "Display Group Reviews."
 msgstr ""
 
-#: includes/widgets/bgr-review.php:19
+#: includes/widgets/bgr-review.php:29
 msgid "BP Group Review Widget"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:43 includes/widgets/group-rating.php:42
+#: includes/widgets/bgr-review.php:54 includes/widgets/group-rating.php:52
 msgid "Title"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:46
+#: includes/widgets/bgr-review.php:57
 msgid "Select Listing Type"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:55
+#: includes/widgets/bgr-review.php:66
 msgid "Top Rated"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:64
+#: includes/widgets/bgr-review.php:75
 msgid "Most Reviewed"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:70 includes/widgets/group-rating.php:46
+#: includes/widgets/bgr-review.php:81 includes/widgets/group-rating.php:56
 msgid "Number of reviews to show"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:76
+#: includes/widgets/bgr-review.php:87
 msgid "Thumbnail"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:78
+#: includes/widgets/bgr-review.php:89
 msgid "Hide"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:79
+#: includes/widgets/bgr-review.php:90
 msgid "Show"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:268
+#: includes/widgets/bgr-review.php:279
 msgid "Total"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:284
+#: includes/widgets/bgr-review.php:296
 msgid "No Rating has been given to any group yet!"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:287
+#: includes/widgets/bgr-review.php:302
 msgid "No %1$s has been given to any group yet!"
 msgstr ""
 
-#: includes/widgets/group-rating.php:12
+#: includes/widgets/group-rating.php:21
 msgid "Display displayed group ratings."
 msgstr ""
 
-#: includes/widgets/group-rating.php:18
+#: includes/widgets/group-rating.php:27
 msgid "BP Displayed Group Rating Widget"
 msgstr ""
 
-#: includes/widgets/group-rating.php:51
+#: includes/widgets/group-rating.php:61
 msgid "Default ratings to show:"
 msgstr ""
 
-#: includes/widgets/group-rating.php:136
+#: includes/widgets/group-rating.php:146
 msgid "%s's Ratings"
 msgstr ""
 
-#: review-bp-grps.php:109
+#: review-bp-grps.php:113
 msgid "BuddyPress"
 msgstr ""
 
-#: review-bp-grps.php:111
+#: review-bp-grps.php:115
 msgid "%1$s is ineffective now as it requires %2$s to be installed and active."
 msgstr ""
 
-#: review-bp-grps.php:128
+#: review-bp-grps.php:132
 msgid ""
 "The Review BuddyPress Groups plugin requires BuddyPress User Groups "
 "Component to be active."
 msgstr ""
 
-#: admin/bgr-admin.php:145
+#: admin/bgr-admin.php:146
 msgctxt "taxonomy general name"
 msgid "Reviews Category"
 msgstr ""
 
-#: admin/bgr-admin.php:146
+#: admin/bgr-admin.php:147
 msgctxt "taxonomy singular name"
 msgid "Review Category"
 msgstr ""
