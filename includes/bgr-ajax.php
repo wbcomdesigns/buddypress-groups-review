@@ -127,10 +127,11 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				if ( $reviews->have_posts() ) {
 					while ( $reviews->have_posts() ) :
 						$reviews->the_post();
-						$html  .= '<div class="bgr-row item-list group-request-list"><div class="bgr-col-2">';
-						$author = $reviews->post->post_author;
-						$html  .= bp_get_displayed_user_avatar( array( 'item_id' => $author ) );
-						$html  .= '</div><div class="bgr-col-8"><div class="reviewer"><b>' . bp_core_get_userlink( $author ) . '</b></div>';
+						$member_id = bp_displayed_user_id();
+						$html     .= '<div class="bgr-row item-list group-request-list"><div class="bgr-col-2">';
+						$author    = $reviews->post->post_author;
+						$html     .= bp_get_displayed_user_avatar( array( 'item_id' => $author ) );
+						$html     .= '</div><div class="bgr-col-8"><div class="reviewer"><b>' . bp_core_get_userlink( $author ) . '</b></div>';
 
 						$html       .= '<div class="item-description"><div class="review-description">';
 						$trimcontent = get_the_content();
@@ -342,9 +343,9 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		function bgr_save_admin_criteria_settings() {
 			if ( isset( $_POST['action'] ) && $_POST['action'] === 'bgr_save_admin_criteria_settings' ) {
 
-				$rating_fields               = array_map( 'sanitize_text_field', wp_unslash( $_POST['field_values'] ) );
+				$rating_fields               = isset( $_POST['field_values'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['field_values'] ) ) : '';
 				$rating_field_values         = array_unique( $rating_fields );
-				$active_rating_fields        = array_map( 'sanitize_text_field', wp_unslash( $_POST['active_criterias'] ) );
+				$active_rating_fields        = isset( $_POST['active_criterias'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['active_criterias'] ) ) : '';
 				$active_rating_fields_values = array_unique( $active_rating_fields );
 
 				$bgr_admin_settings = array(
