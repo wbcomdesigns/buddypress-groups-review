@@ -158,7 +158,8 @@ jQuery(document).ready(
                   'data': jQuery(this).serialize()
                 },
                 function(response) {
-                  jQuery('.bgr-bp-success p').html(response).css("display", "block");
+                  jQuery('.bgr-bp-success p').html(response);
+                  jQuery('.bgr-bp-success').css("display", "block");
                   jQuery('.bgr-group-review-no-popup-add-block').hide();
                   jQuery('#bgr-add-review-modal').hide();
                   jQuery('#bgr-message').html(response);
@@ -169,7 +170,7 @@ jQuery(document).ready(
                   jQuery.cookie('res_content', response, {
                     expires: date
                   });
-                  window.location.reload();
+                  // window.location.reload();
                 }
               );
             }
@@ -261,7 +262,7 @@ jQuery(
     if (jQuery.cookie('res_content')) {
       jQuery('.error').hide();
       jQuery('.bgr-bp-success p').text(jQuery.cookie('res_content'));
-      jQuery('.bgr-bp-success').show();
+      // jQuery('.bgr-bp-success').show();
       jQuery.cookie('res_content', "", -1);
     }
   }
