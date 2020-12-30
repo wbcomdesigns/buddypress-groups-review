@@ -498,7 +498,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$user_name  = $user_info->user_login;
 
 				if ( $auto_approve_reviews == 'yes' ) {
-					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '//reviews//';
+					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '\/reviews\/';
 				} else {
 					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/admin/manage-reviews/';
 				}
