@@ -59,7 +59,8 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 		function bgr_admin_custom_variables() {
 			$curr_url = $_SERVER['REQUEST_URI'];
 			$screen   = get_current_screen();
-			if ( ( strpos( $curr_url, 'review' ) == true ) || ( 'wb-plugins_page_group-review-settings' == $screen->base ) ) {
+
+			if ( ( strpos( $curr_url, 'review' ) == true ) || ( 'wb-plugins_page_group-review-settings' == $screen->base ) || ( 'toplevel_page_wbcomplugins' == $screen->base ) ) {
 				wp_enqueue_script( 'bgr-js-admin', BGR_PLUGIN_URL . 'admin/assets/js/bgr-admin.js', array( 'jquery' ) );
 				wp_enqueue_style( 'wp-color-picker' );
 				wp_enqueue_script( 'bgr-colorpicker-handle', BGR_PLUGIN_URL . 'admin/assets/js/bgr-colorpicker.js', array( 'wp-color-picker' ), false, false );
