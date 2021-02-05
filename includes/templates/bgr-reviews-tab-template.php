@@ -40,7 +40,7 @@ $reviews              = new WP_Query( $args );
 				if ( $reviews->have_posts() ) {
 					while ( $reviews->have_posts() ) :
 						$reviews->the_post();
-					?>
+						?>
 							<div class="bgr-row item-list group-request-list">
 								<div class="bgr-group-profiles">
 									<?php
@@ -50,7 +50,7 @@ $reviews              = new WP_Query( $args );
 								</div>
 								<div class="bgr-group-content">
 									<div class="reviewer">
-										<b><?php echo bp_core_get_userlink( $author ); ?></b>
+										<b><?php echo esc_html( bp_core_get_userlink( $author ) ); ?></b>
 									</div>
 
 									<div class="item-description">
@@ -58,19 +58,21 @@ $reviews              = new WP_Query( $args );
 											<?php
 												$trimcontent = get_the_content();
 												$url         = bp_get_group_permalink() . 'reviews/view/' . get_the_id();
-												if ( ! empty( $trimcontent ) ) {
-													$len = strlen( $trimcontent );
-													if ( $len > 150 ) {
-														$shortexcerpt = substr( $trimcontent, 0, 150 );
-														echo $shortexcerpt;
-															?>
-															<a href="<?php echo $url; ?>"><i><b><?php esc_html_e( 'read more...', 'bp-group-reviews' ); ?></b></i></a>
-																<?php
-													} else {
-														echo $trimcontent;
-													}
+											if ( ! empty( $trimcontent ) ) {
+												$len = strlen( $trimcontent );
+												if ( $len > 150 ) {
+													$shortexcerpt = substr( $trimcontent, 0, 150 );
+													// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+													echo $shortexcerpt;
+													?>
+															<a href="<?php echo esc_url( $url ); ?>"><i><b><?php esc_html_e( 'read more...', 'bp-group-reviews' ); ?></b></i></a>
+															<?php
+												} else {
+												// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+													echo $trimcontent;
 												}
-												?>
+											}
+											?>
 												<div class="review-ratings">
 													<?php do_action( 'bgr_display_ratings', $post->ID ); ?>
 												</div>
@@ -80,7 +82,7 @@ $reviews              = new WP_Query( $args );
 								<div class="bgr-col-2">
 									<?php if ( groups_is_user_admin( $member_id, bp_get_group_id() ) ) : ?>
 										<div class='remove-review generic-button'>
-											<a class='remove-review-button'> <?php _e( 'Delete', 'bp-group-reviews' ); ?> </a>
+											<a class='remove-review-button'> <?php esc_html_e( 'Delete', 'bp-group-reviews' ); ?> </a>
 											<input type="hidden" name="remove_review_id" value="<?php echo esc_attr( $post->ID ); ?>">
 										</div>
 									<?php endif; ?>
@@ -89,14 +91,15 @@ $reviews              = new WP_Query( $args );
 								<div class="clear"></div>
 							</div>
 
-					<?php
+						<?php
 					endwhile;
 						$total_pages = $reviews->max_num_pages;
 					if ( $total_pages > 1 ) {
-					?>
+						?>
 							<div class="review-pagination">
 								<?php
 								$current_page = max( 1, get_query_var( 'paged' ) );
+								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 								echo paginate_links(
 									array(
 										'base'      => get_pagenum_link( 1 ) . '%_%',
@@ -107,7 +110,7 @@ $reviews              = new WP_Query( $args );
 										'next_text' => esc_html__( 'next', 'bp-group-reviews' ),
 									)
 								);
-										?>
+								?>
 
 							</div>
 							<?php
@@ -116,15 +119,18 @@ $reviews              = new WP_Query( $args );
 
 				} else {
 
-					$bp_template_option = bp_get_option('_bp_theme_package_id');
-					if( 'nouveau' == $bp_template_option ) { 	?>
+					$bp_template_option = bp_get_option( '_bp_theme_package_id' );
+					if ( 'nouveau' == $bp_template_option ) {
+						?>
 					<div id="message" class="info bp-feedback bp-messages bp-template-notice">
 						<span class="bp-icon" aria-hidden="true"></span>
 					<?php } else { ?>
 						<div id="message" class="info">
-					<?php } 
-						echo '<p>' . sprintf( esc_html__( 'Sorry, no %1$s were found.', 'bp-group-reviews' ), $review_label ) . '</p>';
-						?>
+						<?php
+					}
+					/* translators: %1$s is replaced with review_label */
+						echo '<p>' . sprintf( esc_html__( 'Sorry, no %1$s were found.', 'bp-group-reviews' ), esc_html( $review_label ) ) . '</p>';
+					?>
 					</div>
 					<?php } ?>
 			</div>

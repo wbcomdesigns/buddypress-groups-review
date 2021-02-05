@@ -1,5 +1,17 @@
 <?php
 /**
+ *  * The plugin bootstrap file
+ *
+ * This file is read by WordPress to generate the plugin information in the plugin
+ * admin area. This file also includes all of the dependencies used by the plugin,
+ * registers the activation and deactivation functions, and defines a function
+ * that starts the plugin.
+ *
+ * @link              https://wbcomdesigns.com/
+ * @since             1.0.0
+ * @package           Buddypress_groups-review
+ *
+ * @wordpress-plugin
  * Plugin Name: BuddyPress Group Reviews
  * Plugin URI: https://wbcomdesigns.com/contact/
  * Description: This plugin allows the BuddyPress Members to give reviews to the BuddyPress groups on the site. The review form allows the users to give text review, even rate the group on the basis of multiple criterias.
@@ -45,12 +57,8 @@ function bgr_load_textdomain() {
  *  @since   1.0.0
  *  @author  Wbcom Designs
 */
-if ( ! defined( 'BGR_PLUGIN_PATH' ) ) {
-	define( 'BGR_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
-}
-if ( ! defined( 'BGR_PLUGIN_URL' ) ) {
-	define( 'BGR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-}
+define( 'BGR_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+define( 'BGR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 /**
  * Include needed files on init
@@ -112,6 +120,7 @@ function bgr_admin_notice() {
 	$bpquotes_plugin = esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' );
 	$bp_plugin       = esc_html__( 'BuddyPress', 'bp-group-reviews' );
 	echo '<div class="error"><p>';
+	/* translators: %s: search term */
 	echo sprintf( esc_html__( '%1$s is ineffective now as it requires %2$s to be installed and active.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>' );
 	echo '</p></div>';
 	if ( isset( $_GET['activate'] ) ) {

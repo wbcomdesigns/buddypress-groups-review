@@ -2,12 +2,11 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Class to serve AJAX Calls
+ */
+
 if ( ! class_exists( 'BGR_AJAX' ) ) {
-
-	/**
-	 * Class to serve AJAX Calls
-	 */
-
 	class BGR_AJAX {
 
 		/**
@@ -16,8 +15,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @since   1.0.0
 		 *  @author  Wbcom Designs
 		 */
-
-		function __construct() {
+		public function __construct() {
 
 			add_action( 'wp_ajax_bgr_save_admin_criteria_settings', array( $this, 'bgr_save_admin_criteria_settings' ) );
 			add_action( 'wp_ajax_nopriv_bgr_save_admin_criteria_settings', array( $this, 'bgr_save_admin_criteria_settings' ) );
@@ -127,11 +125,10 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				if ( $reviews->have_posts() ) {
 					while ( $reviews->have_posts() ) :
 						$reviews->the_post();
-						$member_id = bp_displayed_user_id();
-						$html     .= '<div class="bgr-row item-list group-request-list"><div class="bgr-col-2">';
-						$author    = $reviews->post->post_author;
-						$html     .= bp_get_displayed_user_avatar( array( 'item_id' => $author ) );
-						$html     .= '</div><div class="bgr-col-8"><div class="reviewer"><b>' . bp_core_get_userlink( $author ) . '</b></div>';
+						$html  .= '<div class="bgr-row item-list group-request-list"><div class="bgr-col-2">';
+						$author = $reviews->post->post_author;
+						$html  .= bp_get_displayed_user_avatar( array( 'item_id' => $author ) );
+						$html  .= '</div><div class="bgr-col-8"><div class="reviewer"><b>' . bp_core_get_userlink( $author ) . '</b></div>';
 
 						$html       .= '<div class="item-description"><div class="review-description">';
 						$trimcontent = get_the_content();
@@ -185,11 +182,12 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					} else {
 						$html .= '<div id="message" class="info">';
 					}
+					/* translators: %1$s is replaced with review_label */
 					$html .= '<p>' . sprintf( esc_html__( 'Sorry, no %1$s were found.', 'bp-group-reviews' ), $review_label ) . '</p>';
 					$html .= '</div>';
 				}
 				$html .= '</div>';
-
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo stripslashes( $html );
 				die;
 
@@ -297,9 +295,10 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 
 							$bgr_avg_rating = round( $bgr_avg_rating, 2 );
 							$html          .= '<span class="bgr-meta">';
-							$html          .= sprintf( esc_html__( 'Rating : ( %1$s )', 'bp-group-reviews' ), esc_html( $bgr_avg_rating ) );
-							$html          .= '</span>';
-							$html          .= '</div></li>';
+							/* translators: %1$s is replaced with $bgr_avg_rating  */
+							$html .= sprintf( esc_html__( 'Rating : ( %1$s )', 'bp-group-reviews' ), esc_html( $bgr_avg_rating ) );
+							$html .= '</span>';
+							$html .= '</div></li>';
 
 						}
 
@@ -343,9 +342,9 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		function bgr_save_admin_criteria_settings() {
 			if ( isset( $_POST['action'] ) && $_POST['action'] === 'bgr_save_admin_criteria_settings' ) {
 
-				$rating_fields               = isset( $_POST['field_values'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['field_values'] ) ) : '';
+				$rating_fields               = array_map( 'sanitize_text_field', wp_unslash( $_POST['field_values'] ) );
 				$rating_field_values         = array_unique( $rating_fields );
-				$active_rating_fields        = isset( $_POST['active_criterias'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['active_criterias'] ) ) : '';
+				$active_rating_fields        = array_map( 'sanitize_text_field', wp_unslash( $_POST['active_criterias'] ) );
 				$active_rating_fields_values = array_unique( $active_rating_fields );
 
 				$bgr_admin_settings = array(
@@ -365,7 +364,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @since   1.0.0
 		 *  @author  Wbcom Designs
 		 */
-
 		function bgr_save_admin_general_settings() {
 			if ( isset( $_POST['action'] ) && $_POST['action'] === 'bgr_save_admin_general_settings' ) {
 
@@ -398,7 +396,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @since   1.0.0
 		 *  @author  Wbcom Designs
 		 */
-
 		function bgr_save_admin_display_settings() {
 			if ( isset( $_POST['action'] ) && $_POST['action'] === 'bgr_save_admin_display_settings' ) {
 
@@ -423,7 +420,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @since   1.0.0
 		 *  @author  Wbcom Designs
 		 */
-
 		function bgr_submit_review() {
 			global $bp;
 			global $bgr;
@@ -464,13 +460,16 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$user_post_count = 0;
 			}
 			if ( $user_post_count > 0 ) {
+				/* translators: %1$s is replaced with review_label */
 				$review_add_msg = sprintf( __( 'You already posted a %1$s for this group.', 'bp-group-reviews' ), $review_label );
 			} else {
 				if ( $auto_approve_reviews == 'yes' ) {
-					$review_add_msg = sprintf( esc_html__( 'Thank you for taking time to write this %1$s.', 'bp-group-reviews' ), $review_label );
+					/* translators: %1$s is replaced with review_label */
+					$review_add_msg = sprintf( esc_html__( 'Thank you for taking time to write this wonderful %1$s.', 'bp-group-reviews' ), $review_label );
 					$review_status  = 'publish';
 				} else {
-					$review_add_msg = sprintf( __( 'Thank you for taking time to write this %1$s. Your %1$s will display after moderator\'s approval.', 'bp-group-reviews' ), $review_label );
+					/* translators: %1$s is replaced with review_label */
+					$review_add_msg = sprintf( esc_html__( 'Thank you for taking time to write this wonderful %1$s. Your %1$s will display after moderator\'s approval.', 'bp-group-reviews' ), $review_label );
 					$review_status  = 'draft';
 				}
 
@@ -498,11 +497,13 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$user_name  = $user_info->user_login;
 
 				if ( $auto_approve_reviews == 'yes' ) {
-					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '\/reviews\/';
+					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '//reviews//';
 				} else {
 					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/admin/manage-reviews/';
 				}
-				$mail_title   = sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
+				/* translators: %1$s is replaced with review_label */
+				$mail_title = sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
+				/* translators: %1$s, %2$s and %3$s are replaced with review_label, group_name and user_name respectively.  */
 				$mail_content = sprintf( esc_html__( 'A new %1$s for %2$s added by %3$s. Link: %4$s', 'bp-group-reviews' ), $review_label, $group_name, $user_name, esc_url( $mail_link ) );
 
 				if ( ! empty( $rated_stars ) ) {
@@ -525,7 +526,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					}
 				}
 			}
-
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $review_add_msg;
 			die;
 		}
@@ -536,8 +537,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @since   1.0.0
 		 *  @author  Wbcom Designs
 		 */
-
-		function bgr_accept_review() {
+		public function bgr_accept_review() {
 			global $bgr;
 			global $bp;
 			$post_id        = sanitize_text_field( $_POST['accept_review_id'] );
@@ -550,8 +550,10 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$group              = groups_get_group( array( 'group_id' => $group_id ) );
 			$group_name         = $group->name;
 			$review_link        = bp_get_groups_directory_permalink() . $group->slug . "/reviews/view/$post_id/";
-			$mail_title         = sprintf( esc_html__( '%1$s accepted.', 'bp-group-reviews' ), $review_label );
-			$mail_content       = sprintf( esc_html__( 'Your %1$s for %2$s accepted by group admin. Link: %3$s.', 'bp-group-reviews' ), $review_label, $group_name, esc_url( $review_link ) );
+			/* translators: %1$s is replaced with review_label */
+			$mail_title = sprintf( esc_html__( '%1$s accepted.', 'bp-group-reviews' ), $review_label );
+			/* translators: %1$s and %2$s is replaced with review_label and group_name respectively. */
+			$mail_content = sprintf( esc_html__( 'Your %1$s for %2$s accepted by group admin. Link: %3$s.', 'bp-group-reviews' ), $review_label, $group_name, esc_url( $review_link ) );
 
 			if ( 'yes' == $allow_notification ) {
 				do_action( 'bgr_group_accept_review', $post_id );
@@ -571,7 +573,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @since   1.0.0
 		 *  @author  Wbcom Designs
 		 */
-
 		function bgr_deny_review() {
 			global $bgr;
 			global $bp;
@@ -585,8 +586,10 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$group_id           = get_post_meta( $post_id, 'linked_group', true );
 			$group              = groups_get_group( array( 'group_id' => $group_id ) );
 			$group_name         = $group->name;
-			$mail_title         = sprintf( esc_html__( '%1$s denied.', 'bp-group-reviews' ), $review_label );
-			$mail_content       = sprintf( esc_html__( 'Your %1$s for %2$s denied by group admin.', 'bp-group-reviews' ), $review_label, $group_name );
+			/* translators: %1$s is replaced with review_label */
+			$mail_title = sprintf( esc_html__( '%1$s denied.', 'bp-group-reviews' ), $review_label );
+			/* translators: %1$s and %2$s is replaced with review_label and group_name respectively*/
+			$mail_content = sprintf( esc_html__( 'Your %1$s for %2$s denied by group admin.', 'bp-group-reviews' ), $review_label, $group_name );
 
 			if ( 'yes' == $allow_notification ) {
 				do_action( 'bgr_group_deny_review', $post_id );
@@ -606,8 +609,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @since   1.0.0
 		 *  @author  Wbcom Designs
 		 */
-
-		function bgr_remove_review() {
+		public function bgr_remove_review() {
 			$post_id = sanitize_text_field( $_POST['remove_review_id'] );
 			wp_trash_post( $post_id );
 			die;

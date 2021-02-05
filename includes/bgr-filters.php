@@ -2,14 +2,11 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Class to add custom hooks for this plugin
+ */
 if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
-
-	/**
-	 * Class to add custom hooks for this plugin
-	 */
-
 	class BGR_Custom_Hooks {
-
 		/*
 		  Constructor for custom hooks
 		*  @since   1.0.0
@@ -33,7 +30,6 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @access public
 		 *  @author  Wbcom Designs
 		 */
-
 		public function bgr_group_header_review_btn() {
 			global $bgr;
 			$review_div          = 'form';
@@ -45,9 +41,10 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				if ( ! in_array( bp_get_current_group_id(), $exclude_groups ) ) {
 					if ( ! groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id() ) || ! is_user_logged_in() ) { ?>
 					<div class="group-button public generic-button" id="groupbutton-85">
-						<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>">
+						<a href='<?php echo esc_url( $current_group_link ); ?>' class="group-button" show ="<?php echo esc_attr( $review_div ); ?>">
 											<?php
-											echo sprintf( __( 'Add %1$s', 'bp-group-reviews' ), $bgr['review_label'] );
+											/* translators: %1$s is replaced with $bgr['review_label'] */
+											echo sprintf( esc_html__( 'Add %1$s', 'bp-group-reviews' ), esc_html( $bgr['review_label'] ) );
 											?>
 </a>
 					</div>
@@ -58,9 +55,10 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				if ( ! groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id() ) || ! is_user_logged_in() ) {
 					?>
 				<div class="group-button public generic-button" id="groupbutton-85">
-					<a href='<?php echo $current_group_link; ?>' class="group-button" show ="<?php echo $review_div; ?>">
+					<a href='<?php echo esc_url( $current_group_link ); ?>' class="group-button" show ="<?php echo esc_attr( $review_div ); ?>">
 										<?php
-										echo sprintf( __( 'Add %1$s', 'bp-group-reviews' ), $bgr['review_label'] );
+										/* translators: %1$s is replaced with $bgr['review_label'] */
+										echo sprintf( esc_html__( 'Add %1$s', 'bp-group-reviews' ), esc_html( $bgr['review_label'] ) );
 										?>
 </a>
 				</div>
@@ -149,13 +147,13 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					if ( $avg_rating > 0 ) {
 						?>
 					<div class="buddypress-single-group-reviews-stars" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-						<span itemprop="ratingValue"  content="<?php echo $avg_rating; ?>"></span>
+						<span itemprop="ratingValue"  content="<?php echo esc_attr( $avg_rating ); ?>"></span>
 						<span itemprop="bestRating"   content="5"></span>
-						<span itemprop="reviewCount"  content="<?php echo $total_review_count; ?>"></span>
-						<span itemprop="ratingCount"  content="<?php echo $rating_count; ?>"></span>
+						<span itemprop="reviewCount"  content="<?php echo esc_attr( $total_review_count ); ?>"></span>
+						<span itemprop="ratingCount"  content="<?php echo esc_attr( $rating_count ); ?>"></span>
 						<span itemprop="itemReviewed" content="Person"></span>
-						<span itemprop="name" content="<?php echo bp_get_current_group_name(); ?>"></span>
-						<span itemprop="url" content="<?php echo bp_get_group_permalink( groups_get_current_group() ); ?>"></span>
+						<span itemprop="name" content="<?php echo esc_attr( bp_get_current_group_name() ); ?>"></span>
+						<span itemprop="url" content="<?php echo esc_attr( bp_get_group_permalink( groups_get_current_group() ) ); ?>"></span>
 					</div>
 					<?php } ?>
 					<div class="bgr-header-row"><div class="bgr-group-header-ratings"><div class="rating-bgr">
@@ -175,7 +173,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 */
 
 		public function bgr_group_average_rating() {
-			// Gather all the group reviews
+			// Gather all the group reviews.
 			global $bgr;
 			global $bp;
 			$args                 = array(
@@ -245,13 +243,13 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					if ( $avg_rating > 0 ) {
 						?>
 					<div class="buddypress-single-group-reviews-stars" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-						<span itemprop="ratingValue"  content="<?php echo $avg_rating; ?>"></span>
+						<span itemprop="ratingValue"  content="<?php echo esc_attr( $avg_rating ); ?>"></span>
 						<span itemprop="bestRating"   content="5"></span>
-						<span itemprop="reviewCount"  content="<?php echo $total_review_count; ?>"></span>
-						<span itemprop="ratingCount"  content="<?php echo $rating_count; ?>"></span>
+						<span itemprop="reviewCount"  content="<?php echo esc_attr( $total_review_count ); ?>"></span>
+						<span itemprop="ratingCount"  content="<?php echo esc_attr( $rating_count ); ?>"></span>
 						<span itemprop="itemReviewed" content="Person"></span>
-						<span itemprop="name" content="<?php echo bp_get_current_group_name(); ?>"></span>
-						<span itemprop="url" content="<?php echo bp_get_group_permalink( groups_get_current_group() ); ?>"></span>
+						<span itemprop="name" content="<?php echo esc_attr( bp_get_current_group_name() ); ?>"></span>
+						<span itemprop="url" content="<?php echo esc_attr( bp_get_group_permalink( groups_get_current_group() ) ); ?>"></span>
 					</div>
 					<?php } ?>
 					<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr">
@@ -295,7 +293,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				unset( $actions['inline hide-if-no-js'] );
 
 				if ( wp_get_object_terms( $post->ID, 'review_category' )[0]->name == 'Group' ) {
-					// Add a link to view the review
+					// Add a link to view the review.
 					$review_title = $post->post_title;
 					$linked_group = get_post_meta( $post->ID, 'linked_group', true );
 					$group        = groups_get_group( array( 'group_id' => $linked_group ) );
@@ -304,7 +302,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 
 					$actions['view_review'] = '<a href="' . $review_url . '" title="' . $review_title . '">' . esc_html__( 'View', 'bp-group-reviews' ) . '</a>';
 
-					// Add Approve Link for draft reviews
+					// Add Approve Link for draft reviews.
 					if ( $post->post_status == 'draft' ) {
 						$actions['approve_review'] = '<a href="javascript:void(0);" title="' . $review_title . '" class="bgr-approve-review" data-rid="' . $post->ID . '">' . esc_html__( 'Approve', 'bp-group-reviews' ) . '</a>';
 					}
@@ -422,7 +420,6 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 * @access   public
 		 * @author   Wbcom Designs
 		 */
-
 		public function bgr_group_reviews_tab() {
 			add_action( 'bp_template_content', array( $this, 'bgr_group_reviews_tab_template' ) );
 
@@ -441,7 +438,6 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @access   public
 		 *  @author  Wbcom Designs
 		 */
-
 		public function bgr_group_reviews_tab_template() {
 			if ( strpos( $_SERVER['REQUEST_URI'], 'reviews/view' ) !== false ) {
 				include 'templates/bgr-single-review-template.php';
