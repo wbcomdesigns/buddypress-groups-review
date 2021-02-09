@@ -50,7 +50,7 @@ $reviews              = new WP_Query( $args );
 								</div>
 								<div class="bgr-group-content">
 									<div class="reviewer">
-										<b><?php echo esc_html( bp_core_get_userlink( $author ) ); ?></b>
+										<b><?php echo esc_url( bp_core_get_userlink( $author ) ); ?></b>
 									</div>
 
 									<div class="item-description">
