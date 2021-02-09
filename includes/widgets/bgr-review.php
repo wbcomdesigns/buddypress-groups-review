@@ -233,7 +233,7 @@ class bgr_review_widget extends WP_Widget {
 							<li class="bupr-group">
 							<?php if ( 'show' == $widget_thumbnail ) { ?>
 								<div class="bupr-img-widget">
-									<a href="<?php echo esc_url( $group_url ); ?>"><?php echo esc_html( bp_core_fetch_avatar( $avatar_options ) ); ?></a>
+									<a href="<?php echo esc_url( $group_url ); ?>"><?php echo wp_kses_post( bp_core_fetch_avatar( $avatar_options ) ); ?></a>
 								</div>
 								<div class="bupr-content-widget">
 									
