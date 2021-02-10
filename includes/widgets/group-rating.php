@@ -150,17 +150,17 @@ class bgr_single_group_rating_widget extends WP_Widget {
 			}
 			?>
 			<div class="item-options" id="bp-group-rating-list-options">
-				<a href="#" attr-val="latest" id="member_latest_reviews" 
+				<a href="#" attr-val="latest" id="member_latest_reviews"
 				<?php
 				if ( $rating_default == 'latest' ) :
 					?>
 					class="selected"<?php endif; ?>><?php esc_html_e( 'Latest', 'bp-group-reviews' ); ?></a>
-				| <a href="#" attr-val="highest" id="member_good_reviews" 
+				| <a href="#" attr-val="highest" id="member_good_reviews"
 				<?php
 				if ( $rating_default == 'highest' ) :
 					?>
 					class="selected"<?php endif; ?>><?php esc_html_e( 'Highest', 'bp-group-reviews' ); ?></a>
-				| <a href="#" attr-val="lowest" id="member_bad_reviews" 
+				| <a href="#" attr-val="lowest" id="member_bad_reviews"
 				<?php
 				if ( $rating_default == 'lowest' ) :
 					?>
@@ -179,7 +179,7 @@ class bgr_single_group_rating_widget extends WP_Widget {
 
 					$members_profile = bp_core_get_userlink( $final_review_obj[ $bgrKey ]->post_author );
 					echo '<div class="item-title fn">';
-					echo wp_kses( $members_profile );
+					echo wp_kses_post( $members_profile );
 					echo '</div>';
 
 					$bgr_avg_rating = $bgrValue;
