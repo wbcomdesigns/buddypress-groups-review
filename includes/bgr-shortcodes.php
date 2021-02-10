@@ -61,6 +61,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				),
 			);
 			$reviews_args = new WP_Query( $group_args );
+			ob_start();
 			?>
 			<div id="bgr-message" class="bgr-success">
 			</div>
@@ -115,6 +116,10 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 					</div>
 				<?php
 			}
+			$output = ob_get_contents();
+			ob_clean();
+			return $output;
+			wp_reset_postdata();
 		}
 
 		public function bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id ) {
@@ -159,7 +164,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 								if ( ! empty( $allgroups ) ) {
 									foreach ( $allgroups['groups'] as $formGroup ) {
 										?>
-										<option value="<?php echo esc_attr( $formGroup->id ); ?>" 
+										<option value="<?php echo esc_attr( $formGroup->id ); ?>"
 											<?php
 											if ( bp_is_group() ) {
 												if ( bp_get_group_id() == $formGroup->id ) {
@@ -188,7 +193,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 							<textarea class="review_desc" name="review-desc" placeholder="<?php echo sprintf( esc_attr__( '%1$s Description', 'bp-group-reviews' ), esc_attr( $review_label ) ); ?>" rows="3" cols="50"></textarea>
 							<br/>
 							<span class="bgr-error-fields">*<?php esc_html_e( 'This field is required.', 'bp-group-reviews' ); ?></span>
-						
+
 						<p>
 							<input type="hidden" name="bgr-flag" value="1">
 						</p>
@@ -199,7 +204,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 							<button class="btn btn-default bgr-submit-review" name="bgr-submit-review"><?php echo sprintf( esc_html__( 'Submit %1$s', 'bp-group-reviews' ), esc_html( $review_label ) ); ?></button>
 						</p>
 					</div>
-				</form> 
+				</form>
 				<?php
 		}
 
