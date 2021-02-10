@@ -140,10 +140,10 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			if ( $bgr['auto_approve_reviews'] == 'no' ) {
 				$notification_link = bp_get_group_permalink( $group ) . 'admin/manage-reviews/';
 			} else {
-				$notification_link = bp_get_group_permalink( $group ) . 'reviews/';
+				$notification_link = bp_get_group_permalink( $group ) . sanitize_title( bgr_group_review_tab_name() );
 			}
 			/* translators: %1$s is replaced with review_label */
-			$notification_title   = sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
+			$notification_title = sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s, %2$s and %3$s is replaced with user_name, review_label and group name respectively */
 			$notification_content = sprintf( esc_html__( '%1$s posted a %2$s for %3$s.', 'bp-group-reviews' ), $user_name, $review_label, $group_name );
 
@@ -166,12 +166,12 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 
 		function bgr_accept_review_notification_format( $grp_id, $review_id, $format = '' ) {
 			global $bgr;
-			$review_label         = $bgr['review_label'];
-			$group                = groups_get_group( array( 'group_id' => $grp_id ) );
-			$group_name           = $group->name;
-			$notification_link    = bp_get_group_permalink( $group ) . "reviews/view/$review_id/";
+			$review_label      = $bgr['review_label'];
+			$group             = groups_get_group( array( 'group_id' => $grp_id ) );
+			$group_name        = $group->name;
+			$notification_link = bp_get_group_permalink( $group ) . "reviews/view/$review_id/";
 			/* translators: %1$s is replaced with review_label */
-			$notification_title   = sprintf( esc_html__( '%1$s accepted.', 'bp-group-reviews' ), $review_label );
+			$notification_title = sprintf( esc_html__( '%1$s accepted.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s and %2$s is replaced with review_label and group name resepectively*/
 			$notification_content = sprintf( esc_html__( 'Your %1$s for %2$s accepted by group admin.', 'bp-group-reviews' ), $review_label, $group_name );
 
@@ -200,7 +200,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$group_name        = $group->name;
 			$notification_link = bp_get_group_permalink( $group ) . 'reviews/';
 			/* translators: %1$s is replaced with review_label */
-			$notification_title   = sprintf( esc_html__( '%1$s denied.', 'bp-group-reviews' ), $review_label );
+			$notification_title = sprintf( esc_html__( '%1$s denied.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s and %2$s is replaced with review_label and group_name respectively */
 			$notification_content = sprintf( esc_html__( 'Your %1$s for %2$s denied by group admin.', 'bp-group-reviews' ), $review_label, $group_name );
 
