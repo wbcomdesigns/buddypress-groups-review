@@ -57,7 +57,7 @@ $reviews              = new WP_Query( $args );
 										<div class="review-description">
 											<?php
 												$trimcontent = get_the_content();
-												$url         = bp_get_group_permalink() . 'reviews/view/' . get_the_id();
+												$url         = bp_get_group_permalink() . sanitize_title( bgr_group_review_tab_name() ) . '\/view/' . get_the_id();
 											if ( ! empty( $trimcontent ) ) {
 												$len = strlen( $trimcontent );
 												if ( $len > 150 ) {
@@ -65,8 +65,8 @@ $reviews              = new WP_Query( $args );
 													// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 													echo $shortexcerpt;
 													?>
-															<a href="<?php echo esc_url( $url ); ?>"><i><b><?php esc_html_e( 'read more...', 'bp-group-reviews' ); ?></b></i></a>
-															<?php
+														<a href="<?php echo esc_url( $url ); ?>"><i><b><?php esc_html_e( 'read more...', 'bp-group-reviews' ); ?></b></i></a>
+													<?php
 												} else {
 												// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 													echo $trimcontent;

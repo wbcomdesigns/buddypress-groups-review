@@ -20,19 +20,15 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			$add_review_nav             = false;
 			$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
 			$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
+
 			if ( ! empty( $bgr_admin_display_settings ) ) {
-				$review_label     = $bgr_admin_display_settings['manage_review_label'];
-				$add_review_label = $bgr_admin_display_settings['review_label'];
-				if ( empty( $review_label ) ) {
-					$review_label = esc_html__( 'Reviews', 'bp-group-reviews' );
-				}
-				if ( empty( $add_review_label ) ) {
-					$add_review_label = esc_html__( 'Review', 'bp-group-reviews' );
-				}
+				$review_label     = bgr_group_review_tab_name();
+				$add_review_label = bgr_group_add_review_tab_name();
 			} else {
 				$review_label     = esc_html__( 'Reviews', 'bp-group-reviews' );
 				$add_review_label = esc_html__( 'Review', 'bp-group-reviews' );
 			}
+
 			if ( ! empty( $bgr_admin_general_settings ) ) {
 				$exclude_groups = $bgr_admin_general_settings['exclude_groups'];
 				if ( ! empty( $exclude_groups ) ) {
@@ -50,15 +46,15 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				if ( ! empty( $exclude_groups ) ) {
 					if ( ! in_array( bp_get_current_group_id(), $exclude_groups ) ) {
 						$args = array(
-							'slug'              => 'add-review',
+							'slug'              => 'add-' . bgr_group_review_tab_slug(),
 							'nav_item_position' => 200,
 							/* translators: %s is replaced with add_review_label */
-							'nav_item_name'     => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
+							'name'              => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
 							'enable_nav_item'   => $add_review_nav,
 							'screens'           => array(
 								'edit' => array(
 									'name'    => $review_label,
-									'slug'    => 'manage-reviews',
+									'slug'    => 'manage' . bgr_group_review_tab_slug(),
 									'enabled' => $enabled,
 								),
 							),
@@ -69,15 +65,15 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					}
 				} else {
 					$args = array(
-						'slug'              => 'add-review',
+						'slug'              => 'add-' . bgr_group_review_tab_slug(),
 						'nav_item_position' => 200,
 						/* translators: %s is replaced with add_review_label */
-						'nav_item_name'     => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
+						'name'              => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
 						'enable_nav_item'   => $add_review_nav,
 						'screens'           => array(
 							'edit' => array(
 								'name'    => $review_label,
-								'slug'    => 'manage-reviews',
+								'slug'    => 'manage' . bgr_group_review_tab_slug(),
 								'enabled' => $enabled,
 							),
 						),
@@ -88,26 +84,27 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				}
 			} else {
 				$args = array(
-					'slug'              => 'add-review',
+					'slug'              => 'add-' . bgr_group_review_tab_slug(),
 					'nav_item_position' => 200,
 					/* translators: %s is replaced with add_review_label */
-					'nav_item_name'     => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
+					'name'              => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
 					'enable_nav_item'   => $add_review_nav,
 					'screens'           => array(
 						'edit' => array(
 							'name'    => $review_label,
-							'slug'    => 'manage-reviews',
+							'slug'    => 'manage' . bgr_group_review_tab_slug(),
 							'enabled' => $enabled,
 						),
 					),
 					'show_tab'          => false,
 
 				);
-						parent::init( $args );
+				parent::init( $args );
 			}
 		}
 
-		public function display( $group_id = null ) { ?>
+		public function display( $group_id = null ) {
+			?>
 			<div class="bgr-bp-success">
 				<?php
 				$bp_template_option = bp_get_option( '_bp_theme_package_id' );
@@ -115,14 +112,14 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					?>
 					<div id="message" class="success bp-feedback bp-messages bp-template-notice">
 						<span class="bp-icon" aria-hidden="true"></span>
-				<?php } else { ?>		
+				<?php } else { ?>
 					<div id="message" class="success bgr-bp-success">
-				<?php } ?>		
+				<?php } ?>
 					<p><?php esc_html_e( 'Your Response added. This will be published when group admin has approved it.', 'bp-group-reviews' ); ?></p>
 				</div>
 			</div>
 			<div class="bgr-group-review-no-popup-add-block">
-				<?php do_shortcode( '[add_group_review_form]' ); ?>
+				<?php echo do_shortcode( '[add_group_review_form]' ); ?>
 			</div>
 			<?php
 		}
@@ -208,7 +205,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 												}
 											}
 											?>
-										</div>									
+										</div>
 										<div class="review-full-description bgr-col-12">
 											<div class="bgr-col-12">
 											<b>

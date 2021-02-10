@@ -39,6 +39,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			$multi_reviews        = $bgr['multi_reviews'];
 			$current_user         = wp_get_current_user();
 			$member_id            = $current_user->ID;
+			$output               = '';
 
 			$current_group_id = 0;
 			if ( ! empty( bp_get_current_group_id() ) ) {
@@ -61,25 +62,18 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				),
 			);
 			$reviews_args = new WP_Query( $group_args );
-			ob_start();
-			?>
-			<div id="bgr-message" class="bgr-success">
-			</div>
-			<?php
+			$output      .= '<div id="bgr-message" class="bgr-success"></div>';
+
 			if ( ! is_user_logged_in() ) {
-				?>
-					<div id="message" class="info">
-						<p>
-						<?php
-						printf(
+					$output .= '<div id="message" class="info">';
+					$output .= '<p>';
+					$output .= sprintf(
 							/* translators: %1$s is used for review lable*/
-							esc_html__( 'You should log in for post %1$s.', 'bp-group-reviews' ),
-							esc_html( $review_label )
-						);
-						?>
-							</p>
-					</div>
-				<?php
+						esc_html__( 'You should log in for post %1$s.', 'bp-group-reviews' ),
+						esc_html( $review_label )
+					);
+					$output .= '</p>';
+					$output .= '</div>';
 			} elseif ( ! groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id() ) && is_user_logged_in() ) {
 				// Get All groups of user in which user is admin.
 				if ( bp_is_group_single() ) {
@@ -90,36 +84,36 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 					}
 
 					if ( 0 === $user_post_count ) {
-						$this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
+						$output .= $this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
 					} else {
+
 						$bp_template_option = bp_get_option( '_bp_theme_package_id' );
 						if ( 'nouveau' == $bp_template_option ) {
-							?>
-						<div id="message" class="info bp-feedback bp-messages bp-template-notice">
-							<span class="bp-icon" aria-hidden="true"></span>
-						<?php } else { ?>
-							<div id="message" class="info">
-						<?php } ?>
-						<?php /* translators: %1$s is used for review label */ ?>
-							<p><?php echo sprintf( esc_html__( 'You already posted a %1$s for this group.', 'bp-group-reviews' ), esc_html( $review_label ) ); ?></p>
-						</div>
-						<?php
+							$output .= '<div id="message" class="info bp-feedback bp-messages bp-template-notice">';
+							$output .= '<span class="bp-icon" aria-hidden="true"></span>';
+						} else {
+							$output .= '<div id="message" class="info">';
+						}
+						/* translators: %1$s is used for review label */
+						$output .= '<p>' . sprintf(
+							esc_html__( 'You already posted a %1$s for this group.', 'bp-group-reviews' ),
+							esc_html( $review_label )
+						) . '</p>';
+						$output .= '</div>';
 					}
 				} else {
-					$this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
+					$output .= $this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
 				}
 			} else {
-				?>
-				<div id="message" class="error">
-					<?php /* translators: %s: used in place of $review_label */ ?>
-				   <p><?php printf( esc_html__( "You can't post %s on your own group.", 'bp-group-reviews' ), esc_html( $review_label ) ); ?> </p>
-					</div>
-				<?php
+				$output .= '<div id="message" class="error">';
+					/* translators: %s: used in place of $review_label */
+				$output .= '<p>' . sprintf(
+					esc_html__( "You can't post %s on your own group.", 'bp-group-reviews' ),
+					esc_html( $review_label )
+				) . '</p>';
+				$output .= '</div>';
 			}
-			$output = ob_get_contents();
-			ob_clean();
 			return $output;
-			wp_reset_postdata();
 		}
 
 		public function bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id ) {
