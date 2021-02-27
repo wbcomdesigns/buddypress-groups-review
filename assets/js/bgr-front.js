@@ -158,13 +158,13 @@ jQuery(document).ready(
                   'data': jQuery(this).serialize()
                 },
                 function(response) {
-                  jQuery('.bgr-bp-success p').html(response);
-                  jQuery('.bgr-bp-success').css("display", "block");
+                  jQuery('.bgr-bp-success p').html(response).css("display", "block");
+                  jQuery( '.bgr-bp-success').fadeIn();
                   jQuery('.bgr-group-review-no-popup-add-block').hide();
                   jQuery('#bgr-add-review-modal').hide();
                   jQuery('#bgr-message').html(response);
                   jQuery('#bgr-message').css("display", "block");
-                  sessionStorage.reloadAfterPageLoad = true;
+                  // sessionStorage.reloadAfterPageLoad = true;
                   var date = new Date();
                   date.setTime(date.getTime() + (20 * 1000));
                   jQuery.cookie('res_content', response, {
@@ -192,17 +192,18 @@ jQuery(document).ready(
               },
               function(response) {
                 jQuery('.bgr-bp-success p').html(response).css("display", "block");
+                jQuery( '.bgr-bp-success').fadeIn();
                 jQuery('.bgr-group-review-no-popup-add-block').hide();
                 jQuery('#bgr-add-review-modal').hide();
                 jQuery('#bgr-message').html(response);
                 jQuery('#bgr-message').css("display", "block");
-                sessionStorage.reloadAfterPageLoad = true;
+                // sessionStorage.reloadAfterPageLoad = true;
                 var date = new Date();
                 date.setTime(date.getTime() + (20 * 1000));
                 jQuery.cookie('res_content', response, {
                   expires: date
                 });
-                window.location.reload();
+                // window.location.reload();
               }
             );
           }
@@ -261,7 +262,7 @@ jQuery(
   function() {
     if (jQuery.cookie('res_content')) {
       jQuery('.error').hide();
-      jQuery('.bgr-bp-success p').text(jQuery.cookie('res_content'));
+      // jQuery('.bgr-bp-success p').text(jQuery.cookie('res_content'));
       // jQuery('.bgr-bp-success').show();
       jQuery.cookie('res_content', "", -1);
     }

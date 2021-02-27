@@ -5,7 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Add admin page for importing Review(s).
 if ( ! class_exists( 'BGR_Admin' ) ) {
-
 	class BGR_Admin {
 
 		/**
@@ -14,12 +13,12 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * @since    1.0.0
 		 * @author   Wbcom Designs
 		 */
-		function __construct() {
+		public function __construct() {
 			add_action( 'admin_menu', array( $this, 'bgr_add_submenu_page_admin_settings' ) );
 			add_action( 'admin_menu', array( $this, 'bgr_get_review_count' ) );
 			$post_types = get_post_types();
 			if ( ! in_array( 'review', $post_types ) ) {
-				// Custom Post Type
+				// Custom Post Type.
 				add_action( 'init', array( $this, 'bgr_review_cpt' ) );
 				add_action( 'init', array( $this, 'bgr_review_taxonomy_cpt' ) );
 			}
@@ -68,7 +67,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 							</div>
 							<div class="wbcom-admin-settings-page">
 								<div id="bgr-settings-updated" class="updated settings-error notice is-dismissible">
-									<p><strong><?php _e( 'Group Reviews Settings Saved.', 'bp-group-reviews' ); ?></strong></p>
+									<p><strong><?php esc_html_e( 'Group Reviews Settings Saved.', 'bp-group-reviews' ); ?></strong></p>
 									<button type="button" class="notice-dismiss">
 										<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'bp-group-reviews' ); ?></span>
 									</button>
@@ -80,7 +79,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 										$bgr_tab_html .= '<a class="nav-tab ' . $class . '" href="admin.php?page=group-review-settings&tab=' . $bgr_tab . '">' . $bgr_name . '</a>';
 								}
 								$bgr_tab_html .= '</h2></div>';
-								echo $bgr_tab_html;
+								echo wp_kses_post( $bgr_tab_html );
 								echo '<div class="wbcom-tab-content">';
 								include 'review-admin-options-page.php';
 								echo '</div></div>';
@@ -92,7 +91,6 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * @since    1.0.0
 		 * @author   Wbcom Designs
 		 */
-
 		function bgr_review_cpt() {
 			$labels = array(
 				'name'               => esc_html__( 'Reviews', 'bp-group-reviews' ),
@@ -140,7 +138,6 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * @since    1.0.0
 		 * @author   Wbcom Designs
 		 */
-
 		function bgr_review_taxonomy_cpt() {
 			$category_labels = array(
 				'name'              => esc_html_x( 'Reviews Category', 'taxonomy general name', 'bp-group-reviews' ),

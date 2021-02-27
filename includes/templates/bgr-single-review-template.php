@@ -20,14 +20,14 @@ $author_details = get_userdata( $author );
 			<div class="bgr-col-10">
 				<div class="reviewer">
 					<b>
-						<?php echo bp_core_get_userlink( $author ); ?>
+						<?php echo esc_html( bp_core_get_userlink( $author ) ); ?>
 					</b>
 				</div>
 
 				<div class="item-description">
 					<div class="review-description">
 						<div class="bgr-col-12">
-							<?php echo $review->post_content; ?>
+							<?php echo esc_html( $review->post_content ); ?>
 						</div>
 						<?php
 							$review_ratings = get_post_meta( $review_id, 'review_star_rating', false );

@@ -127,3 +127,22 @@ function bgr_review_globals() {
 	);
 }
 add_action( 'init', 'bgr_review_globals' );
+
+function bgr_group_review_tab_name() {
+	$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
+	$group_review_tab_name      = isset( $bgr_admin_display_settings['manage_review_label'] ) ? $bgr_admin_display_settings['manage_review_label'] : esc_html__( 'Reviews', 'bp-group-reviews' );
+	return apply_filters( 'bgr_group_review_tab_name', $group_review_tab_name );
+}
+
+function bgr_group_add_review_tab_name() {
+	$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
+	$group_add_review_tab_name  = isset( $bgr_admin_display_settings['review_label'] ) ? $bgr_admin_display_settings['review_label'] : esc_html__( 'Review', 'bp-group-reviews' );
+	return apply_filters( 'bgr_group_add_review_tab_name', $group_add_review_tab_name );
+}
+
+function bgr_group_review_tab_slug() {
+	$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
+	$group_review_tab_slug      = isset( $bgr_admin_display_settings['review_label'] ) ? sanitize_title( $bgr_admin_display_settings['review_label'] ) : 'review';
+
+	return apply_filters( 'bgr_group_review_tab_slug', $group_review_tab_slug );
+}
