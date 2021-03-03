@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) || exit;
 if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 	class BGR_Custom_Hooks {
 		/*
-		  Constructor for custom hooks
+		Constructor for custom hooks
 		*  @since   1.0.0
 		*  @author  Wbcom Designs
 		*/
@@ -209,7 +209,6 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @access public
 		 *  @author  Wbcom Designs
 		 */
-
 		public function bgr_group_average_rating_data( $reviews, $review_rating_fields, $review_label ) {
 			if ( ! empty( $review_rating_fields ) ) {
 				if ( ! empty( $reviews ) ) {
@@ -258,7 +257,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 
 					$content = "<div class='rating-text'><span>" . esc_html__( 'Rating ', 'bp-group-reviews' ) . ' : ' . $avg_rating . '/5 - ' . $total_review_count . ' ' . $review_label . '</span</div>';
 
-					echo apply_filters( 'bgr_filter_group_header_rating_details', $content, $avg_rating, $review_label, $total_review_count, bp_get_group_id() );
+					echo wp_kses_post( apply_filters( 'bgr_filter_group_header_rating_details', $content, $avg_rating, $review_label, $total_review_count, bp_get_group_id() ) );
 					echo '</div></div></div></div>';
 				}
 			}
@@ -271,7 +270,6 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @access public
 		 *  @author  Wbcom Designs
 		 */
-
 		public function bgr_remove_edit_bulk_actions( $actions ) {
 			unset( $actions['edit'] );
 			return $actions;
@@ -284,7 +282,6 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @access   public
 		 *  @author  Wbcom Designs
 		 */
-
 		public function bgr_group_reviews_row_actions( $actions, $post ) {
 			global $bp;
 			if ( $post->post_type == 'review' ) {
@@ -318,7 +315,6 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @access   public
 		 *  @author  Wbcom Designs
 		 */
-
 		public function bgr_add_groups_reviews_taxonomy_term() {
 			$termExists = term_exists( 'Group', 'review_category' );
 			if ( $termExists === 0 || $termExists === null ) {
@@ -333,7 +329,6 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @access   public
 		 *  @author  Wbcom Designs
 		 */
-
 		public function bgr_add_groups_reviews_tab() {
 			if ( bp_is_group_single() ) {
 				global $bp;

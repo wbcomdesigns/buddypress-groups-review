@@ -79,7 +79,8 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 										$bgr_tab_html .= '<a class="nav-tab ' . $class . '" href="admin.php?page=group-review-settings&tab=' . $bgr_tab . '">' . $bgr_name . '</a>';
 								}
 								$bgr_tab_html .= '</h2></div>';
-								echo wp_kses_post( $bgr_tab_html );
+								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+								echo $bgr_tab_html;
 								echo '<div class="wbcom-tab-content">';
 								include 'review-admin-options-page.php';
 								echo '</div></div>';
