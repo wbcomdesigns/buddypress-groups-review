@@ -187,3 +187,17 @@ function run_bp_group_reviews_plugin() {
 		include $include_file;
 	}
 }
+
+
+/**
+ * redirect to plugin settings page after activated
+ */
+
+add_action( 'activated_plugin', 'bp_group_reviews_activation_redirect_settings' );
+function bp_group_reviews_activation_redirect_settings( $plugin ){
+
+	if( $plugin == plugin_basename( __FILE__ ) ) {
+		wp_redirect( admin_url( 'admin.php?page=group-review-settings' ) ) ;
+		exit;
+	}
+}

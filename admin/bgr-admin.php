@@ -45,13 +45,14 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * @param string $current for the admin options.
 		 * @author   Wbcom Designs
 		 */
-		function bgr_admin_options_page( $current = 'general' ) {
+		function bgr_admin_options_page( $current = 'welcome' ) {
 			if ( isset( $_GET['tab'] ) ) {
 				$current = sanitize_text_field( $_GET['tab'] );
 			} else {
-				$current = 'general';
+				$current = 'welcome';
 			}
 					$bgr_tabs = array(
+						'welcome'   => esc_html__( 'Welcome', 'bp-group-reviews' ),
 						'general'   => esc_html__( 'General', 'bp-group-reviews' ),
 						'criteria'  => esc_html__( 'Criteria', 'bp-group-reviews' ),
 						'shortcode' => esc_html__( 'Shortcode', 'bp-group-reviews' ),

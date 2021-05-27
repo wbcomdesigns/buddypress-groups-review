@@ -8,7 +8,7 @@ if ( isset( $_GET ) ) {
 		$bgr_setting_tab = sanitize_text_field( $_GET['tab'] );
 		bgr_include_admin_setting_tabs( $bgr_setting_tab );
 	} else {
-		bgr_include_admin_setting_tabs( 'general' );
+		bgr_include_admin_setting_tabs( 'welcome' );
 	}
 }
 
@@ -17,8 +17,14 @@ if ( isset( $_GET ) ) {
  * @since    1.0.0
  * @author   Wbcom Designs
  */
-function bgr_include_admin_setting_tabs( $bgr_setting_tab = 'general' ) {
+function bgr_include_admin_setting_tabs( $bgr_setting_tab = 'welcome' ) {
 	switch ( $bgr_setting_tab ) {
+		case 'welcome':
+			require_once BGR_PLUGIN_PATH . 'admin/bgr-welcome-page.php';
+			break;
+		case 'general':
+			bgr_general_setting();
+			break;
 		case 'criteria':
 			bgr_criteria_setting();
 			break;
