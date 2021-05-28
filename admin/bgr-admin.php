@@ -60,31 +60,33 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 					);
 					?>
 					<div class="wrap">
-							<div class="bgr-header">
-								<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
-								<h1 class="wbcom-plugin-heading">
-									<?php esc_html_e( 'Group Reviews Settings', 'bp-group-reviews' ); ?>
-								</h1>
-							</div>
-							<div class="wbcom-admin-settings-page">
-								<div id="bgr-settings-updated" class="updated settings-error notice is-dismissible">
-									<p><strong><?php esc_html_e( 'Group Reviews Settings Saved.', 'bp-group-reviews' ); ?></strong></p>
-									<button type="button" class="notice-dismiss">
-										<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'bp-group-reviews' ); ?></span>
-									</button>
-								</div>
-								<?php
-								$bgr_tab_html = '<div class="wbcom-tabs-section"><h2 class="nav-tab-wrapper">';
-								foreach ( $bgr_tabs as $bgr_tab => $bgr_name ) {
-										$class         = ( $bgr_tab == $current ) ? 'nav-tab-active' : '';
-										$bgr_tab_html .= '<a class="nav-tab ' . $class . '" href="admin.php?page=group-review-settings&tab=' . $bgr_tab . '">' . $bgr_name . '</a>';
-								}
-								$bgr_tab_html .= '</h2></div>';
-								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-								echo $bgr_tab_html;
-								echo '<div class="wbcom-tab-content">';
-								include 'review-admin-options-page.php';
-								echo '</div></div>';
+                                            <hr class="wp-header-end">
+                                            <div class="wbcom-wrap">
+                                            <div class="bgr-header">
+                                                    <?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
+                                                    <h1 class="wbcom-plugin-heading">
+                                                            <?php esc_html_e( 'Group Reviews Settings', 'bp-group-reviews' ); ?>
+                                                    </h1>
+                                            </div>
+                                            <div class="wbcom-admin-settings-page">
+                                                    <div id="bgr-settings-updated" class="updated settings-error notice is-dismissible">
+                                                            <p><strong><?php esc_html_e( 'Group Reviews Settings Saved.', 'bp-group-reviews' ); ?></strong></p>
+                                                            <button type="button" class="notice-dismiss">
+                                                                    <span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'bp-group-reviews' ); ?></span>
+                                                            </button>
+                                                    </div>
+                                                    <?php
+                                                    $bgr_tab_html = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
+                                                    foreach ( $bgr_tabs as $bgr_tab => $bgr_name ) {
+                                                                    $class         = ( $bgr_tab == $current ) ? 'nav-tab-active' : '';
+                                                                    $bgr_tab_html .= '<li><a class="nav-tab ' . $class . '" href="admin.php?page=group-review-settings&tab=' . $bgr_tab . '">' . $bgr_name . '</a></li>';
+                                                    }
+                                                    $bgr_tab_html .= '</div></ul></div>';
+                                                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                                    echo $bgr_tab_html;
+                                                    echo '<div class="wbcom-tab-content">';
+                                                    include 'review-admin-options-page.php';
+                                                    echo '</div></div></div>';
 		}
 
 		/**

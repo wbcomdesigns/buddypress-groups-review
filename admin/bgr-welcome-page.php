@@ -13,7 +13,8 @@ if (!defined('ABSPATH')) {
     <div class="wbcom-welcome-main-wrapper">
         <div class="wbcom-welcome-head">
             <h2 class="wbcom-welcome-title"><?php esc_html_e( 'BuddyPress Group Reviews', 'bp-group-reviews' ); ?></h2>
-            <p class="wbcom-welcome-description"><?php esc_html_e( 'Allow the site admin to select global friends for all his members with BuddyPress Auto friends plugin. If you are starting an online community with BuddyPress and want some common friends to be added to the friend list of your members, BuddyPress Auto friends is the perfect option for you.', 'bp-group-reviews' ) ?></p>
+            <p class="wbcom-welcome-description"><?php esc_html_e( 'BuddyPress Group Reviews allows BuddyPress member add group review & give multi-rating to given criteria(s). After posting reviews, all reviews will be displayed in Manage Review section of the group.', 'bp-group-reviews' ) ?></p>
+            <p class="wbcom-welcome-description"><?php esc_html_e( 'Admins can approve or deny review. When admin approves the review they will be published.All published reviews will be shown in reviews tab in the single group page.Admin is allowed to add as many criteria for the rating as he wants.', 'bp-group-reviews' ) ?></p>
         </div><!-- .wbcom-welcome-head -->
 
         <div class="wbcom-welcome-content">
@@ -31,8 +32,8 @@ if (!defined('ABSPATH')) {
 
                     <div class="col">
                         <h3><span class="dashicons dashicons-book"></span><?php esc_html_e( 'Documentation', 'bp-group-reviews' ); ?></h3>
-                        <p><?php esc_html_e( 'We have prepared an extensive guide on BuddyPress Auto Friends to learn all aspects of the plugin. You will find most of your answers here.', 'bp-group-reviews' ); ?></p>
-                        <a href="<?php echo esc_url( 'https://wbcomdesigns.com/docs/buddypress-paid-addons/bp-group-reviews/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Read Documentation', 'bp-group-reviews' ); ?></a>
+                        <p><?php esc_html_e( 'We have prepared an extensive guide on BuddyPress Group Reviews to learn all aspects of the plugin. You will find most of your answers here.', 'bp-group-reviews' ); ?></p>
+                        <a href="<?php echo esc_url( 'https://wbcomdesigns.com/docs/buddypress-free-addons/buddypress-group-review/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Read Documentation', 'bp-group-reviews' ); ?></a>
                     </div>
 
                     <div class="col">
