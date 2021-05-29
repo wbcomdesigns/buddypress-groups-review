@@ -18,9 +18,10 @@ if (!defined('ABSPATH')) {
         </div><!-- .wbcom-welcome-head -->
 
         <div class="wbcom-welcome-content">
-            
+
             <div class="wbcom-video-link-wrapper">
-                
+              <iframe src="https://player.vimeo.com/video/556662460" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+<p><a href="https://vimeo.com/556662460">BuddyPress Group Reviews</a> from <a href="https://vimeo.com/wbcom">Wbcom Designs</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
             </div>
 
             <div class="wbcom-welcome-support-info">
