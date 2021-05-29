@@ -258,7 +258,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$content = "<div class='rating-text'><span>" . esc_html__( 'Rating ', 'bp-group-reviews' ) . ' : ' . $avg_rating . '/5 - ' . $total_review_count . ' ' . $review_label . '</span</div>';
 
 					echo wp_kses_post( apply_filters( 'bgr_filter_group_header_rating_details', $content, $avg_rating, $review_label, $total_review_count, bp_get_group_id() ) );
-					echo '</div></div></div></div>';
+					echo '</div></div></div>';
 				}
 			}
 		}
