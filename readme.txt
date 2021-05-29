@@ -3,8 +3,8 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
-Tested up to: 5.6.2
-Stable tag: trunk
+Tested up to: 5.7.3
+Stable tag: 2.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,13 +101,17 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 4. Plugin settings.(png|jpg|jpeg|gif).
 
 == Changelog ==
-(#73) Fixed fatal error on widget on click view
-(#63) Remove one message after submitting review
-(#67) Fixed notification redirect to 404
-(#69) Fixed add review label not changing and redirect to 404
-(#68) Fixed unable to publish group review form by shortcode
-(#62) Fixed add review button on group header redirect to 404
-(#57) Fixed change the slug according to label
+= 2.7.0 =
+* Fix: Update plugin backend UI
+
+= 2.6.0 =
+* Fix: (#73) Fixed fatal error on widget on click view
+* Fix: (#63) Remove one message after submitting review
+* Fix: (#67) Fixed notification redirect to 404
+* Fix: (#69) Fixed add review label not changing and redirect to 404
+* Fix: (#68) Fixed unable to publish group review form by shortcode
+* Fix: (#62) Fixed add review button on group header redirect to 404
+* Fix: (#57) Fixed change the slug according to label
 
 = 2.3.0 =
 * Fix: (#33) Fixed BuddyPress as activated still shows notices
