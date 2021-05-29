@@ -39,7 +39,7 @@ function bgr_include_admin_setting_tabs( $bgr_setting_tab = 'welcome' ) {
 	}
 }
 
-/** Actions performed on Group Reviews Settings : Criteria Tab Content
+/** Actions performed on BuddyPress Group Reviews Settings : Criteria Tab Content
  *
  * @since    1.0.0
  * @author   Wbcom Designs
@@ -88,7 +88,7 @@ function bgr_criteria_setting() {
 }
 
 	/**
-	 * Actions performed on Group Reviews Settings : Shortcode Tab Content
+	 * Actions performed on BuddyPress Group Reviews Settings : Shortcode Tab Content
 	 *
 	 * @since    1.0.0
 	 * @author   Wbcom Designs
@@ -103,7 +103,7 @@ function bgr_shortcode_setting() {
 }
 
 /**
- * Actions performed on Group Reviews Settings : Display Tab Content
+ * Actions performed on BuddyPress Group Reviews Settings : Display Tab Content
  *
  * @since    1.0.0
  * @author   Wbcom Designs
@@ -145,7 +145,7 @@ function bgr_display_setting() {
 
 
 /**
- * Actions performed on Group Reviews Settings : General Tab Content
+ * Actions performed on BuddyPress Group Reviews Settings : General Tab Content
  *
  * @since    1.0.0
  * @author   Wbcom Designs

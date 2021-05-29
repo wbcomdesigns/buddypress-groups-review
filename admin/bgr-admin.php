@@ -65,12 +65,12 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
                                             <div class="bgr-header">
                                                     <?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
                                                     <h1 class="wbcom-plugin-heading">
-                                                            <?php esc_html_e( 'Group Reviews Settings', 'bp-group-reviews' ); ?>
+                                                            <?php esc_html_e( 'BuddyPress Group Reviews Settings', 'bp-group-reviews' ); ?>
                                                     </h1>
                                             </div>
                                             <div class="wbcom-admin-settings-page">
                                                     <div id="bgr-settings-updated" class="updated settings-error notice is-dismissible">
-                                                            <p><strong><?php esc_html_e( 'Group Reviews Settings Saved.', 'bp-group-reviews' ); ?></strong></p>
+                                                            <p><strong><?php esc_html_e( 'BuddyPress Group Reviews Settings Saved.', 'bp-group-reviews' ); ?></strong></p>
                                                             <button type="button" class="notice-dismiss">
                                                                     <span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'bp-group-reviews' ); ?></span>
                                                             </button>

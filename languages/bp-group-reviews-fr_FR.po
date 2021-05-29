@@ -47,11 +47,11 @@ msgid "Display"
 msgstr "Afficher"
 
 #: admin/bgr-admin.php:64
-msgid "Group Reviews Settings"
+msgid "BuddyPress Group Reviews Settings"
 msgstr "Paramètres des Évaluations de groupe"
 
 #: admin/bgr-admin.php:69
-msgid "Group Reviews Settings Saved."
+msgid "BuddyPress Group Reviews Settings Saved."
 msgstr "Param"
 
 #: admin/bgr-admin.php:71

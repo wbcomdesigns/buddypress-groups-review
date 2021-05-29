@@ -128,11 +128,11 @@ msgid "Display"
 msgstr ""
 
 #: admin/bgr-admin.php:65
-msgid "Group Reviews Settings"
+msgid "BuddyPress Group Reviews Settings"
 msgstr ""
 
 #: admin/bgr-admin.php:70
-msgid "Group Reviews Settings Saved."
+msgid "BuddyPress Group Reviews Settings Saved."
 msgstr ""
 
 #: admin/bgr-admin.php:72
