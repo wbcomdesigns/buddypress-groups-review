@@ -12,10 +12,10 @@
  * @package           Buddypress_groups-review
  *
  * @wordpress-plugin
- * Plugin Name: BuddyPress Group Reviews
+ * Plugin Name: Wbcom Designs - BuddyPress Group Reviews
  * Plugin URI: https://wbcomdesigns.com/contact/
  * Description: This plugin allows the BuddyPress Members to give reviews to the BuddyPress groups on the site. The review form allows the users to give text review, even rate the group on the basis of multiple criterias.
- * Version: 2.2.0
+ * Version: 2.7.0
  * Author: Wbcom Designs
  * Author URI: http://wbcomdesigns.com
  * License: GPLv2+
