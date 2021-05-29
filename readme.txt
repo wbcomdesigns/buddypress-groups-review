@@ -24,10 +24,12 @@ It is built to be reliable, scalable, secure and flexible. We have worked hard t
 
 = Links =
 
-*	[Plugin url](https://wbcomdesigns.com/downloads/buddypress-group-reviews/ "BuddyPress Group Reviews" )
-*	[Demo]( https://demos.wbcomdesigns.com/wbcomplugins/ "BuddyPress Group Reviews Demo")
-*	[Support](https://wbcomdesigns.com/helpdesk/article-categories/buddypress-group-reviews/)
-*	[Github Development Repo](https://github.com/wbcomdesigns/buddypress-groups-review)
+[vimeo https://vimeo.com/556662460 ]
+
+[Live demo >](https://bb-free.buddyxtheme.com/)
+
+=== THEME - WORDPRESS THEME WITH OUTSTANDING BUDDYPRESS SUPPORT ===
+* [FREE BuddyPress Theme: BuddyX](https://wordpress.org/themes/buddyx/) - Offers unique layouts with clean code and easy-to-customize options giving you a whole new way to visualize BuddyPress.
 
 #### OUR ADON PLUGINS TO FURTHER IMPROVE YOUR BUDDYPRESS OR BUDDYBOSS PLATFORM COMMUNITY
 Check out free community add-ons by Wbcom Designs:
