@@ -96,6 +96,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 						}
 						/* translators: %1$s is used for review label */
 						$output .= '<p>' . sprintf(
+							/* translators: %1$s is used for review label */
 							esc_html__( 'You already posted a %1$s for this group.', 'bp-group-reviews' ),
 							esc_html( $review_label )
 						) . '</p>';
@@ -106,8 +107,8 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				}
 			} else {
 				$output .= '<div id="message" class="error">';
-					/* translators: %s: used in place of $review_label */
 				$output .= '<p>' . sprintf(
+					/* translators: %s is used for bp-group-review */
 					esc_html__( "You can't post %s on your own group.", 'bp-group-reviews' ),
 					esc_html( $review_label )
 				) . '</p>';

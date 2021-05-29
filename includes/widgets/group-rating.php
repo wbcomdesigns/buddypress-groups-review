@@ -179,7 +179,8 @@ class bgr_single_group_rating_widget extends WP_Widget {
 
 					$members_profile = bp_core_get_userlink( $final_review_obj[ $bgrKey ]->post_author );
 					echo '<div class="item-title fn">';
-					echo wp_kses_post( $members_profile );
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo  $members_profile;
 					echo '</div>';
 
 					$bgr_avg_rating = $bgrValue;
