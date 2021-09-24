@@ -1,0 +1,12 @@
+<wpml-config>
+    <admin-texts>
+        <key name="bgr_admin_criteria_settings">
+            <key name="add_review_rating_fields" />
+            <key name="active_rating_fields" />            
+        </key>
+		<key name="bgr_admin_display_settings">
+            <key name="review_label" />
+            <key name="manage_review_label" />            
+        </key>		
+    </admin-texts>
+</wpml-config>
