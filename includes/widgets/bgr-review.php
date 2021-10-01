@@ -1,11 +1,12 @@
 <?php
+
 class bgr_review_widget extends WP_Widget {
 
-		/** Constructor
-		 *
-		 *  @since   1.0.0
-		 *  @author  Wbcom Designs
-		 */
+	/** Constructor
+	 *
+	 *  @since   1.0.0
+	 *  @author  Wbcom Designs
+	 */
 	function __construct() {
 		$widget_ops  = array(
 			'classname'   => 'widget_bp_group_review_tab',
@@ -18,11 +19,11 @@ class bgr_review_widget extends WP_Widget {
 		parent::__construct( 'bgr_group_review_widget', esc_html__( 'BP Group Review Widget', 'bp-group-reviews' ), $widget_ops, $control_ops );
 	}
 
-		/** Form display for widget in admin panel
-		 *
-		 *  @since   1.0.0
-		 *  @author  Wbcom Designs
-		 */
+	/** Form display for widget in admin panel
+	 *
+	 *  @since   1.0.0
+	 *  @author  Wbcom Designs
+	 */
 	function form( $instance ) {
 		if ( empty( $instance ) ) {
 			$instance = wp_parse_args(
@@ -46,21 +47,23 @@ class bgr_review_widget extends WP_Widget {
 			<div class="bgr_review_select_listing_type">
 				<label class="alignleft" for="listing_toprated">
 					<input type="radio" class="" id="<?php echo esc_attr( $this->get_field_id( 'listing_cat' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'listing_cat' ) ); ?>" value="<?php echo 'toprated'; ?>" 
-																<?php
-																if ( 'toprated' == $listing_cat ) {
-																	echo 'checked="checked"'; }
-																?>
- />
-					<?php esc_html_e( 'Top Rated', 'bp-group-reviews' ); ?>
+					<?php
+					if ( 'toprated' == $listing_cat ) {
+						echo 'checked="checked"';
+					}
+					?>
+						   />
+						   <?php esc_html_e( 'Top Rated', 'bp-group-reviews' ); ?>
 				</label>
 				<label class="alignleft" for="listing_topreviewed">
 					<input type="radio" class="" id="<?php echo esc_attr( $this->get_field_id( 'listing_cat' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'listing_cat' ) ); ?>" value="<?php echo 'topreviewed'; ?>" 
-																<?php
-																if ( 'topreviewed' == $listing_cat ) {
-																	echo 'checked="checked"'; }
-																?>
- />
-					<?php esc_html_e( 'Most Reviewed', 'bp-group-reviews' ); ?>
+					<?php
+					if ( 'topreviewed' == $listing_cat ) {
+						echo 'checked="checked"';
+					}
+					?>
+						   />
+						   <?php esc_html_e( 'Most Reviewed', 'bp-group-reviews' ); ?>
 				</label>
 			</div>
 			<div class="clear"></div>
@@ -81,15 +84,15 @@ class bgr_review_widget extends WP_Widget {
 
 				<div class="clear"></div>
 			</div>
-			</div><!-- .bgr_review_listing_form -->
-			<?php
+		</div><!-- .bgr_review_listing_form -->
+		<?php
 	}
 
-		/*
-		 Update Widget data
-		*  @since   1.0.0
-		*  @author  Wbcom Designs
-		*/
+	/*
+	  Update Widget data
+	 *  @since   1.0.0
+	 *  @author  Wbcom Designs
+	 */
 
 	function update( $new_instance, $old_instance ) {
 		$instance                 = $old_instance;
@@ -100,11 +103,11 @@ class bgr_review_widget extends WP_Widget {
 		return $instance;
 	}
 
-		/*
-		Display Widget content
-		*  @since   1.0.0
-		*  @author  Wbcom Designs
-		*/
+	/*
+	  Display Widget content
+	 *  @since   1.0.0
+	 *  @author  Wbcom Designs
+	 */
 
 	function widget( $args, $instance ) {
 		global $bp;
@@ -225,87 +228,79 @@ class bgr_review_widget extends WP_Widget {
 						'class'      => 'sidebar_review_avatar avatar',
 					);
 					if ( $group->id !== 0 ) {
-
 						?>
-
-						
-
-							<li class="bupr-group">
+						<li class="bupr-group">
 							<?php if ( 'show' == $widget_thumbnail ) { ?>
 								<div class="bupr-img-widget">
-									<a href="<?php echo esc_url( $group_url ); ?>"><?php echo esc_url( bp_core_fetch_avatar( $avatar_options ) ); ?></a>
+									<a href="<?php echo esc_url( $group_url ); ?>"><?php echo wp_kses_post( bp_core_fetch_avatar( $avatar_options ) ); ?></a>
 								</div>
-								<div class="bupr-content-widget">
-									
-									<?php } else { ?>
-									
-									
-										<?php } ?>
-										<div class="bupr-group-title"><a href="<?php echo esc_url( $group_url ); ?>"><?php echo esc_html( $group->name ); ?></a></div>
-										<div class="bupr-group-rating">										
-											<?php
-											if ( ! empty( $review_groups ) ) {
-												if ( array_key_exists( $gid, $review_groups ) ) {
-													do_action( 'bgr_display_widget_average_ratings', $review_groups[ $gid ] );
-													?>
-														<div class="buddypress-groups-reviews-stars" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-															<span itemprop="ratingValue"  content="<?php echo esc_attr( $review_groups[ $gid ] ); ?>"></span>
-															<span itemprop="bestRating"   content="5"></span>
+							<?php } ?>
+							<div class="bupr-content-widget">
+								<div class="bupr-group-title"><a href="<?php echo esc_url( $group_url ); ?>"><?php echo esc_html( $group->name ); ?></a></div>
+								<div class="bupr-group-rating">										
+									<?php
+									if ( ! empty( $review_groups ) ) {
+										if ( array_key_exists( $gid, $review_groups ) ) {
+											do_action( 'bgr_display_widget_average_ratings', $review_groups[ $gid ] );
+											?>
+											<div class="buddypress-groups-reviews-stars" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+												<span itemprop="ratingValue"  content="<?php echo esc_attr( $review_groups[ $gid ] ); ?>"></span>
+												<span itemprop="bestRating"   content="5"></span>
 
-															<span itemprop="reviewCount"  content="<?php echo esc_attr( $review_groups_count[ $gid ] ); ?>"></span>
-															<span itemprop="itemReviewed" content="Person"></span>
-															<span itemprop="name" content="<?php echo esc_attr( $group->name ); ?>"></span>
-															<span itemprop="url" content="<?php echo esc_attr( $group_url ); ?>"></span>
-														</div>
-														<?php
-												}
-											}
-											?>
-										</div>
-										<div class="bupr-meta">
+												<span itemprop="reviewCount"  content="<?php echo esc_attr( $review_groups_count[ $gid ] ); ?>"></span>
+												<span itemprop="itemReviewed" content="Person"></span>
+												<span itemprop="name" content="<?php echo esc_attr( $group->name ); ?>"></span>
+												<span itemprop="url" content="<?php echo esc_attr( $group_url ); ?>"></span>
+											</div>
 											<?php
-											esc_html_e( 'Total', 'bp-group-reviews' );
-											echo ' ' . esc_html( $review_label ) . ' : ' . esc_html( $review_groups_count[ $gid ] );
-											?>
-										</div>
-									<?php } ?>	
+										}
+									}
+									?>
 								</div>
-							</li>						
+								<div class="bupr-meta">
+									<?php
+									esc_html_e( 'Total', 'bp-group-reviews' );
+									echo ' ' . esc_html( $review_label ) . ' : ' . esc_html( $review_groups_count[ $gid ] );
+									?>
+								</div>
+							<?php } ?>	
+						</div>
+					</li>						
 					<?php
-
-					 endif;
-				$post_num_counter++; }
-				echo '</ul>';
+				endif;
+				$post_num_counter++;
+			}
+			echo '</ul>';
 		} else {
 			if ( 'toprated' == $widget_listing_cat ) {
 				?>
-										<div id="message" class="info">
-										<?php
-											esc_html_e( 'No Rating has been given to any group yet!', 'bp-group-reviews' );
-										?>
-											</div>
-											<?php } else { ?>
-										<div id="message" class="info">
-										<?php
-										/* translators: %1$s is replaced with review_label */
-											echo sprintf( esc_html__( 'No %1$s has been given to any group yet!', 'bp-group-reviews' ), esc_html( $review_label ) );
-										?>
-											</div>
-										<?php
-											}
+				<div id="message" class="info">
+					<?php
+					esc_html_e( 'No Rating has been given to any group yet!', 'bp-group-reviews' );
+					?>
+				</div>
+			<?php } else { ?>
+				<div id="message" class="info">
+					<?php
+					/* translators: %1$s is replaced with review_label */
+					echo sprintf( esc_html__( 'No %1$s has been given to any group yet!', 'bp-group-reviews' ), esc_html( $review_label ) );
+					?>
+				</div>
+				<?php
+			}
 		}
-									echo wp_kses_post( $args['after_widget'] );
+		echo wp_kses_post( $args['after_widget'] );
 	}
 
 }
 
-	/** Register Group Review Widget
-	 *
-	 *  @since   1.0.0
-	 *  @author  Wbcom Designs
-	 */
+/** Register Group Review Widget
+ *
+ *  @since   1.0.0
+ *  @author  Wbcom Designs
+ */
 function bgr_review_register_widget() {
 	register_widget( 'bgr_review_widget' );
 }
 
-	add_action( 'widgets_init', 'bgr_review_register_widget' );
+add_action( 'widgets_init', 'bgr_review_register_widget' );

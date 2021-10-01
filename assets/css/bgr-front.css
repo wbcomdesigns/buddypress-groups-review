@@ -5,69 +5,69 @@
 */
 
 [class*="bgr-col-"] {
-	float: left;
-	padding: 10px 0;
- }
+    float: left;
+    padding: 10px 0;
+}
 
 .bgr-row {
-	clear: both;
-	border-bottom: 1px solid #ddd;
-	overflow: hidden;
-	padding-bottom: 5px;
+    clear: both;
+    border-bottom: 1px solid #ddd;
+    overflow: hidden;
+    padding-bottom: 5px;
 }
 
 .bgr-col-1 {
-	width: 8.33%;
+    width: 8.33%;
 }
 
 .bgr-col-2 {
-	width: 16.66%;
+    width: 16.66%;
 }
 
 .bgr-col-3 {
-	width: 25%;
+    width: 25%;
 }
 
 .bgr-col-4 {
-	width: 33.33%;
+    width: 33.33%;
 }
 
 .bgr-col-5 {
-	width: 41.66%;
+    width: 41.66%;
 }
 
 .bgr-col-6 {
-	width: 50%;
+    width: 50%;
 }
 
 .bgr-col-7 {
-	width: 58.33%;
+    width: 58.33%;
 }
 
 .bgr-col-8 {
-	width: 66.66%;
+    width: 66.66%;
 }
 
 .bgr-col-9 {
-	width: 75%;
+    width: 75%;
 }
 
 .bgr-col-10 {
-	width: 83.33%;
+    width: 83.33%;
 }
 
 .bgr-col-11 {
-	width: 91.66%;
+    width: 91.66%;
 }
 
 .bgr-col-12 {
-	width: 100%;
+    width: 100%;
 }
 
 @media (max-width: 767px) {
-	[class*="bgr-col-"] {
-		width: 100%;
-	}
+    [class*="bgr-col-"] {
+        width: 100%;
+    }
 }
 
 /*** Section Div css end ***/
@@ -79,71 +79,76 @@
 */
 
 .stars {
-	display: inline-block;
+    display: inline-block;
 }
 
 .review-full-description {
-	padding-top: 20px;
-	display: none;
+    padding-top: 20px;
+    display: none;
 }
 
 .sidebar_review_avatar {
-	height: 50px;
-	width: 50px;
-	border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    border-radius: 3px;
+}
+
+.round-avatars .sidebar_review_avatar,
+.bp-nouveau.round-avatars .sidebar_review_avatar {
+    border-radius: 50%;
 }
 
 .expand-review-des{
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .remove-review-button,
 .accept-button,
 .deny-button {
-	float: right;
+    float: right;
 }
 
 #buddypress #bgr-message {
-	display: none!important;
+    display: none!important;
 }
 
 #bgr-message {
-	margin: 0 0 15px;
+    margin: 0 0 15px;
 }
 
 .bgr-success {
-	font-size: 1.12rem;
-	font-weight: 700;
-	text-decoration: none;
-	background-color: #ffd;
-	border: 1px solid #cb2;
-	color: #440;
-	padding: 15px;
+    font-size: 1.12rem;
+    font-weight: 700;
+    text-decoration: none;
+    background-color: #ffd;
+    border: 1px solid #cb2;
+    color: #440;
+    padding: 15px;
 }
 
 .bgr-bp-success {
-	display: none;
+    display: none;
 }
 
 #bgr-message {
-	display: none;
+    display: none;
 }
 
 .bgr-widget-rating{
-	padding: 5px 0 10px;
+    padding: 5px 0 10px;
 }
 
 .group-request-list .avatar {
-	height: 50%;
-	width: 50%;
+    height: 50%;
+    width: 50%;
 }
 
 .bgr-bp-success {
-	display: none;
+    display: none;
 }
 
 .group-add-form p {
-	margin: 10px 0;
+    margin: 10px 0;
 }
 /*** Section Front Page css  end ***/
 
@@ -155,76 +160,76 @@
 
 @media( max-width: 767px ) {
 
-	.remove-review-button,
-	.accept-button,
-	.deny-button {
-		float: none;
-		display : block;
-	}
+    .remove-review-button,
+    .accept-button,
+    .deny-button {
+        float: none;
+        display : block;
+    }
 
-	.group-request-list .avatar {
-		margin: 0 auto;
-		display: block;
-	}
+    .group-request-list .avatar {
+        margin: 0 auto;
+        display: block;
+    }
 
-	.group-request-list .item-title a {
-		text-align: center;
-		display: block;
-	}
+    .group-request-list .item-title a {
+        text-align: center;
+        display: block;
+    }
 
-	.group-request-list .avatar {
-		height: 50px;
-		width: 50px;
-	}
+    .group-request-list .avatar {
+        height: 50px;
+        width: 50px;
+    }
 }
 
 #bgr_review_success_msg_modal .modal-content {
-	min-height: 200px;
-	min-width: 300px;
-	background-color: #f0f0f0;
+    min-height: 200px;
+    min-width: 300px;
+    background-color: #f0f0f0;
 }
 
 #bgr_review_success_msg_modal .modal-header {
-	background-color: #f0f0f0;
+    background-color: #f0f0f0;
 }
 
 #bgr_review_success_msg_modal p {
-	font-weight: 600;
-	padding-top: 8%;
+    font-weight: 600;
+    padding-top: 8%;
 }
 
 #bgr_review_success_msg_modal .close {
-	color: #000;
+    color: #000;
 }
 
 .bgr-error-fields {
-	display: none;
-	color: red;
-	float: left;
+    display: none;
+    color: red;
+    float: left;
 }
 
 #form-group-id {
-	width: 100%;
+    width: 100%;
 }
 
 .rating-bgr {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 .bgr-header-row {
-	clear: both;
-	padding-bottom: 5px;
+    clear: both;
+    padding-bottom: 5px;
 }
 
 .bgr-group-header-ratings {
-	display: block;
-	padding: 10px 0;
+    display: block;
+    padding: 10px 0;
 }
 
 .bgr-star-rate {
-	margin-right: 4px;
+    margin-right: 4px;
 }
 
 #request-review-list + #bp-group-edit-add-review-submit-wrapper {
-	display: none;
+    display: none;
 }
