@@ -233,6 +233,11 @@ button.bgr-faq-accordion {
 	-moz-border-radius: 10px;
 }
 
+/* Save button */
+#bgr-save-admin-general-settings{
+	margin-top: 10px;
+}
+
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 button.bgr-faq-accordion-active,
 button.bgr-faq-accordion:hover {

@@ -22,7 +22,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			add_action( 'wp_ajax_bgr_save_admin_display_settings', array( $this, 'bgr_save_admin_display_settings' ) );
 			add_action( 'wp_ajax_nopriv_bgr_save_admin_display_settings', array( $this, 'bgr_save_admin_display_settings' ) );
 			add_action( 'wp_ajax_bgr_save_admin_general_settings', array( $this, 'bgr_save_admin_general_settings' ) );
-			add_action( 'wp_ajax_nopriv_bgr_save_admin_general_settings', array( $this, 'bgr_save_admin_general_settings' ) );
 			add_action( 'wp_ajax_bgr_accept_review', array( $this, 'bgr_accept_review' ) );
 			add_action( 'wp_ajax_nopriv_bgr_accept_review', array( $this, 'bgr_accept_review' ) );
 			add_action( 'wp_ajax_bgr_deny_review', array( $this, 'bgr_deny_review' ) );
@@ -372,7 +371,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$reviews_per_page     = sanitize_text_field( $_POST['reviews_per_page'] );
 				$allow_email          = sanitize_text_field( $_POST['allow_email'] );
 				$allow_notification   = sanitize_text_field( $_POST['allow_notification'] );
-				$exclude_groups       = array_map( 'sanitize_text_field', wp_unslash( $_POST['exclude_groups'] ) );
+				$exclude_groups       = isset( $_POST['exclude_groups'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['exclude_groups'] ) ) : '';
 				if ( empty( $exclude_groups ) ) {
 					$exclude_groups = array();
 				}
