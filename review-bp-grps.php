@@ -184,7 +184,9 @@ function run_bp_group_reviews_plugin() {
 		'includes/widgets/group-rating.php',
 	);
 	foreach ( $include_files as $include_file ) {
-		include $include_file;
+		if ( class_exists( 'BuddyPress' ) ) {
+			include $include_file;
+		}
 	}
 }
 
