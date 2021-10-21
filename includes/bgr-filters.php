@@ -432,8 +432,8 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		public function bgr_group_reviews_tab_template() {
-			global $bgr;
-			if ( strpos( $_SERVER['REQUEST_URI'], 'reviews/view' ) !== false ) {
+			global $bgr;			 
+			if ( strpos( $_SERVER['REQUEST_URI'], sanitize_title(bgr_group_review_tab_name()).'/view' ) !== false ) {
 				include 'templates/bgr-single-review-template.php';
 			} elseif ( sanitize_title( $bgr['manage_review_label'] ) === bp_current_action() ) {
 				include 'templates/bgr-reviews-tab-template.php';
