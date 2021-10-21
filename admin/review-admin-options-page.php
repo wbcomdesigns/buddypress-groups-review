@@ -242,7 +242,7 @@ function bgr_general_setting() {
 >
 			<div class="bgr-slider round"></div>
 		</label>
-		<p class="bgr-admin-des"><?php esc_html_e( 'Enable this option, if you want to group admin & reviewer receive notification when add, accept & deny review.', 'bp-group-reviews' ); ?></p>
+		<p class="bgr-admin-des"><?php esc_html_e( 'Enable this option, if you want group admin & reviewer to receive a notification when add, accept & deny review.', 'bp-group-reviews' ); ?></p>
 			<?php } else { ?>
 		<p class="bgr-admin-des"><?php esc_html_e( 'This setting requires BuddyPress Notifications Component to be active.', 'bp-group-reviews' ); ?></p>
 			<?php } ?>
