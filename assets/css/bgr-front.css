@@ -233,3 +233,12 @@
 #request-review-list + #bp-group-edit-add-review-submit-wrapper {
     display: none;
 }
+
+.bgr-submit-review {
+    cursor: pointer;
+}
+
+.olympus-theme .bgr-submit-review,
+.olympus-theme .bgr-submit-review:hover {
+    color: inherit;
+}
