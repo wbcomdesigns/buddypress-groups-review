@@ -20,7 +20,7 @@ $author_details = get_userdata( $author );
 			<div class="bgr-col-10">
 				<div class="reviewer">
 					<b>
-						<?php echo esc_html( bp_core_get_userlink( $author ) ); ?>
+						<?php echo bp_core_get_userlink( $author ) ; ?>
 					</b>
 				</div>
 
