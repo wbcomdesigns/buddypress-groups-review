@@ -79,7 +79,7 @@ function bgr_criteria_setting() {
 			?>
 </div>
 <input id="bgr-field-add" type="button" value="<?php esc_html_e( 'Add Review Criteria', 'bp-group-reviews' ); ?>" class="button button-secondary"/>
-<p class="bgr-admin-des"><?php esc_html_e( 'This option provide you to add multiple rating criteria. By default, no criteria will be shown until you active it.', 'bp-group-reviews' ); ?></p>
+<p class="bgr-admin-des"><?php esc_html_e( 'This option provide you to add multiple rating criteria. By default, no criteria will be shown until you enable it.', 'bp-group-reviews' ); ?></p>
 </div>
 </div>
 <input type="button" class="button button-primary" id="bgr-save-admin-criteria-settings" value="<?php esc_html_e( 'Save Settings', 'bp-group-reviews' ); ?>">
