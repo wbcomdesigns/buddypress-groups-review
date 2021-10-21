@@ -295,7 +295,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$linked_group = get_post_meta( $post->ID, 'linked_group', true );
 					$group        = groups_get_group( array( 'group_id' => $linked_group ) );
 					$group_url    = bp_get_group_permalink( $group );
-					$review_url   = $group_url . 'reviews/view/' . $post->ID;
+					$review_url   = $group_url . sanitize_title(bgr_group_review_tab_name()) . '/view/' . $post->ID;					
 
 					$actions['view_review'] = '<a href="' . $review_url . '" title="' . $review_title . '">' . esc_html__( 'View', 'bp-group-reviews' ) . '</a>';
 
