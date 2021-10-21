@@ -153,6 +153,21 @@ function bgr_display_setting() {
 function bgr_general_setting() {
 	global $bp, $bgr;
 
+	if ( ! bp_is_active( 'groups' ) ) {
+		$base_url  = bp_get_admin_url(
+			add_query_arg(
+				array(
+					'page' => 'bp-components',
+				),
+				'admin.php'
+			)
+		);
+		$base_link = '<a href="' . esc_url( $base_url ) . '">' . esc_html__( 'here' ) . '</a>';
+		echo sprintf( __( '<h2>This plugin is work with BuddyPress Groups Component. Please activet the BuddyPress Groups component. To activate groups component click %s. </h2>', 'bp-group-reviews' ), $base_link );
+
+		return;
+	}
+
 	$spinner_src          = includes_url() . 'images/spinner.gif';
 	$auto_approve_reviews = $bgr['auto_approve_reviews'];
 	$reviews_per_page     = $bgr['reviews_per_page'];
