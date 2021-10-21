@@ -102,7 +102,7 @@ function bgr_bp_notifications_for_review() {
  *  Check if buddypress activate.
  */
 function bgr_requires_buddypress() {
-	if ( ! class_exists( 'Buddypress' ) ) {
+	if ( ! class_exists( 'BuddyPress' ) ) {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 		add_action( 'admin_notices', 'bgr_admin_notice' );
 		unset( $_GET['activate'] );
@@ -194,10 +194,11 @@ function run_bp_group_reviews_plugin() {
  */
 
 add_action( 'activated_plugin', 'bp_group_reviews_activation_redirect_settings' );
-function bp_group_reviews_activation_redirect_settings( $plugin ){
-
-	if( $plugin == plugin_basename( __FILE__ ) ) {
-		wp_redirect( admin_url( 'admin.php?page=group-review-settings' ) ) ;
-		exit;
+function bp_group_reviews_activation_redirect_settings( $plugin ) {
+	if ( class_exists( 'BuddyPress' ) ) {
+		if ( $plugin == plugin_basename( __FILE__ ) ) {
+			wp_redirect( admin_url( 'admin.php?page=group-review-settings' ) );
+			exit;
+		}
 	}
 }
