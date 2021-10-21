@@ -10,7 +10,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-This plugin allows the BuddyPress Members to give reviews to the BuddyPress groups on the site. The review form allows the users to give text review, even rate the group on the basis of multiple criterias.
+BuddyPress Group Reviews allows BuddyPress members to add group reviews & give multiple-rating to given criteria(s). After posting reviews, all reviews will be displayed in the Manage Review section of the group.
+Admins can approve or deny the review. When the admin approves the review, it will be published. All published reviews will be shown in the reviews tab on the single group page. Admin is allowed to add as many criteria for the rating as he wants.
 
 Group Ratings will also be visible at group directory page.
 
