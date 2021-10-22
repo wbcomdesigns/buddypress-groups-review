@@ -162,7 +162,7 @@ function bgr_general_setting() {
 				'admin.php'
 			)
 		);
-		$base_link = '<a href="' . esc_url( $base_url ) . '">' . esc_html__( 'here' ) . '</a>';
+		$base_link = '<a href="' . esc_url( $base_url ) . '">' . esc_html__( 'here' , 'bp-group-reviews') . '</a>';
 		echo sprintf( __( '<h2>This plugin is work with BuddyPress Groups Component. Please activet the BuddyPress Groups component. To activate groups component click %s. </h2>', 'bp-group-reviews' ), $base_link );
 
 		return;

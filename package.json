@@ -5,19 +5,20 @@
   "license": "GPL-2.0+",
   "description": "Group review plugin for BuddyPress",
   "devDependencies": {
-    "grunt": "^1.4.1",
-    "grunt-check-dependencies": "~1.0.0",
     "grunt-checktextdomain": "^1.0.1",
-    "grunt-wp-i18n": "^1.0.1"
+    "grunt-wp-i18n": "^1.0.3",
+    "node-wp-i18n": "^1.2.6"
   },
   "engines": {
-    "node": ">=6.9.1"
+    "node": "16.4.0",
+    "npm": "7.24.2"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/wbcomdesigns/buddypress-groups-review"
   },
   "dependencies": {
+    "bluebird": "^3.7.2",
     "load-grunt-tasks": "^3.5.2"
   }
 }
