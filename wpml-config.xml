@@ -1,5 +1,10 @@
 <wpml-config>
     <admin-texts>
+	
+		<key name="bgr_admin_general_settings">
+            <key name="review_email_subject" />
+            <key name="review_email_message" />            
+        </key>
         <key name="bgr_admin_criteria_settings">
             <key name="add_review_rating_fields" />
             <key name="active_rating_fields" />            

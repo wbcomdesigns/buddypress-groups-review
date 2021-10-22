@@ -64,6 +64,8 @@ jQuery( document ).ready(
 				var bgr_multi_reviews        = jQuery( '#bgr-multi-reviews' ).is( ':checked' ) ? 'yes' : 'no';
 				var bgr_auto_approve_reviews = jQuery( '#bgr-auto-approve-reviews' ).is( ':checked' ) ? 'yes' : 'no';
 				var reviews_per_page         = jQuery( '#reviews_per_page' ).val();
+				var review_email_subject         = jQuery( '#review_email_subject' ).val();
+				var review_email_message         = jQuery( '#review_email_message' ).val();
 				var bgr_allow_email          = jQuery( '#bgr-email' ).is( ':checked' ) ? 'yes' : 'no';
 				var bgr_allow_notification   = jQuery( '#bgr-notification' ).is( ':checked' ) ? 'yes' : 'no';
 
@@ -76,7 +78,9 @@ jQuery( document ).ready(
 						'reviews_per_page'          : reviews_per_page,
 						'allow_email'               : bgr_allow_email,
 						'allow_notification'        : bgr_allow_notification,
-						'exclude_groups'            : exclude_groups
+						'exclude_groups'            : exclude_groups,
+						'review_email_subject'      : review_email_subject,
+						'review_email_message'      : review_email_message
 					},
 					function ( response ) {
 						if ( response === 'admin-general-settings-saved' ) {

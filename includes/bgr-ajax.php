@@ -371,6 +371,8 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$reviews_per_page     = sanitize_text_field( $_POST['reviews_per_page'] );
 				$allow_email          = sanitize_text_field( $_POST['allow_email'] );
 				$allow_notification   = sanitize_text_field( $_POST['allow_notification'] );
+				$review_email_subject   = sanitize_text_field( $_POST['review_email_subject'] );
+				$review_email_message   = sanitize_text_field( $_POST['review_email_message'] );
 				$exclude_groups       = isset( $_POST['exclude_groups'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['exclude_groups'] ) ) : '';
 				if ( empty( $exclude_groups ) ) {
 					$exclude_groups = array();
@@ -382,6 +384,8 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					'allow_email'          => $allow_email,
 					'allow_notification'   => $allow_notification,
 					'exclude_groups'       => $exclude_groups,
+					'review_email_subject' => $review_email_subject,
+					'review_email_message' => $review_email_message
 				);
 				update_option( 'bgr_admin_general_settings', $bgr_admin_settings );
 				echo 'admin-general-settings-saved';
@@ -429,7 +433,9 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$allow_email          = $bgr['allow_email'];
 			$review_label         = $bgr['review_label'];
 			$auto_approve_reviews = $bgr['auto_approve_reviews'];
-			$multi_reviews        = $bgr['multi_reviews'];
+			$multi_reviews        = $bgr['multi_reviews'];			
+			$review_email_subject = (isset($bgr['review_email_subject'])) ? $bgr['review_email_subject'] : sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label ); ;
+			$review_email_message = (isset($bgr['review_email_message'])) ? $bgr['review_email_message'] : esc_html__( 'A new %1$s for %2$s added by %3$s. Link: %4$s', 'bp-group-reviews' );
 
 			parse_str( $_POST['data'], $formarray );
 			$review_subject = sanitize_text_field( $formarray['review-subject'] );
@@ -496,14 +502,16 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$user_name  = $user_info->user_login;
 
 				if ( $auto_approve_reviews == 'yes' ) {
-					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '//reviews//';
+					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/reviews/';
 				} else {
 					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/admin/manage-reviews/';
 				}
-				/* translators: %1$s is replaced with review_label */
-				$mail_title = sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
+				/* translators: %1$s is replaced with review_label, */
+				$mail_title = $review_email_subject;
 				/* translators: %1$s, %2$s and %3$s are replaced with review_label, group_name and user_name respectively.  */
-				$mail_content = sprintf( esc_html__( 'A new %1$s for %2$s added by %3$s. Link: %4$s', 'bp-group-reviews' ), $review_label, $group_name, $user_name, esc_url( $mail_link ) );
+				$review_email_message = (isset($bgr['review_email_message'])) ? $bgr['review_email_message'] : sprintf( esc_html__( 'A new %1$s for %2$s added by %3$s. Link: %4$s', 'bp-group-reviews' ), $review_label, $group_name, $user_name, esc_url( $mail_link ) );
+				$review_email_message = str_replace(['[group-name]', ' [user-name]', '[review-link]'], [$group_name,$user_name,$mail_link], $review_email_message);
+				$mail_content = $review_email_message;
 
 				if ( ! empty( $rated_stars ) ) {
 					update_post_meta( $review_id, 'review_star_rating', $rated_stars );
@@ -521,6 +529,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				if ( 'yes' == $allow_email ) {
 					foreach ( $group_admins->admins as $group_admin ) {
 						$author_email = get_the_author_meta( 'user_email', $group_admin->user_id );
+						echo $mail_title . " == " . $mail_content;
 						wp_mail( $author_email, $mail_title, $mail_content );
 					}
 				}

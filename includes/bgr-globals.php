@@ -29,6 +29,13 @@ function bgr_review_globals() {
 		if ( array_key_exists( 'exclude_groups', $bgr_admin_general_settings ) ) {
 			$exclude_groups = $bgr_admin_general_settings['exclude_groups'];
 		}
+		
+		if ( array_key_exists( 'review_email_subject', $bgr_admin_general_settings ) ) {
+			$review_email_subject = $bgr_admin_general_settings['review_email_subject'];
+		}
+		if ( array_key_exists( 'review_email_message', $bgr_admin_general_settings ) ) {
+			$review_email_message = $bgr_admin_general_settings['review_email_message'];
+		}
 		if ( array_key_exists( 'multi_reviews', $bgr_admin_general_settings ) ) {
 			$multi_reviews = $bgr_admin_general_settings['multi_reviews'];
 		}
@@ -119,6 +126,8 @@ function bgr_review_globals() {
 		'allow_email'          => $allow_email,
 		'allow_notification'   => $allow_notification,
 		'exclude_groups'       => $exclude_groups,
+		'review_email_subject' => $review_email_subject,
+		'review_email_message' => $review_email_message,
 		'review_rating_fields' => $review_rating_fields,
 		'active_rating_fields' => $active_rating_fields,
 		'review_label'         => $review_label,
