@@ -191,7 +191,7 @@ Thanks';
 
 	<div class="bgr-row">
 	<div class="bgr-col-3">
-		<label><?php esc_html_e( 'Enable Multiple Review', 'bp-group-reviews' ); ?></label>
+		<label><?php esc_html_e( 'Enable Multiple Reviews', 'bp-group-reviews' ); ?></label>
 	</div>
 	<div class="bgr-col-9">
 		<label class="bgr-switch" for="bgr-multi-reviews">
@@ -285,7 +285,7 @@ Thanks';
 	</div>
 </div>
 <div class="bgr-row">
-	<div class="bgr-col-3"><label><?php esc_html_e( 'Exclude Groups from reviews', 'bp-group-reviews' ); ?></label></div>
+	<div class="bgr-col-3"><label><?php esc_html_e( 'Exclude Groups from Reviews', 'bp-group-reviews' ); ?></label></div>
 	<div class="bgr-col-9">
 	<select id="bgr-exclude-group-review" name="bgr-exclude-group[]" multiple >
 		<?php
