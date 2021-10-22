@@ -63,6 +63,12 @@ function bgr_review_globals() {
 		$multi_reviews        = 'no';
 		$reviews_per_page     = 3;
 		$allow_email          = 'no';
+		$review_email_subject = 'A new review posted.';
+		$review_email_message = 'Hello
+
+A new review for [group-name] added by [user-name]. Link: [review-link]
+
+Thanks';
 		$allow_notification   = 'no';
 		$exclude_groups       = array();
 		$auto_approve_reviews = 'no';
