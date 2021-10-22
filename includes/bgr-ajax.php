@@ -502,9 +502,10 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$user_name  = $user_info->user_login;
 
 				if ( $auto_approve_reviews == 'yes' ) {
-					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/reviews/';
+					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/'. sanitize_title(bgr_group_review_tab_name()).'/';
 				} else {
-					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/admin/manage-reviews/';
+					//$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/admin/manage-reviews/';
+					$mail_link = admin_url('edit.php?post_type=review');
 				}
 				/* translators: %1$s is replaced with review_label, */
 				$mail_title = $review_email_subject;
