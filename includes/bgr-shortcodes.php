@@ -181,7 +181,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 							<input type="hidden" name="form-group-id" value="<?php echo esc_attr( $current_group_id ); ?>" />
 						<?php } ?>
 						<p class="bupr-hide-subject">
-							<?php $review_subject = 'Review ' . time(); ?>
+							<?php $review_subject = bgr_group_add_review_tab_name().' ' . time(); ?>
 							<input name="review-subject" type="hidden" value="<?php echo esc_attr( $review_subject ); ?>">
 						</p>
 					<?php /* translators: %s: search term */ ?>
