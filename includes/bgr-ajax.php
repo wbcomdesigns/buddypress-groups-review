@@ -511,7 +511,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$mail_title = $review_email_subject;
 				/* translators: %1$s, %2$s and %3$s are replaced with review_label, group_name and user_name respectively.  */
 				$review_email_message = (isset($bgr['review_email_message'])) ? $bgr['review_email_message'] : sprintf( esc_html__( 'A new %1$s for %2$s added by %3$s. Link: %4$s', 'bp-group-reviews' ), $review_label, $group_name, $user_name, esc_url( $mail_link ) );
-				$review_email_message = str_replace(['[group-name]', ' [user-name]', '[review-link]'], [$group_name,$user_name,$mail_link], $review_email_message);
+				$review_email_message = str_replace(['[group-name]', '[user-name]', '[review-link]'], [$group_name,$user_name,$mail_link], $review_email_message);
 				$mail_content = $review_email_message;
 
 				if ( ! empty( $rated_stars ) ) {
