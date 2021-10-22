@@ -177,6 +177,14 @@ jQuery( document ).ready(
 				return false;
 			}
 		);
+		
+		jQuery( document ).on('change', '#bgr-email', function(){				
+			if ( jQuery( this ).prop('checked') == true ) {
+				jQuery( '.review-email-section' ).show();
+			} else {
+				jQuery( '.review-email-section' ).hide();
+			}
+		});
 
 		jQuery( document ).on(
 			'click', '.bgr-approve-review', function(){

@@ -269,7 +269,7 @@ Thanks';
 	<p class="bgr-admin-des"><?php esc_html_e( 'Enable this option, if you want group admin & reviewer receive email when someone adds, accepts & denies review.', 'bp-group-reviews' ); ?></p>
 	</div>
 </div>
-<div class="bgr-row">
+<div class="bgr-row review-email-section" <?php if($allow_email != 'yes'):?> style="display:none;" <?php endif; ?>>
 	<div class="bgr-col-3"><label><?php esc_html_e( 'Email Subject', 'bp-group-reviews' ); ?></label></div>
 	<div class="bgr-col-9">
 		<input id="review_email_subject" class="large-text" name="review_email_subject" value="<?php echo esc_attr( $review_email_subject ); ?>" type="text" placeholder="Please enter review email subject.">
@@ -277,7 +277,7 @@ Thanks';
 	</div>
 </div>
 
-<div class="bgr-row">
+<div class="bgr-row review-email-section" <?php if($allow_email != 'yes'):?> style="display:none;" <?php endif; ?>>
 	<div class="bgr-col-3"><label><?php esc_html_e( 'Email Message', 'bp-group-reviews' ); ?></label></div>
 	<div class="bgr-col-9">
 		<textarea id="review_email_message" class="large-text" name="review_email_message" ><?php echo esc_html($review_email_message);?></textarea>
