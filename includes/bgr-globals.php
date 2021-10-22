@@ -29,10 +29,11 @@ function bgr_review_globals() {
 		if ( array_key_exists( 'exclude_groups', $bgr_admin_general_settings ) ) {
 			$exclude_groups = $bgr_admin_general_settings['exclude_groups'];
 		}
-		
+		$review_email_subject = '';
 		if ( array_key_exists( 'review_email_subject', $bgr_admin_general_settings ) ) {
 			$review_email_subject = $bgr_admin_general_settings['review_email_subject'];
 		}
+		$review_email_message = '';
 		if ( array_key_exists( 'review_email_message', $bgr_admin_general_settings ) ) {
 			$review_email_message = $bgr_admin_general_settings['review_email_message'];
 		}
