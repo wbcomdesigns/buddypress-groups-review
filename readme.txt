@@ -3,8 +3,8 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
-Tested up to: 5.7.3
-Stable tag: 2.7.0
+Tested up to: 5.8.1
+Stable tag: 2.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,25 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 4. Plugin settings.(png|jpg|jpeg|gif).
 
 == Changelog ==
+
+= 2.8.0 =
+* Fix: Update success message color
+* Fix: #102 - Typo error
+* Fix: #101 - Reviews CPT Title "Review" is not Changed according 
+* Fix: #98 - Group Review Email Subject and Email Content Placeholder
+* Fix: #100 - debug code output displaying after submitting the review 
+* Fix: undefine index warning
+* Fix: #91 - widget: bp group review widget
+* Fix: Update admin url if need to approve feedback
+* Fix: #84 - Review mail string change
+* Fix: #80 - reviews are redirecting us to 404 page (reviews tab)
+* Fix: (#95) Fixed plugin create admin menu if BuddyPress not activate
+* Fix: (#77) Fixed replace plural string with singular
+* Fix: admin options button UI
+* Fix: (#75) Fixed php notice is no group select in bacend admin seating
+* Fix: (#87) Fixed grammatically error
+* Fix: (#95) Fixed redirect to error page after activate
+
 = 2.7.0 =
 * Fix: Update plugin backend UI
 
