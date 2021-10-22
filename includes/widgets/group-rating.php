@@ -166,14 +166,14 @@ class bgr_single_group_rating_widget extends WP_Widget {
 					?>
 					class="selected"<?php endif; ?>><?php esc_html_e( 'Lowest', 'bp-group-reviews' ); ?></a>
 			</div>
-			<?php
+			<?php			
 			echo '<ul class="item-list" id="bp-group-rating">';
 			foreach ( $single_rev_avg as $bgrKey => $bgrValue ) {
 				if ( $bgr_user_count == $widget_post_num ) {
 					break;
 				} else {
 					echo '<li class="vcard"><div class="item-avatar">';
-					echo get_avatar( $final_review_obj[ $bgrKey ]->ID, 65 );
+					echo get_avatar( $final_review_obj[ $bgrKey ]->post_author, 65 );
 					echo '</div>';
 					echo '<div class="item">';
 
