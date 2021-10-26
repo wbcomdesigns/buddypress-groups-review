@@ -255,7 +255,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 							break;
 						} else {
 							$html .= '<li class="vcard"><div class="item-avatar">';
-							$html .= get_avatar( $final_review_obj[ $bgrKey ]->ID, 65 );
+							$html .= get_avatar( $final_review_obj[ $bgrKey ]->post_author, 65 );
 							$html .= '</div>';
 							$html .= '<div class="item">';
 
