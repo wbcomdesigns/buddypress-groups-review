@@ -106,6 +106,8 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 == Changelog ==
 
 = 2.8.0 =
+* Fix: Added common space between rating stars
+* Fix: (#91) Fixed group avatar changed on rating filter of widget
 * Fix: Update success message color
 * Fix: #102 - Typo error
 * Fix: #101 - Reviews CPT Title "Review" is not Changed according 
