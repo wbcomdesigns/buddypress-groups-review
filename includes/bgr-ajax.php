@@ -428,6 +428,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			global $bgr;
 			$current_user         = wp_get_current_user();
 			$member_id            = $current_user->ID;
+			$user_name            = $current_user->display_name;
 			$active_rating_fields = $bgr['active_rating_fields'];
 			$allow_notification   = $bgr['allow_notification'];
 			$allow_email          = $bgr['allow_email'];
@@ -438,11 +439,13 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$review_email_message = ( isset( $bgr['review_email_message'] ) ) ? $bgr['review_email_message'] : esc_html__( 'A new %1$s for %2$s added by %3$s. Link: %4$s', 'bp-group-reviews' );
 
 			parse_str( $_POST['data'], $formarray );
-			$review_subject = sanitize_text_field( $formarray['review-subject'] );
-			$review_desc    = sanitize_text_field( $formarray['review-desc'] );
-			$form_group_id  = sanitize_text_field( $formarray['form-group-id'] );
-
-			$group_args   = array(
+			$review_subject     = sanitize_text_field( $formarray['review-subject'] );
+			$review_desc        = sanitize_text_field( $formarray['review-desc'] );
+			$form_group_id      = sanitize_text_field( $formarray['form-group-id'] );
+			$group_obj          = groups_get_group( $form_group_id );
+			$group_name         = $group_obj->name;
+			$review_cpt_subject = sprintf( esc_html__( '%1$s A %2$ss Group %3$s.', 'bp-group-reviews' ), $user_name, $review_label, $group_name );
+			$group_args         = array(
 				'post_type'   => 'review',
 				'category'    => 'group',
 				'post_status' => array(
@@ -458,7 +461,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					),
 				),
 			);
-			$reviews_args = new WP_Query( $group_args );
+			$reviews_args       = new WP_Query( $group_args );
 			if ( $multi_reviews == 'no' ) {
 				$user_post_count = $reviews_args->post_count;
 			} else {
@@ -488,7 +491,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 
 				$add_review_args = array(
 					'post_type'    => 'review',
-					'post_title'   => $review_subject,
+					'post_title'   => $review_cpt_subject,
 					'post_content' => $review_desc,
 					'post_status'  => $review_status,
 				);
