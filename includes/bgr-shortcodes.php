@@ -19,7 +19,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			 *  @author  Wbcom Designs
 			 */
 		public function __construct() {
-			add_shortcode( 'add_group_review_form', array( $this, 'add_new_review' ) );
+			add_shortcode( 'add_group_review_form', array( $this, 'add_new_review' ), 999 );
 		}
 
 			/**
@@ -62,8 +62,9 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				),
 			);
 			$reviews_args = new WP_Query( $group_args );
-			$output      .= '<div id="bgr-message" class="bgr-success"></div>';
 
+			// $output .= '<div id="bgr-message" class="bgr-success"></div>';
+			ob_start();
 			if ( ! is_user_logged_in() ) {
 					$output .= '<div id="message" class="info">';
 					$output .= '<p>';
@@ -114,6 +115,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				) . '</p>';
 				$output .= '</div>';
 			}
+			$output = ob_get_clean();
 			return $output;
 		}
 
@@ -181,7 +183,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 							<input type="hidden" name="form-group-id" value="<?php echo esc_attr( $current_group_id ); ?>" />
 						<?php } ?>
 						<p class="bupr-hide-subject">
-							<?php $review_subject = bgr_group_add_review_tab_name().' ' . time(); ?>
+							<?php $review_subject = bgr_group_add_review_tab_name() . ' ' . time(); ?>
 							<input name="review-subject" type="hidden" value="<?php echo esc_attr( $review_subject ); ?>">
 						</p>
 					<?php /* translators: %s: search term */ ?>
@@ -200,6 +202,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 						</p>
 					</div>
 				</form>
+				<div id="bgr-message" class="bgr-success"></div>
 				<?php
 		}
 
