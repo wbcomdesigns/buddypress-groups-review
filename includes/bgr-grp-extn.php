@@ -185,7 +185,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 							</div>
 							<div class="bgr-col-8">
 								<div class="item-title">
-									<?php echo esc_html( bp_core_get_userlink( $author ) ); ?>
+									<?php echo wp_kses_post( bp_core_get_userlink( $author ) ); ?>
 								</div>
 								<div class="item-description">
 									<div class="review-description">
