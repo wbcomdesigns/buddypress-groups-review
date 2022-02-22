@@ -68,7 +68,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						'slug'              => 'add-' . bgr_group_review_tab_slug(),
 						'nav_item_position' => 200,
 						/* translators: %s is replaced with add_review_label */
-						'name'              => $review_label,
+						'name'              => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
 						'enable_nav_item'   => $add_review_nav,
 						'screens'           => array(
 							'admin' => array(
