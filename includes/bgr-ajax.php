@@ -444,7 +444,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$form_group_id      = sanitize_text_field( $formarray['form-group-id'] );
 			$group_obj          = groups_get_group( $form_group_id );
 			$group_name         = $group_obj->name;
-			$review_cpt_subject = sprintf( esc_html__( '%1$s A %2$ss Group %3$s.', 'bp-group-reviews' ), $user_name, $review_label, $group_name );
+			$review_cpt_subject = sprintf( esc_html__( '%1$s %2$ss Group %3$s.', 'bp-group-reviews' ), $user_name, $review_label, $group_name );
 			$group_args         = array(
 				'post_type'   => 'review',
 				'category'    => 'group',
