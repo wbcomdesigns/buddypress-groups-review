@@ -52,7 +52,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 							'name'              => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
 							'enable_nav_item'   => $add_review_nav,
 							'screens'           => array(
-								'edit' => array(
+								'admin' => array(
 									'name'    => $review_label,
 									'slug'    => 'manage' . bgr_group_review_tab_slug(),
 									'enabled' => $enabled,
