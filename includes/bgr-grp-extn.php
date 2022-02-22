@@ -12,7 +12,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 
 	class Group_Reviews_Management_Extn extends BP_Group_Extension {
 
-		public function __construct() {
+		public function init( $args = array() ) {
 
 			global $bp;
 			global $bgr;
