@@ -20,7 +20,7 @@ $author_details = get_userdata( $author );
 			<div class="bgr-col-10">
 				<div class="reviewer">
 					<b>
-						<?php echo bp_core_get_userlink( $author ) ; ?>
+						<?php echo wp_kses_post( bp_core_get_userlink( $author ) ); ?>
 					</b>
 				</div>
 

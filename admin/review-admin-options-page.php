@@ -162,8 +162,9 @@ function bgr_general_setting() {
 				'admin.php'
 			)
 		);
-		$base_link = '<a href="' . esc_url( $base_url ) . '">' . esc_html__( 'here' , 'bp-group-reviews') . '</a>';
-		echo sprintf( __( '<h2>This plugin is work with BuddyPress Groups Component. Please activet the BuddyPress Groups component. To activate groups component click %s. </h2>', 'bp-group-reviews' ), $base_link );
+		$base_link = '<a href="' . esc_url( $base_url ) . '">' . esc_html__( 'here', 'bp-group-reviews' ) . '</a>';
+		$group_mgs = esc_html__( 'This plugin is work with BuddyPress Groups Component. Please activate the BuddyPress Groups component. To activate groups component click ', 'bp-group-reviews' );
+		echo sprintf( wp_kses_post( '<h2>%1s %2s. </h2>' ), esc_html( $group_mgs ), wp_kses_post( $base_link ) );
 
 		return;
 	}
@@ -171,8 +172,8 @@ function bgr_general_setting() {
 	$spinner_src          = includes_url() . 'images/spinner.gif';
 	$auto_approve_reviews = $bgr['auto_approve_reviews'];
 	$reviews_per_page     = $bgr['reviews_per_page'];
-	$review_email_subject = (isset($bgr['review_email_subject'])) ? $bgr['review_email_subject'] : 'A new review posted.' ;
-	$review_email_message = (isset($bgr['review_email_message'])) ? $bgr['review_email_message'] : 'Hello
+	$review_email_subject = ( isset( $bgr['review_email_subject'] ) ) ? $bgr['review_email_subject'] : 'A new review posted.';
+	$review_email_message = ( isset( $bgr['review_email_message'] ) ) ? $bgr['review_email_message'] : 'Hello
 
 A new review for [group-name] added by [user-name]. Link: [review-link]
 
@@ -269,7 +270,11 @@ Thanks';
 	<p class="bgr-admin-des"><?php esc_html_e( 'Enable this option, if you want group admin & reviewer receive email when someone adds, accepts & denies review.', 'bp-group-reviews' ); ?></p>
 	</div>
 </div>
-<div class="bgr-row review-email-section" <?php if($allow_email != 'yes'):?> style="display:none;" <?php endif; ?>>
+<div class="bgr-row review-email-section" 
+	<?php
+	if ( $allow_email != 'yes' ) :
+		?>
+	 style="display:none;" <?php endif; ?>>
 	<div class="bgr-col-3"><label><?php esc_html_e( 'Email Subject', 'bp-group-reviews' ); ?></label></div>
 	<div class="bgr-col-9">
 		<input id="review_email_subject" class="large-text" name="review_email_subject" value="<?php echo esc_attr( $review_email_subject ); ?>" type="text" placeholder="Please enter review email subject.">
@@ -277,10 +282,14 @@ Thanks';
 	</div>
 </div>
 
-<div class="bgr-row review-email-section" <?php if($allow_email != 'yes'):?> style="display:none;" <?php endif; ?>>
+<div class="bgr-row review-email-section" 
+	<?php
+	if ( $allow_email != 'yes' ) :
+		?>
+	 style="display:none;" <?php endif; ?>>
 	<div class="bgr-col-3"><label><?php esc_html_e( 'Email Message', 'bp-group-reviews' ); ?></label></div>
 	<div class="bgr-col-9">
-		<textarea id="review_email_message" class="large-text" name="review_email_message" ><?php echo esc_html($review_email_message);?></textarea>
+		<textarea id="review_email_message" class="large-text" name="review_email_message" ><?php echo esc_html( $review_email_message ); ?></textarea>
 		<p class="bgr-admin-des"><?php esc_html_e( 'Please add review email message.', 'bp-group-reviews' ); ?></p>
 	</div>
 </div>
