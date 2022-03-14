@@ -3,8 +3,8 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
-Tested up to: 5.8.1
-Stable tag: 2.8.0
+Tested up to: 5.9.2
+Stable tag: 2.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,18 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 4. Plugin settings.(png|jpg|jpeg|gif).
 
 == Changelog ==
+= 2.8.1 =
+* Fix: Install Free plugin from WordPress Wrapper
+* Fix: (#114) Fixed string issue in add review tab
+* Fix: fixed button display issue in manage tab when label is changed
+* Fix: (#113) Fixed BP notification link issue when auto approve is disable
+* Fix: (#111) Fixed tab redirection issue when bp rewrites is active
+* Fix: (#109) Removed review title A string
+* Fix: (#111) Fixed manage review tab redirect issue with BP Rewrites plugin
+* Fix: (#110)Fixed review title display issue on group manage review tab
+* Fix: (#107)Fixed getting error when we use shortcode into page
+* Fix: (#109)Fixed Admin Review title issue
+* Fix: Added hookable position after review submit
 
 = 2.8.0 =
 * Fix: Added common space between rating stars
