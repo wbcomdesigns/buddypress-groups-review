@@ -4,7 +4,7 @@ Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
 Tested up to: 5.9.2
-Stable tag: 2.8.1
+Stable tag: 2.8.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,9 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 4. Plugin settings.(png|jpg|jpeg|gif).
 
 == Changelog ==
+= 2.8.2 =
+* Fix: PHPCS Fixes
+
 = 2.8.1 =
 * Fix: Install Free plugin from WordPress Wrapper
 * Fix: (#114) Fixed string issue in add review tab
@@ -122,9 +125,9 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 * Fix: (#91) Fixed group avatar changed on rating filter of widget
 * Fix: Update success message color
 * Fix: #102 - Typo error
-* Fix: #101 - Reviews CPT Title "Review" is not Changed according 
+* Fix: #101 - Reviews CPT Title "Review" is not Changed according
 * Fix: #98 - Group Review Email Subject and Email Content Placeholder
-* Fix: #100 - debug code output displaying after submitting the review 
+* Fix: #100 - debug code output displaying after submitting the review
 * Fix: undefine index warning
 * Fix: #91 - widget: bp group review widget
 * Fix: Update admin url if need to approve feedback
