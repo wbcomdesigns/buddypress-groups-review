@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Exit if accessed directly.
 if ( isset( $_GET ) ) {
 	if ( isset( $_GET['tab'] ) ) {
-		$bgr_setting_tab = sanitize_text_field( $_GET['tab'] );
+		$bgr_setting_tab = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
 		bgr_include_admin_setting_tabs( $bgr_setting_tab );
 	} else {
 		bgr_include_admin_setting_tabs( 'welcome' );

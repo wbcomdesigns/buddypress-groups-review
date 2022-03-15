@@ -187,7 +187,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				}
 				$html .= '</div>';
 				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo stripslashes( $html );
+				echo wp_kses_post( stripslashes( $html ) );
 				die;
 
 			}
@@ -318,8 +318,11 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 * Actions performed to approve review at admin end
 		 */
 		public function bgr_admin_approve_review() {
+			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
+				exit();
+			}
 			if ( isset( $_POST['action'] ) && $_POST['action'] == 'bgr_admin_approve_review' ) {
-				$rid  = sanitize_text_field( $_POST['review_id'] );
+				$rid  = isset( $_POST['review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['review_id'] ) ) : '';
 				$args = array(
 					'ID'          => $rid,
 					'post_status' => 'publish',
@@ -339,11 +342,14 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 */
 
 		function bgr_save_admin_criteria_settings() {
+			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
+				exit();
+			}
 			if ( isset( $_POST['action'] ) && $_POST['action'] === 'bgr_save_admin_criteria_settings' ) {
 
-				$rating_fields               = array_map( 'sanitize_text_field', wp_unslash( $_POST['field_values'] ) );
+				$rating_fields               = isset( $_POST['field_values'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['field_values'] ) ) : '';
 				$rating_field_values         = array_unique( $rating_fields );
-				$active_rating_fields        = array_map( 'sanitize_text_field', wp_unslash( $_POST['active_criterias'] ) );
+				$active_rating_fields        = isset( $_POST['active_criterias'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['active_criterias'] ) ) : '';
 				$active_rating_fields_values = array_unique( $active_rating_fields );
 
 				$bgr_admin_settings = array(
@@ -364,15 +370,17 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		function bgr_save_admin_general_settings() {
+			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
+				exit();
+			}
 			if ( isset( $_POST['action'] ) && $_POST['action'] === 'bgr_save_admin_general_settings' ) {
-
-				$multi_reviews        = sanitize_text_field( $_POST['multi_reviews'] );
-				$auto_approve_reviews = sanitize_text_field( $_POST['bgr_auto_approve_reviews'] );
-				$reviews_per_page     = sanitize_text_field( $_POST['reviews_per_page'] );
-				$allow_email          = sanitize_text_field( $_POST['allow_email'] );
-				$allow_notification   = sanitize_text_field( $_POST['allow_notification'] );
-				$review_email_subject = sanitize_text_field( $_POST['review_email_subject'] );
-				$review_email_message = sanitize_text_field( $_POST['review_email_message'] );
+				$multi_reviews        = isset( $_POST['multi_reviews'] ) ? sanitize_text_field( wp_unslash( $_POST['multi_reviews'] ) ) : '';
+				$auto_approve_reviews = isset( $_POST['bgr_auto_approve_reviews'] ) ? sanitize_text_field( wp_unslash( $_POST['bgr_auto_approve_reviews'] ) ) : '';
+				$reviews_per_page     = isset( $_POST['reviews_per_page'] ) ? sanitize_text_field( wp_unslash( $_POST['reviews_per_page'] ) ) : '';
+				$allow_email          = isset( $_POST['allow_email'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_email'] ) ) : '';
+				$allow_notification   = isset( $_POST['allow_notification'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_notification'] ) ) : '';
+				$review_email_subject = isset( $_POST['review_email_subject'] ) ? sanitize_text_field( wp_unslash( $_POST['review_email_subject'] ) ) : '';
+				$review_email_message = isset( $_POST['review_email_message'] ) ? sanitize_text_field( wp_unslash( $_POST['review_email_message'] ) ) : '';
 				$exclude_groups       = isset( $_POST['exclude_groups'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['exclude_groups'] ) ) : '';
 				if ( empty( $exclude_groups ) ) {
 					$exclude_groups = array();
@@ -400,11 +408,14 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		function bgr_save_admin_display_settings() {
+			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
+				exit();
+			}
 			if ( isset( $_POST['action'] ) && $_POST['action'] === 'bgr_save_admin_display_settings' ) {
 
-				$manage_review_label = sanitize_text_field( $_POST['manage_review_label'] );
-				$review_label        = sanitize_text_field( $_POST['review_label'] );
-				$bgr_rating_color    = sanitize_text_field( $_POST['bgr_rating_color'] );
+				$manage_review_label = isset( $_POST['manage_review_label'] ) ? sanitize_text_field( wp_unslash( $_POST['manage_review_label'] ) ) : '';
+				$review_label        = isset( $_POST['review_label'] ) ? sanitize_text_field( wp_unslash( $_POST['review_label'] ) ) : '';
+				$bgr_rating_color    = isset( $_POST['bgr_rating_color'] ) ? sanitize_text_field( wp_unslash( $_POST['bgr_rating_color'] ) ) : '';
 
 				$bgr_admin_settings = array(
 					'review_label'        => $review_label,
@@ -437,8 +448,9 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$multi_reviews        = $bgr['multi_reviews'];
 			$review_email_subject = ( isset( $bgr['review_email_subject'] ) ) ? $bgr['review_email_subject'] : sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
 			$review_email_message = ( isset( $bgr['review_email_message'] ) ) ? $bgr['review_email_message'] : esc_html__( 'A new %1$s for %2$s added by %3$s. Link: %4$s', 'bp-group-reviews' );
-
-			parse_str( $_POST['data'], $formarray );
+			if ( isset( $_POST['data'] ) ) {
+				parse_str( wp_unslash( $_POST['data'] ), $formarray ); 
+			}
 			$review_subject     = sanitize_text_field( $formarray['review-subject'] );
 			$review_desc        = sanitize_text_field( $formarray['review-desc'] );
 			$form_group_id      = sanitize_text_field( $formarray['form-group-id'] );
@@ -539,7 +551,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				}
 			}
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo $review_add_msg;
+			echo esc_html( $review_add_msg );
 			die;
 		}
 
@@ -550,9 +562,12 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		public function bgr_accept_review() {
+			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
+				exit();
+			}
 			global $bgr;
 			global $bp;
-			$post_id        = sanitize_text_field( $_POST['accept_review_id'] );
+			$post_id        = isset( $_POST['accept_review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['accept_review_id'] ) ) : '';
 			$post_author_id = get_post_field( 'post_author', $post_id );
 			wp_publish_post( $post_id );
 			$allow_notification = $bgr['allow_notification'];
@@ -586,10 +601,13 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		function bgr_deny_review() {
+			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
+				exit();
+			}
 			global $bgr;
 			global $bp;
-			$post_id        = sanitize_text_field( $_POST['deny_review_id'] );
-			$group_id       = sanitize_text_field( $_POST['group_id'] );
+			$post_id        = isset( $_POST['deny_review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['deny_review_id'] ) ) : '';
+			$group_id       = isset( $_POST['group_id'] ) ? sanitize_text_field( wp_unslash( $_POST['group_id'] ) ) : '';
 			$post_author_id = get_post_field( 'post_author', $post_id );
 			wp_trash_post( $post_id );
 			$allow_notification = $bgr['allow_notification'];
@@ -622,7 +640,10 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		public function bgr_remove_review() {
-			$post_id = sanitize_text_field( $_POST['remove_review_id'] );
+			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
+				exit();
+			}
+			$post_id = isset( $_POST['remove_review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['remove_review_id'] ) ) : '';
 			wp_trash_post( $post_id );
 			die;
 		}

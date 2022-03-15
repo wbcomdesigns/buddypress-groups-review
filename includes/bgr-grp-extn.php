@@ -238,6 +238,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						<div class="review-pagination">
 							<?php
 							$current_page = max( 1, get_query_var( 'paged' ) );
+							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 							echo paginate_links(
 								array(
 									'base'      => get_pagenum_link( 1 ) . '%_%',

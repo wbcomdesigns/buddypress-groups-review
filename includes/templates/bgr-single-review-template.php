@@ -4,13 +4,12 @@ defined( 'ABSPATH' ) || exit;
 
 global $bgr;
 $review_rating_fields = $bgr['review_rating_fields'];
-$url                  = $_SERVER['REQUEST_URI'];
+$url                  = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 $review_id            = basename( $url );
 $review               = get_post( $review_id );
-
-$review_title   = $review->post_title;
-$author         = $review->post_author;
-$author_details = get_userdata( $author );
+$review_title         = $review->post_title;
+$author               = $review->post_author;
+$author_details       = get_userdata( $author );
 ?>
 <div class="bgr-single-review">
 	<div class="bgr-row item-list group-request-list">
