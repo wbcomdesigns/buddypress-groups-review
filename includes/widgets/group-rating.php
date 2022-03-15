@@ -179,8 +179,7 @@ class bgr_single_group_rating_widget extends WP_Widget {
 
 					$members_profile = bp_core_get_userlink( $final_review_obj[ $bgrKey ]->post_author );
 					echo '<div class="item-title fn">';
-					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					echo  $members_profile;
+					echo wp_kses_post( $members_profile );
 					echo '</div>';
 
 					$bgr_avg_rating = $bgrValue;
@@ -197,7 +196,6 @@ class bgr_single_group_rating_widget extends WP_Widget {
 						$stars_half = 0;
 					}
 					echo '<div class="item-meta">';
-                                        
 					for ( $i = 1; $i <= $stars_on; $i++ ) { ?><span class="fas fa-star stars bgr-star-rate"></span><?php
 					}
 					for ( $i = 1; $i <= $stars_half; $i++ ) { ?><span class="fas fa-star-half-alt stars bgr-star-rate"></span><?php

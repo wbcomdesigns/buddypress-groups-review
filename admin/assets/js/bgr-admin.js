@@ -35,6 +35,7 @@ jQuery( document ).ready(
 					ajaxurl,
 					{
 						'action'            : 'bgr_save_admin_criteria_settings',
+						'nonce'						: wbcom_plugin_installer_params.wbcom_nonce,
 						'field_values'      : field_values,
 						'active_criterias'  : criteria
 					},
@@ -73,6 +74,7 @@ jQuery( document ).ready(
 					ajaxurl,
 					{
 						'action'                    : 'bgr_save_admin_general_settings',
+						'nonce'						: wbcom_plugin_installer_params.wbcom_nonce,
 						'multi_reviews'             : bgr_multi_reviews,
 						'bgr_auto_approve_reviews'  : bgr_auto_approve_reviews,
 						'reviews_per_page'          : reviews_per_page,
@@ -105,6 +107,7 @@ jQuery( document ).ready(
 					ajaxurl,
 					{
 						'action'             : 'bgr_save_admin_display_settings',
+						'nonce'						: wbcom_plugin_installer_params.wbcom_nonce,
 						'review_label'       : review_label,
 						'manage_review_label': manage_review_label,
 						'bgr_rating_color'   : bgr_rating_color
@@ -194,7 +197,8 @@ jQuery( document ).ready(
 					ajaxurl,
 					{
 						'action'        : 'bgr_admin_approve_review',
-						'review_id'     : review_id
+						'review_id'     : review_id,
+						'nonce'			: wbcom_plugin_installer_params.wbcom_nonce,	
 					},
 					function ( response ) {
 						if ( response == 'review-approved-successfully' ) {
