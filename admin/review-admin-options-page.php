@@ -3,15 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 // Exit if accessed directly.
-if ( isset( $_GET ) ) {
-	if ( isset( $_GET['tab'] ) ) {
-		$bgr_setting_tab = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
-		bgr_include_admin_setting_tabs( $bgr_setting_tab );
-	} else {
-		bgr_include_admin_setting_tabs( 'welcome' );
-	}
-}
-
+	$bgr_setting_tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'welcome';
+	bgr_include_admin_setting_tabs( $bgr_setting_tab );
 /** Actions performed on Display review admin settings tabs
  *
  * @since    1.0.0

@@ -105,7 +105,6 @@ function bgr_requires_buddypress() {
 	if ( ! class_exists( 'BuddyPress' ) ) {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 		add_action( 'admin_notices', 'bgr_admin_notice' );
-		unset( $_GET['activate'] );
 	}
 }
 add_action( 'admin_init', 'bgr_requires_buddypress' );
@@ -123,9 +122,6 @@ function bgr_admin_notice() {
 	/* translators: %s: search term */
 	echo sprintf( esc_html__( '%1$s is ineffective now as it requires %2$s to be installed and active.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>' );
 	echo '</p></div>';
-	if ( isset( $_GET['activate'] ) ) {
-		unset( $_GET['activate'] );
-	}
 
 }
 
