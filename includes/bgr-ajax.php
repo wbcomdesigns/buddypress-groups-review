@@ -435,6 +435,9 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		function bgr_submit_review() {
+			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
+				exit();
+			}
 			global $bp;
 			global $bgr;
 			$current_user         = wp_get_current_user();
@@ -449,7 +452,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$review_email_subject = ( isset( $bgr['review_email_subject'] ) ) ? $bgr['review_email_subject'] : sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
 			$review_email_message = ( isset( $bgr['review_email_message'] ) ) ? $bgr['review_email_message'] : esc_html__( 'A new %1$s for %2$s added by %3$s. Link: %4$s', 'bp-group-reviews' );
 			if ( isset( $_POST['data'] ) ) {
-				parse_str( wp_unslash( $_POST['data'] ), $formarray ); 
+				parse_str( wp_unslash( filter_input( INPUT_POST, 'data', FILTER_SANITIZE_STRING ) ), $formarray );
 			}
 			$review_subject     = sanitize_text_field( $formarray['review-subject'] );
 			$review_desc        = sanitize_text_field( $formarray['review-desc'] );

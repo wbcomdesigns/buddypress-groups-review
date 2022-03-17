@@ -49,7 +49,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 		*/
 
 		function bgr_admin_custom_variables() {
-			$curr_url = $_SERVER['REQUEST_URI'];
+			$curr_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 			$screen   = get_current_screen();
 			if ( ( strpos( $curr_url, 'review' ) == true ) || ( 'wb-plugins_page_group-review-settings' == $screen->base ) ) {
 				wp_enqueue_script( 'bgr-js-admin', BGR_PLUGIN_URL . 'admin/assets/js/bgr-admin.js', array( 'jquery' ) );
