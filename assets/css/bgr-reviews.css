@@ -258,3 +258,20 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
 .bgr-group-content {
   margin-left: 100px;
 }
+
+/* BuddyBoss Theme */
+
+.theme-buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-group-header-ratings{
+  padding:0px;
+}
+.theme-buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-header-row{
+  text-align: left;
+}
+
+.theme-buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-group-header-ratings{
+  font-size: 16px;
+}
+
+.theme-buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-star-rate{
+  margin-right: 0;
+}
