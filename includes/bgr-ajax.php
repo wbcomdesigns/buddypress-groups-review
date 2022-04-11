@@ -370,6 +370,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		function bgr_save_admin_general_settings() {
+
 			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
 				exit();
 			}
@@ -379,6 +380,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$reviews_per_page     = isset( $_POST['reviews_per_page'] ) ? sanitize_text_field( wp_unslash( $_POST['reviews_per_page'] ) ) : '';
 				$allow_email          = isset( $_POST['allow_email'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_email'] ) ) : '';
 				$allow_notification   = isset( $_POST['allow_notification'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_notification'] ) ) : '';
+				$allow_activity       = isset( $_POST['allow_activity'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_activity'] ) ) : '';
 				$review_email_subject = isset( $_POST['review_email_subject'] ) ? sanitize_text_field( wp_unslash( $_POST['review_email_subject'] ) ) : '';
 				$review_email_message = isset( $_POST['review_email_message'] ) ? sanitize_text_field( wp_unslash( $_POST['review_email_message'] ) ) : '';
 				$exclude_groups       = isset( $_POST['exclude_groups'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['exclude_groups'] ) ) : '';
@@ -391,6 +393,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					'reviews_per_page'     => $reviews_per_page,
 					'allow_email'          => $allow_email,
 					'allow_notification'   => $allow_notification,
+					'allow_activity'       => $allow_activity,
 					'exclude_groups'       => $exclude_groups,
 					'review_email_subject' => $review_email_subject,
 					'review_email_message' => $review_email_message,
@@ -446,6 +449,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$active_rating_fields = $bgr['active_rating_fields'];
 			$allow_notification   = $bgr['allow_notification'];
 			$allow_email          = $bgr['allow_email'];
+			$allow_activity       = $bgr['allow_activity'];
 			$review_label         = $bgr['review_label'];
 			$auto_approve_reviews = $bgr['auto_approve_reviews'];
 			$multi_reviews        = $bgr['multi_reviews'];
@@ -539,7 +543,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 
 				$group_admins = groups_get_group( $form_group_id );
 
-				if ( 'yes' == $allow_notification ) {
+				if ( 'yes' == $allow_notification || 'yes' == $allow_activity ) {
 					foreach ( $group_admins->admins as $group_admin ) {
 						$admin_id = $group_admin->user_id;
 						do_action( 'bgr_group_add_review', $form_group_id, $admin_id );

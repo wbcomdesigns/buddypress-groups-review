@@ -173,6 +173,7 @@ A new review for [group-name] added by [user-name]. Link: [review-link]
 Thanks';
 	$allow_email          = $bgr['allow_email'];
 	$allow_notification   = $bgr['allow_notification'];
+	$allow_activity       = $bgr['allow_activity'];
 	$exclude_groups       = $bgr['exclude_groups'];
 	$multi_reviews        = $bgr['multi_reviews'];
 	$group_args           = array(
@@ -181,6 +182,7 @@ Thanks';
 		'per_page' => -1,
 	);
 	$allgroups            = groups_get_groups( $group_args );
+
 	?>
 
 	<div class="bgr-row">
@@ -245,6 +247,25 @@ Thanks';
 		<p class="bgr-admin-des"><?php esc_html_e( 'Enable this option, if you want group admin & reviewer to receive a notification when add, accept & deny review.', 'bp-group-reviews' ); ?></p>
 			<?php } else { ?>
 		<p class="bgr-admin-des"><?php esc_html_e( 'This setting requires BuddyPress Notifications Component to be active.', 'bp-group-reviews' ); ?></p>
+			<?php } ?>
+</div>
+</div>
+	<div class="bgr-row">
+	<div class="bgr-col-3"><label><?php esc_html_e( 'Enable Review Activity', 'bp-group-reviews' ); ?></label></div>
+	<div class="bgr-col-9">
+		<?php if ( bp_is_active( 'activity' ) ) { ?>
+		<label class="bgr-switch" for="bgr-activity">
+			<input type="checkbox" id="bgr-activity"
+				<?php
+				if ( $allow_activity == 'yes' ) {
+					echo 'checked="checked"'; }
+				?>
+>
+			<div class="bgr-slider round"></div>
+		</label>
+		<p class="bgr-admin-des"><?php esc_html_e( 'Enable this option, if you want to generate group review activities.', 'bp-group-reviews' ); ?></p>
+			<?php } else { ?>
+		<p class="bgr-admin-des"><?php esc_html_e( 'This setting requires BuddyPress Activity Component to be active.', 'bp-group-reviews' ); ?></p>
 			<?php } ?>
 </div>
 </div>

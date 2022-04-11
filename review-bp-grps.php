@@ -176,6 +176,7 @@ function run_bp_group_reviews_plugin() {
 		'includes/bgr-filters.php',
 		'includes/bgr-ajax.php',
 		'includes/bgr-shortcodes.php',
+		'includes/bgr-activity.php',
 		'includes/widgets/bgr-review.php',
 		'includes/widgets/group-rating.php',
 	);

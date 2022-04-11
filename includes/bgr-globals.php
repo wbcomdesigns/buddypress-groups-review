@@ -26,6 +26,9 @@ function bgr_review_globals() {
 		if ( array_key_exists( 'allow_notification', $bgr_admin_general_settings ) ) {
 			$allow_notification = $bgr_admin_general_settings['allow_notification'];
 		}
+		if ( array_key_exists( 'allow_activity', $bgr_admin_general_settings ) ) {
+			$allow_activity = $bgr_admin_general_settings['allow_activity'];
+		}
 		if ( array_key_exists( 'exclude_groups', $bgr_admin_general_settings ) ) {
 			$exclude_groups = $bgr_admin_general_settings['exclude_groups'];
 		}
@@ -56,6 +59,9 @@ function bgr_review_globals() {
 		if ( empty( $allow_notification ) ) {
 			$allow_notification = 'no';
 		}
+		if ( empty( $allow_activity ) ) {
+			$allow_activity = 'no';
+		}
 		if ( empty( $exclude_groups ) ) {
 			$exclude_groups = array();
 		}
@@ -70,6 +76,7 @@ A new review for [group-name] added by [user-name]. Link: [review-link]
 
 Thanks';
 		$allow_notification   = 'no';
+		$allow_activity       = 'no';
 		$exclude_groups       = array();
 		$auto_approve_reviews = 'no';
 	}
@@ -132,6 +139,7 @@ Thanks';
 		'reviews_per_page'     => $reviews_per_page,
 		'allow_email'          => $allow_email,
 		'allow_notification'   => $allow_notification,
+		'allow_activity'       => $allow_activity,
 		'exclude_groups'       => $exclude_groups,
 		'review_email_subject' => $review_email_subject,
 		'review_email_message' => $review_email_message,
