@@ -80,8 +80,16 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				if ( bp_is_group_single() ) {
 					if ( 'no' === $multi_reviews ) {
 						$user_post_count = $reviews_args->post_count;
+						$user_post_count = 1;
 					} else {
 						$user_post_count = 0;
+					}
+
+					if ( 1 === $user_post_count ) {
+						echo '<div class="approve-message">';
+						echo '<i class="fa fa-check" aria-hidden="true"></i>';
+						esc_html_e( 'You already have posted a review to this group.', 'bp-group-reviews' );
+						echo '</div>';
 					}
 
 					if ( 0 === $user_post_count ) {

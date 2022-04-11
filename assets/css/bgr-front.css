@@ -242,3 +242,15 @@
 .olympus-theme .bgr-submit-review:hover {
     color: inherit;
 }
+
+.approve-message{
+  background: #ebf9eb;
+    border: 1px solid green;
+    border-radius: 0;
+    margin-bottom: 20px;
+    padding: 10px 0;
+}
+.approve-message .fa-check{
+    padding: 0 5px;
+    color:green;
+}
