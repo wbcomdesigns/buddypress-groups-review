@@ -63,7 +63,8 @@ class BGR_Activity {
 	 */
 	private function init_hooks() {
 		add_action( 'bp_register_activity_actions', array( $this, 'bgr_register_activity_actions' ), 10 );
-		add_action( 'save_post', array( $this, 'bgr_create_group_post_activity' ), 10, 2 );
+		add_action( 'transition_post_status', array( $this, 'bgr_create_group_post_activity_after_approval' ), 15, 3 );
+		add_action( 'save_post', array( $this, 'bgr_create_group_post_activity' ), 15, 3 );
 		add_filter( 'bp_get_activity_content_body', array( $this, 'bgr_added_activity_star_rating' ), 10, 2 );
 	}
 
@@ -127,7 +128,12 @@ class BGR_Activity {
 	public function bgr_create_group_post_activity( $id, $post ) {
 		global $bp;
 		global $bgr;
-		$allow_activity = $bgr['allow_activity'];
+		$allow_activity       = $bgr['allow_activity'];
+		$auto_approve_reviews = $bgr['auto_approve_reviews'];
+		if ( 'no' === $auto_approve_reviews ) {
+			return false;
+		}
+
 		if ( ! bp_is_active( 'groups' ) && ! bp_is_active( 'activity' ) ) {
 			return false;
 		}
@@ -173,6 +179,70 @@ class BGR_Activity {
 
 	}
 
+	/**
+	 * Add activity on new product created by vendor.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int     $id Post ID.
+	 * @param WP_Post $post       Post object.
+	 */
+	public function bgr_create_group_post_activity_after_approval( $new_status, $old_status, $post ) {
+		global $bp;
+		global $bgr;
+		$allow_activity       = $bgr['allow_activity'];
+		$post_status          = get_post_status( $post->ID );
+		$auto_approve_reviews = $bgr['auto_approve_reviews'];
+		if ( 'yes' === $auto_approve_reviews ) {
+			return false;
+		}
+		if ( ! bp_is_active( 'groups' ) && ! bp_is_active( 'activity' ) ) {
+			return false;
+		}
+
+		if ( 'yes' == $allow_activity ) {
+			if ( ( 'publish' === $new_status && 'publish' !== $old_status ) && 'review' === $post->post_type ) {
+				$posts_id        = $post->ID;
+				$user_id         = $post->post_author;
+				$user_link       = bp_core_get_userlink( $user_id );
+				$post_title      = get_the_title( $posts_id );
+				$group_id        = get_post_meta( $post->ID, 'linked_group', true );
+				$group_name      = bp_get_group_name( groups_get_group( $group_id ) );
+				$group_obj       = groups_get_group( $group_id );
+				$review_data     = get_post( $posts_id );
+				$review_content  = $review_data->post_content;
+				$post_link       = bp_get_group_permalink( $group_obj ) . sanitize_title( bgr_group_review_tab_name() ) . '/view/' . $posts_id;
+				$group_link      = bp_get_group_permalink( $group_obj );
+				$post_link_html  = '<a href="' . esc_url( $post_link ) . '">' . $post_title . '</a>';
+				$group_link_html = '<a href="' . esc_url( $group_link ) . '">' . $group_name . '</a>';
+				$action          = sprintf(
+					apply_filters(
+						'bgr_activity_action',
+						/* translators: %1$s: User Link, %2$s: Post Link HTML, %3$s: Group Name */
+						__( '%1$s posted an review in the group %2$s', 'bp-group-reviews' )
+					),
+					$user_link,
+					$group_link_html
+				);
+				$args        = array(
+					'action'            => $action,
+					'content'           => $review_content,
+					'component'         => 'groups',
+					'type'              => 'bgr_group_posts_activity_action',
+					'user_id'           => bp_loggedin_user_id(),
+					'item_id'           => $group_id,
+					'secondary_item_id' => $posts_id,
+					'hide_sitewide'     => false,
+					'is_spam'           => false,
+					'privacy'           => 'public',
+					'error_type'        => 'bool',
+				);
+				$activity_id = bp_activity_add( $args );
+			}
+		}
+
+	}
+
 	public function bgr_added_activity_star_rating( $activity_content, $activity ) {
 		global $bgr;
 		$post_id              = $activity->secondary_item_id;
@@ -203,6 +273,8 @@ class BGR_Activity {
 		}
 		return $activity_content . $review_start;
 	}
+
+
 }
 
 /**
