@@ -1,5 +1,23 @@
 <?php
+/**
+ * BGR Group Review widget.
+ *
+ * @since   1.0.0
+ * @author  Wbcom Designs
+ *
+ * @package    BuddyPress_Group_Review
+ * @subpackage BuddyPress_Group_Review/includes/widgets
+ */
 
+/**
+ * BGR Group Review widget.
+ *
+ * @since   1.0.0
+ * @author  Wbcom Designs
+ *
+ * @package    BuddyPress_Group_Review
+ * @subpackage BuddyPress_Group_Review/includes/widget
+ */
 class bgr_review_widget extends WP_Widget {
 
 	/** Constructor
@@ -7,7 +25,7 @@ class bgr_review_widget extends WP_Widget {
 	 *  @since   1.0.0
 	 *  @author  Wbcom Designs
 	 */
-	function __construct() {
+	public function __construct() {
 		$widget_ops  = array(
 			'classname'   => 'widget_bp_group_review_tab',
 			'description' => esc_html__( 'Display Group Reviews.', 'bp-group-reviews' ),
@@ -19,12 +37,14 @@ class bgr_review_widget extends WP_Widget {
 		parent::__construct( 'bgr_group_review_widget', esc_html__( 'BP Group Review Widget', 'bp-group-reviews' ), $widget_ops, $control_ops );
 	}
 
-	/** Form display for widget in admin panel
+	/**
+	 * Form display for widget in admin panel.
 	 *
-	 *  @since   1.0.0
-	 *  @author  Wbcom Designs
+	 * @since   1.0.0
+	 * @author  Wbcom Designs
+	 * @param array $instance Widget instance.
 	 */
-	function form( $instance ) {
+	public function form( $instance ) {
 		if ( empty( $instance ) ) {
 			$instance = wp_parse_args(
 				(array) $instance,
@@ -52,8 +72,8 @@ class bgr_review_widget extends WP_Widget {
 						echo 'checked="checked"';
 					}
 					?>
-						   />
-						   <?php esc_html_e( 'Top Rated', 'bp-group-reviews' ); ?>
+						/>
+						<?php esc_html_e( 'Top Rated', 'bp-group-reviews' ); ?>
 				</label>
 				<label class="alignleft" for="listing_topreviewed">
 					<input type="radio" class="" id="<?php echo esc_attr( $this->get_field_id( 'listing_cat' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'listing_cat' ) ); ?>" value="<?php echo 'topreviewed'; ?>" 
@@ -62,8 +82,8 @@ class bgr_review_widget extends WP_Widget {
 						echo 'checked="checked"';
 					}
 					?>
-						   />
-						   <?php esc_html_e( 'Most Reviewed', 'bp-group-reviews' ); ?>
+					/>
+					<?php esc_html_e( 'Most Reviewed', 'bp-group-reviews' ); ?>
 				</label>
 			</div>
 			<div class="clear"></div>
@@ -88,13 +108,13 @@ class bgr_review_widget extends WP_Widget {
 		<?php
 	}
 
-	/*
-	  Update Widget data
-	 *  @since   1.0.0
-	 *  @author  Wbcom Designs
+	/**
+	 * Update Widget data
+	 *
+	 * @param  array $new_instance New Instance.
+	 * @param  array $old_instance Old Instance.
 	 */
-
-	function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 		$instance                 = $old_instance;
 		$instance['widget_title'] = strip_tags( $new_instance['widget_title'] );
 		$instance['listing_cat']  = $new_instance['listing_cat'];
@@ -103,13 +123,14 @@ class bgr_review_widget extends WP_Widget {
 		return $instance;
 	}
 
-	/*
-	  Display Widget content
-	 *  @since   1.0.0
-	 *  @author  Wbcom Designs
+	/**
+	 * Display Widget content
+	 *
+	 * @param  array $args Arguments.
+	 * @param  mixed $instance Instance.
+	 * @return void
 	 */
-
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 		global $bp;
 		$post;
 		global $bgr;

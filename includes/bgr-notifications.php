@@ -1,4 +1,13 @@
 <?php
+/**
+ * Class to generate bp notification.
+ *
+ * @link       https://wbcomdesigns.com/
+ * @since      1.0.0
+ *
+ * @package    BuddyPress_Group_Review
+ * @subpackage BuddyPress_Group_Review/includes
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -8,12 +17,33 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class to add custom scripts on woocommerce hooks
  */
 if ( ! class_exists( 'BGR_Notifications' ) ) {
-
+	/**
+	 * Class to generate bp notification.
+	 *
+	 * @link       https://wbcomdesigns.com/
+	 * @since      1.0.0
+	 *
+	 * @package    BuddyPress_Group_Review
+	 * @subpackage BuddyPress_Group_Review/includes
+	 */
 	class BGR_Notifications extends BP_Component {
 
-		// component id.
+		/**
+		 * Component id.
+		 *
+		 * @since   1.0.0
+		 * @author  Wbcom Designs
+		 *
+		 * @var $_component_name.
+		 */
 		protected $_component_name = 'bgr_bp_review';
 
+		/**
+		 * Constructor for  generate bp notification.
+		 *
+		 *  @since   1.0.0
+		 *  @author  Wbcom Designs
+		 */
 		public function __construct() {
 			$this->slug = $this->_component_name;
 
@@ -26,6 +56,12 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			buddypress()->active_components[ $this->_component_name ] = '1';
 		}
 
+		/**
+		 * Set up Globals.
+		 *
+		 * @param  array $args Arguments.
+		 * @return void
+		 */
 		public function setup_globals( $args = array() ) {
 			parent::setup_globals(
 				array(
@@ -36,6 +72,11 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			);
 		}
 
+		/**
+		 * Set up actions.
+		 *
+		 * @return void
+		 */
 		public function setup_actions() {
 			// When review added.
 			add_action( 'bgr_group_add_review', array( $this, 'bgr_add_review_notification' ), 99, 2 );
@@ -44,17 +85,21 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			parent::setup_actions();
 		}
 
+		/**
+		 * Component Name.
+		 */
 		public function component_name() {
 			return $this->_component_name;
 		}
 
-		/*
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		/**
 		 * Adding notifications for new review posted by any buddypress member
-		 * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 *
+		 * @param  int $group_id Linked Group ID.
+		 * @param  int $group_admin Linked Group Admin ID.
+		 * @return void
 		 */
-
-		function bgr_add_review_notification( $group_id, $group_admin ) {
+		public function bgr_add_review_notification( $group_id, $group_admin ) {
 			if ( bp_is_active( 'notifications' ) ) {
 
 				$current_user = wp_get_current_user();
@@ -73,13 +118,13 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			}
 		}
 
-		/*
-		 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		/**
 		 * Adding notifications when review accepted by group admin
-		 * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 *
+		 * @param  int $review_id Review ID.
+		 * @return void
 		 */
-
-		function bgr_accept_review_notification( $review_id ) {
+		public function bgr_accept_review_notification( $review_id ) {
 			if ( bp_is_active( 'notifications' ) ) {
 				$group_id       = bp_get_current_group_id();
 				$post_author_id = get_post_field( 'post_author', $review_id );
@@ -98,13 +143,13 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			}
 		}
 
-		/*
-		 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		/**
 		 * Adding notifications when review denied by group admin
-		 * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 *
+		 * @param  int $review_id Review ID.
+		 * @return void
 		 */
-
-		function bgr_deny_review_notification( $review_id ) {
+		public function bgr_deny_review_notification( $review_id ) {
 			if ( bp_is_active( 'notifications' ) ) {
 				$group_id       = bp_get_current_group_id();
 				$post_author_id = get_post_field( 'post_author', $review_id );
@@ -123,12 +168,15 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			}
 		}
 
-		/*
-		 +++++++++++++++++++++++++++++++++++++++++++++++
-		 * Formatting notifications for review when added
-		 * +++++++++++++++++++++++++++++++++++++++++++++++
+		/**
+		 * Formatting notifications for review when added.
+		 *
+		 * @param  int    $grp_id Group ID.
+		 * @param  int    $member_id Member ID.
+		 * @param  int    $user_id User ID.
+		 * @param  string $format Notification format.
 		 */
-		function bgr_add_review_notification_format( $grp_id, $member_id, $user_id, $format = '' ) {
+		public function bgr_add_review_notification_format( $grp_id, $member_id, $user_id, $format = '' ) {
 			global $bp;
 			global $bgr;
 			$review_label = $bgr['review_label'];
@@ -158,13 +206,15 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			return apply_filters( 'bgr_add_review_notification_format', $return, $grp_id, $format );
 		}
 
-		/*
-		 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		* Formatting notifications when review accepted by group admin
-		* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		*/
 
-		function bgr_accept_review_notification_format( $grp_id, $review_id, $format = '' ) {
+		/**
+		 * Formatting notifications when review accepted by group admin
+		 *
+		 * @param  int    $grp_id Group ID.
+		 * @param  int    $review_id Member ID.
+		 * @param  string $format Notification format.
+		 */
+		public function bgr_accept_review_notification_format( $grp_id, $review_id, $format = '' ) {
 			global $bgr;
 			$review_label      = $bgr['review_label'];
 			$group             = groups_get_group( array( 'group_id' => $grp_id ) );
@@ -186,13 +236,14 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			return apply_filters( 'bgr_accept_review_notification_format', $return, $grp_id, $format );
 		}
 
-		/*
-		 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		* Formatting notifications when review denied by group admin
-		* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		*/
-
-		function bgr_deny_review_notification_format( $grp_id, $review_id, $format = '' ) {
+		/**
+		 * Formatting notifications when review denied by group admin
+		 *
+		 * @param  int    $grp_id Group ID.
+		 * @param  int    $review_id Member ID.
+		 * @param  string $format Notification format.
+		 */
+		public function bgr_deny_review_notification_format( $grp_id, $review_id, $format = '' ) {
 			global $bgr;
 			global $bp;
 			$review_label      = $bgr['review_label'];
@@ -217,13 +268,15 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 	}
 }
 add_filter( 'bp_notifications_get_notifications_for_user', 'bgr_format_notifications', 10, 5 );
-
-	/*
-	  Actions performed to add notifications
-	*  @since   1.0.0
-	*  @author  Wbcom Designs
-	*/
-
+/**
+ * Actions performed to add notifications
+ *
+ * @param  string $action Notification Action.
+ * @param  int    $item_id Group ID.
+ * @param  int    $secondary_item_id Review ID.
+ * @param  int    $user_id Member ID.
+ * @param  string $format Notification format.
+ */
 function bgr_format_notifications( $action, $item_id, $secondary_item_id, $user_id, $format = 'string' ) {
 	if ( bp_is_active( 'notifications' ) && bp_is_active( 'groups' ) && $action != 'bbp_new_reply' ) {
 		switch ( $action ) {

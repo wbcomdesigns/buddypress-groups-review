@@ -1,4 +1,14 @@
 <?php
+/**
+ * BGR Group Review tab content.
+ *
+ * @since   1.0.0
+ * @author  Wbcom Designs
+ *
+ * @package    BuddyPress_Group_Review
+ * @subpackage BuddyPress_Group_Review/includes/templates
+ */
+
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 global $bp, $post;

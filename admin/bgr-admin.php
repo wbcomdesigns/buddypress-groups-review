@@ -1,10 +1,30 @@
 <?php
+/**
+ * This file is used for plugin admin.
+ *
+ * @link       https://wbcomdesigns.com/
+ * @since      1.0.0
+ *
+ * @package    BuddyPress_Group_Review
+ * @subpackage BuddyPress_Group_Review/admin
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 // Add admin page for importing Review(s).
 if ( ! class_exists( 'BGR_Admin' ) ) {
+
+	/**
+	 * This file is used for plugin admin.
+	 *
+	 * @link       https://wbcomdesigns.com/
+	 * @since      1.0.0
+	 *
+	 * @package    BuddyPress_Group_Review
+	 * @subpackage BuddyPress_Group_Review/admin
+	 */
 	class BGR_Admin {
 
 		/**
@@ -30,7 +50,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * @since    1.0.0
 		 * @author   Wbcom Designs
 		 */
-		function bgr_add_submenu_page_admin_settings() {
+		public function bgr_add_submenu_page_admin_settings() {
 			if ( empty( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
 				add_menu_page( esc_html__( 'WB Plugins', 'bp-group-reviews' ), esc_html__( 'WB Plugins', 'bp-group-reviews' ), 'manage_options', 'wbcomplugins', array( $this, 'bgr_admin_options_page' ), 'dashicons-lightbulb', 59 );
 				add_submenu_page( 'wbcomplugins', esc_html__( 'General', 'bp-group-reviews' ), esc_html__( 'General', 'bp-group-reviews' ), 'manage_options', 'wbcomplugins' );
@@ -45,7 +65,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * @param string $current for the admin options.
 		 * @author   Wbcom Designs
 		 */
-		function bgr_admin_options_page( $current = 'welcome' ) {
+		public function bgr_admin_options_page( $current = 'welcome' ) {
 				$current      = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'welcome';
 					$bgr_tabs = array(
 						'welcome'   => esc_html__( 'Welcome', 'bp-group-reviews' ),
@@ -78,8 +98,8 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 																	$bgr_tab_html .= '<li><a class="nav-tab ' . $class . '" href="admin.php?page=group-review-settings&tab=' . $bgr_tab . '">' . $bgr_name . '</a></li>';
 													}
 													$bgr_tab_html .= '</div></ul></div>';
-                                                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-													echo $bgr_tab_html;
+
+													echo wp_kses_post( $bgr_tab_html );
 													echo '<div class="wbcom-tab-content">';
 													include 'review-admin-options-page.php';
 													echo '</div></div></div>';
@@ -91,7 +111,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * @since    1.0.0
 		 * @author   Wbcom Designs
 		 */
-		function bgr_review_cpt() {
+		public function bgr_review_cpt() {
 			$labels = array(
 				'name'               => esc_html__( 'Reviews', 'bp-group-reviews' ),
 				'singular_name'      => esc_html__( 'Review', 'bp-group-reviews' ),
@@ -138,7 +158,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * @since    1.0.0
 		 * @author   Wbcom Designs
 		 */
-		function bgr_review_taxonomy_cpt() {
+		public function bgr_review_taxonomy_cpt() {
 			$category_labels = array(
 				'name'              => esc_html_x( 'Reviews Category', 'taxonomy general name', 'bp-group-reviews' ),
 				'singular_name'     => esc_html_x( 'Review Category', 'taxonomy singular name', 'bp-group-reviews' ),
@@ -170,10 +190,10 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 */
 		public function bgr_get_review_count() {
 			global $bgr, $menu;
-			if ( $bgr['auto_approve_reviews'] != 'yes' ) {
+			if ( 'yes' !== $bgr['auto_approve_reviews'] ) {
 
 				foreach ( $menu as $each_menu ) {
-					if ( $each_menu[2] == 'edit.php?post_type=review' ) {
+					if ( 'edit.php?post_type=review' === $each_menu[2] ) {
 						$count = wp_count_posts( 'review' );
 						if ( $count ) {
 							$count = $count->draft;
@@ -197,9 +217,9 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		/**
 		 * [bgr_recursive_array_search description]
 		 *
-		 * @param  [sting] $needle
-		 * @param  [array] $haystack
-		 * @return [number]  [Return array key.]
+		 * @param  sting $needle Value.
+		 * @param  array $haystack Haystack.
+		 * @return number  [Return array key.]
 		 */
 		public function bgr_recursive_array_search( $needle, $haystack ) {
 			foreach ( $haystack as $key => $value ) {

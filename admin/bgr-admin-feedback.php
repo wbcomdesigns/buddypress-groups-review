@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin review class.
- * Prompts users to give a review of the plugin on WordPress.org after a period of usage.
+ * BuddyPress Group Review plugin review feedback.
  *
- * Heavily based on code by Rhys Wynne
- * https://winwar.co.uk/2014/10/ask-wordpress-plugin-reviews-week/
+ * @link       https://wbcomdesigns.com/
+ * @since      1.0.0
  *
- * @package Bp_Add_Group_Types
+ * @package    BuddyPress_Group_Review
+ * @subpackage BuddyPress_Group_Review/admin
  */
 
 if ( ! class_exists( 'BGR_Admin_Feedback' ) ) :

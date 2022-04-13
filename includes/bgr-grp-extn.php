@@ -1,4 +1,14 @@
 <?php
+/**
+ * BP Group Extension.
+ *
+ * @link       https://wbcomdesigns.com/
+ * @since      1.0.0
+ *
+ * @package    BuddyPress_Group_Review
+ * @subpackage BuddyPress_Group_Review/includes
+ */
+
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
@@ -9,9 +19,23 @@ defined( 'ABSPATH' ) || exit;
  */
 
 if ( class_exists( 'BP_Group_Extension' ) ) :
-
+	/**
+	 * BP Group Extension.
+	 *
+	 * @link       https://wbcomdesigns.com/
+	 * @since      1.0.0
+	 *
+	 * @package    BuddyPress_Group_Review
+	 * @subpackage BuddyPress_Group_Review/includes
+	 */
 	class Group_Reviews_Management_Extn extends BP_Group_Extension {
 
+		/**
+		 * Group Extension init.
+		 *
+		 * @param  array $args Arguments.
+		 * @return void
+		 */
 		public function init( $args = array() ) {
 
 			global $bp;
@@ -103,6 +127,12 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			}
 		}
 
+		/**
+		 * Dispay group review form.
+		 *
+		 * @param  int $group_id Group ID.
+		 * @return void
+		 */
 		public function display( $group_id = null ) {
 			?>
 			<div class="bgr-bp-success">
@@ -124,12 +154,12 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			<?php
 		}
 
-		/*
-		*  Display all posted reviews that not checked by group admins.
-		*  @since   1.0.0
-		*  @author  Wbcom Designs
-		*/
-
+		/**
+		 * Display all posted reviews that not checked by group admins.
+		 *
+		 * @param  int $group_id Group ID.
+		 * @return void
+		 */
 		public function edit_screen( $group_id = null ) {
 			global $bp, $wpdb, $post;
 			// Admin Settings.

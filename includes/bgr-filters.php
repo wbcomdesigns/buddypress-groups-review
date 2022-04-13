@@ -1,4 +1,14 @@
 <?php
+/**
+ * Group Review Plugin Global Variables
+ *
+ * @since   1.0.0
+ * @author  Wbcom Designs
+ *
+ * @package    BuddyPress_Group_Review
+ * @subpackage BuddyPress_Group_Review/includes
+ */
+
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
@@ -6,14 +16,24 @@ defined( 'ABSPATH' ) || exit;
  * Class to add custom hooks for this plugin
  */
 if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
-	class BGR_Custom_Hooks {
-		/*
-		Constructor for custom hooks
-		*  @since   1.0.0
-		*  @author  Wbcom Designs
-		*/
 
-		function __construct() {
+	/**
+	 * Group Review Plugin Global Variables
+	 *
+	 * @since   1.0.0
+	 * @author  Wbcom Designs
+	 *
+	 * @package    BuddyPress_Group_Review
+	 * @subpackage BuddyPress_Group_Review/includes
+	 */
+	class BGR_Custom_Hooks {
+
+		/**
+		 * Constructor for custom hooks
+		 *
+		 * @return void
+		 */
+		public function __construct() {
 			add_action( 'wp', array( $this, 'bgr_add_groups_reviews_tab' ) );
 			add_action( 'init', array( $this, 'bgr_add_groups_reviews_taxonomy_term' ) );
 			add_filter( 'post_row_actions', array( $this, 'bgr_group_reviews_row_actions' ), 10, 2 );
@@ -295,7 +315,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$linked_group = get_post_meta( $post->ID, 'linked_group', true );
 					$group        = groups_get_group( array( 'group_id' => $linked_group ) );
 					$group_url    = bp_get_group_permalink( $group );
-					$review_url   = $group_url . sanitize_title(bgr_group_review_tab_name()) . '/view/' . $post->ID;					
+					$review_url   = $group_url . sanitize_title( bgr_group_review_tab_name() ) . '/view/' . $post->ID;
 
 					$actions['view_review'] = '<a href="' . $review_url . '" title="' . $review_title . '">' . esc_html__( 'View', 'bp-group-reviews' ) . '</a>';
 
@@ -432,8 +452,8 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		public function bgr_group_reviews_tab_template() {
-			global $bgr;			 
-			if ( isset( $_SERVER['REQUEST_URI'] ) && strpos( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ), sanitize_title( bgr_group_review_tab_name() ).'/view' ) !== false ) {
+			global $bgr;
+			if ( isset( $_SERVER['REQUEST_URI'] ) && strpos( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ), sanitize_title( bgr_group_review_tab_name() ) . '/view' ) !== false ) {
 				include 'templates/bgr-single-review-template.php';
 			} elseif ( sanitize_title( $bgr['manage_review_label'] ) === bp_current_action() ) {
 				include 'templates/bgr-reviews-tab-template.php';

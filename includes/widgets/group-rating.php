@@ -1,4 +1,23 @@
 <?php
+/**
+ * BGR Group Review rating.
+ *
+ * @since   1.0.0
+ * @author  Wbcom Designs
+ *
+ * @package    BuddyPress_Group_Review
+ * @subpackage BuddyPress_Group_Review/includes/widgets
+ */
+
+/**
+ * BGR Group Review rating.
+ *
+ * @since   1.0.0
+ * @author  Wbcom Designs
+ *
+ * @package    BuddyPress_Group_Review
+ * @subpackage BuddyPress_Group_Review/includes/widgets
+ */
 class bgr_single_group_rating_widget extends WP_Widget {
 
 	/** Constructor
@@ -23,8 +42,9 @@ class bgr_single_group_rating_widget extends WP_Widget {
 	 *
 	 *  @since   1.0.0
 	 *  @author  Wbcom Designs
+	 * @param  array $instance Instance.
 	 */
-	function form( $instance ) {
+	public function form( $instance ) {
 		if ( empty( $instance ) ) {
 			$instance = wp_parse_args(
 				(array) $instance,
@@ -65,8 +85,10 @@ class bgr_single_group_rating_widget extends WP_Widget {
 	 *
 	 *  @since   1.0.0
 	 *  @author  Wbcom Designs
+	 * @param  array $new_instance New Instance.
+	 * @param  array $old_instance Old Instance.
 	 */
-	function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 		$instance                   = $old_instance;
 		$instance['widget_title']   = strip_tags( $new_instance['widget_title'] );
 		$instance['post_num']       = $new_instance['post_num'];
@@ -79,8 +101,11 @@ class bgr_single_group_rating_widget extends WP_Widget {
 	 *
 	 *  @since   1.0.0
 	 *  @author  Wbcom Designs
+	 *
+	 * @param  array $args Instance.
+	 * @param  array $instance Instance.
 	 */
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 		global $bp, $post;
 		global $bgr;
 		if ( ! bp_get_current_group_id() ) {
@@ -166,7 +191,7 @@ class bgr_single_group_rating_widget extends WP_Widget {
 					?>
 					class="selected"<?php endif; ?>><?php esc_html_e( 'Lowest', 'bp-group-reviews' ); ?></a>
 			</div>
-			<?php			
+			<?php
 			echo '<ul class="item-list" id="bp-group-rating">';
 			foreach ( $single_rev_avg as $bgrKey => $bgrValue ) {
 				if ( $bgr_user_count == $widget_post_num ) {
@@ -196,11 +221,23 @@ class bgr_single_group_rating_widget extends WP_Widget {
 						$stars_half = 0;
 					}
 					echo '<div class="item-meta">';
-					for ( $i = 1; $i <= $stars_on; $i++ ) { ?><span class="fas fa-star stars bgr-star-rate"></span><?php
+					for ( $i = 1; $i <= $stars_on; $i++ ) {
+
+						?>
+					<span class="fas fa-star stars bgr-star-rate"></span>
+						<?php
 					}
-					for ( $i = 1; $i <= $stars_half; $i++ ) { ?><span class="fas fa-star-half-alt stars bgr-star-rate"></span><?php
+					for ( $i = 1; $i <= $stars_half; $i++ ) {
+
+						?>
+					<span class="fas fa-star-half-alt stars bgr-star-rate"></span>
+						<?php
 					}
-					for ( $i = 1; $i <= $stars_off; $i++ ) { ?><span class="far fa-star stars bgr-star-rate"></span><?php
+					for ( $i = 1; $i <= $stars_off; $i++ ) {
+
+						?>
+					<span class="far fa-star stars bgr-star-rate"></span>
+						<?php
 					}
 
 					echo '</div>';

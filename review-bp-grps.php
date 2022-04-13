@@ -57,6 +57,7 @@ function bgr_load_textdomain() {
  *  @since   1.0.0
  *  @author  Wbcom Designs
 */
+define( 'BGR_PLUGIN_VERSION', '2.8.2' );
 define( 'BGR_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BGR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
@@ -189,15 +190,18 @@ function run_bp_group_reviews_plugin() {
 
 
 /**
- * redirect to plugin settings page after activated
+ * Redirect to plugin settings page after activated.
+ *
+ * @since  1.0.0
+ *
+ * @param string $plugin Path to the plugin file relative to the plugins directory.
  */
-
-add_action( 'activated_plugin', 'bp_group_reviews_activation_redirect_settings' );
 function bp_group_reviews_activation_redirect_settings( $plugin ) {
 	if ( class_exists( 'BuddyPress' ) ) {
-		if ( $plugin == plugin_basename( __FILE__ ) ) {
-			wp_redirect( admin_url( 'admin.php?page=group-review-settings' ) );
+		if ( plugin_basename( __FILE__ ) === $plugin ) {
+			wp_safe_redirect( admin_url( 'admin.php?page=group-review-settings' ) );
 			exit;
 		}
 	}
 }
+add_action( 'activated_plugin', 'bp_group_reviews_activation_redirect_settings' );

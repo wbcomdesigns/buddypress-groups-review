@@ -1,12 +1,28 @@
 <?php
+/**
+ * Class to serve AJAX Calls.
+ *
+ * @since   1.0.0
+ * @author  Wbcom Designs
+ *
+ * @package    BuddyPress_Group_Review
+ * @subpackage BuddyPress_Group_Review/includes
+ */
+
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Class to serve AJAX Calls
- */
 
 if ( ! class_exists( 'BGR_AJAX' ) ) {
+	/**
+	 * Class to serve AJAX Calls.
+	 *
+	 * @since   1.0.0
+	 * @author  Wbcom Designs
+	 *
+	 * @package    BuddyPress_Group_Review
+	 * @subpackage BuddyPress_Group_Review/includes
+	 */
 	class BGR_AJAX {
 
 		/**
@@ -340,8 +356,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @since   1.0.0
 		 *  @author  Wbcom Designs
 		 */
-
-		function bgr_save_admin_criteria_settings() {
+		public function bgr_save_admin_criteria_settings() {
 			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
 				exit();
 			}
@@ -369,7 +384,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @since   1.0.0
 		 *  @author  Wbcom Designs
 		 */
-		function bgr_save_admin_general_settings() {
+		public function bgr_save_admin_general_settings() {
 
 			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
 				exit();
@@ -410,7 +425,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @since   1.0.0
 		 *  @author  Wbcom Designs
 		 */
-		function bgr_save_admin_display_settings() {
+		public function bgr_save_admin_display_settings() {
 			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
 				exit();
 			}
@@ -437,7 +452,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @since   1.0.0
 		 *  @author  Wbcom Designs
 		 */
-		function bgr_submit_review() {
+		public function bgr_submit_review() {
 			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
 				exit();
 			}
@@ -453,16 +468,19 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$review_label         = $bgr['review_label'];
 			$auto_approve_reviews = $bgr['auto_approve_reviews'];
 			$multi_reviews        = $bgr['multi_reviews'];
+			/* Translators: %1$s: Review Label */
 			$review_email_subject = ( isset( $bgr['review_email_subject'] ) ) ? $bgr['review_email_subject'] : sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
+			/* Translators: %1$s: Review Label %2$s Group Name %3$s User Name %4$s User Link */
 			$review_email_message = ( isset( $bgr['review_email_message'] ) ) ? $bgr['review_email_message'] : esc_html__( 'A new %1$s for %2$s added by %3$s. Link: %4$s', 'bp-group-reviews' );
 			if ( isset( $_POST['data'] ) ) {
-				parse_str( wp_unslash( filter_input( INPUT_POST, 'data', FILTER_SANITIZE_STRING ) ), $formarray );
+				wp_parse_str( wp_unslash( filter_input( INPUT_POST, 'data', FILTER_SANITIZE_STRING ) ), $formarray );
 			}
-			$review_subject     = sanitize_text_field( $formarray['review-subject'] );
-			$review_desc        = sanitize_text_field( $formarray['review-desc'] );
-			$form_group_id      = sanitize_text_field( $formarray['form-group-id'] );
-			$group_obj          = groups_get_group( $form_group_id );
-			$group_name         = $group_obj->name;
+			$review_subject = sanitize_text_field( $formarray['review-subject'] );
+			$review_desc    = sanitize_text_field( $formarray['review-desc'] );
+			$form_group_id  = sanitize_text_field( $formarray['form-group-id'] );
+			$group_obj      = groups_get_group( $form_group_id );
+			$group_name     = $group_obj->name;
+			/* Translators: %1$s: User Name %2$s Review Label %3$s Group Name */
 			$review_cpt_subject = sprintf( esc_html__( '%1$s %2$ss Group %3$s.', 'bp-group-reviews' ), $user_name, $review_label, $group_name );
 			$group_args         = array(
 				'post_type'   => 'review',
@@ -607,7 +625,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @since   1.0.0
 		 *  @author  Wbcom Designs
 		 */
-		function bgr_deny_review() {
+		public function bgr_deny_review() {
 			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
 				exit();
 			}

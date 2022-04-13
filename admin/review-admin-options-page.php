@@ -1,14 +1,27 @@
 <?php
+/**
+ *  Plugin admin setting tab content.
+ *
+ * @link       https://wbcomdesigns.com/
+ * @since      1.0.0
+ *
+ * @package    BuddyPress_Group_Review
+ * @subpackage BuddyPress_Group_Review/admin
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 // Exit if accessed directly.
-	$bgr_setting_tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'welcome';
-	bgr_include_admin_setting_tabs( $bgr_setting_tab );
+$bgr_setting_tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'welcome';
+bgr_include_admin_setting_tabs( $bgr_setting_tab );
+
 /** Actions performed on Display review admin settings tabs
  *
  * @since    1.0.0
  * @author   Wbcom Designs
+ *
+ * @param string $bgr_setting_tab Admin Setting tab.
  */
 function bgr_include_admin_setting_tabs( $bgr_setting_tab = 'welcome' ) {
 	switch ( $bgr_setting_tab ) {
@@ -103,23 +116,23 @@ function bgr_shortcode_setting() {
  */
 function bgr_display_setting() {
 	global $bgr;
-	$spinner_src          = includes_url() . 'images/spinner.gif';
-	$bgrReviewLabel       = $bgr['review_label'];
-	$bgrManageReviewLabel = $bgr['manage_review_label'];
-	$bgr_rating_color     = $bgr['rating_color'];
+	$spinner_src             = includes_url() . 'images/spinner.gif';
+	$bgr_review_label        = $bgr['review_label'];
+	$bgr_manage_review_label = $bgr['manage_review_label'];
+	$bgr_rating_color        = $bgr['rating_color'];
 	?>
 	<div class="bgr-col-12"><h3><?php esc_html_e( 'Labels', 'bp-group-reviews' ); ?></h3></div>
 	<div class="bgr-row">
 		<div class="bgr-col-3"><label for="bgrReviewLabel"><?php esc_html_e( 'Review', 'bp-group-reviews' ); ?></label></div>
 		<div class="bgr-col-9">
-		<input name = "bgrReviewLabel" id="bgrReviewLabel" type="text" value = "<?php echo esc_attr( $bgrReviewLabel ); ?>" />
+		<input name = "bgrReviewLabel" id="bgrReviewLabel" type="text" value = "<?php echo esc_attr( $bgr_review_label ); ?>" />
 		<p class="bgr-admin-des"><?php esc_html_e( 'This option provides flexibility to change review label. By default it shows "Review".', 'bp-group-reviews' ); ?></p>
 	</div>
 	</div>
 	<div class="bgr-row">
 		<div class="bgr-col-3"><label for="bgrManageReviewLabel"><?php esc_html_e( 'Reviews ( Plural )', 'bp-group-reviews' ); ?></label></div>
 		<div class="bgr-col-9">
-		<input name = "bgrManageReviewLabel" id="bgrManageReviewLabel" type="text" value = "<?php echo esc_attr( $bgrManageReviewLabel ); ?>" />
+		<input name = "bgrManageReviewLabel" id="bgrManageReviewLabel" type="text" value = "<?php echo esc_attr( $bgr_manage_review_label ); ?>" />
 		<p class="bgr-admin-des"><?php esc_html_e( 'This option provides flexibility to change plural of Review.', 'bp-group-reviews' ); ?></p>
 	</div>
 	</div>
@@ -193,7 +206,7 @@ Thanks';
 		<label class="bgr-switch" for="bgr-multi-reviews">
 			<input type="checkbox" id="bgr-multi-reviews"
 			<?php
-			if ( 'yes' == $multi_reviews ) {
+			if ( 'yes' === $multi_reviews ) {
 				echo 'checked="checked"'; }
 			?>
 >
@@ -211,7 +224,7 @@ Thanks';
 		<label class="bgr-switch" for="bgr-auto-approve-reviews">
 			<input type="checkbox" id="bgr-auto-approve-reviews"
 			<?php
-			if ( 'yes' == $auto_approve_reviews ) {
+			if ( 'yes' === $auto_approve_reviews ) {
 				echo 'checked="checked"'; }
 			?>
 >
@@ -238,7 +251,7 @@ Thanks';
 		<label class="bgr-switch" for="bgr-notification">
 			<input type="checkbox" id="bgr-notification"
 				<?php
-				if ( $allow_notification == 'yes' ) {
+				if ( 'yes' === $allow_notification ) {
 					echo 'checked="checked"'; }
 				?>
 >
@@ -257,7 +270,7 @@ Thanks';
 		<label class="bgr-switch" for="bgr-activity">
 			<input type="checkbox" id="bgr-activity"
 				<?php
-				if ( $allow_activity == 'yes' ) {
+				if ( 'yes' === $allow_activity ) {
 					echo 'checked="checked"'; }
 				?>
 >
@@ -275,7 +288,7 @@ Thanks';
 	<label class="bgr-switch" for="bgr-email">
 		<input type="checkbox" id="bgr-email"
 		<?php
-		if ( $allow_email == 'yes' ) {
+		if ( 'yes' === $allow_email ) {
 			echo 'checked="checked"'; }
 		?>
 >
@@ -286,9 +299,9 @@ Thanks';
 </div>
 <div class="bgr-row review-email-section" 
 	<?php
-	if ( $allow_email != 'yes' ) :
+	if ( 'yes' !== $allow_email ) :
 		?>
-	 style="display:none;" <?php endif; ?>>
+	style="display:none;" <?php endif; ?>>
 	<div class="bgr-col-3"><label><?php esc_html_e( 'Email Subject', 'bp-group-reviews' ); ?></label></div>
 	<div class="bgr-col-9">
 		<input id="review_email_subject" class="large-text" name="review_email_subject" value="<?php echo esc_attr( $review_email_subject ); ?>" type="text" placeholder="Please enter review email subject.">
@@ -298,9 +311,9 @@ Thanks';
 
 <div class="bgr-row review-email-section" 
 	<?php
-	if ( $allow_email != 'yes' ) :
+	if ( 'yes' !== $allow_email ) :
 		?>
-	 style="display:none;" <?php endif; ?>>
+	style="display:none;" <?php endif; ?>>
 	<div class="bgr-col-3"><label><?php esc_html_e( 'Email Message', 'bp-group-reviews' ); ?></label></div>
 	<div class="bgr-col-9">
 		<textarea id="review_email_message" class="large-text" name="review_email_message" ><?php echo esc_html( $review_email_message ); ?></textarea>

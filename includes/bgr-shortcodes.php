@@ -1,4 +1,14 @@
 <?php
+/**
+ * Plugin shortcode functionality.
+ *
+ * @link       https://wbcomdesigns.com/
+ * @since      1.0.0
+ *
+ * @package    BuddyPress_Group_Review
+ * @subpackage BuddyPress_Group_Review/includes
+ */
+
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
@@ -62,8 +72,6 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				),
 			);
 			$reviews_args = new WP_Query( $group_args );
-
-			// $output .= '<div id="bgr-message" class="bgr-success"></div>';
 			ob_start();
 			if ( ! is_user_logged_in() ) {
 					$output .= '<div id="message" class="info">';
@@ -96,7 +104,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 					} else {
 
 						$bp_template_option = bp_get_option( '_bp_theme_package_id' );
-						if ( 'nouveau' == $bp_template_option ) {
+						if ( 'nouveau' === $bp_template_option ) {
 							$output .= '<div id="message" class="info bp-feedback bp-messages bp-template-notice">';
 							$output .= '<span class="bp-icon" aria-hidden="true"></span>';
 						} else {
@@ -126,6 +134,19 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			return $output;
 		}
 
+		/**
+		 * BGR review form
+		 *
+		 * @param  array   $review_rating_fields Review Rating Fields.
+		 * @param  array   $active_rating_fields Active Rating Fields.
+		 * @param  string  $review_label Review Label.
+		 * @param  array   $admin_exclude_groups Exclude Groups.
+		 * @param  boolean $auto_approve_reviews Auto approve review.
+		 * @param  boolean $multi_reviews Multiple review.
+		 * @param  int     $current_group_id Group ID.
+		 * @param  int     $member_id Member ID.
+		 * @return void
+		 */
 		public function bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id ) {
 			global $bp;
 			$user_groups   = BP_Groups_Member::get_is_admin_of( $member_id );
@@ -166,17 +187,17 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 								<option value=""><?php esc_html_e( '--Select Group--', 'bp-group-reviews' ); ?></option>
 								<?php
 								if ( ! empty( $allgroups ) ) {
-									foreach ( $allgroups['groups'] as $formGroup ) {
+									foreach ( $allgroups['groups'] as $form_group ) {
 										?>
-										<option value="<?php echo esc_attr( $formGroup->id ); ?>"
+										<option value="<?php echo esc_attr( $form_group->id ); ?>"
 											<?php
 											if ( bp_is_group() ) {
-												if ( bp_get_group_id() == $formGroup->id ) {
+												if ( bp_get_group_id() == $form_group->id ) {
 													echo 'selected="selected"';
 												}
 											}
 											?>
-											><?php echo esc_html( $formGroup->name ); ?>
+											><?php echo esc_html( $form_group->name ); ?>
 										</option>
 										<?php
 									}
@@ -213,17 +234,23 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				<?php
 		}
 
+		/**
+		 *  Display Ratings form.
+		 *
+		 *  @since   1.0.0
+		 *  @author  Wbcom Designs
+		 */
 		public function bgr_display_form_rating() {
 			global $bgr;
 			$this->bgr_display_form_star_rating();
 		}
 
-			/**
-			 *  Display Ratings when rating type = star
-			 *
-			 *  @since   1.0.0
-			 *  @author  Wbcom Designs
-			 */
+		/**
+		 *  Display Ratings when rating type = star
+		 *
+		 *  @since   1.0.0
+		 *  @author  Wbcom Designs
+		 */
 		public function bgr_display_form_star_rating() {
 			global $bgr;
 			$review_rating_fields = $bgr['review_rating_fields'];

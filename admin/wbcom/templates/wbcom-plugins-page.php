@@ -1,3 +1,15 @@
+<?php
+/**
+ * Admin wrapper plugin page template.
+ *
+ * @link       https://wbcomdesigns.com/
+ * @since      1.0.0
+ *
+ * @package    BuddyPress_Group_Review
+ * @subpackage BuddyPress_Group_Review/admin/wbcom/templates
+ */
+
+?>
 <div class="wrap">
 	<hr class="wp-header-end">
 	<div class="wbcom-wrap">

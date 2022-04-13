@@ -184,7 +184,8 @@ class BGR_Activity {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param int     $id Post ID.
+	 * @param array   $new_status New post status.
+	 * @param array   $old_status Old post status.
 	 * @param WP_Post $post       Post object.
 	 */
 	public function bgr_create_group_post_activity_after_approval( $new_status, $old_status, $post ) {
@@ -243,6 +244,12 @@ class BGR_Activity {
 
 	}
 
+	/**
+	 * BGR added star rating in activity.
+	 *
+	 * @param  string $activity_content Activity Content.
+	 * @param  object $activity Activity Object.
+	 */
 	public function bgr_added_activity_star_rating( $activity_content, $activity ) {
 		global $bgr;
 		$post_id              = $activity->secondary_item_id;
