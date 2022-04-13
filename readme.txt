@@ -3,8 +3,8 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
-Tested up to: 5.9.2
-Stable tag: 2.8.2
+Tested up to: 5.9.3
+Stable tag: 2.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,14 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 4. Plugin settings.(png|jpg|jpeg|gif).
 
 == Changelog ==
+= 2.8.3 =
+* Fix: Fixed double activity is generating when auto approval is disabled
+* Fix: (#85) Added group activity for group review
+* Fix: Fixed notice issue on group review
+* Fix: (#115) Fixed give a notice when user is not permitted to post multiple
+* Fix: BB Theme with platform with UI managed
+* Fix: Fixed phpcs error
+
 = 2.8.2 =
 * Fix: PHPCS Fixes
 
