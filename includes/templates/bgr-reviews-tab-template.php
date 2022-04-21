@@ -72,14 +72,12 @@ $reviews              = new WP_Query( $args );
 												$len = strlen( $trimcontent );
 												if ( $len > 150 ) {
 													$shortexcerpt = substr( $trimcontent, 0, 150 );
-													// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-													echo $shortexcerpt;
+													echo wp_kses_post( $shortexcerpt );
 													?>
 														<a href="<?php echo esc_url( $url ); ?>"><i><b><?php esc_html_e( 'read more...', 'bp-group-reviews' ); ?></b></i></a>
 													<?php
 												} else {
-												// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-													echo $trimcontent;
+													echo wp_kses_post( $trimcontent );
 												}
 											}
 											?>
@@ -109,15 +107,16 @@ $reviews              = new WP_Query( $args );
 							<div class="review-pagination">
 								<?php
 								$current_page = max( 1, get_query_var( 'paged' ) );
-								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-								echo paginate_links(
-									array(
-										'base'      => get_pagenum_link( 1 ) . '%_%',
-										'format'    => 'page/%#%',
-										'current'   => $current_page,
-										'total'     => $total_pages,
-										'prev_text' => esc_html__( 'prev', 'bp-group-reviews' ),
-										'next_text' => esc_html__( 'next', 'bp-group-reviews' ),
+								echo wp_kses_post(
+									paginate_links(
+										array(
+											'base'      => get_pagenum_link( 1 ) . '%_%',
+											'format'    => 'page/%#%',
+											'current'   => $current_page,
+											'total'     => $total_pages,
+											'prev_text' => esc_html__( 'prev', 'bp-group-reviews' ),
+											'next_text' => esc_html__( 'next', 'bp-group-reviews' ),
+										)
 									)
 								);
 								?>

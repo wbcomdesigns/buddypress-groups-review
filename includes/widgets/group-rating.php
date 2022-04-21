@@ -153,16 +153,14 @@ class bgr_single_group_rating_widget extends WP_Widget {
 				}
 			}
 		}
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo $args['before_widget'];
+		echo wp_kses_post( $args['before_widget'] );
 		if ( empty( $widget_title ) ) {
 			$group      = groups_get_group( array( 'group_id' => bp_get_current_group_id() ) );
 			$group_name = $group->name;
 			/* translators: %s is replaced with group_name */
 			$widget_title = sprintf( __( "%s's Ratings", 'bp-group-reviews' ), $group_name );
 		}
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo $args['before_title'] . $widget_title . $args['after_title'];
+		echo wp_kses_post( $args['before_title'] . $widget_title . $args['after_title'] );
 
 		$bgr_user_count = 0;
 		if ( ! empty( $single_rev_avg ) ) {

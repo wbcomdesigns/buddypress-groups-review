@@ -202,7 +202,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					$html .= '</div>';
 				}
 				$html .= '</div>';
-				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo wp_kses_post( stripslashes( $html ) );
 				die;
 
@@ -575,7 +574,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					}
 				}
 			}
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo esc_html( $review_add_msg );
 			die;
 		}
