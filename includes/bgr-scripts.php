@@ -59,6 +59,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				array(
 					'view_more_text' => esc_html__( 'View More..', 'bp-group-reviews' ),
 					'view_less_text' => esc_html__( 'View Less..', 'bp-group-reviews' ),
+					'wbcom_nonce'    => wp_create_nonce( 'ajax-nonce' ),
 				)
 			);
 			wp_enqueue_style( 'bgr-ratings-css', BGR_PLUGIN_URL . 'assets/css/bgr-ratings.css', array(), BGR_PLUGIN_VERSION, 'all' );

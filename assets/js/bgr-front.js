@@ -132,6 +132,7 @@ jQuery(document).ready(function (e) {
             ajaxurl,
             {
               action: "bgr_submit_review",
+              nonce: bgr_front_js_object.wbcom_nonce,
               data: jQuery(this).serialize(),
             },
             function (response) {

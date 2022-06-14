@@ -333,10 +333,12 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 * Actions performed to approve review at admin end
 		 */
 		public function bgr_admin_approve_review() {
-			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
-				exit();
+			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
+				wp_send_json_error( $error );
 			}
-			if ( isset( $_POST['action'] ) && $_POST['action'] == 'bgr_admin_approve_review' ) {
+			if ( isset( $_POST['action'] ) && 'bgr_admin_approve_review' === $_POST['action'] && current_user_can( 'administrator' ) ) {
 				$rid  = isset( $_POST['review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['review_id'] ) ) : '';
 				$args = array(
 					'ID'          => $rid,
@@ -356,10 +358,12 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		public function bgr_save_admin_criteria_settings() {
-			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
-				exit();
+			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
+				wp_send_json_error( $error );
 			}
-			if ( isset( $_POST['action'] ) && $_POST['action'] === 'bgr_save_admin_criteria_settings' ) {
+			if ( isset( $_POST['action'] ) && 'bgr_save_admin_criteria_settings' === $_POST['action'] && current_user_can( 'administrator' ) ) {
 
 				$rating_fields               = isset( $_POST['field_values'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['field_values'] ) ) : '';
 				$rating_field_values         = array_unique( $rating_fields );
@@ -384,11 +388,12 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		public function bgr_save_admin_general_settings() {
-
-			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
-				exit();
+			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
+				wp_send_json_error( $error );
 			}
-			if ( isset( $_POST['action'] ) && $_POST['action'] === 'bgr_save_admin_general_settings' ) {
+			if ( isset( $_POST['action'] ) && 'bgr_save_admin_general_settings' === $_POST['action'] && current_user_can( 'administrator' ) ) {
 				$multi_reviews        = isset( $_POST['multi_reviews'] ) ? sanitize_text_field( wp_unslash( $_POST['multi_reviews'] ) ) : '';
 				$auto_approve_reviews = isset( $_POST['bgr_auto_approve_reviews'] ) ? sanitize_text_field( wp_unslash( $_POST['bgr_auto_approve_reviews'] ) ) : '';
 				$reviews_per_page     = isset( $_POST['reviews_per_page'] ) ? sanitize_text_field( wp_unslash( $_POST['reviews_per_page'] ) ) : '';
@@ -425,10 +430,12 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		public function bgr_save_admin_display_settings() {
-			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
-				exit();
+			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
+				wp_send_json_error( $error );
 			}
-			if ( isset( $_POST['action'] ) && $_POST['action'] === 'bgr_save_admin_display_settings' ) {
+			if ( isset( $_POST['action'] ) && 'bgr_save_admin_display_settings' === $_POST['action'] && current_user_can( 'administrator' ) ) {
 
 				$manage_review_label = isset( $_POST['manage_review_label'] ) ? sanitize_text_field( wp_unslash( $_POST['manage_review_label'] ) ) : '';
 				$review_label        = isset( $_POST['review_label'] ) ? sanitize_text_field( wp_unslash( $_POST['review_label'] ) ) : '';
@@ -452,8 +459,13 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		public function bgr_submit_review() {
-			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
-				exit();
+			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
+				wp_send_json_error( $error );
+			}
+			if ( ! is_user_logged_in() ) {
+				return false;
 			}
 			global $bp;
 			global $bgr;
@@ -585,8 +597,13 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		public function bgr_accept_review() {
-			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
-				exit();
+			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
+				wp_send_json_error( $error );
+			}
+			if ( ! is_user_logged_in() ) {
+				return false;
 			}
 			global $bgr;
 			global $bp;
@@ -624,8 +641,13 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		public function bgr_deny_review() {
-			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
-				exit();
+			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
+				wp_send_json_error( $error );
+			}
+			if ( ! is_user_logged_in() ) {
+				return false;
 			}
 			global $bgr;
 			global $bp;
@@ -663,8 +685,13 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		public function bgr_remove_review() {
-			if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
-				exit();
+			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
+				wp_send_json_error( $error );
+			}
+			if ( ! is_user_logged_in() ) {
+				return false;
 			}
 			$post_id = isset( $_POST['remove_review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['remove_review_id'] ) ) : '';
 			wp_trash_post( $post_id );
