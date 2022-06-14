@@ -51,6 +51,9 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		public function bgr_group_header_review_btn() {
+			if ( ! is_user_logged_in() ) {
+				return false;
+			}
 			global $bgr;
 			$review_div          = 'form';
 			$exclude_groups      = $bgr['exclude_groups'];

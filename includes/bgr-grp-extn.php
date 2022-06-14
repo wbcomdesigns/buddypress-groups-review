@@ -37,7 +37,9 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		 * @return void
 		 */
 		public function init( $args = array() ) {
-
+			if ( ! is_user_logged_in() ) {
+				return false;
+			}
 			global $bp;
 			global $bgr;
 			$enabled                    = true;
