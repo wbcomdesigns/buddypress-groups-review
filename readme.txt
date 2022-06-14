@@ -3,8 +3,8 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
-Tested up to: 5.9.3
-Stable tag: 2.8.3
+Tested up to: 6.0.0
+Stable tag: 2.8.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,10 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 4. Plugin settings.(png|jpg|jpeg|gif).
 
 == Changelog ==
+= 2.8.4 =
+* Fix: Fixed security issue and added capability checks
+* Fix: (#120) Hide add review tab for the logged-out user
+
 = 2.8.3 =
 * Fix: Fixed double activity is generating when auto approval is disabled
 * Fix: (#85) Added group activity for group review
