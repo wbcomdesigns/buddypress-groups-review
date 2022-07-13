@@ -1,14 +1,14 @@
-# Copyright (C) 2021
+# Copyright (C) 2022
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-22 13:40:05+00:00\n"
+"POT-Creation-Date: 2022-07-13 12:57:41+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Varun Dubey\n"
 "Language-Team: Wbcom Designs\n"
 "Language: en\n"
@@ -79,7 +79,6 @@ msgid "a second"
 msgstr ""
 
 #: admin/bgr-admin-feedback.php:271 admin/bgr-admin-feedback.php:311
-#: admin/bgr-welcome-page.php:15 admin/wbcom/wbcom-admin-settings.php:227
 #: review-bp-grps.php:120
 msgid "BuddyPress Group Reviews"
 msgstr ""
@@ -104,129 +103,137 @@ msgstr ""
 msgid "No thanks / I already have"
 msgstr ""
 
-#: admin/bgr-admin.php:35
+#: admin/bgr-admin.php:55
 msgid "WB Plugins"
 msgstr ""
 
-#: admin/bgr-admin.php:36 admin/bgr-admin.php:56
+#: admin/bgr-admin.php:56 admin/bgr-admin.php:72
 msgid "General"
 msgstr ""
 
-#: admin/bgr-admin.php:38 includes/bgr-notifications.php:22
+#: admin/bgr-admin.php:58 includes/bgr-notifications.php:52
 msgid "Group Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:55
+#: admin/bgr-admin.php:71
 msgid "Welcome"
 msgstr ""
 
-#: admin/bgr-admin.php:57
+#: admin/bgr-admin.php:73
 msgid "Criteria"
 msgstr ""
 
-#: admin/bgr-admin.php:58
+#: admin/bgr-admin.php:74
 msgid "Shortcode"
 msgstr ""
 
-#: admin/bgr-admin.php:59
+#: admin/bgr-admin.php:75
 msgid "Display"
 msgstr ""
 
-#: admin/bgr-admin.php:68
-msgid "BuddyPress Group Reviews Settings"
+#: admin/bgr-admin.php:90 admin/wbcom/templates/wbcom-license-page.php:12
+#: admin/wbcom/templates/wbcom-plugins-page.php:12
+#: admin/wbcom/templates/wbcom-support-page.php:12
+msgid "BuddyPress Group Review"
 msgstr ""
 
-#: admin/bgr-admin.php:73
+#: admin/bgr-admin.php:91 admin/wbcom/templates/wbcom-license-page.php:13
+#: admin/wbcom/templates/wbcom-plugins-page.php:13
+#: admin/wbcom/templates/wbcom-support-page.php:13
+msgid "Version %s"
+msgstr ""
+
+#: admin/bgr-admin.php:99
 msgid "BuddyPress Group Reviews Settings Saved."
 msgstr ""
 
-#: admin/bgr-admin.php:75
+#: admin/bgr-admin.php:103
 msgid "Dismiss this notice."
 msgstr ""
 
-#: admin/bgr-admin.php:100 admin/bgr-admin.php:102 admin/bgr-admin.php:103
-#: admin/review-admin-options-page.php:234 includes/bgr-globals.php:118
-#: includes/bgr-globals.php:125 includes/bgr-globals.php:149
-#: includes/bgr-grp-extn.php:28 includes/bgr-grp-extn.php:150
-#: includes/bgr-grp-extn.php:153
+#: admin/bgr-admin.php:129 admin/bgr-admin.php:131 admin/bgr-admin.php:132
+#: admin/review-admin-options-page.php:286 includes/bgr-globals.php:135
+#: includes/bgr-globals.php:142 includes/bgr-globals.php:170
+#: includes/bgr-grp-extn.php:54 includes/bgr-grp-extn.php:182
+#: includes/bgr-grp-extn.php:185
 msgid "Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:101 admin/review-admin-options-page.php:120
-#: includes/bgr-globals.php:115 includes/bgr-globals.php:124
-#: includes/bgr-globals.php:155 includes/bgr-grp-extn.php:29
+#: admin/bgr-admin.php:130 admin/review-admin-options-page.php:152
+#: includes/bgr-globals.php:132 includes/bgr-globals.php:141
+#: includes/bgr-globals.php:178 includes/bgr-grp-extn.php:55
 msgid "Review"
 msgstr ""
 
-#: admin/bgr-admin.php:104 admin/bgr-admin.php:105
+#: admin/bgr-admin.php:133 admin/bgr-admin.php:134
 msgid "Add New Review"
 msgstr ""
 
-#: admin/bgr-admin.php:106
+#: admin/bgr-admin.php:135
 msgid "New Review"
 msgstr ""
 
-#: admin/bgr-admin.php:107
+#: admin/bgr-admin.php:136
 msgid "View Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:108
+#: admin/bgr-admin.php:137
 msgid "All Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:109
+#: admin/bgr-admin.php:138
 msgid "Search Reviews"
 msgstr ""
 
-#: admin/bgr-admin.php:110
+#: admin/bgr-admin.php:139
 msgid "Parent Review"
 msgstr ""
 
-#: admin/bgr-admin.php:111
+#: admin/bgr-admin.php:140
 msgid "No Review Found"
 msgstr ""
 
-#: admin/bgr-admin.php:112
+#: admin/bgr-admin.php:141
 msgid "No Review Found In Trash"
 msgstr ""
 
-#: admin/bgr-admin.php:149
+#: admin/bgr-admin.php:178
 msgid "Search Categories"
 msgstr ""
 
-#: admin/bgr-admin.php:150
+#: admin/bgr-admin.php:179
 msgid "All Categories"
 msgstr ""
 
-#: admin/bgr-admin.php:151
+#: admin/bgr-admin.php:180
 msgid "Parent Category"
 msgstr ""
 
-#: admin/bgr-admin.php:152
+#: admin/bgr-admin.php:181
 msgid "Parent Category:"
 msgstr ""
 
-#: admin/bgr-admin.php:153
+#: admin/bgr-admin.php:182
 msgid "Edit Category"
 msgstr ""
 
-#: admin/bgr-admin.php:154
+#: admin/bgr-admin.php:183
 msgid "Update Category"
 msgstr ""
 
-#: admin/bgr-admin.php:155
+#: admin/bgr-admin.php:184
 msgid "Add Category"
 msgstr ""
 
-#: admin/bgr-admin.php:156
+#: admin/bgr-admin.php:185
 msgid "New Category Name"
 msgstr ""
 
-#: admin/bgr-admin.php:157
+#: admin/bgr-admin.php:186
 msgid "Category"
 msgstr ""
 
-#: admin/bgr-welcome-page.php:16
+#: admin/bgr-welcome-page.php:19
 msgid ""
 "BuddyPress Group Reviews allows BuddyPress members to add group reviews & "
 "give multiple-rating to given criteria(s). After posting reviews, all "
@@ -237,7 +244,7 @@ msgid ""
 "as he wants."
 msgstr ""
 
-#: admin/bgr-welcome-page.php:17
+#: admin/bgr-welcome-page.php:20
 msgid ""
 "Admins can approve or deny review. When admin approves the review they will "
 "be published.All published reviews will be shown in reviews tab in the "
@@ -245,1042 +252,1160 @@ msgid ""
 "as he wants."
 msgstr ""
 
-#: admin/bgr-welcome-page.php:28
+#: admin/bgr-welcome-page.php:24
 msgid "Help &amp; Support Resources"
 msgstr ""
 
-#: admin/bgr-welcome-page.php:29
+#: admin/bgr-welcome-page.php:25
 msgid ""
 "Here are all the resources you may need to get help from us. Documentation "
 "is usually the best place to start. Should you require help anytime, our "
 "customer care team is available to assist you at the support center."
 msgstr ""
 
-#: admin/bgr-welcome-page.php:35
+#: admin/bgr-welcome-page.php:30
 msgid "Documentation"
 msgstr ""
 
-#: admin/bgr-welcome-page.php:36
+#: admin/bgr-welcome-page.php:31
 msgid ""
 "We have prepared an extensive guide on BuddyPress Group Reviews to learn "
 "all aspects of the plugin. You will find most of your answers here."
 msgstr ""
 
-#: admin/bgr-welcome-page.php:37
+#: admin/bgr-welcome-page.php:32
 msgid "Read Documentation"
 msgstr ""
 
-#: admin/bgr-welcome-page.php:41
+#: admin/bgr-welcome-page.php:38
 msgid "Support Center"
 msgstr ""
 
-#: admin/bgr-welcome-page.php:42
+#: admin/bgr-welcome-page.php:39
 msgid ""
 "We strive to offer the best customer care via our support center. Once your "
 "theme is activated, you can ask us for help anytime."
 msgstr ""
 
-#: admin/bgr-welcome-page.php:43
+#: admin/bgr-welcome-page.php:40
 msgid "Get Support"
 msgstr ""
 
-#: admin/bgr-welcome-page.php:47
+#: admin/bgr-welcome-page.php:45
 msgid "Got Feedback?"
 msgstr ""
 
-#: admin/bgr-welcome-page.php:48
+#: admin/bgr-welcome-page.php:46
 msgid ""
 "We want to hear about your experience with the plugin. We would also love "
 "to hear any suggestions you may for future updates."
 msgstr ""
 
-#: admin/bgr-welcome-page.php:49
+#: admin/bgr-welcome-page.php:47
 msgid "Send Feedback"
 msgstr ""
 
-#: admin/review-admin-options-page.php:55
+#: admin/review-admin-options-page.php:60
 msgid "Reviews Criteria(s)"
 msgstr ""
 
-#: admin/review-admin-options-page.php:65
+#: admin/review-admin-options-page.php:71
 msgid "Remove"
 msgstr ""
 
-#: admin/review-admin-options-page.php:81
+#: admin/review-admin-options-page.php:87
 msgid "Add Review Criteria"
 msgstr ""
 
-#: admin/review-admin-options-page.php:82
+#: admin/review-admin-options-page.php:88
 msgid ""
 "This option provide you to add multiple rating criteria. By default, no "
 "criteria will be shown until you enable it."
 msgstr ""
 
-#: admin/review-admin-options-page.php:85
-#: admin/review-admin-options-page.php:141
-#: admin/review-admin-options-page.php:314
+#: admin/review-admin-options-page.php:92
+#: admin/review-admin-options-page.php:187
+#: admin/review-admin-options-page.php:422
 msgid "Save Settings"
 msgstr ""
 
-#: admin/review-admin-options-page.php:100
+#: admin/review-admin-options-page.php:106
+msgid "Group Review Shortcode"
+msgstr ""
+
+#: admin/review-admin-options-page.php:113
+msgid "Group Review Form Shortcode"
+msgstr ""
+
+#: admin/review-admin-options-page.php:116
 msgid "This shortcode will display Group Review Form."
 msgstr ""
 
-#: admin/review-admin-options-page.php:118
+#: admin/review-admin-options-page.php:142
+msgid "Display Setting"
+msgstr ""
+
+#: admin/review-admin-options-page.php:147
 msgid "Labels"
 msgstr ""
 
-#: admin/review-admin-options-page.php:123
+#: admin/review-admin-options-page.php:154
 msgid ""
 "This option provides flexibility to change review label. By default it "
 "shows \"Review\"."
 msgstr ""
 
-#: admin/review-admin-options-page.php:127
+#: admin/review-admin-options-page.php:163
 msgid "Reviews ( Plural )"
 msgstr ""
 
-#: admin/review-admin-options-page.php:130
+#: admin/review-admin-options-page.php:165
 msgid "This option provides flexibility to change plural of Review."
 msgstr ""
 
-#: admin/review-admin-options-page.php:133
+#: admin/review-admin-options-page.php:172
 msgid "Colors"
 msgstr ""
 
-#: admin/review-admin-options-page.php:135
+#: admin/review-admin-options-page.php:177
 msgid "Rating Color"
 msgstr ""
 
-#: admin/review-admin-options-page.php:138
+#: admin/review-admin-options-page.php:179
 msgid "This option lets you to change star rating color."
 msgstr ""
 
-#: admin/review-admin-options-page.php:165
+#: admin/review-admin-options-page.php:211
 msgid "here"
 msgstr ""
 
-#: admin/review-admin-options-page.php:166
+#: admin/review-admin-options-page.php:212
 msgid ""
-"<h2>This plugin is work with BuddyPress Groups Component. Please activet "
-"the BuddyPress Groups component. To activate groups component click %s. "
-"</h2>"
+"This plugin is work with BuddyPress Groups Component. Please activate the "
+"BuddyPress Groups component. To activate groups component click "
 msgstr ""
 
-#: admin/review-admin-options-page.php:194
+#: admin/review-admin-options-page.php:241
+msgid "General Settings"
+msgstr ""
+
+#: admin/review-admin-options-page.php:247
 msgid "Enable Multiple Reviews"
 msgstr ""
 
-#: admin/review-admin-options-page.php:206
+#: admin/review-admin-options-page.php:248
 msgid ""
 "Enable this option, if you want to add functionality for user to send "
 "multiple review to same group."
 msgstr ""
 
-#: admin/review-admin-options-page.php:212
+#: admin/review-admin-options-page.php:264
 msgid "Enable auto approval of Reviews"
 msgstr ""
 
-#: admin/review-admin-options-page.php:224
+#: admin/review-admin-options-page.php:265
 msgid ""
 "Enable this option, if you want to have the reviews automatically approved, "
 "else manual approval will be required."
 msgstr ""
 
-#: admin/review-admin-options-page.php:230
+#: admin/review-admin-options-page.php:281
 msgid "Reviews show at most"
 msgstr ""
 
-#: admin/review-admin-options-page.php:235
+#: admin/review-admin-options-page.php:282
 msgid ""
 "This option lets you limit number of reviews in \"Group Reviews\" page & "
 "\"Manage Reviews\" Page."
 msgstr ""
 
-#: admin/review-admin-options-page.php:239
+#: admin/review-admin-options-page.php:292
 msgid "Enable BuddyPress notifications"
 msgstr ""
 
-#: admin/review-admin-options-page.php:251
+#: admin/review-admin-options-page.php:295
 msgid ""
 "Enable this option, if you want group admin & reviewer to receive a "
 "notification when add, accept & deny review."
 msgstr ""
 
-#: admin/review-admin-options-page.php:253
+#: admin/review-admin-options-page.php:297
 msgid "This setting requires BuddyPress Notifications Component to be active."
 msgstr ""
 
-#: admin/review-admin-options-page.php:258
+#: admin/review-admin-options-page.php:317
+msgid "Enable Review Activity"
+msgstr ""
+
+#: admin/review-admin-options-page.php:320
+msgid "Enable this option, if you want to generate group review activities."
+msgstr ""
+
+#: admin/review-admin-options-page.php:322
+msgid "This setting requires BuddyPress Activity Component to be active."
+msgstr ""
+
+#: admin/review-admin-options-page.php:342
 msgid "Emails"
 msgstr ""
 
-#: admin/review-admin-options-page.php:269
+#: admin/review-admin-options-page.php:344
 msgid ""
 "Enable this option, if you want group admin & reviewer receive email when "
 "someone adds, accepts & denies review."
 msgstr ""
 
-#: admin/review-admin-options-page.php:273
+#: admin/review-admin-options-page.php:365
 msgid "Email Subject"
 msgstr ""
 
-#: admin/review-admin-options-page.php:276
+#: admin/review-admin-options-page.php:367
 msgid "Please add review email subject."
 msgstr ""
 
-#: admin/review-admin-options-page.php:281
+#: admin/review-admin-options-page.php:381
 msgid "Email Message"
 msgstr ""
 
-#: admin/review-admin-options-page.php:284
+#: admin/review-admin-options-page.php:383
 msgid "Please add review email message."
 msgstr ""
 
-#: admin/review-admin-options-page.php:288
+#: admin/review-admin-options-page.php:392
 msgid "Exclude Groups from Reviews"
 msgstr ""
 
-#: admin/review-admin-options-page.php:311
+#: admin/review-admin-options-page.php:394
 msgid ""
 "This option lets you choose those groups that you don't want to provide "
 "review functionality."
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-license-page.php:5
-msgid "Plugin License Settings"
+#: admin/wbcom/templates/wbcom-license-page.php:18
+msgid "Plugin License"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-license-page.php:10
-#: admin/wbcom/templates/wbcom-license-page.php:22
+#: admin/wbcom/templates/wbcom-license-page.php:24
+#: admin/wbcom/templates/wbcom-license-page.php:36
 msgid "Product"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-license-page.php:11
-#: admin/wbcom/templates/wbcom-license-page.php:23
+#: admin/wbcom/templates/wbcom-license-page.php:25
+#: admin/wbcom/templates/wbcom-license-page.php:37
 msgid "Version"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-license-page.php:12
-#: admin/wbcom/templates/wbcom-license-page.php:24
+#: admin/wbcom/templates/wbcom-license-page.php:26
+#: admin/wbcom/templates/wbcom-license-page.php:38
 msgid "Key"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-license-page.php:13
-#: admin/wbcom/templates/wbcom-license-page.php:25
+#: admin/wbcom/templates/wbcom-license-page.php:27
+#: admin/wbcom/templates/wbcom-license-page.php:39
 msgid "Status"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-license-page.php:14
-#: admin/wbcom/templates/wbcom-license-page.php:26
+#: admin/wbcom/templates/wbcom-license-page.php:28
+#: admin/wbcom/templates/wbcom-license-page.php:40
 msgid "Action"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-plugins-page.php:10
-msgid "Paid Addons"
+#: admin/wbcom/templates/wbcom-plugins-page.php:21
+#: admin/wbcom/templates/wbcom-plugins-page.php:30
+msgid "Paid Extension"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-plugins-page.php:28
-#: admin/wbcom/templates/wbcom-themes-page.php:118
-#: admin/wbcom/templates/wbcom-themes-page.php:139 includes/bgr-filters.php:300
-msgid "View"
+#: admin/wbcom/templates/wbcom-plugins-page.php:22
+msgid "Free Extension"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-plugins-page.php:37
-msgid "Free Addons"
+#: admin/wbcom/templates/wbcom-plugins-page.php:23
+msgid "LearnDash Extension"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:24
+#: admin/wbcom/templates/wbcom-plugins-page.php:364
+#: admin/wbcom/wbcom-admin-settings.php:241
+#: admin/wbcom/wbcom-admin-settings.php:242
+msgid "Our Themes"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:26
+#: admin/wbcom/templates/wbcom-plugins-page.php:31
+#: admin/wbcom/templates/wbcom-plugins-page.php:302
+#: admin/wbcom/templates/wbcom-plugins-page.php:427
+msgid "View More Extension"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:39
+msgid "BuddyPress Moderation Pro"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:40
+msgid ""
+"BuddyPress Moderation solution with advanced features to give you complete "
+"control over your community and keep it secure with automatic moderation "
+"and limitations, and more."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:42
+#: admin/wbcom/templates/wbcom-plugins-page.php:55
+#: admin/wbcom/templates/wbcom-plugins-page.php:68
+#: admin/wbcom/templates/wbcom-plugins-page.php:81
+#: admin/wbcom/templates/wbcom-plugins-page.php:94
+#: admin/wbcom/templates/wbcom-plugins-page.php:107
+#: admin/wbcom/templates/wbcom-plugins-page.php:120
+#: admin/wbcom/templates/wbcom-plugins-page.php:133
+#: admin/wbcom/templates/wbcom-plugins-page.php:146
+#: admin/wbcom/templates/wbcom-plugins-page.php:159
+#: admin/wbcom/templates/wbcom-plugins-page.php:172
+#: admin/wbcom/templates/wbcom-plugins-page.php:185
+#: admin/wbcom/templates/wbcom-plugins-page.php:198
+#: admin/wbcom/templates/wbcom-plugins-page.php:211
+#: admin/wbcom/templates/wbcom-plugins-page.php:224
+#: admin/wbcom/templates/wbcom-plugins-page.php:237
+#: admin/wbcom/templates/wbcom-plugins-page.php:250
+#: admin/wbcom/templates/wbcom-plugins-page.php:263
+#: admin/wbcom/templates/wbcom-plugins-page.php:276
+#: admin/wbcom/templates/wbcom-plugins-page.php:289
+#: admin/wbcom/templates/wbcom-plugins-page.php:313
+#: admin/wbcom/templates/wbcom-plugins-page.php:326
+#: admin/wbcom/templates/wbcom-plugins-page.php:339
+#: admin/wbcom/templates/wbcom-plugins-page.php:352
+#: admin/wbcom/templates/wbcom-plugins-page.php:376
+#: admin/wbcom/templates/wbcom-plugins-page.php:389
+#: admin/wbcom/templates/wbcom-plugins-page.php:402
+#: admin/wbcom/templates/wbcom-plugins-page.php:415
+#: admin/wbcom/templates/wbcom-plugins-page.php:435
+#: admin/wbcom/templates/wbcom-plugins-page.php:445
+#: admin/wbcom/templates/wbcom-plugins-page.php:455
+#: admin/wbcom/templates/wbcom-plugins-page.php:465
+#: admin/wbcom/templates/wbcom-plugins-page.php:475
+#: admin/wbcom/templates/wbcom-plugins-page.php:485
+#: admin/wbcom/templates/wbcom-plugins-page.php:495
+#: admin/wbcom/templates/wbcom-plugins-page.php:505
+#: admin/wbcom/templates/wbcom-plugins-page.php:515
+#: admin/wbcom/templates/wbcom-plugins-page.php:525
+#: admin/wbcom/templates/wbcom-plugins-page.php:535
+#: admin/wbcom/templates/wbcom-plugins-page.php:545
+msgid "View Details"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-plugins-page.php:43
-msgid "Install"
+#: admin/wbcom/templates/wbcom-plugins-page.php:56
+#: admin/wbcom/templates/wbcom-plugins-page.php:69
+#: admin/wbcom/templates/wbcom-plugins-page.php:82
+#: admin/wbcom/templates/wbcom-plugins-page.php:95
+#: admin/wbcom/templates/wbcom-plugins-page.php:108
+#: admin/wbcom/templates/wbcom-plugins-page.php:121
+#: admin/wbcom/templates/wbcom-plugins-page.php:134
+#: admin/wbcom/templates/wbcom-plugins-page.php:147
+#: admin/wbcom/templates/wbcom-plugins-page.php:160
+#: admin/wbcom/templates/wbcom-plugins-page.php:173
+#: admin/wbcom/templates/wbcom-plugins-page.php:186
+#: admin/wbcom/templates/wbcom-plugins-page.php:199
+#: admin/wbcom/templates/wbcom-plugins-page.php:212
+#: admin/wbcom/templates/wbcom-plugins-page.php:225
+#: admin/wbcom/templates/wbcom-plugins-page.php:238
+#: admin/wbcom/templates/wbcom-plugins-page.php:251
+#: admin/wbcom/templates/wbcom-plugins-page.php:264
+#: admin/wbcom/templates/wbcom-plugins-page.php:277
+#: admin/wbcom/templates/wbcom-plugins-page.php:290
+#: admin/wbcom/templates/wbcom-plugins-page.php:314
+#: admin/wbcom/templates/wbcom-plugins-page.php:327
+#: admin/wbcom/templates/wbcom-plugins-page.php:340
+#: admin/wbcom/templates/wbcom-plugins-page.php:353
+#: admin/wbcom/templates/wbcom-plugins-page.php:390
+#: admin/wbcom/templates/wbcom-plugins-page.php:446
+#: admin/wbcom/templates/wbcom-plugins-page.php:456
+#: admin/wbcom/templates/wbcom-plugins-page.php:466
+#: admin/wbcom/templates/wbcom-plugins-page.php:476
+#: admin/wbcom/templates/wbcom-plugins-page.php:486
+#: admin/wbcom/templates/wbcom-plugins-page.php:496
+#: admin/wbcom/templates/wbcom-plugins-page.php:506
+#: admin/wbcom/templates/wbcom-plugins-page.php:516
+#: admin/wbcom/templates/wbcom-plugins-page.php:526
+#: admin/wbcom/templates/wbcom-plugins-page.php:536
+#: admin/wbcom/templates/wbcom-plugins-page.php:546
+msgid "Get It Now"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-plugins-page.php:47
-#: admin/wbcom/wbcom-admin-settings.php:502
-msgid "Activate"
+#: admin/wbcom/templates/wbcom-plugins-page.php:52
+msgid "BuddyPress Resume Manager"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-plugins-page.php:51
-#: admin/wbcom/wbcom-admin-settings.php:503
-msgid "Deactivate"
+#: admin/wbcom/templates/wbcom-plugins-page.php:53
+msgid ""
+"BuddyPress Resume Manager adds display resume functionality on a user’s "
+"BuddyPress/BuddyBoss Platform Profile."
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-support-page.php:5
-#: admin/wbcom/wbcom-admin-settings.php:559
-#: admin/wbcom/wbcom-admin-settings.php:560
-#: admin/wbcom/wbcom-admin-settings.php:653
-msgid "Support"
+#: admin/wbcom/templates/wbcom-plugins-page.php:65
+msgid "BuddyPress Polls"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-support-page.php:7
-msgid "Having any question or issue ?"
+#: admin/wbcom/templates/wbcom-plugins-page.php:66
+msgid ""
+"BuddyPress Polls allows your community members to create polls as an "
+"activity, letting your members respond."
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-support-page.php:9
+#: admin/wbcom/templates/wbcom-plugins-page.php:78
+msgid "BuddyPress Private Community Pro"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:79
+msgid ""
+"BuddyPress Private Community Pro offers Privacy control for profiles. It "
+"provides a feature to lockdown BuddyPress Component and asks users to log "
+"in to go further to check the profile or any other protected details."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:91
+msgid "BuddyPress Profile Pro"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:92
+msgid ""
+"BuddyPress Profile Pro gives you the power to extend BuddyPress Profiles "
+"with repeater fields and groups. You can easily add multiple field groups "
+"and display them at a member’s profile."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:104
+msgid "BuddyPress Check-ins Pro"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:105
+msgid ""
+"BuddyPress Check-ins Pro Plugin allows your members to post check-ins like "
+"other social media platforms, on your website activity stream. Members have "
+"a mashup of their check-ins on their profile."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:117
+#: admin/wbcom/templates/wbcom-plugins-page.php:432
+msgid "BuddyPress Member Blog"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:118
+msgid ""
+"BuddyPress Member Blog Pro plugin provides each of your site members their "
+"own writing environment with a fantastic user experience."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:130
+msgid "BuddyPress BuddyVendor"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:131
+msgid ""
+"BuddyVendor or BuddyPress Multivendor Marketplace Quickly turn your "
+"BuddyPress community into a social marketplace."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:143
+msgid "BuddyPress Statistics"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:144
+msgid ""
+"BuddyPress Stats plugin creates an activity log of everything that happens "
+"on your BuddyPress powered community site and keeps all counts on the user "
+"profile that displays a range of statistics of your community members."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:156
+msgid "Who viewed my profile"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:157
+msgid ""
+"The Who Viewed My Profile Plugin helps you to know about your profile "
+"visitors. It displays the count of the profile views on the member profile "
+"header."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:169
+msgid "BuddyPress Friend & Follow Suggestion"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:170
+msgid ""
+"BuddyPress Friends and Follow suggestions plugin assists you with improving "
+"your BuddyPress or BuddyBoss Platform-based community."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:182
+msgid "BuddyPress Giphy"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:183
+msgid ""
+"Make your activity stream even more tempting and interesting to attract "
+"members by adding GIFs."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:195
+msgid "Shortcodes for BuddyPress Pro"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:196
+msgid ""
+"Add and Customize the BuddyPress components on any of the WordPress "
+"pages/posts using elementor widgets"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:208
+msgid "BuddyPress Sticky Post"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:209
+msgid ""
+"Make your posts sticky on BuddyPress by pinning site-wide and group "
+"activities on the top of the community wall."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:221
+msgid "BuddyPress Quotes"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:222
+msgid ""
+"Allow BuddyPress users to post content with attractive background colors "
+"and beautiful images."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:234
+msgid "BuddyPress Auto Friends"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:235
+msgid ""
+"The new BuddyPress Automatic Friends plugins makes your new users feel a "
+"little more at home upon signing up to your community."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:247
+msgid "BuddyPress Newsfeed"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:248
+msgid ""
+"Create A Customized Newsfeed Experience Just Like Facebook. By default, "
+"BuddyPress offers separate type of activities for your BuddyPress Activity "
+"Stream."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:260
+msgid "BuddyPress Status"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:261
+msgid ""
+"Allow members to add status on their profile and give their reactions to "
+"all the activity updates."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:273
+msgid "BuddyPress Hashtags"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:274
+msgid ""
+"BuddyPress Hashtags for BuddyPress and bbPress. It allows adding hashtag "
+"links to BuddyPress activity and bbPress topics. "
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:286
+msgid "BuddyPress Profanity"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:287
+msgid ""
+"Specify a list of bad words to control the content in your BuddyPress "
+"community."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:301
+msgid "Extension for LearnDash"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:310
+msgid "LMS Notes"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:311
+msgid ""
+"Learndash Notes will extend the LearnDash functionality to create Notes for "
+"courses, lessons and topics."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:323
+msgid "Learndash wpForo"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:324
+msgid ""
+"Learndash wpForo integration allows you to add a discussion channel for "
+"your learners. Allow you to link your course with multiple forums."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:336
+msgid "LearnDash Dashboard"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:337
+msgid ""
+"LearnDash Dashboard gives the admin, instructors, and students a dashboard "
+"of their own, where they can easily manage anything related to their "
+"courses, lessons, and contact others."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:349
+msgid "PeepSo LearnDash Integration"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:350
+msgid ""
+"Integrate LearnDash with PeepSo to display options for courses inside a "
+"member profile."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:365
+msgid "View More Themes"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:373
+msgid "Reign BuddyPress Theme"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:374
+msgid ""
+"Create your social network website for the company, school, sports team, or "
+"any niche community using a highly customizable WordPress BuddyPress theme."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:377
+msgid "Get Sandbox"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:386
+msgid "BuddyX Pro Theme"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:387
+msgid ""
+"To build an online community website for all niches with full flexibility, "
+"control, and freedom. No coding is required! Offers unique layouts with "
+"clean code and easy-to-customize options giving you a whole new way to "
+"visualize BuddyPress."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:399
+msgid "BuddyX Free Theme"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:400
+#: admin/wbcom/templates/wbcom-plugins-page.php:453
+msgid ""
+"Allow users to create and manage their to-dos with the relevant category "
+"right from their profile."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:403
+#: admin/wbcom/templates/wbcom-plugins-page.php:436
+msgid "Get Pro"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:412
+msgid "KnowX Theme"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:413
+msgid ""
+"A Free WordPress Knowledge base Theme. KnowX helps you set up a Knowledge "
+"Base in WordPress in less time than it takes to brew a coffee."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:416
+msgid "Get Demo"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:426
+msgid "Our Free Extension"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:433
+msgid ""
+"BuddyPress Member Blog is a free plugin that allows users to create/manage "
+"their blog/posts from the profile."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:442
+#: admin/wbcom/templates/wbcom-plugins-page.php:462
+msgid "BuddyPress Job Manager"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:443
+msgid ""
+"Integrate your BuddyPress community to provide a smooth customer experience "
+"and increase site engagement."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:452
+msgid "BuddyPress User Todo List"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:463
+msgid "Create specific tabs in employer’s and candidate’s profiles on BuddyPress."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:472
+msgid "BuddyPress Member Reviews"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:473
+msgid ""
+"Allow members to provide their ratings and reviews to other members’ "
+"profiles based on multiple criteria."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:482
+msgid "BuddyPress Birthday Widget"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:483
+msgid "Display the upcoming birthdays of your BuddyPress community members."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:492
+msgid "reCaptcha for BuddyPress"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:493
+msgid ""
+"Buddypress reCaptcha is the best solution that provides an all-in-one "
+"captcha for  Buddypress, WordPress, and woo-commerce."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:502
+msgid "BuddyPress WooCommerce Integration"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:503
+msgid ""
+"BuddyWoo Integration Plugin will help to integrate WooCommerce with "
+"Buddypress."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:512
+msgid "BuddyPress Member Export Import"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:513
+msgid ""
+"Easily import/export your BuddyPress members. Small but an important "
+"features."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:522
+msgid "BuddyPress Activity Bump"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:523
+msgid ""
+"ump the most recent activity on the top of newsfeed in your BuddyPress "
+"website."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:532
+msgid "Shortcodes for BuddyPress"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:533
+msgid ""
+"Use shortcodes to display activity streams, members, group listings, and "
+"user notifications on any post."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:542
+msgid "BuddyPress Create Group Type"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:543
+msgid ""
+"Create group types on BuddyPress based on the interest areas of your "
+"community members."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-support-page.php:18
+msgid "How can we help you?"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-support-page.php:19
 msgid ""
 "Our team is here to help you out at anytime. If you have any idea about how "
 "we could improve. You can share access to your site on our helpdesk if it "
-"can help getting faster. There are two ways to in touch with us :"
+"can help getting faster."
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-support-page.php:21
+#: admin/wbcom/templates/wbcom-support-page.php:28
 msgid "Tickets Support"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-support-page.php:22
+#: admin/wbcom/templates/wbcom-support-page.php:29
 msgid ""
 "Open a ticket on our helpdesk, we don't guarantee a fast response but "
 "within a week. Except if you've purchased one of our product we'll reply "
 "within 24 hours."
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-support-page.php:26
+#: admin/wbcom/templates/wbcom-support-page.php:32
 msgid "Open a ticket"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-support-page.php:41
-#: admin/wbcom/templates/wbcom-support-page.php:46
+#: admin/wbcom/templates/wbcom-support-page.php:45
+#: admin/wbcom/templates/wbcom-support-page.php:49
 msgid "Contact Us"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-support-page.php:42
+#: admin/wbcom/templates/wbcom-support-page.php:46
 msgid ""
 "Create a new thread on our plugin page, participation is open to anyone "
 "from all around the world. We'll be there to help as well but can't "
 "guarantee any delay."
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-themes-page.php:13
-msgid "Reign Theme"
+#: admin/wbcom/wbcom-admin-settings.php:210 includes/bgr-scripts.php:92
+msgid "Activate"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-themes-page.php:15
-msgid "Multiple Member Directory Layout"
+#: admin/wbcom/wbcom-admin-settings.php:211 includes/bgr-scripts.php:93
+msgid "Deactivate"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-themes-page.php:16
-msgid "Multiple Member Header Layout"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:17
-msgid "Multiple Group Directory Layout"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:18
-msgid "Multiple Group Header Layout"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:19
-msgid "BuddyPress Customization Options"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:20
-msgid "BuddyPress Extra Widgets"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:21
-msgid "Inbuilt Social Profile Module"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:24
-#: admin/wbcom/templates/wbcom-themes-page.php:49
-#: admin/wbcom/templates/wbcom-themes-page.php:72
-#: admin/wbcom/templates/wbcom-themes-page.php:94
-msgid "Purchase"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:25
-#: admin/wbcom/templates/wbcom-themes-page.php:50
-#: admin/wbcom/templates/wbcom-themes-page.php:73
-#: admin/wbcom/templates/wbcom-themes-page.php:95
-msgid "Preview"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:38
-msgid "LearnMate Solution"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:40
-msgid "Add Review to your course"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:41
-msgid "Course Coming Soon"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:42
-#: admin/wbcom/templates/wbcom-themes-page.php:68
-msgid "Grid And List Layout"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:43
-msgid "Learndash/LifterLMS Extra Widgets"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:44
-msgid "Unparalleled Course Layout"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:45
-msgid "Awesome Learndash/LifterLMS Pages"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:46
-msgid "Distraction Free Reading"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:63
-msgid "StoreMate Solution"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:65
-msgid "Dokan Extra Widgets"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:66
-msgid "Unique Single Product Page Customization"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:67
-msgid "Awesome WooCommerce Pages"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:69
-msgid "Automated Mega Menu Support"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:86
-msgid "Jobmate Theme"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:88
-msgid "Simple live searching and filtering"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:89
-msgid "Unique Job listing Page"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:90
-msgid "Awesome Resume list Page"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:91
-msgid "Outstanding all job maanger pagesLayout"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:108
-msgid "BuddyX Theme"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:110
-msgid "Responsive BuddyPress Theme"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:111
-#: admin/wbcom/templates/wbcom-themes-page.php:134
-msgid "Site Ready In One-Click"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:112
-msgid "Members and Groups Layout"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:113
-msgid "WooCommerce Ready"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:114
-msgid "Supported Muitiple Plugins"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:115
-#: admin/wbcom/templates/wbcom-themes-page.php:136
-msgid "Suitable for All Devices"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:131
-msgid "KnowX Theme"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:133
-msgid "Free WordPress Theme"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-themes-page.php:135
-msgid "Create Knowledge base"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:187
-msgid "Custom Font Uploader"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:189
-msgid ""
-"It also allows you to upload your own custom font to your site and use them "
-"using custom css."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:195
-msgid "BuddyPress Activity Filter"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:197
-msgid "Admin can set default and customised activities to be listed on front-end."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:203
-msgid "BuddyPress Activity Social Share"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:205
-msgid ""
-"This plugin allows anyone easily share BuddyPress Activites on major social "
-"media (Facebook, Twitter, Google+, Linkedin )."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:211
-msgid "BuddyPress Create Group Type"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:213
-msgid "It will help to create group type for BuddyPress Groups."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:219
-msgid "BuddyPress Member Reviews"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:221
-msgid ""
-"This plugin allows only site members to add reviews to the buddypress "
-"members on the site and even rate the member’s profile out of 5 points with "
-"multiple review criteria."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:229
-msgid ""
-"This plugin allows the BuddyPress Members to give reviews to the BuddyPress "
-"groups on the site. The review form allows the users to give text review, "
-"even rate the group on the basis of multiple criterias."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:235
-msgid "BuddyPress Favorite Notification"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:237
-msgid ""
-"BuddyPress Favorite Notification adds a notification for BuddyPress "
-"activity."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:243
-msgid "Custom Email Options"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:245
-msgid "Override default email options of Worpdress."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:251
-msgid "BuddyPress Checkins"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:253
-msgid ""
-"This plugin allows BuddyPress members to share their location when they are "
-"posting activities, you can add places where you visited, nearby locations "
-"based on google places."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:259
-msgid "BuddyPress Job Manager"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:261
-msgid ""
-"Incorporates BuddyPress with the WP Job Manager plugin by creating specific "
-"tabs in employer’s and candidate’s profiles."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:267
-msgid "BuddyPress user ToDo List"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:269
-msgid ""
-"This plugin allows you to create your personal task list with timestamp. "
-"You can mark them complete when you are done with them. It will also send "
-"reminder when you have any overdue task."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:275
-msgid "Shortcodes for BuddyPress"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:277
-msgid ""
-"This plugin will add an extended feature to the big name “BuddyPress” that "
-"will generate Shortcode for Listing Activity Streams , Members and Groups "
-"on any post/page in website."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:283
-msgid "Woo Open Graph"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:285
-msgid ""
-"This plugin will add an extended feature to the big name “WooCommerce” that "
-"will adds well executed and accurate Open Graph Meta Tags to your site with "
-"title,description and WooCommerce featured image."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:291
-msgid "BuddyPress Lock"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:293
-msgid ""
-"This plugin allows the administrator to lock the certain parts of their "
-"site. It help to create private BuddyPress community by locking certain "
-"BuddyPress Components, WordPress Pages, Custom Post Types for public view "
-"without using any membership plugin."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:299
-msgid "Woo Audio Preview"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:301
-msgid ""
-"This plugin Allows playing the audio files in sample mode to prevent "
-"unauthorized downloading of the audio files. It helps to display sample "
-"files at single product page."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:307
-msgid "WordPress System Log"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:309
-msgid ""
-"This plugin helps administrators of the site see their environment on which "
-"the site is currently running that includes WordPress environment, tha "
-"database it requires, Server Environment and the plugins installed and "
-"activated on the site."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:315
-msgid "BP Post From Anywhere"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:317
-msgid ""
-"This plugin will generate shortcode and widgets for post updates section "
-"for activities so you can post update from anywhere, it might be sidebar, "
-"some page or any template file."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:323
-msgid "Woo Document Preview"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:325
-msgid ""
-"This will allow you to add document preview at single product page. Which "
-"helps to offer more better idea when you are selling ebooks, pdf or some "
-"documents."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:331
-msgid "WordPress Media Category"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:333
-#: admin/wbcom/wbcom-admin-settings.php:349
-msgid ""
-"This plugin helps administrators of the site categorize their wordpress "
-"media."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:339
-msgid "Woo Price Quotes"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:341
-msgid ""
-"This plugin helps in quoting the products that admin wishes to hide its "
-"purchasing details."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:347
-msgid "EDD Service Extended"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:355
-msgid "WB Ads Rotator with Split Test"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:357
-msgid ""
-"This plugin is designed for the SPLIT TESTING, you can check performance of "
-"your ads layout and on the basis of them you can select one of them for "
-"your regular use."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:375
-msgid "BuddyPress Moderation Pro"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:376
-msgid ""
-"BuddyPress Community Moderation offers a solution for site owners to keep "
-"their communities straight. With community policing strategy, members of "
-"the community have an option for moderation sitewide by attaching flags to "
-"content created within the various components."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:381
-msgid "BuddyPress Polls"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:382
-msgid ""
-"Use BuddyPress Polls plugin to create polls inside the activity, let your "
-"user response to your polls. Members can create pools like activities, "
-"easily votes on them."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:387
-msgid "BuddyPress Resume Manager"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:388
-msgid ""
-"BuddyPress Resume Manager adds a separate BuddyPress Resume menu at a "
-"user’s BuddyPress Profile Page to display individual member resume. We have "
-"added predefined fields for the resumes and site admin and enable and "
-"disable them."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:393
-msgid "BuddyPress Profanity"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:394
-msgid ""
-"Use BuddyPress Profanity plugin to censor content in your community! Easily "
-"Censor all the unwanted words in activities, private messages contents by "
-"specifying a list of keywords to be filtered."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:399
-msgid "BuddyPress Private Community Pro"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:400
-msgid ""
-"This plugin offers a lockdown for BuddyPress Component and will ask users "
-"to log in go further to check profile or any other protected details."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:405
-msgid "BuddyPress Profile Pro"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:406
-msgid ""
-"This plugin gives you the power to extend BuddyPress Profiles with repeater "
-"fields and groups. You can easily add multiple field groups and display "
-"them at member’s profile."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:543
-#: admin/wbcom/wbcom-admin-settings.php:544
-#: admin/wbcom/wbcom-admin-settings.php:641
+#: admin/wbcom/wbcom-admin-settings.php:233
+#: admin/wbcom/wbcom-admin-settings.php:234
 msgid "Our Plugins"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:551
-#: admin/wbcom/wbcom-admin-settings.php:552
-#: admin/wbcom/wbcom-admin-settings.php:647
-msgid "Our Themes"
+#: admin/wbcom/wbcom-admin-settings.php:249
+#: admin/wbcom/wbcom-admin-settings.php:250
+msgid "Support"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:635 review-bp-grps.php:154
+#: admin/wbcom/wbcom-admin-settings.php:316 review-bp-grps.php:151
 msgid "Settings"
 msgstr ""
 
-#: includes/bgr-ajax.php:140 includes/templates/bgr-reviews-tab-template.php:68
+#: admin/wbcom/wbcom-admin-settings.php:322
+msgid "Themes & Extension"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:328
+msgid "Help & Support"
+msgstr ""
+
+#: includes/bgr-activity.php:88 includes/bgr-activity.php:90
+msgid "New Post"
+msgstr ""
+
+#: includes/bgr-activity.php:115
+#. translators: %1$s: User Link, %2$s: Post Link HTML, %3$s: Group Name
+msgid "%1$s posted a new post %2$s in group %3$s"
+msgstr ""
+
+#: includes/bgr-activity.php:158 includes/bgr-activity.php:223
+#. translators: %1$s: User Link, %2$s: Post Link HTML, %3$s: Group Name
+msgid "%1$s posted an review in the group %2$s"
+msgstr ""
+
+#: includes/bgr-ajax.php:156 includes/templates/bgr-reviews-tab-template.php:77
 msgid "read more..."
 msgstr ""
 
-#: includes/bgr-ajax.php:153 includes/templates/bgr-reviews-tab-template.php:85
+#: includes/bgr-ajax.php:169 includes/templates/bgr-reviews-tab-template.php:93
 msgid "Delete"
 msgstr ""
 
-#: includes/bgr-ajax.php:167 includes/bgr-grp-extn.php:247
-#: includes/templates/bgr-reviews-tab-template.php:109
+#: includes/bgr-ajax.php:183 includes/bgr-grp-extn.php:278
+#: includes/templates/bgr-reviews-tab-template.php:117
 msgid "prev"
 msgstr ""
 
-#: includes/bgr-ajax.php:168 includes/bgr-grp-extn.php:248
-#: includes/templates/bgr-reviews-tab-template.php:110
+#: includes/bgr-ajax.php:184 includes/bgr-grp-extn.php:279
+#: includes/templates/bgr-reviews-tab-template.php:118
 msgid "next"
 msgstr ""
 
-#: includes/bgr-ajax.php:185
-#: includes/templates/bgr-reviews-tab-template.php:132
+#: includes/bgr-ajax.php:201
+#: includes/templates/bgr-reviews-tab-template.php:141
 #. translators: %1$s is replaced with review_label
 msgid "Sorry, no %1$s were found."
 msgstr ""
 
-#: includes/bgr-ajax.php:298 includes/widgets/group-rating.php:223
+#: includes/bgr-ajax.php:313 includes/widgets/group-rating.php:246
 #. translators: %1$s is replaced with $bgr_avg_rating
 msgid "Rating : ( %1$s )"
 msgstr ""
 
-#: includes/bgr-ajax.php:307 includes/widgets/group-rating.php:236
+#: includes/bgr-ajax.php:322 includes/widgets/group-rating.php:259
 msgid "No Rating has been given by any member yet!"
 msgstr ""
 
-#: includes/bgr-ajax.php:437 includes/bgr-notifications.php:146
+#: includes/bgr-ajax.php:483 includes/bgr-notifications.php:194
+#. Translators: %1$s: Review Label
 #. translators: %1$s is replaced with review_label
 msgid "A new %1$s posted."
 msgstr ""
 
-#: includes/bgr-ajax.php:438 includes/bgr-ajax.php:513
+#: includes/bgr-ajax.php:485 includes/bgr-ajax.php:565
+#. Translators: %1$s: Review Label %2$s Group Name %3$s User Name %4$s User
+#. Link
 #. translators: %1$s, %2$s and %3$s are replaced with review_label, group_name
 #. and user_name respectively.
 msgid "A new %1$s for %2$s added by %3$s. Link: %4$s"
 msgstr ""
 
-#: includes/bgr-ajax.php:469 includes/bgr-shortcodes.php:100
+#: includes/bgr-ajax.php:495
+#. Translators: %1$s: User Name %2$s Review Label %3$s Group Name
+msgid "%1$s %2$ss Group %3$s."
+msgstr ""
+
+#: includes/bgr-ajax.php:520 includes/bgr-shortcodes.php:116
 #. translators: %1$s is replaced with review_label
 #. translators: %1$s is used for review label
 msgid "You already posted a %1$s for this group."
 msgstr ""
 
-#: includes/bgr-ajax.php:473
+#: includes/bgr-ajax.php:524
 #. translators: %1$s is replaced with review_label
 msgid "Thank you for taking time to write this wonderful %1$s."
 msgstr ""
 
-#: includes/bgr-ajax.php:477
+#: includes/bgr-ajax.php:528
 #. translators: %1$s is replaced with review_label
 msgid ""
 "Thank you for taking time to write this wonderful %1$s. Your %1$s will "
 "display after moderator's approval."
 msgstr ""
 
-#: includes/bgr-ajax.php:562 includes/bgr-notifications.php:174
+#: includes/bgr-ajax.php:621 includes/bgr-notifications.php:224
 #. translators: %1$s is replaced with review_label
 msgid "%1$s accepted."
 msgstr ""
 
-#: includes/bgr-ajax.php:564
+#: includes/bgr-ajax.php:623
 #. translators: %1$s and %2$s is replaced with review_label and group_name
 #. respectively.
 msgid "Your %1$s for %2$s accepted by group admin. Link: %3$s."
 msgstr ""
 
-#: includes/bgr-ajax.php:598 includes/bgr-notifications.php:203
+#: includes/bgr-ajax.php:665 includes/bgr-notifications.php:254
 #. translators: %1$s is replaced with review_label
 msgid "%1$s denied."
 msgstr ""
 
-#: includes/bgr-ajax.php:600 includes/bgr-notifications.php:205
+#: includes/bgr-ajax.php:667 includes/bgr-notifications.php:256
 #. translators: %1$s and %2$s is replaced with review_label and group_name
 #. respectively
 msgid "Your %1$s for %2$s denied by group admin."
 msgstr ""
 
-#: includes/bgr-filters.php:47 includes/bgr-filters.php:61
+#: includes/bgr-filters.php:70 includes/bgr-filters.php:84
 #. translators: %1$s is replaced with bgr_group_add_review_tab_name()
 msgid "Add %1$s"
 msgstr ""
 
-#: includes/bgr-filters.php:258
+#: includes/bgr-filters.php:281
 msgid "Rating "
 msgstr ""
 
-#: includes/bgr-filters.php:304
+#: includes/bgr-filters.php:323
+msgid "View"
+msgstr ""
+
+#: includes/bgr-filters.php:327
 msgid "Approve"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:52 includes/bgr-grp-extn.php:71
-#: includes/bgr-grp-extn.php:90
+#: includes/bgr-grp-extn.php:78 includes/bgr-grp-extn.php:97
+#: includes/bgr-grp-extn.php:116
 #. translators: %s is replaced with add_review_label
 msgid "Add %s"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:118
+#: includes/bgr-grp-extn.php:150
 msgid ""
 "Your Response added. This will be published when group admin has approved "
 "it."
 msgstr ""
 
-#: includes/bgr-grp-extn.php:193
+#: includes/bgr-grp-extn.php:225
 msgid "Short Description "
 msgstr ""
 
-#: includes/bgr-grp-extn.php:212
+#: includes/bgr-grp-extn.php:242
 msgid "Full Description"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:218 includes/bgr-scripts.php:37
+#: includes/bgr-grp-extn.php:248 includes/bgr-scripts.php:60
 msgid "View More.."
 msgstr ""
 
-#: includes/bgr-grp-extn.php:224
+#: includes/bgr-grp-extn.php:254
 msgid "Accept"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:227
+#: includes/bgr-grp-extn.php:257
 msgid "Deny"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:266
+#: includes/bgr-grp-extn.php:298
 #. translators: %s is replaced with review_label
 msgid "Sorry, no %s were found."
 msgstr ""
 
-#: includes/bgr-notifications.php:148
+#: includes/bgr-notifications.php:196
 #. translators: %1$s, %2$s and %3$s is replaced with user_name, review_label
 #. and group name respectively
 msgid "%1$s posted a %2$s for %3$s."
 msgstr ""
 
-#: includes/bgr-notifications.php:176
+#: includes/bgr-notifications.php:226
 #. translators: %1$s and %2$s is replaced with review_label and group name
 #. resepectively
 msgid "Your %1$s for %2$s accepted by group admin."
 msgstr ""
 
-#: includes/bgr-rating-display.php:101
+#: includes/bgr-rating-display.php:128
 msgid "Rating"
 msgstr ""
 
-#: includes/bgr-scripts.php:38
+#: includes/bgr-scripts.php:61
 msgid "View Less.."
 msgstr ""
 
-#: includes/bgr-shortcodes.php:72
+#: includes/bgr-shortcodes.php:81
 #. translators: %1$s is used for review lable
 msgid "You should log in for post %1$s."
 msgstr ""
 
-#: includes/bgr-shortcodes.php:112
+#: includes/bgr-shortcodes.php:98
+msgid "You already have posted a review to this group."
+msgstr ""
+
+#: includes/bgr-shortcodes.php:128
 #. translators: %s is used for bp-group-review
 msgid "You can't post %s on your own group."
 msgstr ""
 
-#: includes/bgr-shortcodes.php:150
+#: includes/bgr-shortcodes.php:180
 #. translators: %1$s is used for review label
 msgid "Write a %1$s"
 msgstr ""
 
-#: includes/bgr-shortcodes.php:157
+#: includes/bgr-shortcodes.php:187
 msgid "--Select Group--"
 msgstr ""
 
-#: includes/bgr-shortcodes.php:178 includes/bgr-shortcodes.php:190
-#: includes/bgr-shortcodes.php:235
+#: includes/bgr-shortcodes.php:208 includes/bgr-shortcodes.php:220
+#: includes/bgr-shortcodes.php:272
 msgid "This field is required."
 msgstr ""
 
-#: includes/bgr-shortcodes.php:188
+#: includes/bgr-shortcodes.php:218
 #. translators: %s: search term
 msgid "%1$s Description"
 msgstr ""
 
-#: includes/bgr-shortcodes.php:199
+#: includes/bgr-shortcodes.php:229
 #. translators: %1$s is used for review label
 msgid "Submit %1$s"
 msgstr ""
 
-#: includes/templates/bgr-reviews-tab-template.php:31
-#: includes/widgets/group-rating.php:54 includes/widgets/group-rating.php:157
+#: includes/templates/bgr-reviews-tab-template.php:41
+#: includes/widgets/group-rating.php:74 includes/widgets/group-rating.php:180
 msgid "Latest"
 msgstr ""
 
-#: includes/templates/bgr-reviews-tab-template.php:32
-#: includes/widgets/group-rating.php:55 includes/widgets/group-rating.php:162
+#: includes/templates/bgr-reviews-tab-template.php:42
+#: includes/widgets/group-rating.php:75 includes/widgets/group-rating.php:185
 msgid "Highest"
 msgstr ""
 
-#: includes/templates/bgr-reviews-tab-template.php:33
-#: includes/widgets/group-rating.php:56 includes/widgets/group-rating.php:167
+#: includes/templates/bgr-reviews-tab-template.php:43
+#: includes/widgets/group-rating.php:76 includes/widgets/group-rating.php:190
 msgid "Lowest"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:13
+#: includes/widgets/bgr-review.php:31
 msgid "Display Group Reviews."
 msgstr ""
 
-#: includes/widgets/bgr-review.php:19
+#: includes/widgets/bgr-review.php:37
 msgid "BP Group Review Widget"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:43 includes/widgets/group-rating.php:43
+#: includes/widgets/bgr-review.php:63 includes/widgets/group-rating.php:63
 msgid "Title"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:46
+#: includes/widgets/bgr-review.php:66
 msgid "Select Listing Type"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:56
+#: includes/widgets/bgr-review.php:76
 msgid "Top Rated"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:66
+#: includes/widgets/bgr-review.php:86
 msgid "Most Reviewed"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:72 includes/widgets/group-rating.php:47
+#: includes/widgets/bgr-review.php:92 includes/widgets/group-rating.php:67
 msgid "Number of reviews to show"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:78
+#: includes/widgets/bgr-review.php:98
 msgid "Thumbnail"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:80
+#: includes/widgets/bgr-review.php:100
 msgid "Hide"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:81
+#: includes/widgets/bgr-review.php:101
 msgid "Show"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:262
+#: includes/widgets/bgr-review.php:283
 msgid "Total"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:279
+#: includes/widgets/bgr-review.php:300
 msgid "No Rating has been given to any group yet!"
 msgstr ""
 
-#: includes/widgets/bgr-review.php:286
+#: includes/widgets/bgr-review.php:307
 #. translators: %1$s is replaced with review_label
 msgid "No %1$s has been given to any group yet!"
 msgstr ""
 
-#: includes/widgets/group-rating.php:12
+#: includes/widgets/group-rating.php:31
 msgid "Display displayed group ratings."
 msgstr ""
 
-#: includes/widgets/group-rating.php:18
+#: includes/widgets/group-rating.php:37
 msgid "BP Displayed Group Rating Widget"
 msgstr ""
 
-#: includes/widgets/group-rating.php:52
+#: includes/widgets/group-rating.php:72
 msgid "Default ratings to show:"
 msgstr ""
 
-#: includes/widgets/group-rating.php:137
+#: includes/widgets/group-rating.php:161
 #. translators: %s is replaced with group_name
 msgid "%s's Ratings"
 msgstr ""
@@ -1294,18 +1419,18 @@ msgstr ""
 msgid "%1$s is ineffective now as it requires %2$s to be installed and active."
 msgstr ""
 
-#: review-bp-grps.php:141
+#: review-bp-grps.php:138
 msgid ""
 "The Review BuddyPress Groups plugin requires BuddyPress User Groups "
 "Component to be active."
 msgstr ""
 
-#: admin/bgr-admin.php:147
+#: admin/bgr-admin.php:176
 msgctxt "taxonomy general name"
 msgid "Reviews Category"
 msgstr ""
 
-#: admin/bgr-admin.php:148
+#: admin/bgr-admin.php:177
 msgctxt "taxonomy singular name"
 msgid "Review Category"
 msgstr ""
