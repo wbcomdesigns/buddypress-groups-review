@@ -1,21 +1,23 @@
-<?php
-/**
- * Admin wrapper license page template.
- *
- * @link       https://wbcomdesigns.com/
- * @since      1.0.0
- *
- * @package    BuddyPress_Group_Review
- * @subpackage BuddyPress_Group_Review/admin/wbcom/templates
- */
-
-?>
 <div class="wrap">
-	<hr class="wp-header-end">
-	<div class="wbcom-wrap">
-		<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
-		<h1 class="wbcom-plugin-heading"><?php esc_html_e( 'Plugin License Settings', 'bp-group-reviews' ); ?></h1>
+	<div class="wbcom-bb-plugins-offer-wrapper">
+		<div id="wb_admin_logo">
+			<a href="https://wbcomdesigns.com/downloads/buddypress-community-bundle/" target="_blank">
+				<img src="<?php echo esc_url( BGR_PLUGIN_URL ) . 'admin/wbcom/assets/imgs/wbcom-offer-notice.png'; ?>">
+			</a>
+		</div>
+	</div>
+	<div class="wbcom-wrap wbcom-plugin-wrapper">
+		<div class="wbcom_admin_header-wrapper">
+			<div id="wb_admin_plugin_name">
+				<?php esc_html_e( 'BuddyPress Group Review', 'bp-group-reviews' ); ?>
+				<span><?php printf( __( 'Version %s', 'bp-group-reviews' ), BGR_PLUGIN_VERSION ); ?></span>
+			</div>
+			<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
+		</div>
+		<div class="wbcom-all-addons-plugins-wrap">
+		<h4 class="wbcom-support-section"><?php esc_html_e( 'Plugin License', 'bp-group-reviews' ); ?></h4>
 		<div class="wb-plugins-license-tables-wrap">
+			<div class="wbcom-license-support-wrapp">
 			<table class="form-table wb-license-form-table desktop-license-headings">
 				<thead>
 					<tr>
@@ -40,5 +42,7 @@
 				</tfoot>
 			</table>
 		</div>
+	</div>
+	</div>
 	</div><!-- .wbcom-wrap -->
 </div><!-- .wrap -->

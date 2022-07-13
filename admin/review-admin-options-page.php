@@ -56,36 +56,37 @@ function bgr_criteria_setting() {
 	$review_rating_fields = $bgr['review_rating_fields'];
 	$active_rating_fields = $bgr['active_rating_fields'];
 	?>
-	<div class="bgr-row">
-		<div class="bgr-col-3">
-			<label><?php esc_html_e( 'Reviews Criteria(s)', 'bp-group-reviews' ); ?></label>
-		</span>
-	</div>
-	<div class="bgr-col-9">
-		<div id="bgr-textbox-container">
-			<?php
-			if ( ! empty( $review_rating_fields ) ) {
-				foreach ( $review_rating_fields as $review_rating_field ) :
-					?>
-			<div class="rating-review-div"><span>&equiv;</span><input name = "BGRDynamicTextBox" class="draggable" type="text" value = "<?php echo esc_attr( $review_rating_field ); ?>" />
-				<input type="button" value="<?php esc_html_e( 'Remove', 'bp-group-reviews' ); ?>" class="remove button button-secondary" />
-				<label class="bgr-switch">
-				<input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="<?php echo esc_attr( $review_rating_field ); ?>"
-																													<?php
-																													if ( in_array( $review_rating_field, $active_rating_fields ) ) {
-																														echo 'checked="checked"'; }
-																													?>
->
-				<div class="bgr-slider round"></div>
-			</label>
-		</div>
-					<?php
-		endforeach;
-			}
-			?>
+<div class="wbcom-admin-title-section">
+	<h3><?php esc_html_e( 'Reviews Criteria(s)', 'bp-group-reviews' ); ?></h3>
 </div>
-<input id="bgr-field-add" type="button" value="<?php esc_html_e( 'Add Review Criteria', 'bp-group-reviews' ); ?>" class="button button-secondary"/>
-<p class="bgr-admin-des"><?php esc_html_e( 'This option provide you to add multiple rating criteria. By default, no criteria will be shown until you enable it.', 'bp-group-reviews' ); ?></p>
+<div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">
+	<div class="form-table">
+		<div class="wbcom-settings-section-wrap">
+			<div id="bgr-textbox-container">
+				<?php
+				if ( ! empty( $review_rating_fields ) ) {
+					foreach ( $review_rating_fields as $review_rating_field ) :
+						?>
+				<div class="rating-review-div"><span>&equiv;</span><input name = "BGRDynamicTextBox" class="draggable" type="text" value = "<?php echo esc_attr( $review_rating_field ); ?>" />
+					<input type="button" value="<?php esc_html_e( 'Remove', 'bp-group-reviews' ); ?>" class="remove button button-secondary" />
+					<label class="wb-switch">
+					<input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="<?php echo esc_attr( $review_rating_field ); ?>"
+							<?php
+							if ( in_array( $review_rating_field, $active_rating_fields ) ) {
+								echo 'checked="checked"'; }
+							?>
+	>
+					<div class="wb-slider wb-round"></div>
+				</label>
+			</div>
+						<?php
+			endforeach;
+				}
+				?>
+	</div>
+	<input id="bgr-field-add" type="button" value="<?php esc_html_e( 'Add Review Criteria', 'bp-group-reviews' ); ?>" class="button button-secondary"/>
+	<p class="description"><?php esc_html_e( 'This option provide you to add multiple rating criteria. By default, no criteria will be shown until you enable it.', 'bp-group-reviews' ); ?></p>
+	</div>
 </div>
 </div>
 <input type="button" class="button button-primary bgr-submit-button" id="bgr-save-admin-criteria-settings" value="<?php esc_html_e( 'Save Settings', 'bp-group-reviews' ); ?>">
@@ -101,9 +102,25 @@ function bgr_criteria_setting() {
 	 */
 function bgr_shortcode_setting() {
 	?>
-<div class="bgr-row">
-	<div class="bgr-col-3"><label><?php echo '[add_group_review_form]'; ?></label></div>
-	<div class="bgr-col-9"><?php esc_html_e( 'This shortcode will display Group Review Form.', 'bp-group-reviews' ); ?></div>
+<div class="wbcom-admin-title-section">
+	<h3><?php esc_html_e( 'Group Review Shortcode', 'bp-group-reviews' ); ?></h3>
+</div>
+<div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">
+	<div class="form-table">
+		<div class="wbcom-settings-section-wrap">
+			<div class="wbcom-settings-section-options-heading">
+				<label>
+					<?php esc_html_e( 'Group Review Form Shortcode', 'bp-group-reviews' ); ?>
+				</label>
+				<p class="description">
+					<?php esc_html_e( 'This shortcode will display Group Review Form.', 'bp-group-reviews' ); ?>
+				</p>
+			</div>
+			<div class="wbcom-settings-section-options">
+				<?php echo '[add_group_review_form]'; ?>
+			</div>
+		</div>
+	</div>
 </div>
 	<?php
 }
@@ -121,29 +138,52 @@ function bgr_display_setting() {
 	$bgr_manage_review_label = $bgr['manage_review_label'];
 	$bgr_rating_color        = $bgr['rating_color'];
 	?>
-	<div class="bgr-col-12"><h3><?php esc_html_e( 'Labels', 'bp-group-reviews' ); ?></h3></div>
-	<div class="bgr-row">
-		<div class="bgr-col-3"><label for="bgrReviewLabel"><?php esc_html_e( 'Review', 'bp-group-reviews' ); ?></label></div>
-		<div class="bgr-col-9">
-		<input name = "bgrReviewLabel" id="bgrReviewLabel" type="text" value = "<?php echo esc_attr( $bgr_review_label ); ?>" />
-		<p class="bgr-admin-des"><?php esc_html_e( 'This option provides flexibility to change review label. By default it shows "Review".', 'bp-group-reviews' ); ?></p>
-	</div>
-	</div>
-	<div class="bgr-row">
-		<div class="bgr-col-3"><label for="bgrManageReviewLabel"><?php esc_html_e( 'Reviews ( Plural )', 'bp-group-reviews' ); ?></label></div>
-		<div class="bgr-col-9">
-		<input name = "bgrManageReviewLabel" id="bgrManageReviewLabel" type="text" value = "<?php echo esc_attr( $bgr_manage_review_label ); ?>" />
-		<p class="bgr-admin-des"><?php esc_html_e( 'This option provides flexibility to change plural of Review.', 'bp-group-reviews' ); ?></p>
-	</div>
-	</div>
-	<div class="bgr-col-12"><h3><?php esc_html_e( 'Colors', 'bp-group-reviews' ); ?></h3></div>
-	<div class="bgr-row">
-		<div class="bgr-col-3"><label for="bgr-rating-color"><?php esc_html_e( 'Rating Color', 'bp-group-reviews' ); ?></label></div>
-		<div class="bgr-col-9">
-			<input id="bgr-rating-color" class="bgr-review-color" type="text" data-default-color="#effeff" value="<?php echo esc_attr( $bgr_rating_color ); ?>" />
-			<p class="bgr-admin-des"><?php esc_html_e( 'This option lets you to change star rating color.', 'bp-group-reviews' ); ?></p>
+<div class="wbcom-admin-title-section">
+	<h3><?php esc_html_e( 'Display Setting', 'bp-group-reviews' ); ?></h3>
+</div>
+<div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">
+	<div class="form-table">
+		<div class="wbcom-admin-title-section">
+			<h3><?php esc_html_e( 'Labels', 'bp-group-reviews' ); ?></h3>
+		</div>
+		<div class="wbcom-settings-section-wrap">
+			<div class="wbcom-settings-section-options-heading">
+				<label for="bgrReviewLabel">
+					<?php esc_html_e( 'Review', 'bp-group-reviews' ); ?>
+				</label>
+				<p class="description"><?php esc_html_e( 'This option provides flexibility to change review label. By default it shows "Review".', 'bp-group-reviews' ); ?></p>
+			</div>
+			<div class="wbcom-settings-section-options">
+				<input name = "bgrReviewLabel" id="bgrReviewLabel" type="text" value = "<?php echo esc_attr( $bgr_review_label ); ?>" />
+			</div>
+		</div>
+		<div class="wbcom-settings-section-wrap">
+			<div class="wbcom-settings-section-options-heading">
+				<label for="bgrManageReviewLabel">
+					<?php esc_html_e( 'Reviews ( Plural )', 'bp-group-reviews' ); ?>
+				</label>
+				<p class="description"><?php esc_html_e( 'This option provides flexibility to change plural of Review.', 'bp-group-reviews' ); ?></p>
+			</div>
+			<div class="wbcom-settings-section-options">
+				<input name = "bgrManageReviewLabel" id="bgrManageReviewLabel" type="text" value = "<?php echo esc_attr( $bgr_manage_review_label ); ?>" />
+			</div>
+		</div>
+		<div class="wbcom-admin-title-section">
+			<h3><?php esc_html_e( 'Colors', 'bp-group-reviews' ); ?></h3>
+		</div>
+		<div class="wbcom-settings-section-wrap">
+			<div class="wbcom-settings-section-options-heading">
+				<label for="bgr-rating-color">
+					<?php esc_html_e( 'Rating Color', 'bp-group-reviews' ); ?>
+				</label>
+				<p class="description"><?php esc_html_e( 'This option lets you to change star rating color.', 'bp-group-reviews' ); ?></p>
+			</div>
+			<div class="wbcom-settings-section-options">
+				<input id="bgr-rating-color" class="bgr-review-color" type="text" data-default-color="#effeff" value="<?php echo esc_attr( $bgr_rating_color ); ?>" />
+			</div>
 		</div>
 	</div>
+</div>
 	<input type="button" class="button button-primary bgr-submit-button" id="bgr-save-admin-display-settings" value="<?php esc_html_e( 'Save Settings', 'bp-group-reviews' ); ?>">
 	<img src="<?php echo esc_url( $spinner_src ); ?>" class="bgr-admin-display-settings-spinner" />
 	<?php
@@ -197,157 +237,189 @@ Thanks';
 	$allgroups            = groups_get_groups( $group_args );
 
 	?>
-
-	<div class="bgr-row">
-	<div class="bgr-col-3">
-		<label><?php esc_html_e( 'Enable Multiple Reviews', 'bp-group-reviews' ); ?></label>
-	</div>
-	<div class="bgr-col-9">
-		<label class="bgr-switch" for="bgr-multi-reviews">
-			<input type="checkbox" id="bgr-multi-reviews"
-			<?php
-			if ( 'yes' === $multi_reviews ) {
-				echo 'checked="checked"'; }
-			?>
->
-			<div class="bgr-slider round"></div>
-		</label>
-		<p class="bgr-admin-des"><?php esc_html_e( 'Enable this option, if you want to add functionality for user to send multiple review to same group.', 'bp-group-reviews' ); ?></p>
-	</div>
-	</div>
-
-	<div class="bgr-row">
-	<div class="bgr-col-3">
-		<label><?php esc_html_e( 'Enable auto approval of Reviews', 'bp-group-reviews' ); ?></label>
-	</div>
-	<div class="bgr-col-9">
-		<label class="bgr-switch" for="bgr-auto-approve-reviews">
-			<input type="checkbox" id="bgr-auto-approve-reviews"
-			<?php
-			if ( 'yes' === $auto_approve_reviews ) {
-				echo 'checked="checked"'; }
-			?>
->
-			<div class="bgr-slider round"></div>
-		</label>
-		<p class="bgr-admin-des"><?php esc_html_e( 'Enable this option, if you want to have the reviews automatically approved, else manual approval will be required.', 'bp-group-reviews' ); ?></p>
-	</div>
-	</div>
-
-	<div class="bgr-row">
-	<div class="bgr-col-3">
-		<label for="reviews_per_page"><?php esc_html_e( 'Reviews show at most', 'bp-group-reviews' ); ?></label>
-	</div>
-	<div class="bgr-col-9">
-		<input id="reviews_per_page" class="small-text" name="reviews_per_page" step="1" min="1" value="<?php echo esc_attr( $reviews_per_page ); ?>" type="number">
-		<?php esc_html_e( 'Reviews', 'bp-group-reviews' ); ?>
-		<p class="bgr-admin-des"><?php esc_html_e( 'This option lets you limit number of reviews in "Group Reviews" page & "Manage Reviews" Page.', 'bp-group-reviews' ); ?></p>
-	</div>
-	</div>
-	<div class="bgr-row">
-	<div class="bgr-col-3"><label><?php esc_html_e( 'Enable BuddyPress notifications', 'bp-group-reviews' ); ?></label></div>
-	<div class="bgr-col-9">
-		<?php if ( bp_is_active( 'notifications' ) ) { ?>
-		<label class="bgr-switch" for="bgr-notification">
-			<input type="checkbox" id="bgr-notification"
-				<?php
-				if ( 'yes' === $allow_notification ) {
-					echo 'checked="checked"'; }
-				?>
->
-			<div class="bgr-slider round"></div>
-		</label>
-		<p class="bgr-admin-des"><?php esc_html_e( 'Enable this option, if you want group admin & reviewer to receive a notification when add, accept & deny review.', 'bp-group-reviews' ); ?></p>
-			<?php } else { ?>
-		<p class="bgr-admin-des"><?php esc_html_e( 'This setting requires BuddyPress Notifications Component to be active.', 'bp-group-reviews' ); ?></p>
-			<?php } ?>
+<div class="wbcom-admin-title-section">
+	<h3><?php esc_html_e( 'General Settings', 'bp-group-reviews' ); ?></h3>
 </div>
-</div>
-	<div class="bgr-row">
-	<div class="bgr-col-3"><label><?php esc_html_e( 'Enable Review Activity', 'bp-group-reviews' ); ?></label></div>
-	<div class="bgr-col-9">
-		<?php if ( bp_is_active( 'activity' ) ) { ?>
-		<label class="bgr-switch" for="bgr-activity">
-			<input type="checkbox" id="bgr-activity"
-				<?php
-				if ( 'yes' === $allow_activity ) {
-					echo 'checked="checked"'; }
-				?>
->
-			<div class="bgr-slider round"></div>
-		</label>
-		<p class="bgr-admin-des"><?php esc_html_e( 'Enable this option, if you want to generate group review activities.', 'bp-group-reviews' ); ?></p>
-			<?php } else { ?>
-		<p class="bgr-admin-des"><?php esc_html_e( 'This setting requires BuddyPress Activity Component to be active.', 'bp-group-reviews' ); ?></p>
-			<?php } ?>
-</div>
-</div>
-<div class="bgr-row">
-	<div class="bgr-col-3"><label><?php esc_html_e( 'Emails', 'bp-group-reviews' ); ?></label></div>
-	<div class="bgr-col-9">
-	<label class="bgr-switch" for="bgr-email">
-		<input type="checkbox" id="bgr-email"
-		<?php
-		if ( 'yes' === $allow_email ) {
-			echo 'checked="checked"'; }
-		?>
->
-		<div class="bgr-slider round"></div>
-	</label>
-	<p class="bgr-admin-des"><?php esc_html_e( 'Enable this option, if you want group admin & reviewer receive email when someone adds, accepts & denies review.', 'bp-group-reviews' ); ?></p>
-	</div>
-</div>
-<div class="bgr-row review-email-section" 
-	<?php
-	if ( 'yes' !== $allow_email ) :
-		?>
-	style="display:none;" <?php endif; ?>>
-	<div class="bgr-col-3"><label><?php esc_html_e( 'Email Subject', 'bp-group-reviews' ); ?></label></div>
-	<div class="bgr-col-9">
-		<input id="review_email_subject" class="large-text" name="review_email_subject" value="<?php echo esc_attr( $review_email_subject ); ?>" type="text" placeholder="Please enter review email subject.">
-		<p class="bgr-admin-des"><?php esc_html_e( 'Please add review email subject.', 'bp-group-reviews' ); ?></p>
-	</div>
-</div>
-
-<div class="bgr-row review-email-section" 
-	<?php
-	if ( 'yes' !== $allow_email ) :
-		?>
-	style="display:none;" <?php endif; ?>>
-	<div class="bgr-col-3"><label><?php esc_html_e( 'Email Message', 'bp-group-reviews' ); ?></label></div>
-	<div class="bgr-col-9">
-		<textarea id="review_email_message" class="large-text" name="review_email_message" ><?php echo esc_html( $review_email_message ); ?></textarea>
-		<p class="bgr-admin-des"><?php esc_html_e( 'Please add review email message.', 'bp-group-reviews' ); ?></p>
-	</div>
-</div>
-<div class="bgr-row">
-	<div class="bgr-col-3"><label><?php esc_html_e( 'Exclude Groups from Reviews', 'bp-group-reviews' ); ?></label></div>
-	<div class="bgr-col-9">
-	<select id="bgr-exclude-group-review" name="bgr-exclude-group[]" multiple >
-		<?php
-		if ( $allgroups ) {
-			foreach ( $allgroups['groups'] as $group ) :
-				if ( ! empty( $exclude_groups ) ) {
-					if ( in_array( $group->id, $exclude_groups ) ) {
-						?>
-						<option value="<?php echo esc_attr( $group->id ); ?>" <?php echo 'selected = selected'; ?>><?php echo esc_html( $group->name ); ?></option>
-						<?php } else { ?>
-						<option value="<?php echo esc_attr( $group->id ); ?>"><?php echo esc_html( $group->name ); ?></option>
-						<?php
-						}
-				} else {
+<div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">
+	<div class="form-table">
+		<div class="bgr-row wbcom-settings-section-wrap">
+			<div class="wbcom-settings-section-options-heading">
+				<label><?php esc_html_e( 'Enable Multiple Reviews', 'bp-group-reviews' ); ?></label>
+				<p class="description"><?php esc_html_e( 'Enable this option, if you want to add functionality for user to send multiple review to same group.', 'bp-group-reviews' ); ?></p>
+			</div>
+			<div class="wbcom-settings-section-options">
+				<label class="wb-switch" for="bgr-multi-reviews">
+					<input type="checkbox" id="bgr-multi-reviews"
+					<?php
+					if ( 'yes' === $multi_reviews ) {
+						echo 'checked="checked"'; }
 					?>
-						<option value="<?php echo esc_attr( $group->id ); ?>"><?php echo esc_html( $group->name ); ?></option>
+		>
+					<div class="wb-slider wb-round"></div>
+				</label>
+			</div>
+		</div>
+		<div class="bgr-row wbcom-settings-section-wrap">
+			<div class="wbcom-settings-section-options-heading">
+				<label><?php esc_html_e( 'Enable auto approval of Reviews', 'bp-group-reviews' ); ?></label>
+				<p class="description"><?php esc_html_e( 'Enable this option, if you want to have the reviews automatically approved, else manual approval will be required.', 'bp-group-reviews' ); ?></p>
+			</div>
+			<div class="wbcom-settings-section-options">
+				<label class="wb-switch" for="bgr-auto-approve-reviews">
+					<input type="checkbox" id="bgr-auto-approve-reviews"
+					<?php
+					if ( 'yes' === $auto_approve_reviews ) {
+						echo 'checked="checked"'; }
+					?>
+		>
+					<div class="wb-slider wb-round"></div>
+				</label>
+			</div>
+		</div>
+		<div class="bgr-row wbcom-settings-section-wrap">
+			<div class="wbcom-settings-section-options-heading">
+				<label for="reviews_per_page"><?php esc_html_e( 'Reviews show at most', 'bp-group-reviews' ); ?></label>
+				<p class="description"><?php esc_html_e( 'This option lets you limit number of reviews in "Group Reviews" page & "Manage Reviews" Page.', 'bp-group-reviews' ); ?></p>
+			</div>
+			<div class="wbcom-settings-section-options">
+				<input id="reviews_per_page" class="small-text" name="reviews_per_page" step="1" min="1" value="<?php echo esc_attr( $reviews_per_page ); ?>" type="number">
+				<?php esc_html_e( 'Reviews', 'bp-group-reviews' ); ?>
+			</div>
+		</div>
+		<div class="bgr-row wbcom-settings-section-wrap">
+			<div class="wbcom-settings-section-options-heading">
+				<label>
+					<?php esc_html_e( 'Enable BuddyPress notifications', 'bp-group-reviews' ); ?>
+				</label>
+				<?php if ( bp_is_active( 'notifications' ) ) { ?>
+					<p class="description"><?php esc_html_e( 'Enable this option, if you want group admin & reviewer to receive a notification when add, accept & deny review.', 'bp-group-reviews' ); ?></p>
+				<?php } else { ?>
+					<p class="description"><?php esc_html_e( 'This setting requires BuddyPress Notifications Component to be active.', 'bp-group-reviews' ); ?></p>
+				<?php } ?>
+			</div>
+			<div class="wbcom-settings-section-options">
+					<?php if ( bp_is_active( 'notifications' ) ) { ?>
+				<label class="wb-switch" for="bgr-notification">
+					<input type="checkbox" id="bgr-notification"
 						<?php
-				}
-				endforeach;
-		}
-		?>
-			</select>
-			<p class="bgr-admin-des"><?php esc_html_e( "This option lets you choose those groups that you don't want to provide review functionality.", 'bp-group-reviews' ); ?></p>
+						if ( 'yes' === $allow_notification ) {
+							echo 'checked="checked"'; }
+						?>
+		>
+					<div class="wb-slider wb-round"></div>
+				</label>
+					<?php } ?>
+			</div>
+		</div>
+		<div class="bgr-row wbcom-settings-section-wrap">
+			<div class="wbcom-settings-section-options-heading">
+				<label>
+					<?php esc_html_e( 'Enable Review Activity', 'bp-group-reviews' ); ?>
+				</label>
+				<?php if ( bp_is_active( 'activity' ) ) { ?>
+					<p class="description"><?php esc_html_e( 'Enable this option, if you want to generate group review activities.', 'bp-group-reviews' ); ?></p>
+				<?php } else { ?>
+					<p class="description"><?php esc_html_e( 'This setting requires BuddyPress Activity Component to be active.', 'bp-group-reviews' ); ?></p>
+				<?php } ?>
+			</div>
+			<div class="wbcom-settings-section-options">
+					<?php if ( bp_is_active( 'activity' ) ) { ?>
+				<label class="wb-switch" for="bgr-activity">
+					<input type="checkbox" id="bgr-activity"
+						<?php
+						if ( 'yes' === $allow_activity ) {
+							echo 'checked="checked"'; }
+						?>
+				>
+					<div class="wb-slider wb-round"></div>
+				</label>
+				<?php } ?>
+			</div>
+		</div>
+		<div class="bgr-row wbcom-settings-section-wrap">
+			<div class="wbcom-settings-section-options-heading">
+				<label>
+					<?php esc_html_e( 'Emails', 'bp-group-reviews' ); ?>
+				</label>
+				<p class="description"><?php esc_html_e( 'Enable this option, if you want group admin & reviewer receive email when someone adds, accepts & denies review.', 'bp-group-reviews' ); ?></p>
+			</div>
+			<div class="wbcom-settings-section-options">
+				<label class="wb-switch" for="bgr-email">
+					<input type="checkbox" id="bgr-email"
+					<?php
+					if ( 'yes' === $allow_email ) {
+						echo 'checked="checked"'; }
+					?>
+			>
+					<div class="wb-slider wb-round"></div>
+				</label>
+			</div>
+		</div>
+		<div class="bgr-row wbcom-settings-section-wrap review-email-section" 
+					<?php
+					if ( 'yes' !== $allow_email ) :
+						?>
+			style="display:none;" <?php endif; ?>>
+			<div class="wbcom-settings-section-options-heading">
+				<label>
+					<?php esc_html_e( 'Email Subject', 'bp-group-reviews' ); ?>
+				</label>
+				<p class="description"><?php esc_html_e( 'Please add review email subject.', 'bp-group-reviews' ); ?></p>
+			</div>
+			<div class="wbcom-settings-section-options">
+				<input id="review_email_subject" class="large-text" name="review_email_subject" value="<?php echo esc_attr( $review_email_subject ); ?>" type="text" placeholder="Please enter review email subject.">
+			</div>
+		</div>
+
+		<div class="bgr-row wbcom-settings-section-wrap review-email-section" 
+					<?php
+					if ( 'yes' !== $allow_email ) :
+						?>
+			style="display:none;" <?php endif; ?>>
+			<div class="wbcom-settings-section-options-heading">
+				<label>
+					<?php esc_html_e( 'Email Message', 'bp-group-reviews' ); ?>
+				</label>
+				<p class="description"><?php esc_html_e( 'Please add review email message.', 'bp-group-reviews' ); ?></p>
+			</div>
+			<div class="wbcom-settings-section-options">
+				<textarea id="review_email_message" class="large-text" name="review_email_message" ><?php echo esc_html( $review_email_message ); ?></textarea>
+			</div>
+		</div>
+		<div class="bgr-row wbcom-settings-section-wrap">
+			<div class="wbcom-settings-section-options-heading">
+				<label>
+					<?php esc_html_e( 'Exclude Groups from Reviews', 'bp-group-reviews' ); ?>
+				</label>
+				<p class="description"><?php esc_html_e( "This option lets you choose those groups that you don't want to provide review functionality.", 'bp-group-reviews' ); ?></p>
+			</div>
+			<div class="wbcom-settings-section-options">
+			<select id="bgr-exclude-group-review" name="bgr-exclude-group[]" multiple >
+					<?php
+					if ( $allgroups ) {
+						foreach ( $allgroups['groups'] as $group ) :
+							if ( ! empty( $exclude_groups ) ) {
+								if ( in_array( $group->id, $exclude_groups ) ) {
+									?>
+								<option value="<?php echo esc_attr( $group->id ); ?>" <?php echo 'selected = selected'; ?>><?php echo esc_html( $group->name ); ?></option>
+								<?php } else { ?>
+								<option value="<?php echo esc_attr( $group->id ); ?>"><?php echo esc_html( $group->name ); ?></option>
+									<?php
+								}
+							} else {
+								?>
+								<option value="<?php echo esc_attr( $group->id ); ?>"><?php echo esc_html( $group->name ); ?></option>
+								<?php
+							}
+							endforeach;
+					}
+					?>
+					</select>
+			</div>
 		</div>
 	</div>
+</div>
 	<input type="button" class="button button-primary bgr-submit-button" id="bgr-save-admin-general-settings" value="<?php esc_html_e( 'Save Settings', 'bp-group-reviews' ); ?>">
 	<img src="<?php echo esc_url( $spinner_src ); ?>" class="bgr-admin-general-settings-spinner" />
-	<?php
+					<?php
 }

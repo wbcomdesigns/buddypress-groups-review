@@ -20,7 +20,7 @@ jQuery(document).ready(function () {
           var criteria_val = jQuery(this).val();
           field_values.push(criteria_val);
           jQuery(this)
-            .siblings(".bgr-switch")
+            .siblings(".wb-switch")
             .children(".bgr-criteria-state")
             .attr("data-attr", criteria_val);
         }
@@ -35,7 +35,7 @@ jQuery(document).ready(function () {
         ajaxurl,
         {
           action: "bgr_save_admin_criteria_settings",
-          nonce: wbcom_plugin_installer_params.wbcom_nonce,
+          nonce: bgr_admin_js.wbcom_nonce,
           field_values: field_values,
           active_criterias: criteria,
         },
@@ -86,7 +86,7 @@ jQuery(document).ready(function () {
       ajaxurl,
       {
         action: "bgr_save_admin_general_settings",
-        nonce: wbcom_plugin_installer_params.wbcom_nonce,
+        nonce: bgr_admin_js.wbcom_nonce,
         multi_reviews: bgr_multi_reviews,
         bgr_auto_approve_reviews: bgr_auto_approve_reviews,
         reviews_per_page: reviews_per_page,
@@ -120,7 +120,7 @@ jQuery(document).ready(function () {
       ajaxurl,
       {
         action: "bgr_save_admin_display_settings",
-        nonce: wbcom_plugin_installer_params.wbcom_nonce,
+        nonce: bgr_admin_js.wbcom_nonce,
         review_label: review_label,
         manage_review_label: manage_review_label,
         bgr_rating_color: bgr_rating_color,
@@ -204,7 +204,7 @@ jQuery(document).ready(function () {
       {
         action: "bgr_admin_approve_review",
         review_id: review_id,
-        nonce: wbcom_plugin_installer_params.wbcom_nonce,
+        nonce: bgr_admin_js.wbcom_nonce,
       },
       function (response) {
         if (response == "review-approved-successfully") {
@@ -223,6 +223,6 @@ function BGRGetBGRDynamicTextBox(value) {
     '<span>&equiv;</span><input name = "BGRDynamicTextBox" class="draggable" type="text" value = "' +
     value +
     '" />&nbsp;' +
-    '<input type="button" value="Remove" class="remove button button-secondary bgr-remove" /><label class="bgr-switch"><input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="" checked="checked" ><div class="bgr-slider round"></div></label>'
+    '<input type="button" value="Remove" class="remove button button-secondary bgr-remove" /><label class="wb-switch"><input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="" checked="checked" ><div class="wb-slider wb-round"></div></label>'
   );
 }

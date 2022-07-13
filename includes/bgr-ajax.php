@@ -334,7 +334,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 */
 		public function bgr_admin_approve_review() {
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
-			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'admin-ajax-nonce' ) ) {
 				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
 				wp_send_json_error( $error );
 			}
@@ -359,7 +359,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 */
 		public function bgr_save_admin_criteria_settings() {
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
-			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'admin-ajax-nonce' ) ) {
 				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
 				wp_send_json_error( $error );
 			}
@@ -389,7 +389,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 */
 		public function bgr_save_admin_general_settings() {
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
-			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'admin-ajax-nonce' ) ) {
 				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
 				wp_send_json_error( $error );
 			}
@@ -431,7 +431,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 */
 		public function bgr_save_admin_display_settings() {
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
-			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'admin-ajax-nonce' ) ) {
 				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
 				wp_send_json_error( $error );
 			}

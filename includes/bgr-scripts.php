@@ -84,6 +84,16 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 			$screen   = get_current_screen();
 			if ( ( strpos( $curr_url, 'review' ) == true ) || ( 'wb-plugins_page_group-review-settings' == $screen->base ) ) {
 				wp_enqueue_script( 'bgr-js-admin', BGR_PLUGIN_URL . 'admin/assets/js/bgr-admin.js', array( 'jquery' ), BGR_PLUGIN_VERSION, false );
+				wp_localize_script(
+					'bgr-js-admin',
+					'bgr_admin_js',
+					array(
+						'ajax_url'        => admin_url( 'admin-ajax.php' ),
+						'activate_text'   => esc_html__( 'Activate', 'bp-group-reviews' ),
+						'deactivate_text' => esc_html__( 'Deactivate', 'bp-group-reviews' ),
+						'wbcom_nonce'     => wp_create_nonce( 'admin-ajax-nonce' ),
+					)
+				);
 				wp_enqueue_style( 'wp-color-picker' );
 				wp_enqueue_script( 'bgr-colorpicker-handle', BGR_PLUGIN_URL . 'admin/assets/js/bgr-colorpicker.js', array( 'wp-color-picker' ), BGR_PLUGIN_VERSION, false );
 				if ( ! wp_style_is( 'wbcom-selectize-css', 'enqueued' ) ) {

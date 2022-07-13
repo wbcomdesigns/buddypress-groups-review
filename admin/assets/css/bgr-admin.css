@@ -324,3 +324,15 @@ button.bgr-accordion.active::after {
 .selectize-control{
 	position: inherit;
 }
+.nav-tab-wrapper ul .general a:before {
+	content: "\f111" !important;
+}
+.nav-tab-wrapper ul .criteria a:before {
+	content: "\f155" !important;
+}
+.nav-tab-wrapper ul .shortcode a:before {
+	content: "\f150" !important;
+}
+.nav-tab-wrapper ul .display a:before {
+	content: "\f478" !important;
+}

@@ -76,33 +76,46 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 					);
 					?>
 					<div class="wrap">
-											<hr class="wp-header-end">
-											<div class="wbcom-wrap">
-											<div class="bgr-header">
-													<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
-													<h1 class="wbcom-plugin-heading">
-															<?php esc_html_e( 'BuddyPress Group Reviews Settings', 'bp-group-reviews' ); ?>
-													</h1>
-											</div>
-											<div class="wbcom-admin-settings-page">
-													<div id="bgr-settings-updated" class="updated settings-error notice is-dismissible">
-															<p><strong><?php esc_html_e( 'BuddyPress Group Reviews Settings Saved.', 'bp-group-reviews' ); ?></strong></p>
-															<button type="button" class="notice-dismiss">
-																	<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'bp-group-reviews' ); ?></span>
-															</button>
-													</div>
-													<?php
-													$bgr_tab_html = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
-													foreach ( $bgr_tabs as $bgr_tab => $bgr_name ) {
-																	$class         = ( $bgr_tab == $current ) ? 'nav-tab-active' : '';
-																	$bgr_tab_html .= '<li><a class="nav-tab ' . $class . '" href="admin.php?page=group-review-settings&tab=' . $bgr_tab . '">' . $bgr_name . '</a></li>';
-													}
-													$bgr_tab_html .= '</div></ul></div>';
+						<div class="wbcom-bb-plugins-offer-wrapper">
+							<div id="wb_admin_logo">
+								<a href="https://wbcomdesigns.com/downloads/buddypress-community-bundle/" target="_blank">
+									<img src="<?php echo esc_url( BGR_PLUGIN_URL ) . 'admin/wbcom/assets/imgs/wbcom-offer-notice.png'; ?>">
+								</a>
+							</div>
+						</div>
+					<div class="wbcom-wrap">
+						<div class="bupr-header">
+							<div class="wbcom_admin_header-wrapper">
+								<div id="wb_admin_plugin_name">
+									<?php esc_html_e( 'BuddyPress Group Review', 'bp-group-reviews' ); ?>
+									<span><?php printf( __( 'Version %s', 'bp-group-reviews' ), BGR_PLUGIN_VERSION ); ?></span>
+								</div>
+								<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
+							</div>
+						</div>
+						<div id="bgr-settings-updated" class="updated settings-error notice is-dismissible" style="display:none;">
+								<p>
+									<strong>
+										<?php esc_html_e( 'BuddyPress Group Reviews Settings Saved.', 'bp-group-reviews' ); ?>
+									</strong>
+								</p>
+								<button type="button" class="notice-dismiss">
+										<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'bp-group-reviews' ); ?></span>
+								</button>
+						</div>
+						<div class="wbcom-admin-settings-page">								
+								<?php
+								$bgr_tab_html = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
+								foreach ( $bgr_tabs as $bgr_tab => $bgr_name ) {
+												$class         = ( $bgr_tab == $current ) ? 'nav-tab-active' : '';
+												$bgr_tab_html .= '<li class="' . $bgr_tab . '"><a class="nav-tab ' . $class . '" href="admin.php?page=group-review-settings&tab=' . $bgr_tab . '">' . $bgr_name . '</a></li>';
+								}
+								$bgr_tab_html .= '</div></ul></div>';
 
-													echo wp_kses_post( $bgr_tab_html );
-													echo '<div class="wbcom-tab-content">';
-													include 'review-admin-options-page.php';
-													echo '</div></div></div>';
+								echo wp_kses_post( $bgr_tab_html );
+								echo '<div class="wbcom-tab-content"><div class="wbcom-wrapper-admin">';
+								include 'review-admin-options-page.php';
+								echo '</div></div></div></div></div>';
 		}
 
 		/**
