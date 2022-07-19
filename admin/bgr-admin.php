@@ -36,6 +36,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		public function __construct() {
 			add_action( 'admin_menu', array( $this, 'bgr_add_submenu_page_admin_settings' ) );
 			add_action( 'admin_menu', array( $this, 'bgr_get_review_count' ) );
+			add_action( 'in_admin_header', array( $this, 'wbcom_hide_all_admin_notices_from_setting_page' ) );
 			$post_types = get_post_types();
 			if ( ! in_array( 'review', $post_types ) ) {
 				// Custom Post Type.
@@ -56,6 +57,22 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 				add_submenu_page( 'wbcomplugins', esc_html__( 'General', 'bp-group-reviews' ), esc_html__( 'General', 'bp-group-reviews' ), 'manage_options', 'wbcomplugins' );
 			}
 			add_submenu_page( 'wbcomplugins', esc_html__( 'Group Reviews', 'bp-group-reviews' ), esc_html__( 'Group Reviews', 'bp-group-reviews' ), 'manage_options', 'group-review-settings', array( $this, 'bgr_admin_options_page' ) );
+		}
+
+		/**
+		 * Hide all notices from the setting page.
+		 *
+		 * @return void
+		 */
+		public function wbcom_hide_all_admin_notices_from_setting_page() {
+			$wbcom_pages_array  = array( 'wbcomplugins', 'wbcom-plugins-page', 'wbcom-support-page', 'group-review-settings' );
+			$wbcom_setting_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : '';
+
+			if ( in_array( $wbcom_setting_page, $wbcom_pages_array, true ) ) {
+				remove_all_actions( 'admin_notices' );
+				remove_all_actions( 'all_admin_notices' );
+			}
+
 		}
 
 		/**
