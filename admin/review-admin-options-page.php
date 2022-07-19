@@ -88,9 +88,9 @@ function bgr_criteria_setting() {
 	<p class="description"><?php esc_html_e( 'This option provide you to add multiple rating criteria. By default, no criteria will be shown until you enable it.', 'bp-group-reviews' ); ?></p>
 	</div>
 </div>
-</div>
 <input type="button" class="button button-primary bgr-submit-button" id="bgr-save-admin-criteria-settings" value="<?php esc_html_e( 'Save Settings', 'bp-group-reviews' ); ?>">
 <img src="<?php echo esc_url( $spinner_src ); ?>" class="bgr-admin-criteria-settings-spinner" />
+</div>
 	<?php
 }
 
@@ -183,9 +183,9 @@ function bgr_display_setting() {
 			</div>
 		</div>
 	</div>
-</div>
 	<input type="button" class="button button-primary bgr-submit-button" id="bgr-save-admin-display-settings" value="<?php esc_html_e( 'Save Settings', 'bp-group-reviews' ); ?>">
 	<img src="<?php echo esc_url( $spinner_src ); ?>" class="bgr-admin-display-settings-spinner" />
+</div>
 	<?php
 }
 
@@ -418,8 +418,9 @@ Thanks';
 			</div>
 		</div>
 	</div>
-</div>
 	<input type="button" class="button button-primary bgr-submit-button" id="bgr-save-admin-general-settings" value="<?php esc_html_e( 'Save Settings', 'bp-group-reviews' ); ?>">
 	<img src="<?php echo esc_url( $spinner_src ); ?>" class="bgr-admin-general-settings-spinner" />
+</div>
+	
 					<?php
 }
