@@ -271,7 +271,7 @@ Thanks';
 					if ( 'yes' === $auto_approve_reviews ) {
 						echo 'checked="checked"'; }
 					?>
-		>
+					 >
 					<div class="wb-slider wb-round"></div>
 				</label>
 			</div>

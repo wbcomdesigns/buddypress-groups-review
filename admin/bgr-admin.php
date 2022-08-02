@@ -113,7 +113,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 						<div id="bgr-settings-updated" class="updated settings-error notice is-dismissible" style="display:none;">
 								<p>
 									<strong>
-										<?php esc_html_e( 'BuddyPress Group Reviews Settings Saved.', 'bp-group-reviews' ); ?>
+										<?php esc_html_e( 'Settings Saved.', 'bp-group-reviews' ); ?>
 									</strong>
 								</p>
 								<button type="button" class="notice-dismiss">
