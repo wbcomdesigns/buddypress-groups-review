@@ -50,7 +50,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			$current_user         = wp_get_current_user();
 			$member_id            = $current_user->ID;
 			$output               = '';
-
+			
 			$current_group_id = 0;
 			if ( ! empty( bp_get_current_group_id() ) ) {
 				$current_group_id = bp_get_current_group_id();
@@ -83,7 +83,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 					);
 					$output .= '</p>';
 					$output .= '</div>';
-			} elseif ( ! groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id() ) && is_user_logged_in() ) {
+			} elseif ( is_user_logged_in() ) {
 				// Get All groups of user in which user is admin.
 				if ( bp_is_group_single() ) {
 					if ( 'no' === $multi_reviews ) {
