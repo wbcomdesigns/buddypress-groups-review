@@ -16,9 +16,9 @@
 
 .bgr-row {
 	clear: both;
-	border-bottom: 1px solid #ddd;
+	/* border-bottom: 1px solid #ddd; */
 	overflow: hidden;
-	padding-bottom: 5px;
+	/* padding-bottom: 5px; */
 }
 
 .bgr-col-1 {
