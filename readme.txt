@@ -104,6 +104,10 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 4. Plugin settings.(png|jpg|jpeg|gif).
 
 == Changelog ==
+= 2.8.6 =
+* Fix: Backend ui managed
+* Fix: (#121) Fixed when click add review no forms shows to add a review
+
 = 2.8.5 =
 * Fix: Updated admin wrapper
 
