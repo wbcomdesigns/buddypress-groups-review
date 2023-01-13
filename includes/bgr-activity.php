@@ -255,6 +255,7 @@ class BGR_Activity {
 		$post_id              = $activity->secondary_item_id;
 		$review_rating_fields = $bgr['review_rating_fields'];
 		$review_ratings       = get_post_meta( $post_id, 'review_star_rating', false );
+		$review_start         = '';
 		if ( ! empty( $review_rating_fields ) && ! empty( $review_ratings[0] ) ) {
 			$review_start .= '<div class="bgr-multi-review">';
 			foreach ( $review_rating_fields as $review_field ) {
