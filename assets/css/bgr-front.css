@@ -254,3 +254,28 @@
     padding: 0 5px;
     color:green;
 }
+
+#group-reviews-list .review-pagination {
+    text-align: center;
+    display: flex;
+}
+#group-reviews-list .review-pagination .page-numbers {
+    font-size: 16px;
+    margin: 2px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-transform: capitalize;
+    background:#f5f5f5;
+    border-radius: 50%;
+}
+#group-reviews-list .review-pagination span.page-numbers.current {
+    color: #000;
+    font-weight: bold;
+}
+#group-reviews-list .review-pagination a.next.page-numbers,
+#group-reviews-list .review-pagination a.prev.page-numbers {
+    width: 70px;
+    border-radius: 100px;
+}
