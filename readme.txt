@@ -4,7 +4,7 @@ Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
 Tested up to: 6.1.1
-Stable tag: 2.8.6
+Stable tag: 2.8.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,11 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 4. Plugin settings.(png|jpg|jpeg|gif).
 
 == Changelog ==
+= 2.8.7 =
+* Fix: (#126) UI issue in pagination
+* Fix: (#122) Fixed warnings
+* Fix: Added missing review image
+
 = 2.8.6 =
 * Fix: Backend ui managed
 * Fix: (#121) Fixed when click add review no forms shows to add a review
