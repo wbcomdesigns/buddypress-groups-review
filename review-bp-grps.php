@@ -197,11 +197,13 @@ function run_bp_group_reviews_plugin() {
  * @param string $plugin Path to the plugin file relative to the plugins directory.
  */
 function bp_group_reviews_activation_redirect_settings( $plugin ) {
-	if ( class_exists( 'BuddyPress' ) ) {
-		if ( plugin_basename( __FILE__ ) === $plugin ) {
+	
+	if ( plugin_basename( __FILE__ ) === $plugin && class_exists( 'BuddyPress' ) ) {
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) {
 			wp_safe_redirect( admin_url( 'admin.php?page=group-review-settings' ) );
 			exit;
 		}
 	}
+	
 }
 add_action( 'activated_plugin', 'bp_group_reviews_activation_redirect_settings' );
