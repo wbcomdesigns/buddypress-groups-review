@@ -41,6 +41,13 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			add_action( 'bp_before_group_header_meta', array( $this, 'bgr_group_average_rating' ) );
 			add_action( 'bp_group_header_actions', array( $this, 'bgr_group_header_review_btn' ) );
 			add_action( 'bp_directory_groups_item', array( $this, 'bgr_group_directory_rating' ) );
+			/**
+			 * Gamipress integration
+			 */
+			if ( class_exists( 'GamiPress_BuddyPress' ) || class_exists( 'GamiPress_BuddyBoss' ) ) {
+				add_filter( 'gamipress_activity_triggers', array( $this, 'buddypress_groups_review_bp_activity_triggers' ) );
+				add_filter( 'gamipress_trigger_get_user_id', array( $this, 'buddypress_groups_review_trigger_get_user_id' ), 10, 3 );
+			}
 		}
 
 		/**
@@ -461,6 +468,27 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			} elseif ( sanitize_title( $bgr['manage_review_label'] ) === bp_current_action() ) {
 				include 'templates/bgr-reviews-tab-template.php';
 			}
+		}
+
+		/**
+		 * Register BuddyPress Groups Review triggers
+		 *
+		 * @param array $triggers
+		 * @return mixed
+		 */
+		public function buddypress_groups_review_bp_activity_triggers( $triggers ) {
+			$triggers[ __( 'BuddyPress Group Review', 'bp-group-reviews' ) ] = array(
+				'gamipress_bp_group_review' => __( 'Give Group Review', 'bp-group-reviews' ),
+			);
+
+			return $triggers;
+		}
+
+		public function buddypress_groups_review_trigger_get_user_id( $user_id, $trigger, $args ) {
+			if ( 'gamipress_bp_group_review' === $trigger ) {
+				$user_id = $args[0];
+			}
+			return $user_id;
 		}
 
 

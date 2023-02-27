@@ -345,6 +345,8 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					'post_status' => 'publish',
 				);
 				wp_update_post( $args );
+				$author_id = get_post_field( 'post_author', $rid );
+				do_action( 'gamipress_bp_group_review', $author_id );
 				echo 'review-approved-successfully';
 				die;
 			}
@@ -544,6 +546,11 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					'post_status'  => $review_status,
 				);
 				$review_id       = wp_insert_post( $add_review_args );
+
+				if ( 'publish' === $review_status ) {
+					do_action( 'gamipress_bp_group_review', $member_id );
+				}
+
 				do_action( 'bgr_group_review_after_review_insert' );
 				$post_author_id = get_post_field( 'post_author', $review_id );
 				wp_set_object_terms( $review_id, 'Group', 'review_category' );
