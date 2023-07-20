@@ -44,7 +44,8 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			/**
 			 * Gamipress integration
 			 */
-			if ( class_exists( 'GamiPress_BuddyPress' ) || class_exists( 'GamiPress_BuddyBoss' ) ) {
+			$active_plugins = get_option( 'active_plugins' );
+			if ( in_array( 'gamipress/gamipress.php', $active_plugins ) ) {
 				add_filter( 'gamipress_activity_triggers', array( $this, 'buddypress_groups_review_bp_activity_triggers' ) );
 				add_filter( 'gamipress_trigger_get_user_id', array( $this, 'buddypress_groups_review_trigger_get_user_id' ), 10, 3 );
 			}
