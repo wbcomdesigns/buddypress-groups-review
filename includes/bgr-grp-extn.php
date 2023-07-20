@@ -36,7 +36,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		 * @param  array $args Arguments.
 		 * @return void
 		 */
-		public function init( $args = array() ) {
+		public function __construct( $args = array() ) {
 			// if ( ! is_user_logged_in() ) {
 			// return false;
 			// }
