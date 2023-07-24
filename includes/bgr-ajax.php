@@ -486,7 +486,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			/* Translators: %1$s: Review Label %2$s Group Name %3$s User Name %4$s User Link */
 			$review_email_message = ( isset( $bgr['review_email_message'] ) ) ? $bgr['review_email_message'] : esc_html__( 'A new %1$s for %2$s added by %3$s. Link: %4$s', 'bp-group-reviews' );
 			if ( isset( $_POST['data'] ) ) {
-				wp_parse_str( wp_unslash( filter_input( INPUT_POST, 'data', FILTER_SANITIZE_STRING ) ), $formarray );
+				wp_parse_str( wp_unslash( filter_input( INPUT_POST, 'data', FILTER_UNSAFE_RAW ) ), $formarray );
 			}
 			$review_subject = sanitize_text_field( $formarray['review-subject'] );
 			$review_desc    = sanitize_text_field( $formarray['review-desc'] );
