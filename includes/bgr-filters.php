@@ -39,7 +39,12 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			add_filter( 'post_row_actions', array( $this, 'bgr_group_reviews_row_actions' ), 10, 2 );
 			add_filter( 'bulk_actions-edit-review', array( $this, 'bgr_remove_edit_bulk_actions' ), 10, 1 );
 			add_action( 'bp_before_group_header_meta', array( $this, 'bgr_group_average_rating' ) );
-			add_action( 'bp_group_header_actions', array( $this, 'bgr_group_header_review_btn' ) );
+			$active_plugins = get_option( 'active_plugins' );
+			if ( in_array( 'buddyboss-platform/bp-loader.php', $active_plugins ) ) {
+				add_action( 'bb_group_single_top_header_action', array( $this, 'bgr_group_header_review_btn' ) );
+			} else {
+				add_action( 'bp_group_header_actions', array( $this, 'bgr_group_header_review_btn' ) );
+			}
 			add_action( 'bp_directory_groups_item', array( $this, 'bgr_group_directory_rating' ) );
 			/**
 			 * Gamipress integration
