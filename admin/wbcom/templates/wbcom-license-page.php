@@ -10,7 +10,10 @@
 		<div class="wbcom_admin_header-wrapper">
 			<div id="wb_admin_plugin_name">
 				<?php esc_html_e( 'BuddyPress Group Review', 'bp-group-reviews' ); ?>
-				<span><?php printf( __( 'Version %s', 'bp-group-reviews' ), BGR_PLUGIN_VERSION ); ?></span>
+				<span><?php 
+				/* translators: %s: */
+				printf( esc_html__( 'Version %s', 'bp-group-reviews' ), esc_attr( BGR_PLUGIN_VERSION ) ); ?>
+				</span>
 			</div>
 			<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
 		</div>
