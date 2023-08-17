@@ -3,8 +3,8 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
-Tested up to: 6.1.1
-Stable tag: 2.8.7
+Tested up to: 6.3.0
+Stable tag: 2.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,13 @@ Please visit https://wbcomdesigns.com/contact/ for any query related to plugin a
 4. Plugin settings.(png|jpg|jpeg|gif).
 
 == Changelog ==
+= 2.9.0 =
+* Fix: (#132) Fixed two group review button
+* Fix: (#131) Fix Console error
+* Fix: (#128) Fixed gamipress integration issue
+* Fix: (#129) Fixed exclude group option issue
+* Fix: (#130) Fixed logout-user-issue
+
 = 2.8.7 =
 * Fix: (#126) UI issue in pagination
 * Fix: (#122) Fixed warnings
