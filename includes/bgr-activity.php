@@ -160,7 +160,7 @@ class BGR_Activity {
 			$user_link,
 			$group_link_html
 		);
-		if ( 'yes' == $allow_activity ) {
+		if ( 'yes' == $allow_activity && bp_current_component() == 'groups' ) {
 			$args        = array(
 				'action'            => $action,
 				'content'           => $review_content,
