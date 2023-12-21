@@ -79,12 +79,18 @@ function bgr_review_globals() {
 		$multi_reviews        = 'no';
 		$reviews_per_page     = 3;
 		$allow_email          = 'no';
-		$review_email_subject = 'A new review posted.';
-		$review_email_message = 'Hello
+		$review_email_subject = 'New Review Submitted for Your Group [group-name] on [site-name]';
+		$review_email_message = 'Hello [admin-name],
 
-A new review for [group-name] added by [user-name]. Link: [review-link]
+We are excited to inform you that a new review has been submitted for your group, [group-name], by [user-name]. Your members\'s feedback is invaluable in fostering a vibrant and engaging community.
 
-Thanks';
+You can read and respond to the review by following the link below:
+[review-link]
+
+Thank you for creating a space where members can share their thoughts and experiences. Keep up the great work!
+
+Best regards,
+The [site-name] Team';
 		$allow_notification   = 'no';
 		$allow_activity       = 'no';
 		$exclude_groups       = array();

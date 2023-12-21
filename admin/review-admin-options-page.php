@@ -218,12 +218,18 @@ function bgr_general_setting() {
 	$spinner_src          = includes_url() . 'images/spinner.gif';
 	$auto_approve_reviews = $bgr['auto_approve_reviews'];
 	$reviews_per_page     = $bgr['reviews_per_page'];
-	$review_email_subject = ( isset( $bgr['review_email_subject'] ) ) ? $bgr['review_email_subject'] : 'A new review posted.';
-	$review_email_message = ( isset( $bgr['review_email_message'] ) ) ? $bgr['review_email_message'] : 'Hello
+	$review_email_subject = ( isset( $bgr['review_email_subject'] ) ) ? $bgr['review_email_subject'] : 'New Review Submitted for Your Group [group-name] on [site-name]';
+	$review_email_message = ( isset( $bgr['review_email_message'] ) ) ? $bgr['review_email_message'] : 'Hello [admin-name],
 
-A new review for [group-name] added by [user-name]. Link: [review-link]
+We are excited to inform you that a new review has been submitted for your group, [group-name], by [user-name]. Your members\'s feedback is invaluable in fostering a vibrant and engaging community.
 
-Thanks';
+You can read and respond to the review by following the link below:
+[review-link]
+
+Thank you for creating a space where members can share their thoughts and experiences. Keep up the great work!
+
+Best regards,
+The [site-name] Team';
 	$allow_email          = $bgr['allow_email'];
 	$allow_notification   = $bgr['allow_notification'];
 	$allow_activity       = $bgr['allow_activity'];

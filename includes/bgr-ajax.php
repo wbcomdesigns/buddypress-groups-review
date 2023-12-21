@@ -556,7 +556,11 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				wp_set_object_terms( $review_id, 'Group', 'review_category' );
 				update_post_meta( $review_id, 'linked_group', $form_group_id );
 				$group      = groups_get_group( array( 'group_id' => $form_group_id ) );
+				$creator_id = $group->creator_id;
+				$creator_info = get_userdata($creator_id);
+				$creator_name = $creator_info->display_name;
 				$group_name = $group->name;
+				$site_name = get_bloginfo('name');
 				$user_info  = get_userdata( $post_author_id );
 				$user_name  = $user_info->user_login;
 
@@ -566,12 +570,50 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					// $mail_link = bp_get_groups_directory_permalink() . $group->slug . '/admin/manage-reviews/';
 					$mail_link = admin_url( 'edit.php?post_type=review' );
 				}
-				/* translators: %1$s is replaced with review_label, */
-				$mail_title = $review_email_subject;
+				// Default subject template
+				$default_email_subject = "New Review Submitted for Your Group [group-name] on [site-name]";
+
+				// Replace default placeholders in the subject template
+				$mail_title = str_replace(
+					array('[group-name]', '[user-name]', '[admin-name]', '[site-name]'),
+					array($group_name, $user_name, $creator_name, $site_name),
+					$default_email_subject
+				);
+
+				// Use custom subject if set
+				if (
+					isset($bgr['review_email_subject']) && !empty($bgr['review_email_subject'])
+				) {
+					$mail_title = str_replace(
+						array('[group-name]', '[user-name]', '[admin-name]', '[site-name]'),
+						array($group_name, $user_name, $creator_name, $site_name),
+						$bgr['review_email_subject']
+					);
+				}
+
 				/* translators: %1$s, %2$s and %3$s are replaced with review_label, group_name and user_name respectively.  */
-				$review_email_message = ( isset( $bgr['review_email_message'] ) ) ? $bgr['review_email_message'] : sprintf( esc_html__( 'A new %1$s for %2$s added by %3$s. Link: %4$s', 'bp-group-reviews' ), $review_label, $group_name, $user_name, esc_url( $mail_link ) );
-				$review_email_message = str_replace( array( '[group-name]', '[user-name]', '[review-link]' ), array( $group_name, $user_name, $mail_link ), $review_email_message );
-				$mail_content         = $review_email_message;
+				// Default message template
+				$default_email_message = "Hello [admin-name],\n\nWe're excited to inform you that a new review has been submitted for your group, [group-name], by [user-name]. Your members' feedback is invaluable in fostering a vibrant and engaging community.\n\nYou can read and respond to the review by following the link below:\n[review-link]\n\nThank you for creating a space where members can share their thoughts and experiences. Keep up the great work!\n\nBest regards,\nThe [site-name] Team";
+
+				// Replace default placeholders in the template
+				$review_email_message = str_replace(
+					array('[group-name]', '[user-name]', '[review-link]', '[admin-name]', '[site-name]'),
+					array($group_name, $user_name, esc_url($mail_link), $creator_name, $site_name),
+					$default_email_message
+				);
+
+				// Use custom message if set
+				if (
+					isset($bgr['review_email_message']) && !empty($bgr['review_email_message'])
+				) {
+					$review_email_message = str_replace(
+						array('[group-name]', '[user-name]', '[review-link]', '[admin-name]', '[site-name]'),
+						array($group_name, $user_name, esc_url($mail_link), $creator_name, $site_name),
+						$bgr['review_email_message']
+					);
+				}
+
+				$mail_content = $review_email_message;
 
 				if ( ! empty( $rated_stars ) ) {
 					update_post_meta( $review_id, 'review_star_rating', $rated_stars );
