@@ -374,14 +374,13 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				$review_label               = isset( $bgr['manage_review_label'] ) ? $bgr['manage_review_label'] : '';
 
 				$args = array(
-					'category'         => 'group',
-					'orderby'          => 'post_date',
-					'order'            => 'DESC',
-					'meta_key'         => 'linked_group',
-					'meta_value'       => $bp->groups->current_group->id,
-					'post_type'        => 'review',
-					'post_status'      => 'publish',
-					'suppress_filters' => true,
+					'category'     => 'group',
+					'orderby'      => 'post_date',
+					'order'        => 'DESC',
+					'meta_key'     => 'linked_group',
+					'meta_value'   => $bp->groups->current_group->id,
+					'post_type'    => 'review',
+					'post_status'  => 'publish'
 				);
 
 				$post_count   = 0;

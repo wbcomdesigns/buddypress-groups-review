@@ -324,7 +324,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$result = array(
 					'html' => $html,
 				);
-				echo json_encode( $result );
+				echo wp_json_encode($result);
 			}
 			die;
 		}

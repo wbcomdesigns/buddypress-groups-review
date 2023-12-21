@@ -90,7 +90,7 @@ class bgr_single_group_rating_widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance                   = $old_instance;
-		$instance['widget_title']   = strip_tags( $new_instance['widget_title'] );
+		$instance['widget_title']   = wp_strip_all_tags($new_instance['widget_title']);
 		$instance['post_num']       = $new_instance['post_num'];
 		$instance['rating_default'] = $new_instance['rating_default'];
 		return $instance;
