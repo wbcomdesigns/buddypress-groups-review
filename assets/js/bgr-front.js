@@ -25,7 +25,7 @@ jQuery(document).ready(function (e) {
       ajaxurl,
       {
         action: "bgr_accept_review",
-        nonce: wbcom_plugin_installer_params.wbcom_nonce,
+        nonce: bgr_front_js_object.wbcom_nonce,
         accept_review_id: accept_review_id,
         group_id: accept_gid,
       },
@@ -43,6 +43,7 @@ jQuery(document).ready(function (e) {
       ajaxurl,
       {
         action: "bgr_deny_review",
+        nonce: bgr_front_js_object.wbcom_nonce,
         deny_review_id: deny_review_id,
         group_id: deny_gid,
       },

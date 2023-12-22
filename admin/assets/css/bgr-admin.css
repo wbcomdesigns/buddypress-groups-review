@@ -353,6 +353,10 @@ button.bgr-accordion.active::after {
 	content: "\f478" !important;
 }
 
+.nav-tab-wrapper ul .emails a:before {
+	content: "\f465" !important;
+}
+
 div#bgr-settings-updated {
 	position: absolute;
 	right: 50px;

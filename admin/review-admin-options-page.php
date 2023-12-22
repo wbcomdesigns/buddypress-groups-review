@@ -40,6 +40,9 @@ function bgr_include_admin_setting_tabs( $bgr_setting_tab = 'welcome' ) {
 		case 'display':
 			bgr_display_setting();
 			break;
+		case 'emails':
+			bgr_emails_setting();
+			break;
 		default:
 			bgr_general_setting();
 	}
@@ -345,56 +348,6 @@ The [site-name] Team';
 		<div class="bgr-row wbcom-settings-section-wrap">
 			<div class="wbcom-settings-section-options-heading">
 				<label>
-					<?php esc_html_e( 'Emails', 'bp-group-reviews' ); ?>
-				</label>
-				<p class="description"><?php esc_html_e( 'Enable this option, if you want group admin & reviewer receive email when someone adds, accepts & denies review.', 'bp-group-reviews' ); ?></p>
-			</div>
-			<div class="wbcom-settings-section-options">
-				<label class="wb-switch" for="bgr-email">
-					<input type="checkbox" id="bgr-email"
-					<?php
-					if ( 'yes' === $allow_email ) {
-						echo 'checked="checked"'; }
-					?>
-			>
-					<div class="wb-slider wb-round"></div>
-				</label>
-			</div>
-		</div>
-		<div class="bgr-row wbcom-settings-section-wrap review-email-section" 
-					<?php
-					if ( 'yes' !== $allow_email ) :
-						?>
-			style="display:none;" <?php endif; ?>>
-			<div class="wbcom-settings-section-options-heading">
-				<label>
-					<?php esc_html_e( 'Email Subject', 'bp-group-reviews' ); ?>
-				</label>
-				<p class="description"><?php esc_html_e( 'Please add review email subject.', 'bp-group-reviews' ); ?></p>
-			</div>
-			<div class="wbcom-settings-section-options">
-				<input id="review_email_subject" class="large-text" name="review_email_subject" value="<?php echo esc_attr( $review_email_subject ); ?>" type="text" placeholder="Please enter review email subject.">
-			</div>
-		</div>
-
-		<div class="bgr-row wbcom-settings-section-wrap review-email-section" 
-					<?php
-					if ( 'yes' !== $allow_email ) :
-						?>
-			style="display:none;" <?php endif; ?>>
-			<div class="wbcom-settings-section-options-heading">
-				<label>
-					<?php esc_html_e( 'Email Message', 'bp-group-reviews' ); ?>
-				</label>
-				<p class="description"><?php esc_html_e( 'Please add review email message.', 'bp-group-reviews' ); ?></p>
-			</div>
-			<div class="wbcom-settings-section-options">
-				<textarea id="review_email_message" class="large-text" name="review_email_message" ><?php echo esc_html( $review_email_message ); ?></textarea>
-			</div>
-		</div>
-		<div class="bgr-row wbcom-settings-section-wrap">
-			<div class="wbcom-settings-section-options-heading">
-				<label>
 					<?php esc_html_e( 'Exclude Groups from Reviews', 'bp-group-reviews' ); ?>
 				</label>
 				<p class="description"><?php esc_html_e( "This option lets you choose those groups that you don't want to provide review functionality.", 'bp-group-reviews' ); ?></p>
@@ -429,4 +382,187 @@ The [site-name] Team';
 </div>
 	
 					<?php
+}
+
+/**
+ * Email settiong option.
+ *
+ */
+function bgr_emails_setting() {
+	$bp_group_review_email_settigs = get_option( 'bp_group_review_email_settigs' );
+	$review_email_subject = ( isset( $bp_group_review_email_settigs['review_email_subject'] ) ) ? $bp_group_review_email_settigs['review_email_subject'] : 'New Review Submitted for Your Group [group-name] on [site-name]';
+	$review_email_message = ( isset( $bp_group_review_email_settigs['review_email_message'] ) ) ? $bp_group_review_email_settigs['review_email_message'] : 'Hello [admin-name],<br><br>We are excited to inform you that a new review has been submitted for your group [group-name], by [user-name]. Your members\'s feedback is invaluable in fostering a vibrant and engaging community.<br><br>You can read and respond to the review by following the link below:[review-link]<br><br>Thank you for creating a space where members can share their thoughts and experiences. Keep up the great work!<br><br>Best regards,<br>The [site-name] Team';
+	$review_accept_email_subject = ( isset( $bp_group_review_email_settigs['review_accept_email_subject'] ) ) ? $bp_group_review_email_settigs['review_accept_email_subject'] : 'Your review for the Group [group-name] on [site-name] is approved';
+	$review_accept_email_message = ( isset( $bp_group_review_email_settigs['review_accept_email_message'] ) ) ? $bp_group_review_email_settigs['review_accept_email_message'] : 'Hello [admin-name],<br><br>We are pleased to inform you that your review for the group, [group-name] on [site-name] has been reviewed and approved by the administrator.<br><br>We appreciate the time and effort you took to share your thoughts about the group.[review-link]<br><br>Thank you for being an active and valuable member of our community.<br><br>Best regards,<br>The [site-name] Team';
+	$review_deny_email_subject = ( isset( $bp_group_review_email_settigs['review_deny_email_subject'] ) ) ? $bp_group_review_email_settigs['review_deny_email_subject'] : 'Your review for the Group [group-name] on [site-name] is denied';
+	$review_deny_email_message = ( isset( $bp_group_review_email_settigs['review_deny_email_message'] ) ) ? $bp_group_review_email_settigs['review_deny_email_message'] : 'Hello [admin-name],<br><br>We regret to inform you that after careful consideration, your review for the group, [group-name] on [site-name] has been denied by the administrator.<br><br>While we appreciate your willingness to share your thoughts and feedback, it seems that certain aspects of the review did not align with our community guidelines or policies.[review-link]<br><br>Thank you for your understanding and cooperation.<br><br>Best regards,<br>The [site-name] Team';
+	?>
+	<div class="wbcom-admin-title-section">
+		<h3><?php esc_html_e( 'Emails Setting', 'bp-group-reviews' ); ?></h3>
+	</div>
+	<div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">
+		<form method="post" action="options.php">
+		<?php
+			settings_fields( 'bp_group_review_email_settigs' );
+			do_settings_sections( 'bp_group_review_email_settigs' );
+		?>
+			<div class="form-table">
+				<label>
+					<h3><?php esc_html_e( 'Submit Review', 'bp-group-reviews' ); ?></h3>
+				</label>
+				<div class="bgr-row wbcom-settings-section-wrap">
+					<label></label>
+					<div class="wbcom-settings-section-options-heading">
+						<label>
+							<?php esc_html_e( 'Emails', 'bp-group-reviews' ); ?>
+						</label>
+						<p class="description"><?php esc_html_e( 'Enable this option, if you want group admin & reviewer receive email when someone adds, accepts & denies review.', 'bp-group-reviews' ); ?></p>
+					</div>
+					<div class="wbcom-settings-section-options">
+						<label class="wb-switch" for="bgr-allow-email">
+							<input type="checkbox" id="bgr-allow-email" name="bp_group_review_email_settigs[bgr_allow_email]" value="yes"<?php ( isset( $bp_group_review_email_settigs['bgr_allow_email'] ) ) ? checked( $bp_group_review_email_settigs['bgr_allow_email'], 'yes' ) : ''; ?>>
+							<div class="wb-slider wb-round"></div>
+						</label>
+					</div>
+				</div>
+				<div class="bgr-row wbcom-settings-section-wrap review-email-section">
+					<div class="wbcom-settings-section-options-heading">
+						<label>
+							<?php esc_html_e( 'Email Subject', 'bp-group-reviews' ); ?>
+						</label>
+						<p class="description"><?php esc_html_e( 'Please add review email subject.', 'bp-group-reviews' ); ?></p>
+					</div>
+					<div class="wbcom-settings-section-options">
+						<input id="review_email_subject" class="large-text" name="bp_group_review_email_settigs[review_email_subject]" value="<?php echo esc_attr( $review_email_subject ); ?>" type="text" placeholder="Please enter review email subject.">
+					</div>
+				</div>
+
+				<div class="bgr-row wbcom-settings-section-wrap review-email-section">
+					<div class="wbcom-settings-section-options-heading">
+						<label>
+							<?php esc_html_e( 'Email Message', 'bp-group-reviews' ); ?>
+						</label>
+						<p class="description"><?php esc_html_e( 'Please add review email message.', 'bp-group-reviews' ); ?></p>
+					</div>
+					<div class="wbcom-settings-section-options">
+						<!-- <textarea id="review_email_message" class="large-text" name="bp_group_review_email_settigs[review_email_message]" ><?php echo esc_html( $review_email_message ); ?></textarea> -->
+						<?php
+						wp_editor(
+							$review_email_message,
+							'bgr-email-message',
+							array(
+								'media_buttons' => false,
+								'textarea_name' => 'bp_group_review_email_settigs[review_email_message]',
+							)
+						);
+						?>
+					</div>
+				</div>
+				
+				<label>
+					<h3><?php esc_html_e( 'Accept Review', 'bp-group-reviews' ); ?></h3>
+				</label>
+				<div class="bgr-row wbcom-settings-section-wrap">
+					<div class="wbcom-settings-section-options-heading">
+						<label>
+							<?php esc_html_e( 'Emails', 'bp-group-reviews' ); ?>
+						</label>
+						<p class="description"><?php esc_html_e( 'Enable this option, if you want group admin & reviewer receive email when someone adds, accepts & denies review.', 'bp-group-reviews' ); ?></p>
+					</div>
+					<div class="wbcom-settings-section-options">
+						<label class="wb-switch" for="bgr-accept-enable">
+							<input type="checkbox" id="bgr-accept-enable" name="bp_group_review_email_settigs[bgr_accept_enable]" value="yes"<?php ( isset( $bp_group_review_email_settigs['bgr_accept_enable'] ) ) ? checked( $bp_group_review_email_settigs['bgr_accept_enable'], 'yes' ) : ''; ?>>
+							<div class="wb-slider wb-round"></div>
+						</label>
+					</div>
+				</div>
+				<div class="bgr-row wbcom-settings-section-wrap review-accept-email-section">
+					<div class="wbcom-settings-section-options-heading">
+						<label>
+							<?php esc_html_e( 'Email Subject', 'bp-group-reviews' ); ?>
+						</label>
+						<p class="description"><?php esc_html_e( 'Please add review email subject.', 'bp-group-reviews' ); ?></p>
+					</div>
+					<div class="wbcom-settings-section-options">
+						<input id="review_accept_email_subject" class="large-text" name="bp_group_review_email_settigs[review_accept_email_subject]" value="<?php echo esc_attr( $review_accept_email_subject ); ?>" type="text" placeholder="Please enter review email subject.">
+					</div>
+				</div>
+
+				<div class="bgr-row wbcom-settings-section-wrap review-accept-email-section">
+					<div class="wbcom-settings-section-options-heading">
+						<label>
+							<?php esc_html_e( 'Email Message', 'bp-group-reviews' ); ?>
+						</label>
+						<p class="description"><?php esc_html_e( 'Please add review email message.', 'bp-group-reviews' ); ?></p>
+					</div>
+					<div class="wbcom-settings-section-options">
+						<!-- <textarea id="review_accept_email_message" class="large-text" name="bp_group_review_email_settigs[review_accept_email_message]" ><?php //echo esc_html( $review_email_message ); ?></textarea>
+					-->
+					<?php
+						wp_editor(
+							$review_accept_email_message,
+							'bgr-accept-email-message',
+							array(
+								'media_buttons' => false,
+								'textarea_name' => 'bp_group_review_email_settigs[review_accept_email_message]',
+							)
+						);
+					?>
+					</div>
+				</div>
+				<label>
+					<h3><?php esc_html_e( 'Deny Review', 'bp-group-reviews' ); ?></h3>
+				</label>
+				<div class="bgr-row wbcom-settings-section-wrap">
+					<div class="wbcom-settings-section-options-heading">
+						<label>
+							<?php esc_html_e( 'Emails', 'bp-group-reviews' ); ?>
+						</label>
+						<p class="description"><?php esc_html_e( 'Enable this option, if you want group admin & reviewer receive email when someone adds, accepts & denies review.', 'bp-group-reviews' ); ?></p>
+					</div>
+					<div class="wbcom-settings-section-options">
+						<label class="wb-switch" for="bgr-deny-email">
+							<input type="checkbox" id="bgr-deny-email" name="bp_group_review_email_settigs[bgr_deny_email]" value="yes"<?php ( isset( $bp_group_review_email_settigs['bgr_deny_email'] ) ) ? checked( $bp_group_review_email_settigs['bgr_deny_email'], 'yes' ) : ''; ?>>
+							<div class="wb-slider wb-round"></div>
+						</label>
+					</div>
+				</div>
+				<div class="bgr-row wbcom-settings-section-wrap review-deny-email-section">
+					<div class="wbcom-settings-section-options-heading">
+						<label>
+							<?php esc_html_e( 'Email Subject', 'bp-group-reviews' ); ?>
+						</label>
+						<p class="description"><?php esc_html_e( 'Please add review email subject.', 'bp-group-reviews' ); ?></p>
+					</div>
+					<div class="wbcom-settings-section-options">
+						<input id="review_deny_email_subject" class="large-text" name="bp_group_review_email_settigs[review_deny_email_subject]" value="<?php echo esc_attr( $review_deny_email_subject ); ?>" type="text" placeholder="Please enter review email subject.">
+					</div>
+				</div>
+
+				<div class="bgr-row wbcom-settings-section-wrap review-deny-email-section">
+					<div class="wbcom-settings-section-options-heading">
+						<label>
+							<?php esc_html_e( 'Email Message', 'bp-group-reviews' ); ?>
+						</label>
+						<p class="description"><?php esc_html_e( 'Please add review email message.', 'bp-group-reviews' ); ?></p>
+					</div>
+					<div class="wbcom-settings-section-options">
+						<!-- <textarea id="review_deny_email_message" class="large-text" name="bp_group_review_email_settigs[review_deny_email_message]" ><?php //echo esc_html( $review_email_message ); ?></textarea> -->
+						<?php
+						wp_editor(
+							$review_deny_email_message,
+							'bgr-deny-email-message',
+							array(
+								'media_buttons' => false,
+								'textarea_name' => 'bp_group_review_email_settigs[review_deny_email_message]',
+							)
+						);
+						?>
+					</div>
+				</div>
+			</div>
+			<?php submit_button(); ?>
+		</form>
+	</div>
+	<?php
 }

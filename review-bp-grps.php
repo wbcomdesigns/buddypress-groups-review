@@ -200,13 +200,22 @@ function run_bp_group_reviews_plugin() {
  * @param string $plugin Path to the plugin file relative to the plugins directory.
  */
 function bp_group_reviews_activation_redirect_settings( $plugin ) {
-	
+
 	if ( plugin_basename( __FILE__ ) === $plugin && class_exists( 'BuddyPress' ) ) {
 		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) { //phpcs:ignore
 			wp_safe_redirect( admin_url( 'admin.php?page=group-review-settings' ) );
 			exit;
 		}
 	}
-	
+
 }
 add_action( 'activated_plugin', 'bp_group_reviews_activation_redirect_settings' );
+
+/**
+ * Save option of email setting.
+ *
+ */
+function bp_group_review_save_email_settigs() {
+	register_setting( 'bp_group_review_email_settigs', 'bp_group_review_email_settigs' );
+}
+add_action( 'admin_menu', 'bp_group_review_save_email_settigs' );
