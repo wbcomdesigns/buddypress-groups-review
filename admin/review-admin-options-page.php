@@ -391,11 +391,26 @@ The [site-name] Team';
 function bgr_emails_setting() {
 	$bp_group_review_email_settigs = get_option( 'bp_group_review_email_settigs' );
 	$review_email_subject = ( isset( $bp_group_review_email_settigs['review_email_subject'] ) ) ? $bp_group_review_email_settigs['review_email_subject'] : 'New Review Submitted for Your Group [group-name] on [site-name]';
-	$review_email_message = ( isset( $bp_group_review_email_settigs['review_email_message'] ) ) ? $bp_group_review_email_settigs['review_email_message'] : 'Hello [admin-name],<br><br>We are excited to inform you that a new review has been submitted for your group [group-name], by [user-name]. Your members\'s feedback is invaluable in fostering a vibrant and engaging community.<br><br>You can read and respond to the review by following the link below:[review-link]<br><br>Thank you for creating a space where members can share their thoughts and experiences. Keep up the great work!<br><br>Best regards,<br>The [site-name] Team';
+	$review_email_message = ( ! empty( $bp_group_review_email_settigs['review_email_message'] ) ) ? $bp_group_review_email_settigs['review_email_message'] : 'Hello [admin-name],<br><br>
+	We are excited to inform you that a new review has been submitted for your group [group-name], by [user-name]. Your members\'s feedback is invaluable in fostering a vibrant and engaging community.<br><br>
+	You can read and respond to the review by following the link below:[review-link]<br><br>
+	Thank you for creating a space where members can share their thoughts and experiences. Keep up the great work!<br><br>
+	Best regards,<br>
+	The [site-name] Team';
 	$review_accept_email_subject = ( isset( $bp_group_review_email_settigs['review_accept_email_subject'] ) ) ? $bp_group_review_email_settigs['review_accept_email_subject'] : 'Your review for the Group [group-name] on [site-name] is approved';
-	$review_accept_email_message = ( isset( $bp_group_review_email_settigs['review_accept_email_message'] ) ) ? $bp_group_review_email_settigs['review_accept_email_message'] : 'Hello [admin-name],<br><br>We are pleased to inform you that your review for the group, [group-name] on [site-name] has been reviewed and approved by the administrator.<br><br>We appreciate the time and effort you took to share your thoughts about the group.[review-link]<br><br>Thank you for being an active and valuable member of our community.<br><br>Best regards,<br>The [site-name] Team';
+	$review_accept_email_message = ( ! empty( $bp_group_review_email_settigs['review_accept_email_message'] ) ) ? $bp_group_review_email_settigs['review_accept_email_message'] : 'Hello [admin-name],<br><br>
+	We are pleased to inform you that your review for the group, [group-name] on [site-name] has been reviewed and approved by the administrator.<br><br>
+	We appreciate the time and effort you took to share your thoughts about the group.[review-link]<br><br>
+	Thank you for being an active and valuable member of our community.<br><br>
+	Best regards,<br>
+	The [site-name] Team';
 	$review_deny_email_subject = ( isset( $bp_group_review_email_settigs['review_deny_email_subject'] ) ) ? $bp_group_review_email_settigs['review_deny_email_subject'] : 'Your review for the Group [group-name] on [site-name] is denied';
-	$review_deny_email_message = ( isset( $bp_group_review_email_settigs['review_deny_email_message'] ) ) ? $bp_group_review_email_settigs['review_deny_email_message'] : 'Hello [admin-name],<br><br>We regret to inform you that after careful consideration, your review for the group, [group-name] on [site-name] has been denied by the administrator.<br><br>While we appreciate your willingness to share your thoughts and feedback, it seems that certain aspects of the review did not align with our community guidelines or policies.[review-link]<br><br>Thank you for your understanding and cooperation.<br><br>Best regards,<br>The [site-name] Team';
+	$review_deny_email_message = ( ! empty( $bp_group_review_email_settigs['review_deny_email_message'] ) ) ? $bp_group_review_email_settigs['review_deny_email_message'] : 'Hello [admin-name],<br><br>
+	We regret to inform you that after careful consideration, your review for the group, [group-name] on [site-name] has been denied by the administrator.<br><br>
+	While we appreciate your willingness to share your thoughts and feedback, it seems that certain aspects of the review did not align with our community guidelines or policies.[review-link]<br><br>
+	Thank you for your understanding and cooperation.<br><br>
+	Best regards,<br>
+	The [site-name] Team';
 	?>
 	<div class="wbcom-admin-title-section">
 		<h3><?php esc_html_e( 'Emails Setting', 'bp-group-reviews' ); ?></h3>
@@ -547,7 +562,6 @@ function bgr_emails_setting() {
 						<p class="description"><?php esc_html_e( 'Please add review email message.', 'bp-group-reviews' ); ?></p>
 					</div>
 					<div class="wbcom-settings-section-options">
-						<!-- <textarea id="review_deny_email_message" class="large-text" name="bp_group_review_email_settigs[review_deny_email_message]" ><?php //echo esc_html( $review_email_message ); ?></textarea> -->
 						<?php
 						wp_editor(
 							$review_deny_email_message,

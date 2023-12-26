@@ -60,7 +60,7 @@ jQuery(document).ready(function (e) {
       ajaxurl,
       {
         action: "bgr_remove_review",
-        nonce: wbcom_plugin_installer_params.wbcom_nonce,
+        nonce: bgr_front_js_object.wbcom_nonce,
         remove_review_id: remove_review_id,
       },
       function (response) {

@@ -67,7 +67,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 * @author   Wbcom Designs
 		 */
 		public function bgr_reviews_filter() {
-			if ( filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING ) && filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING ) === 'bgr_reviews_filter' ) {
+			if ( filter_input( INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS ) && filter_input( INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS ) === 'bgr_reviews_filter' ) {
 				global $bp, $post;
 				global $bgr;
 				$filter               = sanitize_text_field( filter_input( INPUT_POST, 'filter' ) );
@@ -83,11 +83,10 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				);
 				$reviews_arr          = get_posts( $custom_args );
 				$html                 = '';
-
 				$single_review_count = 0;
 				$final_review_obj    = array();
-				if ( ! empty( $reviews_arr ) ) {
-					$single_rev_avg = array();
+				$single_rev_avg = array();
+				if ( ! empty( $reviews_arr ) ) {					
 					foreach ( $reviews_arr as $review ) {
 						$linked_group   = get_post_meta( $review->ID, 'linked_group', false );
 						$review_ratings = get_post_meta( $review->ID, 'review_star_rating', false );
@@ -197,6 +196,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					} else {
 						$html .= '<div id="message" class="info">';
 					}
+					$review_label = isset( $bgr['review_label'] ) && ! empty( $bgr['review_label'] ) ? $bgr['review_label'] : 'Review';
 					/* translators: %1$s is replaced with review_label */
 					$html .= '<p>' . sprintf( esc_html__( 'Sorry, no %1$s were found.', 'bp-group-reviews' ), $review_label ) . '</p>';
 					$html .= '</div>';
@@ -215,7 +215,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 * @author   Wbcom Designs
 		 */
 		public function bgr_filter_ratings() {
-			if ( filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING ) && filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING ) === 'bgr_filter_ratings' ) {
+			if ( filter_input( INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS ) && filter_input( INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS ) === 'bgr_filter_ratings' ) {
 				global $bp, $post;
 				global $bgr;
 				$filter               = sanitize_text_field( filter_input( INPUT_POST, 'filter' ) );
@@ -587,6 +587,18 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 						array( $creator_name, $group_name, $user_name, $mail_link, $site_name ),
 						$bp_group_review_email_settigs['review_email_message']
 					);
+				}else{
+					$submit_message = 'Hello [admin-name],<br><br>
+					We are excited to inform you that a new review has been submitted for your group [group-name], by [user-name]. Your members\'s feedback is invaluable in fostering a vibrant and engaging community.<br><br>
+					You can read and respond to the review by following the link below:[review-link]<br><br>
+					Thank you for creating a space where members can share their thoughts and experiences. Keep up the great work!<br><br>
+					Best regards,<br>
+					The [site-name] Team';
+					$mail_content = str_replace(
+						array( '[admin-name]' ,'[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
+						array( $creator_name, $group_name, $user_name, $mail_link, $site_name ),
+						$submit_message
+					);
 				}
 
 				if ( ! empty( $rated_stars ) ) {
@@ -603,7 +615,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				}
 
 				if ( 'yes' == $allow_email ) {
-					wp_mail( $author_email, $mail_title, $mail_content, $headers );
 					foreach ( $group_admins->admins as $group_admin ) {
 						$author_email = get_the_author_meta( 'user_email', $group_admin->user_id );
 						wp_mail( $author_email, $mail_title, $mail_content, $headers );
@@ -664,13 +675,25 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					$bp_group_review_email_settigs['review_accept_email_subject']
 				);
 			}
-
+			
 			// Use custom message if set
 			if ( isset( $bp_group_review_email_settigs['review_accept_email_message'] ) && ! empty( $bp_group_review_email_settigs['review_accept_email_message'] ) ) {
 				$mail_content = str_replace(
 					array( '[group-name]', '[user-name]', '[review-link]', '[admin-name]', '[site-name]' ),
 					array( $group_name, $user_name, $mail_link, $creator_name, $site_name ),
 					$bp_group_review_email_settigs['review_accept_email_message']
+				);
+			}else{
+				$accept_message = 'Hello [admin-name],<br><br>
+				We are pleased to inform you that your review for the group, [group-name] on [site-name] has been reviewed and approved by the administrator.<br><br>
+				We appreciate the time and effort you took to share your thoughts about the group.[review-link]<br><br>
+				Thank you for being an active and valuable member of our community.<br><br>
+				Best regards,<br>
+				The [site-name] Team';
+				$mail_content = str_replace(
+					array( '[group-name]', '[user-name]', '[review-link]', '[admin-name]', '[site-name]' ),
+					array( $group_name, $user_name, $mail_link, $creator_name, $site_name ),
+					$accept_message
 				);
 			}
 
@@ -744,6 +767,18 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					array( '[group-name]', '[user-name]', '[review-link]', '[admin-name]', '[site-name]' ),
 					array( $group_name, $user_name, $mail_link, $creator_name, $site_name ),
 					$bp_group_review_email_settigs['review_deny_email_message']
+				);
+			} else{
+				$deny_message = 'Hello [admin-name],<br><br>
+				We regret to inform you that after careful consideration, your review for the group, [group-name] on [site-name] has been denied by the administrator.<br><br>
+				While we appreciate your willingness to share your thoughts and feedback, it seems that certain aspects of the review did not align with our community guidelines or policies.[review-link]<br><br>
+				Thank you for your understanding and cooperation.<br><br>
+				Best regards,<br>
+				The [site-name] Team';
+				$mail_content = str_replace(
+					array( '[group-name]', '[user-name]', '[review-link]', '[admin-name]', '[site-name]' ),
+					array( $group_name, $user_name, $mail_link, $creator_name, $site_name ),
+					$deny_message
 				);
 			}
 
