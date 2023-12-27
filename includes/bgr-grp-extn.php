@@ -36,97 +36,43 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		 * @param  array $args Arguments.
 		 * @return void
 		 */
-		public function __construct( $args = array() ) {
-			// if ( ! is_user_logged_in() ) {
-			// return false;
-			// }
+		public function __construct($args = array())
+		{
 			global $bp;
-			global $bgr;
-			$enabled                    = true;
-			$add_review_nav             = false;
-			$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
-			$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
+			$bgr_admin_general_settings = get_option('bgr_admin_general_settings');
+			$exclude_groups = isset($bgr_admin_general_settings['exclude_groups']) ? $bgr_admin_general_settings['exclude_groups'] : array();
+			$enabled = !in_array(bp_get_current_group_id(), $exclude_groups, true);
 
-			if ( ! empty( $bgr_admin_display_settings ) ) {
-				$review_label     = bgr_group_review_tab_name();
-				$add_review_label = bgr_group_add_review_tab_name();
-			} else {
-				$review_label     = esc_html__( 'Reviews', 'bp-group-reviews' );
-				$add_review_label = esc_html__( 'Review', 'bp-group-reviews' );
-			}
+			$add_review_label = $this->get_add_review_label();
+			$add_review_nav = $this->should_show_add_review_nav();
 
-			if ( ! empty( $bgr_admin_general_settings ) ) {
-				$exclude_groups = $bgr_admin_general_settings['exclude_groups'];
-				if ( ! empty( $exclude_groups ) ) {
-					if ( in_array( bp_get_current_group_id(), $exclude_groups ) ) {
-						$enabled = false;
-					}
-				}
-			}
-
-			if ( ! groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id() ) || ! is_user_logged_in() ) {
-				$add_review_nav = true;
-			}
-
-			if ( ! empty( $bgr_admin_general_settings ) ) {
-				if ( ! empty( $exclude_groups ) ) {
-					if ( ! in_array( bp_get_current_group_id(), $exclude_groups ) ) {
-						$args = array(
-							'slug'              => 'add-' . bgr_group_review_tab_slug(),
-							'nav_item_position' => 200,
-							/* translators: %s is replaced with add_review_label */
-							'name'              => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
-							'enable_nav_item'   => $add_review_nav,
-							'screens'           => array(
-								'admin' => array(
-									'name'    => $review_label,
-									'slug'    => 'manage' . bgr_group_review_tab_slug(),
-									'enabled' => $enabled,
-								),
-							),
-							'show_tab'          => false,
-
-						);
-						parent::init( $args );
-					}
-				} else {
-					$args = array(
-						'slug'              => 'add-' . bgr_group_review_tab_slug(),
-						'nav_item_position' => 200,
-						/* translators: %s is replaced with add_review_label */
-						'name'              => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
-						'enable_nav_item'   => '',
-						'screens'           => array(
-							'admin' => array(
-								'name'    => $review_label,
-								'slug'    => 'manage' . bgr_group_review_tab_slug(),
-								'enabled' => $enabled,
-							),
-						),
-						'show_tab'          => true,
-
-					);
-					parent::init( $args );
-				}
-			} else {
-				$args = array(
-					'slug'              => 'add-' . bgr_group_review_tab_slug(),
-					'nav_item_position' => 200,
-					/* translators: %s is replaced with add_review_label */
-					'name'              => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
-					'enable_nav_item'   => $add_review_nav,
-					'screens'           => array(
-						'edit' => array(
-							'name'    => $review_label,
-							'slug'    => 'manage' . bgr_group_review_tab_slug(),
-							'enabled' => $enabled,
-						),
+			$args = array(
+				'slug'              => 'add-' . bgr_group_review_tab_slug(),
+				'nav_item_position' => 200,
+				'name'              => sprintf(__('Add %s', 'bp-group-reviews'), $add_review_label),
+				'enable_nav_item'   => $add_review_nav,
+				'screens'           => array(
+					'edit' => array(
+						'name'    => esc_html__('Review Management', 'bp-group-reviews'),
+						'slug'    => 'review-management',
+						'enabled' => $enabled,
 					),
-					'show_tab'          => false,
+				),
+				'show_tab'          => $enabled,
+			);
 
-				);
-				parent::init( $args );
-			}
+			parent::init($args);
+		}
+
+		private function get_add_review_label()
+		{
+			$bgr_admin_display_settings = get_option('bgr_admin_display_settings');
+			return !empty($bgr_admin_display_settings) ? bgr_group_add_review_tab_name() : esc_html__('Review', 'bp-group-reviews');
+		}
+
+		private function should_show_add_review_nav()
+		{
+			return !(groups_is_user_admin(bp_loggedin_user_id(), bp_get_current_group_id()) && is_user_logged_in());
 		}
 
 		/**
