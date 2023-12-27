@@ -186,9 +186,9 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$user_info    = get_userdata( $member_id );
 			$user_name    = $user_info->user_login;
 			if ( $bgr['auto_approve_reviews'] == 'no' ) {
-				$notification_link = bp_get_group_permalink( $group ) . 'admin/add-' . bgr_group_review_tab_slug() . '/';
+				$notification_link = bp_get_group_url( $group ) . 'admin/add-' . bgr_group_review_tab_slug() . '/';
 			} else {
-				$notification_link = bp_get_group_permalink( $group ) . sanitize_title( bgr_group_review_tab_name() );
+				$notification_link = bp_get_group_url( $group ) . sanitize_title( bgr_group_review_tab_name() );
 			}
 			/* translators: %1$s is replaced with review_label */
 			$notification_title = sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
@@ -219,7 +219,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$review_label      = $bgr['review_label'];
 			$group             = groups_get_group( array( 'group_id' => $grp_id ) );
 			$group_name        = $group->name;
-			$notification_link = bp_get_group_permalink( $group ) . "reviews/view/$review_id/";
+			$notification_link = bp_get_group_url( $group ) . "reviews/view/$review_id/";
 			/* translators: %1$s is replaced with review_label */
 			$notification_title = sprintf( esc_html__( '%1$s accepted.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s and %2$s is replaced with review_label and group name resepectively*/
@@ -249,7 +249,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$review_label      = $bgr['review_label'];
 			$group             = groups_get_group( array( 'group_id' => $grp_id ) );
 			$group_name        = $group->name;
-			$notification_link = bp_get_group_permalink( $group ) . 'reviews/';
+			$notification_link = bp_get_group_url( $group ) . 'reviews/';
 			/* translators: %1$s is replaced with review_label */
 			$notification_title = sprintf( esc_html__( '%1$s denied.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s and %2$s is replaced with review_label and group_name respectively */

@@ -71,7 +71,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			$review_div          = 'form';
 			$exclude_groups      = $bgr['exclude_groups'];
 			$current_group_id    = bp_get_current_group_id();
-			$current_group_link  = bp_get_group_permalink( groups_get_group( array( 'group_id' => $current_group_id ) ) );
+			$current_group_link  = bp_get_group_url( groups_get_group( array( 'group_id' => $current_group_id ) ) );
 			$current_group_link .= 'add-' . bgr_group_review_tab_slug();
 			if ( ! empty( $exclude_groups ) ) {
 				if ( ! in_array( bp_get_current_group_id(), $exclude_groups ) ) {
@@ -189,7 +189,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						<span itemprop="ratingCount"  content="<?php echo esc_attr( $rating_count ); ?>"></span>
 						<span itemprop="itemReviewed" content="Person"></span>
 						<span itemprop="name" content="<?php echo esc_attr( bp_get_current_group_name() ); ?>"></span>
-						<span itemprop="url" content="<?php echo esc_attr( bp_get_group_permalink( groups_get_current_group() ) ); ?>"></span>
+						<span itemprop="url" content="<?php echo esc_attr(bp_get_group_url( groups_get_current_group() ) ); ?>"></span>
 					</div>
 					<?php } ?>
 					<div class="bgr-header-row"><div class="bgr-group-header-ratings"><div class="rating-bgr">
@@ -284,7 +284,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						<span itemprop="ratingCount"  content="<?php echo esc_attr( $rating_count ); ?>"></span>
 						<span itemprop="itemReviewed" content="Person"></span>
 						<span itemprop="name" content="<?php echo esc_attr( bp_get_current_group_name() ); ?>"></span>
-						<span itemprop="url" content="<?php echo esc_attr( bp_get_group_permalink( groups_get_current_group() ) ); ?>"></span>
+						<span itemprop="url" content="<?php echo esc_attr(bp_get_group_url( groups_get_current_group() ) ); ?>"></span>
 					</div>
 					<?php } ?>
 					<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr">
@@ -330,7 +330,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$review_title = $post->post_title;
 					$linked_group = get_post_meta( $post->ID, 'linked_group', true );
 					$group        = groups_get_group( array( 'group_id' => $linked_group ) );
-					$group_url    = bp_get_group_permalink( $group );
+					$group_url    = bp_get_group_url( $group );
 					$review_url   = $group_url . sanitize_title( bgr_group_review_tab_name() ) . '/view/' . $post->ID;
 
 					$actions['view_review'] = '<a href="' . $review_url . '" title="' . $review_title . '">' . esc_html__( 'View', 'bp-group-reviews' ) . '</a>';
@@ -401,7 +401,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 								'name'            => $review_label . ' ' . $count_notification,
 								'slug'            => sanitize_title( $bgr['manage_review_label'] ),
 								'parent_slug'     => $bp->groups->current_group->slug,
-								'parent_url'      => bp_get_group_permalink( $bp->groups->current_group ),
+								'parent_url'      => bp_get_group_url( $bp->groups->current_group ),
 								'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
 								'position'        => 199,
 							);
@@ -412,7 +412,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 							'name'            => $review_label . ' ' . $count_notification,
 							'slug'            => sanitize_title( $bgr['manage_review_label'] ),
 							'parent_slug'     => $bp->groups->current_group->slug,
-							'parent_url'      => bp_get_group_permalink( $bp->groups->current_group ),
+							'parent_url'      => bp_get_group_url( $bp->groups->current_group ),
 							'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
 							'position'        => 199,
 						);
@@ -423,7 +423,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						'name'            => $review_label . ' ' . $count_notification,
 						'slug'            => sanitize_title( $bgr['manage_review_label'] ),
 						'parent_slug'     => $bp->groups->current_group->slug,
-						'parent_url'      => bp_get_group_permalink( $bp->groups->current_group ),
+						'parent_url'      => bp_get_group_url( $bp->groups->current_group ),
 						'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
 						'position'        => 199,
 					);

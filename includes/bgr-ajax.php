@@ -146,7 +146,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 
 						$html       .= '<div class="item-description"><div class="review-description">';
 						$trimcontent = get_the_content();
-						$url         = bp_get_group_permalink() . sanitize_title( bgr_group_review_tab_name() ) . '\/view/' . get_the_id();
+						$url         = bp_get_group_url() . sanitize_title( bgr_group_review_tab_name() ) . '\/view/' . get_the_id();
 						if ( ! empty( $trimcontent ) ) {
 							$len = strlen( $trimcontent );
 							if ( $len > 150 ) {

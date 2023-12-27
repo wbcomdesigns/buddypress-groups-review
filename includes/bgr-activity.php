@@ -147,8 +147,8 @@ class BGR_Activity {
 		$group_obj       = groups_get_group( $group_id );
 		$review_data     = get_post( $posts_id );
 		$review_content  = $review_data->post_content;
-		$post_link       = bp_get_group_permalink( $group_obj ) . sanitize_title( bgr_group_review_tab_name() ) . '\/view/' . $posts_id;
-		$group_link      = bp_get_group_permalink( $group_obj );
+		$post_link 		 = bp_get_group_url($group_obj) . sanitize_title(bgr_group_review_tab_name()) . '/view/' . $posts_id;
+		$group_link 	 = bp_get_group_url($group_obj);
 		$post_link_html  = '<a href="' . esc_url( $post_link ) . '">' . $post_title . '</a>';
 		$group_link_html = '<a href="' . esc_url( $group_link ) . '">' . $group_name . '</a>';
 		$action          = sprintf(
@@ -212,8 +212,8 @@ class BGR_Activity {
 				$group_obj       = groups_get_group( $group_id );
 				$review_data     = get_post( $posts_id );
 				$review_content  = $review_data->post_content;
-				$post_link       = bp_get_group_permalink( $group_obj ) . sanitize_title( bgr_group_review_tab_name() ) . '/view/' . $posts_id;
-				$group_link      = bp_get_group_permalink( $group_obj );
+				$post_link       = bp_get_group_url( $group_obj ) . sanitize_title( bgr_group_review_tab_name() ) . '/view/' . $posts_id;
+				$group_link      = bp_get_group_url( $group_obj );
 				$post_link_html  = '<a href="' . esc_url( $post_link ) . '">' . $post_title . '</a>';
 				$group_link_html = '<a href="' . esc_url( $group_link ) . '">' . $group_name . '</a>';
 				$action          = sprintf(
