@@ -138,7 +138,7 @@ $reviews              = new WP_Query( $args );
 						<?php
 					}
 					/* translators: %1$s is replaced with review_label */
-						echo '<p>' . sprintf( esc_html__( 'Sorry, no %1$s were found.', 'bp-group-reviews' ), esc_html( $review_label ) ) . '</p>';
+						echo '<p>' . sprintf( esc_html__( 'Unfortunately, there are no %1$s were found.', 'bp-group-reviews' ), esc_html( strtolower( $review_label ) ) ) . '</p>';
 					?>
 					</div>
 					<?php } ?>

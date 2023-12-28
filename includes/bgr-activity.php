@@ -64,7 +64,7 @@ class BGR_Activity {
 	private function init_hooks() {
 		add_action( 'bp_register_activity_actions', array( $this, 'bgr_register_activity_actions' ), 10 );
 		add_action( 'transition_post_status', array( $this, 'bgr_create_group_post_activity_after_approval' ), 15, 3 );
-		add_action( 'save_post', array( $this, 'bgr_create_group_post_activity' ), 15, 3 );
+		add_action( 'bgr_group_after_review_submit', array( $this, 'bgr_create_group_post_activity' ), 15, 3 );
 		add_filter( 'bp_get_activity_content_body', array( $this, 'bgr_added_activity_star_rating' ), 10, 2 );
 	}
 
@@ -125,7 +125,7 @@ class BGR_Activity {
 	 * @param int     $id Post ID.
 	 * @param WP_Post $post       Post object.
 	 */
-	public function bgr_create_group_post_activity( $id, $post ) {
+	public function bgr_create_group_post_activity( $author_id, $group_id, $post_id ) {
 		global $bp;
 		global $bgr;
 		$allow_activity       = $bgr['allow_activity'];
@@ -137,18 +137,18 @@ class BGR_Activity {
 		if ( ! bp_is_active( 'groups' ) && ! bp_is_active( 'activity' ) ) {
 			return false;
 		}
-
-		$posts_id        = $post->ID;
+		
+		$posts_id        = $post_id;
+		$post 			 = get_post( $posts_id );
 		$user_id         = $post->post_author;
 		$user_link       = bp_core_get_userlink( $user_id );
 		$post_title      = get_the_title( $posts_id );
-		$group_id        = bp_get_current_group_id();
 		$group_name      = bp_get_group_name( groups_get_group( $group_id ) );
 		$group_obj       = groups_get_group( $group_id );
 		$review_data     = get_post( $posts_id );
 		$review_content  = $review_data->post_content;
-		$post_link 		 = bp_get_group_url($group_obj) . sanitize_title(bgr_group_review_tab_name()) . '/view/' . $posts_id;
-		$group_link 	 = bp_get_group_url($group_obj);
+		$post_link       = bp_get_group_url( $group_obj ) . sanitize_title( bgr_group_review_tab_name() ) . '/view/' . $posts_id;
+		$group_link      = bp_get_group_url( $group_obj );
 		$post_link_html  = '<a href="' . esc_url( $post_link ) . '">' . $post_title . '</a>';
 		$group_link_html = '<a href="' . esc_url( $group_link ) . '">' . $group_name . '</a>';
 		$action          = sprintf(
@@ -160,7 +160,7 @@ class BGR_Activity {
 			$user_link,
 			$group_link_html
 		);
-		if ( 'yes' == $allow_activity && bp_current_component() == 'groups' ) {
+		if ( 'yes' == $allow_activity ) {
 			$args        = array(
 				'action'            => $action,
 				'content'           => $review_content,

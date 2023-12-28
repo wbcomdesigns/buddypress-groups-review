@@ -1,4 +1,10 @@
-jQuery(document).ready(function (e) {
+jQuery(document).ready(function (e) {  
+  if( 'yes' == bgr_front_js_object.auto_approve_reviews ){
+    jQuery('#feedback-management').hide();
+  }
+  if( 'true' == bgr_front_js_object.exclude_groups  ){
+    jQuery('#nav-add-feedback').hide();
+  }
   jQuery("#bgr_review_success_msg_modal").hide();
   jQuery("#request-review-list #bp-group-edit-add-review-submit").hide();
 

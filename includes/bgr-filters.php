@@ -189,7 +189,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						<span itemprop="ratingCount"  content="<?php echo esc_attr( $rating_count ); ?>"></span>
 						<span itemprop="itemReviewed" content="Person"></span>
 						<span itemprop="name" content="<?php echo esc_attr( bp_get_current_group_name() ); ?>"></span>
-						<span itemprop="url" content="<?php echo esc_attr(bp_get_group_url( groups_get_current_group() ) ); ?>"></span>
+						<span itemprop="url" content="<?php echo esc_attr( bp_get_group_url( groups_get_current_group() ) ); ?>"></span>
 					</div>
 					<?php } ?>
 					<div class="bgr-header-row"><div class="bgr-group-header-ratings"><div class="rating-bgr">
@@ -284,7 +284,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						<span itemprop="ratingCount"  content="<?php echo esc_attr( $rating_count ); ?>"></span>
 						<span itemprop="itemReviewed" content="Person"></span>
 						<span itemprop="name" content="<?php echo esc_attr( bp_get_current_group_name() ); ?>"></span>
-						<span itemprop="url" content="<?php echo esc_attr(bp_get_group_url( groups_get_current_group() ) ); ?>"></span>
+						<span itemprop="url" content="<?php echo esc_attr( bp_get_group_url( groups_get_current_group() ) ); ?>"></span>
 					</div>
 					<?php } ?>
 					<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr">
@@ -380,7 +380,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					'meta_key'     => 'linked_group',
 					'meta_value'   => $bp->groups->current_group->id,
 					'post_type'    => 'review',
-					'post_status'  => 'publish'
+					'post_status'  => 'publish',
 				);
 
 				$post_count   = 0;

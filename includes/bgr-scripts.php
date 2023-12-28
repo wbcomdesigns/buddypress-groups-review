@@ -53,6 +53,15 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 			wp_enqueue_style( 'bgr-reviews-css', BGR_PLUGIN_URL . 'assets/css/bgr-reviews.css', array(), BGR_PLUGIN_VERSION, 'all' );
 			wp_enqueue_style( 'bgr-front-css', BGR_PLUGIN_URL . 'assets/css/bgr-front.css', array(), BGR_PLUGIN_VERSION, 'all' );
 			wp_enqueue_script( 'bgr-front-js', BGR_PLUGIN_URL . 'assets/js/bgr-front.js', array( 'jquery' ), BGR_PLUGIN_VERSION, false );
+			$bgr_admin_settings         = get_option( 'bgr_admin_general_settings' );
+			$exclude_groups             = isset( $bgr_admin_settings['exclude_groups'] ) ? $bgr_admin_settings['exclude_groups'] : array();
+			if ( in_array( bp_get_current_group_id(), $exclude_groups ) ) {
+				$exclude_groups = 'true';
+			}
+			$auto_approve_reviews = '';
+			if ( 'yes' == $bgr_admin_settings['auto_approve_reviews'] ) {
+				$auto_approve_reviews = $bgr_admin_settings['auto_approve_reviews']; // hide review-management tab when moderation in disbale.
+			}
 			wp_localize_script(
 				'bgr-front-js',
 				'bgr_front_js_object',
@@ -60,6 +69,8 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 					'view_more_text' => esc_html__( 'View More..', 'bp-group-reviews' ),
 					'view_less_text' => esc_html__( 'View Less..', 'bp-group-reviews' ),
 					'wbcom_nonce'    => wp_create_nonce( 'ajax-nonce' ),
+					'auto_approve_reviews' => $auto_approve_reviews,
+					'exclude_groups' => $exclude_groups,
 				)
 			);
 			wp_enqueue_style( 'bgr-ratings-css', BGR_PLUGIN_URL . 'assets/css/bgr-ratings.css', array(), BGR_PLUGIN_VERSION, 'all' );
