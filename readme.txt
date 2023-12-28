@@ -67,41 +67,45 @@ We are ready to provide incredible support. Ask your questions at [contact us di
 == Frequently Asked Questions ==
 
 = Where do I get support?
-We request you to use [Wbcom Designs](https://wbcomdesigns.com/contact/) for all the support questions. We love helping. Using Wbcom Designs allows us to assist you better and quicker.
+We'd like you to use [Wbcom Designs](https://wbcomdesigns.com/contact/) for all the support questions. We love helping. Using Wbcom Designs allows us to assist you better and quicker.
 
 = How can we submit a review to a group using this plugin? =
 When visiting the "/groups" section in the site, go for single group view page, there you can see a menu namely, "Reviews" that will allow you if you are a site member to add group review.
 
-= How to allow users to give multiple reviews on the same group? =
-A new functionality "Multiple Review" is added to this version of the plugin. In general settings, you can enable or disable it.
+= How do we allow users to give multiple reviews on the same group? =
+A new functionality, "Multiple Review," has been added to this version of the plugin. In general settings, you can enable or disable it.
 
-= If I don't want to provide review functionality to any group, then what will I do? =
-If you don't want to provide review functionality to any group, you can exclude that group from this functionality. For exclude, the plugin has the option to exclude groups in the General tab. Here, you exclude one or more groups from reviews.
+= What will I do if I don't want to provide review functionality to any group? =
+If you don't want to provide review functionality to any group, you can exclude that group from this functionality. For exclude, the plugin can exclude groups in the General tab. Here, you exclude one or more groups from reviews.
 
-= How to hide some rating criteria from the Review form? =
+= How do you hide some rating criteria from the Review form? =
 You can hide criteria by disabling criteria in the 'Criteria' tab.
 
-= How change the label of the 'Reviews' tab or the label of the 'Reviews' sub-tab under the 'Manage' tab? =
-This plugin provides settings to change labels, you can see settings in the plugin's settings 'Display' tab.
+= How do you change the label of the 'Reviews' tab or the label of the 'Reviews' sub-tab under the 'Manage' tab? =
+This plugin provides settings to change labels; you can see settings in the plugin's settings 'Display' tab.
 
-= Why 'Add Review' option is not displaying in a group created by me? =
+= Why is the 'Add Review' option not displayed in a group I created? =
 This option is not displaying because group admin can't review own group, you can add the review to only that groups in which you are not the admin.
 
-= How to display groups' average reviews according to reviews or ratings in the sidebar or footer? =
+= How do you display groups' average reviews according to reviews or ratings in the sidebar or footer? =
 This plugin provides a widget to show average ratings or reviews of BuddyPress Groups, you can use it for display average rating & reviews.
 
 = How can I use the review form on any other page? =
-Yes, you can use the review form on another page, just copy the shortcode from the review settings page and paste it on the other page.
+Yes, you can use the review form on another page; copy the shortcode from the review settings page and paste it on the other page.
 
 = Where do I ask for support?
-Please visit https://wbcomdesigns.com/contact/ for any query related to the plugin and BuddyPress.
+Please visit https://wbcomdesigns.com/contact/ for any questions about the plugin and BuddyPress.
 
 
 == Screenshots ==
-1. Reviews at group directory.(png|jpg|jpeg|gif).
-2. Review at single group.(png|jpg|jpeg|gif).
-3. Add review at single group.(png|jpg|jpeg|gif).
-4. Plugin settings.(png|jpg|jpeg|gif).
+1. Plugin settings- General Options.(png|jpg|jpeg|gif).
+2. Plugin settings- Review Criteria.(png|jpg|jpeg|gif).
+3. Plugin Option to approve review.(png|jpg|jpeg|gif).
+4. Plugin settings to change review label.(png|jpg|jpeg|gif).
+5. Group Reviews at group directory.(png|jpg|jpeg|gif).
+6. Activity posting on group review.(png|jpg|jpeg|gif).
+7. Review display at single group.(png|jpg|jpeg|gif).
+8. Review submission at single group.(png|jpg|jpeg|gif).
 
 == Changelog ==
 = 3.0.0 =
