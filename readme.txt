@@ -3,17 +3,17 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
-Tested up to: 6.3.0
-Stable tag: 2.9.0
+Tested up to: 6.4.2
+Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-BuddyPress Group Reviews allows BuddyPress members to add group reviews & give multiple-rating to given criteria(s). After posting reviews, all reviews will be displayed in the Manage Review section of the group.
-Admins can approve or deny the review. When the admin approves the review, it will be published. All published reviews will be shown in the reviews tab on the single group page. Admin is allowed to add as many criteria for the rating as he wants.
+BuddyPress Group Reviews allows BuddyPress members to add group reviews & give multiple to given criteria(s). After posting reviews, all reviews will be displayed in the Manage Review section of the group.
+Admins can approve or deny the review. When the admin approves the review, it will be published. All published reviews will be shown in the reviews tab on the single group page. Admin can add as many criteria for the rating as he wants.
 
-Group Ratings will also be visible at group directory page.
+Group Ratings will also be visible on the group directory page.
 
 * Allows review moderation
 * Allows BuddyPress notification for group admin for new reviews
@@ -21,7 +21,7 @@ Group Ratings will also be visible at group directory page.
 * Allows to exclude certain groups from review criteria
 * Allows to add multiple criteria as per your choice
 
-It is built to be reliable, scalable, secure and flexible. We have worked hard to make it easy to use and we will love your feedback in making it better.
+It's designed to be reliable, scalable, secure, and flexible. We've made it easy to use and would love your feedback on how to improve it.
 
 = Links =
 
@@ -30,28 +30,28 @@ It is built to be reliable, scalable, secure and flexible. We have worked hard t
 [Live demo >](https://bb-free.buddyxtheme.com/)
 
 === THEME - WORDPRESS THEME WITH OUTSTANDING BUDDYPRESS SUPPORT ===
-* [FREE BuddyPress Theme: BuddyX](https://wordpress.org/themes/buddyx/) - Offers unique layouts with clean code and easy-to-customize options giving you a whole new way to visualize BuddyPress.
+* [FREE BuddyPress Theme: BuddyX](https://wordpress.org/themes/buddyx/) - Offers unique layouts with clean code and easy-to-customize options, giving you a whole new way to visualize BuddyPress.
 
 #### OUR ADON PLUGINS TO FURTHER IMPROVE YOUR BUDDYPRESS OR BUDDYBOSS PLATFORM COMMUNITY
 Check out free community add-ons by Wbcom Designs:
 
 * **[Wbcom Designs - BuddyPress Member Reviews](https://wordpress.org/plugins/bp-user-profile-reviews/)** Allow members to add ratings or feedback to other community members.
 * **[Wbcom Designs - BuddyPress Group Reviews](https://wordpress.org/plugins/review-buddypress-groups/)** Allow members to add ratings or feedback to BuddyPress groups.
-* **[Wbcom Designs - BuddyPress Activity Social Share](https://wordpress.org/plugins/bp-activity-social-share/)** Allow members to share activities on their social profiles like Facebook, Twitter, What's App, LinkedIn with OG metadata.
+* **[Wbcom Designs - BuddyPress Activity Social Share](https://wordpress.org/plugins/bp-activity-social-share/)** Allow members to share activities on their social profiles like Facebook, Twitter, What's App, and LinkedIn with OG metadata.
 * **[Wbcom Designs – Private Community with BP Lock](https://wordpress.org/plugins/lock-my-bp/)** A plugin to make your community private and only accessible to logged-in users. It also allows you to keep select pages or the component public.
-* **[Wbcom Designs - BuddyPress Job Manager](https://wordpress.org/plugins/bp-job-manager/)** Allows your to integrate WP Job Manager plugin to BuddyPress.
-* **[Wbcom Designs - Check-ins for BuddyPress Activity](https://wordpress.org/plugins/bp-check-in/)** Allow members to add their location or post their Check-ins updates to activity.
+* **[Wbcom Designs - BuddyPress Job Manager](https://wordpress.org/plugins/bp-job-manager/)** Allows you to integrate the WP Job Manager plugin into BuddyPress.
+* **[Wbcom Designs - Check-ins for BuddyPress Activity](https://wordpress.org/plugins/bp-check-in/)** Allow members to add their location or post their check-in updates to the activity.
 * **[Wbcom Designs - BuddyPress Favorite Notification](https://wordpress.org/plugins/bp-favorite-notification/)** Allow members to be notified after any like or favorite on their BuddyPress activity.
 * **[Wbcom Designs – Shortcodes & Elementor Widgets For BuddyPress](https://wordpress.org/plugins/shortcodes-for-buddypress/)** It offers shortcodes and elementor widgets for the activity listing, member's directory display, and the group's directory on any post/page.
 
 Check out paid community add-ons by Wbcom Designs:
 
-* **[Wbcom Designs - BuddyPress Hashtags](https://wbcomdesigns.com/downloads/buddypress-hashtags/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allows members to use hashtags in BuddyPress or BuddyBoss Platform activities and bbPress topics..
+* **[Wbcom Designs - BuddyPress Hashtags](https://wbcomdesigns.com/downloads/buddypress-hashtags/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allows members to use hashtags in BuddyPress or BuddyBoss Platform activities and bbPress topics.
 * **[Wbcom Designs - BuddyPress Polls](https://wbcomdesigns.com/downloads/buddypress-polls/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)**  It allows you to extend BuddyPress or BuddyBoss Platform Activity for members to publish Polls with various options and works perfectly for individual activities and group activities.
 * **[Wbcom Designs - BuddyPress Quotes](https://wbcomdesigns.com/downloads/buddypress-quotes/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** It allows the feature to let members post their activity updates with interactive background selection such as colors and images set by the site administrator to tell a more expressive story.
 * **[Wbcom Designs – BuddyPress Status & Reaction](https://wbcomdesigns.com/downloads/buddypress-status/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allow your members to set a status icon and tagline on their profile and offer a big set of icons to react to published activities.
-* **[Wbcom Designs - BuddyPress Profanity](https://wbcomdesigns.com/downloads/buddypress-profanity/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allow you to censor content in your community! Easily Censor all the unwanted words in activities, private messages contents by specifying a list of keywords to be filtered.
-* **[Wbcom Designs - BuddyPress Sticky Post](https://wbcomdesigns.com/downloads/buddypress-sticky-post/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allows site administrators to prioritize certain activities over others. It lets admin pin-up site-wide and group activities to the top of the activity list.
+* **[Wbcom Designs - BuddyPress Profanity](https://wbcomdesigns.com/downloads/buddypress-profanity/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allow you to censor content in your community! Easily Censor all the unwanted words in activities, and private message contents by specifying a list of keywords to be filtered.
+* **[Wbcom Designs - BuddyPress Sticky Post](https://wbcomdesigns.com/downloads/buddypress-sticky-post/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allows site administrators to prioritize certain activities over others. It lets the admin pin up site-wide and group activities to the top of the activity list.
 * **[Wbcom Designs - BuddyPress Auto Friends](https://wbcomdesigns.com/downloads/buddypress-auto-friends/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allow the site admin to select global friends for all his members and add bulk global friends.
 * **[Wbcom Designs – Shortcodes & Elementor Widgets For BuddyPress Pro](https://wordpress.org/plugins/shortcodes-for-buddypress/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** It offers shortcodes and elementor widgets with various argument parameters for the activity listing, member's directory display, and the group's directory on any post/page.
 
@@ -67,43 +67,51 @@ We are ready to provide incredible support. Ask your questions at [contact us di
 == Frequently Asked Questions ==
 
 = Where do I get support?
-We request you to use [Wbcom Designs](https://wbcomdesigns.com/contact/) for all the support questions. We love helping. Using Wbcom Designs allows us to assist you better and quicker.
+We'd like you to use [Wbcom Designs](https://wbcomdesigns.com/contact/) for all the support questions. We love helping. Using Wbcom Designs allows us to assist you better and quicker.
 
 = How can we submit a review to a group using this plugin? =
 When visiting the "/groups" section in the site, go for single group view page, there you can see a menu namely, "Reviews" that will allow you if you are a site member to add group review.
 
-= How to allow users to give multiple reviews on the same group? =
-A new functionality "Multiple Review" is added to this version of the plugin. In general settings, you can enable or disable it.
+= How do we allow users to give multiple reviews on the same group? =
+A new functionality, "Multiple Review," has been added to this version of the plugin. In general settings, you can enable or disable it.
 
-= If I don't want to provide review functionality to any group, then what will I do? =
-If you don't want to provide review functionality to any group, you can exclude that group for this functionality. For exclude, the plugin has option to exclude groups in the General tab. Here, you exclude one or more groups from reviews.
+= What will I do if I don't want to provide review functionality to any group? =
+If you don't want to provide review functionality to any group, you can exclude that group from this functionality. For exclude, the plugin can exclude groups in the General tab. Here, you exclude one or more groups from reviews.
 
-= How to hide some rating criteria from Review form? =
-You can hide criteria by disable criteria in 'Criteria' tab.
+= How do you hide some rating criteria from the Review form? =
+You can hide criteria by disabling criteria in the 'Criteria' tab.
 
-= How change label of 'Reviews' tab or label of 'Reviews' sub-tab under 'Manage' tab? =
-This plugin provides settings to change labels, you can see settings in plugin's settings 'Display' tab.
+= How do you change the label of the 'Reviews' tab or the label of the 'Reviews' sub-tab under the 'Manage' tab? =
+This plugin provides settings to change labels; you can see settings in the plugin's settings 'Display' tab.
 
-= Why 'Add Review' option is not displaying in a group created by me? =
+= Why is the 'Add Review' option not displayed in a group I created? =
 This option is not displaying because group admin can't review own group, you can add the review to only that groups in which you are not the admin.
 
-= How to display groups average reviews according to reviews or ratings in sidebar or footer? =
+= How do you display groups' average reviews according to reviews or ratings in the sidebar or footer? =
 This plugin provides a widget to show average ratings or reviews of BuddyPress Groups, you can use it for display average rating & reviews.
 
 = How can I use the review form on any other page? =
-Yes, you can use the review form on other page, just copy shortcode from review setting page and paste it on the other page.
+Yes, you can use the review form on another page; copy the shortcode from the review settings page and paste it on the other page.
 
 = Where do I ask for support?
-Please visit https://wbcomdesigns.com/contact/ for any query related to plugin and BuddyPress.
+Please visit https://wbcomdesigns.com/contact/ for any questions about the plugin and BuddyPress.
 
 
 == Screenshots ==
-1. Reviews at group directory.(png|jpg|jpeg|gif).
-2. Review at single group.(png|jpg|jpeg|gif).
-3. Add review at single group.(png|jpg|jpeg|gif).
-4. Plugin settings.(png|jpg|jpeg|gif).
+1. Plugin settings- General Options.(png|jpg|jpeg|gif).
+2. Plugin settings- Review Criteria.(png|jpg|jpeg|gif).
+3. Plugin Option to approve review.(png|jpg|jpeg|gif).
+4. Plugin settings to change review label.(png|jpg|jpeg|gif).
+5. Group Reviews at group directory.(png|jpg|jpeg|gif).
+6. Activity posting on group review.(png|jpg|jpeg|gif).
+7. Review display at single group.(png|jpg|jpeg|gif).
+8. Review submission at single group.(png|jpg|jpeg|gif).
 
 == Changelog ==
+= 3.0.0 =
+* Fix: BuddyPress v12 support
+* Fix: WPCS Fixes
+
 = 2.9.0 =
 * Fix: (#132) Fixed two group review button
 * Fix: (#131) Fix Console error
