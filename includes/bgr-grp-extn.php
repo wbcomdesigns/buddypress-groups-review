@@ -39,10 +39,10 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		public function __construct( $args = array() ) {
 			global $bp;
 			$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
-			$exclude_groups = isset( $bgr_admin_general_settings['exclude_groups'] ) ? $bgr_admin_general_settings['exclude_groups'] : array();
-			$enabled = ! in_array( bp_get_current_group_id(), $exclude_groups, true );
-			$add_review_label = $this->get_add_review_label();
-			$add_review_nav = $this->should_show_add_review_nav();
+			$exclude_groups             = isset( $bgr_admin_general_settings['exclude_groups'] ) ? $bgr_admin_general_settings['exclude_groups'] : array();
+			$enabled                    = ! in_array( bp_get_current_group_id(), $exclude_groups, true );
+			$add_review_label           = $this->get_add_review_label();
+			$add_review_nav             = $this->should_show_add_review_nav();
 
 			$args = array(
 				'slug'              => 'add-' . bgr_group_review_tab_slug(),
@@ -94,6 +94,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			</div>
 			<div class="bgr-group-review-no-popup-add-block">
 				<?php echo do_shortcode( '[add_group_review_form]' ); ?>
+			</div>
 			</div>
 			<?php
 		}
@@ -233,12 +234,14 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 							?>
 						<div id="message" class="info bp-feedback bp-messages bp-template-notice">
 							<span class="bp-icon" aria-hidden="true"></span>
+						</div>
 						<?php } else { ?>
 							<div id="message" class="info">
 						<?php } ?>
 							<?php /* translators: %s is replaced with review_label */ ?>
 							<p><?php echo sprintf( esc_html__( 'Sorry, no %s were found.', 'bp-group-reviews' ), esc_html( $review_label ) ); ?></p>
 						</div>
+						
 						<?php
 				endif;
 		}
