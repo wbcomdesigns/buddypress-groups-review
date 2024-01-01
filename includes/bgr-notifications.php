@@ -186,7 +186,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$user_info    = get_userdata( $member_id );
 			$user_name    = $user_info->user_login;
 			if ( $bgr['auto_approve_reviews'] == 'no' ) {
-				$notification_link = bp_get_group_url( $group ) . 'admin/add-' . bgr_group_review_tab_slug() . '/';
+				$notification_link = bp_get_group_url( $group ) . 'reviews/add-' . bgr_group_review_tab_slug() . '/';
 			} else {
 				$notification_link = bp_get_group_url( $group ) . sanitize_title( bgr_group_review_tab_name() );
 			}

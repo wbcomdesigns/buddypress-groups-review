@@ -233,16 +233,17 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 							?>
 						<div id="message" class="info bp-feedback bp-messages bp-template-notice">
 							<span class="bp-icon" aria-hidden="true"></span>
-						</div>
 						<?php } else { ?>
 							<div id="message" class="info">
 						<?php } ?>
 							<?php /* translators: %s is replaced with review_label */ ?>
 							<p><?php echo sprintf( esc_html__( 'Sorry, no %s were found.', 'bp-group-reviews' ), esc_html( $review_label ) ); ?></p>
 						</div>
-						
 						<?php
 				endif;
+					?>
+				</div>
+				<?php
 		}
 	}
 	bp_register_group_extension( 'Group_Reviews_Management_Extn' );
