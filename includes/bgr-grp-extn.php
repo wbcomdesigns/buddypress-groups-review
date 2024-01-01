@@ -95,7 +95,6 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			<div class="bgr-group-review-no-popup-add-block">
 				<?php echo do_shortcode( '[add_group_review_form]' ); ?>
 			</div>
-			</div>
 			<?php
 		}
 
