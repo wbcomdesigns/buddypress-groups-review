@@ -147,6 +147,12 @@ The [site-name] Team';
 		$review_label        = esc_html__( 'Review', 'bp-group-reviews' );
 		$manage_review_label = esc_html__( 'Reviews', 'bp-group-reviews' );
 		$rating_color        = '#FFC400';
+		$bgr_admin_display_settings   = array(
+			'review_label'          => $review_label,
+			'manage_review_label'   => $manage_review_label,
+			'bgr_rating_color'      => $rating_color,
+		);
+		update_option( 'bgr_admin_display_settings', $bgr_admin_display_settings );
 	}
 
 	$bgr = array(

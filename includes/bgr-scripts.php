@@ -65,7 +65,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				$exclude_groups = 'true';
 			}
 			$auto_approve_reviews = '';
-			if ( 'yes' == $bgr_admin_settings['auto_approve_reviews'] ) {
+			if ( isset( $bgr_admin_settings['auto_approve_reviews'] ) && 'yes' == $bgr_admin_settings['auto_approve_reviews'] ) {
 				$auto_approve_reviews = $bgr_admin_settings['auto_approve_reviews']; // hide review-management tab when moderation in disbale.
 			}
 			wp_localize_script(
@@ -77,7 +77,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 					'wbcom_nonce'          => wp_create_nonce( 'ajax-nonce' ),
 					'auto_approve_reviews' => $auto_approve_reviews,
 					'exclude_groups'       => $exclude_groups,
-					'review_label'         => isset( $bgr_admin_display_settings['review_label'] ) ? strtolower( $bgr_admin_display_settings['review_label'] ) : '',
+					'review_label'         => isset( $bgr_admin_display_settings['review_label'] ) ? strtolower( $bgr_admin_display_settings['review_label'] ) : esc_html( strtolower( 'Review' ) ),
 					'group_id'             => bp_get_current_group_id(),
 					'check_group_admin'    => $group_admin,
 				)
