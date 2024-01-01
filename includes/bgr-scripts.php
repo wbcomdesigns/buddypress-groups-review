@@ -54,7 +54,13 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 			wp_enqueue_style( 'bgr-front-css', BGR_PLUGIN_URL . 'assets/css/bgr-front.css', array(), BGR_PLUGIN_VERSION, 'all' );
 			wp_enqueue_script( 'bgr-front-js', BGR_PLUGIN_URL . 'assets/js/bgr-front.js', array( 'jquery' ), BGR_PLUGIN_VERSION, false );
 			$bgr_admin_settings         = get_option( 'bgr_admin_general_settings' );
+			$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
 			$exclude_groups             = isset( $bgr_admin_settings['exclude_groups'] ) ? $bgr_admin_settings['exclude_groups'] : array();
+			if ( groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id() ) ) {
+				$group_admin = 'yes';
+			} else {
+				$group_admin = 'no';
+			}
 			if ( in_array( bp_get_current_group_id(), $exclude_groups ) ) {
 				$exclude_groups = 'true';
 			}
@@ -66,11 +72,14 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				'bgr-front-js',
 				'bgr_front_js_object',
 				array(
-					'view_more_text' => esc_html__( 'View More..', 'bp-group-reviews' ),
-					'view_less_text' => esc_html__( 'View Less..', 'bp-group-reviews' ),
-					'wbcom_nonce'    => wp_create_nonce( 'ajax-nonce' ),
+					'view_more_text'       => esc_html__( 'View More..', 'bp-group-reviews' ),
+					'view_less_text'       => esc_html__( 'View Less..', 'bp-group-reviews' ),
+					'wbcom_nonce'          => wp_create_nonce( 'ajax-nonce' ),
 					'auto_approve_reviews' => $auto_approve_reviews,
-					'exclude_groups' => $exclude_groups,
+					'exclude_groups'       => $exclude_groups,
+					'review_label'         => isset( $bgr_admin_display_settings['review_label'] ) ? strtolower( $bgr_admin_display_settings['review_label'] ) : '',
+					'group_id'             => bp_get_current_group_id(),
+					'check_group_admin'    => $group_admin,
 				)
 			);
 			wp_enqueue_style( 'bgr-ratings-css', BGR_PLUGIN_URL . 'assets/css/bgr-ratings.css', array(), BGR_PLUGIN_VERSION, 'all' );

@@ -1,8 +1,13 @@
-jQuery(document).ready(function (e) {  
-  if( 'yes' == bgr_front_js_object.auto_approve_reviews ){
-    jQuery('#feedback-management').hide();
+jQuery(document).ready(function (e) {
+  var review_label = bgr_front_js_object.review_label;
+  if ('yes' == bgr_front_js_object.check_group_admin) {
+    if ('yes' == bgr_front_js_object.auto_approve_reviews) {
+      jQuery('#' + review_label + '-management').hide();
+    }
+  } else {
+    jQuery('#' + review_label + '-management').hide();
   }
-  if( 'true' == bgr_front_js_object.exclude_groups  ){
+  if ('true' == bgr_front_js_object.exclude_groups) {
     jQuery('#nav-add-feedback').hide();
   }
   jQuery("#bgr_review_success_msg_modal").hide();
