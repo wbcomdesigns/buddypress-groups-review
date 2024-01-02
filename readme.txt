@@ -4,7 +4,7 @@ Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
 Tested up to: 6.4.2
-Stable tag: 3.0.0
+Stable tag: 3.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,11 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 8. Review submission at single group.(png|jpg|jpeg|gif).
 
 == Changelog ==
+= 3.1.0 =
+* Fix: Fixed group admin button issue
+* Fix: Fixed warning issue
+* Fix: Fixed sidebar issue in the add review tab
+
 = 3.0.0 =
 * Fix: BuddyPress v12 support
 * Fix: WPCS Fixes
