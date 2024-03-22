@@ -472,12 +472,13 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			global $bp;
 			global $bgr;
 			$bp_group_review_email_settigs = get_option( 'bp_group_review_email_settigs' );
+			$bgr_allow_email      = isset( $bp_group_review_email_settigs['bgr_allow_email'] ) ? $bp_group_review_email_settigs['bgr_allow_email'] : '';
 			$current_user         = wp_get_current_user();
 			$member_id            = $current_user->ID;
 			$user_name            = $current_user->display_name;
 			$active_rating_fields = $bgr['active_rating_fields'];
 			$allow_notification   = $bgr['allow_notification'];
-			$allow_email          = $bp_group_review_email_settigs['bgr_allow_email'];
+			$allow_email          = $bgr_allow_email;
 			$allow_activity       = $bgr['allow_activity'];
 			$review_label         = $bgr['review_label'];
 			$auto_approve_reviews = $bgr['auto_approve_reviews'];
