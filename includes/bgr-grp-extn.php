@@ -38,8 +38,8 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		 */
 		public function __construct( $args = array() ) {
 			global $bp;
-
-			$parsed_url = parse_url( $_SERVER['HTTP_REFERER'] );
+			$url 		= isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '';
+			$parsed_url = parse_url( $url );
 			$path       = isset( $parsed_url['path'] ) ? trim( $parsed_url['path'], '/' ) : '';
 			$parts      = explode( '/', $path );
 			$group_slug = end( $parts );
