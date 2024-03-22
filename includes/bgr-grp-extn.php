@@ -38,12 +38,27 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		 */
 		public function __construct( $args = array() ) {
 			global $bp;
+
+			$parsed_url = parse_url( $_SERVER['HTTP_REFERER'] );
+			$path       = isset( $parsed_url['path'] ) ? trim( $parsed_url['path'], '/' ) : '';
+			$parts      = explode( '/', $path );
+			$group_slug = end( $parts );
+			$group_id   = BP_Groups_Group::group_exists( $group_slug ); // get current group id.
+			
 			$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
 			$exclude_groups             = isset( $bgr_admin_general_settings['exclude_groups'] ) ? $bgr_admin_general_settings['exclude_groups'] : array();
 			$enabled                    = ! in_array( bp_get_current_group_id(), $exclude_groups, true );
 			$add_review_label           = $this->get_add_review_label();
-			$add_review_nav             = $this->should_show_add_review_nav();
-
+			$add_review_nav             = $this->should_show_add_review_nav();			
+			
+			// "Add Review" tab will not display on the current group when below condition are matched.
+			if ( ! empty( $exclude_groups ) ) {
+				if ( in_array( $group_id, $exclude_groups ) ) {
+					if ( ! groups_is_user_admin( bp_loggedin_user_id(), $group_id ) ){
+						return;
+					}
+				}
+			}			
 			$args = array(
 				'slug'              => 'add-' . bgr_group_review_tab_slug(),
 				'nav_item_position' => 200,
