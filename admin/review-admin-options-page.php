@@ -288,7 +288,7 @@ The [site-name] Team';
 		<div class="bgr-row wbcom-settings-section-wrap">
 			<div class="wbcom-settings-section-options-heading">
 				<label for="reviews_per_page"><?php esc_html_e( 'Reviews show at most', 'bp-group-reviews' ); ?></label>
-				<p class="description"><?php esc_html_e( 'This option lets you limit number of reviews in "Group Reviews" page & "Manage Reviews" Page.', 'bp-group-reviews' ); ?></p>
+				<p class="description"><?php esc_html_e( 'This option lets you limit number of reviews in "Group Reviews" & "Manage Reviews" tab.', 'bp-group-reviews' ); ?></p>
 			</div>
 			<div class="wbcom-settings-section-options">
 				<input id="reviews_per_page" class="small-text" name="reviews_per_page" step="1" min="1" value="<?php echo esc_attr( $reviews_per_page ); ?>" type="number">
