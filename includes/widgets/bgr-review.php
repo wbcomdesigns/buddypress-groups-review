@@ -116,7 +116,7 @@ class bgr_review_widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance                 = $old_instance;
-		$instance['widget_title'] = wp_strip_all_tags($new_instance['widget_title']);
+		$instance['widget_title'] = wp_strip_all_tags( $new_instance['widget_title'] );
 		$instance['listing_cat']  = $new_instance['listing_cat'];
 		$instance['post_num']     = $new_instance['post_num'];
 		$instance['thumbnail']    = $new_instance['thumbnail'];
@@ -239,7 +239,7 @@ class bgr_review_widget extends WP_Widget {
 			foreach ( $gids as $gid ) {
 				if ( $post_num_counter < $widget_post_num ) :
 					$group          = groups_get_group( array( 'group_id' => $gid ) );
-					$group_url      = bp_get_group_url( $group, true, false );
+					$group_url      = bp_get_group_url( $group );
 					$avatar_options = array(
 						'item_id'    => $gid,
 						'object'     => 'group',
