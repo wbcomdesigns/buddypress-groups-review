@@ -44,7 +44,9 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			$parts      = explode( '/', $path );
 			$group_slug = end( $parts );
 			$group_id   = BP_Groups_Group::group_exists( $group_slug ); // get current group id.
-			
+			if( empty( $group_id ) ){
+				$group_id = bp_get_current_group_id();
+			}
 			$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
 			$exclude_groups             = isset( $bgr_admin_general_settings['exclude_groups'] ) ? $bgr_admin_general_settings['exclude_groups'] : array();
 			$enabled                    = ! in_array( bp_get_current_group_id(), $exclude_groups, true );
@@ -58,7 +60,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						return;
 					}
 				}
-			}			
+			}
 			$args = array(
 				'slug'              => 'add-' . bgr_group_review_tab_slug(),
 				'nav_item_position' => 200,
