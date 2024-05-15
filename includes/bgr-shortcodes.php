@@ -244,6 +244,22 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			global $bgr;
 			$this->bgr_display_form_star_rating();
 		}
+		
+		/**
+		 * Check active rating fields
+		 *
+		 * @return void
+		 */
+		public function bgr_display_star(){
+			global $bgr;
+			$active_rating_fields = $bgr['active_rating_fields'];
+			if( ! empty( $active_rating_fields ) ){
+				$show_rating = true;
+			} else {
+				$show_rating = false;
+			}
+			return $show_rating;
+		}
 
 		/**
 		 *  Display Ratings when rating type = star
@@ -255,7 +271,8 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			global $bgr;
 			$review_rating_fields = $bgr['review_rating_fields'];
 			$active_rating_fields = $bgr['active_rating_fields'];
-			if ( ! empty( $review_rating_fields ) ) {
+			$bgr_display_star = $this->bgr_display_star();
+			if ( true == $bgr_display_star ) {
 				$field_counter = 1;
 				foreach ( $review_rating_fields as $review_rating_field ) :
 					if ( in_array( $review_rating_field, $active_rating_fields ) ) {
@@ -277,6 +294,18 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				?>
 					<input type="hidden" id="rating_field_counter" value="<?php echo esc_html( --$field_counter ); ?>">
 				<?php
+			} else { $field_counter = 1;?>
+				<div class="multi-review">
+					<div id="review" class="bgr-col-4">
+						<input type="hidden" id="<?php echo 'clicked'; ?>" value="not_clicked">
+							<input type="hidden" name="rated_stars[]" class="rated_stars bgr_mrating" id="rated_stars" value="0">
+							<?php for ( $i = 1; $i <= 5; $i++ ) { ?>
+									<span class="far fa-star bgr-stars bgr-star-rate <?php echo esc_attr( $i ); ?>" id="<?php echo esc_attr( $i ); ?>" data-attr="<?php echo esc_attr( $i ); ?>" ></span>
+								<?php } ?>
+					</div>					
+				</div>
+				<input type="hidden" id="rating_field_counter" value="1">				
+			<?php
 			}
 		}
 	}

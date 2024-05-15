@@ -261,6 +261,9 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 								if ( in_array( $field, $review_rating_fields ) ) {
 									$rate += $value;
 									$reviews_field_count++;
+								}else{
+									$rate += $value;
+									$reviews_field_count++;
 								}
 							}
 							if ( $reviews_field_count > 0 ) {
