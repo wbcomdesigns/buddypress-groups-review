@@ -4,7 +4,7 @@ Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
 Tested up to: 6.5.0
-Stable tag: 3.1.1
+Stable tag: 3.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,9 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 8. Review submission at single group.(png|jpg|jpeg|gif).
 
 == Changelog ==
+= 3.1.2 =
+* Fix: (#142) The Exclude group review option is not working.
+
 = 3.1.1 =
 * Fix: (#135)Fixed exclude group option not working with BuddyPress 12.0
 * Fix: (#139)Update option description
