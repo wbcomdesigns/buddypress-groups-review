@@ -106,9 +106,9 @@ function bgr_bp_notifications_for_review() {
  *  Check if buddypress activate.
  */
 function bgr_requires_buddypress() {
-	if ( ! class_exists( 'BuddyPress' ) ) {
-		deactivate_plugins( plugin_basename( __FILE__ ) );
-		add_action( 'admin_notices', 'bgr_admin_notice' );
+	if ( ! class_exists( 'BuddyPress' ) || ! bp_is_active( 'groups' ) ) {
+			deactivate_plugins( plugin_basename( __FILE__ ) );
+			add_action( 'admin_notices', 'bgr_admin_notice' );
 	}
 }
 add_action( 'admin_init', 'bgr_requires_buddypress' );
@@ -123,8 +123,17 @@ function bgr_admin_notice() {
 	$bpquotes_plugin = esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' );
 	$bp_plugin       = esc_html__( 'BuddyPress', 'bp-group-reviews' );
 	echo '<div class="error"><p>';
-	/* translators: %s: search term */
-	echo sprintf( esc_html__( '%1$s is ineffective now as it requires %2$s to be installed and active.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>' );
+	if( class_exists( 'BuddyPress' ) ){
+		if(  ! bp_is_active( 'groups' ) ){
+			$bp_gp_component       = esc_html__( 'BP Group Component', 'bp-group-reviews' );
+			/* translators: %s: search term */
+			echo sprintf( esc_html__( '%1$s is ineffective now as it requires %2$s to be installed and active and %3$s is active.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>', '<strong>' . esc_html( $bp_gp_component ) . '</strong>' );
+		}
+	} else {
+		/* translators: %s: search term */
+			echo sprintf( esc_html__( '%1$s is ineffective now as it requires %2$s to be installed and active.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>' );
+	}
+	
 	echo '</p></div>';
 
 }
@@ -201,13 +210,13 @@ function run_bp_group_reviews_plugin() {
  */
 function bp_group_reviews_activation_redirect_settings( $plugin ) {
 
-	if ( plugin_basename( __FILE__ ) === $plugin && class_exists( 'BuddyPress' ) ) {
+	if ( plugin_basename( __FILE__ ) === $plugin && class_exists( 'BuddyPress' ) && bp_is_active( 'groups' ) ) {
 		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) { //phpcs:ignore
 			wp_safe_redirect( admin_url( 'admin.php?page=group-review-settings' ) );
 			exit;
 		}
 	}
-	if ( $plugin == $_REQUEST['plugin'] && class_exists( 'Buddypress' ) ) {
+	if ( $plugin == $_REQUEST['plugin'] && class_exists( 'Buddypress' ) && bp_is_active( 'groups' ) ) {
 		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate-plugin' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) { //phpcs:ignore		
 			set_transient( '_bp_group_reviews_is_new_install', true, 30 );
 		}
