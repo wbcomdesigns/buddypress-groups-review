@@ -366,12 +366,14 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				wp_send_json_error( $error );
 			}
 			if ( isset( $_POST['action'] ) && 'bgr_save_admin_criteria_settings' === $_POST['action'] && current_user_can( 'administrator' ) ) {
-
-				$rating_fields               = isset( $_POST['field_values'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['field_values'] ) ) : '';
-				$rating_field_values         = array_unique( $rating_fields );
-				$active_rating_fields        = isset( $_POST['active_criterias'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['active_criterias'] ) ) : '';
+				
+				// Ensure the variables are always treated as arrays
+				$rating_fields = isset( $_POST['field_values'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['field_values'] ) ) : array();
+				$rating_field_values = array_unique( $rating_fields );
+				
+				$active_rating_fields = isset( $_POST['active_criterias'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['active_criterias'] ) ) : array();
 				$active_rating_fields_values = array_unique( $active_rating_fields );
-
+				
 				$bgr_admin_settings = array(
 					'add_review_rating_fields' => $rating_field_values,
 					'active_rating_fields'     => $active_rating_fields_values,
