@@ -5,273 +5,287 @@
 */
 
 .group-reviews {
-  margin-top: 25px;
+    margin-top: 25px;
 }
 
 #group-reviews-list,
 .group-add-form textarea,
 .group-add-form input,
 .group-add-form button {
-  width: 100%;
+    width: 100%;
 }
 
 .group-add-form p {
-  text-align: center;
+    text-align: center;
 }
 
 .bgr-add-review {
-  margin-left: 5px;
+    margin-left: 5px;
 }
 
 .bgr-group-review-no-popup-add-block {
-  display: block;
+    display: block;
 }
 
 #request-review-list input[type="submit"] {
-  display: none !important;
+    display: none !important;
 }
 
+
 /****************** MODAL CSS ***********************/
+
 
 /* The Modal (background) */
 
 .modal {
-  display: none;
-  /* Hidden by default */
-  position: fixed;
-  /* Stay in place */
-  z-index: 1;
-  /* Sit on top */
-  padding-top: 100px;
-  /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%;
-  /* Full width */
-  height: 100%;
-  /* Full height */
-  overflow: auto;
-  /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0);
-  /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4);
-  /* Black w/ opacity */
-  z-index: 9999;
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+    z-index: 9999;
 }
+
 
 /* Modal Content */
 
 .modal-content {
-  position: relative;
-  background-color: #fefefe;
-  margin: auto;
-  padding: 0;
-  border: 1px solid #888;
-  width: 26%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  -webkit-animation-name: animatetop;
-  -webkit-animation-duration: 0.4s;
-  animation-name: animatetop;
-  animation-duration: 0.4s;
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 26%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
 }
 
 @media (max-width: 1024px) {
-  #bgr-add-review-modal .modal-content {
-    min-width: 300px;
-  }
+    #bgr-add-review-modal .modal-content {
+        min-width: 300px;
+    }
 }
+
 
 /* Add Animation */
 
 @-webkit-keyframes animatetop {
-  from {
-    top: -300px;
-    opacity: 0;
-  }
-  to {
-    top: 0;
-    opacity: 1;
-  }
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
 }
 
 @keyframes animatetop {
-  from {
-    top: -300px;
-    opacity: 0;
-  }
-  to {
-    top: 0;
-    opacity: 1;
-  }
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
 }
+
 
 /* The Close Button */
 
 .close {
-  color: white;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  position: absolute;
-  right: 10px;
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 10px;
 }
 
 .close:hover,
 .close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .modal-header {
-  padding: 19px 0 6px 24px;
-  background-color: #c5c5c5;
-  color: white;
-  position: relative;
+    padding: 19px 0 6px 24px;
+    background-color: #c5c5c5;
+    color: white;
+    position: relative;
 }
 
 .modal-body {
-  padding: 2px 16px;
+    padding: 2px 16px;
 }
 
 .bgr-group-review-add-block {
-  overflow: hidden;
+    overflow: hidden;
 }
 
-.widget-area
-  .widget.buddypress
-  div.item-options#bp-group-rating-list-options
-  a {
-  margin: 0;
+.widget-area .widget.buddypress div.item-options#bp-group-rating-list-options a {
+    margin: 0;
 }
 
 .bp-nouveau .widget-area .widget.buddypress #bp-group-rating div.item {
-  padding: 0;
+    padding: 0;
 }
 
 ul.bupr-group-main li.bupr-group .bupr-img-widget {
-  float: left;
+    float: left;
 }
 
 .widget ul#bp-group-rating .item-avatar,
 ul.bupr-group-main li.bupr-group img.avatar {
-  width: 50px;
-  height: 50px;
-  float: left;
+    width: 50px;
+    height: 50px;
+    float: left;
 }
 
 .widget ul#bp-group-rating .item {
-  margin-left: 70px;
+    margin-left: 70px;
 }
 
-.widget.widget_bp_group_review_tab .bupr-img-widget + .bupr-content-widget {
-  margin-left: 70px;
+.widget.widget_bp_group_review_tab .bupr-img-widget+.bupr-content-widget {
+    margin-left: 70px;
 }
 
 .widget_bp_group_review_tab ul.bupr-group-main li.bupr-group,
 .widget ul#bp-group-rating li {
-  height: auto;
-  width: 100%;
-  position: relative;
-  display: block;
-  margin: 0;
-  padding: 0.5em 0;
+    height: auto;
+    width: 100%;
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0.5em 0;
 }
 
 .widget_bp_group_review_tab ul.bupr-member-main li:first-child,
 .widget ul#bp-member-rating li:first-child {
-  padding-top: 0;
+    padding-top: 0;
 }
 
 ul.bupr-group-main {
-  margin: 0;
-  list-style: none;
-  padding: 0px;
+    margin: 0;
+    list-style: none;
+    padding: 0px;
 }
 
 ul.bupr-group-main li.bupr-group .bupr-meta {
-  display: block;
-  font-size: 90%;
-  line-height: normal;
-  margin-top: 5px;
+    display: block;
+    font-size: 90%;
+    line-height: normal;
+    margin-top: 5px;
 }
 
 .group-add-form,
 .bgr-group-reviews-block {
-  background: #fff;
-  margin-top: 15px;
-  padding: 15px;
-  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+    background: #fff;
+    margin-top: 15px;
+    padding: 15px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .group-add-form p {
-  text-align: left;
-  margin: 10px 0;
+    text-align: left;
+    margin: 10px 0;
 }
 
 .bgr-group-review-no-popup-add-block .review_desc {
-  width: 100%;
-  padding: 10px;
+    width: 100%;
+    padding: 10px;
+}
+
+.review-ratings {
+    margin-top: 10px;
 }
 
 .multi-review {
-  display: inline-block;
-  width: 100%;
-  background: #f7f7f7;
-  padding: 10px;
-  border-radius: 3px;
-  margin-top: 5px;
+    display: inline-block;
+    width: 100%;
+    background: #f7f7f7;
+    padding: 0;
+    border-radius: 3px;
 }
 
-.multi-review > div {
-  padding: 0px;
+.multi-review>div {
+    padding: 0px;
 }
 
 .bgr-group-review-no-popup-add-block .bgr-submit-review {
-  width: 100%;
-  margin: 0;
-  max-width: 160px;
-  height: auto !important;
+    width: 100%;
+    margin: 0;
+    max-width: 160px;
+    height: auto !important;
 }
 
 .bp-nouveau .bgr-row {
-  margin-bottom: 20px;
-  padding: 15px;
-  background: #fff;
-  border: 0;
-  box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05);
+    border: 1px solid #eee;
 }
 
 .bgr-group-profiles {
-  text-align: center;
-  width: 80px;
-  float: left;
+    width: 60px;
+    float: left;
 }
 
 .bgr-group-profiles img.avatar {
-  max-width: 50px;
-  max-height: 50px;
-  height: auto;
-  width: 100%;
+    max-width: 50px;
+    max-height: 50px;
+    height: auto;
+    width: 100%;
 }
 
 .bgr-group-content {
-  margin-left: 100px;
+    margin-left: 70px;
+    margin-bottom: -10px;
 }
+
+.remove-review.generic-button {
+    margin-left: 70px;
+    margin-top: 15px;
+    width: 100%;
+}
+
 
 /* BuddyBoss Theme */
 
-.theme-buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-group-header-ratings{
-  padding:0px;
-}
-.theme-buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-header-row{
-  text-align: left;
+.theme-buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-group-header-ratings {
+    padding: 0px;
 }
 
-.theme-buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-group-header-ratings{
-  font-size: 16px;
+.theme-buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-header-row {
+    text-align: left;
 }
 
-.theme-buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-star-rate{
-  margin-right: 0;
+.theme-buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-group-header-ratings {
+    font-size: 16px;
+}
+
+.theme-buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-star-rate {
+    margin-right: 0;
 }
