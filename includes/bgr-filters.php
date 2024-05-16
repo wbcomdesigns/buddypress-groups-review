@@ -166,6 +166,9 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 								if ( in_array( $field, $review_rating_fields ) ) {
 									$rate += $value;
 									$reviews_field_count++;
+								} else {
+									$rate += $value;
+									$reviews_field_count++;
 								}
 							}
 							if ( $reviews_field_count > 0 ) {
@@ -261,7 +264,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 								if ( in_array( $field, $review_rating_fields ) ) {
 									$rate += $value;
 									$reviews_field_count++;
-								}else{
+								} else {
 									$rate += $value;
 									$reviews_field_count++;
 								}
@@ -375,15 +378,16 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				global $post, $wpdb;
 				$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
 				$review_label               = isset( $bgr['manage_review_label'] ) ? $bgr['manage_review_label'] : '';
+				$add_review_label           = ! empty( $bgr_admin_display_settings ) ? bgr_group_add_review_tab_name() : esc_html__( 'Review', 'bp-group-reviews' );
 
 				$args = array(
-					'category'     => 'group',
-					'orderby'      => 'post_date',
-					'order'        => 'DESC',
-					'meta_key'     => 'linked_group',
-					'meta_value'   => $bp->groups->current_group->id,
-					'post_type'    => 'review',
-					'post_status'  => 'publish',
+					'category'    => 'group',
+					'orderby'     => 'post_date',
+					'order'       => 'DESC',
+					'meta_key'    => 'linked_group',
+					'meta_value'  => $bp->groups->current_group->id,
+					'post_type'   => 'review',
+					'post_status' => 'publish',
 				);
 
 				$post_count   = 0;
@@ -400,7 +404,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$exclude_groups = $bgr['exclude_groups'];
 					if ( ! empty( $exclude_groups ) ) {
 						if ( ! in_array( $bp->groups->current_group->id, $exclude_groups ) ) {
-							$tab_args = array(
+							$tab_args[] = array(
 								'name'            => $review_label . ' ' . $count_notification,
 								'slug'            => sanitize_title( $bgr['manage_review_label'] ),
 								'parent_slug'     => $bp->groups->current_group->slug,
@@ -408,7 +412,20 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 								'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
 								'position'        => 199,
 							);
-							bp_core_new_subnav_item( $tab_args );
+
+							$tab_args[] = array(
+								'name'            => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
+								'slug'            => 'add-' . bgr_group_review_tab_slug(),
+								'parent_slug'     => $bp->groups->current_group->slug,
+								'parent_url'      => bp_get_group_url( $bp->groups->current_group ),
+								'screen_function' => array( $this, 'bgr_group_add_review_tab' ),
+								'position'        => 199,
+							);
+
+							foreach( $tab_args as $tab ) {
+								bp_core_new_subnav_item( $tab );
+							}
+
 						}
 					} else {
 						$tab_args = array(
@@ -436,7 +453,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		}
 
 		public function bgr_group_add_review_tab() {
-			add_action( 'bp_template_content', array( $this, 'bgr_group_reviews_tab_template' ) );
+			add_action( 'bp_template_content', array( $this, 'bgr_group_add_reviews_tab_template' ) );
 			$templates = array( 'groups/single/plugins.php', 'plugin-template.php' );
 			if ( strstr( locate_template( $templates ), 'groups/single/plugins.php' ) ) {
 				bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'groups/single/plugins' ) );
@@ -476,6 +493,34 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			} elseif ( sanitize_title( $bgr['manage_review_label'] ) === bp_current_action() ) {
 				include 'templates/bgr-reviews-tab-template.php';
 			}
+		}
+
+		/**
+		 *  Action performed to show add review form on single group
+		 *
+		 *  @since   3.2.2
+		 *  @access   public
+		 *  @author  Wbcom Designs
+		 */
+		public function bgr_group_add_reviews_tab_template() {
+			?>
+			<div class="bgr-bp-success">
+				<?php
+				$bp_template_option = bp_get_option( '_bp_theme_package_id' );
+				if ( 'nouveau' == $bp_template_option ) {
+					?>
+					<div id="message" class="success bp-feedback bp-messages bp-template-notice">
+						<span class="bp-icon" aria-hidden="true"></span>
+				<?php } else { ?>
+					<div id="message" class="success bgr-bp-success">
+				<?php } ?>
+					<p><?php esc_html_e( 'Your Response added. This will be published when group admin has approved it.', 'bp-group-reviews' ); ?></p>
+				</div>
+			</div>
+			<div class="bgr-group-review-no-popup-add-block">
+				<?php echo do_shortcode( '[add_group_review_form]' ); ?>
+			</div>
+			<?php
 		}
 
 		/**
