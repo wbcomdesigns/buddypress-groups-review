@@ -11,15 +11,21 @@
 
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
-global $bp, $post;
+global $bp, $post, $wp;
 global $bgr;
 $current_user         = wp_get_current_user();
 $member_id            = $current_user->ID;
 $reviews_per_page     = $bgr['reviews_per_page'];
 $review_rating_fields = $bgr['review_rating_fields'];
 $review_label         = $bgr['review_label'];
-$paged                = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-$args                 = array(
+$paged                = 1;
+
+
+if ( 'reviews' !== basename( home_url( $wp->request ) ) ) {
+	$paged = basename( home_url( $wp->request ) );
+}
+
+$args    = array(
 	'post_type'      => 'review',
 	'post_status'    => 'publish',
 	'category'       => 'group',
@@ -33,7 +39,7 @@ $args                 = array(
 		),
 	),
 );
-$reviews              = new WP_Query( $args );
+$reviews = new WP_Query( $args );
 ?>
 <div class="bgr-group-reviews-block">
 	<div class="select-wrap">
@@ -101,18 +107,18 @@ $reviews              = new WP_Query( $args );
 
 						<?php
 					endwhile;
-						$total_pages = $reviews->max_num_pages;
+					$total_pages = $reviews->max_num_pages;
 					if ( $total_pages > 1 ) {
+
 						?>
 							<div class="review-pagination">
 								<?php
-								$current_page = max( 1, get_query_var( 'paged' ) );
 								echo wp_kses_post(
 									paginate_links(
 										array(
 											'base'      => get_pagenum_link( 1 ) . '%_%',
 											'format'    => 'page/%#%',
-											'current'   => $current_page,
+											'current'   => $paged,
 											'total'     => $total_pages,
 											'prev_text' => esc_html__( 'prev', 'bp-group-reviews' ),
 											'next_text' => esc_html__( 'next', 'bp-group-reviews' ),
