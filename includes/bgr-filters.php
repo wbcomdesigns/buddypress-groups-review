@@ -410,7 +410,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 								'parent_slug'     => $bp->groups->current_group->slug,
 								'parent_url'      => bp_get_group_url( $bp->groups->current_group ),
 								'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
-								'position'        => 199,
+								'position'        => 198,
 							);
 
 							$tab_args[] = array(
@@ -422,32 +422,55 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 								'position'        => 199,
 							);
 
-							foreach( $tab_args as $tab ) {
+							foreach ( $tab_args as $tab ) {
 								bp_core_new_subnav_item( $tab );
 							}
-
 						}
 					} else {
-						$tab_args = array(
+						$tab_args[] = array(
 							'name'            => $review_label . ' ' . $count_notification,
 							'slug'            => sanitize_title( $bgr['manage_review_label'] ),
 							'parent_slug'     => $bp->groups->current_group->slug,
 							'parent_url'      => bp_get_group_url( $bp->groups->current_group ),
 							'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
+							'position'        => 198,
+						);
+
+						$tab_args[] = array(
+							'name'            => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
+							'slug'            => 'add-' . bgr_group_review_tab_slug(),
+							'parent_slug'     => $bp->groups->current_group->slug,
+							'parent_url'      => bp_get_group_url( $bp->groups->current_group ),
+							'screen_function' => array( $this, 'bgr_group_add_review_tab' ),
 							'position'        => 199,
 						);
-						bp_core_new_subnav_item( $tab_args );
+
+						foreach ( $tab_args as $tab ) {
+							bp_core_new_subnav_item( $tab );
+						}
 					}
 				} else {
-					$tab_args = array(
+					$tab_args[] = array(
 						'name'            => $review_label . ' ' . $count_notification,
 						'slug'            => sanitize_title( $bgr['manage_review_label'] ),
 						'parent_slug'     => $bp->groups->current_group->slug,
 						'parent_url'      => bp_get_group_url( $bp->groups->current_group ),
 						'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
+						'position'        => 198,
+					);
+
+					$tab_args[] = array(
+						'name'            => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
+						'slug'            => 'add-' . bgr_group_review_tab_slug(),
+						'parent_slug'     => $bp->groups->current_group->slug,
+						'parent_url'      => bp_get_group_url( $bp->groups->current_group ),
+						'screen_function' => array( $this, 'bgr_group_add_review_tab' ),
 						'position'        => 199,
 					);
-					bp_core_new_subnav_item( $tab_args );
+
+					foreach ( $tab_args as $tab ) {
+						bp_core_new_subnav_item( $tab );
+					}
 				}
 			}
 		}
