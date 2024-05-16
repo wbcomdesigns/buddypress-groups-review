@@ -203,7 +203,6 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     background: #fff;
     margin-top: 15px;
     padding: 15px;
-    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .group-add-form p {
@@ -223,9 +222,7 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
 .multi-review {
     display: inline-block;
     width: 100%;
-    background: #f7f7f7;
     padding: 0;
-    border-radius: 3px;
 }
 
 .multi-review>div {
@@ -269,6 +266,14 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     margin-left: 70px;
     margin-top: 15px;
     width: 100%;
+}
+
+.bgr-multi-review {
+    margin: 15px;
+}
+
+.wb-reign-theme .bgr-multi-review {
+    margin: 15px 0;
 }
 
 
