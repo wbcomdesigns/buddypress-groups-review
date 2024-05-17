@@ -14,8 +14,8 @@
  * @wordpress-plugin
  * Plugin Name: Wbcom Designs - BuddyPress Group Reviews
  * Plugin URI: https://wbcomdesigns.com/contact/
- * Description: This plugin allows the BuddyPress Members to give reviews to the BuddyPress groups on the site. The review form allows the users to give text review, even rate the group on the basis of multiple criterias.
- * Version: 3.1.2
+ * Description: This plugin allows BuddyPress Members to give reviews to BuddyPress groups on the site. The review form allows users to give text reviews and even rate the group based on multiple criteria.
+ * Version: 3.2.2
  * Author: Wbcom Designs
  * Author URI: http://wbcomdesigns.com
  * License: GPLv2+
@@ -57,7 +57,7 @@ function bgr_load_textdomain() {
  *  @since   1.0.0
  *  @author  Wbcom Designs
 */
-define( 'BGR_PLUGIN_VERSION', '3.1.2' );
+define( 'BGR_PLUGIN_VERSION', '3.2.2' );
 define( 'BGR_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BGR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
