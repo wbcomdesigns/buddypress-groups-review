@@ -50,7 +50,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			$current_user         = wp_get_current_user();
 			$member_id            = $current_user->ID;
 			$output               = '';
-			
+
 			$current_group_id = 0;
 			if ( ! empty( bp_get_current_group_id() ) ) {
 				$current_group_id = bp_get_current_group_id();
@@ -214,15 +214,14 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 							<?php $review_subject = bgr_group_add_review_tab_name() . ' ' . time(); ?>
 							<input name="review-subject" type="hidden" value="<?php echo esc_attr( $review_subject ); ?>">
 						</p>
+						<?php $this->bgr_display_form_rating(); ?>
+						<span class="bgr-error-fields">*<?php esc_html_e( 'This field is required.', 'bp-group-reviews' ); ?></span>
 					<?php /* translators: %s: search term */ ?>
 							<textarea class="review_desc" name="review-desc" placeholder="<?php echo sprintf( esc_attr__( '%1$s Description', 'bp-group-reviews' ), esc_attr( $review_label ) ); ?>" rows="3" cols="50"></textarea>
 							<br/>
-							<span class="bgr-error-fields">*<?php esc_html_e( 'This field is required.', 'bp-group-reviews' ); ?></span>
-
 						<p>
 							<input type="hidden" name="bgr-flag" value="1">
 						</p>
-						<?php $this->bgr_display_form_rating(); ?>
 						<p>
 							<?php wp_nonce_field( 'save-group-review', 'security-nonce' ); ?>
 							<?php /* translators: %1$s is used for review label */ ?>
@@ -244,16 +243,16 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			global $bgr;
 			$this->bgr_display_form_star_rating();
 		}
-		
+
 		/**
 		 * Check active rating fields
 		 *
 		 * @return void
 		 */
-		public function bgr_display_star(){
+		public function bgr_display_star() {
 			global $bgr;
 			$active_rating_fields = $bgr['active_rating_fields'];
-			if( ! empty( $active_rating_fields ) ){
+			if ( ! empty( $active_rating_fields ) ) {
 				$show_rating = true;
 			} else {
 				$show_rating = false;
@@ -271,14 +270,14 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			global $bgr;
 			$review_rating_fields = $bgr['review_rating_fields'];
 			$active_rating_fields = $bgr['active_rating_fields'];
-			$bgr_display_star = $this->bgr_display_star();
+			$bgr_display_star     = $this->bgr_display_star();
 			if ( true == $bgr_display_star ) {
 				$field_counter = 1;
 				foreach ( $review_rating_fields as $review_rating_field ) :
 					if ( in_array( $review_rating_field, $active_rating_fields ) ) {
 						?>
 							<div class="multi-review">
-								<div class="bgr-col-4"><?php echo esc_html( $review_rating_field ); ?></div>
+								<div class="bgr-col-4 "><?php echo esc_html( $review_rating_field ); ?> <span class="required"> * </span>  </div>
 								<div id="review<?php echo esc_html( $field_counter ); ?>" class="bgr-col-4">
 										<input type="hidden" id="<?php echo 'clicked' . esc_html( $field_counter ); ?>" value="not_clicked">
 										<input type="hidden" name="rated_stars[]" class="rated_stars bgr_mrating" id="<?php echo 'rated_stars' . esc_html( $field_counter ); ?>" value="0">
@@ -294,18 +293,22 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				?>
 					<input type="hidden" id="rating_field_counter" value="<?php echo esc_html( --$field_counter ); ?>">
 				<?php
-			} else { $field_counter = 1;?>
+			} else {
+				$field_counter = 1;
+				?>
 				<div class="multi-review">
+					<div class="bgr-col-4"><?php esc_html_e( 'Your Rating', 'bp-group-reviews' ); ?><span class="required"> * </span> </div>
 					<div id="review" class="bgr-col-4">
 						<input type="hidden" id="<?php echo 'clicked'; ?>" value="not_clicked">
 							<input type="hidden" name="rated_stars[]" class="rated_stars bgr_mrating" id="rated_stars" value="0">
 							<?php for ( $i = 1; $i <= 5; $i++ ) { ?>
 									<span class="far fa-star bgr-stars bgr-star-rate <?php echo esc_attr( $i ); ?>" id="<?php echo esc_attr( $i ); ?>" data-attr="<?php echo esc_attr( $i ); ?>" ></span>
 								<?php } ?>
-					</div>					
+					</div>	
+					<div class="bgr-col-12 bgr-error-fields">*<?php esc_html_e( 'This field is required.', 'bp-group-reviews' ); ?></div>				
 				</div>
 				<input type="hidden" id="rating_field_counter" value="1">				
-			<?php
+				<?php
 			}
 		}
 	}

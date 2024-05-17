@@ -111,7 +111,7 @@
 }
 
 #buddypress #bgr-message {
-    display: none!important;
+    display: none !important;
 }
 
 #bgr-message {
@@ -175,24 +175,29 @@
 * This section includes css for design front-end review ,manage review page content.
 */
 
-@media( max-width: 767px) {
+@media(max-width: 767px) {
+
     .remove-review-button,
     .accept-button,
     .deny-button {
         float: none;
         display: block;
     }
+
     .group-request-list .avatar {
         display: block;
     }
+
     .group-request-list .item-title a {
         text-align: center;
         display: block;
     }
+
     .group-request-list .avatar {
         height: 70px;
         width: 70px;
     }
+
     .bgr-row.item-list.group-request-list .bgr-col-2,
     .bgr-row.item-list.group-request-list .bgr-col-10 {
         width: 100%;
@@ -299,4 +304,12 @@
 #group-reviews-list .review-pagination a.prev.page-numbers {
     width: 70px;
     border-radius: 100px;
+}
+
+.bgr-col-4 .required {
+    color: red;
+}
+
+.multi-review {
+    margin-bottom: 5px;
 }
