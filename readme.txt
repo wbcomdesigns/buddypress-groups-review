@@ -3,8 +3,8 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
-Tested up to: 6.5.0
-Stable tag: 3.1.2
+Tested up to: 6.5.2
+Stable tag: 3.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,18 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 8. Review submission at single group.(png|jpg|jpeg|gif).
 
 == Changelog ==
+= 3.2.2 =
+* Fix: Resolved an issue with the review UI to enhance visual presentation and functionality.
+* Update: Hid filter dropdown on review listings for a cleaner user interface.
+* Enhancement: Managed activity and reviewed UIs for improved user experience.
+* Fix: Corrected pagination issues to ensure smooth navigation through pages.
+* Fix: Fixed an issue where the 'Add Review' button was not displayed, restoring its functionality.
+* Enhancement: Managed group list and enhanced the 'Add Review' UI for better user interaction.
+* Fix: Addressed an issue where reviews were not displayed on the directory and removed redundant group extension code.
+* Addition: Added functionality to submit reviews without criteria, simplifying the review process.
+* Fix: Fixed an issue with review criteria options in admin settings to ensure proper configurability.
+* Fix: Ensured plugin does not activate if the group component is inactive, preventing errors in unsupported configurations.
+
 = 3.1.2 =
 * Fix: (#142) The Exclude group review option is not working.
 
@@ -115,7 +127,7 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 * Fix: (#135)Fixed exclude group option not working with BuddyPress 12.0
 * Fix: (#139)Update option description
 * Fix: (#140)Fixed php warnings 
-* Fix: (#144)Fixed php fatal error on widget
+* Fix: (#144)Fixed php fatal error on the widget
 * Fix: Compatibility check with WordPress 6.5.0
 
 = 3.1.0 =
