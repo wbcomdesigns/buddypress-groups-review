@@ -70,7 +70,7 @@ function bgr_criteria_setting() {
 				if ( ! empty( $review_rating_fields ) ) {
 					foreach ( $review_rating_fields as $review_rating_field ) :
 						?>
-				<div class="rating-review-div"><span>&equiv;</span><input name = "BGRDynamicTextBox" class="draggable" type="text" value = "<?php echo esc_attr( $review_rating_field ); ?>" />
+				<div class="rating-review-div"><span class="move-icons">&equiv;</span><input name="BGRDynamicTextBox" class="draggable" type="text" value="<?php echo esc_attr( $review_rating_field ); ?>" />
 					<input type="button" value="<?php esc_html_e( 'Remove', 'bp-group-reviews' ); ?>" class="remove button button-secondary" />
 					<label class="wb-switch">
 					<input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="<?php echo esc_attr( $review_rating_field ); ?>"

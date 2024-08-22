@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-15 06:23:26+00:00\n"
+"POT-Creation-Date: 2024-08-22 08:43:09+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -138,7 +138,7 @@ msgid "Emails"
 msgstr ""
 
 #: admin/bgr-admin.php:108 admin/wbcom/templates/wbcom-license-page.php:12
-#: includes/bgr-filters.php:485
+#: includes/bgr-filters.php:556
 msgid "BuddyPress Group Review"
 msgstr ""
 
@@ -158,13 +158,12 @@ msgstr ""
 #: admin/bgr-admin.php:152 admin/bgr-admin.php:154 admin/bgr-admin.php:155
 #: admin/review-admin-options-page.php:295 includes/bgr-globals.php:141
 #: includes/bgr-globals.php:148 includes/bgr-globals.php:182
-#: includes/bgr-grp-extn.php:141 includes/bgr-grp-extn.php:144
 msgid "Reviews"
 msgstr ""
 
 #: admin/bgr-admin.php:153 admin/review-admin-options-page.php:155
-#: includes/bgr-globals.php:138 includes/bgr-globals.php:147
-#: includes/bgr-globals.php:190 includes/bgr-grp-extn.php:84
+#: includes/bgr-filters.php:381 includes/bgr-globals.php:138
+#: includes/bgr-globals.php:147 includes/bgr-globals.php:190
 msgid "Review"
 msgstr ""
 
@@ -1125,7 +1124,7 @@ msgstr ""
 msgid "Our Plugins"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:299 review-bp-grps.php:154
+#: admin/wbcom/wbcom-admin-settings.php:299 review-bp-grps.php:163
 msgid "Settings"
 msgstr ""
 
@@ -1147,21 +1146,21 @@ msgstr ""
 msgid "%1$s posted an review in the group %2$s"
 msgstr ""
 
-#: includes/bgr-ajax.php:155 includes/templates/bgr-reviews-tab-template.php:77
+#: includes/bgr-ajax.php:155 includes/templates/bgr-reviews-tab-template.php:83
 msgid "read more..."
 msgstr ""
 
-#: includes/bgr-ajax.php:168 includes/templates/bgr-reviews-tab-template.php:93
+#: includes/bgr-ajax.php:168 includes/templates/bgr-reviews-tab-template.php:99
 msgid "Delete"
 msgstr ""
 
-#: includes/bgr-ajax.php:182 includes/bgr-grp-extn.php:237
-#: includes/templates/bgr-reviews-tab-template.php:117
+#: includes/bgr-ajax.php:182
+#: includes/templates/bgr-reviews-tab-template.php:123
 msgid "prev"
 msgstr ""
 
-#: includes/bgr-ajax.php:183 includes/bgr-grp-extn.php:238
-#: includes/templates/bgr-reviews-tab-template.php:118
+#: includes/bgr-ajax.php:183
+#: includes/templates/bgr-reviews-tab-template.php:124
 msgid "next"
 msgstr ""
 
@@ -1179,35 +1178,35 @@ msgstr ""
 msgid "No Rating has been given by any member yet!"
 msgstr ""
 
-#: includes/bgr-ajax.php:487 includes/bgr-notifications.php:194
+#: includes/bgr-ajax.php:489 includes/bgr-notifications.php:194
 #. Translators: %1$s: Review Label
 #. translators: %1$s is replaced with review_label
 msgid "A new %1$s posted."
 msgstr ""
 
-#: includes/bgr-ajax.php:489
+#: includes/bgr-ajax.php:491
 #. Translators: %1$s: Review Label %2$s Group Name %3$s User Name %4$s User
 #. Link
 msgid "A new %1$s for %2$s added by %3$s. Link: %4$s"
 msgstr ""
 
-#: includes/bgr-ajax.php:499
+#: includes/bgr-ajax.php:501
 #. Translators: %1$s: User Name %2$s Review Label %3$s Group Name
 msgid "%1$s %2$ss Group %3$s."
 msgstr ""
 
-#: includes/bgr-ajax.php:525 includes/bgr-shortcodes.php:116
+#: includes/bgr-ajax.php:527 includes/bgr-shortcodes.php:116
 #. translators: %1$s is replaced with review_label
 #. translators: %1$s is used for review label
 msgid "You already posted a %1$s for this group."
 msgstr ""
 
-#: includes/bgr-ajax.php:529
+#: includes/bgr-ajax.php:531
 #. translators: %1$s is replaced with review_label
 msgid "Thank you for taking time to write this wonderful %1$s."
 msgstr ""
 
-#: includes/bgr-ajax.php:533
+#: includes/bgr-ajax.php:535
 #. translators: %1$s is replaced with review_label
 msgid ""
 "Thank you for taking time to write this wonderful %1$s. Your %1$s will "
@@ -1219,59 +1218,31 @@ msgstr ""
 msgid "Add %1$s"
 msgstr ""
 
-#: includes/bgr-filters.php:294
+#: includes/bgr-filters.php:300
 msgid "Rating "
 msgstr ""
 
-#: includes/bgr-filters.php:336
+#: includes/bgr-filters.php:342
 msgid "View"
 msgstr ""
 
-#: includes/bgr-filters.php:340
+#: includes/bgr-filters.php:346
 msgid "Approve"
 msgstr ""
 
-#: includes/bgr-filters.php:486
-msgid "Give Group Review"
-msgstr ""
-
-#: includes/bgr-grp-extn.php:67
+#: includes/bgr-filters.php:417 includes/bgr-filters.php:440
+#: includes/bgr-filters.php:463
 msgid "Add %s"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:71
-msgid "%s Management"
-msgstr ""
-
-#: includes/bgr-grp-extn.php:109
+#: includes/bgr-filters.php:540
 msgid ""
 "Your Response added. This will be published when group admin has approved "
 "it."
 msgstr ""
 
-#: includes/bgr-grp-extn.php:184
-msgid "Short Description "
-msgstr ""
-
-#: includes/bgr-grp-extn.php:201
-msgid "Full Description"
-msgstr ""
-
-#: includes/bgr-grp-extn.php:207 includes/bgr-scripts.php:75
-msgid "View More.."
-msgstr ""
-
-#: includes/bgr-grp-extn.php:213
-msgid "Accept"
-msgstr ""
-
-#: includes/bgr-grp-extn.php:216
-msgid "Deny"
-msgstr ""
-
-#: includes/bgr-grp-extn.php:257
-#. translators: %s is replaced with review_label
-msgid "Sorry, no %s were found."
+#: includes/bgr-filters.php:557
+msgid "Give Group Review"
 msgstr ""
 
 #: includes/bgr-notifications.php:196
@@ -1302,8 +1273,12 @@ msgstr ""
 msgid "Your %1$s for %2$s denied by group admin."
 msgstr ""
 
-#: includes/bgr-rating-display.php:128
+#: includes/bgr-rating-display.php:146
 msgid "Rating"
+msgstr ""
+
+#: includes/bgr-scripts.php:75
+msgid "View More.."
 msgstr ""
 
 #: includes/bgr-scripts.php:76
@@ -1333,37 +1308,26 @@ msgstr ""
 msgid "--Select Group--"
 msgstr ""
 
-#: includes/bgr-shortcodes.php:208 includes/bgr-shortcodes.php:220
-#: includes/bgr-shortcodes.php:272
+#: includes/bgr-shortcodes.php:208 includes/bgr-shortcodes.php:218
+#: includes/bgr-shortcodes.php:288 includes/bgr-shortcodes.php:308
 msgid "This field is required."
 msgstr ""
 
-#: includes/bgr-shortcodes.php:218
+#: includes/bgr-shortcodes.php:220
 #. translators: %s: search term
 msgid "%1$s Description"
 msgstr ""
 
-#: includes/bgr-shortcodes.php:229
+#: includes/bgr-shortcodes.php:228
 #. translators: %1$s is used for review label
 msgid "Submit %1$s"
 msgstr ""
 
-#: includes/templates/bgr-reviews-tab-template.php:41
-#: includes/widgets/group-rating.php:74 includes/widgets/group-rating.php:180
-msgid "Latest"
+#: includes/bgr-shortcodes.php:300
+msgid "Your Rating"
 msgstr ""
 
-#: includes/templates/bgr-reviews-tab-template.php:42
-#: includes/widgets/group-rating.php:75 includes/widgets/group-rating.php:185
-msgid "Highest"
-msgstr ""
-
-#: includes/templates/bgr-reviews-tab-template.php:43
-#: includes/widgets/group-rating.php:76 includes/widgets/group-rating.php:190
-msgid "Lowest"
-msgstr ""
-
-#: includes/templates/bgr-reviews-tab-template.php:141
+#: includes/templates/bgr-reviews-tab-template.php:147
 #. translators: %1$s is replaced with review_label
 msgid "Unfortunately, there are no %1$s were found."
 msgstr ""
@@ -1433,6 +1397,18 @@ msgstr ""
 msgid "Default ratings to show:"
 msgstr ""
 
+#: includes/widgets/group-rating.php:74 includes/widgets/group-rating.php:180
+msgid "Latest"
+msgstr ""
+
+#: includes/widgets/group-rating.php:75 includes/widgets/group-rating.php:185
+msgid "Highest"
+msgstr ""
+
+#: includes/widgets/group-rating.php:76 includes/widgets/group-rating.php:190
+msgid "Lowest"
+msgstr ""
+
 #: includes/widgets/group-rating.php:161
 #. translators: %s is replaced with group_name
 msgid "%s's Ratings"
@@ -1442,12 +1418,23 @@ msgstr ""
 msgid "BuddyPress"
 msgstr ""
 
-#: review-bp-grps.php:127
+#: review-bp-grps.php:128
+msgid "BP Group Component"
+msgstr ""
+
+#: review-bp-grps.php:130
+#. translators: %s: search term
+msgid ""
+"%1$s is ineffective now as it requires %2$s to be installed and active and "
+"%3$s is active."
+msgstr ""
+
+#: review-bp-grps.php:134
 #. translators: %s: search term
 msgid "%1$s is ineffective now as it requires %2$s to be installed and active."
 msgstr ""
 
-#: review-bp-grps.php:141
+#: review-bp-grps.php:150
 msgid ""
 "The Review BuddyPress Groups plugin requires BuddyPress User Groups "
 "Component to be active."

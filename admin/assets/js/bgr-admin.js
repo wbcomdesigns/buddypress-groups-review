@@ -139,7 +139,7 @@ jQuery(document).ready(function () {
 
   /*** Add new criteria field ***/
   jQuery("#bgr-field-add").bind("click", function () {
-    var div = jQuery("<div/>");
+    var div = jQuery("<div class='rating-review-div' />");
     div.html(BGRGetBGRDynamicTextBox(""));
     jQuery("#bgr-textbox-container")
       .append(div)
@@ -220,9 +220,9 @@ jQuery(document).ready(function () {
 /*** Function for add new criteria text field ***/
 function BGRGetBGRDynamicTextBox(value) {
   return (
-    '<span>&equiv;</span><input name = "BGRDynamicTextBox" class="draggable" type="text" value = "' +
+    '<span class="move-icons">&equiv;</span><input name="BGRDynamicTextBox" class="draggable" type="text" value="' +
     value +
-    '" />&nbsp;' +
+    '" />' +
     '<input type="button" value="Remove" class="remove button button-secondary bgr-remove" /><label class="wb-switch"><input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="" checked="checked" ><div class="wb-slider wb-round"></div></label>'
   );
 }
