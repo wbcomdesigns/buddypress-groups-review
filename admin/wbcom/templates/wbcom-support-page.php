@@ -2,7 +2,7 @@
 	<div class="wbcom-bb-plugins-offer-wrapper">
 		<div id="wb_admin_logo">
 			<a href="https://wbcomdesigns.com/downloads/buddypress-community-bundle/?utm_source=pluginoffernotice&utm_medium=community_banner" target="_blank">
-				<img src="<?php echo esc_url( BGR_PLUGIN_URL ) . 'admin/wbcom/assets/imgs/wbcom-offer-notice.png'; ?>">
+				<img src="<?php echo esc_url( BGR_PLUGIN_URL ) . 'admin/wbcom/assets/imgs/wbcom-offer-notice.png'; ?>" alt="Wbcom Designs Offer Notice">
 			</a>
 		</div>
 	</div>
@@ -14,8 +14,8 @@
 			<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
 		</div>        
 		<div id="wbcom_admin_content_support" class="wbcom-all-addons-plugins-wrap">
-			<h4 class="wbcom-support-section"><?php esc_html_e( 'How can we help you?', 'bp-group-reviews' ); ?></h4>
-			<p><?php esc_html_e( 'Our team is here to help you out at anytime. If you have any idea about how we could improve. You can share access to your site on our helpdesk if it can help getting faster.', 'bp-group-reviews' ); ?></p>
+			<h4 class="wbcom-support-section"><?php esc_html_e( 'How can we assist you?', 'bp-group-reviews' ); ?></h4>
+			<p><?php esc_html_e( 'Our team is here to support you at any time. If you have ideas for improvements, feel free to share them. You can also grant us access to your site through our helpdesk for quicker assistance.', 'bp-group-reviews' ); ?></p>
 
 			<ul id="wbcom_support_list" class="wbcom_boxes_list">
 				<li class="wbcom_help_support_box">
@@ -24,11 +24,11 @@
 					</div>
 					<div class="wbcom_help_support_details">
 						<div class="wbcom_help_support_inner_details">
-							<h4><?php esc_html_e( 'Tickets Support', 'bp-group-reviews' ); ?></h4>
-							<p><?php esc_html_e( 'Open a ticket on our helpdesk, we don\'t guarantee a fast response but within a week. Except if you\'ve purchased one of our product we\'ll reply within 24 hours.', 'bp-group-reviews' ); ?></p>
+							<h4><?php esc_html_e( 'Ticket Support', 'bp-group-reviews' ); ?></h4>
+							<p><?php esc_html_e( 'Open a ticket on our helpdesk. We aim to respond within a week, but if you’ve purchased one of our products, you’ll receive a reply within 24 hours.', 'bp-group-reviews' ); ?></p>
 							<div class="wbcom_help_support_button">
 								<a href="https://support.wbcomdesigns.com/portal/newticket" class="wb_btn wb_btn_default" target="_blank">
-									<?php esc_html_e( 'Open a ticket', 'bp-group-reviews' ); ?>
+									<?php esc_html_e( 'Open a Ticket', 'bp-group-reviews' ); ?>
 								</a>
 							</div>
 						</div>
@@ -36,13 +36,13 @@
 				</li>
 
 				<li class="wbcom_help_support_box">
-						<div class="wbcom_help_support_icon_wrapper">
-							<i class="fa fa-comments"></i>
-						</div>
+					<div class="wbcom_help_support_icon_wrapper">
+						<i class="fa fa-comments"></i>
+					</div>
 					<div class="wbcom_help_support_details">
 						<div class="wbcom_help_support_inner_details">
 							<h4><?php esc_html_e( 'Contact Us', 'bp-group-reviews' ); ?></h4>
-							<p><?php esc_html_e( 'Create a new thread on our plugin page, participation is open to anyone from all around the world. We\'ll be there to help as well but can\'t guarantee any delay.', 'bp-group-reviews' ); ?></p>
+							<p><?php esc_html_e( 'Start a new thread on our plugin page. Participation is open to everyone globally. While we’ll be there to assist, we can’t guarantee immediate responses.', 'bp-group-reviews' ); ?></p>
 							<div class="wbcom_help_support_button">
 								<a href="https://wbcomdesigns.com/contact/" class="wb_btn wb_btn_default" target="_blank">
 									<?php esc_html_e( 'Contact Us', 'bp-group-reviews' ); ?>
