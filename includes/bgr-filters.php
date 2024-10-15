@@ -38,23 +38,36 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			add_action( 'init', array( $this, 'bgr_add_groups_reviews_taxonomy_term' ) );
 			add_filter( 'post_row_actions', array( $this, 'bgr_group_reviews_row_actions' ), 10, 2 );
 			add_filter( 'bulk_actions-edit-review', array( $this, 'bgr_remove_edit_bulk_actions' ), 10, 1 );
+			
+			// Add group average rating before group header meta
 			add_action( 'bp_before_group_header_meta', array( $this, 'bgr_group_average_rating' ) );
+		
+			// Check for BuddyBoss or BuddyPress and add the review button accordingly
 			$active_plugins = get_option( 'active_plugins' );
 			if ( in_array( 'buddyboss-platform/bp-loader.php', $active_plugins ) ) {
 				add_action( 'bb_group_single_top_header_action', array( $this, 'bgr_group_header_review_btn' ) );
 			} else {
 				add_action( 'bp_group_header_actions', array( $this, 'bgr_group_header_review_btn' ) );
 			}
+		
+			// Add rating to group directory
 			add_action( 'bp_directory_groups_item', array( $this, 'bgr_group_directory_rating' ) );
+		
+			// Add Youzify integration (check using YOUZIFY_VERSION constant)
+			if ( defined( 'YOUZIFY_VERSION' ) ) {
+				add_action( 'youzify_before_group_header_meta', array( $this, 'bgr_group_average_rating' ) );
+				add_action( 'youzify_group_header_actions', array( $this, 'bgr_group_header_review_btn' ) );
+			}
+		
 			/**
-			 * Gamipress integration
+			 * GamiPress integration
 			 */
-			$active_plugins = get_option( 'active_plugins' );
 			if ( in_array( 'gamipress/gamipress.php', $active_plugins ) ) {
 				add_filter( 'gamipress_activity_triggers', array( $this, 'buddypress_groups_review_bp_activity_triggers' ) );
 				add_filter( 'gamipress_trigger_get_user_id', array( $this, 'buddypress_groups_review_trigger_get_user_id' ), 10, 3 );
 			}
 		}
+			
 
 		/**
 		 *  Actions performed to show review button on group header
