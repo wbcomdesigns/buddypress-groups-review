@@ -61,9 +61,6 @@ define( 'BGR_PLUGIN_VERSION', '3.2.2' );
 define( 'BGR_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BGR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
-require_once __DIR__ . '/vendor/autoload.php';
-HardG\BuddyPress120URLPolyfills\Loader::init();
-
 /**
  * Include needed files on init
  *
