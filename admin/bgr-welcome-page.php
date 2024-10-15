@@ -16,37 +16,39 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="wbcom-welcome-main-wrapper">
 	<div class="wbcom-welcome-head">
-		<p class="wbcom-welcome-description"><?php esc_html_e( 'BuddyPress Group Reviews allows BuddyPress members to add group reviews & give multiple-rating to given criteria(s). After posting reviews, all reviews will be displayed in the Manage Review section of the group.Admins can approve or deny the review. When the admin approves the review, it will be published. All published reviews will be shown in the reviews tab on the single group page. Admin is allowed to add as many criteria for the rating as he wants.', 'bp-group-reviews' ); ?></br>
-		<?php esc_html_e( 'Admins can approve or deny review. When admin approves the review they will be published.All published reviews will be shown in reviews tab in the single group page.Admin is allowed to add as many criteria for the rating as he wants.', 'bp-group-reviews' ); ?></p>
+		<p class="wbcom-welcome-description"><?php esc_html_e( 'BuddyPress Group Reviews enables members to add reviews for groups and provide multiple ratings based on predefined criteria. All submitted reviews appear in the group’s "Manage Review" section, where admins can approve or deny them. Approved reviews are published and displayed in the "Reviews" tab on the group page. Admins have the flexibility to add as many rating criteria as needed.', 'bp-group-reviews' ); ?></p>
 	</div><!-- .wbcom-welcome-head -->
+
 	<div class="wbcom-welcome-content">
 		<div class="wbcom-welcome-support-info">
-			<h3><?php esc_html_e( 'Help &amp; Support Resources', 'bp-group-reviews' ); ?></h3>
-			<p><?php esc_html_e( 'Here are all the resources you may need to get help from us. Documentation is usually the best place to start. Should you require help anytime, our customer care team is available to assist you at the support center.', 'bp-group-reviews' ); ?></p>
+			<h3><?php esc_html_e( 'Help & Support Resources', 'bp-group-reviews' ); ?></h3>
+			<p><?php esc_html_e( 'If you need assistance, here are some helpful resources. Our documentation is a great place to start, and our support team is available if you require further help.', 'bp-group-reviews' ); ?></p>
 
 			<div class="wbcom-support-info-wrap">
 				<div class="wbcom-support-info-widgets">
 					<div class="wbcom-support-inner">
-					<h3><span class="dashicons dashicons-book"></span><?php esc_html_e( 'Documentation', 'bp-group-reviews' ); ?></h3>
-					<p><?php esc_html_e( 'We have prepared an extensive guide on BuddyPress Group Reviews to learn all aspects of the plugin. You will find most of your answers here.', 'bp-group-reviews' ); ?></p>
-					<a href="<?php echo esc_url( 'https://docs.wbcomdesigns.com/doc_category/buddypress-group-review/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Read Documentation', 'bp-group-reviews' ); ?></a>
+						<h3><span class="dashicons dashicons-book"></span><?php esc_html_e( 'Documentation', 'bp-group-reviews' ); ?></h3>
+						<p><?php esc_html_e( 'Explore our detailed guide on BuddyPress Group Reviews to understand all the features and how to make the most of them.', 'bp-group-reviews' ); ?></p>
+						<a href="<?php echo esc_url( 'https://docs.wbcomdesigns.com/doc_category/buddypress-group-review/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Read Documentation', 'bp-group-reviews' ); ?></a>
 					</div>
 				</div>
 
 				<div class="wbcom-support-info-widgets">
 					<div class="wbcom-support-inner">
-					<h3><span class="dashicons dashicons-sos"></span><?php esc_html_e( 'Support Center', 'bp-group-reviews' ); ?></h3>
-					<p><?php esc_html_e( 'We strive to offer the best customer care via our support center. Once your theme is activated, you can ask us for help anytime.', 'bp-group-reviews' ); ?></p>
-					<a href="<?php echo esc_url( 'https://wbcomdesigns.com/support/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Get Support', 'bp-group-reviews' ); ?></a>
+						<h3><span class="dashicons dashicons-sos"></span><?php esc_html_e( 'Support Center', 'bp-group-reviews' ); ?></h3>
+						<p><?php esc_html_e( 'Our support team is here to assist you with any questions or issues. Feel free to contact us anytime through our support center.', 'bp-group-reviews' ); ?></p>
+						<a href="<?php echo esc_url( 'https://wbcomdesigns.com/support/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Get Support', 'bp-group-reviews' ); ?></a>
+					</div>
 				</div>
-				</div>
+
 				<div class="wbcom-support-info-widgets">
 					<div class="wbcom-support-inner">
-					<h3><span class="dashicons dashicons-admin-comments"></span><?php esc_html_e( 'Got Feedback?', 'bp-group-reviews' ); ?></h3>
-					<p><?php esc_html_e( 'We want to hear about your experience with the plugin. We would also love to hear any suggestions you may for future updates.', 'bp-group-reviews' ); ?></p>
-					<a href="<?php echo esc_url( 'https://wbcomdesigns.com/contact/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Send Feedback', 'bp-group-reviews' ); ?></a>
+						<h3><span class="dashicons dashicons-admin-comments"></span><?php esc_html_e( 'Share Your Feedback', 'bp-group-reviews' ); ?></h3>
+						<p><?php esc_html_e( 'We’d love to hear about your experience with the plugin. Your feedback and suggestions help us improve future updates.', 'bp-group-reviews' ); ?></p>
+						<a href="<?php echo esc_url( 'https://wbcomdesigns.com/contact/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Send Feedback', 'bp-group-reviews' ); ?></a>
+					</div>
 				</div>
-				</div>
+
 			</div>
 		</div>
 	</div><!-- .wbcom-welcome-content -->
