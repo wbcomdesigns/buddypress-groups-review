@@ -231,6 +231,6 @@ add_action( 'admin_init', 'bp_group_reviews_do_activation_redirect' );
  *
  */
 function bp_group_review_save_email_settigs() {
-	register_setting( 'bp_group_review_email_settigs', 'bp_group_review_email_settigs' );
+	register_setting( 'bp_group_review_email_settings', 'bp_group_review_email_settings' );
 }
 add_action( 'admin_menu', 'bp_group_review_save_email_settigs' );
