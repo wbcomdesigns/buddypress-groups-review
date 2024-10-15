@@ -380,11 +380,23 @@ function bgr_emails_setting() {
         <h3><?php esc_html_e( 'Email Settings', 'bp-group-reviews' ); ?></h3>
     </div>
     <div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">
-        <form method="post" action="options.php">
-        <?php
-            settings_fields( 'bp_group_review_email_settings' );
-            do_settings_sections( 'bp_group_review_email_settings' );
-        ?>
+    <form method="post" action="options.php">
+            <?php
+                settings_fields( 'bp_group_review_email_settings' );
+                do_settings_sections( 'bp_group_review_email_settings' );
+                
+                // Fetch the values from the database
+                $bp_group_review_email_settings = get_option('bp_group_review_email_settings');
+                $bgr_allow_email = isset($bp_group_review_email_settings['bgr_allow_email']) ? $bp_group_review_email_settings['bgr_allow_email'] : 'no';
+                $bgr_accept_enable = isset($bp_group_review_email_settings['bgr_accept_enable']) ? $bp_group_review_email_settings['bgr_accept_enable'] : 'no';
+                $bgr_deny_email = isset($bp_group_review_email_settings['bgr_deny_email']) ? $bp_group_review_email_settings['bgr_deny_email'] : 'no';
+                $review_email_subject = isset($bp_group_review_email_settings['review_email_subject']) ? $bp_group_review_email_settings['review_email_subject'] : '';
+                $review_email_message = isset($bp_group_review_email_settings['review_email_message']) ? $bp_group_review_email_settings['review_email_message'] : '';
+                $review_accept_email_subject = isset($bp_group_review_email_settings['review_accept_email_subject']) ? $bp_group_review_email_settings['review_accept_email_subject'] : '';
+                $review_accept_email_message = isset($bp_group_review_email_settings['review_accept_email_message']) ? $bp_group_review_email_settings['review_accept_email_message'] : '';
+                $review_deny_email_subject = isset($bp_group_review_email_settings['review_deny_email_subject']) ? $bp_group_review_email_settings['review_deny_email_subject'] : '';
+                $review_deny_email_message = isset($bp_group_review_email_settings['review_deny_email_message']) ? $bp_group_review_email_settings['review_deny_email_message'] : '';
+            ?>
             <div class="form-table">
                 <label>
                     <h3><?php esc_html_e( 'Review Submission', 'bp-group-reviews' ); ?></h3>
@@ -397,11 +409,12 @@ function bgr_emails_setting() {
                     </div>
                     <div class="wbcom-settings-section-options">
                         <label class="wb-switch" for="bgr-allow-email">
-                            <input type="checkbox" id="bgr-allow-email" name="bp_group_review_email_settings[bgr_allow_email]" value="yes"<?php ( isset( $bp_group_review_email_settings['bgr_allow_email'] ) ) ? checked( $bp_group_review_email_settings['bgr_allow_email'], 'yes' ) : ''; ?>>
+                            <input type="checkbox" id="bgr-allow-email" name="bp_group_review_email_settings[bgr_allow_email]" value="yes" <?php checked( $bgr_allow_email, 'yes' ); ?>>
                             <div class="wb-slider wb-round"></div>
                         </label>
                     </div>
                 </div>
+                
                 <div class="bgr-row wbcom-settings-section-wrap review-email-section">
                     <div class="wbcom-settings-section-options-heading">
                         <label><?php esc_html_e( 'Email Subject', 'bp-group-reviews' ); ?></label>
@@ -430,10 +443,9 @@ function bgr_emails_setting() {
                         ?>
                     </div>
                 </div>
-                
-                <label>
-                    <h3><?php esc_html_e( 'Review Acceptance', 'bp-group-reviews' ); ?></h3>
-                </label>
+
+                <!-- Review Acceptance Section -->
+                <label><h3><?php esc_html_e( 'Review Acceptance', 'bp-group-reviews' ); ?></h3></label>
                 <div class="bgr-row wbcom-settings-section-wrap">
                     <div class="wbcom-settings-section-options-heading">
                         <label><?php esc_html_e( 'Emails', 'bp-group-reviews' ); ?></label>
@@ -441,7 +453,7 @@ function bgr_emails_setting() {
                     </div>
                     <div class="wbcom-settings-section-options">
                         <label class="wb-switch" for="bgr-accept-enable">
-                            <input type="checkbox" id="bgr-accept-enable" name="bp_group_review_email_settings[bgr_accept_enable]" value="yes"<?php ( isset( $bp_group_review_email_settings['bgr_accept_enable'] ) ) ? checked( $bp_group_review_email_settings['bgr_accept_enable'], 'yes' ) : ''; ?>>
+                            <input type="checkbox" id="bgr-accept-enable" name="bp_group_review_email_settings[bgr_accept_enable]" value="yes" <?php checked( $bgr_accept_enable, 'yes' ); ?>>
                             <div class="wb-slider wb-round"></div>
                         </label>
                     </div>
@@ -474,9 +486,9 @@ function bgr_emails_setting() {
                         ?>
                     </div>
                 </div>
-                <label>
-                    <h3><?php esc_html_e( 'Review Denial', 'bp-group-reviews' ); ?></h3>
-                </label>
+
+                <!-- Review Denial Section -->
+                <label><h3><?php esc_html_e( 'Review Denial', 'bp-group-reviews' ); ?></h3></label>
                 <div class="bgr-row wbcom-settings-section-wrap">
                     <div class="wbcom-settings-section-options-heading">
                         <label><?php esc_html_e( 'Emails', 'bp-group-reviews' ); ?></label>
@@ -484,11 +496,12 @@ function bgr_emails_setting() {
                     </div>
                     <div class="wbcom-settings-section-options">
                         <label class="wb-switch" for="bgr-deny-email">
-                            <input type="checkbox" id="bgr-deny-email" name="bp_group_review_email_settings[bgr_deny_email]" value="yes"<?php ( isset( $bp_group_review_email_settings['bgr_deny_email'] ) ) ? checked( $bp_group_review_email_settings['bgr_deny_email'], 'yes' ) : ''; ?>>
+                            <input type="checkbox" id="bgr-deny-email" name="bp_group_review_email_settings[bgr_deny_email]" value="yes" <?php checked( $bgr_deny_email, 'yes' ); ?>>
                             <div class="wb-slider wb-round"></div>
                         </label>
                     </div>
                 </div>
+
                 <div class="bgr-row wbcom-settings-section-wrap review-deny-email-section">
                     <div class="wbcom-settings-section-options-heading">
                         <label><?php esc_html_e( 'Email Subject', 'bp-group-reviews' ); ?></label>
@@ -520,6 +533,18 @@ function bgr_emails_setting() {
             </div>
             <?php submit_button(); ?>
         </form>
+        
+
     </div>
+    <?php
+// Fetch the email settings option
+$bp_group_review_email_settings = get_option('bp_group_review_email_settings');
+
+// Log the option value to the debug log
+if ( WP_DEBUG_LOG ) {
+    error_log( 'BP Group Review Email Settings: ' . print_r( $bp_group_review_email_settings, true ) );
+}
+?>
+
     <?php
 }
