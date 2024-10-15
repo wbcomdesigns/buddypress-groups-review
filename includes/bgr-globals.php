@@ -61,24 +61,24 @@ function bgr_review_globals() {
 			$auto_approve_reviews = 'no';
 		}
 		if ( empty( $reviews_per_page ) ) {
-			$reviews_per_page = 3;
+			$reviews_per_page = 5; // Updated default to 5 reviews per page
 		}
 		if ( empty( $allow_email ) ) {
-			$allow_email = 'no';
+			$allow_email = 'yes'; // Default to 'yes'
 		}
 		if ( empty( $allow_notification ) ) {
-			$allow_notification = 'no';
+			$allow_notification = 'yes'; // Default to 'yes'
 		}
 		if ( empty( $allow_activity ) ) {
-			$allow_activity = 'no';
+			$allow_activity = 'yes'; // Default to 'yes'
 		}
 		if ( empty( $exclude_groups ) ) {
 			$exclude_groups = array();
 		}
 	} else {
 		$multi_reviews        = 'no';
-		$reviews_per_page     = 3;
-		$allow_email          = 'no';
+		$reviews_per_page     = 5;  // Updated default to 5 reviews per page
+		$allow_email          = 'yes';  // Default to 'yes'
 		$review_email_subject = 'New Review Submitted for Your Group [group-name] on [site-name]';
 		$review_email_message = 'Hello [admin-name],
 
@@ -91,8 +91,8 @@ Thank you for creating a space where members can share their thoughts and experi
 
 Best regards,
 The [site-name] Team';
-		$allow_notification   = 'no';
-		$allow_activity       = 'no';
+		$allow_notification   = 'yes';  // Default to 'yes'
+		$allow_activity       = 'yes';  // Default to 'yes'
 		$exclude_groups       = array();
 		$auto_approve_reviews = 'no';
 	}
@@ -114,7 +114,7 @@ The [site-name] Team';
 		}
 	} else {
 		$review_rating_fields = array( 'Friendliness', 'Usability', 'Ease of Access' );
-		$active_rating_fields = array( 'Friendliness', 'Usability', 'Ease of Access' );
+		$active_rating_fields = array( 'Friendliness', 'Usability', 'Ease of Access' ); // All criteria active by default
 		$bgr_admin_settings   = array(
 			'add_review_rating_fields' => $review_rating_fields,
 			'active_rating_fields'     => $active_rating_fields,
