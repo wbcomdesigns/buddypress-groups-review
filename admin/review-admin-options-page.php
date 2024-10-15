@@ -537,14 +537,4 @@ function bgr_emails_setting() {
 
     </div>
     <?php
-// Fetch the email settings option
-$bp_group_review_email_settings = get_option('bp_group_review_email_settings');
-
-// Log the option value to the debug log
-if ( WP_DEBUG_LOG ) {
-    error_log( 'BP Group Review Email Settings: ' . print_r( $bp_group_review_email_settings, true ) );
-}
-?>
-
-    <?php
 }
