@@ -47,7 +47,9 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			if ( in_array( 'buddyboss-platform/bp-loader.php', $active_plugins ) ) {
 				add_action( 'bb_group_single_top_header_action', array( $this, 'bgr_group_header_review_btn' ) );
 			} else {
-				add_action( 'bp_group_header_actions', array( $this, 'bgr_group_header_review_btn' ) );
+			if ( in_array( 'buddypress/bp-loader.php', $active_plugins ) && ! defined( 'YOUZIFY_VERSION' ) ) {
+				 add_action( 'bp_group_header_actions', array( $this, 'bgr_group_header_review_btn' ) );
+				}
 			}
 		
 			// Add rating to group directory
@@ -56,7 +58,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			// Add Youzify integration (check using YOUZIFY_VERSION constant)
 			if ( defined( 'YOUZIFY_VERSION' ) ) {
 				add_action( 'youzify_before_group_header_meta', array( $this, 'bgr_group_average_rating' ) );
-				add_action( 'youzify_group_header_actions', array( $this, 'bgr_group_header_review_btn' ) );
+				add_action( 'youzify_after_group_header_meta', array( $this, 'bgr_group_header_review_btn' ) );
 			}
 		
 			/**
