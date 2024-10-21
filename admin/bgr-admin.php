@@ -90,7 +90,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 						'criteria'  => esc_html__( 'Criteria', 'bp-group-reviews' ),
 						'shortcode' => esc_html__( 'Shortcode', 'bp-group-reviews' ),
 						'display'   => esc_html__( 'Display', 'bp-group-reviews' ),
-						'emails'   => esc_html__( 'Emails', 'bp-group-reviews' ),
+						'emails'    => esc_html__( 'Emails', 'bp-group-reviews' ),
 					);
 					?>
 					<div class="wrap">
@@ -165,7 +165,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 			);
 			$args   = array(
 				'labels'             => $labels,
-				'public'             => true,
+				'public'             => false,
 				'menu_icon'          => 'dashicons-testimonial',
 				'publicly_queryable' => true,
 				'show_ui'            => true,
@@ -180,7 +180,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 					'create_posts' => 'do_not_allow',
 				),
 				'map_meta_cap'       => true,
-				'has_archive'        => true,
+				'has_archive'        => false,
 				'hierarchical'       => false,
 				'menu_position'      => null,
 				'supports'           => array( 'title', 'editor', 'author', 'thumbnail' ),
