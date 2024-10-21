@@ -119,6 +119,13 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						'numberposts' => -1,
 						'post_type'   => 'review',
 						'post_status' => 'publish',
+						'meta_query'  => array(
+							array(
+								'key'     => 'linked_group',
+								'value'   => bp_get_group_id(),
+								'compare' => '=',
+							),
+						),
 					)
 				);
 				$count   = count( $reviews );
