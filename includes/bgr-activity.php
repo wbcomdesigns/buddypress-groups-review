@@ -118,7 +118,7 @@ class BGR_Activity {
 	}
 
 	/**
-	 * Add activity on new product created by vendor.
+	 * Add activity when add review in a group.
 	 *
 	 * @since 1.0.0
 	 *
@@ -146,10 +146,8 @@ class BGR_Activity {
 		$group_name      = bp_get_group_name( groups_get_group( $group_id ) );
 		$group_obj       = groups_get_group( $group_id );
 		$review_data     = get_post( $posts_id );
-		$review_content  = $review_data->post_content;
-		$post_link       = bp_get_group_url( $group_obj ) . sanitize_title( bgr_group_review_tab_name() ) . '/view/' . $posts_id;
-		$group_link      = bp_get_group_url( $group_obj );
-		$post_link_html  = '<a href="' . esc_url( $post_link ) . '">' . $post_title . '</a>';
+		$review_content  = $review_data->post_content;		
+		$group_link      = function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ? bp_get_group_permalink( $group_obj ) : bp_get_group_url( $group_obj );		
 		$group_link_html = '<a href="' . esc_url( $group_link ) . '">' . $group_name . '</a>';
 		$action          = sprintf(
 			apply_filters(
@@ -180,7 +178,7 @@ class BGR_Activity {
 	}
 
 	/**
-	 * Add activity on new product created by vendor.
+	 * Add activity when group review approved.
 	 *
 	 * @since 1.0.0
 	 *
@@ -211,10 +209,8 @@ class BGR_Activity {
 				$group_name      = bp_get_group_name( groups_get_group( $group_id ) );
 				$group_obj       = groups_get_group( $group_id );
 				$review_data     = get_post( $posts_id );
-				$review_content  = $review_data->post_content;
-				$post_link       = bp_get_group_url( $group_obj ) . sanitize_title( bgr_group_review_tab_name() ) . '/view/' . $posts_id;
-				$group_link      = bp_get_group_url( $group_obj );
-				$post_link_html  = '<a href="' . esc_url( $post_link ) . '">' . $post_title . '</a>';
+				$review_content  = $review_data->post_content;				
+				$group_link      = function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ? bp_get_group_permalink( $group_obj ) : bp_get_group_url( $group_obj );				
 				$group_link_html = '<a href="' . esc_url( $group_link ) . '">' . $group_name . '</a>';
 				$action          = sprintf(
 					apply_filters(

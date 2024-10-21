@@ -73,7 +73,11 @@ $reviews = new WP_Query( $args );
 										<div class="review-description">
 											<?php
 												$trimcontent = get_the_content();
-												$url         = bp_get_group_url() . sanitize_title( bgr_group_review_tab_name() ) . '\/view/' . get_the_id();
+												if( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ){
+													$url         = bp_get_group_permalink() . sanitize_title( bgr_group_review_tab_name() ) . '\/view/' . get_the_id();
+												} else{
+													$url         = bp_get_group_url() . sanitize_title( bgr_group_review_tab_name() ) . '\/view/' . get_the_id();
+												}
 											if ( ! empty( $trimcontent ) ) {
 												$len = strlen( $trimcontent );
 												if ( $len > 150 ) {

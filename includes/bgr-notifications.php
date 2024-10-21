@@ -185,10 +185,15 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$group_name   = $group->name;
 			$user_info    = get_userdata( $member_id );
 			$user_name    = $user_info->user_login;
-			if ( $bgr['auto_approve_reviews'] == 'no' ) {
-				$notification_link = bp_get_group_url( $group ) . 'reviews/add-' . bgr_group_review_tab_slug() . '/';
+			if( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ){
+				$group_link = bp_get_group_permalink( $group );
 			} else {
-				$notification_link = bp_get_group_url( $group ) . sanitize_title( bgr_group_review_tab_name() );
+				$group_link = bp_get_group_url( $group );
+			}
+			if ( $bgr['auto_approve_reviews'] == 'no' ) {
+				$notification_link = $group_link . 'reviews/add-' . bgr_group_review_tab_slug() . '/';
+			} else {
+				$notification_link = $group_link . sanitize_title( bgr_group_review_tab_name() );
 			}
 			/* translators: %1$s is replaced with review_label */
 			$notification_title = sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
