@@ -38,29 +38,29 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			add_action( 'init', array( $this, 'bgr_add_groups_reviews_taxonomy_term' ) );
 			add_filter( 'post_row_actions', array( $this, 'bgr_group_reviews_row_actions' ), 10, 2 );
 			add_filter( 'bulk_actions-edit-review', array( $this, 'bgr_remove_edit_bulk_actions' ), 10, 1 );
-			
+
 			// Add group average rating before group header meta
 			add_action( 'bp_before_group_header_meta', array( $this, 'bgr_group_average_rating' ) );
-		
+
 			// Check for BuddyBoss or BuddyPress and add the review button accordingly
 			$active_plugins = get_option( 'active_plugins' );
 			if ( in_array( 'buddyboss-platform/bp-loader.php', $active_plugins ) ) {
 				add_action( 'bb_group_single_top_header_action', array( $this, 'bgr_group_header_review_btn' ) );
 			} else {
-			if ( in_array( 'buddypress/bp-loader.php', $active_plugins ) && ! defined( 'YOUZIFY_VERSION' ) ) {
-				 add_action( 'bp_group_header_actions', array( $this, 'bgr_group_header_review_btn' ) );
+				if ( in_array( 'buddypress/bp-loader.php', $active_plugins ) && ! defined( 'YOUZIFY_VERSION' ) ) {
+					 add_action( 'bp_group_header_actions', array( $this, 'bgr_group_header_review_btn' ) );
 				}
 			}
-		
+
 			// Add rating to group directory
 			add_action( 'bp_directory_groups_item', array( $this, 'bgr_group_directory_rating' ) );
-		
+
 			// Add Youzify integration (check using YOUZIFY_VERSION constant)
 			if ( defined( 'YOUZIFY_VERSION' ) ) {
 				add_action( 'youzify_before_group_header_meta', array( $this, 'bgr_group_average_rating' ) );
 				add_action( 'youzify_after_group_header_meta', array( $this, 'bgr_group_header_review_btn' ) );
 			}
-		
+
 			/**
 			 * GamiPress integration
 			 */
@@ -68,8 +68,65 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				add_filter( 'gamipress_activity_triggers', array( $this, 'buddypress_groups_review_bp_activity_triggers' ) );
 				add_filter( 'gamipress_trigger_get_user_id', array( $this, 'buddypress_groups_review_trigger_get_user_id' ), 10, 3 );
 			}
+
+			add_filter( 'bp_nouveau_nav_has_count', array( $this, 'buddypress_groups_review_nav_has_count' ), 10, 3 );
+			add_filter( 'bp_nouveau_get_nav_count', array( $this, 'buddypress_groups_review_get_nav_count' ), 10, 3 );
 		}
-			
+
+		/** Review Tab has a count attribute.
+		 *
+		 * @since  3.2.3
+		 *
+		 * @param bool   $count     True if the nav has a count attribute. False otherwise
+		 * @param object $nav_item  The current nav item object.
+		 * @param string $value     The current nav in use (eg: 'directory', 'groups', 'personal', etc..).
+		 * @return boolean
+		 */
+		public function buddypress_groups_review_nav_has_count( $count, $nav_item, $component ) {
+
+			if ( 'groups' !== $component ) {
+				return $count;
+			}
+
+			global $bgr;
+
+			if ( sanitize_title( $bgr['manage_review_label'] ) === $nav_item->slug ) {
+				$count = true;
+			}
+
+			return apply_filters( 'buddypress_groups_review_nav_has_count', $count );
+		}
+
+		/** Retrieve the count attribute for the review nav item.
+		 *
+		 * @since  3.2.3
+		 *
+		 * @param int $count    The count attribute for the nav item.
+		 * @param object $nav_item The current nav item object.
+		 * @param string $value    The current nav in use (eg: 'directory', 'groups', 'personal', etc..).
+		 * @return int The count attribute for the nav item.
+		 */
+		public function buddypress_groups_review_get_nav_count( $count, $nav_item, $component ) {
+			if ( 'groups' !== $component ) {
+				return $count;
+			}
+
+			global $bgr;
+
+			if ( sanitize_title( $bgr['manage_review_label'] ) === $nav_item->slug ) {
+				$reviews = get_posts(
+					array(
+						'numberposts' => -1,
+						'post_type'   => 'review',
+						'post_status' => 'publish',
+					)
+				);
+				$count   = count( $reviews );
+			}
+
+			return apply_filters( 'buddypress_groups_review_nav_count', $count );
+		}
+
 
 		/**
 		 *  Actions performed to show review button on group header
@@ -199,10 +256,10 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$avg_rating    = $ttl_rating / $reviews_count;
 					$avg_rating    = round( $avg_rating, 2 );
 					if ( $avg_rating > 0 ) {
-						if( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ){
-							$group_link  = bp_get_group_permalink( groups_get_current_group() );
+						if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
+							$group_link = bp_get_group_permalink( groups_get_current_group() );
 						} else {
-							$group_link  = bp_get_group_url( groups_get_current_group() );
+							$group_link = bp_get_group_url( groups_get_current_group() );
 						}
 						?>
 					<div class="buddypress-single-group-reviews-stars" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
@@ -302,10 +359,10 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$avg_rating    = $ttl_rating / $reviews_count;
 					$avg_rating    = round( $avg_rating, 2 );
 					if ( $avg_rating > 0 ) {
-						if( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ){
-							$group_link  = bp_get_group_permalink( groups_get_current_group() );
+						if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
+							$group_link = bp_get_group_permalink( groups_get_current_group() );
 						} else {
-							$group_link  = bp_get_group_url( groups_get_current_group() );
+							$group_link = bp_get_group_url( groups_get_current_group() );
 						}
 						?>
 					<div class="buddypress-single-group-reviews-stars" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
