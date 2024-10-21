@@ -217,7 +217,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 						<?php $this->bgr_display_form_rating(); ?>
 						<span class="bgr-error-fields">*<?php esc_html_e( 'This field is required.', 'bp-group-reviews' ); ?></span>
 					<?php /* translators: %s: search term */ ?>
-							<textarea class="review_desc" name="review-desc" placeholder="<?php echo sprintf( esc_attr__( '%1$s Description', 'bp-group-reviews' ), esc_attr( $review_label ) ); ?>" rows="3" cols="50"></textarea>
+							<textarea class="review_desc" name="review-desc" placeholder="<?php echo sprintf( esc_attr__( '%1$s Description', 'bp-group-reviews' ), esc_attr( $review_label ) ); ?>" rows="3" cols="50" required></textarea>
 							<br/>
 						<p>
 							<input type="hidden" name="bgr-flag" value="1">
