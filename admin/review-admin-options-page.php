@@ -276,8 +276,15 @@ The [site-name] Team';
                     <label><?php esc_html_e( 'Enable BuddyPress Notifications', 'bp-group-reviews' ); ?></label>
                     <?php if ( bp_is_active( 'notifications' ) ) { ?>
                         <p class="description"><?php esc_html_e( 'Send notifications to group admins and reviewers when a review is added, accepted, or denied.', 'bp-group-reviews' ); ?></p>
-                    <?php } else { ?>
-                        <p class="description"><?php esc_html_e( 'This setting requires the BuddyPress Notifications component to be active.', 'bp-group-reviews' ); ?></p>
+                    <?php } else { ?>                        
+                        <p class="description">
+                        <?php 
+                        echo sprintf(
+                            esc_html__( 'This setting requires the %s to be active.', 'bp-group-reviews' ), 
+                            '<strong><a href="' . esc_url( admin_url( 'admin.php?page=bp-components' ) ) . '">' . esc_html( 'BuddyPress Notifications Component' ) . '</a></strong>'
+                        ); 
+                        ?>
+                    </p>
                     <?php } ?>
                 </div>
                 <div class="wbcom-settings-section-options">
