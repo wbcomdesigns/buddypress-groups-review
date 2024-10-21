@@ -166,8 +166,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						<?php
 					}
 				}
-			} else {
-				if ( ! groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id() ) || ! is_user_logged_in() ) {
+			} else {				
 					?>
 				<div class="group-button public generic-button" id="groupbutton-85">
 					<a href='<?php echo esc_url( $current_group_link ); ?>' class="group-button" show ="<?php echo esc_attr( $review_div ); ?>">
@@ -178,7 +177,6 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					</a>
 				</div>
 					<?php
-				}
 			}
 		}
 
