@@ -153,7 +153,7 @@ class BGR_Activity {
 			apply_filters(
 				'bgr_activity_action',
 				/* translators: %1$s: User Link, %2$s: Post Link HTML, %3$s: Group Name */
-				__( '%1$s posted an review in the group %2$s', 'bp-group-reviews' )
+				__( '%1$s posted a review in the group %2$s', 'bp-group-reviews' )
 			),
 			$user_link,
 			$group_link_html
@@ -216,7 +216,7 @@ class BGR_Activity {
 					apply_filters(
 						'bgr_activity_action',
 						/* translators: %1$s: User Link, %2$s: Post Link HTML, %3$s: Group Name */
-						__( '%1$s posted an review in the group %2$s', 'bp-group-reviews' )
+						__( '%1$s posted a review in the group %2$s', 'bp-group-reviews' )
 					),
 					$user_link,
 					$group_link_html
