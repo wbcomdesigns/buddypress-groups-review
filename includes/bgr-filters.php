@@ -425,6 +425,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				wp_reset_query();
 				$user               = bp_get_loggedin_user_username();
 				$count_notification = '<span>' . $post_count . '</span>';
+				$gp_parent_url      = function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ? bp_get_group_permalink( $bp->groups->current_group ) : bp_get_group_url( $bp->groups->current_group );
 				if ( ! empty( $bgr_admin_general_settings ) ) {
 					$exclude_groups = $bgr['exclude_groups'];
 					if ( ! empty( $exclude_groups ) ) {
@@ -433,7 +434,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 								'name'            => $review_label . ' ' . $count_notification,
 								'slug'            => sanitize_title( $bgr['manage_review_label'] ),
 								'parent_slug'     => $bp->groups->current_group->slug,
-								'parent_url'      => bp_get_group_url( $bp->groups->current_group ),
+								'parent_url'      => $gp_parent_url,
 								'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
 								'position'        => 198,
 							);
@@ -442,7 +443,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 								'name'            => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
 								'slug'            => 'add-' . bgr_group_review_tab_slug(),
 								'parent_slug'     => $bp->groups->current_group->slug,
-								'parent_url'      => bp_get_group_url( $bp->groups->current_group ),
+								'parent_url'      => $gp_parent_url,
 								'screen_function' => array( $this, 'bgr_group_add_review_tab' ),
 								'position'        => 199,
 							);
@@ -456,7 +457,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 							'name'            => $review_label . ' ' . $count_notification,
 							'slug'            => sanitize_title( $bgr['manage_review_label'] ),
 							'parent_slug'     => $bp->groups->current_group->slug,
-							'parent_url'      => function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ? bp_get_group_permalink( $bp->groups->current_group ) : bp_get_group_url( $bp->groups->current_group ),
+							'parent_url'      => $gp_parent_url,
 							'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
 							'position'        => 198,
 						);
@@ -465,7 +466,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 							'name'            => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
 							'slug'            => 'add-' . bgr_group_review_tab_slug(),
 							'parent_slug'     => $bp->groups->current_group->slug,
-							'parent_url'      => function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ? bp_get_group_permalink( $bp->groups->current_group ) : bp_get_group_url( $bp->groups->current_group ),
+							'parent_url'      => $gp_parent_url,
 							'screen_function' => array( $this, 'bgr_group_add_review_tab' ),
 							'position'        => 199,
 						);
@@ -479,7 +480,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						'name'            => $review_label . ' ' . $count_notification,
 						'slug'            => sanitize_title( $bgr['manage_review_label'] ),
 						'parent_slug'     => $bp->groups->current_group->slug,
-						'parent_url'      => bp_get_group_url( $bp->groups->current_group ),
+						'parent_url'      => $gp_parent_url,
 						'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
 						'position'        => 198,
 					);
@@ -488,7 +489,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						'name'            => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
 						'slug'            => 'add-' . bgr_group_review_tab_slug(),
 						'parent_slug'     => $bp->groups->current_group->slug,
-						'parent_url'      => bp_get_group_url( $bp->groups->current_group ),
+						'parent_url'      => $gp_parent_url,
 						'screen_function' => array( $this, 'bgr_group_add_review_tab' ),
 						'position'        => 199,
 					);
