@@ -296,7 +296,14 @@ The [site-name] Team';
                     <?php if ( bp_is_active( 'activity' ) ) { ?>
                         <p class="description"><?php esc_html_e( 'Generate group review activities.', 'bp-group-reviews' ); ?></p>
                     <?php } else { ?>
-                        <p class="description"><?php esc_html_e( 'This setting requires the BuddyPress Activity component to be active.', 'bp-group-reviews' ); ?></p>
+                        <p class="description">
+                        <?php 
+                        echo sprintf(
+                            esc_html__( 'This setting requires the %s to be active.', 'bp-group-reviews' ), 
+                            '<strong><a href="' . esc_url( admin_url( 'admin.php?page=bp-components' ) ) . '">' . esc_html( 'BuddyPress Activity Component' ) . '</a></strong>'
+                        ); 
+                        ?>
+                    </p>
                     <?php } ?>
                 </div>
                 <div class="wbcom-settings-section-options">
