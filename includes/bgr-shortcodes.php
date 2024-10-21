@@ -168,6 +168,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				'order'   => 'DESC',
 				'orderby' => 'date_created',
 				'exclude' => $exclude_group,
+				'status'  => apply_filters( 'bgr_review_form_group_status', array( 'public', 'hidden' ) ),
 			);
 			$allgroups  = groups_get_groups( $group_args );
 			?>
