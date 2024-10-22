@@ -134,7 +134,7 @@ class BGR_Activity {
 			return false;
 		}
 
-		if ( ! bp_is_active( 'groups' ) && ! bp_is_active( 'activity' ) ) {
+		if ( ! bp_is_active( 'groups' ) || ! bp_is_active( 'activity' ) ) {
 			return false;
 		}
 		
