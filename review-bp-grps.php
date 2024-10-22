@@ -61,6 +61,10 @@ define( 'BGR_PLUGIN_VERSION', '3.2.2' );
 define( 'BGR_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BGR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
+if ( ! defined( 'BP_ROOT_BLOG' ) ) {
+    define( 'BP_ROOT_BLOG', 1 );
+}
+
 /**
  * Include needed files on init
  *
@@ -117,6 +121,9 @@ add_action( 'admin_init', 'bgr_requires_buddypress' );
  *  @author  Wbcom Designs
  */
 function bgr_admin_notice() {
+	if ( is_multisite() ) {
+        return;
+    }
 	$bpquotes_plugin = esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' );
 	$bp_plugin       = esc_html__( 'BuddyPress', 'bp-group-reviews' );
 	echo '<div class="error"><p>';
@@ -196,6 +203,16 @@ function run_bp_group_reviews_plugin() {
 		}
 	}
 }
+
+/**
+ * Add multisite support.
+ *
+ * @return void
+ */
+function  bgr_add_multi_support(){
+	include 'includes/class-bgr-multi-support.php';
+}
+add_action( 'init', 'bgr_add_multi_support' );
 
 
 /**
