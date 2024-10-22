@@ -36,7 +36,7 @@ function bgr_review_globals() {
 		$multi_reviews        = isset( $bgr_admin_general_settings['multi_reviews'] ) ? $bgr_admin_general_settings['multi_reviews'] : 'no';
 	} else {
 		$multi_reviews        = 'no';
-		$reviews_per_page     = 5;
+		$reviews_per_page     = 10;
 		$allow_email          = 'yes';
 		$review_email_subject = 'New Review Submitted for Your Group [group-name] on [site-name]';
 		$review_email_message = 'Hello [admin-name], We are excited to inform you that a new review has been submitted.';
@@ -85,8 +85,8 @@ function bgr_review_globals() {
 		$review_rating_fields = isset( $bgr_admin_criteria_settings['add_review_rating_fields'] ) ? $bgr_admin_criteria_settings['add_review_rating_fields'] : array();
 		$active_rating_fields = isset( $bgr_admin_criteria_settings['active_rating_fields'] ) ? $bgr_admin_criteria_settings['active_rating_fields'] : array();
 	} else {
-		$review_rating_fields = array( 'Friendliness', 'Usability', 'Ease of Access' );
-		$active_rating_fields = array( 'Friendliness', 'Usability', 'Ease of Access' );
+		$review_rating_fields = array( 'Quality', 'Relevance', 'Engagement' );
+		$active_rating_fields = array( 'Quality', 'Relevance', 'Engagement' );
 		$bgr_admin_settings   = array(
 			'add_review_rating_fields' => $review_rating_fields,
 			'active_rating_fields'     => $active_rating_fields,
@@ -99,7 +99,7 @@ function bgr_review_globals() {
 	if ( ! empty( $bgr_admin_display_settings ) ) {
 		$review_label = isset( $bgr_admin_display_settings['review_label'] ) ? $bgr_admin_display_settings['review_label'] : esc_html__( 'Review', 'bp-group-reviews' );
 		$manage_review_label = isset( $bgr_admin_display_settings['manage_review_label'] ) ? $bgr_admin_display_settings['manage_review_label'] : esc_html__( 'Reviews', 'bp-group-reviews' );
-		$rating_color = isset( $bgr_admin_display_settings['bgr_rating_color'] ) ? $bgr_admin_display_settings['bgr_rating_color'] : '#FFC400';
+		$rating_color = isset( $bgr_admin_display_settings['bgr_rating_color'] ) ? $bgr_admin_display_settings['bgr_rating_color'] : '##FFD700';
 	} else {
 		$review_label        = esc_html__( 'Review', 'bp-group-reviews' );
 		$manage_review_label = esc_html__( 'Reviews', 'bp-group-reviews' );
