@@ -88,7 +88,6 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 						'welcome'   => esc_html__( 'Welcome', 'bp-group-reviews' ),
 						'general'   => esc_html__( 'General', 'bp-group-reviews' ),
 						'criteria'  => esc_html__( 'Criteria', 'bp-group-reviews' ),
-						'shortcode' => esc_html__( 'Shortcode', 'bp-group-reviews' ),
 						'display'   => esc_html__( 'Display', 'bp-group-reviews' ),
 						'emails'    => esc_html__( 'Emails', 'bp-group-reviews' ),
 					);

@@ -34,9 +34,6 @@ function bgr_include_admin_setting_tabs( $bgr_setting_tab = 'welcome' ) {
         case 'criteria':
             bgr_criteria_setting();
             break;
-        case 'shortcode':
-            bgr_shortcode_setting();
-            break;
         case 'display':
             bgr_display_setting();
             break;
@@ -91,32 +88,6 @@ function bgr_criteria_setting() {
         </div>
         <input type="button" class="button button-primary bgr-submit-button" id="bgr-save-admin-criteria-settings" value="<?php esc_html_e( 'Save Settings', 'bp-group-reviews' ); ?>">
         <img src="<?php echo esc_url( $spinner_src ); ?>" class="bgr-admin-criteria-settings-spinner" />
-    </div>
-    <?php
-}
-
-/**
- * Display content for the "Shortcode" tab in BuddyPress Group Reviews settings.
- *
- * @since    1.0.0
- */
-function bgr_shortcode_setting() {
-    ?>
-    <div class="wbcom-admin-title-section">
-        <h3><?php esc_html_e( 'Group Review Shortcode', 'bp-group-reviews' ); ?></h3>
-    </div>
-    <div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">
-        <div class="form-table">
-            <div class="wbcom-settings-section-wrap">
-                <div class="wbcom-settings-section-options-heading">
-                    <label><?php esc_html_e( 'Group Review Form Shortcode', 'bp-group-reviews' ); ?></label>
-                    <p class="description"><?php esc_html_e( 'This shortcode displays the Group Review Form.', 'bp-group-reviews' ); ?></p>
-                </div>
-                <div class="wbcom-settings-section-options">
-                    <?php echo '[add_group_review_form]'; ?>
-                </div>
-            </div>
-        </div>
     </div>
     <?php
 }

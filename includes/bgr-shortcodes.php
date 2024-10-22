@@ -181,36 +181,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 						echo sprintf( esc_html__( 'Write a %1$s', 'bp-group-reviews' ), esc_html( $review_label ) );
 						?>
 					</p>
-
-					<?php if ( 0 === $current_group_id ) { ?>
-						<p class="bgr-form-group-id">
-							<select id="form-group-id" name="form-group-id">
-								<option value=""><?php esc_html_e( '--Select Group--', 'bp-group-reviews' ); ?></option>
-								<?php
-								if ( ! empty( $allgroups ) ) {
-									foreach ( $allgroups['groups'] as $form_group ) {
-										?>
-										<option value="<?php echo esc_attr( $form_group->id ); ?>"
-											<?php
-											if ( bp_is_group() ) {
-												if ( bp_get_group_id() == $form_group->id ) {
-													echo 'selected="selected"';
-												}
-											}
-											?>
-											><?php echo esc_html( $form_group->name ); ?>
-										</option>
-										<?php
-									}
-								}
-								?>
-							</select>
-							<br/>
-							<span class="bgr-error-fields">*<?php esc_html_e( 'This field is required.', 'bp-group-reviews' ); ?></span>
-						</p>
-						<?php } else { ?>
-							<input type="hidden" name="form-group-id" value="<?php echo esc_attr( $current_group_id ); ?>" />
-						<?php } ?>
+						<input type="hidden" name="form-group-id" value="<?php echo esc_attr( $current_group_id ); ?>" />
 						<p class="bupr-hide-subject">
 							<?php $review_subject = bgr_group_add_review_tab_name() . ' ' . time(); ?>
 							<input name="review-subject" type="hidden" value="<?php echo esc_attr( $review_subject ); ?>">
