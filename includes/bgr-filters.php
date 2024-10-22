@@ -169,7 +169,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			} else {				
 					?>
 				<div class="group-button public generic-button" id="groupbutton-85">
-					<a href='<?php echo esc_url( $current_group_link ); ?>' class="group-button" show ="<?php echo esc_attr( $review_div ); ?>">
+					<a href='<?php echo esc_url( $current_group_link ); ?>' class="group-button button" show ="<?php echo esc_attr( $review_div ); ?>">
 						<?php
 						/* translators: %1$s is replaced with bgr_group_add_review_tab_name() */
 						echo sprintf( esc_html__( 'Add %1$s', 'bp-group-reviews' ), esc_html( bgr_group_add_review_tab_name() ) );
