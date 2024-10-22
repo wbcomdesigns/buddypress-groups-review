@@ -65,7 +65,7 @@ class BGR_Activity {
 		add_action( 'bp_register_activity_actions', array( $this, 'bgr_register_activity_actions' ), 10 );
 		add_action( 'transition_post_status', array( $this, 'bgr_create_group_post_activity_after_approval' ), 15, 3 );
 		add_action( 'bgr_group_after_review_submit', array( $this, 'bgr_create_group_post_activity' ), 15, 3 );
-		add_filter( 'bp_get_activity_content_body', array( $this, 'bgr_added_activity_star_rating' ), 10, 2 );
+		add_filter( 'bp_get_activity_content_body', array( $this, 'bgr_added_activity_star_rating' ), 10, 2 );	
 	}
 
 	/**
@@ -163,7 +163,7 @@ class BGR_Activity {
 				'action'            => $action,
 				'content'           => $review_content,
 				'component'         => 'groups',
-				'type'              => 'bgr_group_posts_activity_action',
+				'type'              => defined( 'YOUZIFY_VERSION' ) ? 'activity_status' : 'bgr_group_posts_activity_action',
 				'user_id'           => bp_loggedin_user_id(),
 				'item_id'           => $group_id,
 				'secondary_item_id' => $posts_id,
@@ -225,7 +225,7 @@ class BGR_Activity {
 					'action'            => $action,
 					'content'           => $review_content,
 					'component'         => 'groups',
-					'type'              => 'bgr_group_posts_activity_action',
+					'type'              => defined( 'YOUZIFY_VERSION' ) ? 'activity_status' : 'bgr_group_posts_activity_action',
 					'user_id'           => bp_loggedin_user_id(),
 					'item_id'           => $group_id,
 					'secondary_item_id' => $posts_id,
