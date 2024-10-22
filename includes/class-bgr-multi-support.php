@@ -5,8 +5,8 @@
  * @link       https://wbcomdesigns.com/
  * @since      1.0.0
  *
- * @package    Buddypress_Member_Blog_Pro
- * @subpackage Buddypress_Member_Blog_Pro/includes
+ * @package    Buddypress_Group_Review
+ * @subpackage Buddypress_Group_Review/includes
  */
 
 /**
@@ -15,8 +15,8 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Buddypress_Member_Blog_Pro
- * @subpackage Buddypress_Member_Blog_Pro/includes
+ * @package    Buddypress_Group_Review
+ * @subpackage Buddypress_Group_Review/includes
  * @author     Wbcom Designs <admin@wbcomdesigns.com>
  */
 class Buddypress_Group_Review_Multi_Support {
@@ -54,7 +54,7 @@ class Buddypress_Group_Review_Multi_Support {
 	 *
 	 * @since 1.0.0
 	 * @static
-	 * @see instantiateb_buddypress_member_blog_pro()
+	 * @see instantiateb_Buddypress_Group_Review()
 	 * @return Buddypress_Group_Review_Multi_Support - Main instance.
 	 */
 	public static function instance() {
@@ -66,7 +66,7 @@ class Buddypress_Group_Review_Multi_Support {
 	}
 
 	/**
-	 * BuddyPress_Member_Blog_Pro Constructor.
+	 * Buddypress_Group_Review Constructor.
 	 *
 	 * @since  1.0.0
 	 */
