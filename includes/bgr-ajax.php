@@ -215,21 +215,21 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 * @author   Wbcom Designs
 		 */
 		public function bgr_filter_ratings() {
-			if ( filter_input( INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS ) && filter_input( INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS ) === 'bgr_filter_ratings' ) {
+			if ( filter_input( INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS ) && filter_input( INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS ) === 'bgr_filter_ratings' ) {				
 				global $bp, $post;
 				global $bgr;
 				$filter               = sanitize_text_field( filter_input( INPUT_POST, 'filter' ) );
 				$limit                = sanitize_text_field( filter_input( INPUT_POST, 'limit' ) );
-				$html                 = '';
+				$html                 = '';				
 				$review_rating_fields = $bgr['review_rating_fields'];
-
+				
 				$custom_args = array(
 					'post_type'      => 'review',
 					'posts_per_page' => -1,
 					'post_status'    => 'publish',
 					'category'       => 'review_category',
 					'meta_key'       => 'linked_group',
-					'meta_value'     => bp_get_current_group_id(),
+					'meta_value'     => $_POST['group_id'],
 				);
 				$reviews     = get_posts( $custom_args );
 

@@ -222,6 +222,7 @@ jQuery(document).ready(function (e) {
           action: "bgr_filter_ratings",
           filter: filter,
           limit: limit,
+          group_id: bgr_front_js_object.group_id,
         },
         function (response) {
           var obj = JSON.parse(response);
