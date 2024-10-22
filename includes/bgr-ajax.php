@@ -649,20 +649,21 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			global $bgr;
 			global $bp;
 			$bp_group_review_email_settings = get_option( 'bp_group_review_email_settings' );
-			$post_id            = isset( $_POST['accept_review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['accept_review_id'] ) ) : '';
-			$post_author_id     = get_post_field( 'post_author', $post_id );
+			$post_id              = isset( $_POST['accept_review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['accept_review_id'] ) ) : '';
+			$post_author_id       = get_post_field( 'post_author', $post_id );
 			wp_publish_post( $post_id );
-			$allow_notification = $bgr['allow_notification'];
-			$allow_email        = $bp_group_review_email_settings['bgr_accept_enable'];
-			$review_label       = $bgr['review_label'];
-			$group_id           = get_post_meta( $post_id, 'linked_group', true );
-			$group              = groups_get_group( array( 'group_id' => $group_id ) );
-			$creator_info       = get_userdata( $post_author_id );
-			$creator_name       = $creator_info->display_name;
-			$group_name         = $group->name;
-			$site_name          = get_bloginfo( 'name' );
-			$review_link        = bp_get_groups_directory_permalink() . $group->slug . "/reviews/view/$post_id/";
-			$headers[]          = 'Content-Type: text/html; charset=UTF-8';
+			$allow_notification   = $bgr['allow_notification'];
+			$allow_email          = $bp_group_review_email_settings['bgr_accept_enable'];
+			$review_label         = $bgr['review_label'];
+			$group_id             = get_post_meta( $post_id, 'linked_group', true );
+			$group                = groups_get_group( array( 'group_id' => $group_id ) );
+			$creator_info         = get_userdata( $post_author_id );
+			$creator_name         = $creator_info->display_name;
+			$group_name           = $group->name;
+			$site_name            = get_bloginfo( 'name' );
+			$review_link          = bp_get_groups_directory_permalink() . $group->slug . "/reviews/view/$post_id/";
+			$headers[]            = 'Content-Type: text/html; charset=UTF-8';
+			$auto_approve_reviews = $bgr['auto_approve_reviews'];				
 			if ( $auto_approve_reviews == 'yes' ) {
 				$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/' . sanitize_title( bgr_group_review_tab_name() ) . '/';
 			} else {
