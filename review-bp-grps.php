@@ -67,7 +67,7 @@ define( 'BGR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
  *  @since   1.0.0
  *  @author  Wbcom Designs
 */
-add_action( 'plugins_loaded', 'bgr_plugin_init' );
+add_action( 'bp_loaded', 'bgr_plugin_init' );
 
 /**
  *  Adding setting links
@@ -191,7 +191,7 @@ function run_bp_group_reviews_plugin() {
 		'includes/widgets/group-rating.php',
 	);
 	foreach ( $include_files as $include_file ) {
-		if ( class_exists( 'BuddyPress' ) ) {
+		if ( class_exists( 'BuddyPress' ) && bp_is_active( 'groups' ) ) {
 			include $include_file;
 		}
 	}
