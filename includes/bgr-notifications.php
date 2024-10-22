@@ -126,7 +126,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		 */
 		public function bgr_accept_review_notification( $review_id ) {
 			if ( bp_is_active( 'notifications' ) ) {
-				$group_id       = bp_get_current_group_id();
+				$group_id       = get_post_meta( $review_id, 'linked_group', true );
 				$post_author_id = get_post_field( 'post_author', $review_id );
 				$args           = bp_notifications_add_notification(
 					array(
@@ -151,7 +151,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		 */
 		public function bgr_deny_review_notification( $review_id ) {
 			if ( bp_is_active( 'notifications' ) ) {
-				$group_id       = bp_get_current_group_id();
+				$group_id       = get_post_meta( $review_id, 'linked_group', true );				
 				$post_author_id = get_post_field( 'post_author', $review_id );
 				bp_notifications_add_notification(
 					array(
@@ -222,9 +222,14 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		public function bgr_accept_review_notification_format( $grp_id, $review_id, $format = '' ) {
 			global $bgr;
 			$review_label      = $bgr['review_label'];
-			$group             = groups_get_group( array( 'group_id' => $grp_id ) );
+			$group             = groups_get_group( array( 'group_id' => $grp_id ) );			
 			$group_name        = $group->name;
-			$notification_link = bp_get_group_url( $group ) . "reviews/view/$review_id/";
+			if( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ){
+				$group_link = bp_get_group_permalink( $group );
+			} else {
+				$group_link = bp_get_group_url( $group );
+			}
+			$notification_link = $group_link . "reviews/view/$review_id/";
 			/* translators: %1$s is replaced with review_label */
 			$notification_title = sprintf( esc_html__( '%1$s accepted.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s and %2$s is replaced with review_label and group name resepectively*/
@@ -252,9 +257,14 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			global $bgr;
 			global $bp;
 			$review_label      = $bgr['review_label'];
-			$group             = groups_get_group( array( 'group_id' => $grp_id ) );
+			$group             = groups_get_group( array( 'group_id' => $grp_id ) );			
 			$group_name        = $group->name;
-			$notification_link = bp_get_group_url( $group ) . 'reviews/';
+			if( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ){
+				$group_link = bp_get_group_permalink( $group );
+			} else {
+				$group_link = bp_get_group_url( $group );
+			}
+			$notification_link = $group_link . 'reviews/';
 			/* translators: %1$s is replaced with review_label */
 			$notification_title = sprintf( esc_html__( '%1$s denied.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s and %2$s is replaced with review_label and group_name respectively */
@@ -282,7 +292,7 @@ add_filter( 'bp_notifications_get_notifications_for_user', 'bgr_format_notificat
  * @param  int    $user_id Member ID.
  * @param  string $format Notification format.
  */
-function bgr_format_notifications( $action, $item_id, $secondary_item_id, $user_id, $format = 'string' ) {
+function bgr_format_notifications( $action, $item_id, $secondary_item_id, $user_id, $format = 'string' ) {	
 	if ( bp_is_active( 'notifications' ) && bp_is_active( 'groups' ) && $action != 'bbp_new_reply' ) {
 		switch ( $action ) {
 
