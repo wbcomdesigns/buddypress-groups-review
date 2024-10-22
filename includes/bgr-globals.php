@@ -60,9 +60,9 @@ function bgr_review_globals() {
 		$review_email_subject = isset( $bp_group_review_email_settings['review_email_subject'] ) ? $bp_group_review_email_settings['review_email_subject'] : 'New Review Submitted for Your Group [group-name] on [site-name]';
 		$review_email_message = isset( $bp_group_review_email_settings['review_email_message'] ) ? $bp_group_review_email_settings['review_email_message'] : 'Hello [admin-name], We are excited to inform you that a new review has been submitted.';
 		$review_accept_email_subject = isset( $bp_group_review_email_settings['review_accept_email_subject'] ) ? $bp_group_review_email_settings['review_accept_email_subject'] : 'Your review for the Group [group-name] on [site-name] is approved';
-		$review_accept_email_message = isset( $bp_group_review_email_settings['review_accept_email_message'] ) ? $bp_group_review_email_settings['review_accept_email_message'] : 'Hello [admin-name], Your review has been approved.';
+		$review_accept_email_message = isset( $bp_group_review_email_settings['review_accept_email_message'] ) ? $bp_group_review_email_settings['review_accept_email_message'] : 'Hello [user-name], Your review has been approved.';
 		$review_deny_email_subject = isset( $bp_group_review_email_settings['review_deny_email_subject'] ) ? $bp_group_review_email_settings['review_deny_email_subject'] : 'Your review for the Group [group-name] on [site-name] is denied';
-		$review_deny_email_message = isset( $bp_group_review_email_settings['review_deny_email_message'] ) ? $bp_group_review_email_settings['review_deny_email_message'] : 'Hello [admin-name], Your review has been denied.';
+		$review_deny_email_message = isset( $bp_group_review_email_settings['review_deny_email_message'] ) ? $bp_group_review_email_settings['review_deny_email_message'] : 'Hello [user-name], Your review has been denied.';
 	} else {
 		// Set defaults if no settings are found
 		$bp_group_review_email_settings = array(
@@ -71,10 +71,10 @@ function bgr_review_globals() {
 			'review_email_message' => 'Hello [admin-name], We are excited to inform you that a new review has been submitted.',
 			'bgr_accept_enable' => 'yes',
 			'review_accept_email_subject' => 'Your review for the Group [group-name] on [site-name] is approved',
-			'review_accept_email_message' => 'Hello [admin-name], Your review has been approved.',
+			'review_accept_email_message' => 'Hello [user-name], Your review has been approved.',
 			'bgr_deny_email' => 'yes',
 			'review_deny_email_subject' => 'Your review for the Group [group-name] on [site-name] is denied',
-			'review_deny_email_message' => 'Hello [admin-name], Your review has been denied.',
+			'review_deny_email_message' => 'Hello [user-name], Your review has been denied.',
 		);
 		update_option( 'bp_group_review_email_settings', $bp_group_review_email_settings );
 	}

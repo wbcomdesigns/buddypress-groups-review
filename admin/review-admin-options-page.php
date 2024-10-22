@@ -347,14 +347,14 @@ function bgr_emails_setting() {
     Best regards,<br>
     The [site-name] Team';
     $review_accept_email_subject = ( isset( $bp_group_review_email_settings['review_accept_email_subject'] ) ) ? $bp_group_review_email_settings['review_accept_email_subject'] : 'Your review for the Group [group-name] on [site-name] is approved';
-    $review_accept_email_message = ( ! empty( $bp_group_review_email_settings['review_accept_email_message'] ) ) ? $bp_group_review_email_settings['review_accept_email_message'] : 'Hello [admin-name],<br><br>
+    $review_accept_email_message = ( ! empty( $bp_group_review_email_settings['review_accept_email_message'] ) ) ? $bp_group_review_email_settings['review_accept_email_message'] : 'Hello [user-name],<br><br>
     We are pleased to inform you that your review for the group, [group-name] on [site-name] has been reviewed and approved by the administrator.<br><br>
     We appreciate the time and effort you took to share your thoughts about the group.[review-link]<br><br>
     Thank you for being an active and valuable member of our community.<br><br>
     Best regards,<br>
     The [site-name] Team';
     $review_deny_email_subject = ( isset( $bp_group_review_email_settings['review_deny_email_subject'] ) ) ? $bp_group_review_email_settings['review_deny_email_subject'] : 'Your review for the Group [group-name] on [site-name] is denied';
-    $review_deny_email_message = ( ! empty( $bp_group_review_email_settings['review_deny_email_message'] ) ) ? $bp_group_review_email_settings['review_deny_email_message'] : 'Hello [admin-name],<br><br>
+    $review_deny_email_message = ( ! empty( $bp_group_review_email_settings['review_deny_email_message'] ) ) ? $bp_group_review_email_settings['review_deny_email_message'] : 'Hello [user-name],<br><br>
     We regret to inform you that after careful consideration, your review for the group, [group-name] on [site-name] has been denied by the administrator.<br><br>
     While we appreciate your willingness to share your thoughts and feedback, it seems that certain aspects of the review did not align with our community guidelines or policies.[review-link]<br><br>
     Thank you for your understanding and cooperation.<br><br>
@@ -434,7 +434,7 @@ function bgr_emails_setting() {
                 <div class="bgr-row wbcom-settings-section-wrap">
                     <div class="wbcom-settings-section-options-heading">
                         <label><?php esc_html_e( 'Emails', 'bp-group-reviews' ); ?></label>
-                        <p class="description"><?php esc_html_e( 'Enable this option to notify the group admin and reviewer via email when a review is accepted.', 'bp-group-reviews' ); ?></p>
+                        <p class="description"><?php esc_html_e( 'Enable this option to notify the reviewer via email when their review is accepted.', 'bp-group-reviews' ); ?></p>
                     </div>
                     <div class="wbcom-settings-section-options">
                         <label class="wb-switch" for="bgr-accept-enable">
@@ -477,7 +477,7 @@ function bgr_emails_setting() {
                 <div class="bgr-row wbcom-settings-section-wrap">
                     <div class="wbcom-settings-section-options-heading">
                         <label><?php esc_html_e( 'Emails', 'bp-group-reviews' ); ?></label>
-                        <p class="description"><?php esc_html_e( 'Enable this option to notify the group admin and reviewer via email when a review is denied.', 'bp-group-reviews' ); ?></p>
+                        <p class="description"><?php esc_html_e( 'Enable this option to notify the reviewer via email when their review is denied.', 'bp-group-reviews' ); ?></p>
                     </div>
                     <div class="wbcom-settings-section-options">
                         <label class="wb-switch" for="bgr-deny-email">

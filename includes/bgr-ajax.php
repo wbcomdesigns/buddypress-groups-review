@@ -657,14 +657,10 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$review_label       = $bgr['review_label'];
 			$group_id           = get_post_meta( $post_id, 'linked_group', true );
 			$group              = groups_get_group( array( 'group_id' => $group_id ) );
-			$creator_id         = $group->creator_id;
-			$creator_info       = get_userdata( $creator_id );
+			$creator_info       = get_userdata( $post_author_id );
 			$creator_name       = $creator_info->display_name;
 			$group_name         = $group->name;
 			$site_name          = get_bloginfo( 'name' );
-			$current_user       = wp_get_current_user();
-			$member_id          = $current_user->ID;
-			$user_name          = $current_user->display_name;
 			$review_link        = bp_get_groups_directory_permalink() . $group->slug . "/reviews/view/$post_id/";
 			$headers[]          = 'Content-Type: text/html; charset=UTF-8';
 			if ( $auto_approve_reviews == 'yes' ) {
@@ -685,8 +681,8 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			// Use custom message if set
 			if ( isset( $bp_group_review_email_settings['review_accept_email_message'] ) && ! empty( $bp_group_review_email_settings['review_accept_email_message'] ) ) {
 				$mail_content = str_replace(
-					array( '[group-name]', '[user-name]', '[review-link]', '[admin-name]', '[site-name]' ),
-					array( $group_name, $user_name, $mail_link, $creator_name, $site_name ),
+					array( '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
+					array( $group_name, $creator_name, $mail_link, $site_name ),
 					$bp_group_review_email_settings['review_accept_email_message']
 				);
 			}else{
@@ -697,8 +693,8 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				Best regards,<br>
 				The [site-name] Team';
 				$mail_content = str_replace(
-					array( '[group-name]', '[user-name]', '[review-link]', '[admin-name]', '[site-name]' ),
-					array( $group_name, $user_name, $mail_link, $creator_name, $site_name ),
+					array( '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
+					array( $group_name, $creator_name, $mail_link, $site_name ),
 					$accept_message
 				);
 			}
@@ -742,14 +738,10 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$review_label         = $bgr['review_label'];
 			$group_id             = get_post_meta( $post_id, 'linked_group', true );
 			$group                = groups_get_group( array( 'group_id' => $group_id ) );
-			$creator_id           = $group->creator_id;
-			$creator_info         = get_userdata( $creator_id );
+			$creator_info         = get_userdata( $post_author_id );
 			$creator_name         = $creator_info->display_name;
 			$group_name           = $group->name;
 			$site_name            = get_bloginfo( 'name' );
-			$current_user         = wp_get_current_user();
-			$member_id            = $current_user->ID;
-			$user_name            = $current_user->display_name;
 			$auto_approve_reviews = $bgr['auto_approve_reviews'];			
 			$headers[]          = 'Content-Type: text/html; charset=UTF-8';
 			if ( $auto_approve_reviews == 'yes' ) {
@@ -770,8 +762,8 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			// Use custom message if set
 			if ( isset( $bp_group_review_email_settings['review_deny_email_message'] ) && ! empty( $bp_group_review_email_settings['review_deny_email_message'] ) ) {
 				$mail_content = str_replace(
-					array( '[group-name]', '[user-name]', '[review-link]', '[admin-name]', '[site-name]' ),
-					array( $group_name, $user_name, $mail_link, $creator_name, $site_name ),
+					array( '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
+					array( $group_name, $creator_name, $mail_link, $site_name ),
 					$bp_group_review_email_settings['review_deny_email_message']
 				);
 			} else{
@@ -782,8 +774,8 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				Best regards,<br>
 				The [site-name] Team';
 				$mail_content = str_replace(
-					array( '[group-name]', '[user-name]', '[review-link]', '[admin-name]', '[site-name]' ),
-					array( $group_name, $user_name, $mail_link, $creator_name, $site_name ),
+					array( '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
+					array( $group_name, $creator_name, $mail_link, $site_name ),
 					$deny_message
 				);
 			}
