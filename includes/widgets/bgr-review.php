@@ -138,10 +138,10 @@ class bgr_review_widget extends WP_Widget {
 		$review_label         = $bgr['review_label'];
 
 		extract( $instance, EXTR_SKIP );
-		$widget_title       = apply_filters( 'widget_title', $widget_title );
-		$widget_listing_cat = apply_filters( 'listing_cat', $listing_cat );
-		$widget_post_num    = apply_filters( 'post_num', $post_num );
-		$widget_thumbnail   = apply_filters( 'thumbnail', $thumbnail );
+		$widget_title       = apply_filters( 'bgr_widget_title', $instance['widget_title'] );
+		$widget_listing_cat = apply_filters( 'bgr_listing_cat', $instance['listing_cat'] );
+		$widget_post_num    = apply_filters( 'bgr_post_num', $instance['post_num'] );
+		$widget_thumbnail   = apply_filters( 'bgr_thumbnail', $instance['thumbnail'] );
 
 		$custom_args         = array(
 			'post_type'      => 'review',
