@@ -256,7 +256,6 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
 
 .bgr-group-content {
     margin-left: 60px;
-    margin-bottom: -5px;
 }
 
 .remove-review.generic-button {
@@ -300,6 +299,56 @@ body[class*="youzify"] #youzify-group-body #request-review-list .item-list.group
     border: none;
     padding-bottom: 0;
 }
+
+body[class*="youzify"] #youzify-group-body .group-request-list .item-title{
+    margin-bottom: 10px;
+    display: block;
+    font-weight: bold;
+}
+
+body[class*="youzify"] #youzify-group-header .rating-text {
+    margin-top: 10px;
+    color: #fff;
+}
+
+body[class*="youzify"] button.btn.btn-default.bgr-submit-review,
+body[class*="youzify"] .bgr-col-2.bgr-generic-button .bgr-col-12.generic-button a,
+body[class*="youzify"] .generic-button a.button{
+   min-width: 100%;
+   line-height: 15px;
+   padding: 8px;
+   text-align: center;
+   display: inline-block;
+   height: initial;
+   letter-spacing: initial;
+   font-size: var(--yzfy-primary-font-size);
+   background-color: var(--yzfy-scheme-color) !important;
+   color: var(--yzfy-scheme-text-color) !important;
+   border-radius: 100px;
+   cursor: pointer;
+}
+
+body[class*="youzify"] .group-request-list .avatar,
+body[class*="youzify"] .bgr-group-profiles img.avatar{
+    border-radius: 100px;
+}
+
+body[class*="youzify"] button.btn.btn-default.bgr-submit-review,
+body[class*="youzify"] .generic-button a.button{
+    padding:12px 20px;
+    min-width: auto;
+    border:none;
+}
+
+body[class*="youzify"] .multi-review .bgr-col-4{
+    margin-top: 5px;
+}
+
+body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-li a#add-review {
+    display: flex;
+    align-items: center;
+}
+
 
 /* BuddyBoss Theme */
 

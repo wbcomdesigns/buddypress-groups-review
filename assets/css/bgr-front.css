@@ -321,7 +321,7 @@
     color: red;
 }
 
-.multi-review {
+.multi-review .bgr-col-6 {
     margin-top: 5px;
 }
 
@@ -354,7 +354,7 @@ div#add-review-groupbutton{
 
 /*This is work for the youzify only and it pass the varibale here for the youzify */
 .youzify-inner-content .youzify-head-content .group-button .group-button{ 
-    min-width: 150px;
+   min-width: 150px;
    font-weight: 600;
    line-height: 24px;
    padding: 12px 20px;
@@ -366,7 +366,7 @@ div#add-review-groupbutton{
    background-color: var(--yzfy-scheme-color) !important;
    color: var(--yzfy-scheme-text-color) !important;
    border-radius: 100px;
-   margin-top: 10px; */
+   margin-top: 10px;
 }
 
 @media only screen and (max-width: 689px) {
