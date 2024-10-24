@@ -196,6 +196,7 @@ function run_bp_group_reviews_plugin() {
 		'includes/bgr-activity.php',
 		'includes/widgets/bgr-review.php',
 		'includes/widgets/group-rating.php',
+		'includes/bgr-functions.php',		
 	);
 	foreach ( $include_files as $include_file ) {
 		if ( class_exists( 'BuddyPress' ) && bp_is_active( 'groups' ) ) {
