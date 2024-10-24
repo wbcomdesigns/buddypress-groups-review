@@ -162,7 +162,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 				'not_found'          => esc_html__( 'No Review Found', 'bp-group-reviews' ),
 				'not_found_in_trash' => esc_html__( 'No Review Found In Trash', 'bp-group-reviews' ),
 			);
-			$args   = array(
+			$args = array(
 				'labels'             => $labels,
 				'public'             => false,
 				'menu_icon'          => 'dashicons-testimonial',
@@ -174,17 +174,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 					'slug'       => 'review',
 					'with_front' => false,
 				),
-				'capability_type'    => 'post',
-				'capabilities'       => array(
-					'edit_post'          => 'edit_review',
-					'read_post'          => 'read_review',
-					'delete_post'        => 'delete_review',
-					'edit_posts'         => 'edit_reviews',
-					'edit_others_posts'  => 'edit_others_reviews',
-					'publish_posts'      => 'publish_reviews',
-					'read_private_posts' => 'read_private_reviews',
-					'create_posts'       => 'do_not_allow',
-				),
+				'capability_type'    => 'review',				
 				'map_meta_cap'       => true,
 				'has_archive'        => false,
 				'hierarchical'       => false,
@@ -193,6 +183,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 			);
 			register_post_type( 'review', $args );
 		}
+		
 
 		/**
 		 * Actions performed to create Review cpt taxonomy

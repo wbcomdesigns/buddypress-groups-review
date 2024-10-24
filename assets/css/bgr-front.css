@@ -289,12 +289,12 @@
     color: green;
 }
 
-#group-reviews-list .review-pagination {
+#request-review-list .review-pagination {
     text-align: center;
     display: flex;
 }
 
-#group-reviews-list .review-pagination .page-numbers {
+#request-review-list .review-pagination .page-numbers {
     font-size: 16px;
     margin: 2px;
     display: inline-block;
@@ -306,13 +306,13 @@
     border-radius: 50%;
 }
 
-#group-reviews-list .review-pagination span.page-numbers.current {
+#request-review-list .review-pagination span.page-numbers.current {
     color: #000;
     font-weight: bold;
 }
 
-#group-reviews-list .review-pagination a.next.page-numbers,
-#group-reviews-list .review-pagination a.prev.page-numbers {
+#request-review-list .review-pagination a.next.page-numbers,
+#request-review-list .review-pagination a.prev.page-numbers {
     width: 70px;
     border-radius: 100px;
 }
