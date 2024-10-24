@@ -349,6 +349,16 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
     align-items: center;
 }
 
+body[class*="youzify"] .item-list-tabs #add-review-groups-li a#add-review:before {
+    width: 32px;
+    height: 32px;
+    font-size: var(--yzfy-big-font-size);
+    line-height: 32px;
+    text-align: center;
+    display: inline-block;
+    font-family: "Font Awesome 5 Free" !important;
+    content: "\f005";
+}
 
 /* BuddyBoss Theme */
 
