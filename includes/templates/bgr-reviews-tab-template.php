@@ -97,10 +97,10 @@ $reviews = new WP_Query( $args );
 										</div>
 									</div>
 								</div>
-								<div class="bgr-col-2">
+								<div class="bgr-col-3">
 									<?php if ( groups_is_user_admin( $member_id, bp_get_group_id() ) ) : ?>
 										<div class='remove-review generic-button'>
-											<a class='remove-review-button'> <?php esc_html_e( 'Delete', 'bp-group-reviews' ); ?> </a>
+											<a href="javascript:void(0);" class='remove-review-button button'> <?php esc_html_e( 'Delete', 'bp-group-reviews' ); ?> </a>
 											<input type="hidden" name="remove_review_id" value="<?php echo esc_attr( $post->ID ); ?>">
 										</div>
 									<?php endif; ?>

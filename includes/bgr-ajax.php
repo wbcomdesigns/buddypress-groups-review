@@ -162,10 +162,10 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 						do_action( 'bgr_display_ratings', $post->ID );
 						$html .= ob_get_clean();
 						$html .= '</div></div></div></div>';
-						$html .= '<div class="bgr-col-2">';
+						$html .= '<div class="bgr-col-3">';
 						if ( groups_is_user_admin( $member_id, bp_get_group_id() ) ) :
 							$html .= '<div class="remove-review generic-button">';
-							$html .= '<a class="remove-review-button">' . __( 'Delete', 'bp-group-reviews' ) . '</a><input type="hidden" name="remove_review_id" value="' . esc_attr( $post->ID ) . '"></div>';
+							$html .= '<a href="javascript:void(0);" class="remove-review-button button">' . __( 'Delete', 'bp-group-reviews' ) . '</a><input type="hidden" name="remove_review_id" value="' . esc_attr( $post->ID ) . '"></div>';
 						endif;
 						$html .= '</div><div class="clear"></div></div>';
 				endwhile;
