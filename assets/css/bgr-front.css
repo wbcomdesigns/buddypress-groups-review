@@ -145,8 +145,16 @@
     width: 70%;
 }
 
-.bgr-row.item-list.group-request-list .bgr-col-2 {
-    width: 8%;
+.bgr-col-2.bgr-generic-button{
+    padding-left: 20px;
+}
+.bgr-col-2.bgr-generic-button .bgr-col-12.generic-button{
+    float: right;
+    padding: 10px 0 0;
+}
+
+.bgr-col-2.bgr-generic-button .bgr-col-12.generic-button a{
+    width: 100%;
 }
 
 .bgr-row.item-list.group-request-list .bgr-col-10 {
@@ -202,6 +210,9 @@
     .bgr-row.item-list.group-request-list .bgr-col-10 {
         width: 100%;
         text-align: left;
+    }
+    .bgr-col-2.bgr-generic-button{
+        padding-left: 0;
     }
 }
 
@@ -326,6 +337,9 @@ div#add-review-groupbutton{
 /* BuddyX */
 .single-item.groups #cover-image-container div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton {
     margin-top: 5px;
+    top: 55px;
+    padding-right: 0;
+    right: -12px;
 }
 
 /* Reign Theme */

@@ -155,7 +155,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			if ( ! empty( $exclude_groups ) ) {
 				if ( ! in_array( bp_get_current_group_id(), $exclude_groups ) ) {
 					if ( ! groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id() ) || ! is_user_logged_in() ) { ?>
-					<div class="group-button public generic-button" id="add-review-groupbutton">
+					<div class="group-button group-actions-absolute public generic-button" id="add-review-groupbutton">
 						<a href='<?php echo esc_url( $current_group_link ); ?>' class="group-button" show ="<?php echo esc_attr( $review_div ); ?>">
 							<?php
 							/* translators: %1$s is replaced with bgr_group_add_review_tab_name() */
@@ -168,7 +168,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				}
 			} else {				
 					?>
-				<div class="group-button public generic-button" id="add-review-groupbutton">
+				<div class="group-button group-actions-absolute public generic-button" id="add-review-groupbutton">
 					<a href='<?php echo esc_url( $current_group_link ); ?>' class="group-button button" show ="<?php echo esc_attr( $review_div ); ?>">
 						<?php
 						/* translators: %1$s is replaced with bgr_group_add_review_tab_name() */

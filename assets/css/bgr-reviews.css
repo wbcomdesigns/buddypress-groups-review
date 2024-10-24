@@ -219,6 +219,7 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     display: inline-block;
     width: 100%;
     padding: 0;
+    background-color: transparent !important;
 }
 
 .multi-review>div {
@@ -262,11 +263,11 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     margin-left: 60px;
     margin-top: 5px;
     width: 100%;
+    display: flex;
 }
 
 .remove-review.generic-button a.remove-review-button {
     width:55%;
-    padding: 8px 20px !important;
 }
 
 .bgr-multi-review {

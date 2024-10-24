@@ -182,13 +182,13 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						$reviews->the_post();
 						?>
 					<div class="bgr-row item-list group-request-list">
-						<div class="bgr-col-2">
+						<div class="bgr-col-1 bgr-post-author">
 								<?php
 								$author = $reviews->post->post_author;
 								bp_displayed_user_avatar( array( 'item_id' => $author ) );
 								?>
 							</div>
-							<div class="bgr-col-8">
+							<div class="bgr-col-9">
 								<div class="item-title">
 									<?php echo wp_kses_post( bp_core_get_userlink( $author ) ); ?>
 								</div>
@@ -222,7 +222,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 									</div>
 								</div>
 							</div>
-							<div class="bgr-col-2">
+							<div class="bgr-col-2 bgr-generic-button">
 								<div class='bgr-col-12 accept-review generic-button'>
 									<a class='accept-button' data-group-type='<?php echo esc_attr( $bp->groups->current_group->id ); ?>'> <?php esc_html_e( 'Accept', 'bp-group-reviews' ); ?> </a><input type="hidden" name="accept_review_id" value="<?php echo esc_attr( $post->ID ); ?>">
 								</div>
