@@ -43,6 +43,9 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 				add_action( 'init', array( $this, 'bgr_review_cpt' ) );
 				add_action( 'init', array( $this, 'bgr_review_taxonomy_cpt' ) );
 			}
+
+			add_action( 'init', array( $this, 'bgr_add_capabilities_to_roles' ) );
+
 		}
 
 		/**
@@ -173,8 +176,18 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 				'rewrite'            => array(
 					'slug'       => 'review',
 					'with_front' => false,
-				),
-				'capability_type'    => 'review',				
+				),				
+				'capability_type'    => 'post',
+				'capabilities'       => array(
+					'edit_post'          => 'edit_review',
+					'read_post'          => 'read_review',
+					'delete_post'        => 'delete_review',
+					'edit_posts'         => 'edit_reviews',
+					'edit_others_posts'  => 'edit_others_reviews',
+					'publish_posts'      => 'publish_reviews',
+					'read_private_posts' => 'read_private_reviews',
+					'create_posts'       => 'do_not_allow',
+				),				
 				'map_meta_cap'       => true,
 				'has_archive'        => false,
 				'hierarchical'       => false,
@@ -268,6 +281,31 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 				}
 			}
 			return false;
+		}
+
+		/**
+		 * Add custom capabilities to roles.
+		 *
+		 * This function adds capabilities to administrator by default,
+		 * and other roles can be added via the 'bp_business_profile_roles' filter.
+		 */
+		public function bgr_add_capabilities_to_roles() {
+        	$roles = apply_filters( 'bgr_add_roles_capability', array( 'administrator' ) );
+			foreach ( $roles as $role_name ) {
+				$role = get_role( $role_name );
+				if ( $role ) {
+					// Add custom capabilities for business post type
+					$role->add_cap( 'edit_review' );
+					$role->add_cap( 'edit_reviews' );
+					$role->add_cap( 'edit_others_reviews' );
+					$role->add_cap( 'publish_reviews' );
+					$role->add_cap( 'read_private_reviews' );
+					$role->add_cap( 'delete_review' );
+					$role->add_cap( 'delete_reviews' );
+					$role->add_cap( 'delete_others_reviews' );
+					$role->add_cap( 'delete_published_reviews' );  
+				}
+			}
 		}
 
 	}
