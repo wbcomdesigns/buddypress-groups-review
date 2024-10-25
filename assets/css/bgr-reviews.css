@@ -359,3 +359,13 @@ body[class*="youzify"] .item-list-tabs #add-review-groups-li a#add-review:before
     font-family: "Font Awesome 5 Free" !important;
     content: "\f005";
 }
+
+body[class*="youzify"] li#reviews-groups-li a#reviews:before,
+body[class*="youzify"] li#nav-add-review-groups-li a#nav-add-review:before {
+    font-family: "Font Awesome 5 Pro";
+    content: "\f005";
+}
+body[class*="youzify"] li#nav-add-review-groups-li a#nav-add-review:before {
+    font-family: "Font Awesome 5 Pro";
+    content: "\f5c0";
+}
