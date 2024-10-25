@@ -359,21 +359,3 @@ body[class*="youzify"] .item-list-tabs #add-review-groups-li a#add-review:before
     font-family: "Font Awesome 5 Free" !important;
     content: "\f005";
 }
-
-/* BuddyBoss Theme */
-
-.theme-buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-group-header-ratings {
-    padding: 0px;
-}
-
-.theme-buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-header-row {
-    text-align: left;
-}
-
-.theme-buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-group-header-ratings {
-    font-size: 16px;
-}
-
-.theme-buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-star-rate {
-    margin-right: 0;
-}

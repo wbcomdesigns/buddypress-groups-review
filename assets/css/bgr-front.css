@@ -346,10 +346,40 @@ div#add-review-groupbutton{
 .wb-reign-theme .wbtm-member-info-section div#item-header-content .wbtm-item-buttons-wrapper {
     display: flex;
 }
+
+.wb-reign-theme.groups div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton {
+    margin-top: 0 !important;
+    margin-left: 10px !important;
+}
+
 .wb-reign-theme .wbtm-member-info-section div#item-header-content #add-review-groupbutton a.group-button {
     height: 38px !important;
     line-height: 1.1;
     font-size: 15px !important;
+}
+
+/* BuddyBoss Theme */
+
+.buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-group-header-ratings {
+    padding: 0px;
+}
+.buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-header-row {
+    text-align: left;
+}
+.buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-group-header-ratings {
+    font-size: 16px;
+}
+.buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-star-rate {
+    margin-right: 0;
+}
+.buddyboss-theme div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton {
+    top: 60px !important;
+    right: 0 !important;
+    margin: 0 !important;
+}
+.buddyboss-theme .groups-header #item-header-content .generic-button .group-button {
+    margin-right: 0;
+    font-size: 13px !important;
 }
 
 /*This is work for the youzify only and it pass the varibale here for the youzify */
@@ -384,5 +414,11 @@ div#add-review-groupbutton{
     }
     .wb-reign-theme .wbtm-member-info-section div#item-header-content #add-review-groupbutton a.group-button {
         font-size: 13px !important;
+    }
+    .wb-reign-theme.groups div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton {
+        margin-bottom:15px !important;
+    }   
+    .buddyboss-theme div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton{
+        margin-top: 0 !important;
     }
 }
