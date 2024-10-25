@@ -86,7 +86,7 @@ function bgr_plugin_init() {
 	} else {
 		run_bp_group_reviews_plugin();
 		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bgr_admin_page_link' );
-		add_action( 'bp_loaded', 'bgr_include_files_bp' );
+		add_action( 'bp_init', 'bgr_include_files_bp' );
 	}
 }
 add_action( 'bp_init', 'bgr_bp_notifications_for_review', 12 );
