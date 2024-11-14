@@ -229,7 +229,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					'post_status'    => 'publish',
 					'category'       => 'review_category',
 					'meta_key'       => 'linked_group',
-					'meta_value'     => $_POST['group_id'],
+					'meta_value'     => sanitize_text_field( filter_input( INPUT_POST, 'group_id' ) ),
 				);
 				$reviews     = get_posts( $custom_args );
 
