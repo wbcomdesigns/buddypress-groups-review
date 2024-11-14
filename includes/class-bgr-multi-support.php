@@ -119,10 +119,10 @@ class Buddypress_Group_Review_Multi_Support {
         // Deactivate the plugin if necessary
         if ( $deactivate ) {
             deactivate_plugins( plugin_basename( __FILE__ ) );
-
+            $activate = filter_input( INPUT_GET, 'activate' ) ? filter_input( INPUT_GET, 'activate' ) : '';
             // Prevent the activation message from showing up after deactivation
-            if ( isset( $_GET['activate'] ) ) {
-                unset( $_GET['activate'] );
+            if ( isset( $activate ) ) {
+                unset( $activate );
             }
         }
     }
