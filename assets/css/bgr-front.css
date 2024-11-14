@@ -422,3 +422,10 @@ div#add-review-groupbutton{
         margin-top: 0 !important;
     }
 }
+
+.single-item.groups #nav-manage-review-groups-li{
+    display: none!important;
+}
+.single-item.groups #bp-group-edit-manage-review-submit{
+    display: none !important;
+}
