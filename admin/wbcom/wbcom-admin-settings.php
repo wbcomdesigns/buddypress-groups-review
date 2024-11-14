@@ -287,7 +287,7 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 		 * @since 2.0.0
 		 */
 		public function wbcom_admin_setting_header_html() {
-			$page = isset($_GET['page']) ? sanitize_text_field(wp_unslash($_GET['page'])) : 'wbcom-themes-page';
+			$page          = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'wbcom-themes-page';
 			$plugin_active = $theme_active = $support_active = $settings_active = '';
 
 			switch ( $page ) {
