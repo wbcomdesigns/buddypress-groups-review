@@ -3,8 +3,8 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
-Tested up to: 6.5.2
-Stable tag: 3.2.2
+Tested up to: 6.7.0
+Stable tag: 3.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,38 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 8. Review submission at single group.(png|jpg|jpeg|gif).
 
 == Changelog ==
+
+= 3.3.0 =
+* Fixed PHP warnings and fatal errors with BuddyBoss integration.
+* Fixed sanitization in `review-bp-grps.php`, `class-bgr-multi-support.php`, and `bgr-ajax.php`.
+* Fixed widget filter review in `bgr-ajax.php`.
+* Fixed issues with button name in the manage tab in single groups.
+* Added icon for "Add Review" and review listing in Youzify.
+* Fixed warnings and missing review menu issues.
+* Resolved UI issues with the "Add Review" button and group rating on mobile views.
+* Fixed group review tab issue in BuddyBoss.
+* Fixed post type capability and pagination for group reviews.
+* Resolved sub-navigation UI issue in Youzify.
+* Fixed UI for Youzify review list and "Rating" header text.
+* Fixed excluded groups issue in reviews.
+* Resolved issue with activity content changes in Youzify.
+* Added multisite support for BuddyPress Group Reviews plugin.
+* Configured default options for BuddyPress Group Reviews plugin.
+* Fixed error when accepting a review.
+* Fixed notification and email issues on review submission.
+* Updated username to display instead of admin name.
+* Fixed issue when the group component is disabled.
+* Removed shortcode tab from admin options.
+* Resolved editor role access to modify review descriptions.
+* Fixed display of current group review count.
+* Fixed review count not visible on the tab.
+* Fixed issue with enabling the review activity tab in group reviews.
+* Added feedback form for user submissions.
+* Fixed UI for "Add Review" button with BuddyBoss mobile view.
+* Fixed "Add Review" button visibility for group admins in BP and BB.
+* Updated activity action for group reviews.
+* Hidden single review and archive pages for better compatibility.
+
 = 3.2.2 =
 * Fix: Resolved an issue with the review UI to enhance visual presentation and functionality.
 * Update: Hid filter dropdown on review listings for a cleaner user interface.
