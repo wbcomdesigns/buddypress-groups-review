@@ -231,7 +231,7 @@ function bp_group_reviews_activation_redirect_settings( $plugin ) {
 			exit;
 		}
 	}
-	if ( $plugin == $_REQUEST['plugin'] && class_exists( 'Buddypress' ) && bp_is_active( 'groups' ) ) { //phpcs:ignore
+	if ( ( isset( $_REQUEST['plugin'] ) ) && $plugin == $_REQUEST['plugin'] && class_exists( 'Buddypress' ) && bp_is_active( 'groups' ) ) { //phpcs:ignore
 		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate-plugin' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) { //phpcs:ignore		
 			set_transient( '_bp_group_reviews_is_new_install', true, 30 );
 		}
