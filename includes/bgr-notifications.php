@@ -82,7 +82,58 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			add_action( 'bgr_group_add_review', array( $this, 'bgr_add_review_notification' ), 99, 2 );
 			add_action( 'bgr_group_accept_review', array( $this, 'bgr_accept_review_notification' ), 99, 2 );
 			add_action( 'bgr_group_deny_review', array( $this, 'bgr_deny_review_notification' ), 99, 2 );
+			add_action( 'bp_template_redirect', array( $this, 'bgr_mark_group_notification_as_read' ), 99, 2 );
 			parent::setup_actions();
+		}
+
+		
+		/**
+		 * Mark Notification as read.
+		 */
+		public function bgr_mark_group_notification_as_read() {
+			if ( ( ! bp_is_groups_component() || ! bp_is_current_action('reviews') ) && ( ! isset( $_GET['referer'] ) || empty( $_GET['referer'] ) ) ) {
+				return;
+			}
+			$current_user_id = get_current_user_id();
+			$group_id = bp_get_current_group_id();
+			if ( isset( $_GET['referer'] ) && 'add_reviews' == $_GET['referer'] ) {
+				if ( bp_verify_nonce_request( "mark-as-read-notification-{$group_id}" ) ) {
+					BP_Notifications_Notification::update(
+						array( 'is_new' => false ),
+						array(
+							'component_action'  => 'bgr_add_review_action',
+							'user_id'           => $current_user_id,
+							'item_id' => $group_id,
+						)
+					);
+				}
+			}
+
+			if (  isset( $_GET['referer'] ) && 'accept_reviews' == $_GET['referer'] ) {
+				if ( bp_verify_nonce_request( "mark-as-read-notification-{$group_id}" ) ) {
+					BP_Notifications_Notification::update(
+						array( 'is_new' => false ),
+						array(
+							'component_action'  => 'bgr_accept_review_action',
+							'user_id'           => $current_user_id,
+							'item_id' => $group_id,
+						)
+					);
+				}
+			}
+
+			if (  isset( $_GET['referer'] ) && 'deny_reviews' == $_GET['referer'] ) {
+				if ( bp_verify_nonce_request( "mark-as-read-notification-{$group_id}" ) ) {
+					BP_Notifications_Notification::update(
+						array( 'is_new' => false ),
+						array(
+							'component_action'  => 'bgr_deny_review_action',
+							'user_id'           => $current_user_id,
+							'item_id' => $group_id,
+						)
+					);
+				}
+			}
 		}
 
 		/**
@@ -199,7 +250,8 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$notification_title = sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s, %2$s and %3$s is replaced with user_name, review_label and group name respectively */
 			$notification_content = sprintf( esc_html__( '%1$s posted a %2$s for %3$s.', 'bp-group-reviews' ), $user_name, $review_label, $group_name );
-
+			$notification_link           = add_query_arg( array( 'referer' => 'add_reviews' ), $notification_link );			// for identification of mark as read action 
+			$notification_link           = wp_nonce_url( $notification_link, 'mark-as-read-notification-' . $grp_id );		// for security purpose when mark as read notification.
 			if ( 'string' == $format ) {
 				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), $notification_title, $notification_content );
 			} else {
@@ -234,6 +286,8 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$notification_title = sprintf( esc_html__( '%1$s accepted.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s and %2$s is replaced with review_label and group name resepectively*/
 			$notification_content = sprintf( esc_html__( 'Your %1$s for %2$s accepted by group admin.', 'bp-group-reviews' ), $review_label, $group_name );
+			$notification_link           = add_query_arg( array( 'referer' => 'accept_reviews' ), $notification_link );			// for identification of mark as read action 
+			$notification_link           = wp_nonce_url( $notification_link, 'mark-as-read-notification-' . $grp_id );		// for security purpose when mark as read notification.
 
 			if ( 'string' == $format ) {
 				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), $notification_title, $notification_content );
@@ -269,6 +323,8 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$notification_title = sprintf( esc_html__( '%1$s denied.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s and %2$s is replaced with review_label and group_name respectively */
 			$notification_content = sprintf( esc_html__( 'Your %1$s for %2$s denied by group admin.', 'bp-group-reviews' ), $review_label, $group_name );
+			$notification_link           = add_query_arg( array( 'referer' => 'deny_reviews' ), $notification_link );			// for identification of mark as read action 
+			$notification_link           = wp_nonce_url( $notification_link, 'mark-as-read-notification-' . $grp_id );		// for security purpose when mark as read notification.
 
 			if ( 'string' == $format ) {
 				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), $notification_title, $notification_content );
