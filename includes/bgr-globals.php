@@ -20,7 +20,7 @@ function bgr_review_globals() {
 	$bgr_admin_general_settings  = get_option( 'bgr_admin_general_settings' );
 	$bgr_admin_criteria_settings = get_option( 'bgr_admin_criteria_settings' );
 	$bgr_admin_display_settings  = get_option( 'bgr_admin_display_settings' );
-	$bp_group_review_email_settings = get_option( 'bp_group_review_email_settigs' );
+	$bp_group_review_email_settings = get_option( 'bp_group_review_email_settings' );
 
 	/**** Global variable values for General settings */
 
