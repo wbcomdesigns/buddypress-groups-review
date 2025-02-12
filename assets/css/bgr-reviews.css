@@ -35,25 +35,15 @@
 
 .modal {
     display: none;
-    /* Hidden by default */
     position: fixed;
-    /* Stay in place */
     z-index: 1;
-    /* Sit on top */
     padding-top: 100px;
-    /* Location of the box */
     left: 0;
     top: 0;
     width: 100%;
-    /* Full width */
     height: 100%;
-    /* Full height */
     overflow: auto;
-    /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0);
-    /* Fallback color */
     background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/ opacity */
     z-index: 9999;
 }
 
@@ -70,7 +60,9 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
+    -webkit-animation-name: animatetop;
     animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
     animation-duration: 0.4s;
 }
 
@@ -88,6 +80,7 @@
         top: -300px;
         opacity: 0;
     }
+
     to {
         top: 0;
         opacity: 1;
@@ -99,6 +92,7 @@
         top: -300px;
         opacity: 0;
     }
+
     to {
         top: 0;
         opacity: 1;
@@ -262,11 +256,13 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     margin-left: 60px;
     margin-top: 5px;
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 
 .remove-review.generic-button a.remove-review-button {
-    width:55%;
+    width: 55%;
 }
 
 .bgr-multi-review {
@@ -279,28 +275,33 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
 
 
 /* Single Groups Youzify*/
-body[class*="youzify"] #youzify-group-body .bgr-group-reviews-block{
+body[class*="youzify"] #youzify-group-body .bgr-group-reviews-block {
     margin-bottom: 20px;
 }
+
 body[class*="youzify"] .bgr-group-review-no-popup-add-block button.btn.bgr-submit-review {
     color: #fff;
 }
-body[class*="youzify"] .bgr-group-review-no-popup-add-block textarea.review_desc{
+
+body[class*="youzify"] .bgr-group-review-no-popup-add-block textarea.review_desc {
     margin-top: 10px;
 }
+
 body[class*="youzify"] #youzify-group-body .group-reviews {
     margin: 0;
 }
+
 body[class*="youzify"] #youzify-group-body #request-review-list .item-list.group-request-list {
     margin: 20px 0;
     padding-bottom: 10px;
 }
-body[class*="youzify"] #youzify-group-body #request-review-list .item-list.group-request-list:last-child{
+
+body[class*="youzify"] #youzify-group-body #request-review-list .item-list.group-request-list:last-child {
     border: none;
     padding-bottom: 0;
 }
 
-body[class*="youzify"] #youzify-group-body .group-request-list .item-title{
+body[class*="youzify"] #youzify-group-body .group-request-list .item-title {
     margin-bottom: 10px;
     display: block;
     font-weight: bold;
@@ -313,59 +314,63 @@ body[class*="youzify"] #youzify-group-header .rating-text {
 
 body[class*="youzify"] button.btn.btn-default.bgr-submit-review,
 body[class*="youzify"] .bgr-col-2.bgr-generic-button .bgr-col-12.generic-button a,
-body[class*="youzify"] .generic-button a.button{
-   min-width: 100%;
-   line-height: 15px;
-   padding: 8px;
-   text-align: center;
-   display: inline-block;
-   height: initial;
-   letter-spacing: initial;
-   font-size: var(--yzfy-primary-font-size);
-   background-color: var(--yzfy-scheme-color) !important;
-   color: var(--yzfy-scheme-text-color) !important;
-   border-radius: 100px;
-   cursor: pointer;
+body[class*="youzify"] .generic-button a.button {
+    min-width: 100%;
+    line-height: 15px;
+    padding: 8px;
+    text-align: center;
+    display: inline-block;
+    height: initial;
+    letter-spacing: initial;
+    font-size: var(--yzfy-primary-font-size);
+    background-color: var(--yzfy-scheme-color) !important;
+    color: var(--yzfy-scheme-text-color) !important;
+    border-radius: 100px;
+    cursor: pointer;
 }
 
 body[class*="youzify"] .group-request-list .avatar,
-body[class*="youzify"] .bgr-group-profiles img.avatar{
+body[class*="youzify"] .bgr-group-profiles img.avatar {
     border-radius: 100px;
 }
 
 body[class*="youzify"] button.btn.btn-default.bgr-submit-review,
-body[class*="youzify"] .generic-button a.button{
-    padding:12px 20px;
+body[class*="youzify"] .generic-button a.button {
+    padding: 12px 20px;
     min-width: auto;
-    border:none;
+    border: none;
 }
 
-body[class*="youzify"] .multi-review .bgr-col-4{
+body[class*="youzify"] .multi-review .bgr-col-4 {
     margin-top: 5px;
 }
 
 body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-li a#add-review {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
-body[class*="youzify"] .item-list-tabs #add-review-groups-li a#add-review:before {
+.youzify-group-navmenu a#reviews:before,
+.youzify-group-navmenu a#add-review:before,
+.youzify div.item-list-tabs li a#managereview:before {
+    content: '\f005';
+}
+
+.youzify div.item-list-tabs li a#managereview:before {
     width: 32px;
     height: 32px;
     font-size: var(--yzfy-big-font-size);
     line-height: 32px;
     text-align: center;
-    display: inline-block;
-    font-family: "Font Awesome 5 Free" !important;
-    content: "\f005";
 }
 
-body[class*="youzify"] li#reviews-groups-li a#reviews:before,
-body[class*="youzify"] li#nav-add-review-groups-li a#nav-add-review:before {
-    font-family: "Font Awesome 5 Pro";
-    content: "\f005";
-}
-body[class*="youzify"] li#nav-add-review-groups-li a#nav-add-review:before {
-    font-family: "Font Awesome 5 Pro";
-    content: "\f5c0";
+.youzify-tabs-list-gradient a#managereview:before {
+    background: #FF9529;
+    background: url(../images/dotted-bg.png), -webkit-gradient(linear, right top, left top, from(#FFDF00), to(#FF9529));
+    background: url(../images/dotted-bg.png), linear-gradient(to left, #FFDF00, #FF9529);
+    background: url(../images/dotted-bg.png), -webkit-linear-gradient(right, #FFDF00, #FF9529);
 }
