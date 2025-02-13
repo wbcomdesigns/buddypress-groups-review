@@ -91,11 +91,11 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		 * Mark Notification as read.
 		 */
 		public function bgr_mark_group_notification_as_read() {
-			if ( ( ! bp_is_groups_component() || ! bp_is_current_action('reviews') ) && ( ! isset( $_GET['referer'] ) || empty( $_GET['referer'] ) ) ) {
-				return;
-			}
 			$current_user_id = get_current_user_id();
 			$group_id = bp_get_current_group_id();
+			if ( ( ! bp_is_groups_component() || ! bp_is_current_action('reviews') ) && ( ! isset( $_GET['referer'] ) || empty( $_GET['referer'] ) || ! bp_verify_nonce_request( "mark-as-read-notification-{$group_id}" ) ) ) {	
+				return;
+			}
 			if ( isset( $_GET['referer'] ) && 'add_reviews' == $_GET['referer'] ) {
 				if ( bp_verify_nonce_request( "mark-as-read-notification-{$group_id}" ) ) {
 					BP_Notifications_Notification::update(
