@@ -127,6 +127,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				);
 				parent::init( $args );
 			}
+			add_filter( 'query_vars', array( $this, 'add_custom_pagination_query_vars' ) );
 		}
 
 		/**
@@ -136,7 +137,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		 * @return void
 		 */
 		public function edit_screen( $group_id = null ) {
-			global $bp, $wpdb, $post;
+			global $bp, $wpdb, $post, $wp_query;
 			// Admin Settings.
 			$bgr_admin_settings         = get_option( 'bgr_admin_general_settings' );
 			$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
@@ -157,6 +158,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			} else {
 				$review_label = esc_html__( 'Reviews', 'bp-group-reviews' );
 			}
+
 			$paged   = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 			$args    = array(
 				'post_type'      => 'review',
@@ -240,19 +242,21 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						?>
 						<div class="review-pagination">
 							<?php
-							$current_page = max( 1, get_query_var( 'paged' ) );
-							echo wp_kses_post(
-								paginate_links(
-									array(
-										'base'      => get_pagenum_link( 1 ) . '%_%',
-										'format'    => 'page/%#%',
-										'current'   => $current_page,
-										'total'     => $total_pages,
-										'prev_text' => esc_html__( 'prev', 'bp-group-reviews' ),
-										'next_text' => esc_html__( 'next', 'bp-group-reviews' ),
-									)
-								)
-							);
+							$current_page = max( 1, get_query_var( 'paged', 1 ) ); // Ensures default value is 1
+							$format = '?paged=%#%';
+							$pagination = paginate_links( array(
+								'base'      => esc_url(get_pagenum_link(1)) . '%_%',
+								'format'    => $format, // Make sure this matches your permalink structure
+								'current'   => $current_page,
+								'total'     => $reviews->max_num_pages, // Use the correct WP_Query object
+								'prev_text' => esc_html__('Prev', 'bp-group-reviews'),
+								'next_text' => esc_html__('Next', 'bp-group-reviews'),
+								'mid_size'  => 2
+							) );
+							
+							if ( $pagination ) {
+								echo '<div class="review-pagination">' .  $pagination  . '</div>';
+							}
 							?>
 						</div>
 						<?php
@@ -273,6 +277,13 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					<?php
 			endif;
 			echo '</div>';
+			echo '<input type="submit" name="save" style="display:none;" id="bp-group-edit-manage-revieww-submit">';
+		}
+
+		public function add_custom_pagination_query_vars( $vars ) {
+			$vars[] = 'paged'; // Ensure WordPress recognizes it
+			$vars[] = 'upage'; // Add BuddyPress pagination var if needed
+			return $vars;
 		}
 	}
 	bp_register_group_extension( 'Group_Reviews_Management_Extn' );
