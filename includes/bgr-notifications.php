@@ -228,8 +228,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		 * @param  string $format Notification format.
 		 */
 		public function bgr_add_review_notification_format( $grp_id, $member_id, $user_id, $format = '' ) {
-			global $bp;
-			global $bgr;
+			global $bp, $bgr;
 			$review_label = $bgr['review_label'];
 			$admin_id     = bp_displayed_user_id();
 			$group        = groups_get_group( array( 'group_id' => $grp_id ) );
@@ -241,10 +240,10 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			} else {
 				$group_link = bp_get_group_url( $group );
 			}
-			if ( $bgr['auto_approve_reviews'] == 'no' ) {
+			if ( $bgr['auto_approve_reviews'] == 'yes' ) {
 				$notification_link = $group_link . 'reviews/add-' . bgr_group_review_tab_slug() . '/';
 			} else {
-				$notification_link = $group_link . sanitize_title( bgr_group_review_tab_name() );
+				$notification_link = $group_link .'admin/'. sanitize_title( 'manage-'.bgr_group_review_tab_slug() );
 			}
 			/* translators: %1$s is replaced with review_label */
 			$notification_title = sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
