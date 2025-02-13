@@ -464,6 +464,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				global $bgr;
 				global $post, $wpdb;
 				$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
+				$bgr_admin_display_settings  = get_option( 'bgr_admin_display_settings' );
 				$review_label               = isset( $bgr['manage_review_label'] ) ? $bgr['manage_review_label'] : '';
 				$add_review_label           = ! empty( $bgr_admin_display_settings ) ? bgr_group_add_review_tab_name() : esc_html__( 'Review', 'bp-group-reviews' );
 

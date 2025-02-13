@@ -95,7 +95,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						'nav_item_position' => 200,
 						/* translators: %s is replaced with add_review_label */
 						'name'              => sprintf( __( 'Manage %s', 'bp-group-reviews' ), $add_review_label ),
-						'enable_nav_item'   => '',
+						'enable_nav_item'   => false,
 						'screens'           => array(
 							'admin' => array(
 								'name'    => $review_label,
