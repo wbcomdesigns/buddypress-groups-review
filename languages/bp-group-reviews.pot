@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-12 13:47:55+00:00\n"
+"POT-Creation-Date: 2025-02-13 09:28:15+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -136,7 +136,7 @@ msgid "Emails"
 msgstr ""
 
 #: admin/bgr-admin.php:110 admin/wbcom/templates/wbcom-license-page.php:12
-#: includes/bgr-filters.php:644
+#: includes/bgr-filters.php:645
 msgid "BuddyPress Group Review"
 msgstr ""
 
@@ -156,13 +156,13 @@ msgstr ""
 #: admin/bgr-admin.php:154 admin/bgr-admin.php:156 admin/bgr-admin.php:157
 #: admin/review-admin-options-page.php:242 includes/bgr-globals.php:101
 #: includes/bgr-globals.php:105 includes/bgr-globals.php:143
-#: includes/bgr-grp-extn.php:54 includes/bgr-grp-extn.php:155
-#: includes/bgr-grp-extn.php:158
+#: includes/bgr-grp-extn.php:54 includes/bgr-grp-extn.php:156
+#: includes/bgr-grp-extn.php:159
 msgid "Reviews"
 msgstr ""
 
 #: admin/bgr-admin.php:155 admin/review-admin-options-page.php:117
-#: includes/bgr-filters.php:468 includes/bgr-globals.php:100
+#: includes/bgr-filters.php:469 includes/bgr-globals.php:100
 #: includes/bgr-globals.php:104 includes/bgr-globals.php:151
 #: includes/bgr-grp-extn.php:55
 msgid "Review"
@@ -1152,12 +1152,12 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: includes/bgr-ajax.php:182 includes/bgr-grp-extn.php:251
+#: includes/bgr-ajax.php:182
 #: includes/templates/bgr-reviews-tab-template.php:127
 msgid "prev"
 msgstr ""
 
-#: includes/bgr-ajax.php:183 includes/bgr-grp-extn.php:252
+#: includes/bgr-ajax.php:183
 #: includes/templates/bgr-reviews-tab-template.php:128
 msgid "next"
 msgstr ""
@@ -1176,7 +1176,7 @@ msgstr ""
 msgid "No Rating has been given by any member yet!"
 msgstr ""
 
-#: includes/bgr-ajax.php:489 includes/bgr-notifications.php:250
+#: includes/bgr-ajax.php:489 includes/bgr-notifications.php:249
 #. Translators: %1$s: Review Label
 #. translators: %1$s is replaced with review_label
 msgid "A new %1$s posted."
@@ -1228,18 +1228,18 @@ msgstr ""
 msgid "Approve"
 msgstr ""
 
-#: includes/bgr-filters.php:505 includes/bgr-filters.php:528
-#: includes/bgr-filters.php:551
+#: includes/bgr-filters.php:506 includes/bgr-filters.php:529
+#: includes/bgr-filters.php:552
 msgid "Add %s"
 msgstr ""
 
-#: includes/bgr-filters.php:628
+#: includes/bgr-filters.php:629
 msgid ""
 "Your Response added. This will be published when group admin has approved "
 "it."
 msgstr ""
 
-#: includes/bgr-filters.php:645
+#: includes/bgr-filters.php:646
 msgid "Give Group Review"
 msgstr ""
 
@@ -1253,54 +1253,62 @@ msgstr ""
 msgid "Manage %s"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:198
+#: includes/bgr-grp-extn.php:200
 msgid "Short Description "
 msgstr ""
 
-#: includes/bgr-grp-extn.php:215
+#: includes/bgr-grp-extn.php:217
 msgid "Full Description"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:221 includes/bgr-scripts.php:75
+#: includes/bgr-grp-extn.php:223 includes/bgr-scripts.php:75
 msgid "View More.."
 msgstr ""
 
-#: includes/bgr-grp-extn.php:227
+#: includes/bgr-grp-extn.php:229
 msgid "Accept"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:230
+#: includes/bgr-grp-extn.php:232
 msgid "Deny"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:271
+#: includes/bgr-grp-extn.php:252
+msgid "Prev"
+msgstr ""
+
+#: includes/bgr-grp-extn.php:253
+msgid "Next"
+msgstr ""
+
+#: includes/bgr-grp-extn.php:275
 #. translators: %s is replaced with review_label
 msgid "Sorry, no %s were found."
 msgstr ""
 
-#: includes/bgr-notifications.php:252
+#: includes/bgr-notifications.php:251
 #. translators: %1$s, %2$s and %3$s is replaced with user_name, review_label
 #. and group name respectively
 msgid "%1$s posted a %2$s for %3$s."
 msgstr ""
 
-#: includes/bgr-notifications.php:286
+#: includes/bgr-notifications.php:285
 #. translators: %1$s is replaced with review_label
 msgid "%1$s accepted."
 msgstr ""
 
-#: includes/bgr-notifications.php:288
+#: includes/bgr-notifications.php:287
 #. translators: %1$s and %2$s is replaced with review_label and group name
 #. resepectively
 msgid "Your %1$s for %2$s accepted by group admin."
 msgstr ""
 
-#: includes/bgr-notifications.php:323
+#: includes/bgr-notifications.php:322
 #. translators: %1$s is replaced with review_label
 msgid "%1$s denied."
 msgstr ""
 
-#: includes/bgr-notifications.php:325
+#: includes/bgr-notifications.php:324
 #. translators: %1$s and %2$s is replaced with review_label and group_name
 #. respectively
 msgid "Your %1$s for %2$s denied by group admin."

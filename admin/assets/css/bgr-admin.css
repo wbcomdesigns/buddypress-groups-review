@@ -181,10 +181,6 @@ span.move-icons {
     margin: 0 10px;
 }
 
-.bgr-row label {
-    font-weight: 700;
-}
-
 /* The bgr-switch - the toggle-switch in admin settings */
 .bgr-switch {
     position: relative;
