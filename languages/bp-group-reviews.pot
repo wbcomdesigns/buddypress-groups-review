@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-14T11:10:00+05:30\n"
+"POT-Creation-Date: 2025-02-14T12:05:10+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: bp-group-reviews\n"
@@ -1022,12 +1022,12 @@ msgid "Start a new thread on our plugin page. Participation is open to everyone 
 msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:210
-#: includes/bgr-scripts.php:140
+#: includes/bgr-scripts.php:142
 msgid "Activate"
 msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:211
-#: includes/bgr-scripts.php:141
+#: includes/bgr-scripts.php:143
 msgid "Deactivate"
 msgstr ""
 
@@ -1195,7 +1195,7 @@ msgid "Full Description"
 msgstr ""
 
 #: includes/bgr-grp-extn.php:223
-#: includes/bgr-scripts.php:89
+#: includes/bgr-scripts.php:90
 msgid "View More.."
 msgstr ""
 
@@ -1249,7 +1249,7 @@ msgstr ""
 msgid "Rating"
 msgstr ""
 
-#: includes/bgr-scripts.php:90
+#: includes/bgr-scripts.php:91
 msgid "View Less.."
 msgstr ""
 
