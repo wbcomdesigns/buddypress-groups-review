@@ -1,0 +1,831 @@
+/**
+* #.# Section Bar Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: right;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: right;
+	margin: 1px;
+}
+
+.bgr-half-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: right;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-bar-div {
+	padding: 20px 0;
+}
+
+/**
+* #.# Section Number Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: right;
+	background-color: #fff;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-half-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: right;
+	background-color: white;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: right;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+	color: #fff;
+}
+,/**
+* #.# Section Bar Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: left;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: left;
+	margin: 1px;
+}
+
+.bgr-half-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: left;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-bar-div {
+	padding: 20px 0;
+}
+
+/**
+* #.# Section Number Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: left;
+	background-color: #fff;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-half-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: left;
+	background-color: white;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: left;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+	color: #fff;
+}
+,/**
+* #.# Section Bar Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: right;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: right;
+	margin: 1px;
+}
+
+.bgr-half-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: right;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-bar-div {
+	padding: 20px 0;
+}
+
+/**
+* #.# Section Number Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: right;
+	background-color: #fff;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-half-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: right;
+	background-color: white;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: right;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+	color: #fff;
+}
+,/**
+* #.# Section Bar Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: left;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: left;
+	margin: 1px;
+}
+
+.bgr-half-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: left;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-bar-div {
+	padding: 20px 0;
+}
+
+/**
+* #.# Section Number Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: left;
+	background-color: #fff;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-half-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: left;
+	background-color: white;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: left;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+	color: #fff;
+}
+,/**
+* #.# Section Bar Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: right;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: right;
+	margin: 1px;
+}
+
+.bgr-half-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: right;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-bar-div {
+	padding: 20px 0;
+}
+
+/**
+* #.# Section Number Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: right;
+	background-color: #fff;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-half-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: right;
+	background-color: white;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: right;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+	color: #fff;
+}
+,/**
+* #.# Section Bar Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: left;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: left;
+	margin: 1px;
+}
+
+.bgr-half-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: left;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-bar-div {
+	padding: 20px 0;
+}
+
+/**
+* #.# Section Number Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: left;
+	background-color: #fff;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-half-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: left;
+	background-color: white;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: left;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+	color: #fff;
+}
+,/**
+* #.# Section Bar Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: right;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: right;
+	margin: 1px;
+}
+
+.bgr-half-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: right;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-bar-div {
+	padding: 20px 0;
+}
+
+/**
+* #.# Section Number Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: right;
+	background-color: #fff;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-half-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: right;
+	background-color: white;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: right;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+	color: #fff;
+}
+,/**
+* #.# Section Bar Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: left;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: left;
+	margin: 1px;
+}
+
+.bgr-half-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: left;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-bar-div {
+	padding: 20px 0;
+}
+
+/**
+* #.# Section Number Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: left;
+	background-color: #fff;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-half-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: left;
+	background-color: white;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: left;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+	color: #fff;
+}
+,/**
+* #.# Section Bar Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: right;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: right;
+	margin: 1px;
+}
+
+.bgr-half-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: right;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-bar-div {
+	padding: 20px 0;
+}
+
+/**
+* #.# Section Number Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: right;
+	background-color: #fff;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-half-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: right;
+	background-color: white;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: right;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+	color: #fff;
+}
+,/**
+* #.# Section Bar Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: left;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: left;
+	margin: 1px;
+}
+
+.bgr-half-filled-bars {
+	display: block;
+	width: 30px;
+	height: 8px;
+	float: left;
+	background-color: #fff;
+	margin: 1px;
+}
+
+.bgr-bar-div {
+	padding: 20px 0;
+}
+
+/**
+* #.# Section Number Ratings
+*
+* This section includes div width for design front-end review ,manage review page.
+*/
+
+.bgr-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: left;
+	background-color: #fff;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-half-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: left;
+	background-color: white;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+}
+
+.bgr-filled-numbers {
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: left;
+	margin: 2px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 2;
+	text-align: center;
+	font-weight: 600;
+	color: #fff;
+}
+/*# sourceMappingURL=bgr-ratings.rtl.css.map */

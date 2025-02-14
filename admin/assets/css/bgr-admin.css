@@ -1,10 +1,8 @@
-@CHARSET "ISO-8859-1";
 /**
 * #.# Section Div
 *
 * This section includes div width for design admin settings page.
 */
-
 [class*="bgr-col-"] {
     float: left;
     padding: 10px 0;
