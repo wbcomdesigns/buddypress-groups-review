@@ -250,7 +250,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 							) );
 							
 							if ( $pagination ) {
-								echo '<div class="review-pagination">' .  $pagination  . '</div>';
+								echo wp_kses_post('<div class="review-pagination">' .  $pagination  . '</div>');
 							}
 							?>
 						</div>
