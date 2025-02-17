@@ -75,68 +75,6 @@ if ( ! class_exists( 'BGR_Admin_Feedback' ) ) :
 		}
 
 		/**
-		 * Seconds to words.
-		 *
-		 * @param string $seconds Seconds in time.
-		 */
-		public function seconds_to_words( $seconds ) {
-
-			// Get the years.
-			$years = ( intval( $seconds ) / YEAR_IN_SECONDS ) % 100;
-			if ( $years > 1 ) {
-				/* translators: Number of years */
-				return sprintf( __( '%s years', 'bp-group-reviews' ), $years );
-			} elseif ( $years > 0 ) {
-				return __( 'a year', 'bp-group-reviews' );
-			}
-
-			// Get the weeks.
-			$weeks = ( intval( $seconds ) / WEEK_IN_SECONDS ) % 52;
-			if ( $weeks > 1 ) {
-				/* translators: Number of weeks */
-				return sprintf( __( '%s weeks', 'bp-group-reviews' ), $weeks );
-			} elseif ( $weeks > 0 ) {
-				return __( 'a week', 'bp-group-reviews' );
-			}
-
-			// Get the days.
-			$days = ( intval( $seconds ) / DAY_IN_SECONDS ) % 7;
-			if ( $days > 1 ) {
-				/* translators: Number of days */
-				return sprintf( __( '%s days', 'bp-group-reviews' ), $days );
-			} elseif ( $days > 0 ) {
-				return __( 'a day', 'bp-group-reviews' );
-			}
-
-			// Get the hours.
-			$hours = ( intval( $seconds ) / HOUR_IN_SECONDS ) % 24;
-			if ( $hours > 1 ) {
-				/* translators: Number of hours */
-				return sprintf( __( '%s hours', 'bp-group-reviews' ), $hours );
-			} elseif ( $hours > 0 ) {
-				return __( 'an hour', 'bp-group-reviews' );
-			}
-
-			// Get the minutes.
-			$minutes = ( intval( $seconds ) / MINUTE_IN_SECONDS ) % 60;
-			if ( $minutes > 1 ) {
-				/* translators: Number of minutes */
-				return sprintf( __( '%s minutes', 'bp-group-reviews' ), $minutes );
-			} elseif ( $minutes > 0 ) {
-				return __( 'a minute', 'bp-group-reviews' );
-			}
-
-			// Get the seconds.
-			$seconds = intval( $seconds ) % 60;
-			if ( $seconds > 1 ) {
-				/* translators: Number of seconds */
-				return sprintf( __( '%s seconds', 'bp-group-reviews' ), $seconds );
-			} elseif ( $seconds > 0 ) {
-				return __( 'a second', 'bp-group-reviews' );
-			}
-		}
-
-		/**
 		 * Check date on admin initiation and add to admin notice if it was more than the time limit.
 		 */
 		public function check_installation_date() {
@@ -161,7 +99,6 @@ if ( ! class_exists( 'BGR_Admin_Feedback' ) ) :
 
 			if ( isset( $screen->base ) && 'plugins' === $screen->base ) {
 				$no_bug_url = wp_nonce_url( admin_url( '?' . $this->nobug_option . '=true' ), 'bp-group-reviews-feedback-nounce' );
-				$time       = $this->seconds_to_words( time() - get_site_option( $this->date_option ) );
 				?>
 
 <style>
