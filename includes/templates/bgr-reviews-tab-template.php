@@ -19,7 +19,7 @@ $reviews_per_page     = $bgr['reviews_per_page'];
 $review_rating_fields = $bgr['review_rating_fields'];
 $review_label         = $bgr['review_label'];
 $paged                = 1;
-
+$current_page = max( 1, get_query_var( 'paged', 1 ) ); // Ensures default value is 1
 
 if ( 'reviews' !== basename( home_url( $wp->request ) ) ) {
 	$paged = basename( home_url( $wp->request ) );
@@ -30,7 +30,7 @@ $args    = array(
 	'post_status'    => 'publish',
 	'category'       => 'group',
 	'posts_per_page' => $reviews_per_page,
-	'paged'          => $paged,
+	'paged'          => $current_page,
 	'meta_query'     => array(
 		array(
 			'key'     => 'linked_group',
@@ -113,7 +113,7 @@ $reviews = new WP_Query( $args );
 					endwhile;
 					$total_pages = $reviews->max_num_pages;
 					if ( $total_pages > 1 ) {
-
+						$format = '?paged=%#%';
 						?>
 							<div class="review-pagination">
 								<?php
@@ -121,8 +121,8 @@ $reviews = new WP_Query( $args );
 									paginate_links(
 										array(
 											'base'      => get_pagenum_link( 1 ) . '%_%',
-											'format'    => 'page/%#%',
-											'current'   => $paged,
+											'format'    => $format,
+											'current'   => $current_page,
 											'total'     => $total_pages,
 											'prev_text' => esc_html__( 'prev', 'bp-group-reviews' ),
 											'next_text' => esc_html__( 'next', 'bp-group-reviews' ),

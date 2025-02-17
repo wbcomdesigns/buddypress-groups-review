@@ -247,7 +247,6 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 								'total'     => $reviews->max_num_pages, // Use the correct WP_Query object
 								'prev_text' => esc_html__('Prev', 'bp-group-reviews'),
 								'next_text' => esc_html__('Next', 'bp-group-reviews'),
-								'mid_size'  => 2
 							) );
 							
 							if ( $pagination ) {
