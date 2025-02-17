@@ -64,10 +64,6 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				}
 			}
 
-			if ( ! groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id() ) || ! is_user_logged_in() ) {
-				$add_review_nav = true;
-			}
-
 			if ( ! empty( $bgr_admin_general_settings ) ) {
 				if ( ! empty( $exclude_groups ) ) {
 					if ( ! in_array( bp_get_current_group_id(), $exclude_groups ) ) {
@@ -95,7 +91,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						'nav_item_position' => 200,
 						/* translators: %s is replaced with add_review_label */
 						'name'              => sprintf( __( 'Manage %s', 'bp-group-reviews' ), $add_review_label ),
-						'enable_nav_item'   => false,
+						'enable_nav_item'   => $add_review_nav,
 						'screens'           => array(
 							'admin' => array(
 								'name'    => $review_label,
