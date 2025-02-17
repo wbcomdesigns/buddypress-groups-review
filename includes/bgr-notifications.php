@@ -93,10 +93,10 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		public function bgr_mark_group_notification_as_read() {
 			$current_user_id = get_current_user_id();
 			$group_id = bp_get_current_group_id();
-			if ( ( ! bp_is_groups_component() || ! bp_is_current_action('reviews') ) && ( ! isset( $_GET['referer'] ) || empty( $_GET['referer'] ) || ! bp_verify_nonce_request( "mark-as-read-notification-{$group_id}" ) ) ) {	
+			if ( ( ! bp_is_groups_component() || ! bp_is_current_action('reviews') ) && ( ! isset( $_GET['referer'] ) || empty( $_GET['referer'] ) || ! bp_verify_nonce_request( "mark-as-read-notification-{$group_id}" ) ) ) {		// phpcs:ignore
 				return;
 			}
-			if ( isset( $_GET['referer'] ) && 'add_reviews' == $_GET['referer'] ) {
+			if ( isset( $_GET['referer'] ) && 'add_reviews' == $_GET['referer'] ) {		// phpcs:ignore
 				if ( bp_verify_nonce_request( "mark-as-read-notification-{$group_id}" ) ) {
 					BP_Notifications_Notification::update(
 						array( 'is_new' => false ),
@@ -109,7 +109,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 				}
 			}
 
-			if (  isset( $_GET['referer'] ) && 'accept_reviews' == $_GET['referer'] ) {
+			if (  isset( $_GET['referer'] ) && 'accept_reviews' == $_GET['referer'] ) {			// phpcs:ignore
 				if ( bp_verify_nonce_request( "mark-as-read-notification-{$group_id}" ) ) {
 					BP_Notifications_Notification::update(
 						array( 'is_new' => false ),
@@ -122,7 +122,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 				}
 			}
 
-			if (  isset( $_GET['referer'] ) && 'deny_reviews' == $_GET['referer'] ) {
+			if (  isset( $_GET['referer'] ) && 'deny_reviews' == $_GET['referer'] ) {		// phpcs:ignore
 				if ( bp_verify_nonce_request( "mark-as-read-notification-{$group_id}" ) ) {
 					BP_Notifications_Notification::update(
 						array( 'is_new' => false ),
