@@ -158,6 +158,8 @@ class BGR_Activity {
 			$user_link,
 			$group_link_html
 		);
+		// Determine if the activity should be hidden sitewide
+		$hide_sitewide = ($group_obj->status === 'private' || $group_obj->status === 'hidden') ? true : false;
 		if ( 'yes' == $allow_activity ) {
 			$args        = array(
 				'action'            => $action,
@@ -167,7 +169,7 @@ class BGR_Activity {
 				'user_id'           => bp_loggedin_user_id(),
 				'item_id'           => $group_id,
 				'secondary_item_id' => $posts_id,
-				'hide_sitewide'     => false,
+				'hide_sitewide'     => $hide_sitewide,
 				'is_spam'           => false,
 				'privacy'           => 'public',
 				'error_type'        => 'bool',
@@ -221,6 +223,9 @@ class BGR_Activity {
 					$user_link,
 					$group_link_html
 				);
+
+				// Determine if the activity should be hidden sitewide
+				$hide_sitewide = ($group_obj->status === 'private' || $group_obj->status === 'hidden') ? true : false;
 				$args        = array(
 					'action'            => $action,
 					'content'           => $review_content,
@@ -229,7 +234,7 @@ class BGR_Activity {
 					'user_id'           => bp_loggedin_user_id(),
 					'item_id'           => $group_id,
 					'secondary_item_id' => $posts_id,
-					'hide_sitewide'     => false,
+					'hide_sitewide'     => $hide_sitewide,
 					'is_spam'           => false,
 					'privacy'           => 'public',
 					'error_type'        => 'bool',
