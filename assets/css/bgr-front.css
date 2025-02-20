@@ -334,6 +334,12 @@ div#add-review-groupbutton{
     margin: 0;
 }
 
+/* Activity Page */
+.activity-list .activity-inner .bgr-multi-review .multi-review .bgr-col-6 {
+    width: auto;
+    min-width: 110px;
+}
+
 /* BuddyX */
 .single-item.groups #cover-image-container div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton {
     margin-top: 5px;

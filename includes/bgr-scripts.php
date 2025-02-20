@@ -49,7 +49,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 		 * @return void
 		 */
 		public function bgr_custom_variables() {
-			if ( function_exists('bp_is_groups_component') && bp_is_groups_component() || function_exists('bp_is_group') && bp_is_group() ) {
+			if ( function_exists( 'bp_is_activity_component' ) && bp_is_activity_component() || function_exists('bp_is_groups_component') && bp_is_groups_component() || function_exists('bp_is_group') && bp_is_group() ) {
 				if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 					$script_extension = '.js';
 					$script_path      = '';

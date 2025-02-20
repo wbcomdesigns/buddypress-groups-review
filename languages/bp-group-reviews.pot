@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-14T12:05:10+00:00\n"
+"POT-Creation-Date: 2025-02-20T09:41:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: bp-group-reviews\n"
@@ -39,62 +39,8 @@ msgstr ""
 msgid "http://wbcomdesigns.com"
 msgstr ""
 
-#. translators: Number of years
-#: admin/bgr-admin-feedback.php:88
-msgid "%s years"
-msgstr ""
-
-#: admin/bgr-admin-feedback.php:90
-msgid "a year"
-msgstr ""
-
-#. translators: Number of weeks
-#: admin/bgr-admin-feedback.php:97
-msgid "%s weeks"
-msgstr ""
-
-#: admin/bgr-admin-feedback.php:99
-msgid "a week"
-msgstr ""
-
-#. translators: Number of days
-#: admin/bgr-admin-feedback.php:106
-msgid "%s days"
-msgstr ""
-
-#: admin/bgr-admin-feedback.php:108
-msgid "a day"
-msgstr ""
-
-#. translators: Number of hours
-#: admin/bgr-admin-feedback.php:115
-msgid "%s hours"
-msgstr ""
-
-#: admin/bgr-admin-feedback.php:117
-msgid "an hour"
-msgstr ""
-
-#. translators: Number of minutes
-#: admin/bgr-admin-feedback.php:124
-msgid "%s minutes"
-msgstr ""
-
-#: admin/bgr-admin-feedback.php:126
-msgid "a minute"
-msgstr ""
-
-#. translators: Number of seconds
-#: admin/bgr-admin-feedback.php:133
-msgid "%s seconds"
-msgstr ""
-
-#: admin/bgr-admin-feedback.php:135
-msgid "a second"
-msgstr ""
-
-#: admin/bgr-admin-feedback.php:271
-#: admin/bgr-admin-feedback.php:311
+#: admin/bgr-admin-feedback.php:208
+#: admin/bgr-admin-feedback.php:248
 #: includes/class-bgr-multi-support.php:138
 #: includes/class-bgr-multi-support.php:151
 #: includes/class-bgr-multi-support.php:164
@@ -102,20 +48,20 @@ msgstr ""
 msgid "BuddyPress Group Reviews"
 msgstr ""
 
-#: admin/bgr-admin-feedback.php:274
+#: admin/bgr-admin-feedback.php:211
 msgid "Are you enjoying BuddyPress Group Reviews?"
 msgstr ""
 
 #. translators: 1. Name
-#: admin/bgr-admin-feedback.php:277
+#: admin/bgr-admin-feedback.php:214
 msgid "We hope you're enjoying %1$s! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
 msgstr ""
 
-#: admin/bgr-admin-feedback.php:281
+#: admin/bgr-admin-feedback.php:218
 msgid "Leave a Review"
 msgstr ""
 
-#: admin/bgr-admin-feedback.php:282
+#: admin/bgr-admin-feedback.php:219
 msgid "No thanks / I already have"
 msgstr ""
 
@@ -180,8 +126,8 @@ msgstr ""
 #: includes/bgr-globals.php:105
 #: includes/bgr-globals.php:143
 #: includes/bgr-grp-extn.php:54
-#: includes/bgr-grp-extn.php:156
-#: includes/bgr-grp-extn.php:159
+#: includes/bgr-grp-extn.php:152
+#: includes/bgr-grp-extn.php:155
 msgid "Reviews"
 msgstr ""
 
@@ -1069,7 +1015,7 @@ msgstr ""
 
 #. translators: %1$s: User Link, %2$s: Post Link HTML, %3$s: Group Name
 #: includes/bgr-activity.php:156
-#: includes/bgr-activity.php:219
+#: includes/bgr-activity.php:221
 msgid "%1$s posted a review in the group %2$s"
 msgstr ""
 
@@ -1176,47 +1122,43 @@ msgid "Give Group Review"
 msgstr ""
 
 #. translators: %s is replaced with add_review_label
-#: includes/bgr-grp-extn.php:78
-msgid "%s"
-msgstr ""
-
-#. translators: %s is replaced with add_review_label
-#: includes/bgr-grp-extn.php:97
-#: includes/bgr-grp-extn.php:116
+#: includes/bgr-grp-extn.php:74
+#: includes/bgr-grp-extn.php:93
+#: includes/bgr-grp-extn.php:112
 msgid "Manage %s"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:200
+#: includes/bgr-grp-extn.php:196
 msgid "Short Description "
 msgstr ""
 
-#: includes/bgr-grp-extn.php:217
+#: includes/bgr-grp-extn.php:213
 msgid "Full Description"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:223
+#: includes/bgr-grp-extn.php:219
 #: includes/bgr-scripts.php:90
 msgid "View More.."
 msgstr ""
 
-#: includes/bgr-grp-extn.php:229
+#: includes/bgr-grp-extn.php:225
 msgid "Accept"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:232
+#: includes/bgr-grp-extn.php:228
 msgid "Deny"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:252
+#: includes/bgr-grp-extn.php:248
 msgid "Prev"
 msgstr ""
 
-#: includes/bgr-grp-extn.php:253
+#: includes/bgr-grp-extn.php:249
 msgid "Next"
 msgstr ""
 
 #. translators: %s is replaced with review_label
-#: includes/bgr-grp-extn.php:275
+#: includes/bgr-grp-extn.php:270
 msgid "Sorry, no %s were found."
 msgstr ""
 
