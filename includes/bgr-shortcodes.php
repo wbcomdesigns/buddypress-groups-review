@@ -72,13 +72,13 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				),
 			);
 			$reviews_args = new WP_Query( $group_args );
-			ob_start();
 			if ( ! is_user_logged_in() ) {
 					$output .= '<div id="message" class="info">';
 					$output .= '<p>';
 					$output .= sprintf(
 							/* translators: %1$s is used for review lable*/
-						esc_html__( 'You should log in for post %1$s.', 'bp-group-reviews' ),
+						esc_html__( 'You should %1$s for post %2$s.', 'bp-group-reviews' ),
+						'<a href="'.esc_url( wp_login_url( get_permalink() ) ).'">'.esc_html__( 'login', 'bp-group-reviews' ).'</a>',
 						esc_html( $review_label )
 					);
 					$output .= '</p>';
@@ -93,10 +93,11 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 					}
 
 					if ( 'no' === $multi_reviews && 0 < $user_post_count ) {
-						echo '<div class="approve-message">';
-						echo '<i class="fa fa-check" aria-hidden="true"></i>';
-						esc_html_e( 'You already have posted a review to this group.', 'bp-group-reviews' );
-						echo '</div>';
+
+						$output .=  '<div class="approve-message">';
+						$output .=  '<i class="fa fa-check" aria-hidden="true"></i>';
+						$output .= esc_html__( 'You already have posted a review to this group.', 'bp-group-reviews' );
+						$output .=  '</div>';
 					}
 
 					if ( 0 === $user_post_count ) {
@@ -119,7 +120,9 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 						$output .= '</div>';
 					}
 				} else {
-					$output .= $this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
+					ob_start();
+					$this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
+					$output .= ob_get_clean();
 				}
 			} else {
 				$output .= '<div id="message" class="error">';
@@ -130,7 +133,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				) . '</p>';
 				$output .= '</div>';
 			}
-			$output = ob_get_clean();
+			// $output = ob_get_clean();
 			return $output;
 		}
 
