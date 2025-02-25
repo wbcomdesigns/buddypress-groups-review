@@ -73,12 +73,13 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			);
 			$reviews_args = new WP_Query( $group_args );
 			if ( ! is_user_logged_in() ) {
-					$output .= '<div id="message" class="info">';
+					$output .= '<div id="message" class="bp-messages bp-feedback error">';
+					$output .= '<span class="bp-icon" aria-hidden="true"></span>';
 					$output .= '<p>';
 					$output .= sprintf(
 							/* translators: %1$s is used for review lable*/
 						esc_html__( 'You should %1$s for post %2$s.', 'bp-group-reviews' ),
-						'<a href="'.esc_url( wp_login_url( get_permalink() ) ).'">'.esc_html__( 'login', 'bp-group-reviews' ).'</a>',
+						'<a href="' . esc_url( wp_login_url( get_permalink() ) ) . '"> ' . esc_html__( 'login', 'bp-group-reviews' ) . '</a>',
 						esc_html( $review_label )
 					);
 					$output .= '</p>';

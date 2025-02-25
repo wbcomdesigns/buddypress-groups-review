@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-20T10:15:26+00:00\n"
+"POT-Creation-Date: 2025-02-25T10:11:33+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: bp-group-reviews\n"
@@ -1075,7 +1075,7 @@ msgstr ""
 #. translators: %1$s is replaced with review_label
 #. translators: %1$s is used for review label
 #: includes/bgr-ajax.php:527
-#: includes/bgr-shortcodes.php:116
+#: includes/bgr-shortcodes.php:118
 msgid "You already posted a %1$s for this group."
 msgstr ""
 
@@ -1197,40 +1197,44 @@ msgstr ""
 
 #. translators: %1$s is used for review lable
 #: includes/bgr-shortcodes.php:81
-msgid "You should log in for post %1$s."
+msgid "You should %1$s for post %2$s."
 msgstr ""
 
-#: includes/bgr-shortcodes.php:98
+#: includes/bgr-shortcodes.php:82
+msgid "login"
+msgstr ""
+
+#: includes/bgr-shortcodes.php:100
 msgid "You already have posted a review to this group."
 msgstr ""
 
 #. translators: %s is used for bp-group-review
-#: includes/bgr-shortcodes.php:128
+#: includes/bgr-shortcodes.php:132
 msgid "You can't post %s on your own group."
 msgstr ""
 
 #. translators: %1$s is used for review label
-#: includes/bgr-shortcodes.php:181
+#: includes/bgr-shortcodes.php:185
 msgid "Write a %1$s"
 msgstr ""
 
-#: includes/bgr-shortcodes.php:190
-#: includes/bgr-shortcodes.php:260
-#: includes/bgr-shortcodes.php:280
+#: includes/bgr-shortcodes.php:194
+#: includes/bgr-shortcodes.php:264
+#: includes/bgr-shortcodes.php:284
 msgid "This field is required."
 msgstr ""
 
 #. translators: %s: search term
-#: includes/bgr-shortcodes.php:192
+#: includes/bgr-shortcodes.php:196
 msgid "%1$s Description"
 msgstr ""
 
 #. translators: %1$s is used for review label
-#: includes/bgr-shortcodes.php:200
+#: includes/bgr-shortcodes.php:204
 msgid "Submit %1$s"
 msgstr ""
 
-#: includes/bgr-shortcodes.php:272
+#: includes/bgr-shortcodes.php:276
 msgid "Your Rating"
 msgstr ""
 
