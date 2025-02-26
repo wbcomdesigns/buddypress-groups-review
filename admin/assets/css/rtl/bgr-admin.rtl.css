@@ -80,12 +80,6 @@
 *
 * This section includes css for admin settings page content.
 */
-
-@font-face {
-    font-family: FontAwesome;
-    src: url('../fonts/FontAwesome.otf');
-}
-
 .bgr-admin-settings-header p {
     font-size: 24px;
 }
@@ -360,10 +354,6 @@ button.bgr-accordion.active::after {
     clear: both;
     overflow: hidden;
     padding-bottom: 5px;
-}
-
-.bgr-extra-actions {
-    float: left;
 }
 
 .bgr-col-9 .selectize-control {
