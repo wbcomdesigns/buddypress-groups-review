@@ -139,7 +139,7 @@ function bgr_display_setting() {
                     <p class="description"><?php esc_html_e( 'Change the color of the star rating.', 'bp-group-reviews' ); ?></p>
                 </div>
                 <div class="wbcom-settings-section-options">
-                    <input id="bgr-rating-color" class="bgr-review-color" type="text" data-default-color="#effeff" value="<?php echo esc_attr( $bgr_rating_color ); ?>" />
+                    <input id="bgr-rating-color" class="bgr-review-color" type="text" data-default-color="#FFC400" value="<?php echo esc_attr( $bgr_rating_color ); ?>" />
                 </div>
             </div>
         </div>

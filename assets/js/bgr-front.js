@@ -1,4 +1,7 @@
 jQuery(document).ready(function (e) {
+  
+  jQuery("#manage-"+bgr_front_js_object.review_label).addClass('manage-review');
+
   var review_label = bgr_front_js_object.review_label;
   if ('yes' == bgr_front_js_object.check_group_admin) {
     if ('yes' == bgr_front_js_object.auto_approve_reviews) {
@@ -251,6 +254,7 @@ jQuery(document).ready(function (e) {
       );
     });
   });
+
 });
 
 /*----------------------------------------
