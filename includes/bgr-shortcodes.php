@@ -93,14 +93,6 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 						$user_post_count = 0;
 					}
 
-					if ( 'no' === $multi_reviews && 0 < $user_post_count ) {
-
-						$output .=  '<div class="approve-message">';
-						$output .=  '<i class="fa fa-check" aria-hidden="true"></i>';
-						$output .= esc_html__( 'You already have posted a review to this group.', 'bp-group-reviews' );
-						$output .=  '</div>';
-					}
-
 					if ( 0 === $user_post_count ) {
 						$output .= $this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
 					} else {
