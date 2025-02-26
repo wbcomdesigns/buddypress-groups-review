@@ -357,12 +357,14 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
 .youzify-group-navmenu a#reviews:before,
 .youzify-group-navmenu a#add-review:before,
 .youzify div.item-list-tabs li a#managereview:before,
-.youzify div.item-list-tabs li a#manage-review:before {
+.youzify div.item-list-tabs li a#manage-review:before,
+.youzify div.item-list-tabs li a.manage-review:before {
     content: '\f005';
 }
 
 .youzify div.item-list-tabs li a#managereview:before,
-.youzify div.item-list-tabs li a#manage-review:before {
+.youzify div.item-list-tabs li a#manage-review:before,
+.youzify div.item-list-tabs li a.manage-review:before {
     width: 32px;
     height: 32px;
     font-size: var(--yzfy-big-font-size);
@@ -371,7 +373,8 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
 }
 
 .youzify-tabs-list-gradient a#managereview:before,
-.youzify-tabs-list-gradient a#manage-review:before {
+.youzify-tabs-list-gradient a#manage-review:before,
+.youzify-tabs-list-gradient div.item-list-tabs li a.manage-review:before {
     background: #FF9529;
     background: url(../images/dotted-bg.png), -webkit-gradient(linear, right top, left top, from(#FFDF00), to(#FF9529));
     background: url(../images/dotted-bg.png), linear-gradient(to left, #FFDF00, #FF9529);

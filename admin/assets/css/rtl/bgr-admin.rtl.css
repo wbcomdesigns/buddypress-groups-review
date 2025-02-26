@@ -421,6 +421,15 @@ div#bgr-settings-updated {
     color: #10AB00;
 }
 
+@media screen and (max-width: 1189px) {
+    div#bgr-settings-updated {
+        margin: 0;
+        position: relative;
+        left: auto;
+        right: auto;
+    }
+}
+
 button.notice-dismiss:before {
     color: red !important;
 }
