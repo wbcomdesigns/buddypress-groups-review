@@ -622,7 +622,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				if ( 'yes' == $allow_email ) {
 					foreach ( $group_admins->admins as $group_admin ) {
 						$author_email = get_the_author_meta( 'user_email', $group_admin->user_id );
-						wp_mail( $author_email, $mail_title, $mail_content, $headers );
+						wp_mail( $author_email, $mail_title, nl2br( $mail_content ), $headers );
 					}
 				}
 				do_action( 'bgr_group_after_review_submit', $post_author_id, $form_group_id, $review_id );
@@ -706,7 +706,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 
 			if ( 'yes' == $allow_email ) {
 				$author_email = get_the_author_meta( 'user_email', $post_author_id );
-				wp_mail( $author_email, $mail_title, $mail_content, $headers );
+				wp_mail( $author_email, $mail_title, nl2br( $mail_content ), $headers );
 			}
 
 			die;
@@ -787,7 +787,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 
 			if ( 'yes' == $allow_email ) {
 				$author_email = get_the_author_meta( 'user_email', $post_author_id );
-				wp_mail( $author_email, $mail_title, $mail_content, $headers );
+				wp_mail( $author_email, $mail_title, nl2br( $mail_content ), $headers );
 			}
 			die;
 		}
