@@ -131,8 +131,8 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				$style_path      = is_rtl() ? '/rtl' : '/min';
 			}
 			$curr_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
-			$screen   = get_current_screen();
-			if ( ( 'wb-plugins_page_group-review-settings' == $screen->base ) || 'toplevel_page_wbcomplugins'  == $screen->base ) {
+			$screen   = get_current_screen();			
+			if ( ( 'review' == get_post_type() ) || ( 'wb-plugins_page_group-review-settings' == $screen->base ) || 'toplevel_page_wbcomplugins'  == $screen->base ) {
 				wp_enqueue_script( 'bgr-js-admin', BGR_PLUGIN_URL . 'admin/assets/js'.$script_path.'/bgr-admin'.$script_extension, array( 'jquery' ), BGR_PLUGIN_VERSION, false );
 				wp_localize_script(
 					'bgr-js-admin',
