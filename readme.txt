@@ -3,8 +3,8 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
-Tested up to: 6.7.0
-Stable tag: 3.3.0
+Tested up to: 6.7.2
+Stable tag: 3.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,32 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 8. Review submission at single group.(png|jpg|jpeg|gif).
 
 == Changelog ==
+
+= 3.4.0 = 
+* Added: Review tab visibility for logged-out users.  
+* Added: Managed rating icon compatibility with Youzify.  
+* Fixed: Review approval issue.  
+* Fixed: Group review translation issue with Loco Translate.  
+* Fixed: Next-line break issue in email notifications.  
+* Fixed: Issue where user avatar changed to the approver's avatar when auto-approval was off.  
+* Fixed: Two notices appearing when multiple reviews were disabled.  
+* Fixed: RTL CSS duplicate issue.  
+* Fixed: Activity issue when private or hidden group activity was appearing in sitewide activity.  
+* Fixed: Review tab name issue on fresh setups.  
+* Fixed: PHP warnings during plugin activation with multiple plugins.  
+* Fixed: Email settings not working issue.  
+* Fixed: Wrong redirect URL issue.  
+* Fixed: Pagination issue in the manage review tab.  
+* Updated: Changed default rating color.  
+* Updated: Managed backend notice UI for better visibility.  
+* Updated: Managed review UI in sitewide activity for better integration.  
+* Updated: Managed manage review UI with Youzify.  
+* Updated: Improved review tab label and created a manage review tab.  
+* Updated: Adjusted font weight for backend setting headings.  
+* Improved: Minified and optimized CSS and JavaScript for better performance.  
+* Improved: Removed unwanted code and files for a cleaner codebase.  
+* Improved: Implemented JS and CSS fixes for group listing page issues.  
+* Improved: Managed UI elements for better compatibility with Youzify.  
 
 = 3.3.0 =
 * Fixed PHP warnings and fatal errors with BuddyBoss integration.
