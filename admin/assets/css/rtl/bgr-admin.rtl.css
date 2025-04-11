@@ -325,8 +325,8 @@ button.bgr-accordion:hover {
 div.panel {
     padding: 0 18px;
     background-color: white;
-    max-height: 0;
-    overflow: hidden;
+    max-height: 0; 
+    overflow: hidden;   
     -webkit-transition: max-height 0.2s ease-out;
     transition: max-height 0.2s ease-out;
     margin: 0px 5%;
