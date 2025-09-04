@@ -202,7 +202,15 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
 
 .bgr-group-review-no-popup-add-block .review_desc {
     width: 100%;
-    padding: 10px;
+    padding: 12px 15px;
+    margin-top: 8px;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bgr-group-review-no-popup-add-block .review_desc:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+    outline: none;
 }
 
 .review-ratings {
@@ -210,14 +218,17 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
 }
 
 .multi-review {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 15px;
     width: 100%;
     padding: 0;
     background-color: transparent !important;
 }
 
 .multi-review>div {
-    padding: 0px;
+    padding: 0;
 }
 
 .bgr-group-review-no-popup-add-block .bgr-submit-review {
@@ -234,6 +245,10 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     border-radius: 8px !important;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05);
     border: 1px solid #eee;
+}
+
+.group-request-list [class*=bgr-col-] {
+    padding: 0;
 }
 
 .bgr-group-profiles {
@@ -261,10 +276,6 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     display: flex;
 }
 
-.remove-review.generic-button a.remove-review-button {
-    width: 55%;
-}
-
 .bgr-multi-review {
     margin: 15px;
 }
@@ -273,6 +284,11 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     margin: 15px 0;
 }
 
+@media screen and (max-width: 767px) {
+    .multi-review {
+        flex-flow: row wrap;
+    }
+}
 
 /* Single Groups Youzify*/
 body[class*="youzify"] #youzify-group-body .bgr-group-reviews-block {

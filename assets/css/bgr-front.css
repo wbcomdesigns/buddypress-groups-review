@@ -173,6 +173,10 @@
     margin: 10px 0;
 }
 
+.group-add-form h4 {
+    margin-top: 0 !important;
+}
+
 
 /*** Section Front Page css  end ***/
 
@@ -236,8 +240,10 @@
 }
 
 .bgr-error-fields {
+    font-size: 0.85rem;
+    color: #e63946;
+    margin-top: 5px;
     display: none;
-    color: red;
     float: left;
 }
 
@@ -260,7 +266,9 @@
 }
 
 .bgr-star-rate {
-    margin-right: 4px;
+    margin-right: 6px;
+    cursor: pointer;
+    transition: color 0.25s ease, transform 0.15s ease;
 }
 
 #request-review-list+#bp-group-edit-add-review-submit-wrapper {
@@ -318,11 +326,8 @@
 }
 
 .bgr-col-4 .required {
-    color: red;
-}
-
-.multi-review .bgr-col-6 {
-    margin-top: 5px;
+    color: #e63946;
+    font-weight: bold;
 }
 
 .single-item.groups #cover-image-container #item-header-content .group-button#add-review-groupbutton {
@@ -332,6 +337,11 @@
 
 div#add-review-groupbutton{
     margin: 0;
+}
+
+/* Buttons */
+.bgr-submit-review:hover {
+    transform: translateY(-2px);
 }
 
 /* Activity Page */

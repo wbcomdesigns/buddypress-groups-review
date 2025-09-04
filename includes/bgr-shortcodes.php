@@ -171,12 +171,12 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			<form id="bgr-add-review-form" method="POST">
 				<input type="hidden" id="reviews_pluginurl"  name="reviews_pluginurl" value="<?php echo esc_attr( BGR_PLUGIN_URL ); ?>">
 				<div class="group-add-form">
-					<p>
+					<h4>
 						<?php
 						/* translators: %1$s is used for review label */
 						echo sprintf( esc_html__( 'Write a %1$s', 'bp-group-reviews' ), esc_html( $review_label ) );
 						?>
-					</p>
+					</h4>
 						<input type="hidden" name="form-group-id" value="<?php echo esc_attr( $current_group_id ); ?>" />
 						<p class="bupr-hide-subject">
 							<?php $review_subject = bgr_group_add_review_tab_name() . ' ' . time(); ?>
