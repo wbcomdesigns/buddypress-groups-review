@@ -266,7 +266,7 @@
 }
 
 .bgr-star-rate {
-    margin-left: 6px;
+    margin-left: 4px;
     cursor: pointer;
     transition: color 0.25s ease, transform 0.15s ease;
 }
@@ -337,11 +337,6 @@
 
 div#add-review-groupbutton{
     margin: 0;
-}
-
-/* Buttons */
-.bgr-submit-review:hover {
-    transform: translateY(-2px);
 }
 
 /* Activity Page */
