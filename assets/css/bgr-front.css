@@ -201,7 +201,7 @@
     }
 
     .group-request-list .item-title a {
-        text-align: center;
+        /* text-align: center; */
         display: block;
     }
 

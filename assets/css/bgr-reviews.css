@@ -261,6 +261,16 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     padding: 0;
 }
 
+.group-request-list .bgr-col-3.bgr-generic-button {
+    display: flex;
+    flex-flow: wrap;
+    gap: 10px;
+}
+
+.group-request-list .review-description {
+    margin: 10px 0;
+}
+
 .bgr-group-profiles {
     width: 60px;
     float: left;
@@ -298,10 +308,17 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     .multi-review {
         flex-flow: row wrap;
     }
+
+    .group-request-list .bgr-col-3.bgr-generic-button {
+        display: flex;
+        flex-flow: wrap;
+        gap: 10px;
+    }
 }
 
 /* Single Groups Youzify*/
 body[class*="youzify"] #youzify-group-body .bgr-group-reviews-block {
+    margin-top: 0;
     margin-bottom: 20px;
 }
 
