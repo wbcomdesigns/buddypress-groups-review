@@ -58,8 +58,7 @@ if ( ! class_exists( 'BGR_Admin_Feedback' ) ) :
 		 */
 		public function __construct( $args ) {
 			$this->slug = $args['slug'];
-			$this->name = $args['name'];
-
+			
 			$this->date_option  = $this->slug . '_activation_date';
 			$this->nobug_option = $this->slug . '_no_bug';
 
@@ -211,7 +210,7 @@ if ( ! class_exists( 'BGR_Admin_Feedback' ) ) :
 						<h3><?php echo esc_html__( 'Are you enjoying BuddyPress Group Reviews?', 'bp-group-reviews' ); ?></h3>
 						<p>
 							<?php /* translators: 1. Name */ ?>
-							<?php printf( esc_html__( 'We hope you\'re enjoying %1$s! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'bp-group-reviews' ), esc_html( $this->name ) ); ?>
+							<?php printf( esc_html__( 'We hope you\'re enjoying %1$s! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'bp-group-reviews' ), esc_html_e( 'BuddyPress Group Reviews', 'bp-group-reviews' ) ); ?>
 						</p>
 					</div>
 					<div class="bp-group-reviews-install-now">
@@ -245,7 +244,6 @@ endif;
 new BGR_Admin_Feedback(
 	array(
 		'slug'       => 'bp_group_types',
-		'name'       => __( 'BuddyPress Group Reviews', 'bp-group-reviews' ),
 		'time_limit' => WEEK_IN_SECONDS,
 	)
 );
