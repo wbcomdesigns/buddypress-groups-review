@@ -418,6 +418,13 @@ div#bgr-settings-updated {
         right: auto;
         left: auto;
     }
+    div#bgr-email-settings-updated{
+        margin: 0;
+        position: relative;
+        right: auto;
+        left: auto;
+    }
+    
 }
 
 button.notice-dismiss:before {
@@ -426,4 +433,21 @@ button.notice-dismiss:before {
 
 .wbcom-settings-section-wrap {
     overflow: inherit;
+}
+
+div#bgr-email-settings-updated{
+    position: absolute;
+    right: 50px;
+    z-index: 99;
+    border-radius: 10px;
+    line-height: normal;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: #10AB00;
+}
+
+#bgr-email-settings-updated {
+    margin-left: 0;
+    /* margin-bottom: 15px; */
 }

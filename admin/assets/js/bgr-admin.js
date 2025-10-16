@@ -2,6 +2,11 @@ jQuery.noConflict();
 jQuery(document).ready(function () {
   // Save Criteria Settings
   jQuery("#bgr-settings-updated").hide();
+  
+  // Handle dismissible notices
+  jQuery(document).on('click', '.notice-dismiss', function() {
+    jQuery(this).closest('.notice').fadeOut();
+  });
   jQuery("#bgr-exclude-group-review").selectize({
     placeholder: "Select groups",
     plugins: ["remove_button"],

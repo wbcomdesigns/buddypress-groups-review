@@ -361,8 +361,20 @@ function bgr_emails_setting() {
     Best regards,<br>
     The [site-name] Team';
     ?>
+
+    <?php if( isset( $_GET['settings-updated'] )  ) { ?> 
+        <div id="bgr-email-settings-updated" class="updated settings-error notice is-dismissible">
+            <p>
+                <strong><?php esc_html_e( 'Settings Saved.', 'bp-group-reviews' ); ?></strong>
+            </p>
+            <button type="button" class="notice-dismiss">
+                <span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'bp-group-reviews' ); ?></span>
+            </button>
+        </div>
+    <?php } ?> 
+    
     <div class="wbcom-admin-title-section">
-        <h3><?php esc_html_e( 'Email Settings', 'bp-group-reviews' ); ?></h3>
+        <h3><?php esc_html_e( 'Email Settings', 'bp-group-reviews' ); ?></h3>       
     </div>
     <div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">
     <form method="post" action="options.php">
