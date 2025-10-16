@@ -263,6 +263,7 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
 
 .group-request-list .bgr-col-3.bgr-generic-button {
     display: flex;
+    justify-content: flex-end;
     flex-flow: wrap;
     gap: 10px;
 }
@@ -310,9 +311,11 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     }
 
     .group-request-list .bgr-col-3.bgr-generic-button {
-        display: flex;
-        flex-flow: wrap;
-        gap: 10px;
+        justify-content: flex-start;
+    }
+
+    .group-request-list .bgr-col-2.bgr-post-author {
+        margin-bottom: 15px;
     }
 }
 
