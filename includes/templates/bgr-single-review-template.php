@@ -15,7 +15,9 @@ defined( 'ABSPATH' ) || exit;
 global $bgr;
 $review_rating_fields = $bgr['review_rating_fields'];
 $url                  = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
-$review_id            = basename( $url );
+if (preg_match('/\/view\/(\d+)/', $url, $matches)) {
+    $review_id = $matches[1];
+}
 $review               = get_post( $review_id );
 $review_title         = $review->post_title;
 $author               = $review->post_author;
