@@ -709,7 +709,9 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				wp_mail( $author_email, $mail_title, nl2br( $mail_content ), $headers );
 			}
 
-			die;
+			do_action('gamipress_bp_group_review', $post_author_id );
+
+			wp_die();
 		}
 
 		/**
