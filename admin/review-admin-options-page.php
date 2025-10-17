@@ -338,6 +338,10 @@ The [site-name] Team';
  * @since    1.0.0
  */
 function bgr_emails_setting() {
+    if( function_exists( 'wp_enqueue_editor' ) ) {
+        wp_enqueue_editor();
+    }
+
     $bp_group_review_email_settings = get_option( 'bp_group_review_email_settings' );
     $review_email_subject = ( isset( $bp_group_review_email_settings['review_email_subject'] ) ) ? $bp_group_review_email_settings['review_email_subject'] : 'New Review Submitted for Your Group [group-name] on [site-name]';
     $review_email_message = ( ! empty( $bp_group_review_email_settings['review_email_message'] ) ) ? $bp_group_review_email_settings['review_email_message'] : 'Hello [admin-name],<br><br>
