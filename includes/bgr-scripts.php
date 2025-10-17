@@ -78,6 +78,8 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				}
 				if ( in_array( bp_get_current_group_id(), $exclude_groups ) ) {
 					$exclude_groups = 'true';
+				} else {
+					$exclude_groups = 'false';
 				}
 				$auto_approve_reviews = '';
 				if ( isset( $bgr_admin_settings['auto_approve_reviews'] ) && 'yes' == $bgr_admin_settings['auto_approve_reviews'] ) {

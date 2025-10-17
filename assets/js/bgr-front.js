@@ -12,6 +12,10 @@ jQuery(document).ready(function (e) {
   }
   if ('true' == bgr_front_js_object.exclude_groups) {
     jQuery('#nav-add-feedback').hide();
+    // Hide manage reviews tab for excluded groups
+    jQuery('#nav-add-' + review_label + '-groups-li').hide();
+    jQuery('#nav-manage-' + review_label + '-groups-li').hide();
+    jQuery('#manage-' + review_label).parent().hide();
   }
   jQuery("#bgr_review_success_msg_modal").hide();
   jQuery("#request-review-list #bp-group-edit-add-review-submit").hide();
