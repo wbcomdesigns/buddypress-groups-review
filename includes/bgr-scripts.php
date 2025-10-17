@@ -41,6 +41,47 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 		}
 
 		/**
+		 * Check if BGR widgets are active on the current page
+		 *
+		 * @since   1.0.0
+		 * @author  Wbcom Designs
+		 *
+		 * @return bool
+		 */
+		private function bgr_is_widget_active() {
+			// Get all active widgets from all sidebars
+			$sidebars_widgets = wp_get_sidebars_widgets();
+			
+			if ( empty( $sidebars_widgets ) ) {
+				return false;
+			}
+			
+			foreach ( $sidebars_widgets as $sidebar_id => $widgets ) {
+				if ( is_array( $widgets ) ) {
+					foreach ( $widgets as $widget_id ) {
+						// Check for group review widgets by widget ID prefix
+						if ( strpos( $widget_id, 'bgr_group_review_widget' ) === 0 || strpos( $widget_id, 'bgr_group_rating_widget' ) === 0 ) {
+							return true;
+						}
+					}
+				}
+			}
+			
+			// Also check if we're on BuddyPress pages where widgets might be used
+			if ( function_exists( 'bp_is_activity_component' ) && bp_is_activity_component() ) {
+				return true;
+			}
+			if ( function_exists( 'bp_is_groups_component' ) && bp_is_groups_component() ) {
+				return true;
+			}
+			if ( function_exists( 'bp_is_group' ) && bp_is_group() ) {
+				return true;
+			}
+			
+			return false;
+		}
+
+		/**
 		 * Actions performed for enqueuing scripts and styles for site front.
 		 *
 		 * @since   1.0.0
@@ -49,7 +90,8 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 		 * @return void
 		 */
 		public function bgr_custom_variables() {
-			if ( function_exists( 'bp_is_activity_component' ) && bp_is_activity_component() || function_exists('bp_is_groups_component') && bp_is_groups_component() || function_exists('bp_is_group') && bp_is_group() ) {
+			// Only enqueue scripts when BGR widgets are available
+			if ( $this->bgr_is_widget_active() ) {
 				if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 					$script_extension = '.js';
 					$script_path      = '';
