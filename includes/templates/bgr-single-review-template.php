@@ -18,9 +18,9 @@ $url                  = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unsla
 if (preg_match('/\/view\/(\d+)/', $url, $matches)) {
     $review_id = $matches[1];
 }
-$review               = get_post( $review_id );
+$review               = get_post( absint( $review_id ) );
 $review_title         = $review->post_title;
-$author               = $review->post_author;
+$author               = absint( $review->post_author );
 $author_details       = get_userdata( $author );
 ?>
 <div class="bgr-single-review">
