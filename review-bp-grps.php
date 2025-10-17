@@ -233,28 +233,10 @@ function bp_group_reviews_activation_redirect_settings( $plugin ) {
 			exit;
 		}
 	}
-	if ( ( isset( $_REQUEST['plugin'] ) ) && $plugin == $_REQUEST['plugin'] && class_exists( 'Buddypress' ) && bp_is_active( 'groups' ) ) { //phpcs:ignore
-		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate-plugin' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) { //phpcs:ignore		
-			set_transient( '_bp_group_reviews_is_new_install', true, 30 );
-		}
-	}
 
 }
 add_action( 'activated_plugin', 'bp_group_reviews_activation_redirect_settings' );
 
-/**
- * Bp_group_reviews_do_activation_redirect
- *
- * @return void
- */
-function bp_group_reviews_do_activation_redirect() {
-	if ( get_transient( '_bp_group_reviews_is_new_install' ) ) {
-		delete_transient( '_bp_group_reviews_is_new_install' );
-		wp_safe_redirect( admin_url( 'admin.php?page=group-review-settings' ) );
-
-	}
-}
-add_action( 'admin_init', 'bp_group_reviews_do_activation_redirect' );
 
 /**
  * Save option of email setting.

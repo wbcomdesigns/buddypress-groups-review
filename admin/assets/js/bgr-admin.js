@@ -68,24 +68,12 @@ jQuery(document).ready(function () {
     } else {
       allow_popup = "no";
     }
-    var bgr_multi_reviews = jQuery("#bgr-multi-reviews").is(":checked")
-      ? "yes"
-      : "no";
-    var bgr_auto_approve_reviews = jQuery("#bgr-auto-approve-reviews").is(
-      ":checked"
-    )
-      ? "yes"
-      : "no";
+    var bgr_multi_reviews = jQuery("#bgr-multi-reviews").is(":checked") ? "yes" : "no";
+    var bgr_auto_approve_reviews = jQuery("#bgr-auto-approve-reviews").is( ":checked" ) ? "yes" : "no";
     var reviews_per_page = jQuery("#reviews_per_page").val();
-    var review_email_subject = jQuery("#review_email_subject").val();
-    var review_email_message = jQuery("#review_email_message").val();
     var bgr_allow_email = jQuery("#bgr-email").is(":checked") ? "yes" : "no";
-    var bgr_allow_notification = jQuery("#bgr-notification").is(":checked")
-      ? "yes"
-      : "no";
-    var bgr_allow_activity = jQuery("#bgr-activity").is(":checked")
-      ? "yes"
-      : "no";
+    var bgr_allow_notification = jQuery("#bgr-notification").is(":checked") ? "yes" : "no";
+    var bgr_allow_activity = jQuery("#bgr-activity").is(":checked") ? "yes" : "no";
 
     jQuery.post(
       ajaxurl,
@@ -98,9 +86,7 @@ jQuery(document).ready(function () {
         allow_email: bgr_allow_email,
         allow_notification: bgr_allow_notification,
         allow_activity: bgr_allow_activity,
-        exclude_groups: exclude_groups,
-        review_email_subject: review_email_subject,
-        review_email_message: review_email_message,
+        exclude_groups: exclude_groups
       },
       function (response) {
         if (response === "admin-general-settings-saved") {

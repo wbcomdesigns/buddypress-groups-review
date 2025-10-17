@@ -205,7 +205,6 @@ jQuery(document).ready(function (e) {
             jQuery.cookie("res_content", response, {
               expires: date,
             });
-            // window.location.reload();
           }
         );
       }
@@ -240,24 +239,6 @@ jQuery(document).ready(function (e) {
     }
   );
 
-  // Reviews tab filter.
-  jQuery("#bp-group-reviews-filter-by").change(function () {
-    var jQ = "";
-    jQuery("#bp-group-reviews-filter-by option:selected").each(function () {
-      var jQ = jQuery(this);
-      var filter = jQ.val();
-      jQuery.post(
-        ajaxurl,
-        {
-          action: "bgr_reviews_filter",
-          filter: filter,
-        },
-        function (response) {
-          jQuery("#request-review-list").html(response);
-        }
-      );
-    });
-  });
 
 });
 
@@ -267,8 +248,6 @@ jQuery(document).ready(function (e) {
 jQuery(function () {
   if (jQuery.cookie("res_content")) {
     jQuery(".error").hide();
-    // jQuery('.bgr-bp-success p').text(jQuery.cookie('res_content'));
-    // jQuery('.bgr-bp-success').show();
     jQuery.cookie("res_content", "", -1);
   }
 });

@@ -404,8 +404,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$allow_email          = isset( $_POST['allow_email'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_email'] ) ) : '';
 				$allow_notification   = isset( $_POST['allow_notification'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_notification'] ) ) : '';
 				$allow_activity       = isset( $_POST['allow_activity'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_activity'] ) ) : '';
-				$review_email_subject = isset( $_POST['review_email_subject'] ) ? sanitize_text_field( wp_unslash( $_POST['review_email_subject'] ) ) : '';
-				$review_email_message = isset( $_POST['review_email_message'] ) ? sanitize_text_field( wp_unslash( $_POST['review_email_message'] ) ) : '';
 				$exclude_groups       = isset( $_POST['exclude_groups'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['exclude_groups'] ) ) : '';
 				if ( empty( $exclude_groups ) ) {
 					$exclude_groups = array();
@@ -417,13 +415,11 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					'allow_email'          => $allow_email,
 					'allow_notification'   => $allow_notification,
 					'allow_activity'       => $allow_activity,
-					'exclude_groups'       => $exclude_groups,
-					'review_email_subject' => $review_email_subject,
-					'review_email_message' => $review_email_message,
+					'exclude_groups'       => $exclude_groups
 				);
 				update_option( 'bgr_admin_general_settings', $bgr_admin_settings );
 				echo 'admin-general-settings-saved';
-				die;
+				wp_die();
 			}
 		}
 
