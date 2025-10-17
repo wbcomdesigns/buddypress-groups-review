@@ -137,7 +137,9 @@ function bgr_admin_notice() {
 		/* translators: %s: search term */
 			echo sprintf( esc_html__( '%1$s is ineffective now as it requires %2$s to be installed and active.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>' );
 	}
-	
+	if( isset( $_GET['activate'] ) ) {
+		unset( $_GET['activate'] );
+	}
 	echo '</p></div>';
 
 }
