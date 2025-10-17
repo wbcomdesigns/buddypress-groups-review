@@ -505,15 +505,17 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 								'parent_url'      => $gp_parent_url,
 								'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
 								'position'        => 198,
+								'item_css_id'     => 'reviews',
 							);
 
 							$tab_args[] = array(
-								'name'            => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
+								'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
 								'slug'            => 'add-' . bgr_group_review_tab_slug(),
 								'parent_slug'     => $bp->groups->current_group->slug,
 								'parent_url'      => $gp_parent_url,
 								'screen_function' => array( $this, 'bgr_group_add_review_tab' ),
 								'position'        => 199,
+								'item_css_id'     => 'add-review',
 							);
 
 							foreach ( $tab_args as $tab ) {
@@ -528,15 +530,17 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 							'parent_url'      => $gp_parent_url,
 							'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
 							'position'        => 198,
+							'item_css_id'     => 'reviews',
 						);
 
 						$tab_args[] = array(
-							'name'            => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
+							'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
 							'slug'            => 'add-' . bgr_group_review_tab_slug(),
 							'parent_slug'     => $bp->groups->current_group->slug,
 							'parent_url'      => $gp_parent_url,
 							'screen_function' => array( $this, 'bgr_group_add_review_tab' ),
 							'position'        => 199,
+							'item_css_id'     => 'add-review',
 						);
 
 						foreach ( $tab_args as $tab ) {
@@ -551,15 +555,17 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						'parent_url'      => $gp_parent_url,
 						'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
 						'position'        => 198,
+						'item_css_id'     => 'reviews',
 					);
 
 					$tab_args[] = array(
-						'name'            => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
+						'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
 						'slug'            => 'add-' . bgr_group_review_tab_slug(),
 						'parent_slug'     => $bp->groups->current_group->slug,
 						'parent_url'      => $gp_parent_url,
 						'screen_function' => array( $this, 'bgr_group_add_review_tab' ),
 						'position'        => 199,
+						'item_css_id'     => 'add-review',
 					);
 
 					foreach ( $tab_args as $tab ) {

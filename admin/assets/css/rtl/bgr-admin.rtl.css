@@ -418,6 +418,13 @@ div#bgr-settings-updated {
         left: auto;
         right: auto;
     }
+    div#bgr-email-settings-updated{
+        margin: 0;
+        position: relative;
+        left: auto;
+        right: auto;
+    }
+    
 }
 
 button.notice-dismiss:before {
@@ -426,5 +433,22 @@ button.notice-dismiss:before {
 
 .wbcom-settings-section-wrap {
     overflow: inherit;
+}
+
+div#bgr-email-settings-updated{
+    position: absolute;
+    left: 50px;
+    z-index: 99;
+    border-radius: 10px;
+    line-height: normal;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: #10AB00;
+}
+
+#bgr-email-settings-updated {
+    margin-right: 0;
+    /* margin-bottom: 15px; */
 }
 /*# sourceMappingURL=bgr-admin.rtl.css.map */
