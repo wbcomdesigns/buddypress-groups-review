@@ -274,8 +274,8 @@ class bgr_single_group_rating_widget extends WP_Widget {
  *  @since   1.0.0
  *  @author  Wbcom Designs
  */
-function bgr_group_rating_register_widget() {
+function bp_group_review_register_rating_widget() {
 	register_widget( 'bgr_single_group_rating_widget' );
 }
 
-add_action( 'widgets_init', 'bgr_group_rating_register_widget' );
+add_action( 'widgets_init', 'bp_group_review_register_rating_widget' );

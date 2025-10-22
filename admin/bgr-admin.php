@@ -34,17 +34,17 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * @author   Wbcom Designs
 		 */
 		public function __construct() {
-			add_action( 'admin_menu', array( $this, 'bgr_add_submenu_page_admin_settings' ) );
-			add_action( 'admin_menu', array( $this, 'bgr_get_review_count' ) );
+			add_action( 'admin_menu', array( $this, 'bp_group_review_add_submenu_page_admin_settings' ) );
+			add_action( 'admin_menu', array( $this, 'bp_group_review_get_review_count' ) );
 			add_action( 'in_admin_header', array( $this, 'wbcom_hide_all_admin_notices_from_setting_page' ) );
 			$post_types = get_post_types();
 			if ( ! in_array( 'review', $post_types ) ) {
 				// Custom Post Type.
-				add_action( 'init', array( $this, 'bgr_review_cpt' ) );
-				add_action( 'init', array( $this, 'bgr_review_taxonomy_cpt' ) );
+				add_action( 'init', array( $this, 'bp_group_review_cpt' ) );
+				add_action( 'init', array( $this, 'bp_group_review_taxonomy_cpt' ) );
 			}
 
-			add_action( 'init', array( $this, 'bgr_add_capabilities_to_roles' ) );
+			add_action( 'init', array( $this, 'bp_group_review_add_capabilities_to_roles' ) );
 
 		}
 
@@ -54,12 +54,12 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * @since    1.0.0
 		 * @author   Wbcom Designs
 		 */
-		public function bgr_add_submenu_page_admin_settings() {
+		public function bp_group_review_add_submenu_page_admin_settings() {
 			if ( empty( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
-				add_menu_page( esc_html__( 'WB Plugins', 'bp-group-reviews' ), esc_html__( 'WB Plugins', 'bp-group-reviews' ), 'manage_options', 'wbcomplugins', array( $this, 'bgr_admin_options_page' ), 'dashicons-lightbulb', 59 );
+				add_menu_page( esc_html__( 'WB Plugins', 'bp-group-reviews' ), esc_html__( 'WB Plugins', 'bp-group-reviews' ), 'manage_options', 'wbcomplugins', array( $this, 'bp_group_review_admin_options_page' ), 'dashicons-lightbulb', 59 );
 				add_submenu_page( 'wbcomplugins', esc_html__( 'General', 'bp-group-reviews' ), esc_html__( 'General', 'bp-group-reviews' ), 'manage_options', 'wbcomplugins' );
 			}
-			add_submenu_page( 'wbcomplugins', esc_html__( 'Group Reviews', 'bp-group-reviews' ), esc_html__( 'Group Reviews', 'bp-group-reviews' ), 'manage_options', 'group-review-settings', array( $this, 'bgr_admin_options_page' ) );
+			add_submenu_page( 'wbcomplugins', esc_html__( 'Group Reviews', 'bp-group-reviews' ), esc_html__( 'Group Reviews', 'bp-group-reviews' ), 'manage_options', 'group-review-settings', array( $this, 'bp_group_review_admin_options_page' ) );
 		}
 
 		/**
@@ -85,7 +85,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * @param string $current for the admin options.
 		 * @author   Wbcom Designs
 		 */
-		public function bgr_admin_options_page( $current = 'welcome' ) {
+		public function bp_group_review_admin_options_page( $current = 'welcome' ) {
 				$current      = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'welcome';
 					$bgr_tabs = array(
 						'welcome'   => esc_html__( 'Welcome', 'bp-group-reviews' ),
@@ -146,7 +146,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * @since    1.0.0
 		 * @author   Wbcom Designs
 		 */
-		public function bgr_review_cpt() {
+		public function bp_group_review_cpt() {
 			$labels = array(
 				'name'               => esc_html__( 'Reviews', 'bp-group-reviews' ),
 				'singular_name'      => esc_html__( 'Review', 'bp-group-reviews' ),
@@ -201,7 +201,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * @since    1.0.0
 		 * @author   Wbcom Designs
 		 */
-		public function bgr_review_taxonomy_cpt() {
+		public function bp_group_review_taxonomy_cpt() {
 			$category_labels = array(
 				'name'              => esc_html_x( 'Reviews Category', 'taxonomy general name', 'bp-group-reviews' ),
 				'singular_name'     => esc_html_x( 'Review Category', 'taxonomy singular name', 'bp-group-reviews' ),
@@ -227,11 +227,11 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		}
 
 		/**
-		 * [bgr_get_review_count description] Function count
+		 * [bp_group_review_get_review_count description] Function count
 		 *
 		 * @return [type] [Count on Review menu item ]
 		 */
-		public function bgr_get_review_count() {
+		public function bp_group_review_get_review_count() {
 			global $bgr, $menu;
 			if ( 'yes' !== $bgr['auto_approve_reviews'] ) {
 
@@ -241,7 +241,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 						if ( $count ) {
 							$count = $count->draft;
 
-							$key = $this->bgr_recursive_array_search( 'edit.php?post_type=review', $menu );
+							$key = $this->bp_group_review_recursive_array_search( 'edit.php?post_type=review', $menu );
 
 							if ( ! $key ) {
 								return;
@@ -258,20 +258,20 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		}
 
 		/**
-		 * [bgr_recursive_array_search description]
+		 * [bp_group_review_recursive_array_search description]
 		 *
 		 * @param  sting $needle Value.
 		 * @param  array $haystack Haystack.
 		 * @return number  [Return array key.]
 		 */
-		public function bgr_recursive_array_search( $needle, $haystack ) {
+		public function bp_group_review_recursive_array_search( $needle, $haystack ) {
 			foreach ( $haystack as $key => $value ) {
 				$current_key = $key;
 				if (
 					$needle === $value
 					or (
 				is_array( $value )
-				&& $this->bgr_recursive_array_search( $needle, $value ) !== false
+				&& $this->bp_group_review_recursive_array_search( $needle, $value ) !== false
 					)
 				) {
 					return $current_key;
@@ -286,7 +286,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * This function adds capabilities to administrator by default,
 		 * and other roles can be added via the 'bp_business_profile_roles' filter.
 		 */
-		public function bgr_add_capabilities_to_roles() {
+		public function bp_group_review_add_capabilities_to_roles() {
         	$roles = apply_filters( 'bgr_add_roles_capability', array( 'administrator' ) );
 			foreach ( $roles as $role_name ) {
 				$role = get_role( $role_name );

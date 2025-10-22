@@ -36,8 +36,8 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 		public function __construct() {
 
 			// Add Scripts only on reviews tab.
-			add_action( 'wp_enqueue_scripts', array( $this, 'bgr_custom_variables' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'bgr_admin_custom_variables' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'bp_group_review_custom_variables' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'bp_group_review_admin_custom_variables' ) );
 		}
 
 		/**
@@ -48,7 +48,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 		 *
 		 * @return bool
 		 */
-		private function bgr_is_widget_active() {
+		private function bp_group_review_is_widget_active() {
 			// Get all active widgets from all sidebars
 			$sidebars_widgets = wp_get_sidebars_widgets();
 			
@@ -89,9 +89,9 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 		 *
 		 * @return void
 		 */
-		public function bgr_custom_variables() {
+		public function bp_group_review_custom_variables() {
 			// Only enqueue scripts when BGR widgets are available
-			if ( $this->bgr_is_widget_active() ) {
+			if ( $this->bp_group_review_is_widget_active() ) {
 				if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 					$script_extension = '.js';
 					$script_path      = '';
@@ -164,7 +164,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 		 *
 		 * @return void
 		 */
-		public function bgr_admin_custom_variables() {
+		public function bp_group_review_admin_custom_variables() {
 
 			if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				$script_extension = '.js';

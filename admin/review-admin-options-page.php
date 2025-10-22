@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Exit if accessed directly.
 $bgr_setting_tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'welcome';
-bgr_include_admin_setting_tabs( $bgr_setting_tab );
+bp_group_review_include_admin_settings_tab( $bgr_setting_tab );
 
 /**
  * Display admin settings tabs for BuddyPress Group Reviews.
@@ -23,25 +23,25 @@ bgr_include_admin_setting_tabs( $bgr_setting_tab );
  * @since    1.0.0
  * @param string $bgr_setting_tab Admin settings tab.
  */
-function bgr_include_admin_setting_tabs( $bgr_setting_tab = 'welcome' ) {
+function bp_group_review_include_admin_settings_tab( $bgr_setting_tab = 'welcome' ) {
     switch ( $bgr_setting_tab ) {
         case 'welcome':
             require_once BGR_PLUGIN_PATH . 'admin/bgr-welcome-page.php';
             break;
         case 'general':
-            bgr_general_setting();
+            bp_group_review_general_setting();
             break;
         case 'criteria':
-            bgr_criteria_setting();
+            bp_group_review_criteria_setting();
             break;
         case 'display':
-            bgr_display_setting();
+            bp_group_review_display_setting();
             break;
         case 'emails':
-            bgr_emails_setting();
+            bp_group_review_emails_setting();
             break;
         default:
-            bgr_general_setting();
+            bp_group_review_general_setting();
     }
 }
 
@@ -50,7 +50,7 @@ function bgr_include_admin_setting_tabs( $bgr_setting_tab = 'welcome' ) {
  *
  * @since    1.0.0
  */
-function bgr_criteria_setting() {
+function bp_group_review_criteria_setting() {
     global $bgr;
     $spinner_src          = includes_url() . 'images/spinner.gif';
     $review_rating_fields = $bgr['review_rating_fields'];
@@ -97,7 +97,7 @@ function bgr_criteria_setting() {
  *
  * @since    1.0.0
  */
-function bgr_display_setting() {
+function bp_group_review_display_setting() {
     global $bgr;
     $spinner_src             = includes_url() . 'images/spinner.gif';
     $bgr_review_label        = $bgr['review_label'];
@@ -154,7 +154,7 @@ function bgr_display_setting() {
  *
  * @since    1.0.0
  */
-function bgr_general_setting() {
+function bp_group_review_general_setting() {
     global $bp, $bgr;
 
     if ( ! bp_is_active( 'groups' ) ) {
@@ -324,7 +324,7 @@ function bgr_general_setting() {
  *
  * @since    1.0.0
  */
-function bgr_emails_setting() {
+function bp_group_review_emails_setting() {
     if( function_exists( 'wp_enqueue_editor' ) ) {
         wp_enqueue_editor();
     }

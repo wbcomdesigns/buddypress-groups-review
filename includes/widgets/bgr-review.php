@@ -320,8 +320,8 @@ class bgr_review_widget extends WP_Widget {
  *  @since   1.0.0
  *  @author  Wbcom Designs
  */
-function bgr_review_register_widget() {
+function bp_group_review_register_widget() {
 	register_widget( 'bgr_review_widget' );
 }
 
-add_action( 'widgets_init', 'bgr_review_register_widget' );
+add_action( 'widgets_init', 'bp_group_review_register_widget' );

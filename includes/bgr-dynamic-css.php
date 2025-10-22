@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return void
  */
-function bgr_dynamic_rating_method() {
+function bp_group_review_dynamic_rating_method() {
 	global $bgr;
 	$rating_color   = $bgr['rating_color'];
 		$custom_css = "
@@ -28,4 +28,4 @@ function bgr_dynamic_rating_method() {
 				";
 		wp_add_inline_style( 'bgr-ratings-css', $custom_css );
 }
-add_action( 'wp_enqueue_scripts', 'bgr_dynamic_rating_method' );
+add_action( 'wp_enqueue_scripts', 'bp_group_review_dynamic_rating_method' );

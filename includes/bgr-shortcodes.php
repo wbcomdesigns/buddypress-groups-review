@@ -29,7 +29,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			 *  @author  Wbcom Designs
 			 */
 		public function __construct() {
-			add_shortcode( 'add_group_review_form', array( $this, 'add_new_review' ), 999 );
+			add_shortcode( 'add_group_review_form', array( $this, 'bp_group_review_add_new_review' ), 999 );
 		}
 
 			/**
@@ -38,7 +38,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			 *  @since   1.0.0
 			 *  @author  Wbcom Designs
 			 */
-		public function add_new_review() {
+		public function bp_group_review_add_new_review() {
 			global $bp;
 			global $bgr;
 			$review_rating_fields = $bgr['review_rating_fields'];
@@ -94,7 +94,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 					}
 
 					if ( 0 === $user_post_count ) {
-						$output .= $this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
+						$output .= $this->bp_group_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
 					} else {
 
 						$bp_template_option = bp_get_option( '_bp_theme_package_id' );
@@ -114,7 +114,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 					}
 				} else {
 					ob_start();
-					$this->bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
+					$this->bp_group_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
 					$output .= ob_get_clean();
 				}
 			} else {
@@ -143,7 +143,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 		 * @param  int     $member_id Member ID.
 		 * @return void
 		 */
-		public function bgr_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id ) {
+		public function bp_group_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id ) {
 			global $bp;
 			$user_groups   = BP_Groups_Member::get_is_admin_of( $member_id );
 			$exclude_group = array();
@@ -179,10 +179,10 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 					</h4>
 						<input type="hidden" name="form-group-id" value="<?php echo esc_attr( $current_group_id ); ?>" />
 						<p class="bupr-hide-subject">
-							<?php $review_subject = bgr_group_add_review_tab_name() . ' ' . time(); ?>
+							<?php $review_subject = bp_group_review_add_review_tab_name() . ' ' . time(); ?>
 							<input name="review-subject" type="hidden" value="<?php echo esc_attr( $review_subject ); ?>">
 						</p>
-						<?php $this->bgr_display_form_rating(); ?>
+						<?php $this->bp_group_review_display_form_rating(); ?>
 						<span class="bgr-error-fields">*<?php esc_html_e( 'This field is required.', 'bp-group-reviews' ); ?></span>
 					<?php /* translators: %s: search term */ ?>
 							<textarea class="review_desc" name="review-desc" placeholder="<?php echo sprintf( esc_attr__( '%1$s Description', 'bp-group-reviews' ), esc_attr( $review_label ) ); ?>" rows="3" cols="50" required></textarea>
@@ -207,9 +207,9 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 		 *  @since   1.0.0
 		 *  @author  Wbcom Designs
 		 */
-		public function bgr_display_form_rating() {
+		public function bp_group_review_display_form_rating() {
 			global $bgr;
-			$this->bgr_display_form_star_rating();
+			$this->bp_group_review_display_form_star_rating();
 		}
 
 		/**
@@ -217,7 +217,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 		 *
 		 * @return void
 		 */
-		public function bgr_display_star() {
+		public function bp_group_review_display_star() {
 			global $bgr;
 			$active_rating_fields = $bgr['active_rating_fields'];
 			if ( ! empty( $active_rating_fields ) ) {
@@ -234,12 +234,12 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 		 *  @since   1.0.0
 		 *  @author  Wbcom Designs
 		 */
-		public function bgr_display_form_star_rating() {
+		public function bp_group_review_display_form_star_rating() {
 			global $bgr;
 			$review_rating_fields = $bgr['review_rating_fields'];
 			$active_rating_fields = $bgr['active_rating_fields'];
-			$bgr_display_star     = $this->bgr_display_star();
-			if ( true == $bgr_display_star ) {
+			$bp_group_review_display_star     = $this->bp_group_review_display_star();
+			if ( true == $bp_group_review_display_star ) {
 				$field_counter = 1;
 				foreach ( $review_rating_fields as $review_rating_field ) :
 					if ( in_array( $review_rating_field, $active_rating_fields ) ) {

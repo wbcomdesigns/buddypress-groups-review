@@ -6,7 +6,7 @@
  *
  * @return void
  */
-function bgr_remove_add_review_tab_exclude_on_option(){ 	
+function bp_group_review_remove_add_review_tab(){ 	
 	$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
 	$exclude_groups = isset( $bgr_admin_general_settings['exclude_groups'] ) ? $bgr_admin_general_settings['exclude_groups'] : array();
 	if ( ! empty( $exclude_groups ) ) {
@@ -21,4 +21,4 @@ function bgr_remove_add_review_tab_exclude_on_option(){
 		} 
 	} 
 }
-add_action( 'wp_head','bgr_remove_add_review_tab_exclude_on_option' );
+add_action( 'wp_head','bp_group_review_remove_add_review_tab' );

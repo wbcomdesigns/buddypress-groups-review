@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *  @author  Wbcom Designs
 */
 
-add_action( 'init', 'bgr_load_textdomain' );
+add_action( 'init', 'bp_group_review_load_textdomain' );
 
 /**
  *  Adding setting links
@@ -43,7 +43,7 @@ add_action( 'init', 'bgr_load_textdomain' );
  *  @since    1.0.0
  *  @author   Wbcom Designs
  */
-function bgr_load_textdomain() {
+function bp_group_review_load_textdomain() {
 	$domain = 'bp-group-reviews';
 	$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
 	load_textdomain( $domain, 'languages/' . $domain . '-' . $locale . '.mo' );
@@ -71,7 +71,7 @@ if ( ! defined( 'BP_ROOT_BLOG' ) ) {
  *  @since   1.0.0
  *  @author  Wbcom Designs
 */
-add_action( 'bp_loaded', 'bgr_plugin_init' );
+add_action( 'bp_loaded', 'bp_group_review_plugin_execute' );
 
 /**
  *  Adding setting links
@@ -79,17 +79,17 @@ add_action( 'bp_loaded', 'bgr_plugin_init' );
  *  @since    1.0.0
  *  @author   Wbcom Designs
  */
-function bgr_plugin_init() {
+function bp_group_review_plugin_execute() {
 	$bp_active_components = get_option( 'bp-active-components', true );
 	if ( ! class_exists( 'BuddyPress' ) && ! array_key_exists( 'groups', $bp_active_components ) ) {
-		add_action( 'admin_notices', 'bgr_admin_group_notice' );
+		add_action( 'admin_notices', 'bp_group_review_admin_group_notice' );
 	} else {
 		run_bp_group_reviews_plugin();
-		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bgr_admin_page_link' );
-		add_action( 'bp_init', 'bgr_include_files_bp' );
+		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bp_group_review_admin_page_link' );
+		add_action( 'bp_init', 'bp_group_review_include_files_bp' );
 	}
 }
-add_action( 'bp_init', 'bgr_bp_notifications_for_review', 12 );
+add_action( 'bp_init', 'bp_group_review_notifications', 12 );
 
 /**
  *  Adding notifications
@@ -97,22 +97,22 @@ add_action( 'bp_init', 'bgr_bp_notifications_for_review', 12 );
  *  @since    1.0.0
  *  @author   Wbcom Designs
  */
-function bgr_bp_notifications_for_review() {
+function bp_group_review_notifications() {
 	include 'includes/bgr-notifications.php';
 	buddypress()->bgr_bp_review                        = new BGR_Notifications();
-	buddypress()->bgr_bp_review->notification_callback = 'bgr_format_notifications';
+	buddypress()->bgr_bp_review->notification_callback = 'bp_group_review_format_notifications';
 }
 
 /**
  *  Check if buddypress activate.
  */
-function bgr_requires_buddypress() {
+function bp_group_review_requires_buddypress() {
 	if ( ! class_exists( 'BuddyPress' ) || ! bp_is_active( 'groups' ) ) {
 			deactivate_plugins( plugin_basename( __FILE__ ) );
-			add_action( 'admin_notices', 'bgr_admin_notice' );
+			add_action( 'admin_notices', 'bp_group_review_admin_notice' );
 	}
 }
-add_action( 'admin_init', 'bgr_requires_buddypress' );
+add_action( 'admin_init', 'bp_group_review_requires_buddypress' );
 
 /**
  * Show admin notice when buddypress not active or install
@@ -120,7 +120,7 @@ add_action( 'admin_init', 'bgr_requires_buddypress' );
  *  @since   1.0.0
  *  @author  Wbcom Designs
  */
-function bgr_admin_notice() {
+function bp_group_review_admin_notice() {
 	if ( is_multisite() ) {
         return;
     }
@@ -150,7 +150,7 @@ function bgr_admin_notice() {
  *  @since   1.0.0
  *  @author  Wbcom Designs
  */
-function bgr_admin_group_notice() {
+function bp_group_review_admin_group_notice() {
 	?>
 	<div class="error notice is-dismissible">
 		<p><?php esc_html_e( 'The Review BuddyPress Groups plugin requires BuddyPress User Groups Component to be active.', 'bp-group-reviews' ); ?></p>
@@ -165,7 +165,7 @@ function bgr_admin_group_notice() {
  *  @param    string $links for this plugin.
  *  @author   Wbcom Designs
  */
-function bgr_admin_page_link( $links ) {
+function bp_group_review_admin_page_link( $links ) {
 		$page_link = array( '<a href="' . admin_url( 'admin.php?page=group-review-settings' ) . '">' . esc_html__( 'Settings', 'bp-group-reviews' ) . '</a>' );
 		return array_merge( $links, $page_link );
 }
@@ -176,7 +176,7 @@ function bgr_admin_page_link( $links ) {
  *  @since   1.0.0
  *  @author  Wbcom Designs
  */
-function bgr_include_files_bp() {
+function bp_group_review_include_files_bp() {
 	include 'includes/bgr-grp-extn.php';
 }
 
@@ -212,10 +212,10 @@ function run_bp_group_reviews_plugin() {
  *
  * @return void
  */
-function  bgr_add_multi_support(){
+function  bp_group_review_add_multi_support(){
 	include 'includes/class-bgr-multi-support.php';
 }
-add_action( 'init', 'bgr_add_multi_support' );
+add_action( 'init', 'bp_group_review_add_multi_support' );
 
 
 /**
@@ -225,7 +225,7 @@ add_action( 'init', 'bgr_add_multi_support' );
  *
  * @param string $plugin Path to the plugin file relative to the plugins directory.
  */
-function bp_group_reviews_activation_redirect_settings( $plugin ) {
+function bp_group_review_activation_redirect_settings( $plugin ) {
 
 	if ( plugin_basename( __FILE__ ) === $plugin && class_exists( 'BuddyPress' ) && bp_is_active( 'groups' ) ) {
 		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) { //phpcs:ignore
@@ -235,7 +235,7 @@ function bp_group_reviews_activation_redirect_settings( $plugin ) {
 	}
 
 }
-add_action( 'activated_plugin', 'bp_group_reviews_activation_redirect_settings' );
+add_action( 'activated_plugin', 'bp_group_review_activation_redirect_settings' );
 
 
 /**

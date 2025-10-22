@@ -42,7 +42,7 @@ jQuery(document).ready(function (e) {
     jQuery.post(
       ajaxurl,
       {
-        action: "bgr_accept_review",
+        action: "bp_group_review_accept_review",
         nonce: bgr_front_js_object.wbcom_nonce,
         accept_review_id: accept_review_id,
         group_id: accept_gid,
@@ -60,7 +60,7 @@ jQuery(document).ready(function (e) {
     jQuery.post(
       ajaxurl,
       {
-        action: "bgr_deny_review",
+        action: "bp_group_review_deny_review",
         nonce: bgr_front_js_object.wbcom_nonce,
         deny_review_id: deny_review_id,
         group_id: deny_gid,
@@ -77,7 +77,7 @@ jQuery(document).ready(function (e) {
     jQuery.post(
       ajaxurl,
       {
-        action: "bgr_remove_review",
+        action: "bp_group_remove_review",
         nonce: bgr_front_js_object.wbcom_nonce,
         remove_review_id: remove_review_id,
       },
@@ -150,7 +150,7 @@ jQuery(document).ready(function (e) {
           jQuery.post(
             ajaxurl,
             {
-              action: "bgr_submit_review",
+              action: "bp_group_submit_review",
               nonce: bgr_front_js_object.wbcom_nonce,
               data: jQuery(this).serialize(),
             },
@@ -188,7 +188,7 @@ jQuery(document).ready(function (e) {
         jQuery.post(
           ajaxurl,
           {
-            action: "bgr_submit_review",
+            action: "bp_group_submit_review",
             nonce: wbcom_plugin_installer_params.wbcom_nonce,
             data: jQuery(this).serialize(),
           },
@@ -225,7 +225,7 @@ jQuery(document).ready(function (e) {
       jQuery.post(
         ajaxurl,
         {
-          action: "bgr_filter_ratings",
+          action: "bp_group_review_filter_ratings",
           filter: filter,
           limit: limit,
           group_id: bgr_front_js_object.group_id,

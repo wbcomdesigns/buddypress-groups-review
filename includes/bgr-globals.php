@@ -15,7 +15,7 @@
  *  @since   1.0.0
  *  @author  Wbcom Designs
  */
-function bgr_review_globals() {
+function bp_group_review_globals() {
 	global $bgr;
 	$bgr_admin_general_settings  = get_option( 'bgr_admin_general_settings' );
 	$bgr_admin_criteria_settings = get_option( 'bgr_admin_criteria_settings' );
@@ -125,30 +125,30 @@ function bgr_review_globals() {
 		'rating_color'         => $rating_color,
 	);
 }
-add_action( 'init', 'bgr_review_globals' );
+add_action( 'init', 'bp_group_review_globals' );
 
 /**
  * BGR group review tab name.
  */
-function bgr_group_review_tab_name() {
+function bp_group_review_tab_name() {
 	$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
 	$group_review_tab_name      = isset( $bgr_admin_display_settings['manage_review_label'] ) ? $bgr_admin_display_settings['manage_review_label'] : esc_html__( 'Reviews', 'bp-group-reviews' );
-	return apply_filters( 'bgr_group_review_tab_name', $group_review_tab_name );
+	return apply_filters( 'bp_group_review_tab_name', $group_review_tab_name );
 }
 /**
  * BGR add group review tab name.
  */
-function bgr_group_add_review_tab_name() {
+function bp_group_review_add_review_tab_name() {
 	$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
 	$group_add_review_tab_name  = isset( $bgr_admin_display_settings['review_label'] ) ? $bgr_admin_display_settings['review_label'] : esc_html__( 'Review', 'bp-group-reviews' );
-	return apply_filters( 'bgr_group_add_review_tab_name', $group_add_review_tab_name );
+	return apply_filters( 'bp_group_review_add_review_tab_name', $group_add_review_tab_name );
 }
 /**
  * BGR group review tab slug.
  */
-function bgr_group_review_tab_slug() {
+function bp_group_review_tab_slug() {
 	$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
 	$group_review_tab_slug      = isset( $bgr_admin_display_settings['review_label'] ) ? sanitize_title( $bgr_admin_display_settings['review_label'] ) : 'review';
 
-	return apply_filters( 'bgr_group_review_tab_slug', $group_review_tab_slug );
+	return apply_filters( 'bp_group_review_tab_slug', $group_review_tab_slug );
 }

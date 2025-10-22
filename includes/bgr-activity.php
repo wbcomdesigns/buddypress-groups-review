@@ -62,10 +62,10 @@ class BGR_Activity {
 	 * @since  1.0.0
 	 */
 	private function init_hooks() {
-		add_action( 'bp_register_activity_actions', array( $this, 'bgr_register_activity_actions' ), 10 );
-		add_action( 'transition_post_status', array( $this, 'bgr_create_group_post_activity_after_approval' ), 15, 3 );
-		add_action( 'bgr_group_after_review_submit', array( $this, 'bgr_create_group_post_activity' ), 15, 3 );
-		add_filter( 'bp_get_activity_content_body', array( $this, 'bgr_added_activity_star_rating' ), 10, 2 );	
+		add_action( 'bp_register_activity_actions', array( $this, 'bp_group_review_register_activity_actions' ), 10 );
+		add_action( 'transition_post_status', array( $this, 'bp_group_review_group_post_activity_after_approval' ), 15, 3 );
+		add_action( 'bgr_group_after_review_submit', array( $this, 'bp_group_review_create_group_post_activity' ), 15, 3 );
+		add_filter( 'bp_get_activity_content_body', array( $this, 'bp_group_review_added_activity_star_rating' ), 10, 2 );	
 	}
 
 	/**
@@ -74,7 +74,7 @@ class BGR_Activity {
 	 * @since 1.0.0
 	 * @return false|null False on failure.
 	 */
-	public function bgr_register_activity_actions() {
+	public function bp_group_review_register_activity_actions() {
 		$bp = buddypress();
 
 		// Bail out if activity component not activated.
@@ -86,7 +86,7 @@ class BGR_Activity {
 			$bp->members->id,
 			'bpmb_pro_group_posts',
 			__( 'New Post', 'bp-group-reviews' ),
-			'bpmb_pro_group_create_posts_activity_action',
+			'bp_group_review_group_create_posts_activity_action',
 			__( 'New Post', 'bp-group-reviews' ),
 			array( 'groups' )
 		);
@@ -101,7 +101,7 @@ class BGR_Activity {
 	 * @param object $activity Activity Object.
 	 * @return mixed|void
 	 */
-	public function bpmb_pro_group_create_posts_activity_action( $action, $activity ) {
+	public function bp_group_review_group_create_posts_activity_action( $action, $activity ) {
 
 		$posts_id        = $activity->secondary_item_id;
 		$user_link       = bp_core_get_userlink( $activity->user_id );
@@ -114,7 +114,7 @@ class BGR_Activity {
 		/* translators: %1$s: User Link, %2$s: Post Link HTML, %3$s: Group Name */
 		$action = sprintf( __( '%1$s posted a new post %2$s in group %3$s', 'bp-group-reviews' ), $user_link, $product_link_html, $group_name );
 
-		return apply_filters( 'bpmb_pro_group_create_posts_activity_action', $action );
+		return apply_filters( 'bp_group_review_group_create_posts_activity_action', $action );
 	}
 
 	/**
@@ -125,7 +125,7 @@ class BGR_Activity {
 	 * @param int     $id Post ID.
 	 * @param WP_Post $post       Post object.
 	 */
-	public function bgr_create_group_post_activity( $author_id, $group_id, $post_id ) {
+	public function bp_group_review_create_group_post_activity( $author_id, $group_id, $post_id ) {
 		global $bp;
 		global $bgr;
 		$allow_activity       = $bgr['allow_activity'];
@@ -188,7 +188,7 @@ class BGR_Activity {
 	 * @param array   $old_status Old post status.
 	 * @param WP_Post $post       Post object.
 	 */
-	public function bgr_create_group_post_activity_after_approval( $new_status, $old_status, $post ) {
+	public function bp_group_review_group_post_activity_after_approval( $new_status, $old_status, $post ) {
 		global $bp;
 		global $bgr;
 		$allow_activity       = $bgr['allow_activity'];
@@ -251,7 +251,7 @@ class BGR_Activity {
 	 * @param  string $activity_content Activity Content.
 	 * @param  object $activity Activity Object.
 	 */
-	public function bgr_added_activity_star_rating( $activity_content, $activity ) {
+	public function bp_group_review_added_activity_star_rating( $activity_content, $activity ) {
 		global $bgr;
 		$post_id              = $activity->secondary_item_id;
 		$review_rating_fields = $bgr['review_rating_fields'];

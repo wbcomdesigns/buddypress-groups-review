@@ -39,7 +39,7 @@ jQuery(document).ready(function () {
       jQuery.post(
         ajaxurl,
         {
-          action: "bgr_save_admin_criteria_settings",
+          action: "bp_group_review_save_admin_criteria_settings",
           nonce: bgr_admin_js.wbcom_nonce,
           field_values: field_values,
           active_criterias: criteria,
@@ -78,7 +78,7 @@ jQuery(document).ready(function () {
     jQuery.post(
       ajaxurl,
       {
-        action: "bgr_save_admin_general_settings",
+        action: "bp_group_review_save_admin_general_settings",
         nonce: bgr_admin_js.wbcom_nonce,
         multi_reviews: bgr_multi_reviews,
         bgr_auto_approve_reviews: bgr_auto_approve_reviews,
@@ -110,7 +110,7 @@ jQuery(document).ready(function () {
     jQuery.post(
       ajaxurl,
       {
-        action: "bgr_save_admin_display_settings",
+        action: "bp_group_review_save_admin_display_settings",
         nonce: bgr_admin_js.wbcom_nonce,
         review_label: review_label,
         manage_review_label: manage_review_label,
@@ -193,7 +193,7 @@ jQuery(document).ready(function () {
     jQuery.post(
       ajaxurl,
       {
-        action: "bgr_admin_approve_review",
+        action: "bp_group_review_admin_approve_review",
         review_id: review_id,
         nonce: bgr_admin_js.wbcom_nonce,
       },

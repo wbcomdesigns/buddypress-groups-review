@@ -36,9 +36,9 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 		public function __construct() {
-			add_action( 'bgr_display_ratings', array( $this, 'bgr_select_rating_type' ) );
-			add_action( 'bgr_display_widget_average_ratings', array( $this, 'bgr_widget_average_ratings' ) );
-			add_action( 'bgr_display_group_average_ratings', array( $this, 'bgr_group_average_ratings' ) );
+			add_action( 'bgr_display_ratings', array( $this, 'bp_group_review_select_rating_type' ) );
+			add_action( 'bgr_display_widget_average_ratings', array( $this, 'bp_group_review_widget_average_ratings' ) );
+			add_action( 'bgr_display_group_average_ratings', array( $this, 'bp_group_review_average_group_ratings' ) );
 		}
 
 		/**
@@ -49,7 +49,7 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		 *
 		 * @param int $post_id Review ID.
 		 */
-		public function bgr_select_rating_type( $post_id ) {			
+		public function bp_group_review_select_rating_type( $post_id ) {			
 			global $bgr;
 			$review_rating_fields = $bgr['review_rating_fields'];			
 			$review_ratings       = get_post_meta( $post_id, 'review_star_rating', false );			
@@ -71,7 +71,7 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 				}
 				}
 			}			
-			$this->bgr_display_star_rating( $review_rating_fields, $review_ratings );
+			$this->bp_group_review_display_star_rating( $review_rating_fields, $review_ratings );
 		}
 
 		/**
@@ -83,7 +83,7 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		 * @param array $review_rating_fields Review rating fields.
 		 * @param array $review_ratings Review rating.
 		 */
-		public function bgr_display_star_rating( $review_rating_fields, $review_ratings ) {
+		public function bp_group_review_display_star_rating( $review_rating_fields, $review_ratings ) {
 			if ( ! empty( $review_rating_fields ) && ! empty( $review_ratings[0] ) ) :				
 				foreach ( $review_rating_fields as $review_field ) {
 					if ( array_key_exists( $review_field, $review_ratings[0] ) ) {
@@ -124,7 +124,7 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		 *
 		 * @param Array $review_groups Revie Groups.
 		 */
-		public function bgr_widget_average_ratings( $review_groups ) {
+		public function bp_group_review_widget_average_ratings( $review_groups ) {
 			global $bgr;
 			$group_avg_rating = $review_groups;
 			$remaining        = $group_avg_rating - (int) $group_avg_rating;
@@ -139,7 +139,7 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 					$stars_half = 0;
 			}
 
-			$this->bgr_average_star_rating( $stars_on, $stars_half, $stars_off );
+			$this->bp_group_review_average_star_rating( $stars_on, $stars_half, $stars_off );
 
 			$group_avg_rating = round( $group_avg_rating, 2 );
 			echo '</div><div class="bupr-meta">';
@@ -155,7 +155,7 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		 *
 		 * @param string $avg_rating Average Rating.
 		 */
-		public function bgr_group_average_ratings( $avg_rating ) {
+		public function bp_group_review_average_group_ratings( $avg_rating ) {
 			global $bgr;
 			$type = gettype( $avg_rating );
 			$var  = (int) $avg_rating - $avg_rating;
@@ -169,7 +169,7 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 					$stars_off  = 5 - ( $stars_on + $stars_half );
 			}
 
-			$this->bgr_average_star_rating( $stars_on, $stars_half, $stars_off );
+			$this->bp_group_review_average_star_rating( $stars_on, $stars_half, $stars_off );
 		}
 
 		/**
@@ -182,7 +182,7 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		 * @param int $stars_half Stars half on review.
 		 * @param int $stars_off Stars off on review.
 		 */
-		public function bgr_average_star_rating( $stars_on, $stars_half, $stars_off ) {
+		public function bp_group_review_average_star_rating( $stars_on, $stars_half, $stars_off ) {
 			for ( $i = 1; $i <= $stars_on; $i++ ) {
 				?>
 					<span class="fas fa-star stars bgr-star-rate"></span>

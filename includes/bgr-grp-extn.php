@@ -46,8 +46,8 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
 
 			if ( ! empty( $bgr_admin_display_settings ) ) {
-				$review_label     = bgr_group_review_tab_name();
-				$add_review_label = bgr_group_add_review_tab_name();
+				$review_label     = bp_group_review_tab_name();
+				$add_review_label = bp_group_review_add_review_tab_name();
 			} else {
 				$review_label     = esc_html__( 'Reviews', 'bp-group-reviews' );
 				$add_review_label = esc_html__( 'Review', 'bp-group-reviews' );
@@ -70,7 +70,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			if ( ! $is_group_excluded ) {
 				if ( ! empty( $bgr_admin_general_settings ) ) {
 					$args = array(
-						'slug'              => 'manage-' . bgr_group_review_tab_slug(),
+						'slug'              => 'manage-' . bp_group_review_tab_slug(),
 						'nav_item_position' => 200,
 						/* translators: %s is replaced with add_review_label */
 						'name'              => sprintf( __( 'Manage %s', 'bp-group-reviews' ), $add_review_label ),
@@ -78,7 +78,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						'screens'           => array(
 							'admin' => array(
 								'name'    => 'Manage '.$review_label,
-								'slug'    => 'manage-' . bgr_group_review_tab_slug(),
+								'slug'    => 'manage-' . bp_group_review_tab_slug(),
 								'enabled' => $enabled,
 							),
 						),
@@ -88,7 +88,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					parent::init( $args );
 				} else {
 					$args = array(
-						'slug'              => 'manage-' . bgr_group_review_tab_slug(),
+						'slug'              => 'manage-' . bp_group_review_tab_slug(),
 						'nav_item_position' => 200,
 						/* translators: %s is replaced with add_review_label */
 						'name'              => sprintf( __( 'Manage %s', 'bp-group-reviews' ), $add_review_label ),
@@ -96,7 +96,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						'screens'           => array(
 							'edit' => array(
 								'name'    => 'Manage '.$review_label,
-								'slug'    => 'manage-' . bgr_group_review_tab_slug(),
+								'slug'    => 'manage-' . bp_group_review_tab_slug(),
 								'enabled' => $enabled,
 							),
 						),

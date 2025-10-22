@@ -34,43 +34,43 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 * @return void
 		 */
 		public function __construct() {
-			add_action( 'wp', array( $this, 'bgr_add_groups_reviews_tab' ) );
-			add_action( 'init', array( $this, 'bgr_add_groups_reviews_taxonomy_term' ) );
-			add_filter( 'post_row_actions', array( $this, 'bgr_group_reviews_row_actions' ), 10, 2 );
-			add_filter( 'bulk_actions-edit-review', array( $this, 'bgr_remove_edit_bulk_actions' ), 10, 1 );
+			add_action( 'wp', array( $this, 'bp_group_review_add_group_reviews_tab' ) );
+			add_action( 'init', array( $this, 'bp_group_review_add_taxonomy_term' ) );
+			add_filter( 'post_row_actions', array( $this, 'bp_group_review_row_actions' ), 10, 2 );
+			add_filter( 'bulk_actions-edit-review', array( $this, 'bp_group_review_remove_edit_bulk_actions' ), 10, 1 );
 
 			// Add group average rating before group header meta
-			add_action( 'bp_before_group_header_meta', array( $this, 'bgr_group_average_rating' ) );
+			add_action( 'bp_before_group_header_meta', array( $this, 'bp_group_review_group_average_rating' ) );
 
 			// Check for BuddyBoss or BuddyPress and add the review button accordingly
 			$active_plugins = get_option( 'active_plugins' );
 			if ( in_array( 'buddyboss-platform/bp-loader.php', $active_plugins ) ) {
-				add_action( 'bb_group_single_top_header_action', array( $this, 'bgr_group_header_review_btn' ) );
+				add_action( 'bb_group_single_top_header_action', array( $this, 'bp_group_review_group_header_review_btn' ) );
 			} else {
 				if ( in_array( 'buddypress/bp-loader.php', $active_plugins ) && ! defined( 'YOUZIFY_VERSION' ) ) {
-					 add_action( 'bp_group_header_actions', array( $this, 'bgr_group_header_review_btn' ) );
+					 add_action( 'bp_group_header_actions', array( $this, 'bp_group_review_group_header_review_btn' ) );
 				}
 			}
 
 			// Add rating to group directory
-			add_action( 'bp_directory_groups_item', array( $this, 'bgr_group_directory_rating' ) );
+			add_action( 'bp_directory_groups_item', array( $this, 'bp_group_review_group_directory_rating' ) );
 
 			// Add Youzify integration (check using YOUZIFY_VERSION constant)
 			if ( defined( 'YOUZIFY_VERSION' ) ) {
-				add_action( 'youzify_before_group_header_meta', array( $this, 'bgr_group_average_rating' ) );
-				add_action( 'youzify_after_group_header_meta', array( $this, 'bgr_group_header_review_btn' ) );
+				add_action( 'youzify_before_group_header_meta', array( $this, 'bp_group_review_group_average_rating' ) );
+				add_action( 'youzify_after_group_header_meta', array( $this, 'bp_group_review_group_header_review_btn' ) );
 			}
 
 			/**
 			 * GamiPress integration
 			 */
 			if ( in_array( 'gamipress/gamipress.php', $active_plugins ) ) {
-				add_filter( 'gamipress_activity_triggers', array( $this, 'buddypress_groups_review_bp_activity_triggers' ) );
-				add_filter( 'gamipress_trigger_get_user_id', array( $this, 'buddypress_groups_review_trigger_get_user_id' ), 10, 3 );
+				add_filter( 'gamipress_activity_triggers', array( $this, 'bp_group_review_bp_activity_triggers' ) );
+				add_filter( 'gamipress_trigger_get_user_id', array( $this, 'bp_group_review_trigger_get_user_id' ), 10, 3 );
 			}
 
-			add_filter( 'bp_nouveau_nav_has_count', array( $this, 'buddypress_groups_review_nav_has_count' ), 10, 3 );
-			add_filter( 'bp_nouveau_get_nav_count', array( $this, 'buddypress_groups_review_get_nav_count' ), 10, 3 );
+			add_filter( 'bp_nouveau_nav_has_count', array( $this, 'bp_group_review_nav_has_count' ), 10, 3 );
+			add_filter( 'bp_nouveau_get_nav_count', array( $this, 'bp_group_review_get_nav_count' ), 10, 3 );
 		}
 
 		/** Review Tab has a count attribute.
@@ -82,7 +82,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 * @param string $value     The current nav in use (eg: 'directory', 'groups', 'personal', etc..).
 		 * @return boolean
 		 */
-		public function buddypress_groups_review_nav_has_count( $count, $nav_item, $component ) {
+		public function bp_group_review_nav_has_count( $count, $nav_item, $component ) {
 
 			if ( 'groups' !== $component ) {
 				return $count;
@@ -94,7 +94,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				$count = true;
 			}
 
-			return apply_filters( 'buddypress_groups_review_nav_has_count', $count );
+			return apply_filters( 'bp_group_review_nav_has_count', $count );
 		}
 
 		/** Retrieve the count attribute for the review nav item.
@@ -106,7 +106,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 * @param string $value    The current nav in use (eg: 'directory', 'groups', 'personal', etc..).
 		 * @return int The count attribute for the nav item.
 		 */
-		public function buddypress_groups_review_get_nav_count( $count, $nav_item, $component ) {
+		public function bp_group_review_get_nav_count( $count, $nav_item, $component ) {
 			if ( 'groups' !== $component ) {
 				return $count;
 			}
@@ -142,7 +142,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @access public
 		 *  @author  Wbcom Designs
 		 */
-		public function bgr_group_header_review_btn() {
+		public function bp_group_review_group_header_review_btn() {
 			if ( ! is_user_logged_in() ) {
 				return false;
 			}
@@ -151,15 +151,15 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			$exclude_groups      = $bgr['exclude_groups'];
 			$current_group_id    = bp_get_current_group_id();
 			$current_group_link  = function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ? bp_get_group_permalink( groups_get_group( array( 'group_id' => $current_group_id ) ) ) : bp_get_group_url( groups_get_group( array( 'group_id' => $current_group_id ) ) );
-			$current_group_link .= 'add-' . bgr_group_review_tab_slug();
+			$current_group_link .= 'add-' . bp_group_review_tab_slug();
 			if ( ! empty( $exclude_groups ) ) {
 				if ( ! in_array( bp_get_current_group_id(), $exclude_groups ) ) {
 					if ( ! groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id() ) || ! is_user_logged_in() ) { ?>
 					<div class="group-button group-actions-absolute public generic-button" id="add-review-groupbutton">
 						<a href='<?php echo esc_url( $current_group_link ); ?>' class="group-button" show ="<?php echo esc_attr( $review_div ); ?>">
 							<?php
-							/* translators: %1$s is replaced with bgr_group_add_review_tab_name() */
-							echo sprintf( esc_html__( 'Add %1$s', 'bp-group-reviews' ), esc_html( bgr_group_add_review_tab_name() ) );
+							/* translators: %1$s is replaced with bp_group_review_add_review_tab_name() */
+							echo sprintf( esc_html__( 'Add %1$s', 'bp-group-reviews' ), esc_html( bp_group_review_add_review_tab_name() ) );
 							?>
 						</a>
 					</div>
@@ -171,8 +171,8 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				<div class="group-button group-actions-absolute public generic-button" id="add-review-groupbutton">
 					<a href='<?php echo esc_url( $current_group_link ); ?>' class="group-button button" show ="<?php echo esc_attr( $review_div ); ?>">
 						<?php
-						/* translators: %1$s is replaced with bgr_group_add_review_tab_name() */
-						echo sprintf( esc_html__( 'Add %1$s', 'bp-group-reviews' ), esc_html( bgr_group_add_review_tab_name() ) );
+						/* translators: %1$s is replaced with bp_group_review_add_review_tab_name() */
+						echo sprintf( esc_html__( 'Add %1$s', 'bp-group-reviews' ), esc_html( bp_group_review_add_review_tab_name() ) );
 						?>
 					</a>
 				</div>
@@ -187,7 +187,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @access public
 		 *  @author  Wbcom Designs
 		 */
-		public function bgr_group_directory_rating() {
+		public function bp_group_review_group_directory_rating() {
 			global $bgr;
 			global $bp;
 			$args                 = array(
@@ -205,14 +205,14 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			);
 			$reviews              = get_posts( $args );
 			$review_rating_fields = $bgr['review_rating_fields'];
-			$review_label         = bgr_group_review_tab_name();
+			$review_label         = bp_group_review_tab_name();
 			$exclude_groups       = $bgr['exclude_groups'];
 			if ( ! empty( $exclude_groups ) ) {
 				if ( ! in_array( bp_get_group_id(), $exclude_groups ) ) {
-					$this->bgr_single_group_average_rating_data( $reviews, $review_rating_fields, $review_label );
+					$this->bp_group_review_single_group_average_rating_data( $reviews, $review_rating_fields, $review_label );
 				}
 			} else {
-				$this->bgr_single_group_average_rating_data( $reviews, $review_rating_fields, $review_label );
+				$this->bp_group_review_single_group_average_rating_data( $reviews, $review_rating_fields, $review_label );
 			}
 		}
 
@@ -224,7 +224,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @access public
 		 *  @author  Wbcom Designs
 		 */
-		public function bgr_single_group_average_rating_data( $reviews, $review_rating_fields, $review_label ) {
+		public function bp_group_review_single_group_average_rating_data( $reviews, $review_rating_fields, $review_label ) {
 			$group_id = bp_get_current_group_id();
 
 			if ( ! empty( $review_rating_fields ) ) {
@@ -293,7 +293,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @author  Wbcom Designs
 		 */
 
-		public function bgr_group_average_rating() {
+		public function bp_group_review_group_average_rating() {
 			// Gather all the group reviews.
 			global $bgr;
 			global $bp;
@@ -312,14 +312,14 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			);
 			$reviews              = get_posts( $args );
 			$review_rating_fields = $bgr['review_rating_fields'];
-			$review_label         = bgr_group_review_tab_name();
+			$review_label         = bp_group_review_tab_name();
 			$exclude_groups       = $bgr['exclude_groups'];
 			if ( ! empty( $exclude_groups ) ) {
 				if ( ! in_array( bp_get_group_id(), $exclude_groups ) ) {
-					$this->bgr_group_average_rating_data( $reviews, $review_rating_fields, $review_label );
+					$this->bp_group_review_group_average_rating_data( $reviews, $review_rating_fields, $review_label );
 				}
 			} else {
-				$this->bgr_group_average_rating_data( $reviews, $review_rating_fields, $review_label );
+				$this->bp_group_review_group_average_rating_data( $reviews, $review_rating_fields, $review_label );
 			}
 		}
 
@@ -330,7 +330,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @access public
 		 *  @author  Wbcom Designs
 		 */
-		public function bgr_group_average_rating_data( $reviews, $review_rating_fields, $review_label ) {
+		public function bp_group_review_group_average_rating_data( $reviews, $review_rating_fields, $review_label ) {
 			if ( ! empty( $review_rating_fields ) ) {
 				if ( ! empty( $reviews ) ) {
 					$ttl_rating         = 0;
@@ -404,7 +404,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @access public
 		 *  @author  Wbcom Designs
 		 */
-		public function bgr_remove_edit_bulk_actions( $actions ) {
+		public function bp_group_review_remove_edit_bulk_actions( $actions ) {
 			unset( $actions['edit'] );
 			return $actions;
 		}
@@ -416,7 +416,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @access   public
 		 *  @author  Wbcom Designs
 		 */
-		public function bgr_group_reviews_row_actions( $actions, $post ) {
+		public function bp_group_review_row_actions( $actions, $post ) {
 			global $bp;
 			if ( $post->post_type == 'review' ) {
 				unset( $actions['edit'] );
@@ -429,7 +429,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$linked_group = get_post_meta( $post->ID, 'linked_group', true );
 					$group        = groups_get_group( array( 'group_id' => $linked_group ) );
 					$group_url    = function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ? bp_get_group_permalink( $group ) : bp_get_group_url( $group );
-					$review_url   = $group_url . sanitize_title( bgr_group_review_tab_name() ) . '/view/' . $post->ID;
+					$review_url   = $group_url . sanitize_title( bp_group_review_tab_name() ) . '/view/' . $post->ID;
 
 					$actions['view_review'] = '<a href="' . $review_url . '" title="' . $review_title . '">' . esc_html__( 'View', 'bp-group-reviews' ) . '</a>';
 
@@ -449,7 +449,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @access   public
 		 *  @author  Wbcom Designs
 		 */
-		public function bgr_add_groups_reviews_taxonomy_term() {
+		public function bp_group_review_add_taxonomy_term() {
 			$termExists = term_exists( 'Group', 'review_category' );
 			if ( $termExists === 0 || $termExists === null ) {
 				wp_insert_term( 'Group', 'review_category' );
@@ -463,7 +463,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @access   public
 		 *  @author  Wbcom Designs
 		 */
-		public function bgr_add_groups_reviews_tab() {
+		public function bp_group_review_add_group_reviews_tab() {
 			if ( bp_is_group_single() ) {
 				global $bp;
 				global $bgr;
@@ -471,7 +471,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
 				$bgr_admin_display_settings  = get_option( 'bgr_admin_display_settings' );
 				$review_label               = isset( $bgr['manage_review_label'] ) ? $bgr['manage_review_label'] : '';
-				$add_review_label           = ! empty( $bgr_admin_display_settings ) ? bgr_group_add_review_tab_name() : esc_html__( 'Review', 'bp-group-reviews' );
+				$add_review_label           = ! empty( $bgr_admin_display_settings ) ? bp_group_review_add_review_tab_name() : esc_html__( 'Review', 'bp-group-reviews' );
 
 				$args = array(
 					'category'    => 'group',
@@ -503,17 +503,17 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 								'slug'            => sanitize_title( $bgr['manage_review_label'] ),
 								'parent_slug'     => $bp->groups->current_group->slug,
 								'parent_url'      => $gp_parent_url,
-								'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
+								'screen_function' => array( $this, 'bp_group_review_tab' ),
 								'position'        => 198,
 								'item_css_id'     => 'reviews',
 							);
 
 							$tab_args[] = array(
 								'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
-								'slug'            => 'add-' . bgr_group_review_tab_slug(),
+								'slug'            => 'add-' . bp_group_review_tab_slug(),
 								'parent_slug'     => $bp->groups->current_group->slug,
 								'parent_url'      => $gp_parent_url,
-								'screen_function' => array( $this, 'bgr_group_add_review_tab' ),
+								'screen_function' => array( $this, 'bp_group_review_add_review_tab' ),
 								'position'        => 199,
 								'item_css_id'     => 'add-review',
 							);
@@ -528,17 +528,17 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 							'slug'            => sanitize_title( $bgr['manage_review_label'] ),
 							'parent_slug'     => $bp->groups->current_group->slug,
 							'parent_url'      => $gp_parent_url,
-							'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
+							'screen_function' => array( $this, 'bp_group_review_tab' ),
 							'position'        => 198,
 							'item_css_id'     => 'reviews',
 						);
 
 						$tab_args[] = array(
 							'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
-							'slug'            => 'add-' . bgr_group_review_tab_slug(),
+							'slug'            => 'add-' . bp_group_review_tab_slug(),
 							'parent_slug'     => $bp->groups->current_group->slug,
 							'parent_url'      => $gp_parent_url,
-							'screen_function' => array( $this, 'bgr_group_add_review_tab' ),
+							'screen_function' => array( $this, 'bp_group_review_add_review_tab' ),
 							'position'        => 199,
 							'item_css_id'     => 'add-review',
 						);
@@ -553,17 +553,17 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						'slug'            => sanitize_title( $bgr['manage_review_label'] ),
 						'parent_slug'     => $bp->groups->current_group->slug,
 						'parent_url'      => $gp_parent_url,
-						'screen_function' => array( $this, 'bgr_group_reviews_tab' ),
+						'screen_function' => array( $this, 'bp_group_review_tab' ),
 						'position'        => 198,
 						'item_css_id'     => 'reviews',
 					);
 
 					$tab_args[] = array(
 						'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
-						'slug'            => 'add-' . bgr_group_review_tab_slug(),
+						'slug'            => 'add-' . bp_group_review_tab_slug(),
 						'parent_slug'     => $bp->groups->current_group->slug,
 						'parent_url'      => $gp_parent_url,
-						'screen_function' => array( $this, 'bgr_group_add_review_tab' ),
+						'screen_function' => array( $this, 'bp_group_review_add_review_tab' ),
 						'position'        => 199,
 						'item_css_id'     => 'add-review',
 					);
@@ -575,8 +575,8 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			}
 		}
 
-		public function bgr_group_add_review_tab() {
-			add_action( 'bp_template_content', array( $this, 'bgr_group_add_reviews_tab_template' ) );
+		public function bp_group_review_add_review_tab() {
+			add_action( 'bp_template_content', array( $this, 'bp_group_review_add_reviews_tab_template' ) );
 			$templates = array( 'groups/single/plugins.php', 'plugin-template.php' );
 			if ( strstr( locate_template( $templates ), 'groups/single/plugins.php' ) ) {
 				bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'groups/single/plugins' ) );
@@ -592,8 +592,8 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 * @access   public
 		 * @author   Wbcom Designs
 		 */
-		public function bgr_group_reviews_tab() {
-			add_action( 'bp_template_content', array( $this, 'bgr_group_reviews_tab_template' ) );
+		public function bp_group_review_tab() {
+			add_action( 'bp_template_content', array( $this, 'bp_group_reviews_tab_template' ) );
 			$templates = array( 'groups/single/plugins.php', 'plugin-template.php' );
 			if ( strstr( locate_template( $templates ), 'groups/single/plugins.php' ) ) {
 				bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'groups/single/plugins' ) );
@@ -609,9 +609,9 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @access   public
 		 *  @author  Wbcom Designs
 		 */
-		public function bgr_group_reviews_tab_template() {
+		public function bp_group_reviews_tab_template() {
 			global $bgr;
-			if ( isset( $_SERVER['REQUEST_URI'] ) && strpos( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ), sanitize_title( bgr_group_review_tab_name() ) . '/view' ) !== false ) {
+			if ( isset( $_SERVER['REQUEST_URI'] ) && strpos( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ), sanitize_title( bp_group_review_tab_name() ) . '/view' ) !== false ) {
 				include 'templates/bgr-single-review-template.php';
 			} elseif ( sanitize_title( $bgr['manage_review_label'] ) === bp_current_action() ) {
 				include 'templates/bgr-reviews-tab-template.php';
@@ -625,7 +625,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 *  @access   public
 		 *  @author  Wbcom Designs
 		 */
-		public function bgr_group_add_reviews_tab_template() {
+		public function bp_group_review_add_reviews_tab_template() {
 			?>
 			<div class="bgr-bp-success">
 				<?php
@@ -652,7 +652,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 * @param array $triggers
 		 * @return mixed
 		 */
-		public function buddypress_groups_review_bp_activity_triggers( $triggers ) {
+		public function bp_group_review_bp_activity_triggers( $triggers ) {
 			$triggers[ __( 'BuddyPress Group Review', 'bp-group-reviews' ) ] = array(
 				'gamipress_bp_group_review' => __( 'Give Group Review', 'bp-group-reviews' ),
 			);
@@ -660,7 +660,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			return $triggers;
 		}
 
-		public function buddypress_groups_review_trigger_get_user_id( $user_id, $trigger, $args ) {
+		public function bp_group_review_trigger_get_user_id( $user_id, $trigger, $args ) {
 			if ( 'gamipress_bp_group_review' === $trigger ) {
 				$user_id = $args[0];
 			}

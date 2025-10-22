@@ -1260,7 +1260,7 @@ msgstr ""
 msgid "Thank you for taking time to write this wonderful %1$s. Your %1$s will display after moderator's approval."
 msgstr ""
 
-#. translators: %1$s is replaced with bgr_group_add_review_tab_name()
+#. translators: %1$s is replaced with bp_group_review_add_review_tab_name()
 #: includes/bgr-filters.php:162
 #: includes/bgr-filters.php:175
 #, php-format
