@@ -364,6 +364,7 @@ div#add-review-groupbutton{
 }
 
 .wb-reign-theme .wbtm-member-info-section div#item-header-content #add-review-groupbutton a.group-button {
+    margin: 0;
     height: 38px !important;
     line-height: 1.1;
     font-size: 15px !important;
