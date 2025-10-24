@@ -369,6 +369,11 @@ div#add-review-groupbutton{
     font-size: 15px !important;
 }
 
+.buddyx-nav-iconic .subnav li[id^="manage-"] a:before,
+.reign-nav-iconic .subnav li[id^="manage-"] a:before {
+    content: "\f5c0" !important;
+}
+
 /* BuddyBoss Theme */
 
 .buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-group-header-ratings {

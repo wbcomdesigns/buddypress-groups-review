@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-17T12:47:16+00:00\n"
+"POT-Creation-Date: 2025-10-24T06:07:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bp-group-reviews\n"
@@ -1182,80 +1182,54 @@ msgstr ""
 msgid "%1$s posted a review in the group %2$s"
 msgstr ""
 
-#: includes/bgr-ajax.php:155
-#: includes/templates/bgr-reviews-tab-template.php:81
-msgid "read more..."
-msgstr ""
-
-#: includes/bgr-ajax.php:168
-#: includes/templates/bgr-reviews-tab-template.php:97
-msgid "Delete"
-msgstr ""
-
-#: includes/bgr-ajax.php:182
-#: includes/templates/bgr-reviews-tab-template.php:121
-msgid "prev"
-msgstr ""
-
-#: includes/bgr-ajax.php:183
-#: includes/templates/bgr-reviews-tab-template.php:122
-msgid "next"
-msgstr ""
-
-#. translators: %1$s is replaced with review_label
-#: includes/bgr-ajax.php:201
-#, php-format
-msgid "Sorry, no %1$s were found."
-msgstr ""
-
 #. translators: %1$s is replaced with $bgr_avg_rating
-#: includes/bgr-ajax.php:313
+#: includes/bgr-ajax.php:160
 #: includes/widgets/group-rating.php:246
 #, php-format
 msgid "Rating : ( %1$s )"
 msgstr ""
 
-#: includes/bgr-ajax.php:322
+#: includes/bgr-ajax.php:169
 #: includes/widgets/group-rating.php:259
 msgid "No Rating has been given by any member yet!"
 msgstr ""
 
 #. Translators: %1$s: Review Label
 #. translators: %1$s is replaced with review_label
-#: includes/bgr-ajax.php:485
+#: includes/bgr-ajax.php:332
 #: includes/bgr-notifications.php:249
 #, php-format
 msgid "A new %1$s posted."
 msgstr ""
 
 #. Translators: %1$s: Review Label %2$s Group Name %3$s User Name %4$s User Link
-#: includes/bgr-ajax.php:487
+#: includes/bgr-ajax.php:334
 #, php-format
 msgid "A new %1$s for %2$s added by %3$s. Link: %4$s"
 msgstr ""
 
 #. Translators: %1$s: User Name %2$s Review Label %3$s Group Name
-#: includes/bgr-ajax.php:497
+#: includes/bgr-ajax.php:344
 #, php-format
 msgid "%1$s %2$ss Group %3$s."
 msgstr ""
 
 #. translators: %1$s is replaced with review_label
 #. translators: %1$s is used for review label
-#: includes/bgr-ajax.php:523
+#: includes/bgr-ajax.php:370
 #: includes/bgr-shortcodes.php:110
 #, php-format
 msgid "You already posted a %1$s for this group."
 msgstr ""
 
 #. translators: %1$s is replaced with review_label
-#: includes/bgr-ajax.php:527
+#: includes/bgr-ajax.php:374
 #, php-format
 msgid "Thank you for taking time to write this wonderful %1$s."
 msgstr ""
 
 #. translators: %1$s is replaced with review_label
-#: includes/bgr-ajax.php:531
+#: includes/bgr-ajax.php:378
 #, php-format
 msgid "Thank you for taking time to write this wonderful %1$s. Your %1$s will display after moderator's approval."
 msgstr ""
@@ -1434,6 +1408,22 @@ msgstr ""
 #: includes/class-bgr-multi-support.php:161
 #, php-format
 msgid "%1$s requires BuddyPress to be active on this subsite. The plugin has been deactivated."
+msgstr ""
+
+#: includes/templates/bgr-reviews-tab-template.php:81
+msgid "read more..."
+msgstr ""
+
+#: includes/templates/bgr-reviews-tab-template.php:97
+msgid "Delete"
+msgstr ""
+
+#: includes/templates/bgr-reviews-tab-template.php:121
+msgid "prev"
+msgstr ""
+
+#: includes/templates/bgr-reviews-tab-template.php:122
+msgid "next"
 msgstr ""
 
 #. translators: %1$s is replaced with review_label
