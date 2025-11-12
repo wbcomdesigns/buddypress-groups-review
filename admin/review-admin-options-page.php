@@ -385,9 +385,9 @@ function bp_group_review_emails_setting() {
                     update_option( 'bp_group_review_email_settings', $bp_group_review_email_settings );
                 }
                 
-                $bgr_allow_email = isset($bp_group_review_email_settings['bgr_allow_email']) ? $bp_group_review_email_settings['bgr_allow_email'] : 'yes';
-                $bgr_accept_enable = isset($bp_group_review_email_settings['bgr_accept_enable']) ? $bp_group_review_email_settings['bgr_accept_enable'] : 'yes';
-                $bgr_deny_email = isset($bp_group_review_email_settings['bgr_deny_email']) ? $bp_group_review_email_settings['bgr_deny_email'] : 'yes';
+                $bgr_allow_email = isset($bp_group_review_email_settings['bgr_allow_email']) ? $bp_group_review_email_settings['bgr_allow_email'] : 'no';
+                $bgr_accept_enable = isset($bp_group_review_email_settings['bgr_accept_enable']) ? $bp_group_review_email_settings['bgr_accept_enable'] : 'no';
+                $bgr_deny_email = isset($bp_group_review_email_settings['bgr_deny_email']) ? $bp_group_review_email_settings['bgr_deny_email'] : 'no';
                 $review_email_subject = isset($bp_group_review_email_settings['review_email_subject']) ? $bp_group_review_email_settings['review_email_subject'] : '';
                 $review_email_message = isset($bp_group_review_email_settings['review_email_message']) ? $bp_group_review_email_settings['review_email_message'] : '';
                 $review_accept_email_subject = isset($bp_group_review_email_settings['review_accept_email_subject']) ? $bp_group_review_email_settings['review_accept_email_subject'] : '';
