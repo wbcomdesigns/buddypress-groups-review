@@ -415,7 +415,11 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$user_name  = $user_info->user_login;
 
 				if ( $auto_approve_reviews == 'yes' ) {
-					$mail_link = bp_get_groups_directory_url() . $group->slug . '/' . sanitize_title( bp_group_review_tab_name() ) . '/';
+					if( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
+						$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/' . sanitize_title( bp_group_review_tab_name() ) . '/';
+					} else {
+						$mail_link = bp_get_groups_directory_url() . $group->slug . '/' . sanitize_title( bp_group_review_tab_name() ) . '/';
+					}
 				} else {
 					$mail_link = '<a href=" '. admin_url( 'edit.php?post_type=review' ). ' ">'. admin_url( 'edit.php?post_type=review' ) .'</a>';
 				}
@@ -491,6 +495,13 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			}
 			global $bgr;
 			global $bp;
+
+			if( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss )) {
+				$group_permalink = bp_get_groups_directory_permalink();
+			} else {
+				$group_permalink = bp_get_groups_directory_url();
+			}
+			
 			$bp_group_review_email_settings = get_option( 'bp_group_review_email_settings' );
 			$post_id              = isset( $_POST['accept_review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['accept_review_id'] ) ) : '';
 			$post_author_id       = get_post_field( 'post_author', $post_id );
@@ -504,11 +515,11 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$creator_name         = $creator_info->display_name;
 			$group_name           = $group->name;
 			$site_name            = get_bloginfo( 'name' );
-			$review_link          = bp_get_groups_directory_url() . $group->slug . "/reviews/view/$post_id/";
+			$review_link          = $group_permalink . $group->slug . "/reviews/view/$post_id/";
 			$headers[]            = 'Content-Type: text/html; charset=UTF-8';
 			$auto_approve_reviews = $bgr['auto_approve_reviews'];				
 			if ( $auto_approve_reviews == 'yes' ) {
-				$mail_link = bp_get_groups_directory_url() . $group->slug . '/' . sanitize_title( bp_group_review_tab_name() ) . '/';
+				$mail_link = $group_permalink . $group->slug . '/' . sanitize_title( bp_group_review_tab_name() ) . '/';
 			} else {
 				$mail_link = '<a href=" '. admin_url( 'edit.php?post_type=review' ). ' ">'. admin_url( 'edit.php?post_type=review' ) .'</a>';
 			}
@@ -591,7 +602,12 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$auto_approve_reviews = $bgr['auto_approve_reviews'];			
 			$headers[]          = 'Content-Type: text/html; charset=UTF-8';
 			if ( $auto_approve_reviews == 'yes' ) {
-				$mail_link = bp_get_groups_directory_url() . $group->slug . '/' . sanitize_title( bp_group_review_tab_name() ) . '/';
+				if( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
+					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/' . sanitize_title( bp_group_review_tab_name() ) . '/';
+				} else {
+					$mail_link = bp_get_groups_directory_url() . $group->slug . '/' . sanitize_title( bp_group_review_tab_name() ) . '/';
+				}
+				
 			} else {
 				$mail_link = '<a href=" '. admin_url( 'edit.php?post_type=review' ). ' ">'. admin_url( 'edit.php?post_type=review' ) .'</a>';
 			}

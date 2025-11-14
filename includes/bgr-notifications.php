@@ -249,8 +249,8 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$notification_title = sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s, %2$s and %3$s is replaced with user_name, review_label and group name respectively */
 			$notification_content = sprintf( esc_html__( '%1$s posted a %2$s for %3$s.', 'bp-group-reviews' ), $user_name, $review_label, $group_name );
-			$notification_link           = add_query_arg( array( 'referer' => 'add_reviews' ), $notification_link );			// for identification of mark as read action 
-			$notification_link           = wp_nonce_url( $notification_link, 'mark-as-read-notification-' . $grp_id );		// for security purpose when mark as read notification.
+			$notification_link    = add_query_arg( array( 'referer' => 'add_reviews' ), $notification_link );			// for identification of mark as read action 
+			$notification_link    = wp_nonce_url( $notification_link, 'mark-as-read-notification-' . $grp_id );		// for security purpose when mark as read notification.
 			if ( 'string' == $format ) {
 				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), $notification_title, $notification_content );
 			} else {
@@ -280,7 +280,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			} else {
 				$group_link = bp_get_group_url( $group );
 			}
-			$notification_link = $group_link . "reviews/view/$review_id/";
+			$notification_link = $group_link . 'admin/'. sanitize_title( 'view-'.bp_group_review_tab_slug() )."/$review_id/";
 			/* translators: %1$s is replaced with review_label */
 			$notification_title = sprintf( esc_html__( '%1$s accepted.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s and %2$s is replaced with review_label and group name resepectively*/
@@ -317,7 +317,9 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			} else {
 				$group_link = bp_get_group_url( $group );
 			}
-			$notification_link = $group_link . 'reviews/';
+
+			$review_plural_label = !empty( $bgr['manage_review_label'] ) ? strtolower( $bgr['manage_review_label'] ) : 's';
+			$notification_link   = $group_link . $review_plural_label;
 			/* translators: %1$s is replaced with review_label */
 			$notification_title = sprintf( esc_html__( '%1$s denied.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s and %2$s is replaced with review_label and group_name respectively */
