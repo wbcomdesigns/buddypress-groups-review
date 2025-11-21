@@ -157,8 +157,8 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 				$member_id    = $current_user->ID;
 				$args         = array(
 					'user_id'           => $group_admin,
-					'item_id'           => $group_id,
-					'secondary_item_id' => $member_id,
+					'item_id'           => $member_id,
+					'secondary_item_id' => $group_id,
 					'component_name'    => $this->_component_name,
 					'component_action'  => 'bgr_add_review_action',
 					'date_notified'     => bp_core_current_time(),
@@ -182,8 +182,8 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 				$args           = bp_notifications_add_notification(
 					array(
 						'user_id'           => $post_author_id,
-						'item_id'           => $group_id,
-						'secondary_item_id' => $review_id,
+						'item_id'           => $review_id,
+						'secondary_item_id' => $group_id,
 						'component_name'    => $this->_component_name,
 						'component_action'  => 'bgr_accept_review_action',
 						'date_notified'     => bp_core_current_time(),
@@ -207,8 +207,8 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 				bp_notifications_add_notification(
 					array(
 						'user_id'           => $post_author_id,
-						'item_id'           => $group_id,
-						'secondary_item_id' => $review_id,
+						'item_id'           => $review_id,
+						'secondary_item_id' => $group_id,
 						'component_name'    => $this->_component_name,
 						'component_action'  => 'bgr_deny_review_action',
 						'date_notified'     => bp_core_current_time(),
@@ -354,13 +354,13 @@ function bp_group_review_format_notifications( $action, $item_id, $secondary_ite
 		switch ( $action ) {
 
 			case 'bgr_add_review_action':
-					$return = buddypress()->bgr_bp_review->bp_group_review_add_review_notification_format( $item_id, $secondary_item_id, $user_id, $format );
+					$return = buddypress()->bgr_bp_review->bp_group_review_add_review_notification_format( $secondary_item_id, $item_id, $user_id, $format );
 				break;
 			case 'bgr_accept_review_action':
-					$return = buddypress()->bgr_bp_review->bp_group_review_accept_review_notification_format( $item_id, $secondary_item_id, $format );
+					$return = buddypress()->bgr_bp_review->bp_group_review_accept_review_notification_format( $secondary_item_id, $item_id, $format );
 				break;
 			case 'bgr_deny_review_action':
-					$return = buddypress()->bgr_bp_review->bp_group_review_deny_review_notification_format( $item_id, $secondary_item_id, $format );
+					$return = buddypress()->bgr_bp_review->bp_group_review_deny_review_notification_format( $secondary_item_id, $item_id, $format );
 				break;
 			default:
 					$return = '';
