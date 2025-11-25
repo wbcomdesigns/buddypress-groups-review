@@ -114,9 +114,9 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 							BP_Notifications_Notification::update(
 								array( 'is_new' => false ),
 								array(
-							'component_action'  => 'bgr_accept_review_action',
-							'user_id'           => $current_user_id,
-							'id'                => $_GET['id'],
+									'component_action'  => 'bgr_accept_review_action',
+									'user_id'           => $current_user_id,
+									'id'                => $_GET['id'],
 								)
 							);
 						}
@@ -225,6 +225,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		 * @param  int    $grp_id Group ID.
 		 * @param  int    $review_id Review ID.
 		 * @param  int    $user_id User ID.
+		 * @param  int    $id Notification ID.
 		 * @param  string $format Notification format.
 		 */
 		public function bp_group_review_add_review_notification_format( $grp_id, $review_id, $user_id, $id, $format = '' ) {
@@ -268,6 +269,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		 *
 		 * @param  int    $grp_id Group ID.
 		 * @param  int    $review_id Member ID.
+		 * @param  int    $id Notification ID.
 		 * @param  string $format Notification format.
 		 */
 		public function bp_group_review_accept_review_notification_format( $grp_id, $review_id, $id, $format = '' ) {
@@ -286,7 +288,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$notification_title = sprintf( esc_html__( '%1$s accepted.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s and %2$s is replaced with review_label and group name resepectively*/
 			$notification_content = sprintf( esc_html__( 'Your %1$s for %2$s accepted by group admin.', 'bp-group-reviews' ), $review_label, $group_name );
-			$notification_link           = add_query_arg( array( 'referer' => 'accept_reviews' ), $notification_link );			// for identification of mark as read action 
+			$notification_link           = add_query_arg( array( 'referer' => 'accept_reviews', 'id' =>$id ), $notification_link );			// for identification of mark as read action 
 			$notification_link           = wp_nonce_url( $notification_link, 'mark-as-read-notification-' . $grp_id );		// for security purpose when mark as read notification.
 
 			if ( 'string' == $format ) {
@@ -305,6 +307,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		 *
 		 * @param  int    $grp_id Group ID.
 		 * @param  int    $review_id Member ID.
+		 * @param  int    $id Notification ID.
 		 * @param  string $format Notification format.
 		 */
 		public function bp_group_review_deny_review_notification_format( $grp_id, $review_id, $id, $format = '' ) {
@@ -325,7 +328,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$notification_title = sprintf( esc_html__( '%1$s denied.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s and %2$s is replaced with review_label and group_name respectively */
 			$notification_content = sprintf( esc_html__( 'Your %1$s for %2$s denied by group admin.', 'bp-group-reviews' ), $review_label, $group_name );
-			$notification_link           = add_query_arg( array( 'referer' => 'deny_reviews' ), $notification_link );			// for identification of mark as read action 
+			$notification_link           = add_query_arg( array( 'referer' => 'deny_reviews', 'id' => $id ), $notification_link );			// for identification of mark as read action 
 			$notification_link           = wp_nonce_url( $notification_link, 'mark-as-read-notification-' . $grp_id );		// for security purpose when mark as read notification.
 
 			if ( 'string' == $format ) {
@@ -349,6 +352,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
  * @param  int    $secondary_item_id Review ID.
  * @param  int    $user_id Member ID.
  * @param  string $format Notification format.
+ * @param  int    $id Notification ID.
  */
 function bp_group_review_format_notifications( $action, $item_id, $secondary_item_id, $user_id, $format = 'string', $id ) {	
 	
