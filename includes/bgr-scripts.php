@@ -50,7 +50,8 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 		 */
 		private function bp_group_review_is_widget_active() {
 			// Get all active widgets from all sidebars
-			$sidebars_widgets = wp_get_sidebars_widgets();
+
+			$sidebars_widgets = function_exists( 'wp_get_sidebars_widgets' ) ? wp_get_sidebars_widgets() : array(); //phpcs:ignore
 			
 			if ( empty( $sidebars_widgets ) ) {
 				return false;
