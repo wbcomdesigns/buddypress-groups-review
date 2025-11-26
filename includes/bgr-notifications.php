@@ -236,10 +236,12 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$group_name   = $group->name;
 			$user_info    = get_userdata( $user_id );
 			$user_name    = $user_info->user_login;
-			if( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ){
-				$group_link = bp_get_group_permalink( $group );
-			} else {
+			// Build group URL safely for both BuddyPress and BuddyBoss.
+			if ( function_exists( 'bp_get_group_url' ) ) {
 				$group_link = bp_get_group_url( $group );
+			} else {
+				// Fallback for older versions - build URL manually.
+				$group_link = bp_get_groups_directory_permalink() . $group->slug . '/';
 			}
 			if ( $bgr['auto_approve_reviews'] == 'yes' ) {
 				$notification_link = $group_link . 'reviews/add-' . bp_group_review_tab_slug() . '/';
@@ -277,10 +279,12 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$review_label      = $bgr['review_label'];
 			$group             = groups_get_group( array( 'group_id' => $grp_id ) );			
 			$group_name        = $group->name;
-			if( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ){
-				$group_link = bp_get_group_permalink( $group );
-			} else {
+			// Build group URL safely for both BuddyPress and BuddyBoss.
+			if ( function_exists( 'bp_get_group_url' ) ) {
 				$group_link = bp_get_group_url( $group );
+			} else {
+				// Fallback for older versions - build URL manually.
+				$group_link = bp_get_groups_directory_permalink() . $group->slug . '/';
 			}
 			
 			$notification_link = trailingslashit( $group_link . 'admin/' . sanitize_title( 'view-' . bp_group_review_tab_slug() )."/$review_id/" );
@@ -316,10 +320,12 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$review_label      = $bgr['review_label'];
 			$group             = groups_get_group( array( 'group_id' => $grp_id ) );			
 			$group_name        = $group->name;
-			if( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ){
-				$group_link = bp_get_group_permalink( $group );
-			} else {
+			// Build group URL safely for both BuddyPress and BuddyBoss.
+			if ( function_exists( 'bp_get_group_url' ) ) {
 				$group_link = bp_get_group_url( $group );
+			} else {
+				// Fallback for older versions - build URL manually.
+				$group_link = bp_get_groups_directory_permalink() . $group->slug . '/';
 			}
 
 			$review_plural_label = !empty( $bgr['manage_review_label'] ) ? strtolower( $bgr['manage_review_label'] ) : 's';
