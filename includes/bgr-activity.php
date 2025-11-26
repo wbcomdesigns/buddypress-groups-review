@@ -147,7 +147,13 @@ class BGR_Activity {
 		$group_obj       = groups_get_group( $group_id );
 		$review_data     = get_post( $posts_id );
 		$review_content  = $review_data->post_content;		
-		$group_link      = function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ? bp_get_group_permalink( $group_obj ) : bp_get_group_url( $group_obj );		
+		// Build group URL safely for both BuddyPress and BuddyBoss.
+		if ( function_exists( 'bp_get_group_url' ) ) {
+			$group_link = bp_get_group_url( $group_obj );
+		} else {
+			// Fallback for older versions - build URL manually.
+			$group_link = bp_get_groups_directory_permalink() . $group_obj->slug . '/';
+		}		
 		$group_link_html = '<a href="' . esc_url( $group_link ) . '">' . $group_name . '</a>';
 		$action          = sprintf(
 			apply_filters(
@@ -212,7 +218,13 @@ class BGR_Activity {
 				$group_obj       = groups_get_group( $group_id );
 				$review_data     = get_post( $posts_id );
 				$review_content  = $review_data->post_content;				
-				$group_link      = function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ? bp_get_group_permalink( $group_obj ) : bp_get_group_url( $group_obj );				
+				// Build group URL safely for both BuddyPress and BuddyBoss.
+		if ( function_exists( 'bp_get_group_url' ) ) {
+			$group_link = bp_get_group_url( $group_obj );
+		} else {
+			// Fallback for older versions - build URL manually.
+			$group_link = bp_get_groups_directory_permalink() . $group_obj->slug . '/';
+		}				
 				$group_link_html = '<a href="' . esc_url( $group_link ) . '">' . $group_name . '</a>';
 				$action          = sprintf(
 					apply_filters(

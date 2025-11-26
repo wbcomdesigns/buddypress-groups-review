@@ -150,7 +150,14 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			$review_div          = 'form';
 			$exclude_groups      = $bgr['exclude_groups'];
 			$current_group_id    = bp_get_current_group_id();
-			$current_group_link  = function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ? bp_get_group_permalink( groups_get_group( array( 'group_id' => $current_group_id ) ) ) : bp_get_group_url( groups_get_group( array( 'group_id' => $current_group_id ) ) );
+			// Build group URL safely for both BuddyPress and BuddyBoss.
+			$current_group = groups_get_group( array( 'group_id' => $current_group_id ) );
+			if ( function_exists( 'bp_get_group_url' ) ) {
+				$current_group_link = bp_get_group_url( $current_group );
+			} else {
+				// Fallback for older versions - build URL manually.
+				$current_group_link = bp_get_groups_directory_permalink() . $current_group->slug . '/';
+			}
 			$current_group_link .= 'add-' . bp_group_review_tab_slug();
 			if ( ! empty( $exclude_groups ) ) {
 				if ( ! in_array( bp_get_current_group_id(), $exclude_groups ) ) {
@@ -261,10 +268,13 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$avg_rating    = $ttl_rating / $reviews_count;
 					$avg_rating    = round( $avg_rating, 2 );
 					if ( $avg_rating > 0 ) {
-						if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
-							$group_link = bp_get_group_permalink( groups_get_current_group() );
-						} else {
+						// Build group URL safely for both BuddyPress and BuddyBoss.
+						if ( function_exists( 'bp_get_group_url' ) ) {
 							$group_link = bp_get_group_url( groups_get_current_group() );
+						} else {
+							// Fallback for older versions - build URL manually.
+							$current_group = groups_get_current_group();
+							$group_link = bp_get_groups_directory_permalink() . $current_group->slug . '/';
 						}
 						}
 					?>
@@ -355,10 +365,13 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$avg_rating    = $ttl_rating / $reviews_count;
 					$avg_rating    = round( $avg_rating, 2 );
 					if ( $avg_rating > 0 ) {
-						if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
-							$group_link = bp_get_group_permalink( groups_get_current_group() );
-						} else {
+						// Build group URL safely for both BuddyPress and BuddyBoss.
+						if ( function_exists( 'bp_get_group_url' ) ) {
 							$group_link = bp_get_group_url( groups_get_current_group() );
+						} else {
+							// Fallback for older versions - build URL manually.
+							$current_group = groups_get_current_group();
+							$group_link = bp_get_groups_directory_permalink() . $current_group->slug . '/';
 						}
 						}
 					?>
@@ -410,7 +423,13 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$review_title = $post->post_title;
 					$linked_group = get_post_meta( $post->ID, 'linked_group', true );
 					$group        = groups_get_group( array( 'group_id' => $linked_group ) );
-					$group_url    = function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ? bp_get_group_permalink( $group ) : bp_get_group_url( $group );
+					// Build group URL safely for both BuddyPress and BuddyBoss.
+				if ( function_exists( 'bp_get_group_url' ) ) {
+					$group_url = bp_get_group_url( $group );
+				} else {
+					// Fallback for older versions - build URL manually.
+					$group_url = bp_get_groups_directory_permalink() . $group->slug . '/';
+				}
 					$review_url   = $group_url . sanitize_title( bp_group_review_tab_name() ) . '/view/' . $post->ID;
 
 					$actions['view_review'] = '<a href="' . $review_url . '" title="' . $review_title . '">' . esc_html__( 'View', 'bp-group-reviews' ) . '</a>';
@@ -475,7 +494,13 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				wp_reset_query();
 				$user               = bp_get_loggedin_user_username();
 				$count_notification = '<span>' . $post_count . '</span>';
-				$gp_parent_url      = function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ? bp_get_group_permalink( $bp->groups->current_group ) : bp_get_group_url( $bp->groups->current_group );
+				// Build group URL safely for both BuddyPress and BuddyBoss.
+			if ( function_exists( 'bp_get_group_url' ) ) {
+				$gp_parent_url = bp_get_group_url( $bp->groups->current_group );
+			} else {
+				// Fallback for older versions - build URL manually.
+				$gp_parent_url = bp_get_groups_directory_permalink() . $bp->groups->current_group->slug . '/';
+			}
 				if ( ! empty( $bgr_admin_general_settings ) ) {
 					$exclude_groups = $bgr['exclude_groups'];
 					if ( ! empty( $exclude_groups ) ) {
