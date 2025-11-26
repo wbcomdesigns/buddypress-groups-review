@@ -357,30 +357,34 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
  * @param  int    $item_id Group ID.
  * @param  int    $secondary_item_id Review ID.
  * @param  int    $user_id Member ID.
- * @param  string $format Notification format.
+ * @param  string $format Notification format ('string' for BP, 'array' for BuddyBoss).
  * @param  int    $id Notification ID.
+ * @param  string $screen Notification screen context (BuddyBoss only).
  */
-function bp_group_review_format_notifications( $action, $item_id, $secondary_item_id, $user_id, $format = 'string', $id ) {	
+function bp_group_review_format_notifications( $action, $item_id, $secondary_item_id, $user_id, $format = 'string', $id = 0, $screen = 'web' ) {	
 	
 	if ( bp_is_active( 'notifications' ) && bp_is_active( 'groups' ) && $action != 'bbp_new_reply' ) {
 		switch ( $action ) {
 
 			case 'bgr_add_review_action':
-					$return = buddypress()->bgr_bp_review->bp_group_review_add_review_notification_format( $secondary_item_id, $item_id, $user_id, $id,$format );
-				break;
-			case 'bgr_accept_review_action':
-					$return = buddypress()->bgr_bp_review->bp_group_review_accept_review_notification_format( $secondary_item_id, $item_id, $id, $format );
-				break;
-			case 'bgr_deny_review_action':
-					$return = buddypress()->bgr_bp_review->bp_group_review_deny_review_notification_format( $secondary_item_id, $item_id, $id, $format );
-				break;
-			default:
-					$return = '';
+				$return = buddypress()->bgr_bp_review->bp_group_review_add_review_notification_format( $secondary_item_id, $item_id, $user_id, $id, $format );
 				break;
 
-			return $return;
+			case 'bgr_accept_review_action':
+				$return = buddypress()->bgr_bp_review->bp_group_review_accept_review_notification_format( $secondary_item_id, $item_id, $id, $format );
+				break;
+
+			case 'bgr_deny_review_action':
+				$return = buddypress()->bgr_bp_review->bp_group_review_deny_review_notification_format( $secondary_item_id, $item_id, $id, $format );
+				break;
+
+			default:
+				$return = '';
+				break;
 		}
-		if ( $return ) {
+
+		// Return the formatted notification.
+		if ( ! empty( $return ) ) {
 			return $return;
 		} else {
 			return $action;
