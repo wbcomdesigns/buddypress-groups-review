@@ -137,6 +137,8 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 * Fix: Hide manage reviews tab when group is excluded from reviews.
 * Fix: Managed add review button UI with Reign theme.
 * Fix: Managed manage review tab icons when label changes.
+* Fix: Fixed fatal error with BuddyBoss when approving/viewing reviews in Schema markup.
+* Fix: Fixed potential fatal errors in notification system with BuddyBoss.
 
 = 3.4.0 = 
 * Added: Review tab visibility for logged-out users.  
