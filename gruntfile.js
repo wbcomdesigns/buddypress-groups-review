@@ -199,6 +199,63 @@ module.exports = function (grunt) {
                     updateTimestamp: true
                 }
             }
+        },
+
+        // Task for cleaning dist directory
+        clean: {
+            dist: ['dist'],
+            postbuild: ['dist/buddypress-groups-review'], // Clean only the temp folder, keep ZIP
+        },
+
+        // Task for copying files to dist
+        copy: {
+            dist: {
+                src: [
+                    '**',
+                    '!node_modules/**',
+                    '!.git/**',
+                    '!.gitignore',
+                    '!.gitattributes',
+                    '!dist/**',
+                    '!build/**',
+                    '!.DS_Store',
+                    '!**/.DS_Store',
+                    '!npm-debug.log',
+                    '!package.json',
+                    '!package-lock.json',
+                    '!Gruntfile.js',
+                    '!phpcs.xml',
+                    '!composer.json',
+                    '!composer.lock',
+                    '!*.zip',
+                    '!assets/js/*.js', // Exclude non-minified JS
+                    '!assets/js/*.map',
+                    '!admin/assets/js/*.js', // Exclude non-minified admin JS
+                    '!admin/assets/js/*.map',
+                    '!admin/wbcom/assets/js/*.js', // Exclude non-minified wbcom JS
+                    '!admin/wbcom/assets/js/*.map',
+                    'assets/js/min/**', // Include minified JS
+                    'admin/assets/js/min/**',
+                    'admin/wbcom/assets/js/min/**',
+                ],
+                dest: 'dist/buddypress-groups-review/',
+            },
+        },
+
+        // Task for creating ZIP file
+        compress: {
+            dist: {
+                options: {
+                    archive: 'dist/buddypress-groups-review-<%= pkg.version %>.zip',
+                },
+                files: [
+                    {
+                        cwd: 'dist/buddypress-groups-review/',
+                        src: ['**'],
+                        dest: 'buddypress-groups-review/',
+                    },
+                ],
+            },
         }
     });
 
@@ -210,7 +267,22 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-checktextdomain');
     grunt.loadNpmTasks('grunt-rtlcss');
     grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-compress');
 
     // Register default tasks
     grunt.registerTask('default', ['cssmin', 'uglify', 'checktextdomain', 'rtlcss', 'shell', 'watch']);
+
+    // Register build task for WordPress.org distribution
+    grunt.registerTask('build', [
+        'clean:dist',       // Clean old dist folder
+        'cssmin',           // Minify CSS
+        'uglify',           // Minify JS
+        'rtlcss',           // Generate RTL CSS
+        'shell',            // Generate POT file
+        'copy:dist',        // Copy files to dist
+        'compress:dist',    // Create ZIP file
+        'clean:postbuild'   // Clean temp folder, keep ZIP
+    ]);
 };

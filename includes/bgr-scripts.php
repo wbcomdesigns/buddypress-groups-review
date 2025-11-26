@@ -114,12 +114,14 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 
 				wp_register_script( 'bgr-front-js', BGR_PLUGIN_URL . 'assets/js'.$script_path.'/bgr-front'.$script_extension, array( 'jquery' ), BGR_PLUGIN_VERSION, false );
 				wp_register_script( 'bgr-ratings-js', BGR_PLUGIN_URL . 'assets/js'.$script_path.'/bgr-ratings'.$script_extension, array( 'jquery' ), BGR_PLUGIN_VERSION, false );
+				wp_register_script( 'bgr-accessibility-js', BGR_PLUGIN_URL . 'assets/js/bgr-accessibility.js', array( 'jquery' ), BGR_PLUGIN_VERSION, true );
 
 
 				wp_enqueue_style( 'bgr-font-awesome' );
 				wp_enqueue_style( 'bgr-reviews-css' );
 				wp_enqueue_style( 'bgr-front-css' );
 				wp_enqueue_script( 'bgr-front-js' );
+				wp_enqueue_script( 'bgr-accessibility-js' );
 
 				$bgr_admin_settings         = get_option( 'bgr_admin_general_settings' );
 				$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );

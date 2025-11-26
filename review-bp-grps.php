@@ -45,10 +45,7 @@ add_action( 'init', 'bp_group_review_load_textdomain' );
  */
 function bp_group_review_load_textdomain() {
 	$domain = 'bp-group-reviews';
-	$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
-	load_textdomain( $domain, 'languages/' . $domain . '-' . $locale . '.mo' );
-	$var = load_plugin_textdomain( $domain, false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
-
+	load_plugin_textdomain( $domain, false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
 }
 
 /**
@@ -137,9 +134,6 @@ function bp_group_review_admin_notice() {
 		/* translators: %s: search term */
 			echo sprintf( esc_html__( '%1$s requires %2$s to be installed and active.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>' );
 	}
-	if( isset( $_GET['activate'] ) ) {
-		unset( $_GET['activate'] );
-	}
 	echo '</p></div>';
 
 }
@@ -194,11 +188,13 @@ function run_bp_group_reviews_plugin() {
 		'includes/bgr-rating-display.php',
 		'includes/bgr-filters.php',
 		'includes/bgr-ajax.php',
+		'includes/bgr-bp-rest-integration.php',
+		'includes/bgr-schema.php',
 		'includes/bgr-shortcodes.php',
 		'includes/bgr-activity.php',
 		'includes/widgets/bgr-review.php',
 		'includes/widgets/group-rating.php',
-		'includes/bgr-functions.php',		
+		'includes/bgr-functions.php',
 	);
 	foreach ( $include_files as $include_file ) {
 		if ( class_exists( 'BuddyPress' ) && bp_is_active( 'groups' ) ) {

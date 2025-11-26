@@ -200,8 +200,6 @@ jQuery(document).ready(function () {
       function (response) {
         if (response == "review-approved-successfully") {
           window.location.href = window.location.href;
-        } else {
-          console.log("Review not approved!");
         }
       }
     );

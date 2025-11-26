@@ -4,7 +4,8 @@ Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
 Tested up to: 6.7.2
-Stable tag: 3.4.0
+Requires PHP: 7.4
+Stable tag: 3.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +109,34 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 8. Review submission at single group.(png|jpg|jpeg|gif).
 
 == Changelog ==
+
+= 3.5.0 =
+* Enhancement: Added BuddyPress REST API integration for headless/mobile app support.
+* Enhancement: Implemented Schema.org JSON-LD structured data for improved SEO.
+* Enhancement: Added WCAG 2.1 AA accessibility features (keyboard navigation, ARIA labels, screen reader support).
+* Enhancement: Implemented clean uninstall process that removes all plugin data.
+* Enhancement: Created comprehensive user guide and developer documentation.
+* Enhancement: Added WordPress.org distribution build process using Grunt.
+* Improvement: Replaced hardcoded role checks with capability-based permission system.
+* Improvement: Improved user-facing language and text uniformity throughout the plugin.
+* Improvement: Updated scripts enqueue logic for better performance.
+* Improvement: Implemented consistent function prefixes across all functions.
+* Improvement: Modified scripts enqueue conditional checks for better compatibility.
+* Fix: Removed duplicate Schema.org microdata markup (kept JSON-LD only).
+* Fix: Removed all debug console.log statements from JavaScript files.
+* Fix: Resolved phpcs coding standard issues.
+* Fix: Resolved PHP warnings and deprecated function errors.
+* Fix: Fixed notifications mark read issue.
+* Fix: Fixed notifications link issue with BuddyBoss.
+* Fix: Fixed notifications redirection issue with BuddyPress.
+* Fix: Resolved issue related to email settings save.
+* Fix: Resolved issue with scripts not getting enqueued properly.
+* Fix: Fixed code related issues with wp_editor.
+* Fix: Removed activation notice when plugin activation failed.
+* Fix: Resolved issue related to GamiPress event trigger.
+* Fix: Hide manage reviews tab when group is excluded from reviews.
+* Fix: Managed add review button UI with Reign theme.
+* Fix: Managed manage review tab icons when label changes.
 
 = 3.4.0 = 
 * Added: Review tab visibility for logged-out users.  

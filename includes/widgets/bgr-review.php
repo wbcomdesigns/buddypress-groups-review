@@ -263,17 +263,6 @@ class bgr_review_widget extends WP_Widget {
 									if ( ! empty( $review_groups ) ) {
 										if ( array_key_exists( $gid, $review_groups ) ) {
 											do_action( 'bgr_display_widget_average_ratings', $review_groups[ $gid ] );
-											?>
-											<div class="buddypress-groups-reviews-stars" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-												<span itemprop="ratingValue"  content="<?php echo esc_attr( $review_groups[ $gid ] ); ?>"></span>
-												<span itemprop="bestRating"   content="5"></span>
-
-												<span itemprop="reviewCount"  content="<?php echo esc_attr( $review_groups_count[ $gid ] ); ?>"></span>
-												<span itemprop="itemReviewed" content="Person"></span>
-												<span itemprop="name" content="<?php echo esc_attr( $group->name ); ?>"></span>
-												<span itemprop="url" content="<?php echo esc_attr( $group_url ); ?>"></span>
-											</div>
-											<?php
 										}
 									}
 									?>

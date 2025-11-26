@@ -266,17 +266,8 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						} else {
 							$group_link = bp_get_group_url( groups_get_current_group() );
 						}
-						?>
-					<div class="buddypress-single-group-reviews-stars" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-						<span itemprop="ratingValue"  content="<?php echo esc_attr( $avg_rating ); ?>"></span>
-						<span itemprop="bestRating"   content="5"></span>
-						<span itemprop="reviewCount"  content="<?php echo esc_attr( $total_review_count ); ?>"></span>
-						<span itemprop="ratingCount"  content="<?php echo esc_attr( $rating_count ); ?>"></span>
-						<span itemprop="itemReviewed" content="Person"></span>
-						<span itemprop="name" content="<?php echo esc_attr( bp_get_current_group_name() ); ?>"></span>
-						<span itemprop="url" content="<?php echo esc_attr( $group_link ); ?>"></span>
-					</div>
-					<?php } ?>
+						}
+					?>
 					<div class="bgr-header-row"><div class="bgr-group-header-ratings"><div class="rating-bgr">
 					<?php
 					do_action( 'bgr_display_group_average_ratings', $avg_rating );
@@ -369,17 +360,8 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						} else {
 							$group_link = bp_get_group_url( groups_get_current_group() );
 						}
-						?>
-					<div class="buddypress-single-group-reviews-stars" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-						<span itemprop="ratingValue"  content="<?php echo esc_attr( $avg_rating ); ?>"></span>
-						<span itemprop="bestRating"   content="5"></span>
-						<span itemprop="reviewCount"  content="<?php echo esc_attr( $total_review_count ); ?>"></span>
-						<span itemprop="ratingCount"  content="<?php echo esc_attr( $rating_count ); ?>"></span>
-						<span itemprop="itemReviewed" content="Person"></span>
-						<span itemprop="name" content="<?php echo esc_attr( bp_get_current_group_name() ); ?>"></span>
-						<span itemprop="url" content="<?php echo esc_attr( $group_link ); ?>"></span>
-					</div>
-					<?php } ?>
+						}
+					?>
 					<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr">
 					<?php
 					do_action( 'bgr_display_group_average_ratings', $avg_rating );

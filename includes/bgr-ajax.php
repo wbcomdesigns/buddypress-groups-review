@@ -185,7 +185,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
 				wp_send_json_error( $error );
 			}
-			if ( isset( $_POST['action'] ) && 'bp_group_review_admin_approve_review' === $_POST['action'] && current_user_can( 'administrator' ) ) {
+			if ( isset( $_POST['action'] ) && 'bp_group_review_admin_approve_review' === $_POST['action'] && current_user_can( 'manage_options' ) ) {
 				$rid  = isset( $_POST['review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['review_id'] ) ) : '';
 				$args = array(
 					'ID'          => $rid,
@@ -212,7 +212,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
 				wp_send_json_error( $error );
 			}
-			if ( isset( $_POST['action'] ) && 'bp_group_review_save_admin_criteria_settings' === $_POST['action'] && current_user_can( 'administrator' ) ) {
+			if ( isset( $_POST['action'] ) && 'bp_group_review_save_admin_criteria_settings' === $_POST['action'] && current_user_can( 'manage_options' ) ) {
 				
 				// Ensure the variables are always treated as arrays
 				$rating_fields = isset( $_POST['field_values'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['field_values'] ) ) : array();
@@ -244,7 +244,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
 				wp_send_json_error( $error );
 			}
-			if ( isset( $_POST['action'] ) && 'bp_group_review_save_admin_general_settings' === $_POST['action'] && current_user_can( 'administrator' ) ) {
+			if ( isset( $_POST['action'] ) && 'bp_group_review_save_admin_general_settings' === $_POST['action'] && current_user_can( 'manage_options' ) ) {
 				$multi_reviews        = isset( $_POST['multi_reviews'] ) ? sanitize_text_field( wp_unslash( $_POST['multi_reviews'] ) ) : '';
 				$auto_approve_reviews = isset( $_POST['bgr_auto_approve_reviews'] ) ? sanitize_text_field( wp_unslash( $_POST['bgr_auto_approve_reviews'] ) ) : '';
 				$reviews_per_page     = isset( $_POST['reviews_per_page'] ) ? sanitize_text_field( wp_unslash( $_POST['reviews_per_page'] ) ) : '';
@@ -282,7 +282,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
 				wp_send_json_error( $error );
 			}
-			if ( isset( $_POST['action'] ) && 'bp_group_review_save_admin_display_settings' === $_POST['action'] && current_user_can( 'administrator' ) ) {
+			if ( isset( $_POST['action'] ) && 'bp_group_review_save_admin_display_settings' === $_POST['action'] && current_user_can( 'manage_options' ) ) {
 
 				$manage_review_label = isset( $_POST['manage_review_label'] ) ? sanitize_text_field( wp_unslash( $_POST['manage_review_label'] ) ) : '';
 				$review_label        = isset( $_POST['review_label'] ) ? sanitize_text_field( wp_unslash( $_POST['review_label'] ) ) : '';

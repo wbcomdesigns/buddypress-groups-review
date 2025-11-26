@@ -221,7 +221,6 @@ jQuery(document).ready(function (e) {
       jQ.siblings("a").removeClass("selected");
       var filter = jQ.attr("attr-val");
       var limit = jQ.parent().siblings(".group-rating-limit").val();
-      console.log(limit);
       jQuery.post(
         ajaxurl,
         {
