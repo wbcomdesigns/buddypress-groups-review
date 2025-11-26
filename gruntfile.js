@@ -181,6 +181,24 @@ module.exports = function (grunt) {
             wpcli: {
                 command: 'wp i18n make-pot . languages/bp-group-reviews.pot',
             }
+        },
+
+        // Task for generating POT file
+        makepot: {
+            target: {
+                options: {
+                    domainPath: '/languages',
+                    exclude: ['node_modules/.*'],
+                    mainFile: 'review-bp-grps.php',
+                    potFilename: 'bp-group-reviews.pot',
+                    potHeaders: {
+                        poedit: true,
+                        'x-poedit-keywordslist': true
+                    },
+                    type: 'wp-plugin',
+                    updateTimestamp: true
+                }
+            }
         }
     });
 

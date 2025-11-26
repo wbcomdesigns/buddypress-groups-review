@@ -129,13 +129,13 @@ function bp_group_review_admin_notice() {
 	echo '<div class="error"><p>';
 	if( class_exists( 'BuddyPress' ) ){
 		if(  ! bp_is_active( 'groups' ) ){
-			$bp_gp_component       = esc_html__( 'BP Group Component', 'bp-group-reviews' );
+			$bp_gp_component       = esc_html__( 'BuddyPress Groups Component', 'bp-group-reviews' );
 			/* translators: %s: search term */
-			echo sprintf( esc_html__( '%1$s is ineffective now as it requires %2$s to be installed and active and %3$s is active.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>', '<strong>' . esc_html( $bp_gp_component ) . '</strong>' );
+			echo sprintf( esc_html__( '%1$s requires %2$s to be installed and active, and the %3$s to be enabled.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>', '<strong>' . esc_html( $bp_gp_component ) . '</strong>' );
 		}
 	} else {
 		/* translators: %s: search term */
-			echo sprintf( esc_html__( '%1$s is ineffective now as it requires %2$s to be installed and active.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>' );
+			echo sprintf( esc_html__( '%1$s requires %2$s to be installed and active.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>' );
 	}
 	if( isset( $_GET['activate'] ) ) {
 		unset( $_GET['activate'] );
@@ -153,7 +153,7 @@ function bp_group_review_admin_notice() {
 function bp_group_review_admin_group_notice() {
 	?>
 	<div class="error notice is-dismissible">
-		<p><?php esc_html_e( 'The Review BuddyPress Groups plugin requires BuddyPress User Groups Component to be active.', 'bp-group-reviews' ); ?></p>
+		<p><?php esc_html_e( 'BuddyPress Group Reviews requires the BuddyPress Groups Component to be active.', 'bp-group-reviews' ); ?></p>
 	</div>
 	<?php
 }

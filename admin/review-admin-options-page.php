@@ -209,7 +209,7 @@ function bp_group_review_general_setting() {
             <div class="bgr-row wbcom-settings-section-wrap">
                 <div class="wbcom-settings-section-options-heading">
                     <label><?php esc_html_e( 'Enable Auto Approval of Reviews', 'bp-group-reviews' ); ?></label>
-                    <p class="description"><?php esc_html_e( 'Automatically approve reviews, or require manual approval.', 'bp-group-reviews' ); ?></p>
+                    <p class="description"><?php esc_html_e( 'Automatically publish reviews without requiring group admin approval.', 'bp-group-reviews' ); ?></p>
                 </div>
                 <div class="wbcom-settings-section-options">
                     <label class="wb-switch" for="bgr-auto-approve-reviews">
@@ -222,7 +222,7 @@ function bp_group_review_general_setting() {
             <div class="bgr-row wbcom-settings-section-wrap">
                 <div class="wbcom-settings-section-options-heading">
                     <label for="reviews_per_page"><?php esc_html_e( 'Reviews Per Page', 'bp-group-reviews' ); ?></label>
-                    <p class="description"><?php esc_html_e( 'Limit the number of reviews shown per page in the "Group Reviews" and "Manage Reviews" tabs.', 'bp-group-reviews' ); ?></p>
+                    <p class="description"><?php esc_html_e( 'Number of reviews to display per page.', 'bp-group-reviews' ); ?></p>
                 </div>
                 <div class="wbcom-settings-section-options">
                     <input id="reviews_per_page" class="small-text" name="reviews_per_page" step="1" min="1" value="<?php echo esc_attr( $reviews_per_page ); ?>" type="number">
@@ -233,7 +233,7 @@ function bp_group_review_general_setting() {
                 <div class="wbcom-settings-section-options-heading">
                     <label><?php esc_html_e( 'Enable BuddyPress Notifications', 'bp-group-reviews' ); ?></label>
                     <?php if ( bp_is_active( 'notifications' ) ) { ?>
-                        <p class="description"><?php esc_html_e( 'Send notifications to group admins and reviewers when a review is added, accepted, or denied.', 'bp-group-reviews' ); ?></p>
+                        <p class="description"><?php esc_html_e( 'Notify group admins and reviewers about review activities.', 'bp-group-reviews' ); ?></p>
                     <?php } else { ?>                        
                         <p class="description">
                         <?php 
@@ -259,7 +259,7 @@ function bp_group_review_general_setting() {
                 <div class="wbcom-settings-section-options-heading">
                     <label><?php esc_html_e( 'Enable Review Activity', 'bp-group-reviews' ); ?></label>
                     <?php if ( bp_is_active( 'activity' ) ) { ?>
-                        <p class="description"><?php esc_html_e( 'Generate group review activities.', 'bp-group-reviews' ); ?></p>
+                        <p class="description"><?php esc_html_e( 'Post group reviews to the activity stream.', 'bp-group-reviews' ); ?></p>
                     <?php } else { ?>
                         <p class="description">
                         <?php 
@@ -360,25 +360,24 @@ function bp_group_review_emails_setting() {
                         'bgr_allow_email' => 'yes',
                         'review_email_subject' => 'New Review Submitted for Your Group [group-name] on [site-name]',
                         'review_email_message' => 'Hello [admin-name],<br><br>
-                            We are excited to inform you that a new review has been submitted for your group [group-name], by [user-name]. Your members\'s feedback is invaluable in fostering a vibrant and engaging community.<br><br>
-                            You can read and respond to the review by following the link below:[review-link]<br><br>
-                            Thank you for creating a space where members can share their thoughts and experiences. Keep up the great work!<br><br>
+                            A new review has been submitted for your group [group-name] by [user-name].<br><br>
+                            You can view and respond to the review here: [review-link]<br><br>
+                            Thank you for creating a space where members can share their experiences!<br><br>
                             Best regards,<br>
                             The [site-name] Team',
                         'bgr_accept_enable' => 'yes',
-                        'review_accept_email_subject' => 'Your review for the Group [group-name] on [site-name] is approved',
+                        'review_accept_email_subject' => 'Your Review for [group-name] on [site-name] Has Been Approved',
                         'review_accept_email_message' => 'Hello [user-name],<br><br>
-                            We are pleased to inform you that your review for the group, [group-name] on [site-name] has been reviewed and approved by the administrator.<br><br>
-                            We appreciate the time and effort you took to share your thoughts about the group.[review-link]<br><br>
-                            Thank you for being an active and valuable member of our community.<br><br>
+                            Your review for [group-name] on [site-name] has been approved and is now published.<br><br>
+                            Thank you for sharing your thoughts with the community. View your review here: [review-link]<br><br>
                             Best regards,<br>
                             The [site-name] Team',
                         'bgr_deny_email' => 'yes',
-                        'review_deny_email_subject' => 'Your review for the Group [group-name] on [site-name] is denied',
+                        'review_deny_email_subject' => 'Your Review for [group-name] on [site-name] Was Not Approved',
                         'review_deny_email_message' => 'Hello [user-name],<br><br>
-                            We regret to inform you that after careful consideration, your review for the group, [group-name] on [site-name] has been denied by the administrator.<br><br>
-                            While we appreciate your willingness to share your thoughts and feedback, it seems that certain aspects of the review did not align with our community guidelines or policies.[review-link]<br><br>
-                            Thank you for your understanding and cooperation.<br><br>
+                            Your review for [group-name] on [site-name] was not approved by the group administrator.<br><br>
+                            If you have questions about our community guidelines, please contact the group admin.<br><br>
+                            Thank you for your understanding.<br><br>
                             Best regards,<br>
                             The [site-name] Team',
                     );

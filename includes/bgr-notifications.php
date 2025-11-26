@@ -247,9 +247,9 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 				$notification_link = $group_link .'admin/'. sanitize_title( 'manage-'.bp_group_review_tab_slug() );
 			}
 			/* translators: %1$s is replaced with review_label */
-			$notification_title = sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
+			$notification_title = sprintf( esc_html__( 'A new %1$s was posted.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s, %2$s and %3$s is replaced with user_name, review_label and group name respectively */
-			$notification_content = sprintf( esc_html__( '%1$s posted a %2$s for %3$s.', 'bp-group-reviews' ), $user_name, $review_label, $group_name );
+			$notification_content = sprintf( esc_html__( '%1$s posted a %2$s for %3$s.', 'bp-group-reviews' ), $user_name, strtolower( $review_label ), $group_name );
 			$notification_link    = add_query_arg( array( 'referer' => 'add_reviews', 'id' => $id ), $notification_link );			// for identification of mark as read action 
 			$notification_link    = wp_nonce_url( $notification_link, 'mark-as-read-notification-' . $grp_id );		// for security purpose when mark as read notification.
 			if ( 'string' == $format ) {
@@ -287,7 +287,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			/* translators: %1$s is replaced with review_label */
 			$notification_title = sprintf( esc_html__( '%1$s accepted.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s and %2$s is replaced with review_label and group name resepectively*/
-			$notification_content = sprintf( esc_html__( 'Your %1$s for %2$s accepted by group admin.', 'bp-group-reviews' ), $review_label, $group_name );
+			$notification_content = sprintf( esc_html__( 'Your %1$s for %2$s was accepted by the group admin.', 'bp-group-reviews' ), strtolower( $review_label ), $group_name );
 			$notification_link           = add_query_arg( array( 'referer' => 'accept_reviews', 'id' =>$id ), $notification_link );			// for identification of mark as read action 
 			$notification_link           = wp_nonce_url( $notification_link, 'mark-as-read-notification-' . $grp_id );		// for security purpose when mark as read notification.
 
@@ -327,7 +327,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			/* translators: %1$s is replaced with review_label */
 			$notification_title = sprintf( esc_html__( '%1$s denied.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s and %2$s is replaced with review_label and group_name respectively */
-			$notification_content = sprintf( esc_html__( 'Your %1$s for %2$s denied by group admin.', 'bp-group-reviews' ), $review_label, $group_name );
+			$notification_content = sprintf( esc_html__( 'Your %1$s for %2$s was denied by the group admin.', 'bp-group-reviews' ), strtolower( $review_label ), $group_name );
 			$notification_link           = add_query_arg( array( 'referer' => 'deny_reviews', 'id' => $id ), $notification_link );			// for identification of mark as read action 
 			$notification_link           = wp_nonce_url( $notification_link, 'mark-as-read-notification-' . $grp_id );		// for security purpose when mark as read notification.
 

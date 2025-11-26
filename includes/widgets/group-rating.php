@@ -256,7 +256,7 @@ class bgr_single_group_rating_widget extends WP_Widget {
 			?>
 			<div id="message" class="info">
 			<?php
-			esc_html_e( 'No Rating has been given by any member yet!', 'bp-group-reviews' );
+			esc_html_e( 'No ratings have been given by any members yet.', 'bp-group-reviews' );
 			?>
 			</div>
 			<?php

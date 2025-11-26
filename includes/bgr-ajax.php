@@ -166,7 +166,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 						$bgr_user_count++;
 					}
 				} else {
-					$html .= '<p>' . esc_html__( 'No Rating has been given by any member yet!', 'bp-group-reviews' ) . '</p>';
+					$html .= '<p>' . esc_html__( 'No ratings have been given by any members yet.', 'bp-group-reviews' ) . '</p>';
 				}
 				$result = array(
 					'html' => $html,
@@ -367,15 +367,15 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			}
 			if ( $user_post_count > 0 ) {
 				/* translators: %1$s is replaced with review_label */
-				$review_add_msg = sprintf( __( 'You already posted a %1$s for this group.', 'bp-group-reviews' ), $review_label );
+				$review_add_msg = sprintf( __( 'You have already submitted a %1$s for this group.', 'bp-group-reviews' ), strtolower( $review_label ) );
 			} else {
 				if ( $auto_approve_reviews == 'yes' ) {
 					/* translators: %1$s is replaced with review_label */
-					$review_add_msg = sprintf( __( 'Thank you for taking time to write this wonderful %1$s.', 'bp-group-reviews' ), strtolower( $review_label ) );
+					$review_add_msg = sprintf( __( 'Thank you for sharing your %1$s!', 'bp-group-reviews' ), strtolower( $review_label ) );
 					$review_status  = 'publish';
 				} else {
 					/* translators: %1$s is replaced with review_label */
-					$review_add_msg = sprintf( __( 'Thank you for taking time to write this wonderful %1$s. Your %1$s will display after moderator\'s approval.', 'bp-group-reviews' ), strtolower( $review_label ) );
+					$review_add_msg = sprintf( __( 'Thank you for your %1$s! It will be published after the group admin approves it.', 'bp-group-reviews' ), strtolower( $review_label ) );
 					$review_status  = 'draft';
 				}
 
@@ -441,9 +441,9 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					);
 				}else{
 					$submit_message = 'Hello [admin-name],<br><br>
-					We are excited to inform you that a new review has been submitted for your group [group-name], by [user-name]. Your members\'s feedback is invaluable in fostering a vibrant and engaging community.<br><br>
-					You can read and respond to the review by following the link below:[review-link]<br><br>
-					Thank you for creating a space where members can share their thoughts and experiences. Keep up the great work!<br><br>
+					A new review has been submitted for your group [group-name] by [user-name].<br><br>
+					You can view and respond to the review here: [review-link]<br><br>
+					Thank you for creating a space where members can share their experiences!<br><br>
 					Best regards,<br>
 					The [site-name] Team';
 					$mail_content = str_replace(
@@ -541,10 +541,9 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					$bp_group_review_email_settings['review_accept_email_message']
 				);
 			}else{
-				$accept_message = 'Hello [admin-name],<br><br>
-				We are pleased to inform you that your review for the group, [group-name] on [site-name] has been reviewed and approved by the administrator.<br><br>
-				We appreciate the time and effort you took to share your thoughts about the group.[review-link]<br><br>
-				Thank you for being an active and valuable member of our community.<br><br>
+				$accept_message = 'Hello [user-name],<br><br>
+				Your review for [group-name] on [site-name] has been approved and is now published.<br><br>
+				Thank you for sharing your thoughts with the community. View your review here: [review-link]<br><br>
 				Best regards,<br>
 				The [site-name] Team';
 				$mail_content = str_replace(
@@ -629,10 +628,10 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					$bp_group_review_email_settings['review_deny_email_message']
 				);
 			} else{
-				$deny_message = 'Hello [admin-name],<br><br>
-				We regret to inform you that after careful consideration, your review for the group, [group-name] on [site-name] has been denied by the administrator.<br><br>
-				While we appreciate your willingness to share your thoughts and feedback, it seems that certain aspects of the review did not align with our community guidelines or policies.[review-link]<br><br>
-				Thank you for your understanding and cooperation.<br><br>
+				$deny_message = 'Hello [user-name],<br><br>
+				Your review for [group-name] on [site-name] was not approved by the group administrator.<br><br>
+				If you have questions about our community guidelines, please contact the group admin.<br><br>
+				Thank you for your understanding.<br><br>
 				Best regards,<br>
 				The [site-name] Team';
 				$mail_content = str_replace(
