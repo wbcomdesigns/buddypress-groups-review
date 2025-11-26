@@ -67,9 +67,23 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 				return;
 			}
 
-			$group_name        = bp_get_current_group_name();
-			$group_description = bp_get_current_group_description();
-			$group_link        = function_exists( 'bp_get_group_url' ) ? bp_get_group_url() : bp_get_group_permalink();
+			// Get group object safely to avoid BuddyBoss template errors.
+			$group = groups_get_group( $group_id );
+			if ( ! $group ) {
+				return;
+			}
+
+			$group_name        = bp_get_group_name( $group );
+			$group_description = bp_get_group_description( $group );
+
+			// Build group URL safely without relying on template globals.
+			if ( function_exists( 'bp_get_group_url' ) ) {
+				// BuddyPress 12.0+
+				$group_link = bp_get_group_url( $group );
+			} else {
+				// Fallback: build URL manually to avoid template dependency.
+				$group_link = bp_get_groups_directory_permalink() . $group->slug . '/';
+			}
 
 			// Calculate aggregate rating.
 			$total_reviews        = count( $reviews );
