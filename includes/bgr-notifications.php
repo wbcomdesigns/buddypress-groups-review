@@ -286,8 +286,9 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 				// Fallback for older versions - build URL manually.
 				$group_link = bp_get_groups_directory_permalink() . $group->slug . '/';
 			}
-			
-			$notification_link = trailingslashit( $group_link . 'admin/' . sanitize_title( 'view-' . bp_group_review_tab_slug() )."/$review_id/" );
+
+			// Link to public reviews tab (not admin) so members can access it.
+			$notification_link = trailingslashit( $group_link . bp_group_review_tab_slug() );
 			/* translators: %1$s is replaced with review_label */
 			$notification_title = sprintf( esc_html__( '%1$s accepted.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s and %2$s is replaced with review_label and group name resepectively*/
