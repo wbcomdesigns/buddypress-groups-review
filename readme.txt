@@ -139,6 +139,7 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 * Fix: Managed manage review tab icons when label changes.
 * Fix: Fixed fatal error with BuddyBoss when approving/viewing reviews in Schema markup.
 * Fix: Fixed potential fatal errors in notification system with BuddyBoss.
+* Fix: Fixed notifications not clickable in BuddyBoss - notifications now have proper links.
 
 = 3.4.0 = 
 * Added: Review tab visibility for logged-out users.  
