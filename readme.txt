@@ -140,6 +140,7 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 * Fix: Fixed fatal error with BuddyBoss when approving/viewing reviews in Schema markup.
 * Fix: Fixed potential fatal errors in notification system with BuddyBoss.
 * Fix: Fixed notifications not clickable in BuddyBoss - notifications now have proper links.
+* Fix: Fixed review acceptance notification redirecting to admin page causing "access denied" error for members.
 
 = 3.4.0 = 
 * Added: Review tab visibility for logged-out users.  
