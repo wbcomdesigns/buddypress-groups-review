@@ -107,7 +107,9 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 					$style_extension = is_rtl() ? '.rtl.css' : '.min.css';
 					$style_path      = is_rtl() ? '/rtl' : '/min';
 				}
-				wp_register_style( 'bgr-font-awesome', 'https://use.fontawesome.com/releases/v5.4.2/css/all.css', array(), BGR_PLUGIN_VERSION, 'all' );
+				// Note: FontAwesome should be included locally or use WordPress Dashicons instead.
+				// Removed external CDN to comply with WordPress.org guidelines (no offloading).
+				// wp_register_style( 'bgr-font-awesome', 'https://use.fontawesome.com/releases/v5.4.2/css/all.css', array(), BGR_PLUGIN_VERSION, 'all' );
 				wp_register_style( 'bgr-reviews-css', BGR_PLUGIN_URL . 'assets/css'.$style_path.'/bgr-reviews'.$style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
 				wp_register_style( 'bgr-front-css', BGR_PLUGIN_URL . 'assets/css'.$style_path.'/bgr-front'.$style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
 				wp_register_style( 'bgr-ratings-css', BGR_PLUGIN_URL . 'assets/css'.$style_path.'/bgr-ratings'.$style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
@@ -117,7 +119,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				wp_register_script( 'bgr-accessibility-js', BGR_PLUGIN_URL . 'assets/js/bgr-accessibility.js', array( 'jquery' ), BGR_PLUGIN_VERSION, true );
 
 
-				wp_enqueue_style( 'bgr-font-awesome' );
+				// wp_enqueue_style( 'bgr-font-awesome' ); // Commented out - external CDN not allowed on WordPress.org
 				wp_enqueue_style( 'bgr-reviews-css' );
 				wp_enqueue_style( 'bgr-front-css' );
 				wp_enqueue_script( 'bgr-front-js' );

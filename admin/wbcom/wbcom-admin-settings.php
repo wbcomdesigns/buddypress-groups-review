@@ -191,9 +191,10 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 				$style_extension = is_rtl() ? '.rtl.css' : '.min.css';
 				$style_path      = is_rtl() ? '/rtl' : '/min';
 			}
-			if ( ! wp_style_is( 'font-awesome', 'enqueued' ) ) {
-				wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' );
-			}
+			// Removed external FontAwesome CDN to comply with WordPress.org guidelines (no external resource offloading).
+			// if ( ! wp_style_is( 'font-awesome', 'enqueued' ) ) {
+			// 	wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' );
+			// }
 			if ( ! wp_script_is( 'wbcom_admin_setting_js', 'enqueued' ) ) {
 				wp_register_script(
 					'wbcom_admin_setting_js',

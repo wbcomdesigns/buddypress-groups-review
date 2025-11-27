@@ -491,7 +491,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						$post_count++;
 					}
 				endif;
-				wp_reset_query();
+				wp_reset_postdata(); // Use wp_reset_postdata() instead of deprecated wp_reset_query()
 				$user               = bp_get_loggedin_user_username();
 				$count_notification = '<span>' . $post_count . '</span>';
 				// Build group URL safely for both BuddyPress and BuddyBoss.
@@ -516,6 +516,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 							);
 
 							$tab_args[] = array(
+								/* translators: %s: review label (e.g., "Review") */
 								'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
 								'slug'            => 'add-' . bp_group_review_tab_slug(),
 								'parent_slug'     => $bp->groups->current_group->slug,
@@ -541,6 +542,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						);
 
 						$tab_args[] = array(
+							/* translators: %s: review label (e.g., "Review") */
 							'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
 							'slug'            => 'add-' . bp_group_review_tab_slug(),
 							'parent_slug'     => $bp->groups->current_group->slug,
@@ -566,6 +568,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					);
 
 					$tab_args[] = array(
+						/* translators: %s: review label (e.g., "Review") */
 						'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
 						'slug'            => 'add-' . bp_group_review_tab_slug(),
 						'parent_slug'     => $bp->groups->current_group->slug,

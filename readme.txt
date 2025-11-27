@@ -3,7 +3,7 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
-Tested up to: 6.8.3
+Tested up to: 6.8
 Requires PHP: 7.4
 Stable tag: 3.5.0
 License: GPLv2 or later
