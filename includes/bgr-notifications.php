@@ -234,7 +234,9 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$admin_id     = bp_displayed_user_id();
 			$group        = groups_get_group( array( 'group_id' => $grp_id ) );
 			$group_name   = $group->name;
-			$user_info    = get_userdata( $user_id );
+			// $review_id is actually the member_id who posted the review (item_id from notification).
+			// $user_id is the admin who receives the notification.
+			$user_info    = get_userdata( $review_id );
 			$user_name    = $user_info->user_login;
 			// Build group URL safely for both BuddyPress and BuddyBoss.
 			if ( function_exists( 'bp_get_group_url' ) ) {
@@ -243,10 +245,13 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 				// Fallback for older versions - build URL manually.
 				$group_link = bp_get_groups_directory_permalink() . $group->slug . '/';
 			}
+			$review_plural_label = ! empty( $bgr['manage_review_label'] ) ? sanitize_title( $bgr['manage_review_label'] ) : 'reviews';
 			if ( $bgr['auto_approve_reviews'] == 'yes' ) {
-				$notification_link = $group_link . 'reviews/add-' . bp_group_review_tab_slug() . '/';
+				// For auto-approved reviews, link to the public reviews tab.
+				$notification_link = trailingslashit( $group_link . $review_plural_label );
 			} else {
-				$notification_link = $group_link .'admin/'. sanitize_title( 'manage-'.bp_group_review_tab_slug() );
+				// For non-auto-approved, link to admin area to manage reviews.
+				$notification_link = $group_link . 'admin/' . sanitize_title( 'manage-' . bp_group_review_tab_slug() );
 			}
 			/* translators: %1$s is replaced with review_label */
 			$notification_title = sprintf( esc_html__( 'A new %1$s was posted.', 'bp-group-reviews' ), $review_label );
@@ -288,7 +293,9 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			}
 
 			// Link to public reviews tab (not admin) so members can access it.
-			$notification_link = trailingslashit( $group_link . bp_group_review_tab_slug() );
+			// Use manage_review_label (defaults to 'reviews') instead of bp_group_review_tab_slug() (returns 'review').
+			$review_plural_label = ! empty( $bgr['manage_review_label'] ) ? sanitize_title( $bgr['manage_review_label'] ) : 'reviews';
+			$notification_link = trailingslashit( $group_link . $review_plural_label );
 			/* translators: %1$s is replaced with review_label */
 			$notification_title = sprintf( esc_html__( '%1$s accepted.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s and %2$s is replaced with review_label and group name resepectively*/
