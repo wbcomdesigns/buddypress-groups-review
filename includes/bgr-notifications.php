@@ -93,46 +93,59 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		public function bp_group_review_mark_group_notification_as_read() {
 			$current_user_id = get_current_user_id();
 			$group_id        = bp_get_current_group_id();
-			if ( ( ! bp_is_groups_component() || ! bp_is_current_action('reviews') ) && ( ! isset( $_GET['referer'] ) || empty( $_GET['referer'] ) || ! bp_verify_nonce_request( "mark-as-read-notification-{$group_id}" ) ) ) {		// phpcs:ignore
+
+			// Security: Must be on groups component and reviews action.
+			if ( ! bp_is_groups_component() || ! bp_is_current_action( 'reviews' ) ) {
 				return;
 			}
-			if ( isset( $_GET['referer'] ) && 'add_reviews' == $_GET['referer'] ) {		// phpcs:ignore
-				if ( bp_verify_nonce_request( "mark-as-read-notification-{$group_id}" ) ) {
-					BP_Notifications_Notification::update(
-						array( 'is_new' => false ),
-						array(
-							'component_action'  => 'bgr_add_review_action',
-							'user_id'           => $current_user_id,
-							'id'                => $_GET['id'],
-						)
-					);
-				}
+
+			// Security: Must have referer parameter.
+			if ( ! isset( $_GET['referer'] ) || empty( $_GET['referer'] ) ) {		// phpcs:ignore
+				return;
 			}
 
-			if (  isset( $_GET['referer'] ) && 'accept_reviews' == $_GET['referer'] ) {			// phpcs:ignore
-						if ( bp_verify_nonce_request( "mark-as-read-notification-{$group_id}" ) ) {
-							BP_Notifications_Notification::update(
-								array( 'is_new' => false ),
-								array(
-									'component_action'  => 'bgr_accept_review_action',
-									'user_id'           => $current_user_id,
-									'id'                => $_GET['id'],
-								)
-							);
-						}
-					}
+			// Security: Verify nonce.
+			if ( ! bp_verify_nonce_request( "mark-as-read-notification-{$group_id}" ) ) {
+				return;
+			}
 
-			if (  isset( $_GET['referer'] ) && 'deny_reviews' == $_GET['referer'] ) {		// phpcs:ignore
-				if ( bp_verify_nonce_request( "mark-as-read-notification-{$group_id}" ) ) {
-					BP_Notifications_Notification::update(
-						array( 'is_new' => false ),
-						array(
-							'component_action'  => 'bgr_deny_review_action',
-							'user_id'           => $current_user_id,
-							'id'                => $_GET['id'],
-						)
-					);
-				}
+			// Security: Sanitize and validate notification ID.
+			$notification_id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;		// phpcs:ignore
+			if ( $notification_id <= 0 ) {
+				return;
+			}
+
+			// Sanitize referer.
+			$referer = sanitize_text_field( wp_unslash( $_GET['referer'] ) );		// phpcs:ignore
+
+			// Mark notification as read based on referer type.
+			if ( 'add_reviews' === $referer ) {
+				BP_Notifications_Notification::update(
+					array( 'is_new' => false ),
+					array(
+						'component_action' => 'bgr_add_review_action',
+						'user_id'          => $current_user_id,
+						'id'               => $notification_id,
+					)
+				);
+			} elseif ( 'accept_reviews' === $referer ) {
+				BP_Notifications_Notification::update(
+					array( 'is_new' => false ),
+					array(
+						'component_action' => 'bgr_accept_review_action',
+						'user_id'          => $current_user_id,
+						'id'               => $notification_id,
+					)
+				);
+			} elseif ( 'deny_reviews' === $referer ) {
+				BP_Notifications_Notification::update(
+					array( 'is_new' => false ),
+					array(
+						'component_action' => 'bgr_deny_review_action',
+						'user_id'          => $current_user_id,
+						'id'               => $notification_id,
+					)
+				);
 			}
 		}
 
@@ -229,9 +242,8 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		 * @param  string $format Notification format.
 		 */
 		public function bp_group_review_add_review_notification_format( $grp_id, $review_id, $user_id, $id, $format = '' ) {
-			global $bp, $bgr;
+			global $bgr;
 			$review_label = $bgr['review_label'];
-			$admin_id     = bp_displayed_user_id();
 			$group        = groups_get_group( array( 'group_id' => $grp_id ) );
 			$group_name   = $group->name;
 			// $review_id is actually the member_id who posted the review (item_id from notification).
@@ -324,9 +336,8 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		 */
 		public function bp_group_review_deny_review_notification_format( $grp_id, $review_id, $id, $format = '' ) {
 			global $bgr;
-			global $bp;
 			$review_label      = $bgr['review_label'];
-			$group             = groups_get_group( array( 'group_id' => $grp_id ) );			
+			$group             = groups_get_group( array( 'group_id' => $grp_id ) );
 			$group_name        = $group->name;
 			// Build group URL safely for both BuddyPress and BuddyBoss.
 			if ( function_exists( 'bp_get_group_url' ) ) {
@@ -336,8 +347,8 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 				$group_link = bp_get_groups_directory_permalink() . $group->slug . '/';
 			}
 
-			$review_plural_label = !empty( $bgr['manage_review_label'] ) ? strtolower( $bgr['manage_review_label'] ) : 's';
-			$notification_link   = $group_link . $review_plural_label;
+			$review_plural_label = ! empty( $bgr['manage_review_label'] ) ? sanitize_title( $bgr['manage_review_label'] ) : 'reviews';
+			$notification_link   = trailingslashit( $group_link . $review_plural_label );
 			/* translators: %1$s is replaced with review_label */
 			$notification_title = sprintf( esc_html__( '%1$s denied.', 'bp-group-reviews' ), $review_label );
 			/* translators: %1$s and %2$s is replaced with review_label and group_name respectively */
