@@ -5,7 +5,7 @@ Tags: buddypress, groups
 Requires at least: 4.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.5.0
+Stable tag: 3.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,10 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 8. Review submission at single group.(png|jpg|jpeg|gif).
 
 == Changelog ==
+
+= 3.5.1 =
+* Fixed: PHP warning when accessing group slug property on certain server configurations
+* Fixed: BuddyBoss notification links now properly clickable - notifications take you to the correct review page
 
 = 3.5.0 =
 * New: Mobile app and headless CMS support - Reviews now work with custom mobile apps
