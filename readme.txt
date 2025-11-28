@@ -111,124 +111,77 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 == Changelog ==
 
 = 3.5.0 =
-* Enhancement: Added BuddyPress REST API integration for headless/mobile app support.
-* Enhancement: Implemented Schema.org JSON-LD structured data for improved SEO.
-* Enhancement: Added WCAG 2.1 AA accessibility features (keyboard navigation, ARIA labels, screen reader support).
-* Enhancement: Implemented clean uninstall process that removes all plugin data.
-* Enhancement: Created comprehensive user guide and developer documentation.
-* Enhancement: Added WordPress.org distribution build process using Grunt.
-* Improvement: Replaced hardcoded role checks with capability-based permission system.
-* Improvement: Improved user-facing language and text uniformity throughout the plugin.
-* Improvement: Updated scripts enqueue logic for better performance.
-* Improvement: Implemented consistent function prefixes across all functions.
-* Improvement: Modified scripts enqueue conditional checks for better compatibility.
-* Fix: Removed duplicate Schema.org microdata markup (kept JSON-LD only).
-* Fix: Removed all debug console.log statements from JavaScript files.
-* Fix: Resolved phpcs coding standard issues.
-* Fix: Resolved PHP warnings and deprecated function errors.
-* Fix: Fixed notifications mark read issue.
-* Fix: Fixed notifications link issue with BuddyBoss.
-* Fix: Fixed notifications redirection issue with BuddyPress.
-* Fix: Resolved issue related to email settings save.
-* Fix: Resolved issue with scripts not getting enqueued properly.
-* Fix: Fixed code related issues with wp_editor.
-* Fix: Removed activation notice when plugin activation failed.
-* Fix: Resolved issue related to GamiPress event trigger.
-* Fix: Hide manage reviews tab when group is excluded from reviews.
-* Fix: Managed add review button UI with Reign theme.
-* Fix: Managed manage review tab icons when label changes.
-* Fix: Fixed fatal error with BuddyBoss when approving/viewing reviews in Schema markup.
-* Fix: Fixed potential fatal errors in notification system with BuddyBoss.
-* Fix: Fixed notifications not clickable in BuddyBoss - notifications now have proper links.
-* Fix: Fixed review acceptance notification redirecting to admin page causing "access denied" error for members.
+* New: Mobile app and headless CMS support - Reviews now work with custom mobile apps
+* New: Better search engine visibility with improved SEO markup
+* New: Enhanced accessibility for users with disabilities (keyboard navigation and screen reader support)
+* New: Clean uninstall option - Removes all plugin data when you delete the plugin
+* Improved: Faster page loading with optimized CSS and JavaScript
+* Improved: Better compatibility with popular themes (Reign, BuddyX)
+* Improved: More consistent and clearer interface text throughout the plugin
+* Fixed: Notifications now work properly with BuddyBoss - clickable links and correct redirects
+* Fixed: Review notifications now take members to the correct page instead of showing "access denied"
+* Fixed: Email notification settings now save correctly
+* Fixed: Manage Reviews tab now properly hidden for excluded groups
+* Fixed: Tab icons display correctly when you customize tab labels
+* Fixed: GamiPress integration now triggers events correctly
+* Fixed: Various errors and warnings that could appear on some server configurations
 
-= 3.4.0 = 
-* Added: Review tab visibility for logged-out users.  
-* Added: Managed rating icon compatibility with Youzify.  
-* Fixed: Review approval issue.  
-* Fixed: Group review translation issue with Loco Translate.  
-* Fixed: Next-line break issue in email notifications.  
-* Fixed: Issue where user avatar changed to the approver's avatar when auto-approval was off.  
-* Fixed: Two notices appearing when multiple reviews were disabled.  
-* Fixed: RTL CSS duplicate issue.  
-* Fixed: Activity issue when private or hidden group activity was appearing in sitewide activity.  
-* Fixed: Review tab name issue on fresh setups.  
-* Fixed: PHP warnings during plugin activation with multiple plugins.  
-* Fixed: Email settings not working issue.  
-* Fixed: Wrong redirect URL issue.  
-* Fixed: Pagination issue in the manage review tab.  
-* Updated: Changed default rating color.  
-* Updated: Managed backend notice UI for better visibility.  
-* Updated: Managed review UI in sitewide activity for better integration.  
-* Updated: Managed manage review UI with Youzify.  
-* Updated: Improved review tab label and created a manage review tab.  
-* Updated: Adjusted font weight for backend setting headings.  
-* Improved: Minified and optimized CSS and JavaScript for better performance.  
-* Improved: Removed unwanted code and files for a cleaner codebase.  
-* Improved: Implemented JS and CSS fixes for group listing page issues.  
-* Improved: Managed UI elements for better compatibility with Youzify.  
+= 3.4.0 =
+* New: Visitors can now view reviews without logging in
+* New: Better compatibility with Youzify theme
+* Improved: Faster performance with optimized code
+* Improved: Cleaner admin interface with better visibility
+* Improved: Better translation support for multiple languages
+* Fixed: Reviews now approve correctly
+* Fixed: Email notifications display properly with correct line breaks
+* Fixed: Member avatars display correctly in reviews
+* Fixed: Private group reviews no longer appear in public activity feed
+* Fixed: Review tab appears with correct name on new installations
+* Fixed: Pagination works properly in Manage Reviews section
+* Fixed: Email settings now save correctly
+* Fixed: Various compatibility issues with Youzify theme  
 
 = 3.3.0 =
-* Fixed PHP warnings and fatal errors with BuddyBoss integration.
-* Fixed sanitization in `review-bp-grps.php`, `class-bgr-multi-support.php`, and `bgr-ajax.php`.
-* Fixed widget filter review in `bgr-ajax.php`.
-* Fixed issues with button name in the manage tab in single groups.
-* Added icon for "Add Review" and review listing in Youzify.
-* Fixed warnings and missing review menu issues.
-* Resolved UI issues with the "Add Review" button and group rating on mobile views.
-* Fixed group review tab issue in BuddyBoss.
-* Fixed post type capability and pagination for group reviews.
-* Resolved sub-navigation UI issue in Youzify.
-* Fixed UI for Youzify review list and "Rating" header text.
-* Fixed excluded groups issue in reviews.
-* Resolved issue with activity content changes in Youzify.
-* Added multisite support for BuddyPress Group Reviews plugin.
-* Configured default options for BuddyPress Group Reviews plugin.
-* Fixed error when accepting a review.
-* Fixed notification and email issues on review submission.
-* Updated username to display instead of admin name.
-* Fixed issue when the group component is disabled.
-* Removed shortcode tab from admin options.
-* Resolved editor role access to modify review descriptions.
-* Fixed display of current group review count.
-* Fixed review count not visible on the tab.
-* Fixed issue with enabling the review activity tab in group reviews.
-* Added feedback form for user submissions.
-* Fixed UI for "Add Review" button with BuddyBoss mobile view.
-* Fixed "Add Review" button visibility for group admins in BP and BB.
-* Updated activity action for group reviews.
-* Hidden single review and archive pages for better compatibility.
+* New: Multisite network support - Use the plugin across multiple sites
+* New: Icons for "Add Review" button and review listings in Youzify theme
+* Improved: Better security with enhanced data validation
+* Improved: Mobile-friendly interface for adding reviews and viewing ratings
+* Fixed: Compatibility issues with BuddyBoss platform
+* Fixed: Review pagination now works correctly
+* Fixed: Review counts display properly on group tabs
+* Fixed: Excluded groups setting now works as expected
+* Fixed: Errors when accepting reviews
+* Fixed: Email notifications send correctly when reviews are submitted
+* Fixed: Review tab displays correctly in BuddyBoss
+* Fixed: Various interface improvements for Youzify theme compatibility
 
 = 3.2.2 =
-* Fix: Resolved an issue with the review UI to enhance visual presentation and functionality.
-* Update: Hid filter dropdown on review listings for a cleaner user interface.
-* Enhancement: Managed activity and reviewed UIs for improved user experience.
-* Fix: Corrected pagination issues to ensure smooth navigation through pages.
-* Fix: Fixed an issue where the 'Add Review' button was not displayed, restoring its functionality.
-* Enhancement: Managed group list and enhanced the 'Add Review' UI for better user interaction.
-* Fix: Addressed an issue where reviews were not displayed on the directory and removed redundant group extension code.
-* Addition: Added functionality to submit reviews without criteria, simplifying the review process.
-* Fix: Fixed an issue with review criteria options in admin settings to ensure proper configurability.
-* Fix: Ensured plugin does not activate if the group component is inactive, preventing errors in unsupported configurations.
+* New: Submit reviews without rating criteria - More flexible review options
+* Improved: Cleaner review listings with simplified interface
+* Improved: Better visual design throughout the plugin
+* Fixed: "Add Review" button now displays correctly
+* Fixed: Reviews display properly on group directory pages
+* Fixed: Pagination works smoothly
+* Fixed: Review criteria options save correctly in settings
+* Fixed: Plugin only activates when BuddyPress Groups component is active
 
 = 3.1.2 =
-* Fix: (#142) The Exclude group review option is not working.
+* Fixed: Exclude groups from reviews option now works correctly
 
 = 3.1.1 =
-* Fix: (#135)Fixed exclude group option not working with BuddyPress 12.0
-* Fix: (#139)Update option description
-* Fix: (#140)Fixed php warnings 
-* Fix: (#144)Fixed php fatal error on the widget
-* Fix: Compatibility check with WordPress 6.5.0
+* Fixed: Compatibility with BuddyPress 12.0
+* Fixed: Review widget errors
+* Fixed: Various PHP warnings
+* Updated: Compatible with WordPress 6.5.0
 
 = 3.1.0 =
-* Fix: Fixed group admin button issue
-* Fix: Fixed warning issue
-* Fix: Fixed sidebar issue in the add review tab
+* Fixed: Group admin button displays correctly
+* Fixed: Sidebar layout in add review section
+* Fixed: Various PHP warnings
 
 = 3.0.0 =
-* Fix: BuddyPress v12 support
-* Fix: WPCS Fixes
+* New: Full compatibility with BuddyPress 12.0
+* Improved: Code quality and performance enhancements
 
 = 2.9.0 =
 * Fix: (#132) Fixed two group review button
