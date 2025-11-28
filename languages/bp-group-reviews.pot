@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Wbcom Designs - BuddyPress Group Reviews 3.5.0\n"
+"Project-Id-Version: Wbcom Designs - BuddyPress Group Reviews 3.5.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/buddypress-groups-review\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-28T06:03:12+00:00\n"
+"POT-Creation-Date: 2025-11-28T09:15:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bp-group-reviews\n"
@@ -103,7 +103,7 @@ msgstr ""
 
 #: admin/bgr-admin.php:107
 #: admin/wbcom/templates/wbcom-license-page.php:9
-#: includes/bgr-filters.php:666
+#: includes/bgr-filters.php:674
 msgid "BuddyPress Group Review"
 msgstr ""
 
@@ -139,8 +139,8 @@ msgstr ""
 
 #: admin/bgr-admin.php:152
 #: admin/review-admin-options-page.php:117
-#: includes/bgr-filters.php:385
-#: includes/bgr-filters.php:475
+#: includes/bgr-filters.php:393
+#: includes/bgr-filters.php:483
 #: includes/bgr-globals.php:92
 #: includes/bgr-globals.php:96
 #: includes/bgr-globals.php:143
@@ -1314,31 +1314,31 @@ msgstr ""
 msgid "Add %1$s"
 msgstr ""
 
-#: includes/bgr-filters.php:387
+#: includes/bgr-filters.php:395
 msgid "Rating "
 msgstr ""
 
-#: includes/bgr-filters.php:435
+#: includes/bgr-filters.php:443
 msgid "View"
 msgstr ""
 
-#: includes/bgr-filters.php:439
+#: includes/bgr-filters.php:447
 msgid "Approve"
 msgstr ""
 
 #. translators: %s: review label (e.g., "Review")
-#: includes/bgr-filters.php:520
-#: includes/bgr-filters.php:546
-#: includes/bgr-filters.php:572
+#: includes/bgr-filters.php:528
+#: includes/bgr-filters.php:554
+#: includes/bgr-filters.php:580
 #, php-format
 msgid "Adds %s"
 msgstr ""
 
-#: includes/bgr-filters.php:650
+#: includes/bgr-filters.php:658
 msgid "Your Response added. This will be published when group admin has approved it."
 msgstr ""
 
-#: includes/bgr-filters.php:667
+#: includes/bgr-filters.php:675
 msgid "Give Group Review"
 msgstr ""
 
@@ -1397,25 +1397,25 @@ msgid "%1$s posted a %2$s for %3$s."
 msgstr ""
 
 #. translators: %1$s is replaced with review_label
-#: includes/bgr-notifications.php:312
+#: includes/bgr-notifications.php:315
 #, php-format
 msgid "%1$s accepted."
 msgstr ""
 
 #. translators: %1$s and %2$s is replaced with review_label and group name resepectively
-#: includes/bgr-notifications.php:314
+#: includes/bgr-notifications.php:317
 #, php-format
 msgid "Your %1$s for %2$s was accepted by the group admin."
 msgstr ""
 
 #. translators: %1$s is replaced with review_label
-#: includes/bgr-notifications.php:353
+#: includes/bgr-notifications.php:357
 #, php-format
 msgid "%1$s denied."
 msgstr ""
 
 #. translators: %1$s and %2$s is replaced with review_label and group_name respectively
-#: includes/bgr-notifications.php:355
+#: includes/bgr-notifications.php:359
 #, php-format
 msgid "Your %1$s for %2$s was denied by the group admin."
 msgstr ""
