@@ -274,9 +274,12 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			if ( 'string' == $format ) {
 				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), $notification_title, $notification_content );
 			} else {
+			// BuddyBoss expects 'link' first, then 'text' (matches BuddyBoss core notification format).
+
+
 				$return = array(
-					'text' => $notification_content,
 					'link' => $notification_link,
+					'text' => $notification_content,
 				);
 			}
 			return apply_filters( 'bp_group_review_add_review_notification_format', $return, $grp_id, $format );
@@ -317,10 +320,11 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 
 			if ( 'string' == $format ) {
 				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), $notification_title, $notification_content );
+
 			} else {
 				$return = array(
-					'text' => $notification_content,
 					'link' => $notification_link,
+					'text' => $notification_content,
 				);
 			}
 			return apply_filters( 'bp_group_review_accept_review_notification_format', $return, $grp_id, $format );
@@ -358,10 +362,11 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 
 			if ( 'string' == $format ) {
 				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), $notification_title, $notification_content );
+
 			} else {
 				$return = array(
-					'text' => $notification_content,
 					'link' => $notification_link,
+					'text' => $notification_content,
 				);
 			}
 			return apply_filters( 'bp_group_review_deny_review_notification_format', $return, $grp_id, $format );
