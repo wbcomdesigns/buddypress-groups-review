@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-26T12:39:03+00:00\n"
+"POT-Creation-Date: 2025-11-28T06:03:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bp-group-reviews\n"
@@ -103,7 +103,7 @@ msgstr ""
 
 #: admin/bgr-admin.php:107
 #: admin/wbcom/templates/wbcom-license-page.php:9
-#: includes/bgr-filters.php:663
+#: includes/bgr-filters.php:666
 msgid "BuddyPress Group Review"
 msgstr ""
 
@@ -489,7 +489,7 @@ msgid "Action"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-plugins-page.php:9
-#: admin/wbcom/wbcom-admin-settings.php:333
+#: admin/wbcom/wbcom-admin-settings.php:334
 msgid "Themes & Extensions"
 msgstr ""
 
@@ -508,8 +508,8 @@ msgstr ""
 
 #: admin/wbcom/templates/wbcom-plugins-page.php:20
 #: admin/wbcom/templates/wbcom-plugins-page.php:366
-#: admin/wbcom/wbcom-admin-settings.php:239
 #: admin/wbcom/wbcom-admin-settings.php:240
+#: admin/wbcom/wbcom-admin-settings.php:241
 msgid "Our Themes"
 msgstr ""
 
@@ -1094,8 +1094,8 @@ msgid "Allow users to share their BuddyPress activity updates easily to external
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-support-page.php:9
-#: admin/wbcom/wbcom-admin-settings.php:247
 #: admin/wbcom/wbcom-admin-settings.php:248
+#: admin/wbcom/wbcom-admin-settings.php:249
 msgid "Support"
 msgstr ""
 
@@ -1128,39 +1128,39 @@ msgstr ""
 msgid "Start a new thread on our plugin page. Participation is open to everyone globally. While we’ll be there to assist, we can’t guarantee immediate responses."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:210
-#: includes/bgr-scripts.php:199
+#: admin/wbcom/wbcom-admin-settings.php:211
+#: includes/bgr-scripts.php:200
 msgid "Activate"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:211
-#: includes/bgr-scripts.php:200
+#: admin/wbcom/wbcom-admin-settings.php:212
+#: includes/bgr-scripts.php:201
 msgid "Deactivate"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:231
 #: admin/wbcom/wbcom-admin-settings.php:232
+#: admin/wbcom/wbcom-admin-settings.php:233
 msgid "Our Plugins"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:265
+#: admin/wbcom/wbcom-admin-settings.php:266
 msgid "The plugins page template could not be found."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:279
+#: admin/wbcom/wbcom-admin-settings.php:280
 msgid "The themes page template could not be found."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:293
+#: admin/wbcom/wbcom-admin-settings.php:294
 msgid "The support page template could not be found."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:327
+#: admin/wbcom/wbcom-admin-settings.php:328
 #: review-bp-grps.php:163
 msgid "Settings"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:339
+#: admin/wbcom/wbcom-admin-settings.php:340
 msgid "Help & Support"
 msgstr ""
 
@@ -1326,18 +1326,19 @@ msgstr ""
 msgid "Approve"
 msgstr ""
 
-#: includes/bgr-filters.php:519
-#: includes/bgr-filters.php:544
-#: includes/bgr-filters.php:569
+#. translators: %s: review label (e.g., "Review")
+#: includes/bgr-filters.php:520
+#: includes/bgr-filters.php:546
+#: includes/bgr-filters.php:572
 #, php-format
 msgid "Adds %s"
 msgstr ""
 
-#: includes/bgr-filters.php:647
+#: includes/bgr-filters.php:650
 msgid "Your Response added. This will be published when group admin has approved it."
 msgstr ""
 
-#: includes/bgr-filters.php:664
+#: includes/bgr-filters.php:667
 msgid "Give Group Review"
 msgstr ""
 
@@ -1357,7 +1358,7 @@ msgid "Full Description"
 msgstr ""
 
 #: includes/bgr-grp-extn.php:201
-#: includes/bgr-scripts.php:147
+#: includes/bgr-scripts.php:148
 msgid "View More.."
 msgstr ""
 
@@ -1384,37 +1385,37 @@ msgid "Sorry, no %s were found."
 msgstr ""
 
 #. translators: %1$s is replaced with review_label
-#: includes/bgr-notifications.php:252
+#: includes/bgr-notifications.php:269
 #, php-format
 msgid "A new %1$s was posted."
 msgstr ""
 
 #. translators: %1$s, %2$s and %3$s is replaced with user_name, review_label and group name respectively
-#: includes/bgr-notifications.php:254
+#: includes/bgr-notifications.php:271
 #, php-format
 msgid "%1$s posted a %2$s for %3$s."
 msgstr ""
 
 #. translators: %1$s is replaced with review_label
-#: includes/bgr-notifications.php:293
+#: includes/bgr-notifications.php:312
 #, php-format
 msgid "%1$s accepted."
 msgstr ""
 
 #. translators: %1$s and %2$s is replaced with review_label and group name resepectively
-#: includes/bgr-notifications.php:295
+#: includes/bgr-notifications.php:314
 #, php-format
 msgid "Your %1$s for %2$s was accepted by the group admin."
 msgstr ""
 
 #. translators: %1$s is replaced with review_label
-#: includes/bgr-notifications.php:335
+#: includes/bgr-notifications.php:353
 #, php-format
 msgid "%1$s denied."
 msgstr ""
 
 #. translators: %1$s and %2$s is replaced with review_label and group_name respectively
-#: includes/bgr-notifications.php:337
+#: includes/bgr-notifications.php:355
 #, php-format
 msgid "Your %1$s for %2$s was denied by the group admin."
 msgstr ""
@@ -1428,7 +1429,7 @@ msgstr ""
 msgid "Anonymous"
 msgstr ""
 
-#: includes/bgr-scripts.php:148
+#: includes/bgr-scripts.php:149
 msgid "View Less.."
 msgstr ""
 

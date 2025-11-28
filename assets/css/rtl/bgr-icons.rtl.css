@@ -1,0 +1,135 @@
+/**
+ * BuddyPress Group Reviews - Icon Styles
+ *
+ * Replaces FontAwesome icons with CSS-based icons for WordPress.org compliance
+ * (no external CDN resources allowed)
+ *
+ * @package BuddyPress_Group_Review
+ * @since 3.5.1
+ */
+
+/* Star Icons - Full Star (fas fa-star) */
+.fas.fa-star.stars,
+.fas.fa-star.bgr-star-rate {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	line-height: 1;
+	font-style: normal;
+	font-weight: normal;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+}
+
+.fas.fa-star.stars::before,
+.fas.fa-star.bgr-star-rate::before {
+	content: "\2605"; /* ★ Unicode filled star */
+	color: #ffb900;
+	font-size: 1.2em;
+}
+
+/* Star Icons - Empty Star (far fa-star) */
+.far.fa-star.stars,
+.far.fa-star.bgr-star-rate,
+.far.fa-star.bgr-stars {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	line-height: 1;
+	font-style: normal;
+	font-weight: normal;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+}
+
+.far.fa-star.stars::before,
+.far.fa-star.bgr-star-rate::before,
+.far.fa-star.bgr-stars::before {
+	content: "\2606"; /* ☆ Unicode empty star */
+	color: #ffb900;
+	font-size: 1.2em;
+}
+
+/* Star Icons - Half Star (fas fa-star-half-alt) */
+.fas.fa-star-half-alt.stars,
+.fas.fa-star-half-alt.bgr-star-rate {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	line-height: 1;
+	font-style: normal;
+	font-weight: normal;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	position: relative;
+	overflow: hidden;
+}
+
+.fas.fa-star-half-alt.stars::before,
+.fas.fa-star-half-alt.bgr-star-rate::before {
+	content: "\2605"; /* ★ Unicode filled star */
+	color: #ffb900;
+	font-size: 1.2em;
+	position: absolute;
+	right: 0;
+	width: 50%;
+	overflow: hidden;
+}
+
+.fas.fa-star-half-alt.stars::after,
+.fas.fa-star-half-alt.bgr-star-rate::after {
+	content: "\2606"; /* ☆ Unicode empty star */
+	color: #ffb900;
+	font-size: 1.2em;
+	position: absolute;
+	left: 0;
+	width: 50%;
+	overflow: hidden;
+}
+
+/* Admin Icons - Tags (fa fa-tags) */
+.fa.fa-tags {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	line-height: 1;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.fa.fa-tags::before {
+	content: "\1F3F7"; /* 🏷 Unicode tag emoji */
+}
+
+/* Admin Icons - Comments (fa fa-comments) */
+.fa.fa-comments {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	line-height: 1;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.fa.fa-comments::before {
+	content: "\1F4AC"; /* 💬 Unicode speech balloon emoji */
+}
+
+/* Ensure icons inherit color from parent */
+.fas.fa-star.stars,
+.far.fa-star.stars,
+.fas.fa-star-half-alt.stars,
+.fas.fa-star.bgr-star-rate,
+.far.fa-star.bgr-star-rate,
+.fas.fa-star-half-alt.bgr-star-rate,
+.far.fa-star.bgr-stars {
+	vertical-align: middle;
+}
+
+/* Hover effects for interactive stars */
+.far.fa-star.bgr-stars:hover::before {
+	content: "\2605"; /* Change to filled star on hover */
+	cursor: pointer;
+}
+
+/*# sourceMappingURL=bgr-icons.rtl.css.map */
