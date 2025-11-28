@@ -274,6 +274,10 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						} else {
 							// Fallback for older versions - build URL manually.
 							$current_group = groups_get_current_group();
+							// Ensure we have a group object, not just an ID.
+							if ( is_numeric( $current_group ) ) {
+								$current_group = groups_get_group( $current_group );
+							}
 							$group_link = bp_get_groups_directory_permalink() . $current_group->slug . '/';
 						}
 						}
@@ -371,6 +375,10 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						} else {
 							// Fallback for older versions - build URL manually.
 							$current_group = groups_get_current_group();
+							// Ensure we have a group object, not just an ID.
+							if ( is_numeric( $current_group ) ) {
+								$current_group = groups_get_group( $current_group );
+							}
 							$group_link = bp_get_groups_directory_permalink() . $current_group->slug . '/';
 						}
 						}
@@ -378,7 +386,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr">
 					<?php
 					do_action( 'bgr_display_group_average_ratings', $avg_rating );
-					
+
 					if( $total_review_count <= 1 ) {
 						
 						$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
