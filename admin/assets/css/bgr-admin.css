@@ -12,6 +12,19 @@
     color: green;
 }
 
+.bgr-deny-review {
+    color: #a00;
+}
+
+.bgr-deny-review:hover {
+    color: #dc3232;
+}
+
+/* Export Button */
+.bgr-export-reviews-btn {
+    margin-left: 5px;
+}
+
 .bgr-row {
     clear: both;
     /* border-bottom: 1px solid #ddd; */

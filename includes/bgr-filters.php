@@ -515,7 +515,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				'bgr_export_reviews'
 			);
 			?>
-			<a href="<?php echo esc_url( $export_url ); ?>" class="button" style="margin-left: 5px;">
+			<a href="<?php echo esc_url( $export_url ); ?>" class="button bgr-export-reviews-btn">
 				<?php esc_html_e( 'Export to CSV', 'bp-group-reviews' ); ?>
 			</a>
 			<?php
@@ -671,7 +671,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 
 					// Add Deny Link for draft and published reviews.
 					if ( 'draft' === $post->post_status || 'publish' === $post->post_status ) {
-						$actions['deny_review'] = '<a href="javascript:void(0);" title="' . $review_title . '" class="bgr-deny-review" data-rid="' . $post->ID . '" style="color:#a00;">' . esc_html__( 'Deny', 'bp-group-reviews' ) . '</a>';
+						$actions['deny_review'] = '<a href="javascript:void(0);" title="' . $review_title . '" class="bgr-deny-review" data-rid="' . $post->ID . '">' . esc_html__( 'Deny', 'bp-group-reviews' ) . '</a>';
 					}
 				}
 			}

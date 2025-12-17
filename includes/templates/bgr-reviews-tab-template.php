@@ -119,9 +119,13 @@ if ( $sort_by_rating ) {
 <div class="bgr-group-reviews-block">
 
 	<div class="group-reviews">
-		<?php if ( $reviews->have_posts() ) : ?>
-		<div class="bgr-reviews-sorting" style="margin-bottom: 15px; text-align: right;">
-			<label for="bgr-sort-reviews" style="margin-right: 5px;"><?php esc_html_e( 'Sort by:', 'bp-group-reviews' ); ?></label>
+		<?php
+		// Check for reviews - handle both WP_Query and mock stdClass for rating sorting.
+		$has_reviews_to_display = $sort_by_rating ? ! empty( $reviews->posts ) : $reviews->have_posts();
+		?>
+		<?php if ( $has_reviews_to_display ) : ?>
+		<div class="bgr-reviews-sorting">
+			<label for="bgr-sort-reviews"><?php esc_html_e( 'Sort by:', 'bp-group-reviews' ); ?></label>
 			<select id="bgr-sort-reviews" onchange="window.location.href=this.value;">
 				<?php
 				$base_url = remove_query_arg( array( 'sort', 'paged' ) );
