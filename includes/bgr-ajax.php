@@ -62,14 +62,14 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 * @author   Wbcom Designs
 		 */
 		public function bp_group_review_filter_ratings() {
-			if ( filter_input( INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS ) && filter_input( INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS ) === 'bp_group_review_filter_ratings' ) {				
+			if ( filter_input( INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS ) && filter_input( INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS ) === 'bp_group_review_filter_ratings' ) {
 				global $bp, $post;
 				global $bgr;
 				$filter               = sanitize_text_field( filter_input( INPUT_POST, 'filter' ) );
-				$limit                = sanitize_text_field( filter_input( INPUT_POST, 'limit' ) );
-				$html                 = '';				
+				$limit                = (int) sanitize_text_field( filter_input( INPUT_POST, 'limit' ) );
+				$html                 = '';
 				$review_rating_fields = $bgr['review_rating_fields'];
-				
+
 				$custom_args = array(
 					'post_type'      => 'review',
 					'posts_per_page' => -1,
@@ -92,7 +92,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 							foreach ( $review_rating_fields as $rating_field ) {
 								if ( array_key_exists( $rating_field, $rev_rating_array ) ) {
 									$total_review += $rev_rating_array[ $rating_field ];
-									$single_review_count++;
+									++$single_review_count;
 								}
 							}
 							if ( ! empty( $single_review_count ) ) {
@@ -105,29 +105,31 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				}
 				$bgr_user_count = 0;
 				if ( ! empty( $single_rev_avg ) ) {
-					if ( 'highest' == $filter ) {
+					if ( 'highest' === $filter ) {
 						arsort( $single_rev_avg );
-					} elseif ( 'lowest' == $filter ) {
+					} elseif ( 'lowest' === $filter ) {
 						asort( $single_rev_avg );
 					} else {
 						$single_rev_avg = $single_rev_avg;
 					}
-					foreach ( $single_rev_avg as $bgrKey => $bgrValue ) {
-						if ( $bgr_user_count == $limit ) {
+					foreach ( $single_rev_avg as $bgr_key => $bgr_value ) {
+						if ( $bgr_user_count === $limit ) {
 							break;
 						} else {
 							$html .= '<li class="vcard"><div class="item-avatar">';
-							$html .= get_avatar( $final_review_obj[ $bgrKey ]->post_author, 65 );
+							$html .= get_avatar( $final_review_obj[ $bgr_key ]->post_author, 65 );
 							$html .= '</div>';
 							$html .= '<div class="item">';
 
-							$members_profile = bp_core_get_userlink( $final_review_obj[ $bgrKey ]->post_author );
+							$members_profile = bp_core_get_userlink( $final_review_obj[ $bgr_key ]->post_author );
 							$html           .= '<div class="item-title fn">';
 							$html           .= $members_profile;
 							$html           .= '</div>';
 
-							$bgr_avg_rating = $bgrValue;
-							$stars_on       = $stars_off = $stars_half = '';
+							$bgr_avg_rating = $bgr_value;
+							$stars_on       = '';
+							$stars_off      = '';
+							$stars_half     = '';
 							$remaining      = $bgr_avg_rating - (int) $bgr_avg_rating;
 							if ( $remaining > 0 ) {
 								$stars_on       = intval( $bgr_avg_rating );
@@ -163,7 +165,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 
 						}
 
-						$bgr_user_count++;
+						++$bgr_user_count;
 					}
 				} else {
 					$html .= '<p>' . esc_html__( 'No ratings have been given by any members yet.', 'bp-group-reviews' ) . '</p>';
@@ -213,14 +215,14 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				wp_send_json_error( $error );
 			}
 			if ( isset( $_POST['action'] ) && 'bp_group_review_save_admin_criteria_settings' === $_POST['action'] && current_user_can( 'manage_options' ) ) {
-				
-				// Ensure the variables are always treated as arrays
-				$rating_fields = isset( $_POST['field_values'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['field_values'] ) ) : array();
+
+				// Ensure the variables are always treated as arrays.
+				$rating_fields       = isset( $_POST['field_values'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['field_values'] ) ) : array();
 				$rating_field_values = array_unique( $rating_fields );
-				
-				$active_rating_fields = isset( $_POST['active_criterias'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['active_criterias'] ) ) : array();
+
+				$active_rating_fields        = isset( $_POST['active_criterias'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['active_criterias'] ) ) : array();
 				$active_rating_fields_values = array_unique( $active_rating_fields );
-				
+
 				$bgr_admin_settings = array(
 					'add_review_rating_fields' => $rating_field_values,
 					'active_rating_fields'     => $active_rating_fields_values,
@@ -248,7 +250,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$multi_reviews        = isset( $_POST['multi_reviews'] ) ? sanitize_text_field( wp_unslash( $_POST['multi_reviews'] ) ) : '';
 				$auto_approve_reviews = isset( $_POST['bgr_auto_approve_reviews'] ) ? sanitize_text_field( wp_unslash( $_POST['bgr_auto_approve_reviews'] ) ) : '';
 				$reviews_per_page     = isset( $_POST['reviews_per_page'] ) ? sanitize_text_field( wp_unslash( $_POST['reviews_per_page'] ) ) : '';
-				$allow_email          = isset( $_POST['allow_email'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_email'] ) ) : '';
 				$allow_notification   = isset( $_POST['allow_notification'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_notification'] ) ) : '';
 				$allow_activity       = isset( $_POST['allow_activity'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_activity'] ) ) : '';
 				$exclude_groups       = isset( $_POST['exclude_groups'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['exclude_groups'] ) ) : '';
@@ -259,10 +260,9 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					'multi_reviews'        => $multi_reviews,
 					'auto_approve_reviews' => $auto_approve_reviews,
 					'reviews_per_page'     => $reviews_per_page,
-					'allow_email'          => $allow_email,
 					'allow_notification'   => $allow_notification,
 					'allow_activity'       => $allow_activity,
-					'exclude_groups'       => $exclude_groups
+					'exclude_groups'       => $exclude_groups,
 				);
 				update_option( 'bgr_admin_general_settings', $bgr_admin_settings );
 				echo 'admin-general-settings-saved';
@@ -317,23 +317,23 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			global $bp;
 			global $bgr;
 			$bp_group_review_email_settings = get_option( 'bp_group_review_email_settings' );
-			$bgr_allow_email      = isset( $bp_group_review_email_settings['bgr_allow_email'] ) ? $bp_group_review_email_settings['bgr_allow_email'] : '';
-			$current_user         = wp_get_current_user();
-			$member_id            = $current_user->ID;
-			$user_name            = $current_user->display_name;
-			$active_rating_fields = $bgr['active_rating_fields'];
-			$allow_notification   = $bgr['allow_notification'];
-			$allow_email          = $bgr_allow_email;
-			$allow_activity       = $bgr['allow_activity'];
-			$review_label         = $bgr['review_label'];
-			$auto_approve_reviews = $bgr['auto_approve_reviews'];
-			$multi_reviews        = $bgr['multi_reviews'];
+			$bgr_allow_email                = isset( $bp_group_review_email_settings['bgr_allow_email'] ) ? $bp_group_review_email_settings['bgr_allow_email'] : '';
+			$current_user                   = wp_get_current_user();
+			$member_id                      = $current_user->ID;
+			$user_name                      = $current_user->display_name;
+			$active_rating_fields           = $bgr['active_rating_fields'];
+			$allow_notification             = $bgr['allow_notification'];
+			$allow_email                    = $bgr_allow_email;
+			$allow_activity                 = $bgr['allow_activity'];
+			$review_label                   = $bgr['review_label'];
+			$auto_approve_reviews           = $bgr['auto_approve_reviews'];
+			$multi_reviews                  = $bgr['multi_reviews'];
 			/* Translators: %1$s: Review Label */
 			$review_email_subject = ( isset( $bgr['review_email_subject'] ) ) ? $bgr['review_email_subject'] : sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
 			/* Translators: %1$s: Review Label %2$s Group Name %3$s User Name %4$s User Link */
 			$review_email_message = ( isset( $bgr['review_email_message'] ) ) ? $bgr['review_email_message'] : esc_html__( 'A new %1$s for %2$s added by %3$s. Link: %4$s', 'bp-group-reviews' );
 			if ( isset( $_POST['data'] ) ) {
-				wp_parse_str( wp_unslash( filter_input( INPUT_POST, 'data', FILTER_UNSAFE_RAW ) ), $formarray );				
+				wp_parse_str( wp_unslash( filter_input( INPUT_POST, 'data', FILTER_UNSAFE_RAW ) ), $formarray );
 			}
 			$review_subject = sanitize_text_field( $formarray['review-subject'] );
 			$review_desc    = sanitize_text_field( $formarray['review-desc'] );
@@ -341,7 +341,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$group_obj      = groups_get_group( $form_group_id );
 			$group_name     = $group_obj->name;
 			/* Translators: %1$s: User Name %2$s Review Label %3$s Group Name */
-			$review_cpt_subject = sprintf( esc_html__( '%1$s %2$ss Group %3$s.', 'bp-group-reviews' ), $user_name, $review_label, $group_name );			
+			$review_cpt_subject = sprintf( esc_html__( '%1$s %2$ss Group %3$s.', 'bp-group-reviews' ), $user_name, $review_label, $group_name );
 			$headers[]          = 'Content-Type: text/html; charset=UTF-8';
 			$group_args         = array(
 				'post_type'   => 'review',
@@ -360,7 +360,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				),
 			);
 			$reviews_args       = new WP_Query( $group_args );
-			if ( $multi_reviews == 'no' ) {
+			if ( 'no' === $multi_reviews ) {
 				$user_post_count = $reviews_args->post_count;
 			} else {
 				$user_post_count = 0;
@@ -369,7 +369,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				/* translators: %1$s is replaced with review_label */
 				$review_add_msg = sprintf( __( 'You have already submitted a %1$s for this group.', 'bp-group-reviews' ), strtolower( $review_label ) );
 			} else {
-				if ( $auto_approve_reviews == 'yes' ) {
+				if ( 'yes' === $auto_approve_reviews ) {
 					/* translators: %1$s is replaced with review_label */
 					$review_add_msg = sprintf( __( 'Thank you for sharing your %1$s!', 'bp-group-reviews' ), strtolower( $review_label ) );
 					$review_status  = 'publish';
@@ -396,7 +396,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					'post_status'  => $review_status,
 				);
 				$review_id       = wp_insert_post( $add_review_args );
-				
+
 				if ( 'publish' === $review_status ) {
 					do_action( 'gamipress_bp_group_review', $member_id );
 				}
@@ -405,25 +405,25 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$post_author_id = get_post_field( 'post_author', $review_id );
 				wp_set_object_terms( $review_id, 'Group', 'review_category' );
 				update_post_meta( $review_id, 'linked_group', $form_group_id );
-				$group      = groups_get_group( array( 'group_id' => $form_group_id ) );
-				$creator_id = $group->creator_id;
+				$group        = groups_get_group( array( 'group_id' => $form_group_id ) );
+				$creator_id   = $group->creator_id;
 				$creator_info = get_userdata( $creator_id );
 				$creator_name = $creator_info->display_name;
-				$group_name = $group->name;
-				$site_name = get_bloginfo( 'name' );
-				$user_info  = get_userdata( $post_author_id );
-				$user_name  = $user_info->user_login;
+				$group_name   = $group->name;
+				$site_name    = get_bloginfo( 'name' );
+				$user_info    = get_userdata( $post_author_id );
+				$user_name    = $user_info->user_login;
 
-				if ( $auto_approve_reviews == 'yes' ) {
-					if( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
+				if ( 'yes' === $auto_approve_reviews ) {
+					if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
 						$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/' . sanitize_title( bp_group_review_tab_name() ) . '/';
 					} else {
 						$mail_link = bp_get_groups_directory_url() . $group->slug . '/' . sanitize_title( bp_group_review_tab_name() ) . '/';
 					}
 				} else {
-					$mail_link = '<a href=" '. admin_url( 'edit.php?post_type=review' ). ' ">'. admin_url( 'edit.php?post_type=review' ) .'</a>';
+					$mail_link = '<a href=" ' . admin_url( 'edit.php?post_type=review' ) . ' ">' . admin_url( 'edit.php?post_type=review' ) . '</a>';
 				}
-				// Use custom subject if set
+				// Use custom subject if set.
 				if ( isset( $bp_group_review_email_settings['review_email_subject'] ) && ! empty( $bp_group_review_email_settings['review_email_subject'] ) ) {
 					$mail_title = str_replace(
 						array( '[group-name]', '[site-name]' ),
@@ -432,22 +432,22 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					);
 				}
 
-				// Use custom message if set
+				// Use custom message if set.
 				if ( isset( $bp_group_review_email_settings['review_email_message'] ) && ! empty( $bp_group_review_email_settings['review_email_message'] ) ) {
 					$mail_content = str_replace(
-						array( '[admin-name]' ,'[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
+						array( '[admin-name]', '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
 						array( $creator_name, $group_name, $user_name, $mail_link, $site_name ),
 						$bp_group_review_email_settings['review_email_message']
 					);
-				}else{
+				} else {
 					$submit_message = 'Hello [admin-name],<br><br>
 					A new review has been submitted for your group [group-name] by [user-name].<br><br>
 					You can view and respond to the review here: [review-link]<br><br>
 					Thank you for creating a space where members can share their experiences!<br><br>
 					Best regards,<br>
 					The [site-name] Team';
-					$mail_content = str_replace(
-						array( '[admin-name]' ,'[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
+					$mail_content   = str_replace(
+						array( '[admin-name]', '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
 						array( $creator_name, $group_name, $user_name, $mail_link, $site_name ),
 						$submit_message
 					);
@@ -459,14 +459,14 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 
 				$group_admins = groups_get_group( $form_group_id );
 
-				if ( 'yes' == $allow_notification || 'yes' == $allow_activity ) {
+				if ( 'yes' === $allow_notification || 'yes' === $allow_activity ) {
 					foreach ( $group_admins->admins as $group_admin ) {
 						$admin_id = $group_admin->user_id;
 						do_action( 'bgr_group_add_review', $form_group_id, $admin_id );
 					}
 				}
-				
-				if ( 'yes' == $allow_email ) {
+
+				if ( 'yes' === $allow_email ) {
 					foreach ( $group_admins->admins as $group_admin ) {
 						$author_email = get_the_author_meta( 'user_email', $group_admin->user_id );
 						wp_mail( $author_email, $mail_title, nl2br( $mail_content ), $headers );
@@ -496,15 +496,15 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			global $bgr;
 			global $bp;
 
-			if( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss )) {
+			if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
 				$group_permalink = bp_get_groups_directory_permalink();
 			} else {
 				$group_permalink = bp_get_groups_directory_url();
 			}
-			
+
 			$bp_group_review_email_settings = get_option( 'bp_group_review_email_settings' );
-			$post_id              = isset( $_POST['accept_review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['accept_review_id'] ) ) : '';
-			$post_author_id       = get_post_field( 'post_author', $post_id );
+			$post_id                        = isset( $_POST['accept_review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['accept_review_id'] ) ) : '';
+			$post_author_id                 = get_post_field( 'post_author', $post_id );
 			wp_publish_post( $post_id );
 			$allow_notification   = $bgr['allow_notification'];
 			$allow_email          = $bp_group_review_email_settings['bgr_accept_enable'];
@@ -517,14 +517,14 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$site_name            = get_bloginfo( 'name' );
 			$review_link          = $group_permalink . $group->slug . "/reviews/view/$post_id/";
 			$headers[]            = 'Content-Type: text/html; charset=UTF-8';
-			$auto_approve_reviews = $bgr['auto_approve_reviews'];				
-			if ( $auto_approve_reviews == 'yes' ) {
+			$auto_approve_reviews = $bgr['auto_approve_reviews'];
+			if ( 'yes' === $auto_approve_reviews ) {
 				$mail_link = $group_permalink . $group->slug . '/' . sanitize_title( bp_group_review_tab_name() ) . '/';
 			} else {
-				$mail_link = '<a href=" '. admin_url( 'edit.php?post_type=review' ). ' ">'. admin_url( 'edit.php?post_type=review' ) .'</a>';
+				$mail_link = '<a href=" ' . admin_url( 'edit.php?post_type=review' ) . ' ">' . admin_url( 'edit.php?post_type=review' ) . '</a>';
 			}
 
-			// Use custom subject if set
+			// Use custom subject if set.
 			if ( isset( $bp_group_review_email_settings['review_accept_email_subject'] ) && ! empty( $bp_group_review_email_settings['review_accept_email_subject'] ) ) {
 				$mail_title = str_replace(
 					array( '[group-name]', '[site-name]' ),
@@ -532,37 +532,37 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					$bp_group_review_email_settings['review_accept_email_subject']
 				);
 			}
-			
-			// Use custom message if set
+
+			// Use custom message if set.
 			if ( isset( $bp_group_review_email_settings['review_accept_email_message'] ) && ! empty( $bp_group_review_email_settings['review_accept_email_message'] ) ) {
 				$mail_content = str_replace(
 					array( '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
 					array( $group_name, $creator_name, $mail_link, $site_name ),
 					$bp_group_review_email_settings['review_accept_email_message']
 				);
-			}else{
+			} else {
 				$accept_message = 'Hello [user-name],<br><br>
 				Your review for [group-name] on [site-name] has been approved and is now published.<br><br>
 				Thank you for sharing your thoughts with the community. View your review here: [review-link]<br><br>
 				Best regards,<br>
 				The [site-name] Team';
-				$mail_content = str_replace(
+				$mail_content   = str_replace(
 					array( '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
 					array( $group_name, $creator_name, $mail_link, $site_name ),
 					$accept_message
 				);
 			}
 
-			if ( 'yes' == $allow_notification ) {
+			if ( 'yes' === $allow_notification ) {
 				do_action( 'bgr_group_accept_review', $post_id );
 			}
 
-			if ( 'yes' == $allow_email ) {
+			if ( 'yes' === $allow_email ) {
 				$author_email = get_the_author_meta( 'user_email', $post_author_id );
 				wp_mail( $author_email, $mail_title, nl2br( $mail_content ), $headers );
 			}
 
-			do_action('gamipress_bp_group_review', $post_author_id );
+			do_action( 'gamipress_bp_group_review', $post_author_id );
 
 			wp_die();
 		}
@@ -584,9 +584,9 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			}
 			global $bgr;
 			global $bp;
-			$post_id              = isset( $_POST['deny_review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['deny_review_id'] ) ) : '';
-			$group_id             = isset( $_POST['group_id'] ) ? sanitize_text_field( wp_unslash( $_POST['group_id'] ) ) : '';
-			$post_author_id       = get_post_field( 'post_author', $post_id );
+			$post_id                        = isset( $_POST['deny_review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['deny_review_id'] ) ) : '';
+			$group_id                       = isset( $_POST['group_id'] ) ? sanitize_text_field( wp_unslash( $_POST['group_id'] ) ) : '';
+			$post_author_id                 = get_post_field( 'post_author', $post_id );
 			$bp_group_review_email_settings = get_option( 'bp_group_review_email_settings' );
 			wp_trash_post( $post_id );
 			$allow_notification   = $bgr['allow_notification'];
@@ -598,20 +598,19 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$creator_name         = $creator_info->display_name;
 			$group_name           = $group->name;
 			$site_name            = get_bloginfo( 'name' );
-			$auto_approve_reviews = $bgr['auto_approve_reviews'];			
-			$headers[]          = 'Content-Type: text/html; charset=UTF-8';
-			if ( $auto_approve_reviews == 'yes' ) {
-				if( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
+			$auto_approve_reviews = $bgr['auto_approve_reviews'];
+			$headers[]            = 'Content-Type: text/html; charset=UTF-8';
+			if ( 'yes' === $auto_approve_reviews ) {
+				if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
 					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/' . sanitize_title( bp_group_review_tab_name() ) . '/';
 				} else {
 					$mail_link = bp_get_groups_directory_url() . $group->slug . '/' . sanitize_title( bp_group_review_tab_name() ) . '/';
 				}
-				
 			} else {
-				$mail_link = '<a href=" '. admin_url( 'edit.php?post_type=review' ). ' ">'. admin_url( 'edit.php?post_type=review' ) .'</a>';
+				$mail_link = '<a href=" ' . admin_url( 'edit.php?post_type=review' ) . ' ">' . admin_url( 'edit.php?post_type=review' ) . '</a>';
 			}
 
-			// Use custom subject if set
+			// Use custom subject if set.
 			if ( isset( $bp_group_review_email_settings['review_deny_email_subject'] ) && ! empty( $bp_group_review_email_settings['review_deny_email_subject'] ) ) {
 				$mail_title = str_replace(
 					array( '[group-name]', '[site-name]' ),
@@ -620,14 +619,14 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				);
 			}
 
-			// Use custom message if set
+			// Use custom message if set.
 			if ( isset( $bp_group_review_email_settings['review_deny_email_message'] ) && ! empty( $bp_group_review_email_settings['review_deny_email_message'] ) ) {
 				$mail_content = str_replace(
 					array( '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
 					array( $group_name, $creator_name, $mail_link, $site_name ),
 					$bp_group_review_email_settings['review_deny_email_message']
 				);
-			} else{
+			} else {
 				$deny_message = 'Hello [user-name],<br><br>
 				Your review for [group-name] on [site-name] was not approved by the group administrator.<br><br>
 				If you have questions about our community guidelines, please contact the group admin.<br><br>
@@ -641,11 +640,11 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				);
 			}
 
-			if ( 'yes' == $allow_notification ) {
+			if ( 'yes' === $allow_notification ) {
 				do_action( 'bgr_group_deny_review', $post_id );
 			}
 
-			if ( 'yes' == $allow_email ) {
+			if ( 'yes' === $allow_email ) {
 				$author_email = get_the_author_meta( 'user_email', $post_author_id );
 				wp_mail( $author_email, $mail_title, nl2br( $mail_content ), $headers );
 			}
@@ -671,7 +670,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			wp_trash_post( $post_id );
 			die;
 		}
-
 	}
 	new BGR_AJAX();
 }

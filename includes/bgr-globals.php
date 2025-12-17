@@ -27,7 +27,6 @@ function bp_group_review_globals() {
 	if ( ! empty( $bgr_admin_general_settings ) ) {
 		$auto_approve_reviews = isset( $bgr_admin_general_settings['auto_approve_reviews'] ) ? $bgr_admin_general_settings['auto_approve_reviews'] : 'no';
 		$reviews_per_page     = isset( $bgr_admin_general_settings['reviews_per_page'] ) ? $bgr_admin_general_settings['reviews_per_page'] : 5;
-		$allow_email          = isset( $bgr_admin_general_settings['allow_email'] ) ? $bgr_admin_general_settings['allow_email'] : 'yes';
 		$allow_notification   = isset( $bgr_admin_general_settings['allow_notification'] ) ? $bgr_admin_general_settings['allow_notification'] : 'yes';
 		$allow_activity       = isset( $bgr_admin_general_settings['allow_activity'] ) ? $bgr_admin_general_settings['allow_activity'] : 'yes';
 		$exclude_groups       = isset( $bgr_admin_general_settings['exclude_groups'] ) ? $bgr_admin_general_settings['exclude_groups'] : array();
@@ -35,7 +34,6 @@ function bp_group_review_globals() {
 	} else {
 		$multi_reviews        = 'no';
 		$reviews_per_page     = 10;
-		$allow_email          = 'yes';
 		$allow_notification   = 'yes';
 		$allow_activity       = 'yes';
 		$exclude_groups       = array();

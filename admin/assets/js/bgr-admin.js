@@ -71,7 +71,6 @@ jQuery(document).ready(function () {
     var bgr_multi_reviews = jQuery("#bgr-multi-reviews").is(":checked") ? "yes" : "no";
     var bgr_auto_approve_reviews = jQuery("#bgr-auto-approve-reviews").is( ":checked" ) ? "yes" : "no";
     var reviews_per_page = jQuery("#reviews_per_page").val();
-    var bgr_allow_email = jQuery("#bgr-email").is(":checked") ? "yes" : "no";
     var bgr_allow_notification = jQuery("#bgr-notification").is(":checked") ? "yes" : "no";
     var bgr_allow_activity = jQuery("#bgr-activity").is(":checked") ? "yes" : "no";
 
@@ -83,7 +82,6 @@ jQuery(document).ready(function () {
         multi_reviews: bgr_multi_reviews,
         bgr_auto_approve_reviews: bgr_auto_approve_reviews,
         reviews_per_page: reviews_per_page,
-        allow_email: bgr_allow_email,
         allow_notification: bgr_allow_notification,
         allow_activity: bgr_allow_activity,
         exclude_groups: exclude_groups
