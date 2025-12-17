@@ -50,6 +50,8 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			/* add action for approving reviews */
 			add_action( 'wp_ajax_bp_group_review_admin_approve_review', array( $this, 'bp_group_review_admin_approve_review' ) );
 			add_action( 'wp_ajax_nopriv_bp_group_review_admin_approve_review', array( $this, 'bp_group_review_admin_approve_review' ) );
+			/* add action for denying reviews from admin */
+			add_action( 'wp_ajax_bp_group_review_admin_deny_review', array( $this, 'bp_group_review_admin_deny_review' ) );
 			// Filter widget ratings.
 			add_action( 'wp_ajax_bp_group_review_filter_ratings', array( $this, 'bp_group_review_filter_ratings' ) );
 			add_action( 'wp_ajax_nopriv_bp_group_review_filter_ratings', array( $this, 'bp_group_review_filter_ratings' ) );
@@ -197,6 +199,26 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$author_id = get_post_field( 'post_author', $rid );
 				do_action( 'gamipress_bp_group_review', $author_id );
 				echo 'review-approved-successfully';
+				die;
+			}
+		}
+
+		/**
+		 * Actions performed to deny review at admin end.
+		 *
+		 * @since 3.6.0
+		 */
+		public function bp_group_review_admin_deny_review() {
+			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'admin-ajax-nonce' ) ) {
+				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
+				wp_send_json_error( $error );
+			}
+			if ( isset( $_POST['action'] ) && 'bp_group_review_admin_deny_review' === $_POST['action'] && current_user_can( 'manage_options' ) ) {
+				$rid = isset( $_POST['review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['review_id'] ) ) : '';
+				wp_trash_post( $rid );
+				do_action( 'bgr_group_deny_review', $rid );
+				echo 'review-denied-successfully';
 				die;
 			}
 		}

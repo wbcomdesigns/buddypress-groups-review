@@ -37,7 +37,13 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			add_action( 'wp', array( $this, 'bp_group_review_add_group_reviews_tab' ) );
 			add_action( 'init', array( $this, 'bp_group_review_add_taxonomy_term' ) );
 			add_filter( 'post_row_actions', array( $this, 'bp_group_review_row_actions' ), 10, 2 );
-			add_filter( 'bulk_actions-edit-review', array( $this, 'bp_group_review_remove_edit_bulk_actions' ), 10, 1 );
+			add_filter( 'bulk_actions-edit-review', array( $this, 'bp_group_review_bulk_actions' ), 10, 1 );
+			add_filter( 'handle_bulk_actions-edit-review', array( $this, 'bp_group_review_handle_bulk_actions' ), 10, 3 );
+			add_action( 'admin_notices', array( $this, 'bp_group_review_bulk_action_notices' ) );
+
+			// CSV Export functionality.
+			add_action( 'restrict_manage_posts', array( $this, 'bp_group_review_export_button' ) );
+			add_action( 'admin_init', array( $this, 'bp_group_review_handle_csv_export' ) );
 
 			// Add group average rating before group header meta.
 			add_action( 'bp_before_group_header_meta', array( $this, 'bp_group_review_group_average_rating' ) );
@@ -363,7 +369,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		}
 
 		/**
-		 * Actions performed to remove edit from bulk options.
+		 * Modify bulk actions for reviews - remove edit, add approve/deny.
 		 *
 		 * @since  1.0.0
 		 * @access public
@@ -372,9 +378,255 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 * @param array $actions Array of bulk actions.
 		 * @return array Modified actions array.
 		 */
-		public function bp_group_review_remove_edit_bulk_actions( $actions ) {
+		public function bp_group_review_bulk_actions( $actions ) {
 			unset( $actions['edit'] );
+			$actions['approve_reviews'] = __( 'Approve', 'bp-group-reviews' );
+			$actions['deny_reviews']    = __( 'Deny', 'bp-group-reviews' );
 			return $actions;
+		}
+
+		/**
+		 * Handle bulk approve/deny actions for reviews.
+		 *
+		 * @since  3.6.0
+		 * @access public
+		 *
+		 * @param string $redirect_to The redirect URL.
+		 * @param string $doaction    The action being taken.
+		 * @param array  $post_ids    The items to take the action on.
+		 * @return string The redirect URL.
+		 */
+		public function bp_group_review_handle_bulk_actions( $redirect_to, $doaction, $post_ids ) {
+			if ( 'approve_reviews' !== $doaction && 'deny_reviews' !== $doaction ) {
+				return $redirect_to;
+			}
+
+			$processed = 0;
+
+			foreach ( $post_ids as $post_id ) {
+				$post = get_post( $post_id );
+				if ( ! $post || 'review' !== $post->post_type ) {
+					continue;
+				}
+
+				if ( 'approve_reviews' === $doaction ) {
+					// Only approve draft reviews.
+					if ( 'draft' === $post->post_status ) {
+						wp_update_post(
+							array(
+								'ID'          => $post_id,
+								'post_status' => 'publish',
+							)
+						);
+						$author_id = $post->post_author;
+						do_action( 'gamipress_bp_group_review', $author_id );
+						do_action( 'bgr_group_accept_review', $post_id );
+						++$processed;
+					}
+				} elseif ( 'deny_reviews' === $doaction ) {
+					// Move to trash.
+					wp_trash_post( $post_id );
+					do_action( 'bgr_group_deny_review', $post_id );
+					++$processed;
+				}
+			}
+
+			$redirect_to = add_query_arg(
+				array(
+					'bulk_action' => $doaction,
+					'processed'   => $processed,
+				),
+				$redirect_to
+			);
+
+			return $redirect_to;
+		}
+
+		/**
+		 * Display admin notices after bulk actions.
+		 *
+		 * @since  3.6.0
+		 * @access public
+		 */
+		public function bp_group_review_bulk_action_notices() {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading results from WP bulk action handler.
+			if ( ! isset( $_GET['bulk_action'] ) || ! isset( $_GET['processed'] ) ) {
+				return;
+			}
+
+			$screen = get_current_screen();
+			if ( ! $screen || 'edit-review' !== $screen->id ) {
+				return;
+			}
+
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Displaying result of previous action.
+			$action = sanitize_text_field( wp_unslash( $_GET['bulk_action'] ) );
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$processed = intval( $_GET['processed'] );
+
+			if ( 'approve_reviews' === $action ) {
+				$message = sprintf(
+					/* translators: %d: number of reviews */
+					_n(
+						'%d review approved.',
+						'%d reviews approved.',
+						$processed,
+						'bp-group-reviews'
+					),
+					$processed
+				);
+				echo '<div class="notice notice-success is-dismissible"><p>' . esc_html( $message ) . '</p></div>';
+			} elseif ( 'deny_reviews' === $action ) {
+				$message = sprintf(
+					/* translators: %d: number of reviews */
+					_n(
+						'%d review denied and moved to trash.',
+						'%d reviews denied and moved to trash.',
+						$processed,
+						'bp-group-reviews'
+					),
+					$processed
+				);
+				echo '<div class="notice notice-warning is-dismissible"><p>' . esc_html( $message ) . '</p></div>';
+			}
+		}
+
+		/**
+		 * Add CSV export button to reviews list.
+		 *
+		 * @since  3.6.0
+		 * @access public
+		 *
+		 * @param string $post_type The post type slug.
+		 */
+		public function bp_group_review_export_button( $post_type ) {
+			if ( 'review' !== $post_type ) {
+				return;
+			}
+
+			$export_url = wp_nonce_url(
+				add_query_arg(
+					array(
+						'action'    => 'bgr_export_reviews',
+						'post_type' => 'review',
+					),
+					admin_url( 'admin.php' )
+				),
+				'bgr_export_reviews'
+			);
+			?>
+			<a href="<?php echo esc_url( $export_url ); ?>" class="button" style="margin-left: 5px;">
+				<?php esc_html_e( 'Export to CSV', 'bp-group-reviews' ); ?>
+			</a>
+			<?php
+		}
+
+		/**
+		 * Handle CSV export for reviews.
+		 *
+		 * @since  3.6.0
+		 * @access public
+		 */
+		public function bp_group_review_handle_csv_export() {
+			if ( ! isset( $_GET['action'] ) || 'bgr_export_reviews' !== $_GET['action'] ) {
+				return;
+			}
+
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_die( esc_html__( 'You do not have permission to export reviews.', 'bp-group-reviews' ) );
+			}
+
+			if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'bgr_export_reviews' ) ) {
+				wp_die( esc_html__( 'Security check failed.', 'bp-group-reviews' ) );
+			}
+
+			global $bgr;
+			$review_rating_fields = isset( $bgr['review_rating_fields'] ) ? $bgr['review_rating_fields'] : array();
+
+			// Get all reviews.
+			$args = array(
+				'post_type'      => 'review',
+				'post_status'    => array( 'publish', 'draft' ),
+				'posts_per_page' => -1,
+				'orderby'        => 'date',
+				'order'          => 'DESC',
+			);
+
+			$reviews = get_posts( $args );
+
+			// Set headers for CSV download.
+			$filename = 'group-reviews-' . gmdate( 'Y-m-d-His' ) . '.csv';
+			header( 'Content-Type: text/csv; charset=utf-8' );
+			header( 'Content-Disposition: attachment; filename=' . $filename );
+			header( 'Pragma: no-cache' );
+			header( 'Expires: 0' );
+
+			// Create output stream.
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- Using php://output for CSV streaming.
+			$output = fopen( 'php://output', 'w' );
+
+			// Add UTF-8 BOM for Excel compatibility.
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fputs -- Required for CSV output.
+			fputs( $output, "\xEF\xBB\xBF" );
+
+			// CSV header row.
+			$headers = array(
+				__( 'Review ID', 'bp-group-reviews' ),
+				__( 'Date', 'bp-group-reviews' ),
+				__( 'Status', 'bp-group-reviews' ),
+				__( 'Reviewer', 'bp-group-reviews' ),
+				__( 'Reviewer Email', 'bp-group-reviews' ),
+				__( 'Group Name', 'bp-group-reviews' ),
+				__( 'Group ID', 'bp-group-reviews' ),
+				__( 'Review Content', 'bp-group-reviews' ),
+				__( 'Average Rating', 'bp-group-reviews' ),
+			);
+
+			// Add rating field columns.
+			foreach ( $review_rating_fields as $field ) {
+				$headers[] = $field . ' ' . __( 'Rating', 'bp-group-reviews' );
+			}
+
+			fputcsv( $output, $headers );
+
+			// CSV data rows.
+			foreach ( $reviews as $review ) {
+				$author_id      = $review->post_author;
+				$author_info    = get_userdata( $author_id );
+				$linked_group   = get_post_meta( $review->ID, 'linked_group', true );
+				$group          = groups_get_group( array( 'group_id' => $linked_group ) );
+				$group_name     = $group ? $group->name : __( 'Unknown Group', 'bp-group-reviews' );
+				$review_ratings = get_post_meta( $review->ID, 'review_star_rating', true );
+
+				// Calculate average rating.
+				$avg_rating = 0;
+				if ( ! empty( $review_ratings ) && is_array( $review_ratings ) ) {
+					$avg_rating = round( array_sum( $review_ratings ) / count( $review_ratings ), 2 );
+				}
+
+				$row = array(
+					$review->ID,
+					get_the_date( 'Y-m-d H:i:s', $review->ID ),
+					$review->post_status,
+					$author_info ? $author_info->display_name : __( 'Unknown', 'bp-group-reviews' ),
+					$author_info ? $author_info->user_email : '',
+					$group_name,
+					$linked_group,
+					wp_strip_all_tags( $review->post_content ),
+					$avg_rating,
+				);
+
+				// Add individual rating values.
+				foreach ( $review_rating_fields as $field ) {
+					$row[] = isset( $review_ratings[ $field ] ) ? $review_ratings[ $field ] : '';
+				}
+
+				fputcsv( $output, $row );
+			}
+
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- Closing php://output for CSV streaming.
+			fclose( $output );
+			exit;
 		}
 
 		/**
@@ -415,6 +667,11 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					// Add Approve Link for draft reviews.
 					if ( 'draft' === $post->post_status ) {
 						$actions['approve_review'] = '<a href="javascript:void(0);" title="' . $review_title . '" class="bgr-approve-review" data-rid="' . $post->ID . '">' . esc_html__( 'Approve', 'bp-group-reviews' ) . '</a>';
+					}
+
+					// Add Deny Link for draft and published reviews.
+					if ( 'draft' === $post->post_status || 'publish' === $post->post_status ) {
+						$actions['deny_review'] = '<a href="javascript:void(0);" title="' . $review_title . '" class="bgr-deny-review" data-rid="' . $post->ID . '" style="color:#a00;">' . esc_html__( 'Deny', 'bp-group-reviews' ) . '</a>';
 					}
 				}
 			}

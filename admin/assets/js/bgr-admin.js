@@ -191,7 +191,29 @@ jQuery(document).ready(function () {
         nonce: bgr_admin_js.wbcom_nonce,
       },
       function (response) {
-        if (response == "review-approved-successfully") {
+        if (response === "review-approved-successfully") {
+          window.location.href = window.location.href;
+        }
+      }
+    );
+  });
+
+  // Deny review from row action
+  jQuery(document).on("click", ".bgr-deny-review", function () {
+    var review_id = jQuery(this).data("rid");
+    if (!confirm("Are you sure you want to deny this review? It will be moved to trash.")) {
+      return;
+    }
+    jQuery(this).html("Denying..");
+    jQuery.post(
+      ajaxurl,
+      {
+        action: "bp_group_review_admin_deny_review",
+        review_id: review_id,
+        nonce: bgr_admin_js.wbcom_nonce,
+      },
+      function (response) {
+        if (response === "review-denied-successfully") {
           window.location.href = window.location.href;
         }
       }
