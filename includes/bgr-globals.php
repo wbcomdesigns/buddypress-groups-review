@@ -17,9 +17,9 @@
  */
 function bp_group_review_globals() {
 	global $bgr;
-	$bgr_admin_general_settings  = get_option( 'bgr_admin_general_settings' );
-	$bgr_admin_criteria_settings = get_option( 'bgr_admin_criteria_settings' );
-	$bgr_admin_display_settings  = get_option( 'bgr_admin_display_settings' );
+	$bgr_admin_general_settings     = get_option( 'bgr_admin_general_settings' );
+	$bgr_admin_criteria_settings    = get_option( 'bgr_admin_criteria_settings' );
+	$bgr_admin_display_settings     = get_option( 'bgr_admin_display_settings' );
 	$bp_group_review_email_settings = get_option( 'bp_group_review_email_settings' );
 
 	/**** Global variable values for General settings */
@@ -44,31 +44,31 @@ function bp_group_review_globals() {
 
 	/**** Global variable values for Email settings */
 
-	$review_accept_email_subject = ''; // Initialize to avoid warnings
-	$review_accept_email_message = ''; // Initialize to avoid warnings
-	$review_deny_email_subject   = ''; // Initialize to avoid warnings
-	$review_deny_email_message   = ''; // Initialize to avoid warnings
+	$review_accept_email_subject = ''; // Initialize to avoid warnings.
+	$review_accept_email_message = ''; // Initialize to avoid warnings.
+	$review_deny_email_subject   = ''; // Initialize to avoid warnings.
+	$review_deny_email_message   = ''; // Initialize to avoid warnings.
 
 	if ( ! empty( $bp_group_review_email_settings ) ) {
-		$allow_email = isset( $bp_group_review_email_settings['bgr_allow_email'] ) ? $bp_group_review_email_settings['bgr_allow_email'] : 'yes';
-		$accept_email_enable = isset( $bp_group_review_email_settings['bgr_accept_enable'] ) ? $bp_group_review_email_settings['bgr_accept_enable'] : 'yes';
-		$deny_email_enable = isset( $bp_group_review_email_settings['bgr_deny_email'] ) ? $bp_group_review_email_settings['bgr_deny_email'] : 'yes';
-		$review_email_subject = isset( $bp_group_review_email_settings['review_email_subject'] ) ? $bp_group_review_email_settings['review_email_subject'] : '';
-		$review_email_message = isset( $bp_group_review_email_settings['review_email_message'] ) ? $bp_group_review_email_settings['review_email_message'] : '';
+		$allow_email                 = isset( $bp_group_review_email_settings['bgr_allow_email'] ) ? $bp_group_review_email_settings['bgr_allow_email'] : 'yes';
+		$accept_email_enable         = isset( $bp_group_review_email_settings['bgr_accept_enable'] ) ? $bp_group_review_email_settings['bgr_accept_enable'] : 'yes';
+		$deny_email_enable           = isset( $bp_group_review_email_settings['bgr_deny_email'] ) ? $bp_group_review_email_settings['bgr_deny_email'] : 'yes';
+		$review_email_subject        = isset( $bp_group_review_email_settings['review_email_subject'] ) ? $bp_group_review_email_settings['review_email_subject'] : '';
+		$review_email_message        = isset( $bp_group_review_email_settings['review_email_message'] ) ? $bp_group_review_email_settings['review_email_message'] : '';
 		$review_accept_email_subject = isset( $bp_group_review_email_settings['review_accept_email_subject'] ) ? $bp_group_review_email_settings['review_accept_email_subject'] : '';
 		$review_accept_email_message = isset( $bp_group_review_email_settings['review_accept_email_message'] ) ? $bp_group_review_email_settings['review_accept_email_message'] : '';
-		$review_deny_email_subject = isset( $bp_group_review_email_settings['review_deny_email_subject'] ) ? $bp_group_review_email_settings['review_deny_email_subject'] : '';
-		$review_deny_email_message = isset( $bp_group_review_email_settings['review_deny_email_message'] ) ? $bp_group_review_email_settings['review_deny_email_message'] : '';
+		$review_deny_email_subject   = isset( $bp_group_review_email_settings['review_deny_email_subject'] ) ? $bp_group_review_email_settings['review_deny_email_subject'] : '';
+		$review_deny_email_message   = isset( $bp_group_review_email_settings['review_deny_email_message'] ) ? $bp_group_review_email_settings['review_deny_email_message'] : '';
 	} else {
-		$allow_email = 'yes';
-		$accept_email_enable = 'yes';
-		$deny_email_enable = 'yes';
-		$review_email_subject = '';
-		$review_email_message = '';
+		$allow_email                 = 'yes';
+		$accept_email_enable         = 'yes';
+		$deny_email_enable           = 'yes';
+		$review_email_subject        = '';
+		$review_email_message        = '';
 		$review_accept_email_subject = '';
 		$review_accept_email_message = '';
-		$review_deny_email_subject = '';
-		$review_deny_email_message = '';
+		$review_deny_email_subject   = '';
+		$review_deny_email_message   = '';
 	}
 
 	/**** Global variable values for Criteria settings */
@@ -89,40 +89,40 @@ function bp_group_review_globals() {
 	/**** Global variable values for Display settings */
 
 	if ( ! empty( $bgr_admin_display_settings ) ) {
-		$review_label = isset( $bgr_admin_display_settings['review_label'] ) ? $bgr_admin_display_settings['review_label'] : esc_html__( 'Review', 'bp-group-reviews' );
+		$review_label        = isset( $bgr_admin_display_settings['review_label'] ) ? $bgr_admin_display_settings['review_label'] : esc_html__( 'Review', 'bp-group-reviews' );
 		$manage_review_label = isset( $bgr_admin_display_settings['manage_review_label'] ) ? $bgr_admin_display_settings['manage_review_label'] : esc_html__( 'Reviews', 'bp-group-reviews' );
-		$rating_color = isset( $bgr_admin_display_settings['bgr_rating_color'] ) ? $bgr_admin_display_settings['bgr_rating_color'] : '##FFD700';
+		$rating_color        = isset( $bgr_admin_display_settings['bgr_rating_color'] ) ? $bgr_admin_display_settings['bgr_rating_color'] : '#FFC400';
 	} else {
-		$review_label        = esc_html__( 'Review', 'bp-group-reviews' );
-		$manage_review_label = esc_html__( 'Reviews', 'bp-group-reviews' );
-		$rating_color        = '#FFC400';
-		$bgr_admin_display_settings   = array(
-			'review_label'          => $review_label,
-			'manage_review_label'   => $manage_review_label,
-			'bgr_rating_color'      => $rating_color,
+		$review_label               = esc_html__( 'Review', 'bp-group-reviews' );
+		$manage_review_label        = esc_html__( 'Reviews', 'bp-group-reviews' );
+		$rating_color               = '#FFC400';
+		$bgr_admin_display_settings = array(
+			'review_label'        => $review_label,
+			'manage_review_label' => $manage_review_label,
+			'bgr_rating_color'    => $rating_color,
 		);
 		update_option( 'bgr_admin_display_settings', $bgr_admin_display_settings );
 	}
 
 	$bgr = array(
-		'multi_reviews'        => $multi_reviews,
-		'auto_approve_reviews' => $auto_approve_reviews,
-		'reviews_per_page'     => $reviews_per_page,
-		'allow_email'          => $allow_email,
-		'allow_notification'   => $allow_notification,
-		'allow_activity'       => $allow_activity,
-		'exclude_groups'       => $exclude_groups,
-		'review_email_subject' => $review_email_subject,
-		'review_email_message' => $review_email_message,
+		'multi_reviews'               => $multi_reviews,
+		'auto_approve_reviews'        => $auto_approve_reviews,
+		'reviews_per_page'            => $reviews_per_page,
+		'allow_email'                 => $allow_email,
+		'allow_notification'          => $allow_notification,
+		'allow_activity'              => $allow_activity,
+		'exclude_groups'              => $exclude_groups,
+		'review_email_subject'        => $review_email_subject,
+		'review_email_message'        => $review_email_message,
 		'review_accept_email_subject' => $review_accept_email_subject,
 		'review_accept_email_message' => $review_accept_email_message,
-		'review_deny_email_subject' => $review_deny_email_subject,
-		'review_deny_email_message' => $review_deny_email_message,
-		'review_rating_fields' => $review_rating_fields,
-		'active_rating_fields' => $active_rating_fields,
-		'review_label'         => $review_label,
-		'manage_review_label'  => $manage_review_label,
-		'rating_color'         => $rating_color,
+		'review_deny_email_subject'   => $review_deny_email_subject,
+		'review_deny_email_message'   => $review_deny_email_message,
+		'review_rating_fields'        => $review_rating_fields,
+		'active_rating_fields'        => $active_rating_fields,
+		'review_label'                => $review_label,
+		'manage_review_label'         => $manage_review_label,
+		'rating_color'                => $rating_color,
 	);
 }
 add_action( 'init', 'bp_group_review_globals' );
