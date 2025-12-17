@@ -230,14 +230,10 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 * @return void
 		 */
 		public function bp_group_review_single_group_average_rating_data( $reviews, $review_rating_fields, $review_label ) {
-			$group_id = bp_get_current_group_id();
-
 			if ( ! empty( $review_rating_fields ) ) {
 				if ( ! empty( $reviews ) ) {
-					$ttl_rating         = 0;
-					$reviews_count      = 0;
-					$rating_count       = 0;
-					$total_review_count = count( $reviews );
+					$ttl_rating    = 0;
+					$reviews_count = 0;
 					foreach ( $reviews as $review ) {
 						$rate           = 0;
 						$review_ratings = get_post_meta( $review->ID, 'review_star_rating', false );
@@ -245,19 +241,13 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						$reviews_field_count = 0;
 						if ( ! empty( $review_rating_fields ) && ! empty( $review_ratings[0] ) ) :
 							foreach ( $review_ratings[0] as $field => $value ) {
-								if ( in_array( $field, $review_rating_fields, true ) ) {
-									$rate += $value;
-									++$reviews_field_count;
-								} else {
-									$rate += $value;
-									++$reviews_field_count;
-								}
+								// Add all rating values regardless of field name match.
+								$rate += $value;
+								++$reviews_field_count;
 							}
 							if ( $reviews_field_count > 0 ) {
 								++$reviews_count;
-								$reviews_field_count = ( 0 === $reviews_field_count ) ? 1 : $reviews_field_count;
-								$ttl_rating         += (int) $rate / $reviews_field_count;
-								++$rating_count;
+								$ttl_rating += (int) $rate / $reviews_field_count;
 							}
 						endif;
 					}
@@ -266,24 +256,12 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$avg_rating    = $ttl_rating / $reviews_count;
 					$avg_rating    = round( $avg_rating, 2 );
 					if ( $avg_rating > 0 ) {
-						// Build group URL safely for both BuddyPress and BuddyBoss.
-						if ( function_exists( 'bp_get_group_url' ) ) {
-							$group_link = bp_get_group_url( groups_get_current_group() );
-						} else {
-							// Fallback for older versions - build URL manually.
-							$current_group = groups_get_current_group();
-							// Ensure we have a group object, not just an ID.
-							if ( is_numeric( $current_group ) ) {
-								$current_group = groups_get_group( $current_group );
-							}
-							$group_link = bp_get_groups_directory_permalink() . $current_group->slug . '/';
-						}
-					}
-					?>
+						?>
 					<div class="bgr-header-row"><div class="bgr-group-header-ratings"><div class="rating-bgr">
-					<?php
-					do_action( 'bgr_display_group_average_ratings', $avg_rating );
-					echo '</div></div></div>';
+						<?php
+						do_action( 'bgr_display_group_average_ratings', $avg_rating );
+						echo '</div></div></div>';
+					}
 				}
 			}
 		}
@@ -342,7 +320,6 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				if ( ! empty( $reviews ) ) {
 					$ttl_rating         = 0;
 					$reviews_count      = 0;
-					$rating_count       = 0;
 					$total_review_count = count( $reviews );
 					foreach ( $reviews as $review ) {
 						$rate           = 0;
@@ -351,19 +328,13 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						$reviews_field_count = 0;
 						if ( ! empty( $review_rating_fields ) && ! empty( $review_ratings[0] ) ) :
 							foreach ( $review_ratings[0] as $field => $value ) {
-								if ( in_array( $field, $review_rating_fields, true ) ) {
-									$rate += $value;
-									++$reviews_field_count;
-								} else {
-									$rate += $value;
-									++$reviews_field_count;
-								}
+								// Add all rating values regardless of field name match.
+								$rate += $value;
+								++$reviews_field_count;
 							}
 							if ( $reviews_field_count > 0 ) {
 								++$reviews_count;
-								$reviews_field_count = ( 0 === $reviews_field_count ) ? 1 : $reviews_field_count;
-								$ttl_rating         += (int) $rate / $reviews_field_count;
-								++$rating_count;
+								$ttl_rating += (int) $rate / $reviews_field_count;
 							}
 						endif;
 					}
@@ -372,33 +343,21 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$avg_rating    = $ttl_rating / $reviews_count;
 					$avg_rating    = round( $avg_rating, 2 );
 					if ( $avg_rating > 0 ) {
-						// Build group URL safely for both BuddyPress and BuddyBoss.
-						if ( function_exists( 'bp_get_group_url' ) ) {
-							$group_link = bp_get_group_url( groups_get_current_group() );
-						} else {
-							// Fallback for older versions - build URL manually.
-							$current_group = groups_get_current_group();
-							// Ensure we have a group object, not just an ID.
-							if ( is_numeric( $current_group ) ) {
-								$current_group = groups_get_group( $current_group );
-							}
-							$group_link = bp_get_groups_directory_permalink() . $current_group->slug . '/';
-						}
-					}
-					?>
+						?>
 					<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr">
-					<?php
-					do_action( 'bgr_display_group_average_ratings', $avg_rating );
+						<?php
+						do_action( 'bgr_display_group_average_ratings', $avg_rating );
 
-					if ( $total_review_count <= 1 ) {
+						if ( $total_review_count <= 1 ) {
 
-						$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
-						$review_label               = isset( $bgr_admin_display_settings['review_label'] ) ? $bgr_admin_display_settings['review_label'] : esc_html__( 'Review', 'bp-group-reviews' );
+							$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
+							$review_label               = isset( $bgr_admin_display_settings['review_label'] ) ? $bgr_admin_display_settings['review_label'] : esc_html__( 'Review', 'bp-group-reviews' );
+						}
+						$content = "<div class='rating-text'><span>" . esc_html__( 'Rating ', 'bp-group-reviews' ) . ' : ' . $avg_rating . '/5 - ' . $total_review_count . ' ' . $review_label . '</span></div>';
+
+						echo wp_kses_post( apply_filters( 'bgr_filter_group_header_rating_details', $content, $avg_rating, $review_label, $total_review_count, bp_get_group_id() ) );
+						echo '</div></div></div>';
 					}
-					$content = "<div class='rating-text'><span>" . esc_html__( 'Rating ', 'bp-group-reviews' ) . ' : ' . $avg_rating . '/5 - ' . $total_review_count . ' ' . $review_label . '</span></div>';
-
-					echo wp_kses_post( apply_filters( 'bgr_filter_group_header_rating_details', $content, $avg_rating, $review_label, $total_review_count, bp_get_group_id() ) );
-					echo '</div></div></div>';
 				}
 			}
 		}

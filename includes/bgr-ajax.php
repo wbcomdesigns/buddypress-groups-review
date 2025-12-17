@@ -423,13 +423,16 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				} else {
 					$mail_link = '<a href=" ' . admin_url( 'edit.php?post_type=review' ) . ' ">' . admin_url( 'edit.php?post_type=review' ) . '</a>';
 				}
-				// Use custom subject if set.
+				// Use custom subject if set, otherwise use default.
 				if ( isset( $bp_group_review_email_settings['review_email_subject'] ) && ! empty( $bp_group_review_email_settings['review_email_subject'] ) ) {
 					$mail_title = str_replace(
 						array( '[group-name]', '[site-name]' ),
 						array( $group_name, $site_name ),
 						$bp_group_review_email_settings['review_email_subject']
 					);
+				} else {
+					/* translators: %1$s: review label, %2$s: group name */
+					$mail_title = sprintf( __( 'New %1$s submitted for %2$s', 'bp-group-reviews' ), $review_label, $group_name );
 				}
 
 				// Use custom message if set.
@@ -507,7 +510,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$post_author_id                 = get_post_field( 'post_author', $post_id );
 			wp_publish_post( $post_id );
 			$allow_notification   = $bgr['allow_notification'];
-			$allow_email          = $bp_group_review_email_settings['bgr_accept_enable'];
+			$allow_email          = $bgr['accept_email_enable'];
 			$review_label         = $bgr['review_label'];
 			$group_id             = get_post_meta( $post_id, 'linked_group', true );
 			$group                = groups_get_group( array( 'group_id' => $group_id ) );
@@ -524,13 +527,16 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$mail_link = '<a href=" ' . admin_url( 'edit.php?post_type=review' ) . ' ">' . admin_url( 'edit.php?post_type=review' ) . '</a>';
 			}
 
-			// Use custom subject if set.
+			// Use custom subject if set, otherwise use default.
 			if ( isset( $bp_group_review_email_settings['review_accept_email_subject'] ) && ! empty( $bp_group_review_email_settings['review_accept_email_subject'] ) ) {
 				$mail_title = str_replace(
 					array( '[group-name]', '[site-name]' ),
 					array( $group_name, $site_name ),
 					$bp_group_review_email_settings['review_accept_email_subject']
 				);
+			} else {
+				/* translators: %1$s: review label, %2$s: group name */
+				$mail_title = sprintf( __( 'Your %1$s for %2$s has been approved', 'bp-group-reviews' ), $review_label, $group_name );
 			}
 
 			// Use custom message if set.
@@ -583,14 +589,12 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				return false;
 			}
 			global $bgr;
-			global $bp;
 			$post_id                        = isset( $_POST['deny_review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['deny_review_id'] ) ) : '';
-			$group_id                       = isset( $_POST['group_id'] ) ? sanitize_text_field( wp_unslash( $_POST['group_id'] ) ) : '';
 			$post_author_id                 = get_post_field( 'post_author', $post_id );
 			$bp_group_review_email_settings = get_option( 'bp_group_review_email_settings' );
 			wp_trash_post( $post_id );
 			$allow_notification   = $bgr['allow_notification'];
-			$allow_email          = $bp_group_review_email_settings['bgr_deny_email'];
+			$allow_email          = $bgr['deny_email_enable'];
 			$review_label         = $bgr['review_label'];
 			$group_id             = get_post_meta( $post_id, 'linked_group', true );
 			$group                = groups_get_group( array( 'group_id' => $group_id ) );
@@ -610,13 +614,16 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$mail_link = '<a href=" ' . admin_url( 'edit.php?post_type=review' ) . ' ">' . admin_url( 'edit.php?post_type=review' ) . '</a>';
 			}
 
-			// Use custom subject if set.
+			// Use custom subject if set, otherwise use default.
 			if ( isset( $bp_group_review_email_settings['review_deny_email_subject'] ) && ! empty( $bp_group_review_email_settings['review_deny_email_subject'] ) ) {
 				$mail_title = str_replace(
 					array( '[group-name]', '[site-name]' ),
 					array( $group_name, $site_name ),
 					$bp_group_review_email_settings['review_deny_email_subject']
 				);
+			} else {
+				/* translators: %1$s: review label, %2$s: group name */
+				$mail_title = sprintf( __( 'Your %1$s for %2$s was not approved', 'bp-group-reviews' ), $review_label, $group_name );
 			}
 
 			// Use custom message if set.

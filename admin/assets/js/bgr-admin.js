@@ -63,11 +63,6 @@ jQuery(document).ready(function () {
     jQuery(this).addClass("bgr-btn-ajax");
     jQuery(".bgr-admin-general-settings-spinner").show();
     var exclude_groups = jQuery("#bgr-exclude-group-review").val();
-    if (jQuery("#bgr-allow-popup").is(":checked")) {
-      allow_popup = "yes";
-    } else {
-      allow_popup = "no";
-    }
     var bgr_multi_reviews = jQuery("#bgr-multi-reviews").is(":checked") ? "yes" : "no";
     var bgr_auto_approve_reviews = jQuery("#bgr-auto-approve-reviews").is( ":checked" ) ? "yes" : "no";
     var reviews_per_page = jQuery("#reviews_per_page").val();
@@ -132,7 +127,7 @@ jQuery(document).ready(function () {
     div.html(BGRGetBGRDynamicTextBox(""));
     jQuery("#bgr-textbox-container")
       .append(div)
-      .css("class", "rating-review-div ui-sortable-handle");
+      .addClass("ui-sortable-handle");
   });
 
   /*** Remove criteria field ****/

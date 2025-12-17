@@ -107,6 +107,8 @@ function bp_group_review_globals() {
 		'auto_approve_reviews'        => $auto_approve_reviews,
 		'reviews_per_page'            => $reviews_per_page,
 		'allow_email'                 => $allow_email,
+		'accept_email_enable'         => $accept_email_enable,
+		'deny_email_enable'           => $deny_email_enable,
 		'allow_notification'          => $allow_notification,
 		'allow_activity'              => $allow_activity,
 		'exclude_groups'              => $exclude_groups,

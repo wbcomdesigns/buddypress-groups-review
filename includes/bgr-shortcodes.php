@@ -39,7 +39,6 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			 *  @author  Wbcom Designs
 			 */
 		public function bp_group_review_add_new_review() {
-			global $bp;
 			global $bgr;
 			$review_rating_fields = $bgr['review_rating_fields'];
 			$active_rating_fields = $bgr['active_rating_fields'];
@@ -73,60 +72,50 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			);
 			$reviews_args = new WP_Query( $group_args );
 			if ( ! is_user_logged_in() ) {
-					$output .= '<div id="message" class="bp-messages bp-feedback error">';
-					$output .= '<span class="bp-icon" aria-hidden="true"></span>';
-					$output .= '<p>';
-					$output .= sprintf(
-							/* translators: %1$s is used for review lable*/
-						esc_html__( 'You should %1$s for post %2$s.', 'bp-group-reviews' ),
-						'<a href="' . esc_url( wp_login_url( get_permalink() ) ) . '"> ' . esc_html__( 'login', 'bp-group-reviews' ) . '</a>',
-						esc_html( $review_label )
-					);
-					$output .= '</p>';
-					$output .= '</div>';
-			} elseif ( is_user_logged_in() ) {
-				// Get All groups of user in which user is admin.
-				if ( bp_is_group_single() ) {
-					if ( 'no' === $multi_reviews ) {
-						$user_post_count = $reviews_args->post_count;
-					} else {
-						$user_post_count = 0;
-					}
-
-					if ( 0 === $user_post_count ) {
-						$output .= $this->bp_group_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
-					} else {
-
-						$bp_template_option = bp_get_option( '_bp_theme_package_id' );
-						if ( 'nouveau' === $bp_template_option ) {
-							$output .= '<div id="message" class="info bp-feedback bp-messages bp-template-notice">';
-							$output .= '<span class="bp-icon" aria-hidden="true"></span>';
-						} else {
-							$output .= '<div id="message" class="info">';
-						}
-						/* translators: %1$s is used for review label */
-						$output .= '<p>' . sprintf(
-							/* translators: %1$s is used for review label */
-							esc_html__( 'You already posted a %1$s for this group.', 'bp-group-reviews' ),
-							esc_html( $review_label )
-						) . '</p>';
-						$output .= '</div>';
-					}
+				$output .= '<div id="message" class="bp-messages bp-feedback error">';
+				$output .= '<span class="bp-icon" aria-hidden="true"></span>';
+				$output .= '<p>';
+				$output .= sprintf(
+					/* translators: %1$s is used for review lable*/
+					esc_html__( 'You should %1$s for post %2$s.', 'bp-group-reviews' ),
+					'<a href="' . esc_url( wp_login_url( get_permalink() ) ) . '"> ' . esc_html__( 'login', 'bp-group-reviews' ) . '</a>',
+					esc_html( $review_label )
+				);
+				$output .= '</p>';
+				$output .= '</div>';
+			} elseif ( bp_is_group_single() ) {
+				// User is logged in and on single group page.
+				if ( 'no' === $multi_reviews ) {
+					$user_post_count = $reviews_args->post_count;
 				} else {
-					ob_start();
-					$this->bp_group_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
-					$output .= ob_get_clean();
+					$user_post_count = 0;
+				}
+
+				if ( 0 === $user_post_count ) {
+					$output .= $this->bp_group_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
+				} else {
+
+					$bp_template_option = bp_get_option( '_bp_theme_package_id' );
+					if ( 'nouveau' === $bp_template_option ) {
+						$output .= '<div id="message" class="info bp-feedback bp-messages bp-template-notice">';
+						$output .= '<span class="bp-icon" aria-hidden="true"></span>';
+					} else {
+						$output .= '<div id="message" class="info">';
+					}
+					/* translators: %1$s is used for review label */
+					$output .= '<p>' . sprintf(
+						/* translators: %1$s is used for review label */
+						esc_html__( 'You already posted a %1$s for this group.', 'bp-group-reviews' ),
+						esc_html( $review_label )
+					) . '</p>';
+					$output .= '</div>';
 				}
 			} else {
-				$output .= '<div id="message" class="error">';
-				$output .= '<p>' . sprintf(
-					/* translators: %s is used for bp-group-review */
-					esc_html__( "You can't post %s on your own group.", 'bp-group-reviews' ),
-					esc_html( $review_label )
-				) . '</p>';
-				$output .= '</div>';
+				// User is logged in but not on single group page.
+				ob_start();
+				$this->bp_group_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id );
+				$output .= ob_get_clean();
 			}
-			// $output = ob_get_clean();
 			return $output;
 		}
 
@@ -144,7 +133,6 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 		 * @return void
 		 */
 		public function bp_group_review_form( $review_rating_fields, $active_rating_fields, $review_label, $admin_exclude_groups, $auto_approve_reviews, $multi_reviews, $current_group_id, $member_id ) {
-			global $bp;
 			$user_groups   = BP_Groups_Member::get_is_admin_of( $member_id );
 			$exclude_group = array();
 
@@ -159,14 +147,6 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 					array_push( $exclude_group, $admin_exclude_group );
 				}
 			}
-			// Get All groups.
-			$group_args = array(
-				'order'   => 'DESC',
-				'orderby' => 'date_created',
-				'exclude' => $exclude_group,
-				'status'  => apply_filters( 'bgr_review_form_group_status', array( 'public', 'hidden' ) ),
-			);
-			$allgroups  = groups_get_groups( $group_args );
 			?>
 			<form id="bgr-add-review-form" method="POST">
 				<input type="hidden" id="reviews_pluginurl"  name="reviews_pluginurl" value="<?php echo esc_attr( BGR_PLUGIN_URL ); ?>">
@@ -174,7 +154,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 					<h4>
 						<?php
 						/* translators: %1$s is used for review label */
-						echo sprintf( esc_html__( 'Write a %1$s', 'bp-group-reviews' ), esc_html( $review_label ) );
+						printf( esc_html__( 'Write a %1$s', 'bp-group-reviews' ), esc_html( $review_label ) );
 						?>
 					</h4>
 						<input type="hidden" name="form-group-id" value="<?php echo esc_attr( $current_group_id ); ?>" />
@@ -185,7 +165,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 						<?php $this->bp_group_review_display_form_rating(); ?>
 						<span class="bgr-error-fields">*<?php esc_html_e( 'This field is required.', 'bp-group-reviews' ); ?></span>
 					<?php /* translators: %s: search term */ ?>
-							<textarea class="review_desc" name="review-desc" placeholder="<?php echo sprintf( esc_attr__( '%1$s Description', 'bp-group-reviews' ), esc_attr( $review_label ) ); ?>" rows="3" cols="50" required></textarea>
+							<textarea class="review_desc" name="review-desc" placeholder="<?php printf( esc_attr__( '%1$s Description', 'bp-group-reviews' ), esc_attr( $review_label ) ); ?>" rows="3" cols="50" required></textarea>
 							<br/>
 						<p>
 							<input type="hidden" name="bgr-flag" value="1">
@@ -193,7 +173,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 						<p>
 							<?php wp_nonce_field( 'save-group-review', 'security-nonce' ); ?>
 							<?php /* translators: %1$s is used for review label */ ?>
-							<button class="btn btn-default bgr-submit-review" name="bgr-submit-review"><?php echo sprintf( esc_html__( 'Submit %1$s', 'bp-group-reviews' ), esc_html( $review_label ) ); ?></button>
+							<button class="btn btn-default bgr-submit-review" name="bgr-submit-review"><?php printf( esc_html__( 'Submit %1$s', 'bp-group-reviews' ), esc_html( $review_label ) ); ?></button>
 						</p>
 					</div>
 				</form>
@@ -215,7 +195,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 		/**
 		 * Check active rating fields
 		 *
-		 * @return void
+		 * @return bool True if there are active rating fields, false otherwise.
 		 */
 		public function bp_group_review_display_star() {
 			global $bgr;
@@ -236,13 +216,13 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 		 */
 		public function bp_group_review_display_form_star_rating() {
 			global $bgr;
-			$review_rating_fields = $bgr['review_rating_fields'];
-			$active_rating_fields = $bgr['active_rating_fields'];
-			$bp_group_review_display_star     = $this->bp_group_review_display_star();
-			if ( true == $bp_group_review_display_star ) {
+			$review_rating_fields         = $bgr['review_rating_fields'];
+			$active_rating_fields         = $bgr['active_rating_fields'];
+			$bp_group_review_display_star = $this->bp_group_review_display_star();
+			if ( true === $bp_group_review_display_star ) {
 				$field_counter = 1;
 				foreach ( $review_rating_fields as $review_rating_field ) :
-					if ( in_array( $review_rating_field, $active_rating_fields ) ) {
+					if ( in_array( $review_rating_field, $active_rating_fields, true ) ) {
 						?>
 							<div class="multi-review">
 								<div class="bgr-col-4 "><?php echo esc_html( $review_rating_field ); ?> <span class="required"> * </span>  </div>
@@ -256,7 +236,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 								<div class="bgr-col-12 bgr-error-fields">*<?php esc_html_e( 'This field is required.', 'bp-group-reviews' ); ?></div>
 							</div>
 							<?php
-							$field_counter++; }
+							++$field_counter; }
 						endforeach;
 				?>
 					<input type="hidden" id="rating_field_counter" value="<?php echo esc_html( --$field_counter ); ?>">
