@@ -33,7 +33,7 @@ function bp_group_review_globals() {
 		$multi_reviews        = isset( $bgr_admin_general_settings['multi_reviews'] ) ? $bgr_admin_general_settings['multi_reviews'] : 'no';
 	} else {
 		$multi_reviews        = 'no';
-		$reviews_per_page     = 10;
+		$reviews_per_page     = 5;
 		$allow_notification   = 'yes';
 		$allow_activity       = 'yes';
 		$exclude_groups       = array();
