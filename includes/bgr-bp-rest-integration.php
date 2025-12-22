@@ -366,13 +366,37 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 		 * @return WP_REST_Response|WP_Error
 		 */
 		public function get_group_reviews( $request ) {
-			// Use the existing method from BGR_REST_API class.
-			if ( class_exists( 'BGR_REST_API' ) ) {
-				$api_instance = new BGR_REST_API();
-				return $api_instance->get_group_reviews( $request );
+			$group_id = $request->get_param( 'group_id' );
+			$page     = $request->get_param( 'page' );
+			$per_page = $request->get_param( 'per_page' );
+
+			$args = array(
+				'post_type'      => 'review',
+				'post_status'    => 'publish',
+				'posts_per_page' => $per_page,
+				'paged'          => $page,
+				'meta_query'     => array(
+					array(
+						'key'     => 'linked_group',
+						'value'   => $group_id,
+						'compare' => '=',
+					),
+				),
+			);
+
+			$reviews_query = new WP_Query( $args );
+			$reviews       = array();
+
+			foreach ( $reviews_query->posts as $review ) {
+				$reviews[] = $this->prepare_review_for_response( $review, $group_id );
 			}
 
-			return new WP_Error( 'rest_error', __( 'REST API class not found.', 'bp-group-reviews' ), array( 'status' => 500 ) );
+			$response = rest_ensure_response( $reviews );
+
+			$response->header( 'X-WP-Total', $reviews_query->found_posts );
+			$response->header( 'X-WP-TotalPages', $reviews_query->max_num_pages );
+
+			return $response;
 		}
 
 		/**
@@ -382,12 +406,86 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 		 * @return WP_REST_Response|WP_Error
 		 */
 		public function create_group_review( $request ) {
-			if ( class_exists( 'BGR_REST_API' ) ) {
-				$api_instance = new BGR_REST_API();
-				return $api_instance->create_review( $request );
+			global $bgr;
+
+			$group_id    = $request->get_param( 'group_id' );
+			$subject     = $request->get_param( 'subject' );
+			$description = $request->get_param( 'description' );
+			$ratings     = $request->get_param( 'ratings' );
+			$user_id     = get_current_user_id();
+
+			// Check if group exists.
+			$group = groups_get_group( $group_id );
+			if ( empty( $group->id ) ) {
+				return new WP_Error( 'rest_invalid_group', __( 'Invalid group ID.', 'bp-group-reviews' ), array( 'status' => 404 ) );
 			}
 
-			return new WP_Error( 'rest_error', __( 'REST API class not found.', 'bp-group-reviews' ), array( 'status' => 500 ) );
+			// Check if user is group admin (can't review own group).
+			if ( function_exists( 'groups_is_user_admin' ) && groups_is_user_admin( $user_id, $group_id ) ) {
+				return new WP_Error( 'rest_cannot_review', __( 'Group admins cannot review their own group.', 'bp-group-reviews' ), array( 'status' => 403 ) );
+			}
+
+			// Check if group is excluded.
+			$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
+			$exclude_groups             = isset( $bgr_admin_general_settings['exclude_groups'] ) ? $bgr_admin_general_settings['exclude_groups'] : array();
+
+			if ( in_array( $group_id, $exclude_groups, true ) ) {
+				return new WP_Error( 'rest_group_excluded', __( 'Reviews are disabled for this group.', 'bp-group-reviews' ), array( 'status' => 403 ) );
+			}
+
+			// Check for multiple reviews.
+			$multi_reviews = isset( $bgr_admin_general_settings['multi_reviews'] ) ? $bgr_admin_general_settings['multi_reviews'] : 'no';
+
+			if ( 'no' === $multi_reviews ) {
+				$existing_reviews = get_posts(
+					array(
+						'post_type'   => 'review',
+						'post_status' => array( 'draft', 'publish' ),
+						'author'      => $user_id,
+						'meta_query'  => array(
+							array(
+								'key'     => 'linked_group',
+								'value'   => $group_id,
+								'compare' => '=',
+							),
+						),
+					)
+				);
+
+				if ( ! empty( $existing_reviews ) ) {
+					return new WP_Error( 'rest_already_reviewed', __( 'You have already reviewed this group.', 'bp-group-reviews' ), array( 'status' => 403 ) );
+				}
+			}
+
+			// Determine post status based on auto-approve setting.
+			$auto_approve = isset( $bgr_admin_general_settings['auto_approve_reviews'] ) && 'yes' === $bgr_admin_general_settings['auto_approve_reviews'];
+			$post_status  = $auto_approve ? 'publish' : 'draft';
+
+			// Create the review post.
+			$review_id = wp_insert_post(
+				array(
+					'post_title'   => sanitize_text_field( $subject ),
+					'post_content' => sanitize_textarea_field( $description ),
+					'post_type'    => 'review',
+					'post_status'  => $post_status,
+					'post_author'  => $user_id,
+				)
+			);
+
+			if ( is_wp_error( $review_id ) ) {
+				return $review_id;
+			}
+
+			// Save review meta.
+			update_post_meta( $review_id, 'linked_group', $group_id );
+
+			if ( ! empty( $ratings ) && is_array( $ratings ) ) {
+				update_post_meta( $review_id, 'review_star_rating', $ratings );
+			}
+
+			$review = get_post( $review_id );
+
+			return rest_ensure_response( $this->prepare_review_for_response( $review, $group_id ) );
 		}
 
 		/**
@@ -398,14 +496,21 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 		 */
 		public function get_single_review( $request ) {
 			$review_id = $request->get_param( 'review_id' );
-			$request->set_param( 'id', $review_id );
+			$group_id  = $request->get_param( 'group_id' );
 
-			if ( class_exists( 'BGR_REST_API' ) ) {
-				$api_instance = new BGR_REST_API();
-				return $api_instance->get_review( $request );
+			$review = get_post( $review_id );
+
+			if ( ! $review || 'review' !== $review->post_type ) {
+				return new WP_Error( 'rest_review_invalid', __( 'Invalid review ID.', 'bp-group-reviews' ), array( 'status' => 404 ) );
 			}
 
-			return new WP_Error( 'rest_error', __( 'REST API class not found.', 'bp-group-reviews' ), array( 'status' => 500 ) );
+			// Verify review belongs to the specified group.
+			$linked_group = get_post_meta( $review_id, 'linked_group', true );
+			if ( absint( $linked_group ) !== absint( $group_id ) ) {
+				return new WP_Error( 'rest_review_invalid', __( 'Review does not belong to this group.', 'bp-group-reviews' ), array( 'status' => 404 ) );
+			}
+
+			return rest_ensure_response( $this->prepare_review_for_response( $review, $group_id ) );
 		}
 
 		/**
@@ -415,15 +520,41 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 		 * @return WP_REST_Response|WP_Error
 		 */
 		public function update_group_review( $request ) {
-			$review_id = $request->get_param( 'review_id' );
-			$request->set_param( 'id', $review_id );
+			$review_id   = $request->get_param( 'review_id' );
+			$group_id    = $request->get_param( 'group_id' );
+			$subject     = $request->get_param( 'subject' );
+			$description = $request->get_param( 'description' );
+			$ratings     = $request->get_param( 'ratings' );
 
-			if ( class_exists( 'BGR_REST_API' ) ) {
-				$api_instance = new BGR_REST_API();
-				return $api_instance->update_review( $request );
+			$review = get_post( $review_id );
+
+			if ( ! $review || 'review' !== $review->post_type ) {
+				return new WP_Error( 'rest_review_invalid', __( 'Invalid review ID.', 'bp-group-reviews' ), array( 'status' => 404 ) );
 			}
 
-			return new WP_Error( 'rest_error', __( 'REST API class not found.', 'bp-group-reviews' ), array( 'status' => 500 ) );
+			$update_args = array( 'ID' => $review_id );
+
+			if ( ! empty( $subject ) ) {
+				$update_args['post_title'] = sanitize_text_field( $subject );
+			}
+
+			if ( ! empty( $description ) ) {
+				$update_args['post_content'] = sanitize_textarea_field( $description );
+			}
+
+			$result = wp_update_post( $update_args );
+
+			if ( is_wp_error( $result ) ) {
+				return $result;
+			}
+
+			if ( ! empty( $ratings ) && is_array( $ratings ) ) {
+				update_post_meta( $review_id, 'review_star_rating', $ratings );
+			}
+
+			$review = get_post( $review_id );
+
+			return rest_ensure_response( $this->prepare_review_for_response( $review, $group_id ) );
 		}
 
 		/**
@@ -434,14 +565,68 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 		 */
 		public function delete_group_review( $request ) {
 			$review_id = $request->get_param( 'review_id' );
-			$request->set_param( 'id', $review_id );
 
-			if ( class_exists( 'BGR_REST_API' ) ) {
-				$api_instance = new BGR_REST_API();
-				return $api_instance->delete_review( $request );
+			$review = get_post( $review_id );
+
+			if ( ! $review || 'review' !== $review->post_type ) {
+				return new WP_Error( 'rest_review_invalid', __( 'Invalid review ID.', 'bp-group-reviews' ), array( 'status' => 404 ) );
 			}
 
-			return new WP_Error( 'rest_error', __( 'REST API class not found.', 'bp-group-reviews' ), array( 'status' => 500 ) );
+			$result = wp_delete_post( $review_id, true );
+
+			if ( ! $result ) {
+				return new WP_Error( 'rest_cannot_delete', __( 'The review could not be deleted.', 'bp-group-reviews' ), array( 'status' => 500 ) );
+			}
+
+			return rest_ensure_response(
+				array(
+					'deleted' => true,
+					'id'      => $review_id,
+				)
+			);
+		}
+
+		/**
+		 * Prepare review data for REST response.
+		 *
+		 * @param WP_Post $review   Review post object.
+		 * @param int     $group_id Group ID.
+		 * @return array Prepared review data.
+		 */
+		protected function prepare_review_for_response( $review, $group_id ) {
+			$author  = get_userdata( $review->post_author );
+			$ratings = get_post_meta( $review->ID, 'review_star_rating', true );
+
+			return array(
+				'id'          => $review->ID,
+				'group_id'    => absint( $group_id ),
+				'subject'     => $review->post_title,
+				'description' => $review->post_content,
+				'status'      => $review->post_status,
+				'author'      => array(
+					'id'          => $review->post_author,
+					'name'        => $author ? $author->display_name : '',
+					'avatar_urls' => array(
+						'thumb' => function_exists( 'bp_core_fetch_avatar' ) ? bp_core_fetch_avatar(
+							array(
+								'item_id' => $review->post_author,
+								'type'    => 'thumb',
+								'html'    => false,
+							)
+						) : get_avatar_url( $review->post_author, array( 'size' => 50 ) ),
+						'full'  => function_exists( 'bp_core_fetch_avatar' ) ? bp_core_fetch_avatar(
+							array(
+								'item_id' => $review->post_author,
+								'type'    => 'full',
+								'html'    => false,
+							)
+						) : get_avatar_url( $review->post_author, array( 'size' => 150 ) ),
+					),
+				),
+				'ratings'     => ! empty( $ratings ) ? $ratings : array(),
+				'created'     => mysql_to_rfc3339( $review->post_date ),
+				'modified'    => mysql_to_rfc3339( $review->post_modified ),
+			);
 		}
 
 		/**

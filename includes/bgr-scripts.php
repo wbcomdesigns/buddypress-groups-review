@@ -91,27 +91,37 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 		 * @return void
 		 */
 		public function bp_group_review_custom_variables() {
-			// Only enqueue scripts when BGR widgets are available
+			// Set up file extensions based on debug mode.
+			if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
+				$script_extension = '.js';
+				$script_path      = '';
+			} else {
+				$script_extension = '.min.js';
+				$script_path      = '/min';
+			}
+			if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
+				$style_extension = is_rtl() ? '.rtl.css' : '.css';
+				$style_path      = is_rtl() ? '/rtl' : '';
+			} else {
+				$style_extension = is_rtl() ? '.rtl.css' : '.min.css';
+				$style_path      = is_rtl() ? '/rtl' : '/min';
+			}
+
+			// Register bgr-ratings-css globally so dynamic inline styles can attach to it.
+			// This is required for the rating color setting to work via wp_add_inline_style().
+			wp_register_style( 'bgr-ratings-css', BGR_PLUGIN_URL . 'assets/css' . $style_path . '/bgr-ratings' . $style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
+
+			// Enqueue on BuddyPress group pages for rating color to display.
+			if ( function_exists( 'bp_is_group' ) && bp_is_group() ) {
+				wp_enqueue_style( 'bgr-ratings-css' );
+			}
+
+			// Only enqueue full scripts when BGR widgets are available
 			if ( $this->bp_group_review_is_widget_active() ) {
-				if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
-					$script_extension = '.js';
-					$script_path      = '';
-				} else {
-					$script_extension = '.min.js';
-					$script_path      = '/min';
-				}
-				if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
-					$style_extension = is_rtl() ? '.rtl.css' : '.css';
-					$style_path      = is_rtl() ? '/rtl' : '';
-				} else {
-					$style_extension = is_rtl() ? '.rtl.css' : '.min.css';
-					$style_path      = is_rtl() ? '/rtl' : '/min';
-				}
 				// Replaced FontAwesome CDN with local CSS-based icon styles for WordPress.org compliance.
 				wp_register_style( 'bgr-icons', BGR_PLUGIN_URL . 'assets/css/bgr-icons.css', array(), BGR_PLUGIN_VERSION, 'all' );
-				wp_register_style( 'bgr-reviews-css', BGR_PLUGIN_URL . 'assets/css'.$style_path.'/bgr-reviews'.$style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
-				wp_register_style( 'bgr-front-css', BGR_PLUGIN_URL . 'assets/css'.$style_path.'/bgr-front'.$style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
-				wp_register_style( 'bgr-ratings-css', BGR_PLUGIN_URL . 'assets/css'.$style_path.'/bgr-ratings'.$style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
+				wp_register_style( 'bgr-reviews-css', BGR_PLUGIN_URL . 'assets/css' . $style_path . '/bgr-reviews' . $style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
+				wp_register_style( 'bgr-front-css', BGR_PLUGIN_URL . 'assets/css' . $style_path . '/bgr-front' . $style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
 
 				wp_register_script( 'bgr-front-js', BGR_PLUGIN_URL . 'assets/js'.$script_path.'/bgr-front'.$script_extension, array( 'jquery' ), BGR_PLUGIN_VERSION, false );
 				wp_register_script( 'bgr-ratings-js', BGR_PLUGIN_URL . 'assets/js'.$script_path.'/bgr-ratings'.$script_extension, array( 'jquery' ), BGR_PLUGIN_VERSION, false );

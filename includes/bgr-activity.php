@@ -109,10 +109,10 @@ class BGR_Activity {
 		$post_link       = get_permalink( $posts_id );
 		$group_id        = bp_get_current_group_id();
 		$group_name      = bp_get_group_name( groups_get_group( $group_id ) );
-		$post_link_html  = '<a href="' . esc_url( $post_link ) . '">' . $product_title . '</a>';
+		$post_link_html  = '<a href="' . esc_url( $post_link ) . '">' . $post_title . '</a>';
 		$group_link_html = '<a href="' . esc_url( $post_link ) . '">' . $group_name . '</a>';
 		/* translators: %1$s: User Link, %2$s: Post Link HTML, %3$s: Group Name */
-		$action = sprintf( __( '%1$s posted a new post %2$s in group %3$s', 'bp-group-reviews' ), $user_link, $product_link_html, $group_name );
+		$action = sprintf( __( '%1$s posted a new post %2$s in group %3$s', 'bp-group-reviews' ), $user_link, $post_link_html, $group_name );
 
 		return apply_filters( 'bp_group_review_group_create_posts_activity_action', $action );
 	}

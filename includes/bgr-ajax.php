@@ -78,7 +78,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					'post_status'    => 'publish',
 					'category'       => 'review_category',
 					'meta_key'       => 'linked_group',
-					'meta_value'     => sanitize_text_field( filter_input( INPUT_POST, 'group_id' ) ),
+					'meta_value'     => absint( filter_input( INPUT_POST, 'group_id' ) ),
 				);
 				$reviews     = get_posts( $custom_args );
 
@@ -186,11 +186,24 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		public function bp_group_review_admin_approve_review() {
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'admin-ajax-nonce' ) ) {
-				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
+				$error = new WP_Error( '001', esc_html__( 'Security check failed.', 'bp-group-reviews' ), 'nonce_error' );
 				wp_send_json_error( $error );
 			}
-			if ( isset( $_POST['action'] ) && 'bp_group_review_admin_approve_review' === $_POST['action'] && current_user_can( 'manage_options' ) ) {
-				$rid  = isset( $_POST['review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['review_id'] ) ) : '';
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error( new WP_Error( '002', esc_html__( 'Permission denied.', 'bp-group-reviews' ), 'permission_denied' ) );
+			}
+			if ( isset( $_POST['action'] ) && 'bp_group_review_admin_approve_review' === $_POST['action'] ) {
+				$rid = isset( $_POST['review_id'] ) ? absint( $_POST['review_id'] ) : 0;
+				if ( empty( $rid ) ) {
+					wp_send_json_error( new WP_Error( '003', esc_html__( 'Invalid review ID.', 'bp-group-reviews' ), 'invalid_review' ) );
+				}
+
+				// Check if review post exists and is of correct type.
+				$review_post = get_post( $rid );
+				if ( ! $review_post || 'review' !== $review_post->post_type ) {
+					wp_send_json_error( new WP_Error( '004', esc_html__( 'Review not found.', 'bp-group-reviews' ), 'review_not_found' ) );
+				}
+
 				$args = array(
 					'ID'          => $rid,
 					'post_status' => 'publish',
@@ -211,11 +224,24 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		public function bp_group_review_admin_deny_review() {
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'admin-ajax-nonce' ) ) {
-				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
+				$error = new WP_Error( '001', esc_html__( 'Security check failed.', 'bp-group-reviews' ), 'nonce_error' );
 				wp_send_json_error( $error );
 			}
-			if ( isset( $_POST['action'] ) && 'bp_group_review_admin_deny_review' === $_POST['action'] && current_user_can( 'manage_options' ) ) {
-				$rid = isset( $_POST['review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['review_id'] ) ) : '';
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error( new WP_Error( '002', esc_html__( 'Permission denied.', 'bp-group-reviews' ), 'permission_denied' ) );
+			}
+			if ( isset( $_POST['action'] ) && 'bp_group_review_admin_deny_review' === $_POST['action'] ) {
+				$rid = isset( $_POST['review_id'] ) ? absint( $_POST['review_id'] ) : 0;
+				if ( empty( $rid ) ) {
+					wp_send_json_error( new WP_Error( '003', esc_html__( 'Invalid review ID.', 'bp-group-reviews' ), 'invalid_review' ) );
+				}
+
+				// Check if review post exists and is of correct type.
+				$review_post = get_post( $rid );
+				if ( ! $review_post || 'review' !== $review_post->post_type ) {
+					wp_send_json_error( new WP_Error( '004', esc_html__( 'Review not found.', 'bp-group-reviews' ), 'review_not_found' ) );
+				}
+
 				wp_trash_post( $rid );
 				do_action( 'bgr_group_deny_review', $rid );
 				echo 'review-denied-successfully';
@@ -330,18 +356,60 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		public function bp_group_submit_review() {
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
-				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
+				$error = new WP_Error( '001', esc_html__( 'Security check failed.', 'bp-group-reviews' ), 'nonce_error' );
 				wp_send_json_error( $error );
 			}
 			if ( ! is_user_logged_in() ) {
-				return false;
+				wp_send_json_error( new WP_Error( '002', esc_html__( 'You must be logged in to submit a review.', 'bp-group-reviews' ), 'login_required' ) );
 			}
 			global $bp;
 			global $bgr;
+
+			// Parse form data first to get group_id for validation.
+			if ( isset( $_POST['data'] ) ) {
+				wp_parse_str( wp_unslash( filter_input( INPUT_POST, 'data', FILTER_UNSAFE_RAW ) ), $formarray );
+			} else {
+				wp_send_json_error( new WP_Error( '003', esc_html__( 'Invalid form data.', 'bp-group-reviews' ), 'invalid_data' ) );
+			}
+
+			$review_subject = isset( $formarray['review-subject'] ) ? sanitize_text_field( $formarray['review-subject'] ) : '';
+			$review_desc    = isset( $formarray['review-desc'] ) ? sanitize_text_field( $formarray['review-desc'] ) : '';
+			$form_group_id  = isset( $formarray['form-group-id'] ) ? absint( $formarray['form-group-id'] ) : 0;
+
+			// Validate required fields.
+			if ( empty( $review_desc ) ) {
+				wp_send_json_error( new WP_Error( '004', esc_html__( 'Review description is required.', 'bp-group-reviews' ), 'empty_content' ) );
+			}
+
+			// Validate group exists.
+			if ( empty( $form_group_id ) ) {
+				wp_send_json_error( new WP_Error( '005', esc_html__( 'Invalid group.', 'bp-group-reviews' ), 'invalid_group' ) );
+			}
+
+			$group_obj = groups_get_group( $form_group_id );
+
+			// Check if group exists.
+			if ( empty( $group_obj ) || empty( $group_obj->id ) ) {
+				wp_send_json_error( new WP_Error( '006', esc_html__( 'Group not found.', 'bp-group-reviews' ), 'group_not_found' ) );
+			}
+
+			$current_user = wp_get_current_user();
+			$member_id    = $current_user->ID;
+
+			// Check if user is group admin (admins cannot review their own groups).
+			if ( groups_is_user_admin( $member_id, $form_group_id ) ) {
+				wp_send_json_error( new WP_Error( '007', esc_html__( 'Group administrators cannot review their own groups.', 'bp-group-reviews' ), 'admin_cannot_review' ) );
+			}
+
+			// Check if group is excluded from reviews.
+			$bgr_admin_settings   = get_option( 'bgr_admin_general_settings', array() );
+			$admin_exclude_groups = isset( $bgr_admin_settings['exclude_groups'] ) ? $bgr_admin_settings['exclude_groups'] : array();
+			if ( ! empty( $admin_exclude_groups ) && in_array( $form_group_id, $admin_exclude_groups, false ) ) {
+				wp_send_json_error( new WP_Error( '008', esc_html__( 'Reviews are not enabled for this group.', 'bp-group-reviews' ), 'group_excluded' ) );
+			}
+
 			$bp_group_review_email_settings = get_option( 'bp_group_review_email_settings' );
 			$bgr_allow_email                = isset( $bp_group_review_email_settings['bgr_allow_email'] ) ? $bp_group_review_email_settings['bgr_allow_email'] : '';
-			$current_user                   = wp_get_current_user();
-			$member_id                      = $current_user->ID;
 			$user_name                      = $current_user->display_name;
 			$active_rating_fields           = $bgr['active_rating_fields'];
 			$allow_notification             = $bgr['allow_notification'];
@@ -354,13 +422,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$review_email_subject = ( isset( $bgr['review_email_subject'] ) ) ? $bgr['review_email_subject'] : sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
 			/* Translators: %1$s: Review Label %2$s Group Name %3$s User Name %4$s User Link */
 			$review_email_message = ( isset( $bgr['review_email_message'] ) ) ? $bgr['review_email_message'] : esc_html__( 'A new %1$s for %2$s added by %3$s. Link: %4$s', 'bp-group-reviews' );
-			if ( isset( $_POST['data'] ) ) {
-				wp_parse_str( wp_unslash( filter_input( INPUT_POST, 'data', FILTER_UNSAFE_RAW ) ), $formarray );
-			}
-			$review_subject = sanitize_text_field( $formarray['review-subject'] );
-			$review_desc    = sanitize_text_field( $formarray['review-desc'] );
-			$form_group_id  = sanitize_text_field( $formarray['form-group-id'] );
-			$group_obj      = groups_get_group( $form_group_id );
 			$group_name     = $group_obj->name;
 			/* Translators: %1$s: User Name %2$s Review Label %3$s Group Name */
 			$review_cpt_subject = sprintf( esc_html__( '%1$s %2$ss Group %3$s.', 'bp-group-reviews' ), $user_name, $review_label, $group_name );
@@ -512,14 +573,38 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		public function bp_group_review_accept_review() {
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
-				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
+				$error = new WP_Error( '001', esc_html__( 'Security check failed.', 'bp-group-reviews' ), 'nonce_error' );
 				wp_send_json_error( $error );
 			}
 			if ( ! is_user_logged_in() ) {
-				return false;
+				wp_send_json_error( new WP_Error( '002', esc_html__( 'You must be logged in.', 'bp-group-reviews' ), 'login_required' ) );
 			}
 			global $bgr;
 			global $bp;
+
+			// Validate and sanitize review ID.
+			$post_id = isset( $_POST['accept_review_id'] ) ? absint( $_POST['accept_review_id'] ) : 0;
+			if ( empty( $post_id ) ) {
+				wp_send_json_error( new WP_Error( '003', esc_html__( 'Invalid review ID.', 'bp-group-reviews' ), 'invalid_review' ) );
+			}
+
+			// Check if review post exists and is of correct type.
+			$review_post = get_post( $post_id );
+			if ( ! $review_post || 'review' !== $review_post->post_type ) {
+				wp_send_json_error( new WP_Error( '004', esc_html__( 'Review not found.', 'bp-group-reviews' ), 'review_not_found' ) );
+			}
+
+			// Get the group ID for this review.
+			$group_id = get_post_meta( $post_id, 'linked_group', true );
+			if ( empty( $group_id ) ) {
+				wp_send_json_error( new WP_Error( '005', esc_html__( 'Invalid group for this review.', 'bp-group-reviews' ), 'invalid_group' ) );
+			}
+
+			// Check if current user is a group admin for this group.
+			$current_user_id = get_current_user_id();
+			if ( ! groups_is_user_admin( $current_user_id, $group_id ) && ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error( new WP_Error( '006', esc_html__( 'You do not have permission to manage reviews for this group.', 'bp-group-reviews' ), 'permission_denied' ) );
+			}
 
 			if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
 				$group_permalink = bp_get_groups_directory_permalink();
@@ -528,7 +613,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			}
 
 			$bp_group_review_email_settings = get_option( 'bp_group_review_email_settings' );
-			$post_id                        = isset( $_POST['accept_review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['accept_review_id'] ) ) : '';
 			$post_author_id                 = get_post_field( 'post_author', $post_id );
 			wp_publish_post( $post_id );
 			$allow_notification   = $bgr['allow_notification'];
@@ -604,14 +688,38 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		public function bp_group_review_deny_review() {
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
-				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
+				$error = new WP_Error( '001', esc_html__( 'Security check failed.', 'bp-group-reviews' ), 'nonce_error' );
 				wp_send_json_error( $error );
 			}
 			if ( ! is_user_logged_in() ) {
-				return false;
+				wp_send_json_error( new WP_Error( '002', esc_html__( 'You must be logged in.', 'bp-group-reviews' ), 'login_required' ) );
 			}
 			global $bgr;
-			$post_id                        = isset( $_POST['deny_review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['deny_review_id'] ) ) : '';
+
+			// Validate and sanitize review ID.
+			$post_id = isset( $_POST['deny_review_id'] ) ? absint( $_POST['deny_review_id'] ) : 0;
+			if ( empty( $post_id ) ) {
+				wp_send_json_error( new WP_Error( '003', esc_html__( 'Invalid review ID.', 'bp-group-reviews' ), 'invalid_review' ) );
+			}
+
+			// Check if review post exists and is of correct type.
+			$review_post = get_post( $post_id );
+			if ( ! $review_post || 'review' !== $review_post->post_type ) {
+				wp_send_json_error( new WP_Error( '004', esc_html__( 'Review not found.', 'bp-group-reviews' ), 'review_not_found' ) );
+			}
+
+			// Get the group ID for this review.
+			$group_id = get_post_meta( $post_id, 'linked_group', true );
+			if ( empty( $group_id ) ) {
+				wp_send_json_error( new WP_Error( '005', esc_html__( 'Invalid group for this review.', 'bp-group-reviews' ), 'invalid_group' ) );
+			}
+
+			// Check if current user is a group admin for this group.
+			$current_user_id = get_current_user_id();
+			if ( ! groups_is_user_admin( $current_user_id, $group_id ) && ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error( new WP_Error( '006', esc_html__( 'You do not have permission to manage reviews for this group.', 'bp-group-reviews' ), 'permission_denied' ) );
+			}
+
 			$post_author_id                 = get_post_field( 'post_author', $post_id );
 			$bp_group_review_email_settings = get_option( 'bp_group_review_email_settings' );
 			wp_trash_post( $post_id );
@@ -689,14 +797,39 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		public function bp_group_remove_review() {
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 			if ( isset( $nonce ) && ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
-				$error = new WP_Error( '001', 'Nonce not verified!', 'Some information' );
+				$error = new WP_Error( '001', esc_html__( 'Security check failed.', 'bp-group-reviews' ), 'nonce_error' );
 				wp_send_json_error( $error );
 			}
 			if ( ! is_user_logged_in() ) {
-				return false;
+				wp_send_json_error( new WP_Error( '002', esc_html__( 'You must be logged in.', 'bp-group-reviews' ), 'login_required' ) );
 			}
-			$post_id = isset( $_POST['remove_review_id'] ) ? sanitize_text_field( wp_unslash( $_POST['remove_review_id'] ) ) : '';
+
+			// Validate and sanitize review ID.
+			$post_id = isset( $_POST['remove_review_id'] ) ? absint( $_POST['remove_review_id'] ) : 0;
+			if ( empty( $post_id ) ) {
+				wp_send_json_error( new WP_Error( '003', esc_html__( 'Invalid review ID.', 'bp-group-reviews' ), 'invalid_review' ) );
+			}
+
+			// Check if review post exists and is of correct type.
+			$review_post = get_post( $post_id );
+			if ( ! $review_post || 'review' !== $review_post->post_type ) {
+				wp_send_json_error( new WP_Error( '004', esc_html__( 'Review not found.', 'bp-group-reviews' ), 'review_not_found' ) );
+			}
+
+			// Get the group ID for this review.
+			$group_id = get_post_meta( $post_id, 'linked_group', true );
+			if ( empty( $group_id ) ) {
+				wp_send_json_error( new WP_Error( '005', esc_html__( 'Invalid group for this review.', 'bp-group-reviews' ), 'invalid_group' ) );
+			}
+
+			// Check if current user is a group admin for this group.
+			$current_user_id = get_current_user_id();
+			if ( ! groups_is_user_admin( $current_user_id, $group_id ) && ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error( new WP_Error( '006', esc_html__( 'You do not have permission to remove reviews for this group.', 'bp-group-reviews' ), 'permission_denied' ) );
+			}
+
 			wp_trash_post( $post_id );
+			echo 'review-removed-successfully';
 			die;
 		}
 	}

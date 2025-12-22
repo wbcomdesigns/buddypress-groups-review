@@ -136,9 +136,12 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			$user_groups   = BP_Groups_Member::get_is_admin_of( $member_id );
 			$exclude_group = array();
 
-			if ( ! empty( $user_groups ) ) {
+			// Safely check user_groups array structure before iterating.
+			if ( ! empty( $user_groups ) && isset( $user_groups['groups'] ) && is_array( $user_groups['groups'] ) ) {
 				foreach ( $user_groups['groups'] as $user_group ) {
-					array_push( $exclude_group, $user_group->id );
+					if ( ! empty( $user_group->id ) ) {
+						array_push( $exclude_group, $user_group->id );
+					}
 				}
 			}
 
@@ -146,6 +149,11 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				foreach ( $admin_exclude_groups as $admin_exclude_group ) {
 					array_push( $exclude_group, $admin_exclude_group );
 				}
+			}
+
+			// Check if current group is in the exclusion list and return early if so.
+			if ( ! empty( $current_group_id ) && in_array( $current_group_id, $exclude_group, false ) ) {
+				return;
 			}
 			?>
 			<form id="bgr-add-review-form" method="POST">

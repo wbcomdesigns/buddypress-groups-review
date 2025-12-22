@@ -15,10 +15,24 @@ defined( 'ABSPATH' ) || exit;
 global $bgr;
 $review_rating_fields = $bgr['review_rating_fields'];
 $url                  = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
-if (preg_match('/\/view\/(\d+)/', $url, $matches)) {
-    $review_id = $matches[1];
+$review_id            = 0;
+if ( preg_match( '/\/view\/(\d+)/', $url, $matches ) ) {
+    $review_id = absint( $matches[1] );
 }
-$review               = get_post( absint( $review_id ) );
+
+// Bail early if no valid review ID found.
+if ( empty( $review_id ) ) {
+    echo '<div class="bp-feedback error"><p>' . esc_html__( 'Review not found.', 'bp-group-reviews' ) . '</p></div>';
+    return;
+}
+
+$review = get_post( $review_id );
+
+// Bail if review doesn't exist.
+if ( ! $review || 'review' !== $review->post_type ) {
+    echo '<div class="bp-feedback error"><p>' . esc_html__( 'Review not found.', 'bp-group-reviews' ) . '</p></div>';
+    return;
+}
 $review_title         = $review->post_title;
 $author               = absint( $review->post_author );
 $author_details       = get_userdata( $author );

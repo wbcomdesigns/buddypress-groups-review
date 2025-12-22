@@ -235,10 +235,40 @@ add_action( 'activated_plugin', 'bp_group_review_activation_redirect_settings' )
 
 
 /**
- * Save option of email setting.
+ * Sanitize email settings array.
  *
+ * @param array $input The input array to sanitize.
+ * @return array The sanitized array.
+ */
+function bp_group_review_sanitize_email_settings( $input ) {
+	$sanitized = array();
+
+	if ( ! is_array( $input ) ) {
+		return $sanitized;
+	}
+
+	foreach ( $input as $key => $value ) {
+		if ( is_array( $value ) ) {
+			$sanitized[ sanitize_key( $key ) ] = array_map( 'sanitize_text_field', $value );
+		} else {
+			$sanitized[ sanitize_key( $key ) ] = sanitize_text_field( $value );
+		}
+	}
+
+	return $sanitized;
+}
+
+/**
+ * Save option of email setting.
  */
 function bp_group_review_save_email_settigs() {
-	register_setting( 'bp_group_review_email_settings', 'bp_group_review_email_settings' );
+	register_setting(
+		'bp_group_review_email_settings',
+		'bp_group_review_email_settings',
+		array(
+			'type'              => 'array',
+			'sanitize_callback' => 'bp_group_review_sanitize_email_settings',
+		)
+	);
 }
 add_action( 'admin_menu', 'bp_group_review_save_email_settigs' );
