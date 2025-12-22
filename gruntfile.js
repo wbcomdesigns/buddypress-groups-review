@@ -219,6 +219,7 @@ module.exports = function (grunt) {
                     '!dist/**',
                     '!build/**',
                     '!docs/**',
+                    '!marketing/**',
                     '!BUDDYBOSS-COMPATIBILITY.md',
                     '!.DS_Store',
                     '!**/.DS_Store',

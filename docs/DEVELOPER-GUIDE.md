@@ -7,12 +7,13 @@
 3. [Action Hooks Reference](#action-hooks-reference)
 4. [Filter Hooks Reference](#filter-hooks-reference)
 5. [Function Reference](#function-reference)
-6. [REST API Integration](#rest-api-integration)
-7. [Database Structure](#database-structure)
-8. [Custom Post Type](#custom-post-type)
-9. [Extending the Plugin](#extending-the-plugin)
-10. [Code Examples](#code-examples)
-11. [Best Practices](#best-practices)
+6. [Uninstall & Data Cleanup](#uninstall--data-cleanup)
+7. [REST API Integration](#rest-api-integration)
+8. [Database Structure](#database-structure)
+9. [Custom Post Type](#custom-post-type)
+10. [Extending the Plugin](#extending-the-plugin)
+11. [Code Examples](#code-examples)
+12. [Best Practices](#best-practices)
 
 ---
 
@@ -20,7 +21,7 @@
 
 This developer guide provides technical documentation for extending and customizing the BuddyPress Group Reviews plugin. It includes all available hooks, filters, functions, and integration points.
 
-**Plugin Version:** 3.5.0
+**Plugin Version:** 3.6.0
 **Minimum PHP:** 7.4
 **Minimum WordPress:** 4.0
 **Requires BuddyPress:** 5.0+
@@ -363,6 +364,45 @@ function award_detailed_review_bonus( $author_id, $group_id, $review_id ) {
 
 ---
 
+### Admin Bulk Action Hooks
+
+#### `handle_bulk_actions-edit-review`
+
+WordPress filter for handling custom bulk actions on reviews.
+
+**Parameters:**
+- `string $redirect_to` - The redirect URL after action
+- `string $doaction` - The action being taken (`approve_reviews` or `deny_reviews`)
+- `array $post_ids` - Array of review post IDs
+
+**Returns:** `string` - Modified redirect URL
+
+**Example:**
+```php
+add_filter( 'handle_bulk_actions-edit-review', 'my_custom_bulk_handler', 10, 3 );
+
+function my_custom_bulk_handler( $redirect_to, $doaction, $post_ids ) {
+    if ( 'my_custom_action' !== $doaction ) {
+        return $redirect_to;
+    }
+
+    foreach ( $post_ids as $post_id ) {
+        // Process each review
+        do_something_with_review( $post_id );
+    }
+
+    return add_query_arg( 'my_action_done', count( $post_ids ), $redirect_to );
+}
+```
+
+**Location:** `includes/bgr-filters.php:398`
+
+**Built-in Actions:**
+- `approve_reviews` - Publishes draft reviews and triggers `bgr_group_accept_review`
+- `deny_reviews` - Moves reviews to trash and triggers `bgr_group_deny_review`
+
+---
+
 ### BuddyPress Activity Hooks
 
 #### `bp_register_activity_actions`
@@ -656,6 +696,11 @@ function my_custom_activity_text( $action_text ) {
 ```
 
 **Location:** `includes/bgr-activity.php:153`, `includes/bgr-activity.php:218`
+
+**Privacy Note:**
+Activity posts for reviews in private or hidden groups are automatically hidden from the sitewide activity feed. They only appear within the group's own activity stream. This is handled by the `hide_sitewide` parameter in `bp_activity_add()`.
+
+**Location:** `includes/bgr-activity.php:168`, `includes/bgr-activity.php:240`
 
 ---
 
@@ -956,6 +1001,94 @@ Hides the "Add Review" tab for excluded groups via CSS.
 **Usage:** Automatically hooked to `wp_head`
 
 **Location:** `includes/bgr-functions.php:9`
+
+---
+
+### Admin Functions
+
+#### CSV Export
+
+The plugin provides built-in CSV export functionality for reviews.
+
+**Export URL:**
+```
+/wp-admin/admin.php?action=bgr_export_reviews&_wpnonce={nonce}
+```
+
+**Generate Export URL Programmatically:**
+```php
+$export_url = wp_nonce_url(
+    add_query_arg(
+        array(
+            'action'    => 'bgr_export_reviews',
+            'post_type' => 'review',
+        ),
+        admin_url( 'admin.php' )
+    ),
+    'bgr_export_reviews'
+);
+```
+
+**CSV Columns:**
+- Review ID, Date, Status, Reviewer, Reviewer Email
+- Group Name, Group ID, Review Content, Average Rating
+- Individual rating columns for each criterion
+
+**Location:** `includes/bgr-filters.php:530`
+
+**Customizing Export:**
+```php
+// Add custom data to CSV export (hook into the export process)
+add_action( 'admin_init', 'customize_review_export', 5 );
+
+function customize_review_export() {
+    if ( isset( $_GET['action'] ) && 'bgr_export_reviews' === $_GET['action'] ) {
+        // Add custom headers or processing before export runs
+    }
+}
+```
+
+---
+
+## Uninstall & Data Cleanup
+
+### Clean Uninstall
+
+By default, the plugin preserves all data when deactivated or deleted. To enable complete data removal:
+
+**Step 1:** Add constant to `wp-config.php`:
+```php
+define( 'BGR_REMOVE_DATA_ON_UNINSTALL', true );
+```
+
+**Step 2:** Delete the plugin through WordPress admin.
+
+**What Gets Removed:**
+- All review posts and their meta data
+- Plugin options:
+  - `bgr_admin_general_settings`
+  - `bgr_admin_criteria_settings`
+  - `bgr_admin_display_settings`
+  - `bp_group_review_email_settings`
+- User meta with `bgr_` prefix
+- Custom capabilities from roles
+- All cached data
+
+**Multisite Support:**
+On multisite installations, data is removed from all network sites.
+
+**Location:** `uninstall.php`
+
+**Custom Cleanup Hook:**
+```php
+// Run custom cleanup before plugin data is removed
+add_action( 'plugins_loaded', function() {
+    if ( defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+        // Your cleanup code here
+        // This runs before bgr_delete_plugin_data()
+    }
+});
+```
 
 ---
 

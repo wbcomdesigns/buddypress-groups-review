@@ -145,7 +145,7 @@ Full messaging: `07-brand-assets/messaging-guide.md`
 
 ## Versioning
 
-**Plugin Version:** 3.5.1
+**Plugin Version:** 3.6.0
 **Content Created:** December 2024
 **WordPress Tested:** 6.9+
 **BuddyPress Tested:** 12.0+

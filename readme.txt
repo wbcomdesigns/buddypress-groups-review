@@ -5,7 +5,7 @@ Tags: buddypress, groups
 Requires at least: 4.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 3.5.1
+Stable tag: 3.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,12 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 8. Review submission at single group.(png|jpg|jpeg|gif).
 
 == Changelog ==
+
+= 3.6.0 =
+* New: Bulk Approve and Bulk Deny actions for managing multiple reviews at once
+* New: CSV Export functionality - Export all reviews with ratings to CSV file
+* Improved: Comprehensive documentation for users and developers
+* Improved: Build process optimizations for WordPress.org distribution
 
 = 3.5.1 =
 * Fixed: PHP warning when accessing group slug property on certain server configurations

@@ -13,10 +13,11 @@ This guide will help you understand and use the BuddyPress Group Reviews plugin.
 3. [Plugin Settings Explained](#plugin-settings-explained)
 4. [How Members Use Reviews](#how-members-use-reviews)
 5. [Managing Reviews as Group Admin](#managing-reviews-as-group-admin)
-6. [Widgets](#widgets)
-7. [Email Notifications](#email-notifications)
-8. [Frequently Asked Questions](#frequently-asked-questions)
-9. [Troubleshooting](#troubleshooting)
+6. [Site Admin Features](#site-admin-features)
+7. [Widgets](#widgets)
+8. [Email Notifications](#email-notifications)
+9. [Frequently Asked Questions](#frequently-asked-questions)
+10. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -421,6 +422,99 @@ Click here to view it: %review_link%
 
 ---
 
+## Site Admin Features
+
+As a WordPress site administrator, you have access to powerful tools for managing all reviews across your community.
+
+### WordPress Admin Reviews List
+
+**Where to Find It:**
+Go to **WordPress Admin → Reviews** to see all reviews from every group.
+
+**What You Can Do:**
+- View all reviews (published and pending)
+- Filter by status
+- Search reviews
+- Access quick actions
+
+---
+
+### Bulk Approve/Deny Reviews
+
+**New in version 3.6.0!** Save time by approving or denying multiple reviews at once.
+
+**How to Use Bulk Actions:**
+
+1. **Go to Reviews List**
+   - WordPress Admin → Reviews
+
+2. **Select Reviews**
+   - Check the boxes next to reviews you want to process
+   - Use the checkbox at top to select all visible reviews
+
+3. **Choose Action**
+   - Select "Approve" or "Deny" from the Bulk Actions dropdown
+   - Click "Apply"
+
+4. **Confirmation**
+   - You'll see a notice showing how many reviews were processed
+   - Approved reviews are published immediately
+   - Denied reviews are moved to trash
+
+**When to Use:**
+- ✅ After a community event generates many reviews
+- ✅ When moderating a backlog of pending reviews
+- ✅ To quickly clean up spam reviews
+
+---
+
+### Export Reviews to CSV
+
+**Export all your review data for reporting or analysis.**
+
+**How to Export:**
+
+1. Go to **WordPress Admin → Reviews**
+2. Click the **"Export to CSV"** button above the reviews list
+3. A CSV file downloads automatically
+
+**What's Included in Export:**
+| Column | Description |
+|--------|-------------|
+| Review ID | Unique review identifier |
+| Date | When the review was submitted |
+| Status | Published or Draft (pending) |
+| Reviewer | Member's display name |
+| Reviewer Email | Member's email address |
+| Group Name | Name of the reviewed group |
+| Group ID | BuddyPress group identifier |
+| Review Content | The written review text |
+| Average Rating | Overall rating (1-5) |
+| Individual Ratings | One column per rating criterion |
+
+**Use Cases:**
+- Monthly community reports
+- Identifying top-performing groups
+- Spotting trends in feedback
+- Sharing data with stakeholders
+- Backing up review data
+
+**Tips:**
+- Open CSV in Excel, Google Sheets, or Numbers
+- Use filters to analyze specific groups or time periods
+- Charts can visualize rating trends over time
+
+---
+
+### Privacy Considerations
+
+**Private Group Reviews:**
+- Reviews for private or hidden groups are only visible to group members
+- Activity stream posts for private group reviews are not shown sitewide
+- This protects the privacy of your private communities
+
+---
+
 ## Widgets
 
 ### Group Reviews Widget
@@ -520,8 +614,11 @@ A: No, criteria are site-wide for consistency.
 **Q: What happens to reviews if I exclude a group?**
 A: Existing reviews remain, but the "Add Review" button disappears.
 
-**Q: Can I bulk delete reviews?**
-A: No, reviews must be deleted individually from the group's Manage tab.
+**Q: Can I bulk manage reviews?**
+A: Yes! Site administrators can use bulk actions in WordPress Admin → Reviews to approve, deny, or delete multiple reviews at once. See the [Site Admin Features](#site-admin-features) section.
+
+**Q: Can I export review data?**
+A: Yes! Go to WordPress Admin → Reviews and click "Export to CSV" to download all review data for reporting or analysis.
 
 ---
 
@@ -541,6 +638,9 @@ A: Yes, it works with any BuddyPress-compatible theme.
 
 **Q: Does it work with BuddyBoss?**
 A: Yes! Fully compatible with BuddyBoss Platform.
+
+**Q: What happens when I uninstall the plugin?**
+A: By default, your review data is kept safe when you deactivate or delete the plugin. If you want to completely remove all review data, add this line to your wp-config.php before uninstalling: `define( 'BGR_REMOVE_DATA_ON_UNINSTALL', true );`
 
 ---
 
@@ -708,6 +808,6 @@ Congratulations! You now know how to use the BuddyPress Group Reviews plugin eff
 
 ---
 
-**Plugin Version:** 3.5.0
-**Last Updated:** 2025
+**Plugin Version:** 3.6.0
+**Last Updated:** December 2025
 **License:** GPL-2.0+
