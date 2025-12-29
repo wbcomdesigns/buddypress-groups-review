@@ -111,8 +111,13 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 			// This is required for the rating color setting to work via wp_add_inline_style().
 			wp_register_style( 'bgr-ratings-css', BGR_PLUGIN_URL . 'assets/css' . $style_path . '/bgr-ratings' . $style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
 
-			// Enqueue on BuddyPress group pages for rating color to display.
-			if ( function_exists( 'bp_is_group' ) && bp_is_group() ) {
+			// Enqueue on all BuddyPress pages where ratings may appear.
+			$is_groups_page = ( function_exists( 'bp_is_group' ) && bp_is_group() ) ||
+				( function_exists( 'bp_is_groups_directory' ) && bp_is_groups_directory() ) ||
+				( function_exists( 'bp_is_groups_component' ) && bp_is_groups_component() ) ||
+				( function_exists( 'bp_is_activity_component' ) && bp_is_activity_component() );
+
+			if ( $is_groups_page ) {
 				wp_enqueue_style( 'bgr-ratings-css' );
 			}
 

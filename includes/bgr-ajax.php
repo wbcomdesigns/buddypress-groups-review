@@ -300,7 +300,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$reviews_per_page     = isset( $_POST['reviews_per_page'] ) ? sanitize_text_field( wp_unslash( $_POST['reviews_per_page'] ) ) : '';
 				$allow_notification   = isset( $_POST['allow_notification'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_notification'] ) ) : '';
 				$allow_activity       = isset( $_POST['allow_activity'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_activity'] ) ) : '';
-				$exclude_groups       = isset( $_POST['exclude_groups'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['exclude_groups'] ) ) : '';
+				$exclude_groups       = isset( $_POST['exclude_groups'] ) ? array_map( 'absint', wp_unslash( $_POST['exclude_groups'] ) ) : '';
 				if ( empty( $exclude_groups ) ) {
 					$exclude_groups = array();
 				}
@@ -399,6 +399,11 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			// Check if user is group admin (admins cannot review their own groups).
 			if ( groups_is_user_admin( $member_id, $form_group_id ) ) {
 				wp_send_json_error( new WP_Error( '007', esc_html__( 'Group administrators cannot review their own groups.', 'bp-group-reviews' ), 'admin_cannot_review' ) );
+			}
+
+			// Check if user is a member of the group.
+			if ( ! groups_is_user_member( $member_id, $form_group_id ) ) {
+				wp_send_json_error( new WP_Error( '009', esc_html__( 'You must be a member of this group to submit a review.', 'bp-group-reviews' ), 'not_member' ) );
 			}
 
 			// Check if group is excluded from reviews.
