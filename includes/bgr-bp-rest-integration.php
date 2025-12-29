@@ -107,9 +107,9 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 				if ( function_exists( 'groups_is_user_admin' ) && ! groups_is_user_admin( $user_id, $group_id ) ) {
 					// Check if group is excluded.
 					$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
-					$exclude_groups             = isset( $bgr_admin_general_settings['exclude_groups'] ) ? $bgr_admin_general_settings['exclude_groups'] : array();
+					$exclude_groups             = isset( $bgr_admin_general_settings['exclude_groups'] ) ? array_map( 'absint', (array) $bgr_admin_general_settings['exclude_groups'] ) : array();
 
-					if ( ! in_array( $group_id, $exclude_groups ) ) {
+					if ( ! in_array( absint( $group_id ), $exclude_groups, true ) ) {
 						// Check if multiple reviews allowed or user hasn't reviewed yet.
 						$multi_reviews = isset( $bgr_admin_general_settings['multi_reviews'] ) ? $bgr_admin_general_settings['multi_reviews'] : 'no';
 
@@ -139,14 +139,14 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 			}
 
 			// Add review data to response.
-			$data                  = $response->get_data();
-			$data['reviews']       = array(
+			$data            = $response->get_data();
+			$data['reviews'] = array(
 				'average_rating' => $review_stats['average'],
 				'total_reviews'  => $review_stats['total_reviews'],
 				'ratings'        => $review_stats['ratings'],
 				'can_review'     => $can_review,
 			);
-			$response->data = $data;
+			$response->data  = $data;
 
 			return $response;
 		}
@@ -201,9 +201,9 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 							);
 						}
 						$criteria_totals[ $field ]['total'] += $rating;
-						$criteria_totals[ $field ]['count']++;
-						$total_ratings                      += $rating;
-						$ratings_count++;
+						++$criteria_totals[ $field ]['count'];
+						$total_ratings += $rating;
+						++$ratings_count;
 					}
 				}
 			}
@@ -240,7 +240,7 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 						'args'                => array(
 							'group_id' => array(
 								'required'          => true,
-								'validate_callback' => function( $param ) {
+								'validate_callback' => function ( $param ) {
 									return is_numeric( $param );
 								},
 								'sanitize_callback' => 'absint',
@@ -262,7 +262,7 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 						'args'                => array(
 							'group_id'    => array(
 								'required'          => true,
-								'validate_callback' => function( $param ) {
+								'validate_callback' => function ( $param ) {
 									return is_numeric( $param );
 								},
 								'sanitize_callback' => 'absint',
@@ -277,7 +277,7 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 							),
 							'ratings'     => array(
 								'required'          => false,
-								'validate_callback' => function( $param ) {
+								'validate_callback' => function ( $param ) {
 									return is_array( $param );
 								},
 							),
@@ -299,14 +299,14 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 						'args'                => array(
 							'group_id'  => array(
 								'required'          => true,
-								'validate_callback' => function( $param ) {
+								'validate_callback' => function ( $param ) {
 									return is_numeric( $param );
 								},
 								'sanitize_callback' => 'absint',
 							),
 							'review_id' => array(
 								'required'          => true,
-								'validate_callback' => function( $param ) {
+								'validate_callback' => function ( $param ) {
 									return is_numeric( $param );
 								},
 								'sanitize_callback' => 'absint',
@@ -333,7 +333,7 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 								'sanitize_callback' => 'sanitize_textarea_field',
 							),
 							'ratings'     => array(
-								'validate_callback' => function( $param ) {
+								'validate_callback' => function ( $param ) {
 									return is_array( $param );
 								},
 							),
@@ -427,9 +427,9 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 
 			// Check if group is excluded.
 			$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
-			$exclude_groups             = isset( $bgr_admin_general_settings['exclude_groups'] ) ? $bgr_admin_general_settings['exclude_groups'] : array();
+			$exclude_groups             = isset( $bgr_admin_general_settings['exclude_groups'] ) ? array_map( 'absint', (array) $bgr_admin_general_settings['exclude_groups'] ) : array();
 
-			if ( in_array( $group_id, $exclude_groups, true ) ) {
+			if ( in_array( absint( $group_id ), $exclude_groups, true ) ) {
 				return new WP_Error( 'rest_group_excluded', __( 'Reviews are disabled for this group.', 'bp-group-reviews' ), array( 'status' => 403 ) );
 			}
 

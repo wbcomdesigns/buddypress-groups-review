@@ -52,11 +52,11 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 			// Get all active widgets from all sidebars
 
 			$sidebars_widgets = function_exists( 'wp_get_sidebars_widgets' ) ? wp_get_sidebars_widgets() : array(); //phpcs:ignore
-			
+
 			if ( empty( $sidebars_widgets ) ) {
 				return false;
 			}
-			
+
 			foreach ( $sidebars_widgets as $sidebar_id => $widgets ) {
 				if ( is_array( $widgets ) ) {
 					foreach ( $widgets as $widget_id ) {
@@ -67,7 +67,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 					}
 				}
 			}
-			
+
 			// Also check if we're on BuddyPress pages where widgets might be used
 			if ( function_exists( 'bp_is_activity_component' ) && bp_is_activity_component() ) {
 				return true;
@@ -78,7 +78,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 			if ( function_exists( 'bp_is_group' ) && bp_is_group() ) {
 				return true;
 			}
-			
+
 			return false;
 		}
 
@@ -112,7 +112,29 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 			wp_register_style( 'bgr-ratings-css', BGR_PLUGIN_URL . 'assets/css' . $style_path . '/bgr-ratings' . $style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
 
 			// Enqueue on BuddyPress group pages for rating color to display.
+			$should_enqueue_ratings_css = false;
+
+			// Single group page.
 			if ( function_exists( 'bp_is_group' ) && bp_is_group() ) {
+				$should_enqueue_ratings_css = true;
+			}
+
+			// Groups directory page.
+			if ( function_exists( 'bp_is_groups_directory' ) && bp_is_groups_directory() ) {
+				$should_enqueue_ratings_css = true;
+			}
+
+			// Groups component (covers all group-related pages).
+			if ( function_exists( 'bp_is_groups_component' ) && bp_is_groups_component() ) {
+				$should_enqueue_ratings_css = true;
+			}
+
+			// Activity component (reviews might appear in activity stream).
+			if ( function_exists( 'bp_is_activity_component' ) && bp_is_activity_component() ) {
+				$should_enqueue_ratings_css = true;
+			}
+
+			if ( $should_enqueue_ratings_css ) {
 				wp_enqueue_style( 'bgr-ratings-css' );
 			}
 
@@ -123,10 +145,9 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				wp_register_style( 'bgr-reviews-css', BGR_PLUGIN_URL . 'assets/css' . $style_path . '/bgr-reviews' . $style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
 				wp_register_style( 'bgr-front-css', BGR_PLUGIN_URL . 'assets/css' . $style_path . '/bgr-front' . $style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
 
-				wp_register_script( 'bgr-front-js', BGR_PLUGIN_URL . 'assets/js'.$script_path.'/bgr-front'.$script_extension, array( 'jquery' ), BGR_PLUGIN_VERSION, false );
-				wp_register_script( 'bgr-ratings-js', BGR_PLUGIN_URL . 'assets/js'.$script_path.'/bgr-ratings'.$script_extension, array( 'jquery' ), BGR_PLUGIN_VERSION, false );
+				wp_register_script( 'bgr-front-js', BGR_PLUGIN_URL . 'assets/js' . $script_path . '/bgr-front' . $script_extension, array( 'jquery' ), BGR_PLUGIN_VERSION, false );
+				wp_register_script( 'bgr-ratings-js', BGR_PLUGIN_URL . 'assets/js' . $script_path . '/bgr-ratings' . $script_extension, array( 'jquery' ), BGR_PLUGIN_VERSION, false );
 				wp_register_script( 'bgr-accessibility-js', BGR_PLUGIN_URL . 'assets/js/bgr-accessibility.js', array( 'jquery' ), BGR_PLUGIN_VERSION, true );
-
 
 				wp_enqueue_style( 'bgr-icons' ); // Local CSS-based icons (replaces FontAwesome CDN)
 				wp_enqueue_style( 'bgr-reviews-css' );
@@ -136,13 +157,14 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 
 				$bgr_admin_settings         = get_option( 'bgr_admin_general_settings' );
 				$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
-				$exclude_groups             = isset( $bgr_admin_settings['exclude_groups'] ) ? $bgr_admin_settings['exclude_groups'] : array();
-				if ( groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id() ) ) {
+				$exclude_groups             = isset( $bgr_admin_settings['exclude_groups'] ) ? array_map( 'absint', (array) $bgr_admin_settings['exclude_groups'] ) : array();
+				$current_group_id           = absint( bp_get_current_group_id() );
+				if ( groups_is_user_admin( bp_loggedin_user_id(), $current_group_id ) ) {
 					$group_admin = 'yes';
 				} else {
 					$group_admin = 'no';
 				}
-				if ( in_array( bp_get_current_group_id(), $exclude_groups ) ) {
+				if ( in_array( $current_group_id, $exclude_groups, true ) ) {
 					$exclude_groups = 'true';
 				} else {
 					$exclude_groups = 'false';
@@ -195,12 +217,12 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				$style_path      = is_rtl() ? '/rtl' : '/min';
 			}
 			$curr_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
-			$screen   = get_current_screen();	
-			$page     = filter_input(INPUT_GET, 'page');
-			
-			if ( ( 'review' == get_post_type() ) || ( 'wb-plugins_page_group-review-settings' == $screen->base ) || ( 'group-review-settings' == $page ) || 'toplevel_page_wbcomplugins'  == $screen->base ) {
-				
-				wp_register_script( 'bgr-js-admin', BGR_PLUGIN_URL . 'admin/assets/js'.$script_path.'/bgr-admin'.$script_extension, array( 'jquery' ), BGR_PLUGIN_VERSION, false );
+			$screen   = get_current_screen();
+			$page     = filter_input( INPUT_GET, 'page' );
+
+			if ( ( 'review' == get_post_type() ) || ( 'wb-plugins_page_group-review-settings' == $screen->base ) || ( 'group-review-settings' == $page ) || 'toplevel_page_wbcomplugins' == $screen->base ) {
+
+				wp_register_script( 'bgr-js-admin', BGR_PLUGIN_URL . 'admin/assets/js' . $script_path . '/bgr-admin' . $script_extension, array( 'jquery' ), BGR_PLUGIN_VERSION, false );
 				wp_enqueue_script( 'bgr-js-admin' );
 				wp_localize_script(
 					'bgr-js-admin',
@@ -214,22 +236,22 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				);
 
 				wp_enqueue_style( 'wp-color-picker' );
-				wp_register_script( 'bgr-colorpicker-handle', BGR_PLUGIN_URL . 'admin/assets/js'.$script_path.'/bgr-colorpicker'.$script_extension, array( 'wp-color-picker' ), BGR_PLUGIN_VERSION, false );
+				wp_register_script( 'bgr-colorpicker-handle', BGR_PLUGIN_URL . 'admin/assets/js' . $script_path . '/bgr-colorpicker' . $script_extension, array( 'wp-color-picker' ), BGR_PLUGIN_VERSION, false );
 				wp_enqueue_script( 'bgr-colorpicker-handle' );
-				
+
 				if ( ! wp_style_is( 'wbcom-selectize-css', 'enqueued' ) ) {
 					wp_register_style( 'wbcom-selectize-css', BGR_PLUGIN_URL . 'admin/assets/css/vendor/selectize.css', array(), BGR_PLUGIN_VERSION, 'all' );
 					wp_enqueue_style( 'wbcom-selectize-css' );
 				}
-				
-				wp_register_style( 'bgr-css-admin', BGR_PLUGIN_URL . 'admin/assets/css'.$style_path.'/bgr-admin'.$style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
+
+				wp_register_style( 'bgr-css-admin', BGR_PLUGIN_URL . 'admin/assets/css' . $style_path . '/bgr-admin' . $style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
 				wp_enqueue_style( 'bgr-css-admin' );
-				
+
 				if ( ! wp_script_is( 'wbcom-selectize-js', 'enqueued' ) ) {
 					wp_register_script( 'wbcom-selectize-js', BGR_PLUGIN_URL . 'admin/assets/js/vendor/selectize.min.js', array( 'jquery' ), BGR_PLUGIN_VERSION, false );
 					wp_enqueue_script( 'wbcom-selectize-js' );
 				}
-				
+
 				if ( ! wp_script_is( 'jquery-ui-sortable', 'enqueued' ) ) {
 					wp_enqueue_script( 'jquery-ui-sortable' );
 				}

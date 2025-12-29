@@ -37,7 +37,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		 * @return void
 		 */
 		public function __construct( $args = array() ) {
-			
+
 			global $bp;
 			global $bgr;
 			$enabled                    = true;
@@ -53,15 +53,15 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				$add_review_label = esc_html__( 'Review', 'bp-group-reviews' );
 			}
 
-			// Check if current group is excluded from reviews
-			$current_group_id = bp_get_current_group_id();
+			// Check if current group is excluded from reviews.
+			$current_group_id  = absint( bp_get_current_group_id() );
 			$is_group_excluded = false;
-			$exclude_groups = array();
-			
+			$exclude_groups    = array();
+
 			if ( ! empty( $bgr_admin_general_settings ) && isset( $bgr_admin_general_settings['exclude_groups'] ) ) {
-				$exclude_groups = $bgr_admin_general_settings['exclude_groups'];
-				if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups ) ) {
-					$enabled = false;
+				$exclude_groups = array_map( 'absint', (array) $bgr_admin_general_settings['exclude_groups'] );
+				if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) {
+					$enabled           = false;
 					$is_group_excluded = true;
 				}
 			}
@@ -77,7 +77,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						'enable_nav_item'   => $add_review_nav,
 						'screens'           => array(
 							'admin' => array(
-								'name'    => 'Manage '.$review_label,
+								'name'    => 'Manage ' . $review_label,
 								'slug'    => 'manage-' . bp_group_review_tab_slug(),
 								'enabled' => $enabled,
 							),
@@ -95,7 +95,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						'enable_nav_item'   => $add_review_nav,
 						'screens'           => array(
 							'edit' => array(
-								'name'    => 'Manage '.$review_label,
+								'name'    => 'Manage ' . $review_label,
 								'slug'    => 'manage-' . bp_group_review_tab_slug(),
 								'enabled' => $enabled,
 							),
@@ -221,18 +221,20 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						<div class="review-pagination">
 							<?php
 							$current_page = max( 1, get_query_var( 'paged', 1 ) ); // Ensures default value is 1
-							$format = '?paged=%#%';
-							$pagination = paginate_links( array(
-								'base'      => esc_url(get_pagenum_link(1)) . '%_%',
-								'format'    => $format, // Make sure this matches your permalink structure
-								'current'   => $current_page,
-								'total'     => $reviews->max_num_pages, // Use the correct WP_Query object
-								'prev_text' => esc_html__('Prev', 'bp-group-reviews'),
-								'next_text' => esc_html__('Next', 'bp-group-reviews'),
-							) );
-							
+							$format       = '?paged=%#%';
+							$pagination   = paginate_links(
+								array(
+									'base'      => esc_url( get_pagenum_link( 1 ) ) . '%_%',
+									'format'    => $format, // Make sure this matches your permalink structure
+									'current'   => $current_page,
+									'total'     => $reviews->max_num_pages, // Use the correct WP_Query object
+									'prev_text' => esc_html__( 'Prev', 'bp-group-reviews' ),
+									'next_text' => esc_html__( 'Next', 'bp-group-reviews' ),
+								)
+							);
+
 							if ( $pagination ) {
-								echo wp_kses_post('<div class="review-pagination">' .  $pagination  . '</div>');
+								echo wp_kses_post( '<div class="review-pagination">' . $pagination . '</div>' );
 							}
 							?>
 						</div>
@@ -249,12 +251,12 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						<div id="message" class="info">
 					<?php } ?>
 						<?php /* translators: %s is replaced with review_label */ ?>
-						<p><?php echo sprintf( esc_html__( 'Sorry, no %s were found.', 'bp-group-reviews' ), esc_html( $review_label ) ); ?></p>
+						<p><?php printf( esc_html__( 'Sorry, no %s were found.', 'bp-group-reviews' ), esc_html( $review_label ) ); ?></p>
 					</div>
 					<?php
 			endif;
-			echo '</div>';
-			echo '<input type="submit" name="save" style="display:none;" id="bp-group-edit-manage-revieww-submit">';
+				echo '</div>';
+				echo '<input type="submit" name="save" style="display:none;" id="bp-group-edit-manage-revieww-submit">';
 		}
 
 		public function add_custom_pagination_query_vars( $vars ) {

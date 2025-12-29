@@ -140,19 +140,21 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			if ( ! empty( $user_groups ) && isset( $user_groups['groups'] ) && is_array( $user_groups['groups'] ) ) {
 				foreach ( $user_groups['groups'] as $user_group ) {
 					if ( ! empty( $user_group->id ) ) {
-						array_push( $exclude_group, $user_group->id );
+						$exclude_group[] = absint( $user_group->id );
 					}
 				}
 			}
 
-			if ( ! empty( $admin_exclude_groups ) ) {
+			// Cast admin exclude groups to integers for consistent comparison.
+			if ( ! empty( $admin_exclude_groups ) && is_array( $admin_exclude_groups ) ) {
 				foreach ( $admin_exclude_groups as $admin_exclude_group ) {
-					array_push( $exclude_group, $admin_exclude_group );
+					$exclude_group[] = absint( $admin_exclude_group );
 				}
 			}
 
 			// Check if current group is in the exclusion list and return early if so.
-			if ( ! empty( $current_group_id ) && in_array( $current_group_id, $exclude_group, false ) ) {
+			$current_group_id_int = absint( $current_group_id );
+			if ( ! empty( $current_group_id_int ) && in_array( $current_group_id_int, $exclude_group, true ) ) {
 				return;
 			}
 			?>

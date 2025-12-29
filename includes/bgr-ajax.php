@@ -300,10 +300,9 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$reviews_per_page     = isset( $_POST['reviews_per_page'] ) ? sanitize_text_field( wp_unslash( $_POST['reviews_per_page'] ) ) : '';
 				$allow_notification   = isset( $_POST['allow_notification'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_notification'] ) ) : '';
 				$allow_activity       = isset( $_POST['allow_activity'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_activity'] ) ) : '';
-				$exclude_groups       = isset( $_POST['exclude_groups'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['exclude_groups'] ) ) : '';
-				if ( empty( $exclude_groups ) ) {
-					$exclude_groups = array();
-				}
+				$exclude_groups       = isset( $_POST['exclude_groups'] ) ? array_map( 'absint', wp_unslash( $_POST['exclude_groups'] ) ) : array();
+				// Filter out any zero values that may result from invalid input.
+				$exclude_groups     = array_filter( $exclude_groups );
 				$bgr_admin_settings = array(
 					'multi_reviews'        => $multi_reviews,
 					'auto_approve_reviews' => $auto_approve_reviews,
@@ -401,10 +400,15 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				wp_send_json_error( new WP_Error( '007', esc_html__( 'Group administrators cannot review their own groups.', 'bp-group-reviews' ), 'admin_cannot_review' ) );
 			}
 
+			// Check if user is a member of the group.
+			if ( ! groups_is_user_member( $member_id, $form_group_id ) ) {
+				wp_send_json_error( new WP_Error( '009', esc_html__( 'You must be a member of this group to submit a review.', 'bp-group-reviews' ), 'not_member' ) );
+			}
+
 			// Check if group is excluded from reviews.
 			$bgr_admin_settings   = get_option( 'bgr_admin_general_settings', array() );
-			$admin_exclude_groups = isset( $bgr_admin_settings['exclude_groups'] ) ? $bgr_admin_settings['exclude_groups'] : array();
-			if ( ! empty( $admin_exclude_groups ) && in_array( $form_group_id, $admin_exclude_groups, false ) ) {
+			$admin_exclude_groups = isset( $bgr_admin_settings['exclude_groups'] ) ? array_map( 'absint', (array) $bgr_admin_settings['exclude_groups'] ) : array();
+			if ( ! empty( $admin_exclude_groups ) && in_array( absint( $form_group_id ), $admin_exclude_groups, true ) ) {
 				wp_send_json_error( new WP_Error( '008', esc_html__( 'Reviews are not enabled for this group.', 'bp-group-reviews' ), 'group_excluded' ) );
 			}
 
@@ -422,11 +426,24 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$review_email_subject = ( isset( $bgr['review_email_subject'] ) ) ? $bgr['review_email_subject'] : sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
 			/* Translators: %1$s: Review Label %2$s Group Name %3$s User Name %4$s User Link */
 			$review_email_message = ( isset( $bgr['review_email_message'] ) ) ? $bgr['review_email_message'] : esc_html__( 'A new %1$s for %2$s added by %3$s. Link: %4$s', 'bp-group-reviews' );
-			$group_name     = $group_obj->name;
+			$group_name           = $group_obj->name;
 			/* Translators: %1$s: User Name %2$s Review Label %3$s Group Name */
 			$review_cpt_subject = sprintf( esc_html__( '%1$s %2$ss Group %3$s.', 'bp-group-reviews' ), $user_name, $review_label, $group_name );
 			$headers[]          = 'Content-Type: text/html; charset=UTF-8';
-			$group_args         = array(
+
+			// Race condition prevention: Use transient-based locking when multi_reviews is disabled.
+			$lock_key = 'bgr_review_lock_' . $member_id . '_' . $form_group_id;
+			if ( 'no' === $multi_reviews ) {
+				// Check if a lock already exists (another request is processing).
+				if ( get_transient( $lock_key ) ) {
+					wp_send_json_error( new WP_Error( '010', esc_html__( 'Please wait, your review is being processed.', 'bp-group-reviews' ), 'review_in_progress' ) );
+				}
+
+				// Set the lock before checking for existing reviews (30 second expiration).
+				set_transient( $lock_key, true, 30 );
+			}
+
+			$group_args   = array(
 				'post_type'   => 'review',
 				'category'    => 'group',
 				'post_status' => array(
@@ -442,13 +459,15 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					),
 				),
 			);
-			$reviews_args       = new WP_Query( $group_args );
+			$reviews_args = new WP_Query( $group_args );
 			if ( 'no' === $multi_reviews ) {
 				$user_post_count = $reviews_args->post_count;
 			} else {
 				$user_post_count = 0;
 			}
 			if ( $user_post_count > 0 ) {
+				// Delete the lock since we're not creating a review.
+				delete_transient( $lock_key );
 				/* translators: %1$s is replaced with review_label */
 				$review_add_msg = sprintf( __( 'You have already submitted a %1$s for this group.', 'bp-group-reviews' ), strtolower( $review_label ) );
 			} else {
@@ -559,6 +578,9 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					}
 				}
 				do_action( 'bgr_group_after_review_submit', $post_author_id, $form_group_id, $review_id );
+
+				// Delete the lock after review is successfully created.
+				delete_transient( $lock_key );
 			}
 			echo esc_html( $review_add_msg );
 			die;

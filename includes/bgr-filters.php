@@ -154,8 +154,8 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			}
 			global $bgr;
 			$review_div       = 'form';
-			$exclude_groups   = $bgr['exclude_groups'];
-			$current_group_id = bp_get_current_group_id();
+			$exclude_groups   = isset( $bgr['exclude_groups'] ) ? array_map( 'absint', (array) $bgr['exclude_groups'] ) : array();
+			$current_group_id = absint( bp_get_current_group_id() );
 			// Build group URL safely for both BuddyPress and BuddyBoss.
 			$current_group = groups_get_group( array( 'group_id' => $current_group_id ) );
 			if ( function_exists( 'bp_get_group_url' ) ) {
@@ -166,7 +166,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			}
 			$current_group_link .= 'add-' . bp_group_review_tab_slug();
 			// Check if current group is excluded from reviews.
-			if ( ! empty( $exclude_groups ) && in_array( bp_get_current_group_id(), $exclude_groups, true ) ) {
+			if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) {
 				return;
 			}
 
@@ -212,9 +212,10 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			$reviews              = get_posts( $args );
 			$review_rating_fields = $bgr['review_rating_fields'];
 			$review_label         = bp_group_review_tab_name();
-			$exclude_groups       = $bgr['exclude_groups'];
+			$exclude_groups       = isset( $bgr['exclude_groups'] ) ? array_map( 'absint', (array) $bgr['exclude_groups'] ) : array();
+			$current_group_id     = absint( bp_get_group_id() );
 			if ( ! empty( $exclude_groups ) ) {
-				if ( ! in_array( bp_get_group_id(), $exclude_groups, true ) ) {
+				if ( ! in_array( $current_group_id, $exclude_groups, true ) ) {
 					$this->bp_group_review_single_group_average_rating_data( $reviews, $review_rating_fields, $review_label );
 				}
 			} else {
@@ -299,9 +300,10 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			$reviews              = get_posts( $args );
 			$review_rating_fields = $bgr['review_rating_fields'];
 			$review_label         = bp_group_review_tab_name();
-			$exclude_groups       = $bgr['exclude_groups'];
+			$exclude_groups       = isset( $bgr['exclude_groups'] ) ? array_map( 'absint', (array) $bgr['exclude_groups'] ) : array();
+			$current_group_id     = absint( bp_get_group_id() );
 			if ( ! empty( $exclude_groups ) ) {
-				if ( ! in_array( bp_get_group_id(), $exclude_groups, true ) ) {
+				if ( ! in_array( $current_group_id, $exclude_groups, true ) ) {
 					$this->bp_group_review_group_average_rating_data( $reviews, $review_rating_fields, $review_label );
 				}
 			} else {
@@ -737,9 +739,10 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$gp_parent_url = bp_get_groups_directory_permalink() . $bp->groups->current_group->slug . '/';
 				}
 				if ( ! empty( $bgr_admin_general_settings ) ) {
-					$exclude_groups = $bgr['exclude_groups'];
+					$exclude_groups   = isset( $bgr['exclude_groups'] ) ? array_map( 'absint', (array) $bgr['exclude_groups'] ) : array();
+					$current_group_id = absint( $bp->groups->current_group->id );
 					if ( ! empty( $exclude_groups ) ) {
-						if ( ! in_array( $bp->groups->current_group->id, $exclude_groups, true ) ) {
+						if ( ! in_array( $current_group_id, $exclude_groups, true ) ) {
 							$tab_args[] = array(
 								'name'            => $review_label . ' ' . $count_notification,
 								'slug'            => sanitize_title( $bgr['manage_review_label'] ),
