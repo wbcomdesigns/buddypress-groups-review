@@ -83,6 +83,28 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				);
 				$output .= '</p>';
 				$output .= '</div>';
+			} elseif ( bp_is_group_single() && ! empty( $current_group_id ) && ! groups_is_user_member( $member_id, $current_group_id ) ) {
+				// User is logged in but not a member of this group.
+				$bp_template_option = bp_get_option( '_bp_theme_package_id' );
+				if ( 'nouveau' === $bp_template_option ) {
+					$output .= '<div id="message" class="info bp-feedback bp-messages bp-template-notice">';
+					$output .= '<span class="bp-icon" aria-hidden="true"></span>';
+				} else {
+					$output .= '<div id="message" class="info">';
+				}
+				$output .= '<p>' . esc_html__( 'You must be a member of this group to submit a review.', 'bp-group-reviews' ) . '</p>';
+				$output .= '</div>';
+			} elseif ( bp_is_group_single() && ! empty( $current_group_id ) && groups_is_user_admin( $member_id, $current_group_id ) ) {
+				// User is a group admin - cannot review their own group.
+				$bp_template_option = bp_get_option( '_bp_theme_package_id' );
+				if ( 'nouveau' === $bp_template_option ) {
+					$output .= '<div id="message" class="info bp-feedback bp-messages bp-template-notice">';
+					$output .= '<span class="bp-icon" aria-hidden="true"></span>';
+				} else {
+					$output .= '<div id="message" class="info">';
+				}
+				$output .= '<p>' . esc_html__( 'Group administrators cannot review their own groups.', 'bp-group-reviews' ) . '</p>';
+				$output .= '</div>';
 			} elseif ( bp_is_group_single() ) {
 				// User is logged in and on single group page.
 				if ( 'no' === $multi_reviews ) {
@@ -152,7 +174,10 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			}
 
 			// Check if current group is in the exclusion list and return early if so.
-			if ( ! empty( $current_group_id ) && in_array( $current_group_id, $exclude_group, false ) ) {
+			// Ensure consistent integer comparison for group IDs.
+			$current_group_id_int = absint( $current_group_id );
+			$exclude_group_int    = ! empty( $exclude_group ) ? array_map( 'absint', $exclude_group ) : array();
+			if ( ! empty( $current_group_id_int ) && in_array( $current_group_id_int, $exclude_group_int, true ) ) {
 				return;
 			}
 			?>
@@ -260,10 +285,10 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 							<?php for ( $i = 1; $i <= 5; $i++ ) { ?>
 									<span class="far fa-star bgr-stars bgr-star-rate <?php echo esc_attr( $i ); ?>" id="<?php echo esc_attr( $i ); ?>" data-attr="<?php echo esc_attr( $i ); ?>" ></span>
 								<?php } ?>
-					</div>	
-					<div class="bgr-col-12 bgr-error-fields">*<?php esc_html_e( 'This field is required.', 'bp-group-reviews' ); ?></div>				
+					</div>
+					<div class="bgr-col-12 bgr-error-fields">*<?php esc_html_e( 'This field is required.', 'bp-group-reviews' ); ?></div>
 				</div>
-				<input type="hidden" id="rating_field_counter" value="1">				
+				<input type="hidden" id="rating_field_counter" value="1">
 				<?php
 			}
 		}

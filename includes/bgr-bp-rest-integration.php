@@ -108,8 +108,11 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 					// Check if group is excluded.
 					$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
 					$exclude_groups             = isset( $bgr_admin_general_settings['exclude_groups'] ) ? $bgr_admin_general_settings['exclude_groups'] : array();
+					// Ensure consistent integer comparison for group IDs.
+					$group_id_int         = absint( $group_id );
+					$exclude_groups_int   = ! empty( $exclude_groups ) ? array_map( 'absint', $exclude_groups ) : array();
 
-					if ( ! in_array( $group_id, $exclude_groups ) ) {
+					if ( ! in_array( $group_id_int, $exclude_groups_int, true ) ) {
 						// Check if multiple reviews allowed or user hasn't reviewed yet.
 						$multi_reviews = isset( $bgr_admin_general_settings['multi_reviews'] ) ? $bgr_admin_general_settings['multi_reviews'] : 'no';
 
@@ -428,8 +431,11 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 			// Check if group is excluded.
 			$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
 			$exclude_groups             = isset( $bgr_admin_general_settings['exclude_groups'] ) ? $bgr_admin_general_settings['exclude_groups'] : array();
+			// Ensure consistent integer comparison for group IDs.
+			$group_id_int       = absint( $group_id );
+			$exclude_groups_int = ! empty( $exclude_groups ) ? array_map( 'absint', $exclude_groups ) : array();
 
-			if ( in_array( $group_id, $exclude_groups, true ) ) {
+			if ( in_array( $group_id_int, $exclude_groups_int, true ) ) {
 				return new WP_Error( 'rest_group_excluded', __( 'Reviews are disabled for this group.', 'bp-group-reviews' ), array( 'status' => 403 ) );
 			}
 

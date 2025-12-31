@@ -57,11 +57,14 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			$current_group_id = bp_get_current_group_id();
 			$is_group_excluded = false;
 			$exclude_groups = array();
-			
+
 			if ( ! empty( $bgr_admin_general_settings ) && isset( $bgr_admin_general_settings['exclude_groups'] ) ) {
 				$exclude_groups = $bgr_admin_general_settings['exclude_groups'];
-				if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups ) ) {
-					$enabled = false;
+				// Ensure consistent integer comparison for group IDs.
+				$current_group_id_int = absint( $current_group_id );
+				$exclude_groups_int   = ! empty( $exclude_groups ) ? array_map( 'absint', $exclude_groups ) : array();
+				if ( ! empty( $exclude_groups_int ) && in_array( $current_group_id_int, $exclude_groups_int, true ) ) {
+					$enabled           = false;
 					$is_group_excluded = true;
 				}
 			}

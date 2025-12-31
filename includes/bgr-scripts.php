@@ -147,7 +147,10 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				} else {
 					$group_admin = 'no';
 				}
-				if ( in_array( bp_get_current_group_id(), $exclude_groups ) ) {
+				// Ensure consistent integer comparison for group IDs.
+				$current_group_id_int = absint( bp_get_current_group_id() );
+				$exclude_groups_int   = ! empty( $exclude_groups ) ? array_map( 'absint', $exclude_groups ) : array();
+				if ( in_array( $current_group_id_int, $exclude_groups_int, true ) ) {
 					$exclude_groups = 'true';
 				} else {
 					$exclude_groups = 'false';

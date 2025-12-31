@@ -290,9 +290,12 @@ function bp_group_review_general_setting() {
                     <select id="bgr-exclude-group-review" name="bgr-exclude-group[]" multiple>
                         <?php
                         if ( $allgroups ) {
+                            // Ensure consistent integer comparison for group IDs.
+                            $exclude_groups_int = ! empty( $exclude_groups ) ? array_map( 'absint', $exclude_groups ) : array();
                             foreach ( $allgroups['groups'] as $group ) :
-                                if ( ! empty( $exclude_groups ) ) {
-                                    if ( in_array( $group->id, $exclude_groups ) ) {
+                                $group_id_int = absint( $group->id );
+                                if ( ! empty( $exclude_groups_int ) ) {
+                                    if ( in_array( $group_id_int, $exclude_groups_int, true ) ) {
                                         ?>
                                         <option value="<?php echo esc_attr( $group->id ); ?>" selected><?php echo esc_html( $group->name ); ?></option>
                                         <?php

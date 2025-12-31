@@ -35,7 +35,20 @@ function bp_group_review_dynamic_rating_method() {
 
 	// Check if the stylesheet is enqueued before adding inline style.
 	if ( wp_style_is( 'bgr-ratings-css', 'enqueued' ) ) {
-		$custom_css = ".bgr-star-rate { color: {$rating_color}; }";
+		// Target ::before and ::after pseudo-elements directly to override
+		// the hardcoded color in bgr-icons.css with proper specificity.
+		$custom_css = "
+			.bgr-star-rate { color: {$rating_color}; }
+			.fas.fa-star.bgr-star-rate::before,
+			.far.fa-star.bgr-star-rate::before,
+			.fas.fa-star-half-alt.bgr-star-rate::before,
+			.fas.fa-star-half-alt.bgr-star-rate::after,
+			.fas.fa-star.stars::before,
+			.far.fa-star.stars::before,
+			.fas.fa-star-half-alt.stars::before,
+			.fas.fa-star-half-alt.stars::after,
+			.far.fa-star.bgr-stars::before { color: {$rating_color}; }
+		";
 		wp_add_inline_style( 'bgr-ratings-css', $custom_css );
 	}
 }
@@ -78,7 +91,20 @@ function bp_group_review_rating_color_fallback() {
 	$rating_color = sanitize_hex_color( $bgr['rating_color'] );
 
 	if ( ! empty( $rating_color ) ) {
-		echo '<style id="bgr-rating-color-fallback">.bgr-star-rate { color: ' . esc_attr( $rating_color ) . '; }</style>' . "\n";
+		// Target ::before and ::after pseudo-elements directly to override
+		// the hardcoded color in bgr-icons.css with proper specificity.
+		echo '<style id="bgr-rating-color-fallback">
+			.bgr-star-rate { color: ' . esc_attr( $rating_color ) . '; }
+			.fas.fa-star.bgr-star-rate::before,
+			.far.fa-star.bgr-star-rate::before,
+			.fas.fa-star-half-alt.bgr-star-rate::before,
+			.fas.fa-star-half-alt.bgr-star-rate::after,
+			.fas.fa-star.stars::before,
+			.far.fa-star.stars::before,
+			.fas.fa-star-half-alt.stars::before,
+			.fas.fa-star-half-alt.stars::after,
+			.far.fa-star.bgr-stars::before { color: ' . esc_attr( $rating_color ) . '; }
+		</style>' . "\n";
 	}
 }
 add_action( 'wp_head', 'bp_group_review_rating_color_fallback', 999 );

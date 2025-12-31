@@ -409,7 +409,10 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			// Check if group is excluded from reviews.
 			$bgr_admin_settings   = get_option( 'bgr_admin_general_settings', array() );
 			$admin_exclude_groups = isset( $bgr_admin_settings['exclude_groups'] ) ? $bgr_admin_settings['exclude_groups'] : array();
-			if ( ! empty( $admin_exclude_groups ) && in_array( $form_group_id, $admin_exclude_groups, false ) ) {
+			// Ensure consistent integer comparison for group IDs.
+			$form_group_id_int        = absint( $form_group_id );
+			$admin_exclude_groups_int = ! empty( $admin_exclude_groups ) ? array_map( 'absint', $admin_exclude_groups ) : array();
+			if ( ! empty( $admin_exclude_groups_int ) && in_array( $form_group_id_int, $admin_exclude_groups_int, true ) ) {
 				wp_send_json_error( new WP_Error( '008', esc_html__( 'Reviews are not enabled for this group.', 'bp-group-reviews' ), 'group_excluded' ) );
 			}
 

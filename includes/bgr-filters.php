@@ -152,10 +152,17 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			if ( ! is_user_logged_in() ) {
 				return false;
 			}
+
+			// Only show button if user is a member of the group.
+			$current_user_id  = bp_loggedin_user_id();
+			$current_group_id = bp_get_current_group_id();
+			if ( ! groups_is_user_member( $current_user_id, $current_group_id ) ) {
+				return false;
+			}
+
 			global $bgr;
 			$review_div       = 'form';
 			$exclude_groups   = $bgr['exclude_groups'];
-			$current_group_id = bp_get_current_group_id();
 			// Build group URL safely for both BuddyPress and BuddyBoss.
 			$current_group = groups_get_group( array( 'group_id' => $current_group_id ) );
 			if ( function_exists( 'bp_get_group_url' ) ) {
@@ -736,10 +743,19 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					// Fallback for older versions - build URL manually.
 					$gp_parent_url = bp_get_groups_directory_permalink() . $bp->groups->current_group->slug . '/';
 				}
+
+				// Check if user can add reviews (must be logged in, a member, and NOT a group admin).
+				$current_user_id  = bp_loggedin_user_id();
+				$current_group_id = $bp->groups->current_group->id;
+				$can_add_review   = is_user_logged_in() && groups_is_user_member( $current_user_id, $current_group_id ) && ! groups_is_user_admin( $current_user_id, $current_group_id );
+
 				if ( ! empty( $bgr_admin_general_settings ) ) {
 					$exclude_groups = $bgr['exclude_groups'];
 					if ( ! empty( $exclude_groups ) ) {
-						if ( ! in_array( $bp->groups->current_group->id, $exclude_groups, true ) ) {
+						// Ensure consistent integer comparison for group IDs.
+						$current_group_id_int = absint( $bp->groups->current_group->id );
+						$exclude_groups_int   = array_map( 'absint', $exclude_groups );
+						if ( ! in_array( $current_group_id_int, $exclude_groups_int, true ) ) {
 							$tab_args[] = array(
 								'name'            => $review_label . ' ' . $count_notification,
 								'slug'            => sanitize_title( $bgr['manage_review_label'] ),
@@ -750,16 +766,19 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 								'item_css_id'     => 'reviews',
 							);
 
-							$tab_args[] = array(
-								/* translators: %s: review label (e.g., "Review") */
-								'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
-								'slug'            => 'add-' . bp_group_review_tab_slug(),
-								'parent_slug'     => $bp->groups->current_group->slug,
-								'parent_url'      => $gp_parent_url,
-								'screen_function' => array( $this, 'bp_group_review_add_review_tab' ),
-								'position'        => 199,
-								'item_css_id'     => 'add-review',
-							);
+							// Only add "Add Review" tab if user is a member.
+							if ( $can_add_review ) {
+								$tab_args[] = array(
+									/* translators: %s: review label (e.g., "Review") */
+									'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
+									'slug'            => 'add-' . bp_group_review_tab_slug(),
+									'parent_slug'     => $bp->groups->current_group->slug,
+									'parent_url'      => $gp_parent_url,
+									'screen_function' => array( $this, 'bp_group_review_add_review_tab' ),
+									'position'        => 199,
+									'item_css_id'     => 'add-review',
+								);
+							}
 
 							foreach ( $tab_args as $tab ) {
 								bp_core_new_subnav_item( $tab );
@@ -776,16 +795,19 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 							'item_css_id'     => 'reviews',
 						);
 
-						$tab_args[] = array(
-							/* translators: %s: review label (e.g., "Review") */
-							'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
-							'slug'            => 'add-' . bp_group_review_tab_slug(),
-							'parent_slug'     => $bp->groups->current_group->slug,
-							'parent_url'      => $gp_parent_url,
-							'screen_function' => array( $this, 'bp_group_review_add_review_tab' ),
-							'position'        => 199,
-							'item_css_id'     => 'add-review',
-						);
+						// Only add "Add Review" tab if user is a member.
+						if ( $can_add_review ) {
+							$tab_args[] = array(
+								/* translators: %s: review label (e.g., "Review") */
+								'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
+								'slug'            => 'add-' . bp_group_review_tab_slug(),
+								'parent_slug'     => $bp->groups->current_group->slug,
+								'parent_url'      => $gp_parent_url,
+								'screen_function' => array( $this, 'bp_group_review_add_review_tab' ),
+								'position'        => 199,
+								'item_css_id'     => 'add-review',
+							);
+						}
 
 						foreach ( $tab_args as $tab ) {
 							bp_core_new_subnav_item( $tab );
@@ -802,16 +824,19 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						'item_css_id'     => 'reviews',
 					);
 
-					$tab_args[] = array(
-						/* translators: %s: review label (e.g., "Review") */
-						'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
-						'slug'            => 'add-' . bp_group_review_tab_slug(),
-						'parent_slug'     => $bp->groups->current_group->slug,
-						'parent_url'      => $gp_parent_url,
-						'screen_function' => array( $this, 'bp_group_review_add_review_tab' ),
-						'position'        => 199,
-						'item_css_id'     => 'add-review',
-					);
+					// Only add "Add Review" tab if user is a member.
+					if ( $can_add_review ) {
+						$tab_args[] = array(
+							/* translators: %s: review label (e.g., "Review") */
+							'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
+							'slug'            => 'add-' . bp_group_review_tab_slug(),
+							'parent_slug'     => $bp->groups->current_group->slug,
+							'parent_url'      => $gp_parent_url,
+							'screen_function' => array( $this, 'bp_group_review_add_review_tab' ),
+							'position'        => 199,
+							'item_css_id'     => 'add-review',
+						);
+					}
 
 					foreach ( $tab_args as $tab ) {
 						bp_core_new_subnav_item( $tab );
