@@ -353,30 +353,21 @@ div#add-review-groupbutton{
     right: -12px;
 }
 
-/* Reign Theme */
-.wb-reign-theme .wbtm-member-info-section div#item-header-content .wbtm-item-buttons-wrapper {
+/* Default BuddyPress - Inline buttons */
+#buddypress .groups-header .item-buttons,
+#buddypress #item-header .item-buttons {
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+#buddypress .groups-header #add-review-groupbutton,
+#buddypress #item-header #add-review-groupbutton {
+    display: inline-flex !important;
+    margin: 0 !important;
 }
 
-.wb-reign-theme.groups div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton {
-    margin-top: 0 !important;
-    margin-left: 10px !important;
-}
-
-.wb-reign-theme .wbtm-member-info-section div#item-header-content #add-review-groupbutton a.group-button {
-    margin: 0;
-    height: 38px !important;
-    line-height: 1.1;
-    font-size: 15px !important;
-}
-
-.buddyx-nav-iconic .subnav li[id^="manage-"] a:before,
-.reign-nav-iconic .subnav li[id^="manage-"] a:before {
-    content: "\f5c0" !important;
-}
-
-/* BuddyBoss Theme */
-
+/* BuddyBoss Theme - Inline buttons */
 .buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-group-header-ratings {
     padding: 0px;
 }
@@ -389,14 +380,73 @@ div#add-review-groupbutton{
 .buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-star-rate {
     margin-right: 0;
 }
-.buddyboss-theme div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton {
-    top: 60px !important;
-    right: 0 !important;
+
+/* BuddyBoss group header buttons inline */
+.buddyboss-theme .groups-header .item-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+.buddyboss-theme .groups-header #add-review-groupbutton {
+    display: inline-flex !important;
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
     margin: 0 !important;
+}
+.buddyboss-theme div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton {
+    top: auto !important;
+    right: auto !important;
+    margin: 0 !important;
+    position: relative !important;
 }
 .buddyboss-theme .groups-header #item-header-content .generic-button .group-button {
     margin-right: 0;
     font-size: 13px !important;
+}
+
+/* Reign Theme / BuddyX Pro - Inline buttons (must come after default BuddyPress rules) */
+.buddyx-nav-iconic .subnav li[id^="manage-"] a:before,
+.reign-nav-iconic .subnav li[id^="manage-"] a:before {
+    content: "\f5c0" !important;
+}
+.wb-reign-theme #buddypress #item-header-content > .group-actions-absolute:not(#add-review-groupbutton),
+.wp-theme-buddyx-pro #buddypress #item-header-content > .group-actions-absolute:not(#add-review-groupbutton) {
+    display: inline-flex !important;
+    width: auto !important;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+.wb-reign-theme #buddypress #item-header-content > #add-review-groupbutton,
+.wp-theme-buddyx-pro #buddypress #item-header-content > #add-review-groupbutton {
+    display: inline-flex !important;
+    width: auto !important;
+    margin-top: -38px !important;
+    margin-left: 170px !important;
+    align-self: flex-start !important;
+}
+.wb-reign-theme #buddypress #item-header-content #add-review-groupbutton a.group-button,
+.wp-theme-buddyx-pro #buddypress #item-header-content #add-review-groupbutton a.group-button {
+    margin: 0;
+    height: 38px !important;
+    line-height: 38px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+/* Align Join Group and Add Review buttons for non-members */
+.wb-reign-theme #buddypress #item-header-content .activity-meta.groups-meta.action,
+.wp-theme-buddyx-pro #buddypress #item-header-content .activity-meta.groups-meta.action {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px;
+}
+.wb-reign-theme #buddypress #item-header-content .activity-meta.groups-meta.action #add-review-groupbutton a.group-button,
+.wp-theme-buddyx-pro #buddypress #item-header-content .activity-meta.groups-meta.action #add-review-groupbutton a.group-button {
+    height: auto !important;
+    line-height: inherit !important;
 }
 
 /*This is work for the youzify only and it pass the varibale here for the youzify */

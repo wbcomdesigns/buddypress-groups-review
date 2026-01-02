@@ -441,4 +441,56 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
 .youzify-sidebar #bp-group-rating {
     line-height: 1.5;
 }
+
+/* Reviews Sorting Dropdown */
+.bgr-reviews-sorting {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.bgr-reviews-sorting label {
+    margin-left: 8px;
+    font-weight: 500;
+}
+
+.bgr-reviews-sorting select {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    min-width: 150px;
+}
+
+.bgr-reviews-sorting select:hover,
+.bgr-reviews-sorting select:focus {
+    border-color: #999;
+    outline: none;
+}
+
+/* Review Pagination */
+.review-pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.review-pagination .page-numbers {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 2px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.review-pagination .page-numbers.current {
+    background-color: #0073aa;
+    color: #fff;
+    border-color: #0073aa;
+}
+
+.review-pagination .page-numbers:hover:not(.current) {
+    background-color: #f5f5f5;
+}
 /*# sourceMappingURL=bgr-reviews.rtl.css.map */
