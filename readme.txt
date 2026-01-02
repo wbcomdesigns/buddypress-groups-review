@@ -113,8 +113,14 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 = 3.6.0 =
 * New: Bulk Approve and Bulk Deny actions for managing multiple reviews at once
 * New: CSV Export functionality - Export all reviews with ratings to CSV file
-* Improved: Comprehensive documentation for users and developers
-* Improved: Build process optimizations for WordPress.org distribution
+* Security: Protected email notifications from header injection attacks
+* Security: REST API review creation now requires group membership
+* Fixed: Rating star color setting now properly applies to frontend stars
+* Fixed: Exclude groups setting now works correctly
+* Fixed: "Add Review" button properly aligns with "Join Group" button in group headers
+* Fixed: Duplicate reviews prevented when users double-click submit
+* Fixed: Reviews can now be submitted when rating criteria is disabled
+* Improved: Faster page loads with cached review counts
 
 = 3.5.1 =
 * Fixed: PHP warning when accessing group slug property on certain server configurations
