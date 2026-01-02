@@ -5,7 +5,7 @@ Tags: buddypress, groups
 Requires at least: 4.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 3.6.0
+Stable tag: 3.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,15 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 8. Review submission at single group.(png|jpg|jpeg|gif).
 
 == Changelog ==
+
+= 3.7.0 =
+* New: Group-Level Review Criteria - Group admins can now customize review criteria for their specific groups
+* New: Site admin toggle to enable/disable group-level criteria customization
+* New: Groups can use global criteria, select specific criteria, or add custom criteria
+* New: Archived criteria tracking when global criteria are deactivated
+* Fixed: jQuery deprecation warnings for .submit(), .mouseenter(), .mouseleave() methods
+* Fixed: Added missing CSS file for group criteria admin panel
+* Improved: Better separation of global vs group-specific review criteria
 
 = 3.6.0 =
 * New: Bulk Approve and Bulk Deny actions for managing multiple reviews at once
