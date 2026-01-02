@@ -203,6 +203,11 @@ function run_bp_group_reviews_plugin() {
 			include $include_file;
 		}
 	}
+
+	// Initialize the group criteria singleton to register its hooks.
+	if ( class_exists( 'BGR_Group_Criteria' ) ) {
+		BGR_Group_Criteria::get_instance();
+	}
 }
 
 /**
