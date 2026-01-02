@@ -497,6 +497,12 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				);
 				$review_id       = wp_insert_post( $add_review_args );
 
+				// Check if post creation failed.
+				if ( is_wp_error( $review_id ) || 0 === $review_id ) {
+					delete_transient( $lock_key );
+					wp_send_json_error( new WP_Error( '011', esc_html__( 'Failed to create review. Please try again.', 'bp-group-reviews' ), 'insert_failed' ) );
+				}
+
 				if ( 'publish' === $review_status ) {
 					do_action( 'gamipress_bp_group_review', $member_id );
 				}
