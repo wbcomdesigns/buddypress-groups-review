@@ -45,18 +45,21 @@ class bgr_review_widget extends WP_Widget {
 	 * @param array $instance Widget instance.
 	 */
 	public function form( $instance ) {
-		if ( empty( $instance ) ) {
-			$instance = wp_parse_args(
-				(array) $instance,
-				array(
-					'widget_title' => '',
-					'listing_cat'  => 'topreviewed',
-					'post_num'     => '5',
-					'thumbnail'    => 'show',
-				)
-			);
-		}
-		extract( $instance );
+		$instance = wp_parse_args(
+			(array) $instance,
+			array(
+				'widget_title' => '',
+				'listing_cat'  => 'topreviewed',
+				'post_num'     => '5',
+				'thumbnail'    => 'show',
+			)
+		);
+
+		// Use direct array access instead of extract() for security.
+		$widget_title = $instance['widget_title'];
+		$listing_cat  = $instance['listing_cat'];
+		$post_num     = $instance['post_num'];
+		$thumbnail    = $instance['thumbnail'];
 		?>
 		<div class="bgr_review_listing_form">
 			<p>
@@ -66,9 +69,9 @@ class bgr_review_widget extends WP_Widget {
 			<h4><?php esc_html_e( 'Select Listing Type', 'bp-group-reviews' ); ?></h4>
 			<div class="bgr_review_select_listing_type">
 				<label class="alignleft" for="listing_toprated">
-					<input type="radio" class="" id="<?php echo esc_attr( $this->get_field_id( 'listing_cat' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'listing_cat' ) ); ?>" value="<?php echo 'toprated'; ?>" 
+					<input type="radio" class="" id="<?php echo esc_attr( $this->get_field_id( 'listing_cat' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'listing_cat' ) ); ?>" value="<?php echo 'toprated'; ?>"
 					<?php
-					if ( 'toprated' == $listing_cat ) {
+					if ( 'toprated' === $listing_cat ) {
 						echo 'checked="checked"';
 					}
 					?>
@@ -76,9 +79,9 @@ class bgr_review_widget extends WP_Widget {
 						<?php esc_html_e( 'Top Rated', 'bp-group-reviews' ); ?>
 				</label>
 				<label class="alignleft" for="listing_topreviewed">
-					<input type="radio" class="" id="<?php echo esc_attr( $this->get_field_id( 'listing_cat' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'listing_cat' ) ); ?>" value="<?php echo 'topreviewed'; ?>" 
+					<input type="radio" class="" id="<?php echo esc_attr( $this->get_field_id( 'listing_cat' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'listing_cat' ) ); ?>" value="<?php echo 'topreviewed'; ?>"
 					<?php
-					if ( 'topreviewed' == $listing_cat ) {
+					if ( 'topreviewed' === $listing_cat ) {
 						echo 'checked="checked"';
 					}
 					?>
@@ -132,12 +135,11 @@ class bgr_review_widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		global $bp;
-		$post;
 		global $bgr;
 		$review_rating_fields = $bgr['review_rating_fields'];
 		$review_label         = $bgr['review_label'];
 
-		extract( $instance, EXTR_SKIP );
+		// Use direct array access instead of extract() for security.
 		$widget_title       = apply_filters( 'bgr_widget_title', $instance['widget_title'] );
 		$widget_listing_cat = apply_filters( 'bgr_listing_cat', $instance['listing_cat'] );
 		$widget_post_num    = apply_filters( 'bgr_post_num', $instance['post_num'] );
@@ -167,7 +169,7 @@ class bgr_review_widget extends WP_Widget {
 					foreach ( $review_rating_fields as $rating_field ) {
 						if ( array_key_exists( $rating_field, $rev_rating_array ) ) {
 							$total_review += $rev_rating_array[ $rating_field ];
-							$single_review_count++;
+							++$single_review_count;
 						}
 					}
 					if ( ! empty( $single_review_count ) ) {
@@ -224,9 +226,9 @@ class bgr_review_widget extends WP_Widget {
 		}
 
 		/*** Select Listing Type */
-		if ( 'toprated' == $widget_listing_cat ) {
+		if ( 'toprated' === $widget_listing_cat ) {
 			$group_args = $review_groups;
-		} elseif ( 'topreviewed' == $widget_listing_cat ) {
+		} elseif ( 'topreviewed' === $widget_listing_cat ) {
 			$group_args = $review_groups_count;
 		} else {
 			$group_args = '';
@@ -238,14 +240,14 @@ class bgr_review_widget extends WP_Widget {
 			echo '<ul class="bupr-group-main">';
 			foreach ( $gids as $gid ) {
 				if ( $post_num_counter < $widget_post_num ) :
-					$group          = groups_get_group( array( 'group_id' => $gid ) );
+					$group = groups_get_group( array( 'group_id' => $gid ) );
 					// Build group URL safely for both BuddyPress and BuddyBoss.
-				if ( function_exists( 'bp_get_group_url' ) ) {
-					$group_url = bp_get_group_url( $group );
-				} else {
-					// Fallback for older versions - build URL manually.
-					$group_url = bp_get_groups_directory_permalink() . $group->slug . '/';
-				}
+					if ( function_exists( 'bp_get_group_url' ) ) {
+						$group_url = bp_get_group_url( $group );
+					} else {
+						// Fallback for older versions - build URL manually.
+						$group_url = bp_get_groups_directory_permalink() . $group->slug . '/';
+					}
 					$avatar_options = array(
 						'item_id'    => $gid,
 						'object'     => 'group',
@@ -254,10 +256,10 @@ class bgr_review_widget extends WP_Widget {
 						'alt'        => 'Group avatar',
 						'class'      => 'sidebar_review_avatar avatar',
 					);
-					if ( $group->id !== 0 ) {
+					if ( 0 !== $group->id ) {
 						?>
 						<li class="bupr-group">
-							<?php if ( 'show' == $widget_thumbnail ) { ?>
+							<?php if ( 'show' === $widget_thumbnail ) { ?>
 								<div class="bupr-img-widget">
 									<a href="<?php echo esc_url( $group_url ); ?>"><?php echo wp_kses_post( bp_core_fetch_avatar( $avatar_options ) ); ?></a>
 								</div>
@@ -284,12 +286,11 @@ class bgr_review_widget extends WP_Widget {
 					</li>						
 					<?php
 				endif;
-				$post_num_counter++;
+				++$post_num_counter;
 			}
 			echo '</ul>';
-		} else {
-			if ( 'toprated' == $widget_listing_cat ) {
-				?>
+		} elseif ( 'toprated' === $widget_listing_cat ) {
+			?>
 				<div id="message" class="info">
 					<?php
 					esc_html_e( 'No ratings have been given to any groups yet.', 'bp-group-reviews' );
@@ -299,15 +300,14 @@ class bgr_review_widget extends WP_Widget {
 				<div id="message" class="info">
 					<?php
 					/* translators: %1$s is replaced with review_label */
-					echo sprintf( esc_html__( 'No %1$s has been given to any group yet!', 'bp-group-reviews' ), esc_html( $review_label ) );
+					printf( esc_html__( 'No %1$s has been given to any group yet!', 'bp-group-reviews' ), esc_html( $review_label ) );
 					?>
 				</div>
 				<?php
-			}
-		}
-		echo wp_kses_post( $args['after_widget'] );
-	}
 
+			}
+			echo wp_kses_post( $args['after_widget'] );
+	}
 }
 
 /** Register Group Review Widget
