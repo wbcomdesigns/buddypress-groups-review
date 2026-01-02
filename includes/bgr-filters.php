@@ -237,6 +237,23 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			$review_div       = 'form';
 			$exclude_groups   = isset( $bgr['exclude_groups'] ) ? array_map( 'absint', (array) $bgr['exclude_groups'] ) : array();
 			$current_group_id = absint( bp_get_current_group_id() );
+			$current_user_id  = bp_loggedin_user_id();
+
+			// Check if current group is excluded from reviews.
+			if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) {
+				return;
+			}
+
+			// Group admins should not see the "Add Review" button on their own groups.
+			if ( groups_is_user_admin( $current_user_id, $current_group_id ) ) {
+				return;
+			}
+
+			// Non-members should not see the "Add Review" button.
+			if ( ! groups_is_user_member( $current_user_id, $current_group_id ) ) {
+				return;
+			}
+
 			// Build group URL safely for both BuddyPress and BuddyBoss.
 			$current_group = groups_get_group( array( 'group_id' => $current_group_id ) );
 			if ( function_exists( 'bp_get_group_url' ) ) {
@@ -246,15 +263,6 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				$current_group_link = bp_get_groups_directory_permalink() . $current_group->slug . '/';
 			}
 			$current_group_link .= 'add-' . bp_group_review_tab_slug();
-			// Check if current group is excluded from reviews.
-			if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) {
-				return;
-			}
-
-			// Group admins should not see the "Add Review" button on their own groups.
-			if ( groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id() ) ) {
-				return;
-			}
 			?>
 			<div class="group-button group-actions-absolute public generic-button" id="add-review-groupbutton">
 				<a href='<?php echo esc_url( $current_group_link ); ?>' class="group-button button" show ="<?php echo esc_attr( $review_div ); ?>">
@@ -821,12 +829,51 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					// Fallback for older versions - build URL manually.
 					$gp_parent_url = bp_get_groups_directory_permalink() . $bp->groups->current_group->slug . '/';
 				}
+
+				// Check if user can add reviews (must be logged in, member, and not admin).
+				$current_group_id = absint( $bp->groups->current_group->id );
+				$current_user_id  = bp_loggedin_user_id();
+				$can_add_review   = is_user_logged_in()
+					&& groups_is_user_member( $current_user_id, $current_group_id )
+					&& ! groups_is_user_admin( $current_user_id, $current_group_id );
+
 				if ( ! empty( $bgr_admin_general_settings ) ) {
-					$exclude_groups   = isset( $bgr['exclude_groups'] ) ? array_map( 'absint', (array) $bgr['exclude_groups'] ) : array();
-					$current_group_id = absint( $bp->groups->current_group->id );
+					$exclude_groups = isset( $bgr['exclude_groups'] ) ? array_map( 'absint', (array) $bgr['exclude_groups'] ) : array();
 					if ( ! empty( $exclude_groups ) ) {
 						if ( ! in_array( $current_group_id, $exclude_groups, true ) ) {
-							$tab_args[] = array(
+							// Always add the Reviews listing tab.
+							bp_core_new_subnav_item(
+								array(
+									'name'            => $review_label . ' ' . $count_notification,
+									'slug'            => sanitize_title( $bgr['manage_review_label'] ),
+									'parent_slug'     => $bp->groups->current_group->slug,
+									'parent_url'      => $gp_parent_url,
+									'screen_function' => array( $this, 'bp_group_review_tab' ),
+									'position'        => 198,
+									'item_css_id'     => 'reviews',
+								)
+							);
+
+							// Only add the "Add Review" tab if user can add reviews.
+							if ( $can_add_review ) {
+								bp_core_new_subnav_item(
+									array(
+										/* translators: %s: review label (e.g., "Review") */
+										'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
+										'slug'            => 'add-' . bp_group_review_tab_slug(),
+										'parent_slug'     => $bp->groups->current_group->slug,
+										'parent_url'      => $gp_parent_url,
+										'screen_function' => array( $this, 'bp_group_review_add_review_tab' ),
+										'position'        => 199,
+										'item_css_id'     => 'add-review',
+									)
+								);
+							}
+						}
+					} else {
+						// Always add the Reviews listing tab.
+						bp_core_new_subnav_item(
+							array(
 								'name'            => $review_label . ' ' . $count_notification,
 								'slug'            => sanitize_title( $bgr['manage_review_label'] ),
 								'parent_slug'     => $bp->groups->current_group->slug,
@@ -834,9 +881,43 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 								'screen_function' => array( $this, 'bp_group_review_tab' ),
 								'position'        => 198,
 								'item_css_id'     => 'reviews',
-							);
+							)
+						);
 
-							$tab_args[] = array(
+						// Only add the "Add Review" tab if user can add reviews.
+						if ( $can_add_review ) {
+							bp_core_new_subnav_item(
+								array(
+									/* translators: %s: review label (e.g., "Review") */
+									'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
+									'slug'            => 'add-' . bp_group_review_tab_slug(),
+									'parent_slug'     => $bp->groups->current_group->slug,
+									'parent_url'      => $gp_parent_url,
+									'screen_function' => array( $this, 'bp_group_review_add_review_tab' ),
+									'position'        => 199,
+									'item_css_id'     => 'add-review',
+								)
+							);
+						}
+					}
+				} else {
+					// Always add the Reviews listing tab.
+					bp_core_new_subnav_item(
+						array(
+							'name'            => $review_label . ' ' . $count_notification,
+							'slug'            => sanitize_title( $bgr['manage_review_label'] ),
+							'parent_slug'     => $bp->groups->current_group->slug,
+							'parent_url'      => $gp_parent_url,
+							'screen_function' => array( $this, 'bp_group_review_tab' ),
+							'position'        => 198,
+							'item_css_id'     => 'reviews',
+						)
+					);
+
+					// Only add the "Add Review" tab if user can add reviews.
+					if ( $can_add_review ) {
+						bp_core_new_subnav_item(
+							array(
 								/* translators: %s: review label (e.g., "Review") */
 								'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
 								'slug'            => 'add-' . bp_group_review_tab_slug(),
@@ -845,62 +926,8 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 								'screen_function' => array( $this, 'bp_group_review_add_review_tab' ),
 								'position'        => 199,
 								'item_css_id'     => 'add-review',
-							);
-
-							foreach ( $tab_args as $tab ) {
-								bp_core_new_subnav_item( $tab );
-							}
-						}
-					} else {
-						$tab_args[] = array(
-							'name'            => $review_label . ' ' . $count_notification,
-							'slug'            => sanitize_title( $bgr['manage_review_label'] ),
-							'parent_slug'     => $bp->groups->current_group->slug,
-							'parent_url'      => $gp_parent_url,
-							'screen_function' => array( $this, 'bp_group_review_tab' ),
-							'position'        => 198,
-							'item_css_id'     => 'reviews',
+							)
 						);
-
-						$tab_args[] = array(
-							/* translators: %s: review label (e.g., "Review") */
-							'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
-							'slug'            => 'add-' . bp_group_review_tab_slug(),
-							'parent_slug'     => $bp->groups->current_group->slug,
-							'parent_url'      => $gp_parent_url,
-							'screen_function' => array( $this, 'bp_group_review_add_review_tab' ),
-							'position'        => 199,
-							'item_css_id'     => 'add-review',
-						);
-
-						foreach ( $tab_args as $tab ) {
-							bp_core_new_subnav_item( $tab );
-						}
-					}
-				} else {
-					$tab_args[] = array(
-						'name'            => $review_label . ' ' . $count_notification,
-						'slug'            => sanitize_title( $bgr['manage_review_label'] ),
-						'parent_slug'     => $bp->groups->current_group->slug,
-						'parent_url'      => $gp_parent_url,
-						'screen_function' => array( $this, 'bp_group_review_tab' ),
-						'position'        => 198,
-						'item_css_id'     => 'reviews',
-					);
-
-					$tab_args[] = array(
-						/* translators: %s: review label (e.g., "Review") */
-						'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
-						'slug'            => 'add-' . bp_group_review_tab_slug(),
-						'parent_slug'     => $bp->groups->current_group->slug,
-						'parent_url'      => $gp_parent_url,
-						'screen_function' => array( $this, 'bp_group_review_add_review_tab' ),
-						'position'        => 199,
-						'item_css_id'     => 'add-review',
-					);
-
-					foreach ( $tab_args as $tab ) {
-						bp_core_new_subnav_item( $tab );
 					}
 				}
 			}
