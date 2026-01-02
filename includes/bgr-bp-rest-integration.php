@@ -485,7 +485,13 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 			update_post_meta( $review_id, 'linked_group', $group_id );
 
 			if ( ! empty( $ratings ) && is_array( $ratings ) ) {
-				update_post_meta( $review_id, 'review_star_rating', $ratings );
+				$sanitized_ratings = array();
+				foreach ( $ratings as $key => $value ) {
+					$sanitized_key                       = sanitize_text_field( $key );
+					$sanitized_value                     = min( 5, max( 1, absint( $value ) ) );
+					$sanitized_ratings[ $sanitized_key ] = $sanitized_value;
+				}
+				update_post_meta( $review_id, 'review_star_rating', $sanitized_ratings );
 			}
 
 			$review = get_post( $review_id );
@@ -554,7 +560,13 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 			}
 
 			if ( ! empty( $ratings ) && is_array( $ratings ) ) {
-				update_post_meta( $review_id, 'review_star_rating', $ratings );
+				$sanitized_ratings = array();
+				foreach ( $ratings as $key => $value ) {
+					$sanitized_key                       = sanitize_text_field( $key );
+					$sanitized_value                     = min( 5, max( 1, absint( $value ) ) );
+					$sanitized_ratings[ $sanitized_key ] = $sanitized_value;
+				}
+				update_post_meta( $review_id, 'review_star_rating', $sanitized_ratings );
 			}
 
 			$review = get_post( $review_id );
