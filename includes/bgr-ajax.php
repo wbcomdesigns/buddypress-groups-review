@@ -33,10 +33,9 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 */
 		public function __construct() {
 
+			// Admin-only AJAX handlers - no nopriv hooks needed as these require manage_options capability.
 			add_action( 'wp_ajax_bp_group_review_save_admin_criteria_settings', array( $this, 'bp_group_review_save_admin_criteria_settings' ) );
-			add_action( 'wp_ajax_nopriv_bp_group_review_save_admin_criteria_settings', array( $this, 'bp_group_review_save_admin_criteria_settings' ) );
 			add_action( 'wp_ajax_bp_group_review_save_admin_display_settings', array( $this, 'bp_group_review_save_admin_display_settings' ) );
-			add_action( 'wp_ajax_nopriv_bp_group_review_save_admin_display_settings', array( $this, 'bp_group_review_save_admin_display_settings' ) );
 			add_action( 'wp_ajax_bp_group_review_save_admin_general_settings', array( $this, 'bp_group_review_save_admin_general_settings' ) );
 			add_action( 'wp_ajax_bp_group_review_accept_review', array( $this, 'bp_group_review_accept_review' ) );
 			add_action( 'wp_ajax_nopriv_bp_group_review_accept_review', array( $this, 'bp_group_review_accept_review' ) );
@@ -47,9 +46,8 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			add_action( 'wp_ajax_bp_group_submit_review', array( $this, 'bp_group_submit_review' ) );
 			add_action( 'wp_ajax_nopriv_bp_group_submit_review', array( $this, 'bp_group_submit_review' ) );
 
-			/* add action for approving reviews */
+			/* add action for approving reviews - admin-only, no nopriv hook needed */
 			add_action( 'wp_ajax_bp_group_review_admin_approve_review', array( $this, 'bp_group_review_admin_approve_review' ) );
-			add_action( 'wp_ajax_nopriv_bp_group_review_admin_approve_review', array( $this, 'bp_group_review_admin_approve_review' ) );
 			/* add action for denying reviews from admin */
 			add_action( 'wp_ajax_bp_group_review_admin_deny_review', array( $this, 'bp_group_review_admin_deny_review' ) );
 			// Filter widget ratings.
