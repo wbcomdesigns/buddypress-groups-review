@@ -307,7 +307,23 @@ function bgr_register_group_criteria_rest_routes() {
 		array(
 			'methods'             => WP_REST_Server::READABLE,
 			'callback'            => 'bgr_rest_get_group_criteria',
-			'permission_callback' => '__return_true',
+			'permission_callback' => function ( $request ) {
+				$group_id = absint( $request->get_param( 'id' ) );
+
+				// Verify group exists.
+				$group = groups_get_group( $group_id );
+				if ( empty( $group->id ) ) {
+					return false;
+				}
+
+				// Public groups: allow logged-in users.
+				// Private/hidden groups: require membership or admin.
+				if ( 'public' === $group->status ) {
+					return is_user_logged_in();
+				}
+
+				return groups_is_user_member( get_current_user_id(), $group_id ) || current_user_can( 'manage_options' );
+			},
 			'args'                => array(
 				'id' => array(
 					'validate_callback' => function ( $param ) {
