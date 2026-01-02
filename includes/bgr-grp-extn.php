@@ -372,6 +372,11 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			// Settings are saved via AJAX, so nothing needed here.
 		}
 	}
-	bp_register_group_extension( 'Group_Reviews_Criteria_Extn' );
+	// Only register the criteria extension if the feature is enabled by site admin.
+	$bgr_criteria_settings     = get_option( 'bgr_admin_general_settings' );
+	$enable_criteria_extension = isset( $bgr_criteria_settings['enable_group_criteria'] ) ? $bgr_criteria_settings['enable_group_criteria'] : 'no';
+	if ( 'yes' === $enable_criteria_extension ) {
+		bp_register_group_extension( 'Group_Reviews_Criteria_Extn' );
+	}
 
 endif;
