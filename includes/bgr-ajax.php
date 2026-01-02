@@ -433,46 +433,48 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$review_cpt_subject = sprintf( esc_html__( '%1$s %2$ss Group %3$s.', 'bp-group-reviews' ), $user_name, $review_label, $group_name );
 			$headers[]          = 'Content-Type: text/html; charset=UTF-8';
 
-			// Race condition prevention: Use transient-based locking when multi_reviews is disabled.
-			$lock_key = 'bgr_review_lock_' . $member_id . '_' . $form_group_id;
+			// Check for existing reviews FIRST (before acquiring lock) to prevent race conditions.
+			$lock_key        = 'bgr_review_lock_' . $member_id . '_' . $form_group_id;
+			$user_post_count = 0;
+
 			if ( 'no' === $multi_reviews ) {
+				$group_args      = array(
+					'post_type'   => 'review',
+					'category'    => 'group',
+					'post_status' => array(
+						'draft',
+						'publish',
+					),
+					'author'      => $member_id,
+					'meta_query'  => array(
+						array(
+							'key'     => 'linked_group',
+							'value'   => $form_group_id,
+							'compare' => '=',
+						),
+					),
+				);
+				$reviews_args    = new WP_Query( $group_args );
+				$user_post_count = $reviews_args->post_count;
+
+				// Check if user already has a review.
+				if ( $user_post_count > 0 ) {
+					/* translators: %1$s is replaced with review_label */
+					$review_add_msg = sprintf( __( 'You have already submitted a %1$s for this group.', 'bp-group-reviews' ), strtolower( $review_label ) );
+					echo esc_html( $review_add_msg );
+					die;
+				}
+
 				// Check if a lock already exists (another request is processing).
 				if ( get_transient( $lock_key ) ) {
 					wp_send_json_error( new WP_Error( '010', esc_html__( 'Please wait, your review is being processed.', 'bp-group-reviews' ), 'review_in_progress' ) );
 				}
 
-				// Set the lock before checking for existing reviews (30 second expiration).
+				// Set the lock AFTER checking for duplicates (30 second expiration).
 				set_transient( $lock_key, true, 30 );
 			}
 
-			$group_args   = array(
-				'post_type'   => 'review',
-				'category'    => 'group',
-				'post_status' => array(
-					'draft',
-					'publish',
-				),
-				'author'      => $member_id,
-				'meta_query'  => array(
-					array(
-						'key'     => 'linked_group',
-						'value'   => $form_group_id,
-						'compare' => '=',
-					),
-				),
-			);
-			$reviews_args = new WP_Query( $group_args );
-			if ( 'no' === $multi_reviews ) {
-				$user_post_count = $reviews_args->post_count;
-			} else {
-				$user_post_count = 0;
-			}
-			if ( $user_post_count > 0 ) {
-				// Delete the lock since we're not creating a review.
-				delete_transient( $lock_key );
-				/* translators: %1$s is replaced with review_label */
-				$review_add_msg = sprintf( __( 'You have already submitted a %1$s for this group.', 'bp-group-reviews' ), strtolower( $review_label ) );
-			} else {
+			if ( $user_post_count <= 0 ) {
 				if ( 'yes' === $auto_approve_reviews ) {
 					/* translators: %1$s is replaced with review_label */
 					$review_add_msg = sprintf( __( 'Thank you for sharing your %1$s!', 'bp-group-reviews' ), strtolower( $review_label ) );
