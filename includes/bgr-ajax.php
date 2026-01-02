@@ -544,6 +544,8 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					/* translators: %1$s: review label, %2$s: group name */
 					$mail_title = sprintf( __( 'New %1$s submitted for %2$s', 'bp-group-reviews' ), $review_label, $group_name );
 				}
+				// Sanitize email subject to prevent header injection.
+				$mail_title = sanitize_text_field( str_replace( array( "\r", "\n" ), '', $mail_title ) );
 
 				// Use custom message if set.
 				if ( isset( $bp_group_review_email_settings['review_email_message'] ) && ! empty( $bp_group_review_email_settings['review_email_message'] ) ) {
