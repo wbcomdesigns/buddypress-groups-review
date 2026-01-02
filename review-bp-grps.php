@@ -15,7 +15,7 @@
  * Plugin Name: Wbcom Designs - BuddyPress Group Reviews
  * Plugin URI: https://wbcomdesigns.com/contact/
  * Description: This plugin allows BuddyPress Members to give reviews to BuddyPress groups on the site. The review form allows users to give text reviews and even rate the group based on multiple criteria.
- * Version: 3.6.0
+ * Version: 3.7.0
  * Author: Wbcom Designs
  * Author URI: http://wbcomdesigns.com
  * License: GPLv2+
@@ -45,7 +45,7 @@ add_action( 'init', 'bp_group_review_load_textdomain' );
  */
 function bp_group_review_load_textdomain() {
 	$domain = 'bp-group-reviews';
-	load_plugin_textdomain( $domain, false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
+	load_plugin_textdomain( $domain, false, plugin_basename( __DIR__ ) . '/languages' );
 }
 
 /**
@@ -54,12 +54,12 @@ function bp_group_review_load_textdomain() {
  *  @since   1.0.0
  *  @author  Wbcom Designs
 */
-define( 'BGR_PLUGIN_VERSION', '3.6.0' );
+define( 'BGR_PLUGIN_VERSION', '3.7.0' );
 define( 'BGR_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BGR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 if ( ! defined( 'BP_ROOT_BLOG' ) ) {
-    define( 'BP_ROOT_BLOG', 1 );
+	define( 'BP_ROOT_BLOG', 1 );
 }
 
 /**
@@ -119,23 +119,22 @@ add_action( 'admin_init', 'bp_group_review_requires_buddypress' );
  */
 function bp_group_review_admin_notice() {
 	if ( is_multisite() ) {
-        return;
-    }
+		return;
+	}
 	$bpquotes_plugin = esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' );
 	$bp_plugin       = esc_html__( 'BuddyPress', 'bp-group-reviews' );
 	echo '<div class="error"><p>';
-	if( class_exists( 'BuddyPress' ) ){
-		if(  ! bp_is_active( 'groups' ) ){
-			$bp_gp_component       = esc_html__( 'BuddyPress Groups Component', 'bp-group-reviews' );
+	if ( class_exists( 'BuddyPress' ) ) {
+		if ( ! bp_is_active( 'groups' ) ) {
+			$bp_gp_component = esc_html__( 'BuddyPress Groups Component', 'bp-group-reviews' );
 			/* translators: %s: search term */
-			echo sprintf( esc_html__( '%1$s requires %2$s to be installed and active, and the %3$s to be enabled.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>', '<strong>' . esc_html( $bp_gp_component ) . '</strong>' );
+			printf( esc_html__( '%1$s requires %2$s to be installed and active, and the %3$s to be enabled.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>', '<strong>' . esc_html( $bp_gp_component ) . '</strong>' );
 		}
 	} else {
 		/* translators: %s: search term */
-			echo sprintf( esc_html__( '%1$s requires %2$s to be installed and active.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>' );
+			printf( esc_html__( '%1$s requires %2$s to be installed and active.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>' );
 	}
 	echo '</p></div>';
-
 }
 
 /**
@@ -195,6 +194,9 @@ function run_bp_group_reviews_plugin() {
 		'includes/widgets/bgr-review.php',
 		'includes/widgets/group-rating.php',
 		'includes/bgr-functions.php',
+		'includes/class-bgr-group-criteria.php',
+		'includes/bgr-group-criteria-functions.php',
+		'includes/bgr-group-criteria-ajax.php',
 	);
 	foreach ( $include_files as $include_file ) {
 		if ( class_exists( 'BuddyPress' ) && bp_is_active( 'groups' ) ) {
@@ -208,7 +210,7 @@ function run_bp_group_reviews_plugin() {
  *
  * @return void
  */
-function  bp_group_review_add_multi_support(){
+function bp_group_review_add_multi_support() {
 	include 'includes/class-bgr-multi-support.php';
 }
 add_action( 'init', 'bp_group_review_add_multi_support' );
@@ -229,7 +231,6 @@ function bp_group_review_activation_redirect_settings( $plugin ) {
 			exit;
 		}
 	}
-
 }
 add_action( 'activated_plugin', 'bp_group_review_activation_redirect_settings' );
 

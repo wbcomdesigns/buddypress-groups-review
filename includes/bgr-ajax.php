@@ -273,12 +273,45 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$active_rating_fields        = isset( $_POST['active_criterias'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['active_criterias'] ) ) : array();
 				$active_rating_fields_values = array_unique( $active_rating_fields );
 
+				// Get old settings to compare for deleted/archived criteria.
+				$old_settings = get_option( 'bgr_admin_criteria_settings', array() );
+				$old_all      = isset( $old_settings['add_review_rating_fields'] ) ? $old_settings['add_review_rating_fields'] : array();
+				$old_active   = isset( $old_settings['active_rating_fields'] ) ? $old_settings['active_rating_fields'] : array();
+
 				$bgr_admin_settings = array(
 					'add_review_rating_fields' => $rating_field_values,
 					'active_rating_fields'     => $active_rating_fields_values,
 				);
 
 				update_option( 'bgr_admin_criteria_settings', $bgr_admin_settings );
+
+				// Fire hooks for deleted/archived criteria so groups can sync.
+				$deleted_criteria  = array_diff( $old_all, $rating_field_values );
+				$archived_criteria = array_diff( $old_active, $active_rating_fields_values );
+
+				foreach ( $deleted_criteria as $deleted ) {
+					/**
+					 * Fires when a global criterion is deleted.
+					 *
+					 * @since 3.7.0
+					 * @param string $deleted The deleted criterion name.
+					 */
+					do_action( 'bgr_global_criteria_deleted', $deleted );
+				}
+
+				foreach ( $archived_criteria as $archived ) {
+					// Only fire if it wasn't deleted (just deactivated).
+					if ( in_array( $archived, $rating_field_values, true ) ) {
+						/**
+						 * Fires when a global criterion is archived (deactivated but not deleted).
+						 *
+						 * @since 3.7.0
+						 * @param string $archived The archived criterion name.
+						 */
+						do_action( 'bgr_global_criteria_archived', $archived );
+					}
+				}
+
 				echo 'admin-criteria-settings-saved';
 				die;
 			}
@@ -417,13 +450,16 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$bp_group_review_email_settings = get_option( 'bp_group_review_email_settings' );
 			$bgr_allow_email                = isset( $bp_group_review_email_settings['bgr_allow_email'] ) ? $bp_group_review_email_settings['bgr_allow_email'] : '';
 			$user_name                      = $current_user->display_name;
-			$active_rating_fields           = $bgr['active_rating_fields'];
-			$allow_notification             = $bgr['allow_notification'];
-			$allow_email                    = $bgr_allow_email;
-			$allow_activity                 = $bgr['allow_activity'];
-			$review_label                   = $bgr['review_label'];
-			$auto_approve_reviews           = $bgr['auto_approve_reviews'];
-			$multi_reviews                  = $bgr['multi_reviews'];
+			// Use group-level criteria if available, otherwise fall back to global.
+			$active_rating_fields = function_exists( 'bgr_get_effective_criteria' )
+				? bgr_get_effective_criteria( $form_group_id )
+				: $bgr['active_rating_fields'];
+			$allow_notification   = $bgr['allow_notification'];
+			$allow_email          = $bgr_allow_email;
+			$allow_activity       = $bgr['allow_activity'];
+			$review_label         = $bgr['review_label'];
+			$auto_approve_reviews = $bgr['auto_approve_reviews'];
+			$multi_reviews        = $bgr['multi_reviews'];
 			/* Translators: %1$s: Review Label */
 			$review_email_subject = ( isset( $bgr['review_email_subject'] ) ) ? $bgr['review_email_subject'] : sprintf( esc_html__( 'A new %1$s posted.', 'bp-group-reviews' ), $review_label );
 			/* Translators: %1$s: Review Label %2$s Group Name %3$s User Name %4$s User Link */

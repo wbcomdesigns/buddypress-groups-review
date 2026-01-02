@@ -41,7 +41,6 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 		public function bp_group_review_add_new_review() {
 			global $bgr;
 			$review_rating_fields = $bgr['review_rating_fields'];
-			$active_rating_fields = $bgr['active_rating_fields'];
 			$review_label         = $bgr['review_label'];
 			$admin_exclude_groups = $bgr['exclude_groups'];
 			$auto_approve_reviews = $bgr['auto_approve_reviews'];
@@ -54,7 +53,12 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			if ( ! empty( bp_get_current_group_id() ) ) {
 				$current_group_id = bp_get_current_group_id();
 			}
-			$group_args   = array(
+
+			// Use group-level criteria if available, otherwise fall back to global.
+			$active_rating_fields = function_exists( 'bgr_get_effective_criteria' ) && $current_group_id
+				? bgr_get_effective_criteria( $current_group_id )
+				: $bgr['active_rating_fields'];
+			$group_args           = array(
 				'post_type'   => 'review',
 				'category'    => 'group',
 				'post_status' => array(
@@ -70,7 +74,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 					),
 				),
 			);
-			$reviews_args = new WP_Query( $group_args );
+			$reviews_args         = new WP_Query( $group_args );
 			if ( ! is_user_logged_in() ) {
 				$output .= '<div id="message" class="bp-messages bp-feedback error">';
 				$output .= '<span class="bp-icon" aria-hidden="true"></span>';
@@ -199,17 +203,22 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 		 */
 		public function bp_group_review_display_form_rating() {
 			global $bgr;
-			$this->bp_group_review_display_form_star_rating();
+			$group_id = bp_get_current_group_id();
+			$this->bp_group_review_display_form_star_rating( $group_id );
 		}
 
 		/**
 		 * Check active rating fields
 		 *
+		 * @param int $group_id Optional group ID for group-level criteria.
 		 * @return bool True if there are active rating fields, false otherwise.
 		 */
-		public function bp_group_review_display_star() {
+		public function bp_group_review_display_star( $group_id = 0 ) {
 			global $bgr;
-			$active_rating_fields = $bgr['active_rating_fields'];
+			// Use group-level criteria if available.
+			$active_rating_fields = function_exists( 'bgr_get_effective_criteria' ) && $group_id
+				? bgr_get_effective_criteria( $group_id )
+				: $bgr['active_rating_fields'];
 			if ( ! empty( $active_rating_fields ) ) {
 				$show_rating = true;
 			} else {
@@ -223,12 +232,17 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 		 *
 		 *  @since   1.0.0
 		 *  @author  Wbcom Designs
+		 *  @param   int $group_id Optional group ID for group-level criteria.
 		 */
-		public function bp_group_review_display_form_star_rating() {
+		public function bp_group_review_display_form_star_rating( $group_id = 0 ) {
 			global $bgr;
-			$review_rating_fields         = $bgr['review_rating_fields'];
-			$active_rating_fields         = $bgr['active_rating_fields'];
-			$bp_group_review_display_star = $this->bp_group_review_display_star();
+			// Use group-level criteria if available.
+			$active_rating_fields = function_exists( 'bgr_get_effective_criteria' ) && $group_id
+				? bgr_get_effective_criteria( $group_id )
+				: $bgr['active_rating_fields'];
+			// For the form, we only show the active criteria (whether global or group-level).
+			$review_rating_fields         = $active_rating_fields;
+			$bp_group_review_display_star = $this->bp_group_review_display_star( $group_id );
 			if ( true === $bp_group_review_display_star ) {
 				$field_counter = 1;
 				foreach ( $review_rating_fields as $review_rating_field ) :

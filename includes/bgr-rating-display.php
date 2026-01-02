@@ -85,44 +85,70 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		/**
 		 *  Actions performed for rating display type : Star
 		 *
+		 *  Display all criteria ratings from the review itself, including archived/legacy criteria.
+		 *  This ensures historical reviews display correctly even when criteria have changed.
+		 *
 		 *  @since   1.0.0
+		 *  @since   3.7.0 Updated to display all review criteria regardless of current active status.
 		 *  @author  Wbcom Designs
 		 *
-		 * @param array $review_rating_fields Review rating fields.
-		 * @param array $review_ratings Review rating.
+		 * @param array $review_rating_fields Review rating fields (global or group-level active criteria).
+		 * @param array $review_ratings Review rating data from post meta.
 		 */
 		public function bp_group_review_display_star_rating( $review_rating_fields, $review_ratings ) {
-			// Ensure $review_ratings[0] is an array before using array_key_exists.
-			if ( ! empty( $review_rating_fields ) && ! empty( $review_ratings[0] ) && is_array( $review_ratings[0] ) ) :
-				foreach ( $review_rating_fields as $review_field ) {
-					if ( array_key_exists( $review_field, $review_ratings[0] ) ) {
-						?>
-						<div class="multi-review">
-							<div class="bgr-col-6">
-								<?php echo esc_html( $review_field ) . ' : '; ?>
-							</div>
-							<div class="bgr-col-6">
-							<?php
-								/*** Ratings *****/
-								$stars_on  = $review_ratings[0][ $review_field ];
-								$stars_off = 5 - $stars_on;
-							for ( $i = 1; $i <= $stars_on; $i++ ) {
-								?>
-									<span class="fas fa-star stars bgr-star-rate"></span>
-									<?php
-							}
-							for ( $i = 1; $i <= $stars_off; $i++ ) {
-								?>
-									<span class="far fa-star stars bgr-star-rate"></span>
-									<?php
-							}
+			// Ensure $review_ratings[0] is an array.
+			if ( empty( $review_ratings[0] ) || ! is_array( $review_ratings[0] ) ) {
+				return;
+			}
+
+			$actual_review_ratings = $review_ratings[0];
+
+			// Get currently active criteria for comparison (to identify archived ones).
+			global $bgr;
+			$active_criteria = ! empty( $bgr['active_rating_fields'] ) ? $bgr['active_rating_fields'] : array();
+
+			// Display all criteria that the review actually has.
+			foreach ( $actual_review_ratings as $review_field => $rating_value ) {
+				// Skip non-string keys (legacy numeric arrays).
+				if ( is_int( $review_field ) ) {
+					continue;
+				}
+
+				// Check if this criterion is currently active.
+				$is_archived = ! in_array( $review_field, $active_criteria, true );
+				?>
+				<div class="multi-review <?php echo $is_archived ? 'bgr-archived-criteria' : ''; ?>">
+					<div class="bgr-col-6">
+						<?php
+						echo esc_html( $review_field ) . ' : ';
+						if ( $is_archived ) {
 							?>
-								</div>
-							</div>
+							<span class="bgr-legacy-indicator" title="<?php esc_attr_e( 'This criterion is no longer active', 'bp-group-reviews' ); ?>">
+								<small>(<?php esc_html_e( 'legacy', 'bp-group-reviews' ); ?>)</small>
+							</span>
+							<?php
+						}
+						?>
+					</div>
+					<div class="bgr-col-6">
+					<?php
+						$stars_on  = absint( $rating_value );
+						$stars_off = 5 - $stars_on;
+					for ( $i = 1; $i <= $stars_on; $i++ ) {
+						?>
+							<span class="fas fa-star stars bgr-star-rate"></span>
 							<?php
 					}
-				}
-				endif;
+					for ( $i = 1; $i <= $stars_off; $i++ ) {
+						?>
+							<span class="far fa-star stars bgr-star-rate"></span>
+							<?php
+					}
+					?>
+					</div>
+				</div>
+				<?php
+			}
 		}
 
 		/**

@@ -190,6 +190,26 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				wp_enqueue_style( 'bgr-ratings-css' );
 				wp_enqueue_script( 'bgr-ratings-js' );
 			}
+
+			// Enqueue group criteria admin script on group admin pages.
+			if ( function_exists( 'bp_is_group' ) && bp_is_group() && bp_is_group_admin_page() ) {
+				wp_register_script(
+					'bgr-group-criteria-admin-js',
+					BGR_PLUGIN_URL . 'assets/js' . $script_path . '/bgr-group-criteria-admin' . $script_extension,
+					array( 'jquery' ),
+					BGR_PLUGIN_VERSION,
+					true
+				);
+				wp_enqueue_script( 'bgr-group-criteria-admin-js' );
+				wp_localize_script(
+					'bgr-group-criteria-admin-js',
+					'bgr_group_criteria',
+					array(
+						'ajaxurl' => admin_url( 'admin-ajax.php' ),
+						'nonce'   => wp_create_nonce( 'bgr_group_criteria_nonce' ),
+					)
+				);
+			}
 		}
 
 		/**

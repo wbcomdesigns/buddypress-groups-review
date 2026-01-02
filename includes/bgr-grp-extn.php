@@ -267,6 +267,99 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 	}
 	bp_register_group_extension( 'Group_Reviews_Management_Extn' );
 
+	/**
+	 * Group Criteria Settings Extension.
+	 *
+	 * Allows group admins to customize review criteria for their group.
+	 *
+	 * @since 3.7.0
+	 */
+	class Group_Reviews_Criteria_Extn extends BP_Group_Extension {
 
+		/**
+		 * Constructor.
+		 *
+		 * @param array $args Arguments.
+		 */
+		public function __construct( $args = array() ) {
+			global $bgr;
+
+			$enabled                    = true;
+			$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
+
+			// Check if current group is excluded from reviews.
+			$current_group_id  = absint( bp_get_current_group_id() );
+			$is_group_excluded = false;
+
+			if ( ! empty( $bgr_admin_general_settings ) && isset( $bgr_admin_general_settings['exclude_groups'] ) ) {
+				$exclude_groups = array_map( 'absint', (array) $bgr_admin_general_settings['exclude_groups'] );
+				if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) {
+					$enabled           = false;
+					$is_group_excluded = true;
+				}
+			}
+
+			if ( ! $is_group_excluded ) {
+				$args = array(
+					'slug'              => 'review-criteria',
+					'nav_item_position' => 201,
+					'name'              => __( 'Review Criteria', 'bp-group-reviews' ),
+					'enable_nav_item'   => false,
+					'screens'           => array(
+						'admin' => array(
+							'name'    => __( 'Review Criteria', 'bp-group-reviews' ),
+							'slug'    => 'review-criteria',
+							'enabled' => $enabled,
+						),
+					),
+					'show_tab'          => false,
+				);
+				parent::init( $args );
+			}
+		}
+
+		/**
+		 * Display the criteria settings screen.
+		 *
+		 * @param int $group_id Group ID.
+		 */
+		public function admin_screen( $group_id = null ) {
+			$this->edit_screen( $group_id );
+		}
+
+		/**
+		 * Display the criteria settings screen.
+		 *
+		 * @param int $group_id Group ID.
+		 */
+		public function edit_screen( $group_id = null ) {
+			// Load the template.
+			$template_path = BGR_PLUGIN_PATH . 'includes/templates/bgr-group-criteria-settings.php';
+			if ( file_exists( $template_path ) ) {
+				include $template_path;
+			}
+			// Hidden submit button to satisfy BP Group Extension requirements.
+			echo '<input type="submit" name="save" style="display:none;" id="bp-group-edit-review-criteria-submit">';
+		}
+
+		/**
+		 * Save the criteria settings.
+		 *
+		 * @param int $group_id Group ID.
+		 */
+		public function admin_screen_save( $group_id = null ) {
+			// Settings are saved via AJAX, so nothing needed here.
+		}
+
+		/**
+		 * Save the criteria settings.
+		 *
+		 * @param int $group_id Group ID.
+		 */
+		public function edit_screen_save( $group_id = null ) {
+			// Settings are saved via AJAX, so nothing needed here.
+		}
+	}
+	bp_register_group_extension( 'Group_Reviews_Criteria_Extn' );
 
 endif;
