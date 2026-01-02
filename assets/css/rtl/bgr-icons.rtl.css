@@ -24,8 +24,8 @@
 .fas.fa-star.stars::before,
 .fas.fa-star.bgr-star-rate::before {
 	content: "\2605"; /* ★ Unicode filled star */
-	color: #ffb900;
 	font-size: 1.2em;
+	/* Color is set via dynamic CSS from admin settings - do not hardcode here */
 }
 
 /* Star Icons - Empty Star (far fa-star) */
@@ -46,8 +46,8 @@
 .far.fa-star.bgr-star-rate::before,
 .far.fa-star.bgr-stars::before {
 	content: "\2606"; /* ☆ Unicode empty star */
-	color: #ffb900;
 	font-size: 1.2em;
+	/* Color is set via dynamic CSS from admin settings - do not hardcode here */
 }
 
 /* Star Icons - Half Star (fas fa-star-half-alt) */
@@ -68,23 +68,23 @@
 .fas.fa-star-half-alt.stars::before,
 .fas.fa-star-half-alt.bgr-star-rate::before {
 	content: "\2605"; /* ★ Unicode filled star */
-	color: #ffb900;
 	font-size: 1.2em;
 	position: absolute;
 	right: 0;
 	width: 50%;
 	overflow: hidden;
+	/* Color is set via dynamic CSS from admin settings - do not hardcode here */
 }
 
 .fas.fa-star-half-alt.stars::after,
 .fas.fa-star-half-alt.bgr-star-rate::after {
 	content: "\2606"; /* ☆ Unicode empty star */
-	color: #ffb900;
 	font-size: 1.2em;
 	position: absolute;
 	left: 0;
 	width: 50%;
 	overflow: hidden;
+	/* Color is set via dynamic CSS from admin settings - do not hardcode here */
 }
 
 /* Admin Icons - Tags (fa fa-tags) */

@@ -49,28 +49,28 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		 *
 		 * @param int $post_id Review ID.
 		 */
-		public function bp_group_review_select_rating_type( $post_id ) {			
+		public function bp_group_review_select_rating_type( $post_id ) {
 			global $bgr;
-			$review_rating_fields = $bgr['review_rating_fields'];			
-			$review_ratings       = get_post_meta( $post_id, 'review_star_rating', false );			
-			foreach( $review_ratings as $review_rating ){
-				foreach ($review_rating as $key => $value) {
-					 if (is_int($key)) {
-					$stars_on  = $value;
-					$stars_off = 5 - $stars_on;
-					for ( $i = 1; $i <= $stars_on; $i++ ) {
-						?>
+			$review_rating_fields = $bgr['review_rating_fields'];
+			$review_ratings       = get_post_meta( $post_id, 'review_star_rating', false );
+			foreach ( $review_ratings as $review_rating ) {
+				foreach ( $review_rating as $key => $value ) {
+					if ( is_int( $key ) ) {
+						$stars_on  = $value;
+						$stars_off = 5 - $stars_on;
+						for ( $i = 1; $i <= $stars_on; $i++ ) {
+							?>
 							<span class="fas fa-star stars bgr-star-rate"></span>
 							<?php
-					}
-					for ( $i = 1; $i <= $stars_off; $i++ ) {
-						?>
+						}
+						for ( $i = 1; $i <= $stars_off; $i++ ) {
+							?>
 							<span class="far fa-star stars bgr-star-rate"></span>
 							<?php
+						}
 					}
 				}
-				}
-			}			
+			}
 			$this->bp_group_review_display_star_rating( $review_rating_fields, $review_ratings );
 		}
 
@@ -84,7 +84,8 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		 * @param array $review_ratings Review rating.
 		 */
 		public function bp_group_review_display_star_rating( $review_rating_fields, $review_ratings ) {
-			if ( ! empty( $review_rating_fields ) && ! empty( $review_ratings[0] ) ) :				
+			// Ensure $review_ratings[0] is an array before using array_key_exists.
+			if ( ! empty( $review_rating_fields ) && ! empty( $review_ratings[0] ) && is_array( $review_ratings[0] ) ) :
 				foreach ( $review_rating_fields as $review_field ) {
 					if ( array_key_exists( $review_field, $review_ratings[0] ) ) {
 						?>
@@ -112,7 +113,7 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 							</div>
 							<?php
 					}
-				}		
+				}
 				endif;
 		}
 
@@ -159,7 +160,7 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 			global $bgr;
 			$type = gettype( $avg_rating );
 			$var  = (int) $avg_rating - $avg_rating;
-			if ( 0 == $var ) {
+			if ( 0 === $var ) {
 					$stars_on   = $avg_rating;
 					$stars_off  = 5 - $avg_rating;
 					$stars_half = 0;
@@ -201,7 +202,6 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 					<?php
 			}
 		}
-
 	}
 	new BGR_Rating_Display();
 }
