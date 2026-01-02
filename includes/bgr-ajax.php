@@ -410,11 +410,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$review_desc    = isset( $formarray['review-desc'] ) ? sanitize_text_field( $formarray['review-desc'] ) : '';
 			$form_group_id  = isset( $formarray['form-group-id'] ) ? absint( $formarray['form-group-id'] ) : 0;
 
-			// Validate required fields.
-			if ( empty( $review_desc ) ) {
-				wp_send_json_error( new WP_Error( '004', esc_html__( 'Review description is required.', 'bp-group-reviews' ), 'empty_content' ) );
-			}
-
 			// Validate group exists.
 			if ( empty( $form_group_id ) ) {
 				wp_send_json_error( new WP_Error( '005', esc_html__( 'Invalid group.', 'bp-group-reviews' ), 'invalid_group' ) );

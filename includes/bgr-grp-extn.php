@@ -174,18 +174,19 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 								</div>
 								<div class="item-description">
 									<div class="review-description">
+										<?php
+										$trimcontent = get_the_content();
+										if ( ! empty( $trimcontent ) ) :
+											?>
 										<div class="review-excerpt bgr-col-12">
 											<b> <?php esc_html_e( 'Short Description ', 'bp-group-reviews' ); ?>: </b>
 											<?php
-											$trimcontent = get_the_content();
-											if ( ! empty( $trimcontent ) ) {
 												$len = strlen( $trimcontent );
-												if ( $len > 150 ) {
-													$shortexcerpt = substr( $trimcontent, 0, 150 );
-													echo wp_kses_post( $shortexcerpt );
-												} else {
-													echo wp_kses_post( $trimcontent );
-												}
+											if ( $len > 150 ) {
+												$shortexcerpt = substr( $trimcontent, 0, 150 );
+												echo wp_kses_post( $shortexcerpt );
+											} else {
+												echo wp_kses_post( $trimcontent );
 											}
 											?>
 										</div>
@@ -199,6 +200,11 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 											<?php do_action( 'bgr_display_ratings', $post->ID ); ?>
 										</div>
 										<a class="expand-review-des"><?php esc_html_e( 'View More..', 'bp-group-reviews' ); ?> </a>
+										<?php else : ?>
+										<div class="review-ratings-only bgr-col-12">
+											<?php do_action( 'bgr_display_ratings', $post->ID ); ?>
+										</div>
+										<?php endif; ?>
 									</div>
 								</div>
 							</div>
