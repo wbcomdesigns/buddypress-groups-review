@@ -225,6 +225,7 @@ jQuery(document).ready(function (e) {
         ajaxurl,
         {
           action: "bp_group_review_filter_ratings",
+          nonce: bgr_front_js_object.wbcom_nonce,
           filter: filter,
           limit: limit,
           group_id: bgr_front_js_object.group_id,

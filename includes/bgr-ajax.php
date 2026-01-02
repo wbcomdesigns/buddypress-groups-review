@@ -62,6 +62,10 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 		 * @author   Wbcom Designs
 		 */
 		public function bp_group_review_filter_ratings() {
+			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+				wp_send_json_error( new WP_Error( '001', esc_html__( 'Security check failed.', 'bp-group-reviews' ), 'nonce_error' ) );
+			}
 			if ( filter_input( INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS ) && filter_input( INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS ) === 'bp_group_review_filter_ratings' ) {
 				global $bp, $post;
 				global $bgr;
