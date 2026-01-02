@@ -189,7 +189,7 @@ jQuery(document).ready(function (e) {
           ajaxurl,
           {
             action: "bp_group_submit_review",
-            nonce: wbcom_plugin_installer_params.wbcom_nonce,
+            nonce: bgr_front_js_object.wbcom_nonce,
             data: jQuery(this).serialize(),
           },
           function (response) {
