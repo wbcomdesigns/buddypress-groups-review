@@ -53,20 +53,28 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 			global $bgr;
 			$review_rating_fields = $bgr['review_rating_fields'];
 			$review_ratings       = get_post_meta( $post_id, 'review_star_rating', false );
-			foreach ( $review_ratings as $review_rating ) {
-				foreach ( $review_rating as $key => $value ) {
-					if ( is_int( $key ) ) {
-						$stars_on  = $value;
-						$stars_off = 5 - $stars_on;
-						for ( $i = 1; $i <= $stars_on; $i++ ) {
-							?>
-							<span class="fas fa-star stars bgr-star-rate"></span>
-							<?php
-						}
-						for ( $i = 1; $i <= $stars_off; $i++ ) {
-							?>
-							<span class="far fa-star stars bgr-star-rate"></span>
-							<?php
+
+			// Ensure review_ratings is an array before iterating.
+			if ( ! empty( $review_ratings ) && is_array( $review_ratings ) ) {
+				foreach ( $review_ratings as $review_rating ) {
+					// Ensure each review_rating is an array before iterating.
+					if ( ! is_array( $review_rating ) ) {
+						continue;
+					}
+					foreach ( $review_rating as $key => $value ) {
+						if ( is_int( $key ) ) {
+							$stars_on  = absint( $value );
+							$stars_off = 5 - $stars_on;
+							for ( $i = 1; $i <= $stars_on; $i++ ) {
+								?>
+								<span class="fas fa-star stars bgr-star-rate"></span>
+								<?php
+							}
+							for ( $i = 1; $i <= $stars_off; $i++ ) {
+								?>
+								<span class="far fa-star stars bgr-star-rate"></span>
+								<?php
+							}
 						}
 					}
 				}

@@ -327,10 +327,11 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						$review_ratings = get_post_meta( $review->ID, 'review_star_rating', false );
 
 						$reviews_field_count = 0;
-						if ( ! empty( $review_rating_fields ) && ! empty( $review_ratings[0] ) ) :
+						// Ensure review_ratings[0] is an array before iterating.
+						if ( ! empty( $review_rating_fields ) && ! empty( $review_ratings[0] ) && is_array( $review_ratings[0] ) ) :
 							foreach ( $review_ratings[0] as $field => $value ) {
 								// Add all rating values regardless of field name match.
-								$rate += $value;
+								$rate += (int) $value;
 								++$reviews_field_count;
 							}
 							if ( $reviews_field_count > 0 ) {
@@ -415,10 +416,11 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						$review_ratings = get_post_meta( $review->ID, 'review_star_rating', false );
 
 						$reviews_field_count = 0;
-						if ( ! empty( $review_rating_fields ) && ! empty( $review_ratings[0] ) ) :
+						// Ensure review_ratings[0] is an array before iterating.
+						if ( ! empty( $review_rating_fields ) && ! empty( $review_ratings[0] ) && is_array( $review_ratings[0] ) ) :
 							foreach ( $review_ratings[0] as $field => $value ) {
 								// Add all rating values regardless of field name match.
-								$rate += $value;
+								$rate += (int) $value;
 								++$reviews_field_count;
 							}
 							if ( $reviews_field_count > 0 ) {
