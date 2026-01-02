@@ -18,6 +18,9 @@ Everything you need to collect, manage, and display member reviews for BuddyPres
 
 ### Multi-Criteria Rating System
 
+![Criteria Settings](../../screenshot-2.png)
+*Configure custom rating criteria in admin settings*
+
 **What It Does:**
 Create unlimited custom rating criteria so members can rate groups on multiple dimensions—not just a single star rating.
 
@@ -34,6 +37,9 @@ Get detailed, actionable feedback that shows exactly what members love and what 
 ---
 
 ### Review Moderation System
+
+![Manage Reviews](../../screenshot-3.png)
+*Group admins approve or deny pending reviews with one click*
 
 **What It Does:**
 Group admins approve or deny reviews before they appear publicly, giving you control over published content.
@@ -136,6 +142,9 @@ Create visual impact with beautiful star rating displays that catch member atten
 ---
 
 ### Shortcode Support
+
+![Add Review Form](../../screenshot-8.png)
+*The review form can be embedded anywhere using shortcodes*
 
 **What It Does:**
 Use shortcodes to display the review form or review listings on any page or post.
@@ -260,6 +269,9 @@ Reward members for leaving reviews with points, badges, or other GamiPress rewar
 
 ## Display & Customization
 
+![Groups Directory](../../screenshot-5.png)
+*Star ratings displayed prominently in the groups directory*
+
 ---
 
 ### Customizable Labels
@@ -280,6 +292,9 @@ Use terminology that fits your community—call them "Feedback," "Testimonials,"
 ---
 
 ### Rating Star Colors
+
+![Display Settings](../../screenshot-4.png)
+*Customize labels and star colors in Display Settings*
 
 **What It Does:**
 Customize the color of star ratings to match your site's branding.
@@ -335,6 +350,9 @@ Ensure all members can use review functionality regardless of ability—inclusiv
 ---
 
 ### Theme Compatibility
+
+![Reviews Tab](../../screenshot-7.png)
+*Reviews display beautifully across popular BuddyPress themes*
 
 **What It Does:**
 Tested and styled for popular BuddyPress themes including BuddyBoss, BuddyX, Reign, and Youzify.

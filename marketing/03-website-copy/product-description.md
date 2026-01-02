@@ -16,6 +16,32 @@ BuddyPress Group Reviews adds member-driven ratings and reviews to your BuddyPre
 
 Enable your members to rate and review BuddyPress groups with multi-criteria star ratings. After posting reviews, group admins can approve or deny them through a simple moderation interface. Approved reviews appear in a dedicated Reviews tab and in the activity stream.
 
+### Screenshots
+
+1. **General Settings** - Configure review options, notifications, and activity stream integration
+   ![General Settings](../../screenshot-1.png)
+
+2. **Review Criteria** - Define custom rating criteria for your community
+   ![Criteria Settings](../../screenshot-2.png)
+
+3. **Manage Reviews** - Group admins approve or deny pending reviews
+   ![Manage Reviews](../../screenshot-3.png)
+
+4. **Display Settings** - Customize labels and star colors
+   ![Display Settings](../../screenshot-4.png)
+
+5. **Groups Directory** - Star ratings displayed on group listings
+   ![Groups Directory](../../screenshot-5.png)
+
+6. **Group Header** - Rating display in group header
+   ![Group Header](../../screenshot-6.png)
+
+7. **Reviews Tab** - Approved reviews with criteria ratings
+   ![Reviews Tab](../../screenshot-7.png)
+
+8. **Add Review Form** - Members rate each criteria
+   ![Add Review Form](../../screenshot-8.png)
+
 **Key Features:**
 
 - **Multi-criteria ratings** - Create custom rating criteria (Communication, Helpfulness, Activity Level, etc.)

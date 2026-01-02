@@ -49,6 +49,18 @@ Imagine you run a community about photography:
 - They might rate it 5 stars for "Helpfulness" and 4 stars for "Activity"
 - New members can see these ratings and know it's a good group to join!
 
+### How It Looks
+
+**Groups Directory with Star Ratings:**
+
+![Groups Directory](../screenshot-5.png)
+*Star ratings displayed in the groups directory help members discover quality groups*
+
+**Single Group Header:**
+
+![Group Header](../screenshot-6.png)
+*Group header shows the overall rating and review count*
+
 ---
 
 ## Getting Started
@@ -75,6 +87,9 @@ Imagine you run a community about photography:
 ## Plugin Settings Explained
 
 ### General Settings Tab
+
+![General Settings](../screenshot-1.png)
+*General Settings tab with review options*
 
 #### 1. **Allow Multiple Reviews**
 - **What it does:** Lets members submit more than one review for the same group
@@ -158,6 +173,9 @@ Imagine you run a community about photography:
 
 ### Criteria Settings Tab
 
+![Criteria Settings](../screenshot-2.png)
+*Configure review criteria that members rate*
+
 #### What are Criteria?
 **Criteria are the different aspects members rate.** Instead of just one overall star rating, you can have multiple categories.
 
@@ -212,6 +230,9 @@ Imagine you run a community about photography:
 ---
 
 ### Display Settings Tab
+
+![Display Settings](../screenshot-4.png)
+*Customize how reviews appear on your site*
 
 #### 1. **Reviews Tab Label**
 - **What it does:** Changes the name of the "Reviews" tab in groups
@@ -296,6 +317,9 @@ Click here to view it: %review_link%
 
 ### Viewing Reviews
 
+![Reviews List](../screenshot-7.png)
+*Reviews tab showing approved reviews with criteria ratings*
+
 **Where to Find Reviews:**
 1. Go to any BuddyPress group
 2. Look for the "Reviews" tab (or whatever you named it)
@@ -311,6 +335,9 @@ Click here to view it: %review_link%
 ---
 
 ### Submitting a Review
+
+![Add Review Form](../screenshot-8.png)
+*The Add Review form with star rating selectors for each criteria*
 
 **Step-by-Step for Members:**
 
@@ -366,6 +393,9 @@ Click here to view it: %review_link%
 ## Managing Reviews as Group Admin
 
 ### The Manage Reviews Tab
+
+![Manage Reviews](../screenshot-3.png)
+*Manage Reviews tab with pending reviews showing Accept/Deny buttons*
 
 **Where to Find It:**
 1. Go to your group (where you're admin)
@@ -809,5 +839,5 @@ Congratulations! You now know how to use the BuddyPress Group Reviews plugin eff
 ---
 
 **Plugin Version:** 3.6.0
-**Last Updated:** December 2025
+**Last Updated:** January 2026
 **License:** GPL-2.0+

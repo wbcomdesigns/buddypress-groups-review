@@ -14,7 +14,8 @@ Let members rate and review BuddyPress groups with multi-criteria ratings, power
 **Download Free** | View Features
 
 ### Hero Image
-*[Screenshot showing group ratings displayed on a BuddyPress group directory with star ratings visible]*
+![Groups Directory with Ratings](../../screenshot-5.png)
+*Groups directory showing star ratings for each group*
 
 ---
 
@@ -102,11 +103,20 @@ Install from WordPress.org or upload the plugin. Activate and you're ready to co
 ### Step 2: Set Your Criteria
 Define the rating criteria that matter to your community. Communication, helpfulness, activity—you decide.
 
+![Criteria Settings](../../screenshot-2.png)
+*Configure custom rating criteria in admin settings*
+
 ### Step 3: Members Start Reviewing
 Members visit groups and share their experiences. Reviews appear in a dedicated tab on each group page.
 
+![Add Review Form](../../screenshot-8.png)
+*Members rate each criteria with intuitive star selectors*
+
 ### Step 4: Moderate & Publish
 Group admins review submissions and approve authentic feedback. Published reviews build social proof.
+
+![Manage Reviews](../../screenshot-3.png)
+*Group admins can approve or deny reviews with one click*
 
 ---
 
@@ -249,7 +259,7 @@ Free to download. Easy to set up. Powerful results.
 
 ## Footer Notes
 
-**Version:** 3.5.1
+**Version:** 3.6.0
 **Requires:** WordPress 6.0+ | BuddyPress 12.0+ | PHP 7.4+
 **Author:** Wbcom Designs
 **License:** GPLv2+
