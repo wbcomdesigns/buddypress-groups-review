@@ -425,6 +425,11 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 				return new WP_Error( 'rest_cannot_review', __( 'Group admins cannot review their own group.', 'bp-group-reviews' ), array( 'status' => 403 ) );
 			}
 
+			// Check if user is a member of the group.
+			if ( function_exists( 'groups_is_user_member' ) && ! groups_is_user_member( $user_id, $group_id ) ) {
+				return new WP_Error( 'rest_not_member', __( 'You must be a member of this group to submit a review.', 'bp-group-reviews' ), array( 'status' => 403 ) );
+			}
+
 			// Check if group is excluded.
 			$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
 			$exclude_groups             = isset( $bgr_admin_general_settings['exclude_groups'] ) ? array_map( 'absint', (array) $bgr_admin_general_settings['exclude_groups'] ) : array();
