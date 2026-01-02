@@ -330,21 +330,23 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				wp_send_json_error( $error );
 			}
 			if ( isset( $_POST['action'] ) && 'bp_group_review_save_admin_general_settings' === $_POST['action'] && current_user_can( 'manage_options' ) ) {
-				$multi_reviews        = isset( $_POST['multi_reviews'] ) ? sanitize_text_field( wp_unslash( $_POST['multi_reviews'] ) ) : '';
-				$auto_approve_reviews = isset( $_POST['bgr_auto_approve_reviews'] ) ? sanitize_text_field( wp_unslash( $_POST['bgr_auto_approve_reviews'] ) ) : '';
-				$reviews_per_page     = isset( $_POST['reviews_per_page'] ) ? sanitize_text_field( wp_unslash( $_POST['reviews_per_page'] ) ) : '';
-				$allow_notification   = isset( $_POST['allow_notification'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_notification'] ) ) : '';
-				$allow_activity       = isset( $_POST['allow_activity'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_activity'] ) ) : '';
-				$exclude_groups       = isset( $_POST['exclude_groups'] ) ? array_map( 'absint', wp_unslash( $_POST['exclude_groups'] ) ) : array();
+				$multi_reviews         = isset( $_POST['multi_reviews'] ) ? sanitize_text_field( wp_unslash( $_POST['multi_reviews'] ) ) : '';
+				$auto_approve_reviews  = isset( $_POST['bgr_auto_approve_reviews'] ) ? sanitize_text_field( wp_unslash( $_POST['bgr_auto_approve_reviews'] ) ) : '';
+				$reviews_per_page      = isset( $_POST['reviews_per_page'] ) ? sanitize_text_field( wp_unslash( $_POST['reviews_per_page'] ) ) : '';
+				$allow_notification    = isset( $_POST['allow_notification'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_notification'] ) ) : '';
+				$allow_activity        = isset( $_POST['allow_activity'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_activity'] ) ) : '';
+				$enable_group_criteria = isset( $_POST['enable_group_criteria'] ) ? sanitize_text_field( wp_unslash( $_POST['enable_group_criteria'] ) ) : 'no';
+				$exclude_groups        = isset( $_POST['exclude_groups'] ) ? array_map( 'absint', wp_unslash( $_POST['exclude_groups'] ) ) : array();
 				// Filter out any zero values that may result from invalid input.
 				$exclude_groups     = array_filter( $exclude_groups );
 				$bgr_admin_settings = array(
-					'multi_reviews'        => $multi_reviews,
-					'auto_approve_reviews' => $auto_approve_reviews,
-					'reviews_per_page'     => $reviews_per_page,
-					'allow_notification'   => $allow_notification,
-					'allow_activity'       => $allow_activity,
-					'exclude_groups'       => $exclude_groups,
+					'multi_reviews'         => $multi_reviews,
+					'auto_approve_reviews'  => $auto_approve_reviews,
+					'reviews_per_page'      => $reviews_per_page,
+					'allow_notification'    => $allow_notification,
+					'allow_activity'        => $allow_activity,
+					'enable_group_criteria' => $enable_group_criteria,
+					'exclude_groups'        => $exclude_groups,
 				);
 				update_option( 'bgr_admin_general_settings', $bgr_admin_settings );
 				echo 'admin-general-settings-saved';

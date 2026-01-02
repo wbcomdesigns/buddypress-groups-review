@@ -303,6 +303,24 @@ function bp_group_review_general_setting() {
 			</div>
 			<div class="bgr-row wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
+					<label><?php esc_html_e( 'Enable Group-Level Criteria', 'bp-group-reviews' ); ?></label>
+					<p class="description"><?php esc_html_e( 'Allow group admins to customize review criteria for their specific groups.', 'bp-group-reviews' ); ?></p>
+				</div>
+				<div class="wbcom-settings-section-options">
+					<label class="wb-switch" for="bgr-enable-group-criteria">
+						<input type="checkbox" id="bgr-enable-group-criteria"
+						<?php
+						$enable_group_criteria = isset( $bgr['enable_group_criteria'] ) ? $bgr['enable_group_criteria'] : 'no';
+						if ( 'yes' === $enable_group_criteria ) {
+							echo 'checked="checked"'; }
+						?>
+						>
+						<div class="wb-slider wb-round"></div>
+					</label>
+				</div>
+			</div>
+			<div class="bgr-row wbcom-settings-section-wrap">
+				<div class="wbcom-settings-section-options-heading">
 					<label><?php esc_html_e( 'Exclude Groups from Reviews', 'bp-group-reviews' ); ?></label>
 					<p class="description"><?php esc_html_e( 'Select the groups that should not have review functionality.', 'bp-group-reviews' ); ?></p>
 				</div>

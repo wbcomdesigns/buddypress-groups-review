@@ -66,7 +66,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				}
 			}
 
-			// Only proceed with tab creation if group is not excluded
+			// Only proceed with tab creation if group is not excluded.
 			if ( ! $is_group_excluded ) {
 				if ( ! empty( $bgr_admin_general_settings ) ) {
 					$args = array(
@@ -292,6 +292,12 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 
 			$enabled                    = true;
 			$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
+
+			// Check if group-level criteria feature is enabled by site admin.
+			$enable_group_criteria = isset( $bgr_admin_general_settings['enable_group_criteria'] ) ? $bgr_admin_general_settings['enable_group_criteria'] : 'no';
+			if ( 'yes' !== $enable_group_criteria ) {
+				return; // Feature not enabled, don't register this extension.
+			}
 
 			// Check if current group is excluded from reviews.
 			$current_group_id  = absint( bp_get_current_group_id() );

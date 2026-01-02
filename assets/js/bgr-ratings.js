@@ -5,7 +5,7 @@ jQuery( document ).ready(
 		bgrRatingColor    = jQuery( "#bgr-rate-color" ).val();
 
 		// Change the stars on hover
-		jQuery( '.bgr-stars' ).mouseenter(
+		jQuery( '.bgr-stars' ).on( 'mouseenter',
 			function() {
 				jQuery( this ).parent().children().eq( 0 ).val( 'not_clicked' );
 				var id        = jQuery( this ).attr( 'data-attr' );
@@ -16,7 +16,7 @@ jQuery( document ).ready(
 			}
 		);
 
-		jQuery( '.bgr-stars' ).mouseleave(
+		jQuery( '.bgr-stars' ).on( 'mouseleave',
 			function() {
 				var clicked_id = jQuery( this ).parent().children().eq( 1 ).val();
 				var id         = jQuery( this ).attr( 'data-attr' );

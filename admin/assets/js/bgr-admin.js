@@ -68,6 +68,7 @@ jQuery(document).ready(function () {
     var reviews_per_page = jQuery("#reviews_per_page").val();
     var bgr_allow_notification = jQuery("#bgr-notification").is(":checked") ? "yes" : "no";
     var bgr_allow_activity = jQuery("#bgr-activity").is(":checked") ? "yes" : "no";
+    var bgr_enable_group_criteria = jQuery("#bgr-enable-group-criteria").is(":checked") ? "yes" : "no";
 
     jQuery.post(
       ajaxurl,
@@ -79,7 +80,8 @@ jQuery(document).ready(function () {
         reviews_per_page: reviews_per_page,
         allow_notification: bgr_allow_notification,
         allow_activity: bgr_allow_activity,
-        exclude_groups: exclude_groups
+        exclude_groups: exclude_groups,
+        enable_group_criteria: bgr_enable_group_criteria
       },
       function (response) {
         if (response === "admin-general-settings-saved") {

@@ -121,7 +121,7 @@ jQuery(document).ready(function (e) {
   });
 
   // Submit Group Review
-  jQuery("#bgr-add-review-form").submit(function (e) {
+  jQuery("#bgr-add-review-form").on("submit", function (e) {
     var loc;
     e.preventDefault();
     var rating_exist = [];

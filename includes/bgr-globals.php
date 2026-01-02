@@ -25,19 +25,21 @@ function bp_group_review_globals() {
 	/**** Global variable values for General settings */
 
 	if ( ! empty( $bgr_admin_general_settings ) ) {
-		$auto_approve_reviews = isset( $bgr_admin_general_settings['auto_approve_reviews'] ) ? $bgr_admin_general_settings['auto_approve_reviews'] : 'no';
-		$reviews_per_page     = isset( $bgr_admin_general_settings['reviews_per_page'] ) ? $bgr_admin_general_settings['reviews_per_page'] : 5;
-		$allow_notification   = isset( $bgr_admin_general_settings['allow_notification'] ) ? $bgr_admin_general_settings['allow_notification'] : 'yes';
-		$allow_activity       = isset( $bgr_admin_general_settings['allow_activity'] ) ? $bgr_admin_general_settings['allow_activity'] : 'yes';
-		$exclude_groups       = isset( $bgr_admin_general_settings['exclude_groups'] ) ? $bgr_admin_general_settings['exclude_groups'] : array();
-		$multi_reviews        = isset( $bgr_admin_general_settings['multi_reviews'] ) ? $bgr_admin_general_settings['multi_reviews'] : 'no';
+		$auto_approve_reviews  = isset( $bgr_admin_general_settings['auto_approve_reviews'] ) ? $bgr_admin_general_settings['auto_approve_reviews'] : 'no';
+		$reviews_per_page      = isset( $bgr_admin_general_settings['reviews_per_page'] ) ? $bgr_admin_general_settings['reviews_per_page'] : 5;
+		$allow_notification    = isset( $bgr_admin_general_settings['allow_notification'] ) ? $bgr_admin_general_settings['allow_notification'] : 'yes';
+		$allow_activity        = isset( $bgr_admin_general_settings['allow_activity'] ) ? $bgr_admin_general_settings['allow_activity'] : 'yes';
+		$exclude_groups        = isset( $bgr_admin_general_settings['exclude_groups'] ) ? $bgr_admin_general_settings['exclude_groups'] : array();
+		$multi_reviews         = isset( $bgr_admin_general_settings['multi_reviews'] ) ? $bgr_admin_general_settings['multi_reviews'] : 'no';
+		$enable_group_criteria = isset( $bgr_admin_general_settings['enable_group_criteria'] ) ? $bgr_admin_general_settings['enable_group_criteria'] : 'no';
 	} else {
-		$multi_reviews        = 'no';
-		$reviews_per_page     = 5;
-		$allow_notification   = 'yes';
-		$allow_activity       = 'yes';
-		$exclude_groups       = array();
-		$auto_approve_reviews = 'no';
+		$multi_reviews         = 'no';
+		$reviews_per_page      = 5;
+		$allow_notification    = 'yes';
+		$allow_activity        = 'yes';
+		$exclude_groups        = array();
+		$auto_approve_reviews  = 'no';
+		$enable_group_criteria = 'no';
 	}
 
 	/**** Global variable values for Email settings */
@@ -112,6 +114,7 @@ function bp_group_review_globals() {
 		'allow_notification'          => $allow_notification,
 		'allow_activity'              => $allow_activity,
 		'exclude_groups'              => $exclude_groups,
+		'enable_group_criteria'       => $enable_group_criteria,
 		'review_email_subject'        => $review_email_subject,
 		'review_email_message'        => $review_email_message,
 		'review_accept_email_subject' => $review_accept_email_subject,

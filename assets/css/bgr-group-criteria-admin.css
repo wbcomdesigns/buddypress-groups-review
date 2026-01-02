@@ -1,0 +1,168 @@
+/**
+ * Group Criteria Admin Styles
+ *
+ * Styles for the group admin panel review criteria settings.
+ *
+ * @since   3.7.0
+ * @package BuddyPress_Group_Review
+ */
+
+.bgr-criteria-settings-wrap {
+	max-width: 800px;
+}
+
+/* Mode Options */
+.bgr-mode-options {
+	margin: 15px 0;
+}
+
+.bgr-mode-option {
+	display: block;
+	padding: 15px;
+	margin-bottom: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: border-color 0.2s;
+}
+
+.bgr-mode-option:hover {
+	border-color: #2271b1;
+}
+
+.bgr-mode-option input[type="radio"] {
+	margin-right: 10px;
+}
+
+.bgr-mode-label {
+	display: inline-block;
+}
+
+.bgr-mode-desc {
+	display: block;
+	margin-top: 5px;
+	color: #666;
+	font-size: 13px;
+	margin-left: 24px;
+}
+
+/* Criteria List */
+.bgr-criteria-list {
+	margin: 15px 0;
+}
+
+.bgr-criteria-item {
+	display: block;
+	padding: 10px;
+	margin-bottom: 5px;
+	background: #f9f9f9;
+	border-radius: 4px;
+}
+
+.bgr-criteria-item.bgr-inactive-global {
+	opacity: 0.7;
+}
+
+.bgr-criteria-name {
+	font-weight: 500;
+}
+
+/* Badges */
+.bgr-criteria-badge {
+	display: inline-block;
+	padding: 2px 8px;
+	font-size: 11px;
+	border-radius: 3px;
+	margin-left: 10px;
+}
+
+.bgr-badge-inactive {
+	background: #ffeeba;
+	color: #856404;
+}
+
+.bgr-badge-archived {
+	background: #d6d8db;
+	color: #383d41;
+}
+
+/* Custom Criteria */
+.bgr-custom-criteria-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px;
+	margin-bottom: 5px;
+	background: #f0f7ff;
+	border-radius: 4px;
+}
+
+.bgr-add-custom-criteria {
+	display: flex;
+	gap: 10px;
+	margin-top: 15px;
+}
+
+.bgr-add-custom-criteria input[type="text"] {
+	flex: 1;
+	max-width: 300px;
+}
+
+/* Archived Criteria */
+.bgr-archived-criteria {
+	margin-top: 20px;
+	padding: 15px;
+	background: #f5f5f5;
+	border-radius: 4px;
+}
+
+.bgr-archived-criteria h5 {
+	margin-top: 0;
+}
+
+.bgr-archived-criteria ul {
+	margin: 10px 0 0;
+	padding-left: 20px;
+}
+
+/* Actions */
+.bgr-criteria-actions {
+	margin-top: 20px;
+	padding-top: 20px;
+	border-top: 1px solid #ddd;
+}
+
+/* Save Status */
+.bgr-save-status {
+	margin-left: 15px;
+	font-style: italic;
+}
+
+.bgr-save-status.success {
+	color: #46b450;
+}
+
+.bgr-save-status.error {
+	color: #dc3232;
+}
+
+/* Preview Section */
+.bgr-preview-section {
+	margin-top: 30px;
+	padding: 15px;
+	background: #e7f3ff;
+	border-radius: 4px;
+}
+
+.bgr-preview-section h4 {
+	margin-top: 0;
+}
+
+#bgr-active-criteria-preview {
+	margin: 10px 0 0;
+	padding-left: 20px;
+}
+
+#bgr-active-criteria-preview li {
+	padding: 5px 0;
+}
