@@ -75,6 +75,12 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 
 			add_filter( 'bp_nouveau_nav_has_count', array( $this, 'bp_group_review_nav_has_count' ), 10, 3 );
 			add_filter( 'bp_nouveau_get_nav_count', array( $this, 'bp_group_review_get_nav_count' ), 10, 3 );
+
+			// Cache invalidation hooks.
+			add_action( 'save_post_review', array( $this, 'invalidate_cache_on_review_save' ), 10, 2 );
+			add_action( 'bgr_group_accept_review', array( $this, 'invalidate_cache_on_review_action' ), 10, 1 );
+			add_action( 'bgr_group_deny_review', array( $this, 'invalidate_cache_on_review_action' ), 10, 1 );
+			add_action( 'before_delete_post', array( $this, 'invalidate_cache_on_review_action' ), 10, 1 );
 		}
 
 		/**
@@ -120,26 +126,101 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			global $bgr;
 
 			if ( sanitize_title( $bgr['manage_review_label'] ) === $nav_item->slug ) {
-				$reviews = get_posts(
-					array(
-						'numberposts' => -1,
-						'post_type'   => 'review',
-						'post_status' => 'publish',
-						'meta_query'  => array(
-							array(
-								'key'     => 'linked_group',
-								'value'   => bp_get_group_id(),
-								'compare' => '=',
-							),
-						),
-					)
-				);
-				$count   = count( $reviews );
+				$count = $this->get_group_review_count( bp_get_group_id() );
 			}
 
 			return apply_filters( 'buddypress_groups_review_nav_count', $count );
 		}
 
+		/**
+		 * Get the published review count for a group with transient caching.
+		 *
+		 * @since  3.6.0
+		 *
+		 * @param int $group_id The group ID.
+		 * @return int The number of published reviews.
+		 */
+		public function get_group_review_count( $group_id ) {
+			$group_id      = absint( $group_id );
+			$transient_key = 'bgr_review_count_' . $group_id;
+
+			// Try to get cached count.
+			$count = get_transient( $transient_key );
+
+			if ( false === $count ) {
+				// Cache miss - query the database.
+				global $wpdb;
+
+				// Use direct query for better performance (avoids loading full post objects).
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Caching via transient.
+				$count = (int) $wpdb->get_var(
+					$wpdb->prepare(
+						"SELECT COUNT(p.ID) FROM {$wpdb->posts} p
+						INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
+						WHERE p.post_type = 'review'
+						AND p.post_status = 'publish'
+						AND pm.meta_key = 'linked_group'
+						AND pm.meta_value = %d",
+						$group_id
+					)
+				);
+
+				// Cache for 1 hour (will be invalidated when reviews change).
+				set_transient( $transient_key, $count, HOUR_IN_SECONDS );
+			}
+
+			return (int) $count;
+		}
+
+		/**
+		 * Invalidate the review count cache for a group.
+		 *
+		 * @since  3.6.0
+		 *
+		 * @param int $group_id The group ID.
+		 */
+		public static function invalidate_group_review_cache( $group_id ) {
+			$group_id = absint( $group_id );
+			delete_transient( 'bgr_review_count_' . $group_id );
+		}
+
+		/**
+		 * Invalidate cache when a review is saved.
+		 *
+		 * @since  3.6.0
+		 *
+		 * @param int     $post_id Post ID.
+		 * @param WP_Post $post    Post object.
+		 */
+		public function invalidate_cache_on_review_save( $post_id, $post ) {
+			if ( 'review' !== $post->post_type ) {
+				return;
+			}
+
+			$group_id = get_post_meta( $post_id, 'linked_group', true );
+			if ( $group_id ) {
+				self::invalidate_group_review_cache( $group_id );
+			}
+		}
+
+		/**
+		 * Invalidate cache when a review is approved, denied, or deleted.
+		 *
+		 * @since  3.6.0
+		 *
+		 * @param int $post_id Post ID.
+		 */
+		public function invalidate_cache_on_review_action( $post_id ) {
+			$post = get_post( $post_id );
+			if ( ! $post || 'review' !== $post->post_type ) {
+				return;
+			}
+
+			$group_id = get_post_meta( $post_id, 'linked_group', true );
+			if ( $group_id ) {
+				self::invalidate_group_review_cache( $group_id );
+			}
+		}
 
 		/**
 		 *  Actions performed to show review button on group header
