@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Legacy file name.
 /**
  * BGR Group Review rating.
  *
@@ -9,6 +9,11 @@
  * @subpackage BuddyPress_Group_Review/includes/widgets
  */
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
+// phpcs:disable Universal.Files.SeparateFunctionsFromOO.Mixed -- Legacy widget registration.
+
 /**
  * BGR Group Review rating.
  *
@@ -18,12 +23,12 @@
  * @package    BuddyPress_Group_Review
  * @subpackage BuddyPress_Group_Review/includes/widgets
  */
-class bgr_single_group_rating_widget extends WP_Widget {
+class Bgr_Single_Group_Rating_Widget extends WP_Widget {
 
-	/** Constructor
+	/**
+	 * Constructor.
 	 *
-	 *  @since   1.0.0
-	 *  @author  Wbcom Designs
+	 * @since 1.0.0
 	 */
 	public function __construct() {
 		$widget_ops  = array(
@@ -40,9 +45,8 @@ class bgr_single_group_rating_widget extends WP_Widget {
 	/**
 	 * Form display for widget in admin panel.
 	 *
-	 *  @since   1.0.0
-	 *  @author  Wbcom Designs
-	 * @param  array $instance Instance.
+	 * @since 1.0.0
+	 * @param array $instance Instance.
 	 */
 	public function form( $instance ) {
 		if ( empty( $instance ) ) {
@@ -55,6 +59,7 @@ class bgr_single_group_rating_widget extends WP_Widget {
 				)
 			);
 		}
+		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract -- Legacy widget code.
 		extract( $instance );
 		$rating_default = esc_attr( $instance['rating_default'] );
 		?>
@@ -83,14 +88,14 @@ class bgr_single_group_rating_widget extends WP_Widget {
 	/**
 	 * Update Widget data.
 	 *
-	 *  @since   1.0.0
-	 *  @author  Wbcom Designs
-	 * @param  array $new_instance New Instance.
-	 * @param  array $old_instance Old Instance.
+	 * @since 1.0.0
+	 * @param array $new_instance New Instance.
+	 * @param array $old_instance Old Instance.
+	 * @return array Updated instance.
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance                   = $old_instance;
-		$instance['widget_title']   = wp_strip_all_tags($new_instance['widget_title']);
+		$instance['widget_title']   = wp_strip_all_tags( $new_instance['widget_title'] );
 		$instance['post_num']       = $new_instance['post_num'];
 		$instance['rating_default'] = $new_instance['rating_default'];
 		return $instance;
@@ -99,11 +104,9 @@ class bgr_single_group_rating_widget extends WP_Widget {
 	/**
 	 * Display Widget content.
 	 *
-	 *  @since   1.0.0
-	 *  @author  Wbcom Designs
-	 *
-	 * @param  array $args Instance.
-	 * @param  array $instance Instance.
+	 * @since 1.0.0
+	 * @param array $args     Widget arguments.
+	 * @param array $instance Instance.
 	 */
 	public function widget( $args, $instance ) {
 		global $bp, $post;
@@ -114,12 +117,14 @@ class bgr_single_group_rating_widget extends WP_Widget {
 		$review_rating_fields = $bgr['review_rating_fields'];
 		$review_label         = $bgr['review_label'];
 
+		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract -- Legacy widget code.
 		extract( $instance, EXTR_SKIP );
 		$widget_title          = apply_filters( 'widget_title', $widget_title );
 		$widget_post_num       = apply_filters( 'post_num', $post_num );
 		$widget_rating_default = apply_filters( 'rating_default', $rating_default );
 
-		$custom_args         = array(
+		// phpcs:disable WordPress.DB.SlowDBQuery.slow_db_query_meta_key, WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+		$custom_args = array(
 			'post_type'      => 'review',
 			'posts_per_page' => -1,
 			'post_status'    => 'publish',
@@ -127,6 +132,8 @@ class bgr_single_group_rating_widget extends WP_Widget {
 			'meta_key'       => 'linked_group',
 			'meta_value'     => bp_get_current_group_id(),
 		);
+		// phpcs:enable WordPress.DB.SlowDBQuery.slow_db_query_meta_key, WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+
 		$reviews             = get_posts( $custom_args );
 		$single_review_count = 0;
 		$final_review_obj    = array();
@@ -142,7 +149,7 @@ class bgr_single_group_rating_widget extends WP_Widget {
 					foreach ( $review_rating_fields as $rating_field ) {
 						if ( array_key_exists( $rating_field, $rev_rating_array ) ) {
 							$total_review += $rev_rating_array[ $rating_field ];
-							$single_review_count++;
+							++$single_review_count;
 						}
 					}
 					if ( ! empty( $single_review_count ) ) {
@@ -157,16 +164,16 @@ class bgr_single_group_rating_widget extends WP_Widget {
 		if ( empty( $widget_title ) ) {
 			$group      = groups_get_group( array( 'group_id' => bp_get_current_group_id() ) );
 			$group_name = $group->name;
-			/* translators: %s is replaced with group_name */
+			/* translators: %s: Group name. */
 			$widget_title = sprintf( __( "%s's Ratings", 'bp-group-reviews' ), $group_name );
 		}
 		echo wp_kses_post( $args['before_title'] . $widget_title . $args['after_title'] );
 
 		$bgr_user_count = 0;
 		if ( ! empty( $single_rev_avg ) ) {
-			if ( 'highest' == $widget_rating_default ) {
+			if ( 'highest' === $widget_rating_default ) {
 				arsort( $single_rev_avg );
-			} elseif ( 'lowest' == $widget_rating_default ) {
+			} elseif ( 'lowest' === $widget_rating_default ) {
 				asort( $single_rev_avg );
 			} else {
 				$single_rev_avg = $single_rev_avg;
@@ -175,38 +182,40 @@ class bgr_single_group_rating_widget extends WP_Widget {
 			<div class="item-options" id="bp-group-rating-list-options">
 				<a href="#" attr-val="latest" id="member_latest_reviews"
 				<?php
-				if ( $rating_default == 'latest' ) :
+				if ( 'latest' === $rating_default ) :
 					?>
 					class="selected"<?php endif; ?>><?php esc_html_e( 'Latest', 'bp-group-reviews' ); ?></a>
 				| <a href="#" attr-val="highest" id="member_good_reviews"
 				<?php
-				if ( $rating_default == 'highest' ) :
+				if ( 'highest' === $rating_default ) :
 					?>
 					class="selected"<?php endif; ?>><?php esc_html_e( 'Highest', 'bp-group-reviews' ); ?></a>
 				| <a href="#" attr-val="lowest" id="member_bad_reviews"
 				<?php
-				if ( $rating_default == 'lowest' ) :
+				if ( 'lowest' === $rating_default ) :
 					?>
 					class="selected"<?php endif; ?>><?php esc_html_e( 'Lowest', 'bp-group-reviews' ); ?></a>
 			</div>
 			<?php
 			echo '<ul class="item-list" id="bp-group-rating">';
-			foreach ( $single_rev_avg as $bgrKey => $bgrValue ) {
-				if ( $bgr_user_count == $widget_post_num ) {
+			foreach ( $single_rev_avg as $bgr_key => $bgr_value ) {
+				if ( (int) $bgr_user_count === (int) $widget_post_num ) {
 					break;
 				} else {
 					echo '<li class="vcard"><div class="item-avatar">';
-					echo get_avatar( $final_review_obj[ $bgrKey ]->post_author, 65 );
+					echo get_avatar( $final_review_obj[ $bgr_key ]->post_author, 65 );
 					echo '</div>';
 					echo '<div class="item">';
 
-					$members_profile = bp_core_get_userlink( $final_review_obj[ $bgrKey ]->post_author );
+					$members_profile = bp_core_get_userlink( $final_review_obj[ $bgr_key ]->post_author );
 					echo '<div class="item-title fn">';
 					echo wp_kses_post( $members_profile );
 					echo '</div>';
 
-					$bgr_avg_rating = $bgrValue;
-					$stars_on       = $stars_off = $stars_half = '';
+					$bgr_avg_rating = $bgr_value;
+					$stars_on       = 0;
+					$stars_off      = 0;
+					$stars_half     = 0;
 					$remaining      = $bgr_avg_rating - (int) $bgr_avg_rating;
 					if ( $remaining > 0 ) {
 						$stars_on       = intval( $bgr_avg_rating );
@@ -242,14 +251,14 @@ class bgr_single_group_rating_widget extends WP_Widget {
 
 					$bgr_avg_rating = round( $bgr_avg_rating, 2 );
 					echo '<span class="bgr-meta">';
-					/* translators: %1$s is replaced with $bgr_avg_rating */
-					echo sprintf( esc_html__( 'Rating : ( %1$s )', 'bp-group-reviews' ), esc_html( $bgr_avg_rating ) );
+					/* translators: %1$s: Average rating value. */
+					printf( esc_html__( 'Rating : ( %1$s )', 'bp-group-reviews' ), esc_html( $bgr_avg_rating ) );
 					echo '</span>';
 					echo '</div></li>';
 
 				}
 
-				$bgr_user_count++;
+				++$bgr_user_count;
 			}
 			echo '</ul>';
 		} else {
@@ -266,16 +275,15 @@ class bgr_single_group_rating_widget extends WP_Widget {
 		<?php
 		echo wp_kses_post( $args['after_widget'] );
 	}
-
 }
 
-/** Register Group Review Widget
+/**
+ * Register Group Review Widget.
  *
- *  @since   1.0.0
- *  @author  Wbcom Designs
+ * @since 1.0.0
  */
 function bp_group_review_register_rating_widget() {
-	register_widget( 'bgr_single_group_rating_widget' );
+	register_widget( 'Bgr_Single_Group_Rating_Widget' );
 }
 
 add_action( 'widgets_init', 'bp_group_review_register_rating_widget' );

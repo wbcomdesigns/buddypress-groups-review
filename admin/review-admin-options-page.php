@@ -74,7 +74,7 @@ function bp_group_review_criteria_setting() {
 								<label class="wb-switch">
 									<input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="<?php echo esc_attr( $review_rating_field ); ?>"
 										<?php
-										if ( in_array( $review_rating_field, $active_rating_fields ) ) {
+										if ( in_array( $review_rating_field, $active_rating_fields, true ) ) {
 											echo 'checked="checked"'; }
 										?>
 										>
@@ -246,10 +246,11 @@ function bp_group_review_general_setting() {
 					<label><?php esc_html_e( 'Enable BuddyPress Notifications', 'bp-group-reviews' ); ?></label>
 					<?php if ( bp_is_active( 'notifications' ) ) { ?>
 						<p class="description"><?php esc_html_e( 'Notify group admins and reviewers about review activities.', 'bp-group-reviews' ); ?></p>
-					<?php } else { ?>                        
+					<?php } else { ?>
 						<p class="description">
 						<?php
 						printf(
+							/* translators: %s: BuddyPress component link. */
 							esc_html__( 'This setting requires the %s to be active.', 'bp-group-reviews' ),
 							'<strong><a href="' . esc_url( admin_url( 'admin.php?page=bp-components' ) ) . '">' . esc_html( 'BuddyPress Notifications Component' ) . '</a></strong>'
 						);
@@ -280,6 +281,7 @@ function bp_group_review_general_setting() {
 						<p class="description">
 						<?php
 						printf(
+							/* translators: %s: BuddyPress component link. */
 							esc_html__( 'This setting requires the %s to be active.', 'bp-group-reviews' ),
 							'<strong><a href="' . esc_url( admin_url( 'admin.php?page=bp-components' ) ) . '">' . esc_html( 'BuddyPress Activity Component' ) . '</a></strong>'
 						);
@@ -364,7 +366,10 @@ function bp_group_review_emails_setting() {
 
 	?>
 
-	<?php if ( isset( $_GET['settings-updated'] ) ) { ?> 
+	<?php
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Checking settings-updated GET param from WP Settings API redirect.
+	if ( isset( $_GET['settings-updated'] ) ) {
+		?>
 		<div id="bgr-email-settings-updated" class="updated settings-error notice is-dismissible">
 			<p>
 				<strong><?php esc_html_e( 'Settings Saved.', 'bp-group-reviews' ); ?></strong>
@@ -384,10 +389,10 @@ function bp_group_review_emails_setting() {
 				settings_fields( 'bp_group_review_email_settings' );
 				do_settings_sections( 'bp_group_review_email_settings' );
 
-				// Fetch the values from the database
+				// Fetch the values from the database.
 				$bp_group_review_email_settings = get_option( 'bp_group_review_email_settings' );
 
-				// Set defaults if no settings exist
+				// Set defaults if no settings exist.
 			if ( empty( $bp_group_review_email_settings ) ) {
 				$bp_group_review_email_settings = array(
 					'bgr_allow_email'             => 'yes',

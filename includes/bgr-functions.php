@@ -1,5 +1,14 @@
 <?php
 /**
+ * Core functions for BuddyPress Group Reviews.
+ *
+ * @package Buddypress_Groups_Review
+ */
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
+/**
  * This code removes extra tab ('Add Review') from group navigation
  * due to BP_Group_Extension.
  *

@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Legacy file name.
 /**
  * Class to add custom scripts and styles.
  *
@@ -49,7 +49,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 		 * @return bool
 		 */
 		private function bp_group_review_is_widget_active() {
-			// Get all active widgets from all sidebars
+			// Get all active widgets from all sidebars.
 
 			$sidebars_widgets = function_exists( 'wp_get_sidebars_widgets' ) ? wp_get_sidebars_widgets() : array(); //phpcs:ignore
 
@@ -60,7 +60,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 			foreach ( $sidebars_widgets as $sidebar_id => $widgets ) {
 				if ( is_array( $widgets ) ) {
 					foreach ( $widgets as $widget_id ) {
-						// Check for group review widgets by widget ID prefix
+						// Check for group review widgets by widget ID prefix.
 						if ( strpos( $widget_id, 'bgr_group_review_widget' ) === 0 || strpos( $widget_id, 'bgr_group_rating_widget' ) === 0 ) {
 							return true;
 						}
@@ -68,7 +68,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				}
 			}
 
-			// Also check if we're on BuddyPress pages where widgets might be used
+			// Also check if we're on BuddyPress pages where widgets might be used.
 			if ( function_exists( 'bp_is_activity_component' ) && bp_is_activity_component() ) {
 				return true;
 			}
@@ -138,7 +138,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				wp_enqueue_style( 'bgr-ratings-css' );
 			}
 
-			// Only enqueue full scripts when BGR widgets are available
+			// Only enqueue full scripts when BGR widgets are available.
 			if ( $this->bp_group_review_is_widget_active() ) {
 				// Replaced FontAwesome CDN with local CSS-based icon styles for WordPress.org compliance.
 				wp_register_style( 'bgr-icons', BGR_PLUGIN_URL . 'assets/css/bgr-icons.css', array(), BGR_PLUGIN_VERSION, 'all' );
@@ -149,7 +149,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				wp_register_script( 'bgr-ratings-js', BGR_PLUGIN_URL . 'assets/js' . $script_path . '/bgr-ratings' . $script_extension, array( 'jquery' ), BGR_PLUGIN_VERSION, false );
 				wp_register_script( 'bgr-accessibility-js', BGR_PLUGIN_URL . 'assets/js/bgr-accessibility.js', array( 'jquery' ), BGR_PLUGIN_VERSION, true );
 
-				wp_enqueue_style( 'bgr-icons' ); // Local CSS-based icons (replaces FontAwesome CDN)
+				wp_enqueue_style( 'bgr-icons' ); // Local CSS-based icons (replaces FontAwesome CDN).
 				wp_enqueue_style( 'bgr-reviews-css' );
 				wp_enqueue_style( 'bgr-front-css' );
 				wp_enqueue_script( 'bgr-front-js' );

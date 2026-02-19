@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Legacy file name.
 /**
  * This file is used for plugin admin.
  *
@@ -38,14 +38,13 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 			add_action( 'admin_menu', array( $this, 'bp_group_review_get_review_count' ) );
 			add_action( 'in_admin_header', array( $this, 'wbcom_hide_all_admin_notices_from_setting_page' ) );
 			$post_types = get_post_types();
-			if ( ! in_array( 'review', $post_types ) ) {
+			if ( ! in_array( 'review', $post_types, true ) ) {
 				// Custom Post Type.
 				add_action( 'init', array( $this, 'bp_group_review_cpt' ) );
 				add_action( 'init', array( $this, 'bp_group_review_taxonomy_cpt' ) );
 			}
 
 			add_action( 'init', array( $this, 'bp_group_review_add_capabilities_to_roles' ) );
-
 		}
 
 		/**
@@ -75,7 +74,6 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 				remove_all_actions( 'admin_notices' );
 				remove_all_actions( 'all_admin_notices' );
 			}
-
 		}
 
 		/**
@@ -88,11 +86,11 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		public function bp_group_review_admin_options_page( $current = 'welcome' ) {
 				$current      = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'welcome';
 					$bgr_tabs = array(
-						'welcome'   => esc_html__( 'Welcome', 'bp-group-reviews' ),
-						'general'   => esc_html__( 'General', 'bp-group-reviews' ),
-						'criteria'  => esc_html__( 'Criteria', 'bp-group-reviews' ),
-						'display'   => esc_html__( 'Display', 'bp-group-reviews' ),
-						'emails'    => esc_html__( 'Emails', 'bp-group-reviews' ),
+						'welcome'  => esc_html__( 'Welcome', 'bp-group-reviews' ),
+						'general'  => esc_html__( 'General', 'bp-group-reviews' ),
+						'criteria' => esc_html__( 'Criteria', 'bp-group-reviews' ),
+						'display'  => esc_html__( 'Display', 'bp-group-reviews' ),
+						'emails'   => esc_html__( 'Emails', 'bp-group-reviews' ),
 					);
 					?>
 					<div class="wrap">
@@ -129,7 +127,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 								<?php
 								$bgr_tab_html = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
 								foreach ( $bgr_tabs as $bgr_tab => $bgr_name ) {
-												$class         = ( $bgr_tab == $current ) ? 'nav-tab-active' : '';
+												$class         = ( $bgr_tab === $current ) ? 'nav-tab-active' : '';
 												$bgr_tab_html .= '<li class="' . $bgr_tab . '"><a class="nav-tab ' . $class . '" href="admin.php?page=group-review-settings&tab=' . $bgr_tab . '">' . $bgr_name . '</a></li>';
 								}
 								$bgr_tab_html .= '</div></ul></div>';
@@ -162,7 +160,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 				'not_found'          => esc_html__( 'No Review Found', 'bp-group-reviews' ),
 				'not_found_in_trash' => esc_html__( 'No Review Found In Trash', 'bp-group-reviews' ),
 			);
-			$args = array(
+			$args   = array(
 				'labels'             => $labels,
 				'public'             => false,
 				'menu_icon'          => 'dashicons-testimonial',
@@ -173,7 +171,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 				'rewrite'            => array(
 					'slug'       => 'review',
 					'with_front' => false,
-				),				
+				),
 				'capability_type'    => 'post',
 				'capabilities'       => array(
 					'edit_post'          => 'edit_review',
@@ -184,7 +182,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 					'publish_posts'      => 'publish_reviews',
 					'read_private_posts' => 'read_private_reviews',
 					'create_posts'       => 'do_not_allow',
-				),				
+				),
 				'map_meta_cap'       => true,
 				'has_archive'        => false,
 				'hierarchical'       => false,
@@ -193,7 +191,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 			);
 			register_post_type( 'review', $args );
 		}
-		
+
 
 		/**
 		 * Actions performed to create Review cpt taxonomy
@@ -232,7 +230,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * @return [type] [Count on Review menu item ]
 		 */
 		public function bp_group_review_get_review_count() {
-			global $bgr, $menu;
+			global $bgr, $menu; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Modifying admin menu count badge.
 			if ( 'yes' !== $bgr['auto_approve_reviews'] ) {
 
 				foreach ( $menu as $each_menu ) {
@@ -247,7 +245,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 								return;
 							}
 
-							$menu[ $key ][0] .= sprintf(
+							$menu[ $key ][0] .= sprintf( // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Appending count badge to admin menu.
 								'<span class="awaiting-mod update-plugins count-%1$s"><span class="plugin-count">%1$s</span></span>',
 								$count
 							);
@@ -269,10 +267,8 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 				$current_key = $key;
 				if (
 					$needle === $value
-					or (
-				is_array( $value )
-				&& $this->bp_group_review_recursive_array_search( $needle, $value ) !== false
-					)
+					|| ( is_array( $value )
+				&& false !== $this->bp_group_review_recursive_array_search( $needle, $value ) )
 				) {
 					return $current_key;
 				}
@@ -287,11 +283,11 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		 * and other roles can be added via the 'bp_business_profile_roles' filter.
 		 */
 		public function bp_group_review_add_capabilities_to_roles() {
-        	$roles = apply_filters( 'bgr_add_roles_capability', array( 'administrator' ) );
+			$roles = apply_filters( 'bgr_add_roles_capability', array( 'administrator' ) );
 			foreach ( $roles as $role_name ) {
 				$role = get_role( $role_name );
 				if ( $role ) {
-					// Add custom capabilities for business post type
+					// Add custom capabilities for business post type.
 					$role->add_cap( 'edit_review' );
 					$role->add_cap( 'edit_reviews' );
 					$role->add_cap( 'edit_others_reviews' );
@@ -300,11 +296,10 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 					$role->add_cap( 'delete_review' );
 					$role->add_cap( 'delete_reviews' );
 					$role->add_cap( 'delete_others_reviews' );
-					$role->add_cap( 'delete_published_reviews' );  
+					$role->add_cap( 'delete_published_reviews' );
 				}
 			}
 		}
-
 	}
 	new BGR_Admin();
 }

@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Legacy file name.
 /**
  * Class to add top header pages of Wbcom plugin and additional features.
  *
@@ -38,7 +38,7 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 		public function wbcom_addons_cards_links() {
 			$wbcom_setting_nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 			$action              = isset( $_POST['action'] ) ? sanitize_text_field( wp_unslash( $_POST['action'] ) ) : '';
-			
+
 			if ( ! empty( $wbcom_setting_nonce ) && wp_verify_nonce( $wbcom_setting_nonce, 'wbcom_admin_setting_nonce' ) && 'wbcom_addons_cards' === $action ) {
 				$display_extension = isset( $_POST['display_extension'] ) ? sanitize_text_field( wp_unslash( $_POST['display_extension'] ) ) : '';
 				echo esc_html( $display_extension );
@@ -56,9 +56,9 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 		 */
 		public function upgrade_plugin( $plugin_slug ) {
 			include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-			
-			// Consider the necessity of this cache flush
-			wp_cache_flush(); 
+
+			// Consider the necessity of this cache flush.
+			wp_cache_flush();
 
 			$upgrader = new Plugin_Upgrader();
 			$upgraded = $upgrader->upgrade( $plugin_slug );
@@ -99,7 +99,7 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 			if ( is_wp_error( $api ) ) {
 				$error_message = $api->get_error_message();
 				wp_send_json_error( array( 'error' => $error_message ) );
-				return new WP_Error('api_error', $error_message);  // Return WP_Error for further handling if needed
+				return new WP_Error( 'api_error', $error_message );  // Return WP_Error for further handling if needed.
 			}
 
 			return $api->download_link;
@@ -198,9 +198,9 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 			if ( ! wp_script_is( 'wbcom_admin_setting_js', 'enqueued' ) ) {
 				wp_register_script(
 					'wbcom_admin_setting_js',
-					BGR_PLUGIN_URL . 'admin/wbcom/assets/js'.$script_path.'/wbcom-admin-setting'.$script_extension,
+					BGR_PLUGIN_URL . 'admin/wbcom/assets/js' . $script_path . '/wbcom-admin-setting' . $script_extension,
 					array( 'jquery' ),
-					time(),
+					BGR_PLUGIN_VERSION,
 					false
 				);
 				wp_localize_script(
@@ -217,7 +217,7 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 			}
 
 			if ( ! wp_style_is( 'wbcom-admin-setting-css', 'enqueued' ) ) {
-				wp_enqueue_style( 'wbcom-admin-setting-css', BGR_PLUGIN_URL . 'admin/wbcom/assets/css'.$style_path.'/wbcom-admin-setting'.$style_extension );
+				wp_enqueue_style( 'wbcom-admin-setting-css', BGR_PLUGIN_URL . 'admin/wbcom/assets/css' . $style_path . '/wbcom-admin-setting' . $style_extension, array(), BGR_PLUGIN_VERSION );
 			}
 		}
 
@@ -262,7 +262,7 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 			if ( file_exists( plugin_dir_path( __FILE__ ) . 'templates/wbcom-plugins-page.php' ) ) {
 				include plugin_dir_path( __FILE__ ) . 'templates/wbcom-plugins-page.php';
 			} else {
-				// Handle the case where the file is missing
+				// Handle the case where the file is missing.
 				echo esc_html__( 'The plugins page template could not be found.', 'bp-group-reviews' );
 			}
 		}
@@ -276,7 +276,7 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 			if ( file_exists( plugin_dir_path( __FILE__ ) . 'templates/wbcom-themes-page.php' ) ) {
 				include plugin_dir_path( __FILE__ ) . 'templates/wbcom-themes-page.php';
 			} else {
-				// Handle the case where the file is missing
+				// Handle the case where the file is missing.
 				echo esc_html__( 'The themes page template could not be found.', 'bp-group-reviews' );
 			}
 		}
@@ -290,7 +290,7 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 			if ( file_exists( plugin_dir_path( __FILE__ ) . 'templates/wbcom-support-page.php' ) ) {
 				include plugin_dir_path( __FILE__ ) . 'templates/wbcom-support-page.php';
 			} else {
-				// Handle the case where the file is missing
+				// Handle the case where the file is missing.
 				echo esc_html__( 'The support page template could not be found.', 'bp-group-reviews' );
 			}
 		}
@@ -303,7 +303,10 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 		 */
 		public function wbcom_admin_setting_header_html() {
 			$page          = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'wbcom-themes-page';
-			$plugin_active = $theme_active = $support_active = $settings_active = '';
+			$plugin_active   = '';
+			$theme_active    = '';
+			$support_active  = '';
+			$settings_active = '';
 
 			switch ( $page ) {
 				case 'wbcom-plugins-page':
@@ -346,9 +349,9 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 			</div>
 			<?php
 		}
-
-
 	}
+
+	// phpcs:disable Universal.Files.SeparateFunctionsFromOO.Mixed
 
 	/**
 	 * Initialize Wbcom plugin manager.

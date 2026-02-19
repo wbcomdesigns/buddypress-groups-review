@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Legacy file name.
 /**
  * BGR Group Review widget.
  *
@@ -9,6 +9,11 @@
  * @subpackage BuddyPress_Group_Review/includes/widgets
  */
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
+// phpcs:disable Universal.Files.SeparateFunctionsFromOO.Mixed -- Legacy widget registration.
+
 /**
  * BGR Group Review widget.
  *
@@ -18,12 +23,12 @@
  * @package    BuddyPress_Group_Review
  * @subpackage BuddyPress_Group_Review/includes/widget
  */
-class bgr_review_widget extends WP_Widget {
+class Bgr_Review_Widget extends WP_Widget {
 
-	/** Constructor
+	/**
+	 * Constructor.
 	 *
-	 *  @since   1.0.0
-	 *  @author  Wbcom Designs
+	 * @since 1.0.0
 	 */
 	public function __construct() {
 		$widget_ops  = array(
@@ -40,8 +45,7 @@ class bgr_review_widget extends WP_Widget {
 	/**
 	 * Form display for widget in admin panel.
 	 *
-	 * @since   1.0.0
-	 * @author  Wbcom Designs
+	 * @since 1.0.0
 	 * @param array $instance Widget instance.
 	 */
 	public function form( $instance ) {
@@ -112,10 +116,11 @@ class bgr_review_widget extends WP_Widget {
 	}
 
 	/**
-	 * Update Widget data
+	 * Update Widget data.
 	 *
-	 * @param  array $new_instance New Instance.
-	 * @param  array $old_instance Old Instance.
+	 * @param array $new_instance New Instance.
+	 * @param array $old_instance Old Instance.
+	 * @return array Updated instance.
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance                 = $old_instance;
@@ -127,10 +132,10 @@ class bgr_review_widget extends WP_Widget {
 	}
 
 	/**
-	 * Display Widget content
+	 * Display Widget content.
 	 *
-	 * @param  array $args Arguments.
-	 * @param  mixed $instance Instance.
+	 * @param array $args     Arguments.
+	 * @param mixed $instance Instance.
 	 * @return void
 	 */
 	public function widget( $args, $instance ) {
@@ -145,6 +150,7 @@ class bgr_review_widget extends WP_Widget {
 		$widget_post_num    = apply_filters( 'bgr_post_num', $instance['post_num'] );
 		$widget_thumbnail   = apply_filters( 'bgr_thumbnail', $instance['thumbnail'] );
 
+		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Required for review query.
 		$custom_args         = array(
 			'post_type'      => 'review',
 			'posts_per_page' => -1,
@@ -188,7 +194,7 @@ class bgr_review_widget extends WP_Widget {
 					}
 				}
 			}
-			/*** Sort Group ids according reviews & ratings */
+			// Sort Group ids according reviews and ratings.
 			if ( ! empty( $single_rev_avg ) ) {
 				$review_groups = array();
 				$rev_arr       = array();
@@ -204,7 +210,7 @@ class bgr_review_widget extends WP_Widget {
 					}
 				}
 				arsort( $review_groups_count );
-				/**** Count Average */
+				// Count Average.
 				if ( ! empty( $review_groups ) ) {
 					foreach ( $review_groups as $key => $val ) {
 						$count = count( $val );
@@ -225,7 +231,7 @@ class bgr_review_widget extends WP_Widget {
 			echo wp_kses_post( $args['before_title'] ) . esc_html( $widget_title ) . wp_kses_post( $args['after_title'] );
 		}
 
-		/*** Select Listing Type */
+		// Select Listing Type.
 		if ( 'toprated' === $widget_listing_cat ) {
 			$group_args = $review_groups;
 		} elseif ( 'topreviewed' === $widget_listing_cat ) {
@@ -266,7 +272,7 @@ class bgr_review_widget extends WP_Widget {
 							<?php } ?>
 							<div class="bupr-content-widget">
 								<div class="bupr-group-title"><a href="<?php echo esc_url( $group_url ); ?>"><?php echo esc_html( $group->name ); ?></a></div>
-								<div class="bupr-group-rating">										
+								<div class="bupr-group-rating">
 									<?php
 									if ( ! empty( $review_groups ) ) {
 										if ( array_key_exists( $gid, $review_groups ) ) {
@@ -281,9 +287,9 @@ class bgr_review_widget extends WP_Widget {
 									echo ' ' . esc_html( $review_label ) . ' : ' . esc_html( $review_groups_count[ $gid ] );
 									?>
 								</div>
-							<?php } ?>	
+							<?php } ?>
 						</div>
-					</li>						
+					</li>
 					<?php
 				endif;
 				++$post_num_counter;
@@ -299,7 +305,7 @@ class bgr_review_widget extends WP_Widget {
 			<?php } else { ?>
 				<div id="message" class="info">
 					<?php
-					/* translators: %1$s is replaced with review_label */
+					/* translators: %1$s: Review label. */
 					printf( esc_html__( 'No %1$s has been given to any group yet!', 'bp-group-reviews' ), esc_html( $review_label ) );
 					?>
 				</div>
@@ -310,13 +316,13 @@ class bgr_review_widget extends WP_Widget {
 	}
 }
 
-/** Register Group Review Widget
+/**
+ * Register Group Review Widget.
  *
- *  @since   1.0.0
- *  @author  Wbcom Designs
+ * @since 1.0.0
  */
 function bp_group_review_register_widget() {
-	register_widget( 'bgr_review_widget' );
+	register_widget( 'Bgr_Review_Widget' );
 }
 
 add_action( 'widgets_init', 'bp_group_review_register_widget' );

@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Legacy file name.
 /**
  * BP Group Extension.
  *
@@ -226,14 +226,14 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						?>
 						<div class="review-pagination">
 							<?php
-							$current_page = max( 1, get_query_var( 'paged', 1 ) ); // Ensures default value is 1
+							$current_page = max( 1, get_query_var( 'paged', 1 ) ); // Ensures default value is 1.
 							$format       = '?paged=%#%';
 							$pagination   = paginate_links(
 								array(
 									'base'      => esc_url( get_pagenum_link( 1 ) ) . '%_%',
-									'format'    => $format, // Make sure this matches your permalink structure
+									'format'    => $format, // Make sure this matches your permalink structure.
 									'current'   => $current_page,
-									'total'     => $reviews->max_num_pages, // Use the correct WP_Query object
+									'total'     => $reviews->max_num_pages, // Use the correct WP_Query object.
 									'prev_text' => esc_html__( 'Prev', 'bp-group-reviews' ),
 									'next_text' => esc_html__( 'Next', 'bp-group-reviews' ),
 								)
@@ -249,7 +249,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					wp_reset_postdata();
 				else :
 					$bp_template_option = bp_get_option( '_bp_theme_package_id' );
-					if ( 'nouveau' == $bp_template_option ) {
+					if ( 'nouveau' === $bp_template_option ) {
 						?>
 					<div id="message" class="info bp-feedback bp-messages bp-template-notice">
 						<span class="bp-icon" aria-hidden="true"></span>
@@ -265,13 +265,21 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				echo '<input type="submit" name="save" style="display:none;" id="bp-group-edit-manage-revieww-submit">';
 		}
 
+		/**
+		 * Add custom pagination query vars.
+		 *
+		 * @param array $vars Query vars.
+		 * @return array Modified query vars.
+		 */
 		public function add_custom_pagination_query_vars( $vars ) {
-			$vars[] = 'paged'; // Ensure WordPress recognizes it
-			$vars[] = 'upage'; // Add BuddyPress pagination var if needed
+			$vars[] = 'paged'; // Ensure WordPress recognizes it.
+			$vars[] = 'upage'; // Add BuddyPress pagination var if needed.
 			return $vars;
 		}
 	}
 	bp_register_group_extension( 'Group_Reviews_Management_Extn' );
+
+	// phpcs:disable Generic.Files.OneObjectStructurePerFile.MultipleFound
 
 	/**
 	 * Group Criteria Settings Extension.
@@ -281,6 +289,8 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 	 * @since 3.7.0
 	 */
 	class Group_Reviews_Criteria_Extn extends BP_Group_Extension {
+
+		// phpcs:enable Generic.Files.OneObjectStructurePerFile.MultipleFound
 
 		/**
 		 * Constructor.

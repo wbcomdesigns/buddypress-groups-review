@@ -1,6 +1,6 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Legacy file name.
 /**
- * Generate Activity  on reviewd any groups.
+ * Generate Activity on reviewed any groups.
  *
  * @link       https://wbcomdesigns.com/
  * @since      1.0.0
@@ -9,8 +9,11 @@
  * @subpackage BuddyPress_Group_Review/includes
  */
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
- * Generate Activity  on reviewd any groups.
+ * Generate Activity on reviewed any groups.
  *
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
@@ -24,20 +27,19 @@ class BGR_Activity {
 	/**
 	 * The single instance of the class.
 	 *
-	 * @var Buddypress_Member_Blog_Pro_Groups
+	 * @var BGR_Activity|null
 	 * @since 1.0.0
 	 */
 	protected static $instance = null;
 
 	/**
-	 * Main BuddyPress_Member_Blog_Pro Instance.
+	 * Main BGR_Activity Instance.
 	 *
-	 * Ensures only one instance of BuddyPress_Member_Blog_Pro is loaded or can be loaded.
+	 * Ensures only one instance of BGR_Activity is loaded or can be loaded.
 	 *
 	 * @since 1.0.0
 	 * @static
-	 * @see instantiateb_buddypress_member_blog_pro()
-	 * @return BGR_Activity - Main instance.
+	 * @return BGR_Activity Main instance.
 	 */
 	public static function instance() {
 		if ( is_null( self::$instance ) ) {
@@ -47,13 +49,12 @@ class BGR_Activity {
 	}
 
 	/**
-	 * BuddyPress_Member_Blog_Pro Constructor.
+	 * BGR_Activity Constructor.
 	 *
 	 * @since  1.0.0
 	 */
 	public function __construct() {
 		$this->init_hooks();
-
 	}
 
 	/**
@@ -65,7 +66,7 @@ class BGR_Activity {
 		add_action( 'bp_register_activity_actions', array( $this, 'bp_group_review_register_activity_actions' ), 10 );
 		add_action( 'transition_post_status', array( $this, 'bp_group_review_group_post_activity_after_approval' ), 15, 3 );
 		add_action( 'bgr_group_after_review_submit', array( $this, 'bp_group_review_create_group_post_activity' ), 15, 3 );
-		add_filter( 'bp_get_activity_content_body', array( $this, 'bp_group_review_added_activity_star_rating' ), 10, 2 );	
+		add_filter( 'bp_get_activity_content_body', array( $this, 'bp_group_review_added_activity_star_rating' ), 10, 2 );
 	}
 
 	/**
@@ -90,14 +91,13 @@ class BGR_Activity {
 			__( 'New Post', 'bp-group-reviews' ),
 			array( 'groups' )
 		);
-
 	}
 
 	/**
 	 * Format product create activity actions.
 	 *
 	 * @since 1.0.0
-	 * @param String $action Activity Action.
+	 * @param String $action   Activity Action.
 	 * @param object $activity Activity Object.
 	 * @return mixed|void
 	 */
@@ -111,7 +111,7 @@ class BGR_Activity {
 		$group_name      = bp_get_group_name( groups_get_group( $group_id ) );
 		$post_link_html  = '<a href="' . esc_url( $post_link ) . '">' . $post_title . '</a>';
 		$group_link_html = '<a href="' . esc_url( $post_link ) . '">' . $group_name . '</a>';
-		/* translators: %1$s: User Link, %2$s: Post Link HTML, %3$s: Group Name */
+		/* translators: %1$s: User Link, %2$s: Post Link HTML, %3$s: Group Name. */
 		$action = sprintf( __( '%1$s posted a new post %2$s in group %3$s', 'bp-group-reviews' ), $user_link, $post_link_html, $group_name );
 
 		return apply_filters( 'bp_group_review_group_create_posts_activity_action', $action );
@@ -122,8 +122,10 @@ class BGR_Activity {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param int     $id Post ID.
-	 * @param WP_Post $post       Post object.
+	 * @param int $author_id Author user ID.
+	 * @param int $group_id  Group ID.
+	 * @param int $post_id   Post ID.
+	 * @return false|void
 	 */
 	public function bp_group_review_create_group_post_activity( $author_id, $group_id, $post_id ) {
 		global $bp;
@@ -137,36 +139,36 @@ class BGR_Activity {
 		if ( ! bp_is_active( 'groups' ) || ! bp_is_active( 'activity' ) ) {
 			return false;
 		}
-		
-		$posts_id        = $post_id;
-		$post 			 = get_post( $posts_id );
-		$user_id         = $post->post_author;
-		$user_link       = bp_core_get_userlink( $user_id );
-		$post_title      = get_the_title( $posts_id );
-		$group_name      = bp_get_group_name( groups_get_group( $group_id ) );
-		$group_obj       = groups_get_group( $group_id );
-		$review_data     = get_post( $posts_id );
-		$review_content  = $review_data->post_content;		
+
+		$posts_id       = $post_id;
+		$post           = get_post( $posts_id );
+		$user_id        = $post->post_author;
+		$user_link      = bp_core_get_userlink( $user_id );
+		$post_title     = get_the_title( $posts_id );
+		$group_name     = bp_get_group_name( groups_get_group( $group_id ) );
+		$group_obj      = groups_get_group( $group_id );
+		$review_data    = get_post( $posts_id );
+		$review_content = $review_data->post_content;
 		// Build group URL safely for both BuddyPress and BuddyBoss.
 		if ( function_exists( 'bp_get_group_url' ) ) {
 			$group_link = bp_get_group_url( $group_obj );
 		} else {
 			// Fallback for older versions - build URL manually.
 			$group_link = bp_get_groups_directory_permalink() . $group_obj->slug . '/';
-		}		
+		}
 		$group_link_html = '<a href="' . esc_url( $group_link ) . '">' . $group_name . '</a>';
 		$action          = sprintf(
 			apply_filters(
 				'bgr_activity_action',
-				/* translators: %1$s: User Link, %2$s: Post Link HTML, %3$s: Group Name */
+				/* translators: %1$s: User Link, %2$s: Group Link HTML. */
 				__( '%1$s posted a review in the group %2$s', 'bp-group-reviews' )
 			),
 			$user_link,
 			$group_link_html
 		);
-		// Determine if the activity should be hidden sitewide
-		$hide_sitewide = ($group_obj->status === 'private' || $group_obj->status === 'hidden') ? true : false;
-		if ( 'yes' == $allow_activity ) {
+		// Determine if the activity should be hidden sitewide.
+		$hide_sitewide = ( 'private' === $group_obj->status || 'hidden' === $group_obj->status );
+		if ( 'yes' === $allow_activity ) {
 			$args        = array(
 				'action'            => $action,
 				'content'           => $review_content,
@@ -182,7 +184,6 @@ class BGR_Activity {
 			);
 			$activity_id = bp_activity_add( $args );
 		}
-
 	}
 
 	/**
@@ -190,9 +191,10 @@ class BGR_Activity {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array   $new_status New post status.
-	 * @param array   $old_status Old post status.
+	 * @param string  $new_status New post status.
+	 * @param string  $old_status Old post status.
 	 * @param WP_Post $post       Post object.
+	 * @return false|void
 	 */
 	public function bp_group_review_group_post_activity_after_approval( $new_status, $old_status, $post ) {
 		global $bp;
@@ -207,38 +209,38 @@ class BGR_Activity {
 			return false;
 		}
 
-		if ( 'yes' == $allow_activity ) {
+		if ( 'yes' === $allow_activity ) {
 			if ( ( 'publish' === $new_status && 'publish' !== $old_status ) && 'review' === $post->post_type ) {
-				$posts_id        = $post->ID;
-				$user_id         = $post->post_author;
-				$user_link       = bp_core_get_userlink( $user_id );
-				$post_title      = get_the_title( $posts_id );
-				$group_id        = get_post_meta( $post->ID, 'linked_group', true );
-				$group_name      = bp_get_group_name( groups_get_group( $group_id ) );
-				$group_obj       = groups_get_group( $group_id );
-				$review_data     = get_post( $posts_id );
-				$review_content  = $review_data->post_content;				
+				$posts_id       = $post->ID;
+				$user_id        = $post->post_author;
+				$user_link      = bp_core_get_userlink( $user_id );
+				$post_title     = get_the_title( $posts_id );
+				$group_id       = get_post_meta( $post->ID, 'linked_group', true );
+				$group_name     = bp_get_group_name( groups_get_group( $group_id ) );
+				$group_obj      = groups_get_group( $group_id );
+				$review_data    = get_post( $posts_id );
+				$review_content = $review_data->post_content;
 				// Build group URL safely for both BuddyPress and BuddyBoss.
-		if ( function_exists( 'bp_get_group_url' ) ) {
-			$group_link = bp_get_group_url( $group_obj );
-		} else {
-			// Fallback for older versions - build URL manually.
-			$group_link = bp_get_groups_directory_permalink() . $group_obj->slug . '/';
-		}				
+				if ( function_exists( 'bp_get_group_url' ) ) {
+					$group_link = bp_get_group_url( $group_obj );
+				} else {
+					// Fallback for older versions - build URL manually.
+					$group_link = bp_get_groups_directory_permalink() . $group_obj->slug . '/';
+				}
 				$group_link_html = '<a href="' . esc_url( $group_link ) . '">' . $group_name . '</a>';
 				$action          = sprintf(
 					apply_filters(
 						'bgr_activity_action',
-						/* translators: %1$s: User Link, %2$s: Post Link HTML, %3$s: Group Name */
+						/* translators: %1$s: User Link, %2$s: Group Link HTML. */
 						__( '%1$s posted a review in the group %2$s', 'bp-group-reviews' )
 					),
 					$user_link,
 					$group_link_html
 				);
 
-				// Determine if the activity should be hidden sitewide
-				$hide_sitewide = ($group_obj->status === 'private' || $group_obj->status === 'hidden') ? true : false;
-				$args        = array(
+				// Determine if the activity should be hidden sitewide.
+				$hide_sitewide = ( 'private' === $group_obj->status || 'hidden' === $group_obj->status );
+				$args          = array(
 					'action'            => $action,
 					'content'           => $review_content,
 					'component'         => 'groups',
@@ -251,17 +253,17 @@ class BGR_Activity {
 					'privacy'           => 'public',
 					'error_type'        => 'bool',
 				);
-				$activity_id = bp_activity_add( $args );
+				$activity_id   = bp_activity_add( $args );
 			}
 		}
-
 	}
 
 	/**
 	 * BGR added star rating in activity.
 	 *
-	 * @param  string $activity_content Activity Content.
-	 * @param  object $activity Activity Object.
+	 * @param string $activity_content Activity Content.
+	 * @param object $activity         Activity Object.
+	 * @return string Modified activity content.
 	 */
 	public function bp_group_review_added_activity_star_rating( $activity_content, $activity ) {
 		global $bgr;
@@ -276,7 +278,7 @@ class BGR_Activity {
 					$review_start .= '<div class="multi-review">';
 					$review_start .= '<div class="bgr-col-6">' . esc_html( $review_field ) . '</div>';
 					$review_start .= '<div class="bgr-col-6">';
-					/*** Ratings */
+					// Display star ratings.
 					$stars_on  = $review_ratings[0][ $review_field ];
 					$stars_off = 5 - $stars_on;
 					for ( $i = 1; $i <= $stars_on; $i++ ) {
@@ -294,8 +296,6 @@ class BGR_Activity {
 		}
 		return $activity_content . $review_start;
 	}
-
-
 }
 
 /**

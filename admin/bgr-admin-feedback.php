@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Legacy file name.
 /**
  * BuddyPress Group Review plugin review feedback.
  *
@@ -8,6 +8,9 @@
  * @package    BuddyPress_Group_Review
  * @subpackage BuddyPress_Group_Review/admin
  */
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'BGR_Admin_Feedback' ) ) :
 
@@ -58,7 +61,7 @@ if ( ! class_exists( 'BGR_Admin_Feedback' ) ) :
 		 */
 		public function __construct( $args ) {
 			$this->slug = $args['slug'];
-			
+
 			$this->date_option  = $this->slug . '_activation_date';
 			$this->nobug_option = $this->slug . '_no_bug';
 

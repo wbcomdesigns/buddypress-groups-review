@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Legacy file name.
 /**
  * Class to generate bp notification.
  *
@@ -12,10 +12,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-// Exit if accessed directly.
-/**
- * Class to add custom scripts on woocommerce hooks
- */
+
+// phpcs:disable Universal.Files.SeparateFunctionsFromOO.Mixed -- Legacy notification callback.
+
 if ( ! class_exists( 'BGR_Notifications' ) ) {
 	/**
 	 * Class to generate bp notification.
@@ -34,15 +33,14 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		 * @since   1.0.0
 		 * @author  Wbcom Designs
 		 *
-		 * @var $_component_name.
+		 * @var string
 		 */
-		protected $_component_name = 'bgr_bp_review';
+		protected $_component_name = 'bgr_bp_review'; // phpcs:ignore PSR2.Classes.PropertyDeclaration.Underscore -- BuddyPress convention.
 
 		/**
-		 * Constructor for  generate bp notification.
+		 * Constructor for generate bp notification.
 		 *
-		 *  @since   1.0.0
-		 *  @author  Wbcom Designs
+		 * @since 1.0.0
 		 */
 		public function __construct() {
 			$this->slug = $this->_component_name;
@@ -50,7 +48,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			parent::start(
 				$this->_component_name,
 				esc_html__( 'Group Reviews', 'bp-group-reviews' ),
-				dirname( __FILE__ )
+				__DIR__
 			);
 
 			buddypress()->active_components[ $this->_component_name ] = '1';
@@ -59,7 +57,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		/**
 		 * Set up Globals.
 		 *
-		 * @param  array $args Arguments.
+		 * @param array $args Arguments.
 		 * @return void
 		 */
 		public function setup_globals( $args = array() ) {
@@ -86,7 +84,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			parent::setup_actions();
 		}
 
-		
+
 		/**
 		 * Mark Notification as read.
 		 */
@@ -100,7 +98,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			}
 
 			// Security: Must have referer parameter.
-			if ( ! isset( $_GET['referer'] ) || empty( $_GET['referer'] ) ) {		// phpcs:ignore
+			if ( ! isset( $_GET['referer'] ) || empty( $_GET['referer'] ) ) {       // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				return;
 			}
 
@@ -110,13 +108,13 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			}
 
 			// Security: Sanitize and validate notification ID.
-			$notification_id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;		// phpcs:ignore
+			$notification_id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( $notification_id <= 0 ) {
 				return;
 			}
 
 			// Sanitize referer.
-			$referer = sanitize_text_field( wp_unslash( $_GET['referer'] ) );		// phpcs:ignore
+			$referer = sanitize_text_field( wp_unslash( $_GET['referer'] ) );       // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 			// Mark notification as read based on referer type.
 			if ( 'add_reviews' === $referer ) {
@@ -151,16 +149,18 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 
 		/**
 		 * Component Name.
+		 *
+		 * @return string Component name.
 		 */
 		public function component_name() {
 			return $this->_component_name;
 		}
 
 		/**
-		 * Adding notifications for new review posted by any buddypress member
+		 * Adding notifications for new review posted by any buddypress member.
 		 *
-		 * @param  int $group_id Linked Group ID.
-		 * @param  int $group_admin Linked Group Admin ID.
+		 * @param int $group_id    Linked Group ID.
+		 * @param int $group_admin Linked Group Admin ID.
 		 * @return void
 		 */
 		public function bp_group_review_add_review_notification( $group_id, $group_admin ) {
@@ -183,9 +183,9 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		}
 
 		/**
-		 * Adding notifications when review accepted by group admin
+		 * Adding notifications when review accepted by group admin.
 		 *
-		 * @param  int $review_id Review ID.
+		 * @param int $review_id Review ID.
 		 * @return void
 		 */
 		public function bp_group_review_accept_review_notification( $review_id ) {
@@ -208,14 +208,14 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		}
 
 		/**
-		 * Adding notifications when review denied by group admin
+		 * Adding notifications when review denied by group admin.
 		 *
-		 * @param  int $review_id Review ID.
+		 * @param int $review_id Review ID.
 		 * @return void
 		 */
 		public function bp_group_review_deny_review_notification( $review_id ) {
 			if ( bp_is_active( 'notifications' ) ) {
-				$group_id       = get_post_meta( $review_id, 'linked_group', true );				
+				$group_id       = get_post_meta( $review_id, 'linked_group', true );
 				$post_author_id = get_post_field( 'post_author', $review_id );
 				bp_notifications_add_notification(
 					array(
@@ -235,11 +235,12 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		/**
 		 * Formatting notifications for review when added.
 		 *
-		 * @param  int    $grp_id Group ID.
-		 * @param  int    $review_id Review ID.
-		 * @param  int    $user_id User ID.
-		 * @param  int    $id Notification ID.
-		 * @param  string $format Notification format.
+		 * @param int    $grp_id    Group ID.
+		 * @param int    $review_id Review ID.
+		 * @param int    $user_id   User ID.
+		 * @param int    $id        Notification ID.
+		 * @param string $format    Notification format.
+		 * @return array|string Formatted notification.
 		 */
 		public function bp_group_review_add_review_notification_format( $grp_id, $review_id, $user_id, $id, $format = '' ) {
 			global $bgr;
@@ -248,8 +249,8 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$group_name   = $group->name;
 			// $review_id is actually the member_id who posted the review (item_id from notification).
 			// $user_id is the admin who receives the notification.
-			$user_info    = get_userdata( $review_id );
-			$user_name    = $user_info->user_login;
+			$user_info = get_userdata( $review_id );
+			$user_name = $user_info->user_login;
 			// Build group URL safely for both BuddyPress and BuddyBoss.
 			if ( function_exists( 'bp_get_group_url' ) ) {
 				$group_link = bp_get_group_url( $group );
@@ -258,25 +259,30 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 				$group_link = bp_get_groups_directory_permalink() . $group->slug . '/';
 			}
 			$review_plural_label = ! empty( $bgr['manage_review_label'] ) ? sanitize_title( $bgr['manage_review_label'] ) : 'reviews';
-			if ( $bgr['auto_approve_reviews'] == 'yes' ) {
+			if ( 'yes' === $bgr['auto_approve_reviews'] ) {
 				// For auto-approved reviews, link to the public reviews tab.
 				$notification_link = trailingslashit( $group_link . $review_plural_label );
 			} else {
 				// For non-auto-approved, link to admin area to manage reviews.
 				$notification_link = $group_link . 'admin/' . sanitize_title( 'manage-' . bp_group_review_tab_slug() );
 			}
-			/* translators: %1$s is replaced with review_label */
+			/* translators: %1$s: Review label. */
 			$notification_title = sprintf( esc_html__( 'A new %1$s was posted.', 'bp-group-reviews' ), $review_label );
-			/* translators: %1$s, %2$s and %3$s is replaced with user_name, review_label and group name respectively */
+			/* translators: %1$s: User name, %2$s: Review label, %3$s: Group name. */
 			$notification_content = sprintf( esc_html__( '%1$s posted a %2$s for %3$s.', 'bp-group-reviews' ), $user_name, strtolower( $review_label ), $group_name );
-			$notification_link    = add_query_arg( array( 'referer' => 'add_reviews', 'id' => $id ), $notification_link );			// for identification of mark as read action 
-			$notification_link    = wp_nonce_url( $notification_link, 'mark-as-read-notification-' . $grp_id );		// for security purpose when mark as read notification.
-			if ( 'string' == $format ) {
+			$notification_link    = add_query_arg(
+				array(
+					'referer' => 'add_reviews',
+					'id'      => $id,
+				),
+				$notification_link
+			);
+			// For security purpose when mark as read notification.
+			$notification_link = wp_nonce_url( $notification_link, 'mark-as-read-notification-' . $grp_id );
+			if ( 'string' === $format ) {
 				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), $notification_title, $notification_content );
 			} else {
-			// BuddyBoss expects 'link' first, then 'text' (matches BuddyBoss core notification format).
-
-
+				// BuddyBoss expects 'link' first, then 'text' (matches BuddyBoss core notification format).
 				$return = array(
 					'link' => $notification_link,
 					'text' => $notification_content,
@@ -287,18 +293,19 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 
 
 		/**
-		 * Formatting notifications when review accepted by group admin
+		 * Formatting notifications when review accepted by group admin.
 		 *
-		 * @param  int    $grp_id Group ID.
-		 * @param  int    $review_id Member ID.
-		 * @param  int    $id Notification ID.
-		 * @param  string $format Notification format.
+		 * @param int    $grp_id    Group ID.
+		 * @param int    $review_id Member ID.
+		 * @param int    $id        Notification ID.
+		 * @param string $format    Notification format.
+		 * @return array|string Formatted notification.
 		 */
 		public function bp_group_review_accept_review_notification_format( $grp_id, $review_id, $id, $format = '' ) {
 			global $bgr;
-			$review_label      = $bgr['review_label'];
-			$group             = groups_get_group( array( 'group_id' => $grp_id ) );			
-			$group_name        = $group->name;
+			$review_label = $bgr['review_label'];
+			$group        = groups_get_group( array( 'group_id' => $grp_id ) );
+			$group_name   = $group->name;
 			// Build group URL safely for both BuddyPress and BuddyBoss.
 			if ( function_exists( 'bp_get_group_url' ) ) {
 				$group_link = bp_get_group_url( $group );
@@ -308,17 +315,23 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			}
 
 			// Link to public reviews tab (not admin) so members can access it.
-			// Use manage_review_label (defaults to 'reviews') instead of bp_group_review_tab_slug() (returns 'review').
 			$review_plural_label = ! empty( $bgr['manage_review_label'] ) ? sanitize_title( $bgr['manage_review_label'] ) : 'reviews';
-			$notification_link = trailingslashit( $group_link . $review_plural_label );
-			/* translators: %1$s is replaced with review_label */
+			$notification_link   = trailingslashit( $group_link . $review_plural_label );
+			/* translators: %1$s: Review label. */
 			$notification_title = sprintf( esc_html__( '%1$s accepted.', 'bp-group-reviews' ), $review_label );
-			/* translators: %1$s and %2$s is replaced with review_label and group name resepectively*/
+			/* translators: %1$s: Review label, %2$s: Group name. */
 			$notification_content = sprintf( esc_html__( 'Your %1$s for %2$s was accepted by the group admin.', 'bp-group-reviews' ), strtolower( $review_label ), $group_name );
-			$notification_link           = add_query_arg( array( 'referer' => 'accept_reviews', 'id' =>$id ), $notification_link );			// for identification of mark as read action 
-			$notification_link           = wp_nonce_url( $notification_link, 'mark-as-read-notification-' . $grp_id );		// for security purpose when mark as read notification.
+			$notification_link    = add_query_arg(
+				array(
+					'referer' => 'accept_reviews',
+					'id'      => $id,
+				),
+				$notification_link
+			);
+			// For security purpose when mark as read notification.
+			$notification_link = wp_nonce_url( $notification_link, 'mark-as-read-notification-' . $grp_id );
 
-			if ( 'string' == $format ) {
+			if ( 'string' === $format ) {
 				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), $notification_title, $notification_content );
 
 			} else {
@@ -331,18 +344,19 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		}
 
 		/**
-		 * Formatting notifications when review denied by group admin
+		 * Formatting notifications when review denied by group admin.
 		 *
-		 * @param  int    $grp_id Group ID.
-		 * @param  int    $review_id Member ID.
-		 * @param  int    $id Notification ID.
-		 * @param  string $format Notification format.
+		 * @param int    $grp_id    Group ID.
+		 * @param int    $review_id Member ID.
+		 * @param int    $id        Notification ID.
+		 * @param string $format    Notification format.
+		 * @return array|string Formatted notification.
 		 */
 		public function bp_group_review_deny_review_notification_format( $grp_id, $review_id, $id, $format = '' ) {
 			global $bgr;
-			$review_label      = $bgr['review_label'];
-			$group             = groups_get_group( array( 'group_id' => $grp_id ) );
-			$group_name        = $group->name;
+			$review_label = $bgr['review_label'];
+			$group        = groups_get_group( array( 'group_id' => $grp_id ) );
+			$group_name   = $group->name;
 			// Build group URL safely for both BuddyPress and BuddyBoss.
 			if ( function_exists( 'bp_get_group_url' ) ) {
 				$group_link = bp_get_group_url( $group );
@@ -353,14 +367,21 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 
 			$review_plural_label = ! empty( $bgr['manage_review_label'] ) ? sanitize_title( $bgr['manage_review_label'] ) : 'reviews';
 			$notification_link   = trailingslashit( $group_link . $review_plural_label );
-			/* translators: %1$s is replaced with review_label */
+			/* translators: %1$s: Review label. */
 			$notification_title = sprintf( esc_html__( '%1$s denied.', 'bp-group-reviews' ), $review_label );
-			/* translators: %1$s and %2$s is replaced with review_label and group_name respectively */
+			/* translators: %1$s: Review label, %2$s: Group name. */
 			$notification_content = sprintf( esc_html__( 'Your %1$s for %2$s was denied by the group admin.', 'bp-group-reviews' ), strtolower( $review_label ), $group_name );
-			$notification_link           = add_query_arg( array( 'referer' => 'deny_reviews', 'id' => $id ), $notification_link );			// for identification of mark as read action 
-			$notification_link           = wp_nonce_url( $notification_link, 'mark-as-read-notification-' . $grp_id );		// for security purpose when mark as read notification.
+			$notification_link    = add_query_arg(
+				array(
+					'referer' => 'deny_reviews',
+					'id'      => $id,
+				),
+				$notification_link
+			);
+			// For security purpose when mark as read notification.
+			$notification_link = wp_nonce_url( $notification_link, 'mark-as-read-notification-' . $grp_id );
 
-			if ( 'string' == $format ) {
+			if ( 'string' === $format ) {
 				$return = sprintf( "<a href='%s' title='%s'>%s</a>", esc_url( $notification_link ), $notification_title, $notification_content );
 
 			} else {
@@ -375,19 +396,20 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 }
 
 /**
- * Actions performed to add notifications
+ * Actions performed to add notifications.
  *
- * @param  string $action Notification Action.
- * @param  int    $item_id Group ID.
- * @param  int    $secondary_item_id Review ID.
- * @param  int    $user_id Member ID.
- * @param  string $format Notification format ('string' for BP, 'array' for BuddyBoss).
- * @param  int    $id Notification ID.
- * @param  string $screen Notification screen context (BuddyBoss only).
+ * @param string $action            Notification Action.
+ * @param int    $item_id           Group ID.
+ * @param int    $secondary_item_id Review ID.
+ * @param int    $user_id           Member ID.
+ * @param string $format            Notification format ('string' for BP, 'array' for BuddyBoss).
+ * @param int    $id                Notification ID.
+ * @param string $screen            Notification screen context (BuddyBoss only).
+ * @return array|string|void Formatted notification.
  */
-function bp_group_review_format_notifications( $action, $item_id, $secondary_item_id, $user_id, $format = 'string', $id = 0, $screen = 'web' ) {	
-	
-	if ( bp_is_active( 'notifications' ) && bp_is_active( 'groups' ) && $action != 'bbp_new_reply' ) {
+function bp_group_review_format_notifications( $action, $item_id, $secondary_item_id, $user_id, $format = 'string', $id = 0, $screen = 'web' ) {
+
+	if ( bp_is_active( 'notifications' ) && bp_is_active( 'groups' ) && 'bbp_new_reply' !== $action ) {
 		switch ( $action ) {
 
 			case 'bgr_add_review_action':

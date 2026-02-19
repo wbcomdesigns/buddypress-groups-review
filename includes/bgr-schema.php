@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Legacy file name.
 /**
  * Schema.org Structured Data for Group Reviews.
  *
@@ -78,7 +78,7 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 
 			// Build group URL safely without relying on template globals.
 			if ( function_exists( 'bp_get_group_url' ) ) {
-				// BuddyPress 12.0+
+				// BuddyPress 12.0+ URL function.
 				$group_link = bp_get_group_url( $group );
 			} else {
 				// Fallback: build URL manually to avoid template dependency.
@@ -104,9 +104,9 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 
 					foreach ( $review_ratings as $rating ) {
 						$review_total += $rating;
-						$review_count++;
+						++$review_count;
 						$total_ratings += $rating;
-						$ratings_count++;
+						++$ratings_count;
 					}
 
 					$review_average = $review_count > 0 ? round( $review_total / $review_count, 1 ) : 0;
@@ -183,12 +183,12 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 
 			foreach ( $review_ratings as $rating ) {
 				$review_total += $rating;
-				$review_count++;
+				++$review_count;
 			}
 
 			$review_average = $review_count > 0 ? round( $review_total / $review_count, 1 ) : 0;
 
-			$output = '<div itemscope itemtype="https://schema.org/Review" style="display:none;">';
+			$output  = '<div itemscope itemtype="https://schema.org/Review" style="display:none;">';
 			$output .= '<span itemprop="name">' . esc_html( $review->post_title ) . '</span>';
 			$output .= '<span itemprop="author" itemscope itemtype="https://schema.org/Person">';
 			$output .= '<span itemprop="name">' . esc_html( $author_info ? $author_info->display_name : __( 'Anonymous', 'bp-group-reviews' ) ) . '</span>';

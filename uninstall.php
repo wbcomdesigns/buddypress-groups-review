@@ -38,7 +38,7 @@ if ( is_multisite() ) {
 	// Get all blog IDs.
 	$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
 
-	foreach ( $blog_ids as $blog_id ) {
+	foreach ( $blog_ids as $blog_id ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Iterating blog IDs for multisite cleanup.
 		switch_to_blog( $blog_id );
 		bgr_delete_plugin_data();
 		restore_current_blog();

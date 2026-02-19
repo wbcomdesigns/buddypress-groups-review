@@ -5,9 +5,11 @@ Tags: buddypress, groups
 Requires at least: 4.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 3.7.0
+Stable tag: 3.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+BuddyPress Group Reviews allows members to add group reviews and rate groups with multiple criteria.
 
 == Description ==
 
@@ -109,6 +111,11 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 8. Review submission at single group.(png|jpg|jpeg|gif).
 
 == Changelog ==
+
+= 3.7.1 =
+* Fixed: WordPress Coding Standards compliance across all PHP files
+* Fixed: Added direct file access protection to all PHP files
+* Fixed: Plugin Check compatibility improvements
 
 = 3.7.0 =
 * New: Group-Level Review Criteria - Group admins can now customize review criteria for their specific groups

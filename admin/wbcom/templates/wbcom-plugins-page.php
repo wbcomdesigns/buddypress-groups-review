@@ -1,3 +1,14 @@
+<?php
+/**
+ * Wbcom plugins page template.
+ *
+ * @package Buddypress_Groups_Review
+ */
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
+?>
 <div class="wrap">
 	<div class="wbcom-bb-plugins-offer-wrapper">
 		<div id="wb_admin_logo">

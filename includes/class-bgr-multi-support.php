@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Legacy file name.
 /**
  * The frontend-specific functionality of the plugin.
  *
@@ -8,6 +8,9 @@
  * @package    Buddypress_Group_Review
  * @subpackage Buddypress_Group_Review/includes
  */
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
  * The frontend-specific functionality of the plugin.
@@ -42,7 +45,7 @@ class Buddypress_Group_Review_Multi_Support {
 	/**
 	 * The single instance of the class.
 	 *
-	 * @var Buddypress_Group_Review_Multi_Support
+	 * @var Buddypress_Group_Review_Multi_Support|null
 	 * @since 1.0.0
 	 */
 	protected static $instance = null;
@@ -54,11 +57,10 @@ class Buddypress_Group_Review_Multi_Support {
 	 *
 	 * @since 1.0.0
 	 * @static
-	 * @see instantiateb_Buddypress_Group_Review()
-	 * @return Buddypress_Group_Review_Multi_Support - Main instance.
+	 * @return Buddypress_Group_Review_Multi_Support Main instance.
 	 */
 	public static function instance() {
-        
+
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 		}
@@ -70,7 +72,7 @@ class Buddypress_Group_Review_Multi_Support {
 	 *
 	 * @since  1.0.0
 	 */
-	public function __construct() { 
+	public function __construct() {
 		$this->init_hooks();
 	}
 
@@ -79,91 +81,85 @@ class Buddypress_Group_Review_Multi_Support {
 	 *
 	 * @since  1.0.0
 	 */
-	private function init_hooks() {         
-        add_action( 'admin_init', array( $this, 'bp_group_review_multisite_activation' ) );
+	private function init_hooks() {
+		add_action( 'admin_init', array( $this, 'bp_group_review_multisite_activation' ) );
 	}
 
-    /**
-     * Check if the BuddyPress Group Reviews plugin should be active on the current subsite.
-     */
-    public function bp_group_review_multisite_activation() {        
-        // Ensure this is a multisite installation
-        if ( ! is_multisite() ) {
-            return;
-        }
-        
-        $deactivate = false;
-        // If we're in the network admin, check for network-wide BuddyPress activation
-        if ( is_network_admin() ) {
-            if ( ! is_plugin_active_for_network( 'buddypress/bp-loader.php' ) ) {
-                // BuddyPress is not network-activated, deactivate the plugin
-                $deactivate = true;
-                add_action( 'network_admin_notices',  array( $this, 'bp_group_review_show_buddypress_root_blog_notice' ) );
-            }
-        } else {
-            // Check if BP_ROOT_BLOG is defined
-            if ( defined( 'BP_ROOT_BLOG' ) && get_current_blog_id() != BP_ROOT_BLOG ) {			
-                    // This subsite is not the one defined by BP_ROOT_BLOG, deactivate plugin
-                    $deactivate = true;
-                    add_action( 'admin_notices',  array( $this, 'bp_group_review_show_bp_root_blog_notice' ) );
-            } else {			
-                // BP_ROOT_BLOG is not defined, so only activate on the main site
-                if ( ! is_main_site() && ! is_plugin_active( 'buddypress/bp-loader.php' ) ) {
-                    // BuddyPress is not active on this subsite, deactivate the plugin
-                    $deactivate = true;
-                    add_action( 'admin_notices',  array( $this, 'bp_group_review_show_buddypress_required_notice' ) );
-                }
-            }
-        }
+	/**
+	 * Check if the BuddyPress Group Reviews plugin should be active on the current subsite.
+	 */
+	public function bp_group_review_multisite_activation() {
+		// Ensure this is a multisite installation.
+		if ( ! is_multisite() ) {
+			return;
+		}
 
-        // Deactivate the plugin if necessary
-        if ( $deactivate ) {
-            deactivate_plugins( plugin_basename( __FILE__ ) );
-            if ( isset( $_GET['activate'] ) ) {
-                unset( $_GET['activate'] );
-            }
-        }
-    }
+		$deactivate = false;
+		// If we're in the network admin, check for network-wide BuddyPress activation.
+		if ( is_network_admin() ) {
+			if ( ! is_plugin_active_for_network( 'buddypress/bp-loader.php' ) ) {
+				// BuddyPress is not network-activated, deactivate the plugin.
+				$deactivate = true;
+				add_action( 'network_admin_notices', array( $this, 'bp_group_review_show_buddypress_root_blog_notice' ) );
+			}
+		} elseif ( defined( 'BP_ROOT_BLOG' ) && get_current_blog_id() !== (int) BP_ROOT_BLOG ) {
+			// This subsite is not the one defined by BP_ROOT_BLOG, deactivate plugin.
+			$deactivate = true;
+			add_action( 'admin_notices', array( $this, 'bp_group_review_show_bp_root_blog_notice' ) );
+		} elseif ( ! is_main_site() && ! is_plugin_active( 'buddypress/bp-loader.php' ) ) {
+			// BuddyPress is not active on this subsite, deactivate the plugin.
+			$deactivate = true;
+			add_action( 'admin_notices', array( $this, 'bp_group_review_show_buddypress_required_notice' ) );
+		}
 
-    /**
-     * Admin notice when BP_ROOT_BLOG is defined and the plugin is activated on the wrong subsite.
-     */
-   public function bp_group_review_show_bp_root_blog_notice() {    
-        echo '<div class="error"><p>';
-        printf(
-            // Translators: %s.
-            esc_html__( '%1$s is only active on the subsite defined by BP_ROOT_BLOG.', 'bp-group-reviews' ),
-            '<strong>' . esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' ) . '</strong>'
-        );
-        echo '</p></div>';
-    }
+		// Deactivate the plugin if necessary.
+		if ( $deactivate ) {
+			deactivate_plugins( plugin_basename( __FILE__ ) );
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Checking activate GET param for WP plugin activation flow.
+			if ( isset( $_GET['activate'] ) ) {
+				unset( $_GET['activate'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			}
+		}
+	}
 
-    /**
-     * Show admin notice to inform the user that BuddyPress Group Reviews can only be activated on the BuddyPress root blog.
-     */
-    public function bp_group_review_show_buddypress_root_blog_notice() {   
-        echo '<div class="error"><p>';
-        printf(
-            // Translators: %s.
-            esc_html__( '%1$s can only be activated on the BuddyPress root blog.', 'bp-group-reviews' ),
-            '<strong>' . esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' ) . '</strong>'
-        );
-        echo '</p></div>';
-    }
+	/**
+	 * Admin notice when BP_ROOT_BLOG is defined and the plugin is activated on the wrong subsite.
+	 */
+	public function bp_group_review_show_bp_root_blog_notice() {
+		echo '<div class="error"><p>';
+		printf(
+			/* translators: %1$s: Plugin name. */
+			esc_html__( '%1$s is only active on the subsite defined by BP_ROOT_BLOG.', 'bp-group-reviews' ),
+			'<strong>' . esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' ) . '</strong>'
+		);
+		echo '</p></div>';
+	}
 
-    /**
-     * Show admin notice to inform the user that BuddyPress is required for the BuddyPress Group Reviews plugin.
-     */
-    public function bp_group_review_show_buddypress_required_notice() {    
-        echo '<div class="error"><p>';
-        printf(
-            // Translators: %s.
-            esc_html__( '%1$s requires BuddyPress to be active on this subsite. The plugin has been deactivated.', 'bp-group-reviews' ),
-            '<strong>' . esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' ) . '</strong>'
-        );
-        echo '</p></div>';
-    }
+	/**
+	 * Show admin notice to inform the user that BuddyPress Group Reviews can only be activated on the BuddyPress root blog.
+	 */
+	public function bp_group_review_show_buddypress_root_blog_notice() {
+		echo '<div class="error"><p>';
+		printf(
+			/* translators: %1$s: Plugin name. */
+			esc_html__( '%1$s can only be activated on the BuddyPress root blog.', 'bp-group-reviews' ),
+			'<strong>' . esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' ) . '</strong>'
+		);
+		echo '</p></div>';
+	}
 
+	/**
+	 * Show admin notice to inform the user that BuddyPress is required for the BuddyPress Group Reviews plugin.
+	 */
+	public function bp_group_review_show_buddypress_required_notice() {
+		echo '<div class="error"><p>';
+		printf(
+			/* translators: %1$s: Plugin name. */
+			esc_html__( '%1$s requires BuddyPress to be active on this subsite. The plugin has been deactivated.', 'bp-group-reviews' ),
+			'<strong>' . esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' ) . '</strong>'
+		);
+		echo '</p></div>';
+	}
 }
 
 /**

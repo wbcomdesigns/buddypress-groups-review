@@ -9,6 +9,9 @@
  * @subpackage BuddyPress_Group_Review/includes
  */
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Group Review Plugin Global Variables
  *
