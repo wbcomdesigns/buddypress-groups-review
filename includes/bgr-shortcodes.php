@@ -29,7 +29,8 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			 *  @author  Wbcom Designs
 			 */
 		public function __construct() {
-			add_shortcode( 'add_group_review_form', array( $this, 'bp_group_review_add_new_review' ), 999 );
+			add_shortcode( 'add_group_review_form', array( $this, 'bp_group_review_add_new_review' ) );
+			add_shortcode( 'bgr_display_top_groups', array( $this, 'bp_group_review_leaderboard' ) );
 		}
 
 			/**
@@ -282,6 +283,262 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				<?php
 			}
 		}
+
+	/**
+	 * Display group leaderboard shortcode [bgr_display_top_groups].
+	 *
+	 * Only groups that have at least one published review are included.
+	 *
+	 * Attributes:
+	 *   title        - heading text (default '')
+	 *   total_groups - number of groups to show (default 10)
+	 *   type         - 'top rated'     : highest avg_rating first, review_count as tiebreaker
+	 *                  'most reviewed' : highest review_count first, avg_rating as tiebreaker
+	 *                  'members'       : highest member_count first
+	 *                  (default 'top rated')
+	 *   show_avatar  - 'true' | 'false' (default 'true')
+	 *   show_rating  - 'true' | 'false' (default 'true')
+	 *
+	 * Usage example:
+	 *   [bgr_display_top_groups title="Most Reviewed" total_groups="10" type="top rated"]
+	 *
+	 * @since   3.7.0
+	 * @author  Wbcom Designs
+	 * @param   array $atts Shortcode attributes.
+	 * @return  string HTML output.
+	 */
+	public function bp_group_review_leaderboard( $atts ) {
+		global $wpdb;
+
+		$atts = shortcode_atts(
+			array(
+				'title'        => '',
+				'total_groups' => 10,
+				'type'         => 'top rated',
+				'show_avatar'  => 'true',
+				'show_rating'  => 'true',
+			),
+			$atts
+		);
+
+		$title        = sanitize_text_field( $atts['title'] );
+		$total_groups = absint( $atts['total_groups'] );
+		$type         = sanitize_text_field( $atts['type'] );
+		$show_avatar  = filter_var( $atts['show_avatar'], FILTER_VALIDATE_BOOLEAN );
+		$show_rating  = filter_var( $atts['show_rating'], FILTER_VALIDATE_BOOLEAN );
+
+		// 'top rated' requires PHP re-ranking by avg_rating after the SQL fetch,
+		// so pull a larger pool up-front to ensure the final top-N is accurate.
+		// avg_rating is calculated in PHP because review_star_rating is stored as
+		// a PHP-serialized array and cannot be averaged directly in SQL.
+		if ( 'top rated' === $type ) {
+			$fetch_limit  = max( $total_groups * 5, 50 );
+			$order_clause = 'review_count DESC';
+		} elseif ( 'members' === $type ) {
+			$fetch_limit  = $total_groups;
+			$order_clause = 'member_count DESC';
+		} else {
+			// 'most reviewed' — SQL ORDER BY review_count is already correct.
+			$fetch_limit  = $total_groups;
+			$order_clause = 'review_count DESC';
+		}
+
+		// INNER JOIN on posts/postmeta ensures only groups with at least one
+		// published review are returned — groups with zero reviews are excluded.
+		// ORDER BY clause is hardcoded from the switch above — safe to interpolate.
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$groups = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT g.id, g.name, g.slug,
+					COUNT(DISTINCT r.ID)      AS review_count,
+					COUNT(DISTINCT m.user_id) AS member_count
+				FROM {$wpdb->prefix}bp_groups g
+				INNER JOIN {$wpdb->postmeta} pm
+					ON g.id = CAST(pm.meta_value AS UNSIGNED)
+					AND pm.meta_key = 'linked_group'
+				INNER JOIN {$wpdb->posts} r
+					ON pm.post_id = r.ID
+					AND r.post_type = 'review'
+					AND r.post_status = 'publish'
+				LEFT JOIN {$wpdb->prefix}bp_groups_members m
+					ON g.id = m.group_id
+					AND m.is_banned = 0
+				WHERE g.status = 'public'
+				GROUP BY g.id, g.name, g.slug
+				ORDER BY {$order_clause}
+				LIMIT %d",
+				$fetch_limit
+			)
+		);
+		// phpcs:enable
+
+		if ( empty( $groups ) ) {
+			return '<p>' . esc_html__( 'No groups found.', 'bp-group-reviews' ) . '</p>';
+		}
+
+		// --- Calculate avg_rating in PHP ---
+		// Batch-fetch all review IDs for the returned groups in one query,
+		// then read post meta to avoid N+1 queries.
+		$group_ids    = array_map( 'intval', wp_list_pluck( $groups, 'id' ) );
+		$placeholders = implode( ',', array_fill( 0, count( $group_ids ), '%d' ) );
+
+		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
+		$review_rows = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT pm.meta_value AS group_id, r.ID AS review_id
+				FROM {$wpdb->postmeta} pm
+				JOIN {$wpdb->posts} r ON pm.post_id = r.ID
+				WHERE pm.meta_key = 'linked_group'
+				AND pm.meta_value IN ($placeholders)
+				AND r.post_type = 'review'
+				AND r.post_status = 'publish'",
+				...$group_ids
+			)
+		);
+		// phpcs:enable
+
+		// Index review IDs by group ID.
+		$reviews_by_group = array();
+		foreach ( $review_rows as $row ) {
+			$reviews_by_group[ (int) $row->group_id ][] = (int) $row->review_id;
+		}
+
+		// Calculate per-group average using the same logic as bgr-filters.php.
+		$avg_by_group = array();
+		foreach ( $reviews_by_group as $gid => $review_ids ) {
+			$ttl_rating    = 0;
+			$reviews_count = 0;
+			foreach ( $review_ids as $review_id ) {
+				$review_ratings = get_post_meta( $review_id, 'review_star_rating', false );
+				if ( ! empty( $review_ratings[0] ) && is_array( $review_ratings[0] ) ) {
+					$rate        = 0;
+					$field_count = count( $review_ratings[0] );
+					foreach ( $review_ratings[0] as $value ) {
+						$rate += (int) $value;
+					}
+					if ( $field_count > 0 ) {
+						++$reviews_count;
+						$ttl_rating += $rate / $field_count;
+					}
+				}
+			}
+			$avg_by_group[ $gid ] = $reviews_count > 0 ? round( $ttl_rating / $reviews_count, 2 ) : 0;
+		}
+
+		// Attach avg_rating to each group object.
+		foreach ( $groups as $group ) {
+			$group->avg_rating = isset( $avg_by_group[ (int) $group->id ] ) ? $avg_by_group[ (int) $group->id ] : 0;
+		}
+
+		// Final PHP sort and trim to $total_groups.
+		// 'top rated'    : primary avg_rating DESC, secondary review_count DESC.
+		// 'most reviewed': primary review_count DESC, secondary avg_rating DESC.
+		// 'members'      : SQL already ordered by member_count — no re-sort needed.
+		if ( 'top rated' === $type ) {
+			usort(
+				$groups,
+				function ( $a, $b ) {
+					if ( $b->avg_rating !== $a->avg_rating ) {
+						return $b->avg_rating <=> $a->avg_rating;
+					}
+					return (int) $b->review_count <=> (int) $a->review_count;
+				}
+			);
+		} elseif ( 'most reviewed' === $type ) {
+			usort(
+				$groups,
+				function ( $a, $b ) {
+					if ( (int) $b->review_count !== (int) $a->review_count ) {
+						return (int) $b->review_count <=> (int) $a->review_count;
+					}
+					return $b->avg_rating <=> $a->avg_rating;
+				}
+			);
+		}
+		$groups = array_slice( $groups, 0, $total_groups );
+
+		// --- Build HTML output ---
+		$output  = '<div class="bgr-group-leaderboard">';
+		$output .= '<div class="bgr-leaderboard-header">';
+		if ( ! empty( $title ) ) {
+			$output .= '<h2>' . esc_html( $title ) . '</h2>';
+		}
+		$output .= '</div>';
+		$output .= '<div class="bgr-leaderboard-list">';
+
+		foreach ( $groups as $group ) {
+			$group_url    = bp_get_group_permalink( $group );
+			$group_avatar = bp_core_fetch_avatar(
+				array(
+					'item_id'    => $group->id,
+					'object'     => 'group',
+					'type'       => 'thumb',
+					'avatar_dir' => 'group-avatars',
+					'width'      => 50,
+					'height'     => 50,
+					'alt'        => $group->name,
+				)
+			);
+
+			$output .= '<div class="bgr-leaderboard-item">';
+
+			if ( $show_avatar ) {
+				$output .= '<div class="bgr-item-avatar">';
+				$output .= '<a href="' . esc_url( $group_url ) . '">' . $group_avatar . '</a>';
+				$output .= '</div>';
+			}
+
+			$output .= '<div class="bgr-item-info">';
+			$output .= '<div class="bgr-item-name">';
+			$output .= '<a href="' . esc_url( $group_url ) . '">' . esc_html( $group->name ) . '</a>';
+			$output .= '</div>';
+
+			if ( $show_rating ) {
+				$rating     = $group->avg_rating;
+				$stars_on   = intval( $rating );
+				$remaining  = $rating - $stars_on;
+				$stars_half = ( $remaining > 0 ) ? 1 : 0;
+				$stars_off  = 5 - ( $stars_on + $stars_half );
+
+				$output .= '<div class="bgr-item-stats">';
+				$output .= '<div class="bgr-rating"><span class="bgr-stars">';
+				for ( $i = 1; $i <= $stars_on; $i++ ) {
+					$output .= '<span class="fas fa-star bgr-star-rate"></span>';
+				}
+				if ( $stars_half ) {
+					$output .= '<span class="fas fa-star-half-alt bgr-star-rate"></span>';
+				}
+				for ( $i = 1; $i <= $stars_off; $i++ ) {
+					$output .= '<span class="far fa-star bgr-star-rate"></span>';
+				}
+				$output .= '</span>';
+				$output .= '<span class="bgr-rating-number">' . esc_html( round( $rating, 2 ) ) . '</span>';
+				$output .= '</div>';
+
+				$output .= '<div class="bgr-members">';
+				$output .= '<span class="bgr-member-count">' . esc_html( $group->review_count ) . '</span> ';
+				$output .= '<span class="bgr-member-label">' . esc_html__( 'reviews', 'bp-group-reviews' ) . '</span>';
+				$output .= '</div>';
+				$output .= '</div>'; // End bgr-item-stats
+			}
+
+			if ( $group->member_count > 0 ) {
+				$output .= '<div class="bgr-item-members">';
+				$output .= '<span class="bgr-members-label">' . esc_html__( 'Members:', 'bp-group-reviews' ) . '</span> ';
+				$output .= '<span class="bgr-members-count">' . esc_html( $group->member_count ) . '</span>';
+				$output .= '</div>';
+			}
+
+			$output .= '</div>'; // End bgr-item-info
+			$output .= '</div>'; // End bgr-leaderboard-item
+		}
+
+		$output .= '</div>'; // End bgr-leaderboard-list
+		$output .= '</div>'; // End bgr-group-leaderboard
+
+		return $output;
 	}
-	new BGR_Shortcodes();
+	}
+
+new BGR_Shortcodes();
 }
