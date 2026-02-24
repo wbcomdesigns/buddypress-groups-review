@@ -134,12 +134,20 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				$should_enqueue_ratings_css = true;
 			}
 
+			// Check for bgr_display_top_groups shortcode in post content.
+			$has_bgr_shortcode = false;
+			global $post;
+			if ( is_a( $post, 'WP_Post' ) && ( has_shortcode( $post->post_content, 'bgr_display_top_groups' ) || has_shortcode( $post->post_content, 'add_group_review_form' ) ) ) {
+				$has_bgr_shortcode          = true;
+				$should_enqueue_ratings_css = true;
+			}
+
 			if ( $should_enqueue_ratings_css ) {
 				wp_enqueue_style( 'bgr-ratings-css' );
 			}
 
 			// Only enqueue full scripts when BGR widgets are available.
-			if ( $this->bp_group_review_is_widget_active() ) {
+			if ( $this->bp_group_review_is_widget_active() || $has_bgr_shortcode ) {
 				// Replaced FontAwesome CDN with local CSS-based icon styles for WordPress.org compliance.
 				wp_register_style( 'bgr-icons', BGR_PLUGIN_URL . 'assets/css/bgr-icons.css', array(), BGR_PLUGIN_VERSION, 'all' );
 				wp_register_style( 'bgr-reviews-css', BGR_PLUGIN_URL . 'assets/css' . $style_path . '/bgr-reviews' . $style_extension, array(), BGR_PLUGIN_VERSION, 'all' );

@@ -145,15 +145,16 @@
     width: 70%;
 }
 
-.bgr-col-2.bgr-generic-button{
+.bgr-col-2.bgr-generic-button {
     padding-left: 20px;
 }
-.bgr-col-2.bgr-generic-button .bgr-col-12.generic-button{
+
+.bgr-col-2.bgr-generic-button .bgr-col-12.generic-button {
     float: right;
     padding: 10px 0 0;
 }
 
-.bgr-col-2.bgr-generic-button .bgr-col-12.generic-button a{
+.bgr-col-2.bgr-generic-button .bgr-col-12.generic-button a {
     width: 100%;
 }
 
@@ -215,7 +216,8 @@
         width: 100%;
         text-align: left;
     }
-    .bgr-col-2.bgr-generic-button{
+
+    .bgr-col-2.bgr-generic-button {
         padding-left: 0;
     }
 }
@@ -335,7 +337,7 @@
     margin: 0 5px;
 }
 
-div#add-review-groupbutton{
+div#add-review-groupbutton {
     margin: 0;
 }
 
@@ -361,6 +363,7 @@ div#add-review-groupbutton{
     align-items: center;
     gap: 8px;
 }
+
 #buddypress .groups-header #add-review-groupbutton,
 #buddypress #item-header #add-review-groupbutton {
     display: inline-flex !important;
@@ -371,12 +374,15 @@ div#add-review-groupbutton{
 .buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-group-header-ratings {
     padding: 0px;
 }
+
 .buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-header-row {
     text-align: left;
 }
+
 .buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-group-header-ratings {
     font-size: 16px;
 }
+
 .buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-star-rate {
     margin-right: 0;
 }
@@ -388,6 +394,7 @@ div#add-review-groupbutton{
     align-items: center;
     gap: 8px;
 }
+
 .buddyboss-theme .groups-header #add-review-groupbutton {
     display: inline-flex !important;
     position: relative !important;
@@ -395,12 +402,14 @@ div#add-review-groupbutton{
     right: auto !important;
     margin: 0 !important;
 }
+
 .buddyboss-theme div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton {
     top: auto !important;
     right: auto !important;
     margin: 0 !important;
     position: relative !important;
 }
+
 .buddyboss-theme .groups-header #item-header-content .generic-button .group-button {
     margin-right: 0;
     font-size: 13px !important;
@@ -411,22 +420,25 @@ div#add-review-groupbutton{
 .reign-nav-iconic .subnav li[id^="manage-"] a:before {
     content: "\f5c0" !important;
 }
-.wb-reign-theme #buddypress #item-header-content > .group-actions-absolute:not(#add-review-groupbutton),
-.wp-theme-buddyx-pro #buddypress #item-header-content > .group-actions-absolute:not(#add-review-groupbutton) {
+
+.wb-reign-theme #buddypress #item-header-content>.group-actions-absolute:not(#add-review-groupbutton),
+.wp-theme-buddyx-pro #buddypress #item-header-content>.group-actions-absolute:not(#add-review-groupbutton) {
     display: inline-flex !important;
     width: auto !important;
     flex-wrap: wrap;
     gap: 8px;
     align-items: center;
 }
-.wb-reign-theme #buddypress #item-header-content > #add-review-groupbutton,
-.wp-theme-buddyx-pro #buddypress #item-header-content > #add-review-groupbutton {
+
+.wb-reign-theme #buddypress #item-header-content>#add-review-groupbutton,
+.wp-theme-buddyx-pro #buddypress #item-header-content>#add-review-groupbutton {
     display: inline-flex !important;
     width: auto !important;
     margin-top: -38px !important;
     margin-left: 170px !important;
     align-self: flex-start !important;
 }
+
 .wb-reign-theme #buddypress #item-header-content #add-review-groupbutton a.group-button,
 .wp-theme-buddyx-pro #buddypress #item-header-content #add-review-groupbutton a.group-button {
     margin: 0;
@@ -443,6 +455,7 @@ div#add-review-groupbutton{
     align-items: center !important;
     gap: 8px;
 }
+
 .wb-reign-theme #buddypress #item-header-content .activity-meta.groups-meta.action #add-review-groupbutton a.group-button,
 .wp-theme-buddyx-pro #buddypress #item-header-content .activity-meta.groups-meta.action #add-review-groupbutton a.group-button {
     height: auto !important;
@@ -450,49 +463,156 @@ div#add-review-groupbutton{
 }
 
 /*This is work for the youzify only and it pass the varibale here for the youzify */
-.youzify-inner-content .youzify-head-content .group-button .group-button{ 
-   min-width: 150px;
-   font-weight: 600;
-   line-height: 24px;
-   padding: 12px 20px;
-   text-align: center;
-   display: inline-block;
-   height: initial;
-   letter-spacing: initial;
-   font-size: var(--yzfy-primary-font-size);
-   background-color: var(--yzfy-scheme-color) !important;
-   color: var(--yzfy-scheme-text-color) !important;
-   border-radius: 100px;
-   margin-top: 10px;
+.youzify-inner-content .youzify-head-content .group-button .group-button {
+    min-width: 150px;
+    font-weight: 600;
+    line-height: 24px;
+    padding: 12px 20px;
+    text-align: center;
+    display: inline-block;
+    height: initial;
+    letter-spacing: initial;
+    font-size: var(--yzfy-primary-font-size);
+    background-color: var(--yzfy-scheme-color) !important;
+    color: var(--yzfy-scheme-text-color) !important;
+    border-radius: 100px;
+    margin-top: 10px;
 }
 
 @media only screen and (max-width: 689px) {
     .bgr-group-header-ratings .rating-bgr {
         text-align: center;
     }
+
     .buddyboss-theme .bgr-group-header-ratings .rating-bgr {
         text-align: left;
     }
+
     .single-item.groups #cover-image-container div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton {
         text-align: center;
     }
-    .wb-reign-theme .wbtm-member-info-section div#item-header-content #add-review-groupbutton{
+
+    .wb-reign-theme .wbtm-member-info-section div#item-header-content #add-review-groupbutton {
         margin-top: 0 !important;
     }
+
     .wb-reign-theme .wbtm-member-info-section div#item-header-content #add-review-groupbutton a.group-button {
         font-size: 13px !important;
     }
+
     .wb-reign-theme.groups div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton {
-        margin-bottom:15px !important;
-    }   
-    .buddyboss-theme div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton{
+        margin-bottom: 15px !important;
+    }
+
+    .buddyboss-theme div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton {
         margin-top: 0 !important;
     }
 }
 
-.single-item.groups #nav-manage-review-groups-li{
-    display: none!important;
-}
-.single-item.groups #bp-group-edit-manage-review-submit{
+.single-item.groups #nav-manage-review-groups-li {
     display: none !important;
+}
+
+.single-item.groups #bp-group-edit-manage-review-submit {
+    display: none !important;
+}
+
+/* ========== Leaderboard List ========== */
+.bgr-leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.bgr-leaderboard-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.bgr-leaderboard-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.bgr-item-avatar img {
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.bgr-leaderboard-item:hover .bgr-item-avatar img {
+    transform: scale(1.05);
+}
+
+.bgr-item-info {
+    flex: 1;
+}
+
+.bgr-item-name a {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.bgr-item-name a:hover {
+    color: #4f46e5;
+}
+
+.bgr-leaderboard-item .bgr-item-stats {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 6px;
+    font-size: 14px;
+}
+
+.bgr-item-stats .bgr-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.bgr-rating-number {
+    font-weight: 600;
+    color: #111;
+}
+
+.bgr-members {
+    font-size: 13px;
+    color: #777;
+}
+
+.bgr-item-members {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #555;
+}
+
+.bgr-members-label {
+    font-weight: 500;
+    color: #888;
+}
+
+.bgr-members-count {
+    font-weight: 600;
+    color: #111;
+}
+
+@media (max-width: 768px) {
+    .bgr-leaderboard-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
