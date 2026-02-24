@@ -4,6 +4,35 @@
 * This section includes div width for design front-end review ,manage review page.
 */
 
+:root {
+    --bgr-border-color: #ddd;
+    --bgr-text-primary: #1a1a1a;
+    --bgr-text-secondary: #777;
+    --bgr-text-muted: #888;
+    --bgr-link-color: #4f46e5;
+    --bgr-success-bg: #DFF2BF;
+    --bgr-success-border: #cb2;
+    --bgr-success-text: #4F8A10;
+    --bgr-error-color: #e63946;
+    --bgr-bg-light: #f0f0f0;
+    --bgr-bg-white: #ffffff;
+    --bgr-bg-offset: #f5f5f5;
+    --bgr-approve-bg: #ebf9eb;
+}
+
+/* Dark theme support - Theme Variables with Fallbacks */
+html.dark-mode,
+body.dark-scheme {
+	--bgr-text-primary: var(--reign-site-headings-color, var(--global-title-color, #1a1a1a));
+	--bgr-text-secondary: var(--reign-site-body-text-color, var(--global-font-color, #777));
+	--bgr-text-muted: var(--reign-site-alternate-text-color, var(--color-meta, #888888));
+	--bgr-border-color: var(--reign-site-border-color, var(--global-border-color, #ddd));
+	--bgr-bg-light: var(--reign-site-secondary-bg-color, var(--global-body-lightcolor, #3d3d3d));
+	--bgr-bg-white: var(--reign-site-sections-bg-color, var(--color-theme-white-box, #1a1a1a));
+	--bgr-bg-offset: var(--reign-site-sections-bg-color, var(--color-theme-white-box, #f5f5f5));
+	--bgr-approve-bg: var(--reign-site-secondary-bg-color, var(--global-body-lightcolor, #ebf9eb));
+}
+
 [class*="bgr-col-"] {
     float: right;
     padding: 10px 0;
@@ -11,7 +40,7 @@
 
 .bgr-row {
     clear: both;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--bgr-border-color, #ddd);
     overflow: hidden;
     padding-bottom: 5px;
 }
@@ -122,9 +151,9 @@
     font-size: 1.12rem;
     font-weight: 700;
     text-decoration: none;
-    border: 1px solid #cb2;
-    color: #4F8A10;
-    background-color: #DFF2BF;
+    border: 1px solid var(--bgr-success-border, #cb2);
+    color: var(--bgr-success-text, #4F8A10);
+    background-color: var(--bgr-success-bg, #DFF2BF);
     padding: 15px;
 }
 
@@ -243,7 +272,7 @@
 
 .bgr-error-fields {
     font-size: 0.85rem;
-    color: #e63946;
+    color: var(--bgr-error-color, #e63946);
     margin-top: 5px;
     display: none;
     float: right;
@@ -287,7 +316,7 @@
 }
 
 .approve-message {
-    background: #ebf9eb;
+    background: var(--bgr-approve-bg, #ebf9eb);
     border: 1px solid green;
     border-radius: 0;
     margin-bottom: 20px;
@@ -530,7 +559,7 @@ div#add-review-groupbutton {
     gap: 20px;
     padding: 20px;
     border-radius: 16px;
-    background: #ffffff;
+    background: var(--bgr-bg-white, #ffffff);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
     position: relative;
@@ -560,13 +589,13 @@ div#add-review-groupbutton {
 .bgr-item-name a {
     font-size: 18px;
     font-weight: 600;
-    color: #1a1a1a;
+    color: var(--bgr-text-primary, #1a1a1a);
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .bgr-item-name a:hover {
-    color: #4f46e5;
+    color: var(--bgr-link-color, #4f46e5);
 }
 
 .bgr-leaderboard-item .bgr-item-stats {
@@ -586,12 +615,12 @@ div#add-review-groupbutton {
 
 .bgr-rating-number {
     font-weight: 600;
-    color: #111;
+    color: var(--bgr-text-primary, #111);
 }
 
 .bgr-members {
     font-size: 13px;
-    color: #777;
+    color: var(--bgr-text-secondary, #777);
 }
 
 .bgr-item-members {
@@ -602,12 +631,12 @@ div#add-review-groupbutton {
 
 .bgr-members-label {
     font-weight: 500;
-    color: #888;
+    color: var(--bgr-text-muted, #888);
 }
 
 .bgr-members-count {
     font-weight: 600;
-    color: #111;
+    color: var(--bgr-text-primary, #111);
 }
 
 @media (max-width: 768px) {

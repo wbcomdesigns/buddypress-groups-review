@@ -4,12 +4,22 @@
 * This section includes div width for design front-end review ,manage review page.
 */
 
+:root {
+    --bgr-bg-white: #fff;
+}
+
+/* Dark theme support - Theme Variables with Fallbacks */
+html.dark-mode,
+body.dark-scheme {
+	--bgr-bg-white: var(--reign-site-sections-bg-color, var(--color-theme-white-box, #1a1a1a));
+}
+
 .bgr-bars {
 	display: block;
 	width: 30px;
 	height: 8px;
 	float: right;
-	background-color: #fff;
+	background-color: var(--bgr-bg-white, #fff);
 	margin: 1px;
 }
 
@@ -26,7 +36,7 @@
 	width: 30px;
 	height: 8px;
 	float: right;
-	background-color: #fff;
+	background-color: var(--bgr-bg-white, #fff);
 	margin: 1px;
 }
 
@@ -45,7 +55,7 @@
 	width: 25px;
 	height: 25px;
 	float: right;
-	background-color: #fff;
+	background-color: var(--bgr-bg-white, #fff);
 	margin: 2px;
 	text-decoration: none;
 	font-size: 12px;
@@ -59,7 +69,7 @@
 	width: 25px;
 	height: 25px;
 	float: right;
-	background-color: white;
+	background-color: var(--bgr-bg-white, white);
 	margin: 2px;
 	text-decoration: none;
 	font-size: 12px;
@@ -79,7 +89,7 @@
 	line-height: 2;
 	text-align: center;
 	font-weight: 600;
-	color: #fff;
+	color: var(--bgr-bg-white, #fff);
 }
 
 /*# sourceMappingURL=bgr-ratings.rtl.css.map */

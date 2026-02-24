@@ -4,6 +4,28 @@
 * This section includes css for front-end review content.
 */
 
+:root {
+    --bgr-border-color: #ddd;
+    --bgr-border-light: #eee;
+    --bgr-text-dark: #000;
+    --bgr-text-light: #fff;
+    --bgr-text-muted: #888;
+    --bgr-bg-white: #fff;
+    --bgr-bg-light: #f5f5f5;
+    --bgr-modal-overlay: rgba(0, 0, 0, 0.4);
+    --bgr-focus-color: #3b82f6;
+    --bgr-primary-color: #0073aa;
+}
+
+/* Dark theme support - Theme Variables with Fallbacks */
+html.dark-mode,
+body.dark-scheme {
+	--bgr-text-muted: var(--reign-site-alternate-text-color, var(--color-meta, #888888));
+	--bgr-border-color: var(--reign-site-border-color, var(--global-border-color, #ddd));
+	--bgr-bg-light: var(--reign-site-secondary-bg-color, var(--global-body-lightcolor, #3d3d3d));
+	--bgr-bg-white: var(--reign-site-sections-bg-color, var(--color-theme-white-box, #1a1a1a));
+}
+
 #group-reviews-list,
 .group-add-form textarea,
 .group-add-form input,
@@ -43,7 +65,7 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: var(--bgr-modal-overlay, rgba(0, 0, 0, 0.4));
     z-index: 9999;
 }
 
@@ -52,10 +74,10 @@
 
 .modal-content {
     position: relative;
-    background-color: #fefefe;
+    background-color: var(--bgr-bg-white, #fefefe);
     margin: auto;
     padding: 0;
-    border: 1px solid #888;
+    border: 1px solid var(--bgr-text-muted, #888);
     width: 26%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -webkit-animation-name: animatetop;
@@ -103,7 +125,7 @@
 /* The Close Button */
 
 .close {
-    color: white;
+    color: var(--bgr-text-light, white);
     float: left;
     font-size: 28px;
     font-weight: bold;
@@ -113,15 +135,15 @@
 
 .close:hover,
 .close:focus {
-    color: #000;
+    color: var(--bgr-text-dark, #000);
     text-decoration: none;
     cursor: pointer;
 }
 
 .modal-header {
     padding: 19px 24px 6px 0;
-    background-color: #c5c5c5;
-    color: white;
+    background-color: var(--bgr-text-muted, #c5c5c5);
+    color: var(--bgr-text-light, white);
     position: relative;
 }
 
@@ -200,7 +222,7 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
 
 .group-add-form,
 .bgr-group-reviews-block {
-    background: #fff;
+    background: var(--bgr-bg-white, #fff);
     margin-top: 15px;
     padding: 15px;
 }
@@ -218,7 +240,7 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
 }
 
 .bgr-group-review-no-popup-add-block .review_desc:focus {
-    border-color: #3b82f6;
+    border-color: var(--bgr-focus-color, #3b82f6);
     box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
     outline: none;
 }
@@ -251,10 +273,10 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
 .bp-nouveau .bgr-row {
     margin-bottom: 20px;
     padding: 15px;
-    background: #fff;
+    background: var(--bgr-bg-white, #fff);
     border-radius: 8px !important;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05);
-    border: 1px solid #eee;
+    border: 1px solid var(--bgr-border-light, #eee);
 }
 
 .group-request-list [class*=bgr-col-] {
@@ -455,9 +477,9 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
 
 .bgr-reviews-sorting select {
     padding: 6px 12px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--bgr-border-color, #ddd);
     border-radius: 4px;
-    background-color: #fff;
+    background-color: var(--bgr-bg-white, #fff);
     cursor: pointer;
     min-width: 150px;
 }
@@ -479,18 +501,18 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
     padding: 8px 12px;
     margin: 0 2px;
     text-decoration: none;
-    border: 1px solid #ddd;
+    border: 1px solid var(--bgr-border-color, #ddd);
     border-radius: 4px;
-    background-color: #fff;
+    background-color: var(--bgr-bg-white, #fff);
 }
 
 .review-pagination .page-numbers.current {
-    background-color: #0073aa;
-    color: #fff;
-    border-color: #0073aa;
+    background-color: var(--bgr-primary-color, #0073aa);
+    color: var(--bgr-text-light, #fff);
+    border-color: var(--bgr-primary-color, #0073aa);
 }
 
 .review-pagination .page-numbers:hover:not(.current) {
-    background-color: #f5f5f5;
+    background-color: var(--bgr-bg-light, #f5f5f5);
 }
 /*# sourceMappingURL=bgr-reviews.rtl.css.map */
