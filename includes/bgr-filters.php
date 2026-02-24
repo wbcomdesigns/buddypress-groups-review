@@ -919,7 +919,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						bp_core_new_subnav_item(
 							array(
 								/* translators: %s: review label (e.g., "Review") */
-								'name'            => sprintf( __( 'Adds %s', 'bp-group-reviews' ), $add_review_label ),
+								'name'            => sprintf( __( 'Add %s', 'bp-group-reviews' ), $add_review_label ),
 								'slug'            => 'add-' . bp_group_review_tab_slug(),
 								'parent_slug'     => $bp->groups->current_group->slug,
 								'parent_url'      => $gp_parent_url,
