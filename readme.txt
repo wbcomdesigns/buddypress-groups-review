@@ -5,7 +5,7 @@ Tags: buddypress, groups
 Requires at least: 4.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 3.7.1
+Stable tag: 3.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -112,10 +112,16 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 
 == Changelog ==
 
-= 3.7.1 =
+= 3.8.0 =
+* New: Group leaderboard shortcode [bgr_group_leaderboard]
+* Improved: Leaderboard shortcode listing UI
+* Improved: CSS variables with fallback values for better theme compatibility
+* Updated: Review tab label customization
+* Updated: Documentation links
 * Fixed: WordPress Coding Standards compliance across all PHP files
 * Fixed: Added direct file access protection to all PHP files
 * Fixed: Plugin Check compatibility improvements
+* Removed: Distribution zip from repository
 
 = 3.7.0 =
 * New: Group-Level Review Criteria - Group admins can now customize review criteria for their specific groups
