@@ -142,32 +142,25 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 */
 		public function get_group_review_count( $group_id ) {
 			$group_id      = absint( $group_id );
-			$transient_key = 'bgr_review_count_' . $group_id;
-
-			// Try to get cached count.
-			$count = get_transient( $transient_key );
-
-			if ( false === $count ) {
-				// Cache miss - query the database.
-				global $wpdb;
-
-				// Use direct query for better performance (avoids loading full post objects).
-				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Caching via transient.
-				$count = (int) $wpdb->get_var(
-					$wpdb->prepare(
-						"SELECT COUNT(p.ID) FROM {$wpdb->posts} p
-						INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
-						WHERE p.post_type = 'review'
-						AND p.post_status = 'publish'
-						AND pm.meta_key = 'linked_group'
-						AND pm.meta_value = %d",
-						$group_id
-					)
-				);
-
-				// Cache for 1 hour (will be invalidated when reviews change).
-				set_transient( $transient_key, $count, HOUR_IN_SECONDS );
+			
+			if( empty( $group_id ) ) {
+				return 0;
 			}
+
+			global $wpdb;
+			
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Caching via transient.
+			$count = (int) $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT COUNT(p.ID) FROM {$wpdb->posts} p
+					INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
+					WHERE p.post_type = 'review'
+					AND p.post_status = 'publish'
+					AND pm.meta_key = 'linked_group'
+					AND pm.meta_value = %d",
+					$group_id
+				)
+			);
 
 			return (int) $count;
 		}
@@ -796,31 +789,13 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			if ( bp_is_group_single() ) {
 				global $bp;
 				global $bgr;
-				global $post, $wpdb;
 				$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
 				$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
 				$review_label               = isset( $bgr['manage_review_label'] ) ? $bgr['manage_review_label'] : '';
 				$add_review_label           = ! empty( $bgr_admin_display_settings ) ? bp_group_review_add_review_tab_name() : esc_html__( 'Review', 'bp-group-reviews' );
 
-				$args = array(
-					'category'    => 'group',
-					'orderby'     => 'post_date',
-					'order'       => 'DESC',
-					'meta_key'    => 'linked_group',
-					'meta_value'  => $bp->groups->current_group->id,
-					'post_type'   => 'review',
-					'post_status' => 'publish',
-				);
+				$post_count = $this->get_group_review_count( $bp->groups->current_group->id );
 
-				$post_count   = 0;
-				$recent_posts = wp_get_recent_posts( $args );
-				if ( ! empty( $recent_posts ) ) :
-					foreach ( $recent_posts as $recent ) {
-						++$post_count;
-					}
-				endif;
-				wp_reset_postdata(); // Reset post data after custom query.
-				$user               = bp_get_loggedin_user_username();
 				$count_notification = '<span>' . $post_count . '</span>';
 				// Build group URL safely for both BuddyPress and BuddyBoss.
 				if ( function_exists( 'bp_get_group_url' ) ) {
@@ -1040,7 +1015,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				$user_id = $args[0];
 			}
 			return $user_id;
-		}
 	}
-	new BGR_Custom_Hooks();
+}
+new BGR_Custom_Hooks();
 }
