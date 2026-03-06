@@ -286,6 +286,10 @@ body.dark-scheme {
     overflow: hidden;
 }
 
+.rating-bgr .rating-text {
+    margin-top: 5px;
+}
+
 .bgr-header-row {
     clear: both;
     padding-bottom: 5px;

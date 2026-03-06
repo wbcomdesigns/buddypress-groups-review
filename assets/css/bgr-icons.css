@@ -62,7 +62,6 @@
 	text-rendering: auto;
 	-webkit-font-smoothing: antialiased;
 	position: relative;
-	overflow: hidden;
 }
 
 .fas.fa-star-half-alt.stars::before,
@@ -80,9 +79,6 @@
 .fas.fa-star-half-alt.bgr-star-rate::after {
 	content: "\2606"; /* ☆ Unicode empty star */
 	font-size: 1.2em;
-	position: absolute;
-	right: 0;
-	width: 50%;
 	overflow: hidden;
 	/* Color is set via dynamic CSS from admin settings - do not hardcode here */
 }
