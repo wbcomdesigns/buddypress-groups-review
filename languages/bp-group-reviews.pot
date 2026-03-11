@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Wbcom Designs - BuddyPress Group Reviews 3.8.0\n"
+"Project-Id-Version: Wbcom Designs - BuddyPress Group Reviews 3.8.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/buddypress-groups-review\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-06T05:37:58+00:00\n"
+"POT-Creation-Date: 2026-03-11T09:19:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bp-group-reviews\n"
@@ -103,7 +103,7 @@ msgstr ""
 
 #: admin/bgr-admin.php:105
 #: admin/wbcom/templates/wbcom-license-page.php:20
-#: includes/bgr-filters.php:1023
+#: includes/bgr-filters.php:998
 msgid "BuddyPress Group Review"
 msgstr ""
 
@@ -139,8 +139,8 @@ msgstr ""
 
 #: admin/bgr-admin.php:150
 #: admin/review-admin-options-page.php:121
-#: includes/bgr-filters.php:453
-#: includes/bgr-filters.php:803
+#: includes/bgr-filters.php:446
+#: includes/bgr-filters.php:795
 #: includes/bgr-globals.php:95
 #: includes/bgr-globals.php:99
 #: includes/bgr-globals.php:149
@@ -491,7 +491,7 @@ msgstr ""
 
 #: admin/wbcom/templates/wbcom-license-page.php:40
 #: admin/wbcom/templates/wbcom-license-page.php:52
-#: includes/bgr-filters.php:669
+#: includes/bgr-filters.php:662
 msgid "Status"
 msgstr ""
 
@@ -1201,7 +1201,7 @@ msgstr ""
 #: includes/bgr-ajax.php:643
 #: includes/bgr-ajax.php:758
 #: includes/bgr-ajax.php:867
-#: includes/bgr-filters.php:633
+#: includes/bgr-filters.php:626
 #: includes/bgr-group-criteria-ajax.php:23
 #: includes/bgr-group-criteria-ajax.php:75
 #: includes/bgr-group-criteria-ajax.php:124
@@ -1455,28 +1455,28 @@ msgid "Last modified date."
 msgstr ""
 
 #. translators: %1$s is replaced with bp_group_review_add_review_tab_name()
-#: includes/bgr-filters.php:271
+#: includes/bgr-filters.php:264
 #, php-format
 msgid "Add %1$s"
 msgstr ""
 
-#: includes/bgr-filters.php:455
+#: includes/bgr-filters.php:448
 msgid "Rating "
 msgstr ""
 
-#: includes/bgr-filters.php:476
-#: includes/bgr-filters.php:762
+#: includes/bgr-filters.php:469
+#: includes/bgr-filters.php:755
 msgid "Approve"
 msgstr ""
 
-#: includes/bgr-filters.php:477
-#: includes/bgr-filters.php:767
+#: includes/bgr-filters.php:470
+#: includes/bgr-filters.php:760
 #: includes/bgr-grp-extn.php:216
 msgid "Deny"
 msgstr ""
 
 #. translators: %d: number of reviews
-#: includes/bgr-filters.php:563
+#: includes/bgr-filters.php:556
 #, php-format
 msgid "%d review approved."
 msgid_plural "%d reviews approved."
@@ -1484,83 +1484,83 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: number of reviews
-#: includes/bgr-filters.php:575
+#: includes/bgr-filters.php:568
 #, php-format
 msgid "%d review denied and moved to trash."
 msgid_plural "%d reviews denied and moved to trash."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/bgr-filters.php:612
+#: includes/bgr-filters.php:605
 msgid "Export to CSV"
 msgstr ""
 
-#: includes/bgr-filters.php:629
+#: includes/bgr-filters.php:622
 msgid "You do not have permission to export reviews."
 msgstr ""
 
-#: includes/bgr-filters.php:667
+#: includes/bgr-filters.php:660
 msgid "Review ID"
 msgstr ""
 
-#: includes/bgr-filters.php:668
+#: includes/bgr-filters.php:661
 msgid "Date"
 msgstr ""
 
-#: includes/bgr-filters.php:670
+#: includes/bgr-filters.php:663
 msgid "Reviewer"
 msgstr ""
 
-#: includes/bgr-filters.php:671
+#: includes/bgr-filters.php:664
 msgid "Reviewer Email"
 msgstr ""
 
-#: includes/bgr-filters.php:672
+#: includes/bgr-filters.php:665
 msgid "Group Name"
 msgstr ""
 
-#: includes/bgr-filters.php:673
+#: includes/bgr-filters.php:666
 msgid "Group ID"
 msgstr ""
 
-#: includes/bgr-filters.php:674
+#: includes/bgr-filters.php:667
 msgid "Review Content"
 msgstr ""
 
-#: includes/bgr-filters.php:675
+#: includes/bgr-filters.php:668
 msgid "Average Rating"
 msgstr ""
 
-#: includes/bgr-filters.php:680
+#: includes/bgr-filters.php:673
 #: includes/bgr-rating-display.php:181
 msgid "Rating"
 msgstr ""
 
-#: includes/bgr-filters.php:691
+#: includes/bgr-filters.php:684
 msgid "Unknown Group"
 msgstr ""
 
-#: includes/bgr-filters.php:704
+#: includes/bgr-filters.php:697
 msgid "Unknown"
 msgstr ""
 
-#: includes/bgr-filters.php:758
+#: includes/bgr-filters.php:751
 msgid "View"
 msgstr ""
 
 #. translators: %s: review label (e.g., "Review")
-#: includes/bgr-filters.php:862
-#: includes/bgr-filters.php:892
-#: includes/bgr-filters.php:922
+#: includes/bgr-filters.php:837
+#: includes/bgr-filters.php:867
+#: includes/bgr-filters.php:897
 #, php-format
 msgid "Add %s"
 msgstr ""
 
-#: includes/bgr-filters.php:1007
+#: includes/bgr-filters.php:982
 msgid "Your Response added. This will be published when group admin has approved it."
 msgstr ""
 
-#: includes/bgr-filters.php:1024
+#: includes/bgr-filters.php:999
 msgid "Give Group Review"
 msgstr ""
 

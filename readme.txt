@@ -5,7 +5,7 @@ Tags: buddypress, groups
 Requires at least: 4.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 3.8.0
+Stable tag: 3.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,6 +111,10 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 8. Review submission at single group.(png|jpg|jpeg|gif).
 
 == Changelog ==
+
+= 3.8.1 =
+* Fixed: Star rating UI display issue with half-star icons
+* Fixed: Reviews count not displaying correctly on group tab
 
 = 3.8.0 =
 * New: Group leaderboard shortcode [bgr_group_leaderboard]
