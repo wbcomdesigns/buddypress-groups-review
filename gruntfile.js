@@ -232,13 +232,10 @@ module.exports = function (grunt) {
                     '!composer.json',
                     '!composer.lock',
                     '!*.zip',
-                    '!assets/js/*.js', // Exclude non-minified JS
                     '!assets/js/*.map',
-                    '!admin/assets/js/*.js', // Exclude non-minified admin JS
                     '!admin/assets/js/*.map',
-                    '!admin/wbcom/assets/js/*.js', // Exclude non-minified wbcom JS
                     '!admin/wbcom/assets/js/*.map',
-                    'assets/js/min/**', // Include minified JS
+                    'assets/js/min/**',
                     'admin/assets/js/min/**',
                     'admin/wbcom/assets/js/min/**',
                 ],
