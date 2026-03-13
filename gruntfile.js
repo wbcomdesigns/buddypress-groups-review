@@ -275,6 +275,17 @@ module.exports = function (grunt) {
     // Register default tasks
     grunt.registerTask('default', ['cssmin', 'uglify', 'checktextdomain', 'rtlcss', 'shell', 'watch']);
 
+    // Register dist task (alias for build, skips shell/POT generation)
+    grunt.registerTask('dist', [
+        'clean:dist',       // Clean old dist folder
+        'cssmin',           // Minify CSS
+        'uglify',           // Minify JS
+        'rtlcss',           // Generate RTL CSS
+        'copy:dist',        // Copy files to dist
+        'compress:dist',    // Create ZIP file
+        'clean:postbuild'   // Clean temp folder, keep ZIP
+    ]);
+
     // Register build task for WordPress.org distribution
     grunt.registerTask('build', [
         'clean:dist',       // Clean old dist folder
