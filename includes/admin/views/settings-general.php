@@ -47,13 +47,56 @@ $bgr_allow_activity      = isset( $bgr['allow_activity'] ) ? $bgr['allow_activit
 $bgr_multi_reviews       = isset( $bgr['multi_reviews'] ) ? $bgr['multi_reviews'] : 'no';
 $bgr_enable_grp_criteria = isset( $bgr['enable_group_criteria'] ) ? $bgr['enable_group_criteria'] : 'no';
 $bgr_exclude_groups      = isset( $bgr['exclude_groups'] ) ? array_map( 'absint', (array) $bgr['exclude_groups'] ) : array();
-$bgr_all_groups          = groups_get_groups(
+
+/**
+ * A site can have thousands of groups; a full <select> of every group is both a
+ * heavy query and an unusable control. We cap the option list to a filterable
+ * limit (default 200) ordered by most-recent. Already-excluded groups are always
+ * appended via `include` below so a saved selection beyond the cap is never
+ * silently dropped on the next save. Sites with very large group counts should
+ * raise this cap deliberately, or filter the list down to the groups they manage.
+ *
+ * @since 3.9.0
+ * @param int $bgr_groups_cap Maximum groups listed in the exclude selector. Default 200.
+ */
+$bgr_groups_cap = (int) apply_filters( 'bgr_exclude_groups_select_limit', 200 );
+if ( $bgr_groups_cap < 1 ) {
+	$bgr_groups_cap = 200;
+}
+$bgr_all_groups = groups_get_groups(
 	array(
-		'order'    => 'DESC',
-		'orderby'  => 'date_created',
-		'per_page' => -1,
+		'order'           => 'DESC',
+		'orderby'         => 'date_created',
+		'per_page'        => $bgr_groups_cap,
+		'page'            => 1,
+		'show_hidden'     => true,
+		'populate_extras' => false,
 	)
 );
+
+// Always include currently-excluded groups even if they fall outside the cap,
+// so re-saving the form preserves the full existing selection.
+$bgr_listed_group_ids = array();
+if ( ! empty( $bgr_all_groups['groups'] ) ) {
+	foreach ( $bgr_all_groups['groups'] as $bgr_group_item ) {
+		$bgr_listed_group_ids[] = absint( $bgr_group_item->id );
+	}
+}
+$bgr_missing_excluded = array_diff( $bgr_exclude_groups, $bgr_listed_group_ids );
+if ( ! empty( $bgr_missing_excluded ) ) {
+	$bgr_extra_groups = groups_get_groups(
+		array(
+			'include'         => array_map( 'absint', $bgr_missing_excluded ),
+			'per_page'        => count( $bgr_missing_excluded ),
+			'show_hidden'     => true,
+			'populate_extras' => false,
+		)
+	);
+	if ( ! empty( $bgr_extra_groups['groups'] ) ) {
+		$bgr_all_groups['groups'] = array_merge( $bgr_all_groups['groups'], $bgr_extra_groups['groups'] );
+	}
+}
+$bgr_groups_capped = ( ! empty( $bgr_all_groups['total'] ) && (int) $bgr_all_groups['total'] > $bgr_groups_cap );
 ?>
 <div class="bgr-card">
 	<div class="bgr-card__head">
@@ -162,6 +205,17 @@ $bgr_all_groups          = groups_get_groups(
 					?>
 				</select>
 				<p class="description"><?php esc_html_e( 'Selected groups will not have review functionality.', 'bp-group-reviews' ); ?></p>
+				<?php if ( $bgr_groups_capped ) : ?>
+					<p class="description">
+						<?php
+						printf(
+							/* translators: %s: number of groups shown. */
+							esc_html__( 'Showing the %s most recent groups. Groups already excluded remain selected. Use the bgr_exclude_groups_select_limit filter to raise this cap.', 'bp-group-reviews' ),
+							esc_html( number_format_i18n( $bgr_groups_cap ) )
+						);
+						?>
+					</p>
+				<?php endif; ?>
 			</td>
 		</tr>
 	</table>

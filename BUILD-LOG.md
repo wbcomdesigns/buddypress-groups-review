@@ -114,3 +114,39 @@ The `Wbcom_Admin_Settings` class (and its `wbcom_addons_cards` AJAX handler + `[
 - No commit / push performed.
 
 **Note (not in scope, left as-is):** `min/bgr-admin.min.js` still contains a native `confirm()` in the deny-review handler — the minified build predates the alert/confirm replacement that the audit (§8) verified in the source `bgr-admin.js`. The min file is stale relative to source on that point; a full rebuild/regrunt should be run before release to bring the minified bundle in line with the source. Out of scope for this single-bug fix.
+
+---
+
+## PERF — Big-site query bounding (WRAPPER-AUDIT finding #4)
+
+**Date:** 2026-06-05 · **Branch:** 3.9.0 · **Scope:** scale refactor only — behavior/output preserved.
+
+### Problem
+Two unbounded queries flagged in `WRAPPER-AUDIT.md` §14 / finding #4:
+1. `BGR_AJAX::bp_group_review_filter_ratings` (`includes/bgr-ajax.php`) loaded **every** published `review` for a group via `get_posts( posts_per_page => -1 )`, then computed per-review averages, sorted, and truncated to the widget `limit` (typically 5). Unbounded scan + per-review `get_post_meta()` N+1.
+2. `includes/admin/views/settings-general.php` built the Exclude-Groups `<select>` with `groups_get_groups( per_page => -1 )` — every group on the site rendered as `<option>`.
+
+### Fix — #1 filter-ratings AJAX (`includes/bgr-ajax.php`)
+- Bounded the candidate pool with a filterable cap: `apply_filters( 'bgr_filter_ratings_max_scan', 500, $group_id )` (clamped to >= 1). Query now uses `posts_per_page => $max_scan`, `paged => 1`, `orderby => date / order => DESC`.
+- `fields => 'ids'` + `no_found_rows => true` + `update_post_term_cache => false` — no `SQL_CALC_FOUND_ROWS`, no term-cache work (this surface doesn't need a total for prev/next; it's a fixed top-N widget).
+- **N+1 eliminated:** `_prime_post_caches( $ids, false, true )` primes post + meta caches once; author IDs collected and `cache_users()` primed in one batch for `get_avatar()` / `bp_core_get_userlink()`.
+- Sort (`arsort`/`asort` for highest/lowest) + truncate-to-`limit` logic unchanged → identical display behaviour for realistic widget sizes. `latest` rides the date-DESC query order.
+- The legacy `meta_key`/`meta_value` slow-query pattern (already present pre-change) is wrapped in `phpcs:disable/enable` to match the sibling widget `includes/widgets/group-rating.php`.
+
+### Fix — #2 exclude-groups select (`includes/admin/views/settings-general.php`)
+- Capped the option list: `apply_filters( 'bgr_exclude_groups_select_limit', 200 )` (clamped to >= 1), ordered most-recent-first.
+- **Selection safety:** already-excluded group IDs that fall outside the cap are re-fetched via a second `include`-scoped `groups_get_groups()` and merged in, so re-saving never silently drops an existing exclusion beyond the cap.
+- Admin note rendered when `total > cap` ("Showing the N most recent groups… use the `bgr_exclude_groups_select_limit` filter to raise this cap").
+- Did not switch to an AJAX-search select (plugin has no existing groups-search plumbing on this screen) — bounded + filterable + selection-safe is the smallest correct change. AJAX-search is a deliberate future option.
+
+### JS-compatibility note
+- No source JS changed → no `.min.js` regeneration needed.
+- Consumer `assets/js/bgr-front.js` (and served `assets/js/min/bgr-front.min.js`) read `JSON.parse(response).html` only. Response still returns `{ html: ... }` as the primary key; `total`, `limit`, `scanned` are **additive** metadata for a future paged/"load more" UI and are ignored by current consumers. Verified the served min twin reads `response.html` identically.
+
+### Verification
+- `php -l` — clean on both files.
+- WPCS (wpcs MCP) — `settings-general.php`: 0 errors / 0 warnings. `bgr-ajax.php`: 0 new warnings; only pre-existing `meta_query` warning at the untouched `bp_group_submit_review` handler (line ~539) remains, out of scope.
+- Both queries confirmed bounded — no `posts_per_page => -1` / `per_page => -1` remain in the changed code paths.
+- Runtime sanity (`wp eval`): `bgr_filter_ratings_max_scan` filter resolves and clamps the query; `_prime_post_caches` + `cache_users` confirmed available.
+- REST routes + Emails-tab toggle fix (`#bgr-allow-email`) untouched.
+- No commit / push performed.
