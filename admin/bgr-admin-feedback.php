@@ -207,7 +207,7 @@ if ( ! class_exists( 'BGR_Admin_Feedback' ) ) :
 			<div class="notice updated bp-group-reviews-notice">
 				<div class="bp-group-reviews-notice-inner">
 					<div class="bp-group-reviews-notice-icon">
-						<img src="<?php echo esc_url( BGR_PLUGIN_URL ) . 'admin/wbcom/assets/imgs/bgr.png'; ?>" alt="<?php echo esc_attr__( 'BuddyPress Group Reviews', 'bp-group-reviews' ); ?>" />
+						<img src="<?php echo esc_url( BGR_PLUGIN_URL ) . 'admin/assets/imgs/bgr.png'; ?>" alt="<?php echo esc_attr__( 'BuddyPress Group Reviews', 'bp-group-reviews' ); ?>" />
 					</div>
 					<div class="bp-group-reviews-notice-content">
 						<h3><?php echo esc_html__( 'Are you enjoying BuddyPress Group Reviews?', 'bp-group-reviews' ); ?></h3>

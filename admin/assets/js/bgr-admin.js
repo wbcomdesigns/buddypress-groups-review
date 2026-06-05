@@ -200,26 +200,42 @@ jQuery(document).ready(function () {
     );
   });
 
-  // Deny review from row action
+  // Deny review from row action.
   jQuery(document).on("click", ".bgr-deny-review", function () {
-    var review_id = jQuery(this).data("rid");
-    if (!confirm("Are you sure you want to deny this review? It will be moved to trash.")) {
-      return;
-    }
-    jQuery(this).html("Denying..");
-    jQuery.post(
-      ajaxurl,
-      {
-        action: "bp_group_review_admin_deny_review",
-        review_id: review_id,
-        nonce: bgr_admin_js.wbcom_nonce,
-      },
-      function (response) {
-        if (response === "review-denied-successfully") {
-          window.location.href = window.location.href;
-        }
+    var $btn = jQuery(this);
+    var review_id = $btn.data("rid");
+    var denyMsg =
+      (window.bgrAdminPanel &&
+        window.bgrAdminPanel.i18n &&
+        window.bgrAdminPanel.i18n.denyReview) ||
+      "Are you sure you want to deny this review? It will be moved to trash.";
+
+    // Promise-based confirm modal (no native confirm()). Falls back to
+    // immediate continue if the helper is somehow unavailable.
+    var ask =
+      typeof window.bgrConfirm === "function"
+        ? window.bgrConfirm({ message: denyMsg, tone: "danger" })
+        : Promise.resolve(true);
+
+    ask.then(function (ok) {
+      if (!ok) {
+        return;
       }
-    );
+      $btn.html("Denying..");
+      jQuery.post(
+        ajaxurl,
+        {
+          action: "bp_group_review_admin_deny_review",
+          review_id: review_id,
+          nonce: bgr_admin_js.wbcom_nonce,
+        },
+        function (response) {
+          if (response === "review-denied-successfully") {
+            window.location.href = window.location.href;
+          }
+        }
+      );
+    });
   });
 });
 

@@ -110,17 +110,27 @@
 			});
 		},
 
+		// Toast helper — uses bgrToast() when available, else falls back
+		// to the inline status line. No native alert() (dev-rule 10/12).
+		notify: function(message, type) {
+			if (typeof window.bgrToast === 'function') {
+				window.bgrToast(message, type || 'info');
+			} else {
+				this.setStatus(message, 'error' === type ? 'error' : '');
+			}
+		},
+
 		addCustomCriteria: function() {
 			var self = this;
 			var name = $('#bgr-new-criteria-name').val().trim();
 
 			if (!name) {
-				alert('Please enter a criteria name.');
+				self.notify('Please enter a criteria name.', 'warning');
 				return;
 			}
 
 			if (name.length > 50) {
-				alert('Criteria name must be 50 characters or less.');
+				self.notify('Criteria name must be 50 characters or less.', 'warning');
 				return;
 			}
 
@@ -145,11 +155,11 @@
 						self.updatePreviewFromResponse(response.data.criteria);
 						self.setStatus(response.data.message, 'success');
 					} else {
-						alert(response.data.message || 'Error adding criteria.');
+						self.notify((response.data && response.data.message) || 'Error adding criteria.', 'error');
 					}
 				},
 				error: function() {
-					alert('Network error. Please try again.');
+					self.notify('Network error. Please try again.', 'error');
 				}
 			});
 		},
@@ -157,34 +167,44 @@
 		archiveCustomCriteria: function(name) {
 			var self = this;
 
-			if (!confirm('Are you sure you want to archive "' + name + '"? Historical reviews will be preserved.')) {
-				return;
-			}
+			var ask = typeof window.bgrConfirm === 'function'
+				? window.bgrConfirm({
+					title: 'Archive criteria?',
+					message: 'Are you sure you want to archive "' + name + '"? Historical reviews will be preserved.',
+					confirm: 'Archive',
+					dangerous: true
+				})
+				: Promise.resolve(true);
 
-			$.ajax({
-				url: ajaxurl,
-				type: 'POST',
-				data: {
-					action: 'bgr_archive_custom_criteria',
-					nonce: self.nonce,
-					group_id: self.groupId,
-					criteria_name: name
-				},
-				success: function(response) {
-					if (response.success) {
-						// Remove from the list
-						$('.bgr-custom-criteria-item[data-name="' + name + '"]').fadeOut(function() {
-							$(this).remove();
-						});
-						self.updatePreviewFromResponse(response.data.criteria);
-						self.setStatus(response.data.message, 'success');
-					} else {
-						alert(response.data.message || 'Error archiving criteria.');
-					}
-				},
-				error: function() {
-					alert('Network error. Please try again.');
+			ask.then(function(ok) {
+				if (!ok) {
+					return;
 				}
+				$.ajax({
+					url: ajaxurl,
+					type: 'POST',
+					data: {
+						action: 'bgr_archive_custom_criteria',
+						nonce: self.nonce,
+						group_id: self.groupId,
+						criteria_name: name
+					},
+					success: function(response) {
+						if (response.success) {
+							// Remove from the list
+							$('.bgr-custom-criteria-item[data-name="' + name + '"]').fadeOut(function() {
+								$(this).remove();
+							});
+							self.updatePreviewFromResponse(response.data.criteria);
+							self.setStatus(response.data.message, 'success');
+						} else {
+							self.notify((response.data && response.data.message) || 'Error archiving criteria.', 'error');
+						}
+					},
+					error: function() {
+						self.notify('Network error. Please try again.', 'error');
+					}
+				});
 			});
 		},
 

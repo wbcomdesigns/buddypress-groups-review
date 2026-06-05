@@ -5,7 +5,7 @@ Tags: buddypress, groups
 Requires at least: 4.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 3.8.1
+Stable tag: 3.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,6 +111,12 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 8. Review submission at single group.(png|jpg|jpeg|gif).
 
 == Changelog ==
+
+= 3.9.0 =
+* Improved: Rebuilt the admin settings screen with the modern Wbcom card-panel UI (sidebar navigation, consistent across the Wbcom plugin suite). Settings and saved data are unchanged.
+* Improved: Replaced browser alert/confirm dialogs in the group criteria manager with accessible toast and confirm modals.
+* Improved: Larger, accessible tap targets on the review submission button.
+* Fixed: Removed the deprecated bundled admin wrapper.
 
 = 3.8.1 =
 * Fixed: Star rating UI display issue with half-star icons

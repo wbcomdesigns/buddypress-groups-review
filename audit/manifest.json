@@ -1,0 +1,181 @@
+{
+  "$schema": "https://wpmediaverse.com/schemas/wp-plugin-manifest-v2.json",
+  "plugin": {
+    "slug": "buddypress-groups-review",
+    "name": "Wbcom Designs - BuddyPress Group Reviews",
+    "version": "3.8.1",
+    "version_note": "Plugin header + BGR_PLUGIN_VERSION say 3.8.1, but the dev branch is 3.9.0. Version constant not yet bumped for this release.",
+    "namespace": "global functions (bp_group_review_*, bgr_*) + classes BGR_*",
+    "main_file": "review-bp-grps.php",
+    "text_domain": "bp-group-reviews",
+    "domain_path": "/languages",
+    "requires": ["BuddyPress", "BuddyPress Groups component"],
+    "extends": null,
+    "extension_hook_consumed": null,
+    "extension_hook_fired": null
+  },
+  "rest": {
+    "namespace": "buddypress/v1",
+    "endpoints": [
+      { "route": "/groups/(?P<group_id>\\d+)/reviews", "methods": ["GET"], "handler": "BGR_BP_REST_Integration::get_group_reviews", "permission": "__return_true (public)", "purpose": "List reviews for a group." },
+      { "route": "/groups/(?P<group_id>\\d+)/reviews", "methods": ["POST"], "handler": "BGR_BP_REST_Integration::create_group_review", "permission": "is_user_logged_in", "purpose": "Create a review for a group." },
+      { "route": "/groups/(?P<group_id>\\d+)/reviews/(?P<review_id>\\d+)", "methods": ["GET"], "handler": "BGR_BP_REST_Integration::get_single_review", "permission": "__return_true (public)", "purpose": "Fetch a single review." },
+      { "route": "/groups/(?P<group_id>\\d+)/reviews/(?P<review_id>\\d+)", "methods": ["PUT/PATCH"], "handler": "BGR_BP_REST_Integration::update_group_review", "permission": "update_review_permissions_check", "purpose": "Update a review." },
+      { "route": "/groups/(?P<group_id>\\d+)/reviews/(?P<review_id>\\d+)", "methods": ["DELETE"], "handler": "BGR_BP_REST_Integration::delete_group_review", "permission": "delete_review_permissions_check", "purpose": "Delete a review." },
+      { "route": "/groups/(?P<id>\\d+)/criteria", "methods": ["GET"], "handler": "bgr_rest_get_group_criteria", "permission": "closure (group access check)", "purpose": "Get group rating criteria." },
+      { "route": "/groups/(?P<id>\\d+)/criteria", "methods": ["PUT/PATCH"], "handler": "bgr_rest_update_group_criteria", "permission": "closure (bgr_user_can_manage_group_criteria)", "purpose": "Update group rating criteria." }
+    ],
+    "notes": "Routes registered under the buddypress namespace via 2 register_rest_route blocks in bgr-bp-rest-integration.php (multi-method) and 2 blocks in bgr-group-criteria-ajax.php. The 4 register_rest_route calls expand to 7 logical endpoints across HTTP methods."
+  },
+  "ajax": [
+    { "action": "bp_group_review_save_admin_criteria_settings", "handler": "BGR_AJAX::bp_group_review_save_admin_criteria_settings", "nonce": "admin-ajax-nonce", "capability": "manage_options", "purpose": "Save admin rating-criteria settings." },
+    { "action": "bp_group_review_save_admin_display_settings", "handler": "BGR_AJAX::bp_group_review_save_admin_display_settings", "nonce": "admin-ajax-nonce", "capability": "manage_options", "purpose": "Save admin display settings." },
+    { "action": "bp_group_review_save_admin_general_settings", "handler": "BGR_AJAX::bp_group_review_save_admin_general_settings", "nonce": "admin-ajax-nonce", "capability": "manage_options", "purpose": "Save admin general settings." },
+    { "action": "bp_group_review_accept_review (+nopriv)", "handler": "BGR_AJAX::bp_group_review_accept_review", "nonce": "ajax-nonce", "capability": "member context", "purpose": "Group-admin accepts a pending review." },
+    { "action": "bp_group_review_deny_review (+nopriv)", "handler": "BGR_AJAX::bp_group_review_deny_review", "nonce": "ajax-nonce", "capability": "member context", "purpose": "Group-admin denies a pending review." },
+    { "action": "bp_group_remove_review (+nopriv)", "handler": "BGR_AJAX::bp_group_remove_review", "nonce": "ajax-nonce", "capability": "member context", "purpose": "Remove a review." },
+    { "action": "bp_group_submit_review (+nopriv)", "handler": "BGR_AJAX::bp_group_submit_review", "nonce": "ajax-nonce", "capability": "is_user_logged_in + group member", "purpose": "Member submits a new review." },
+    { "action": "bp_group_review_admin_approve_review", "handler": "BGR_AJAX::bp_group_review_admin_approve_review", "nonce": "admin-ajax-nonce", "capability": "manage_options", "purpose": "Admin approves a review (publishes the CPT post)." },
+    { "action": "bp_group_review_admin_deny_review", "handler": "BGR_AJAX::bp_group_review_admin_deny_review", "nonce": "admin-ajax-nonce", "capability": "manage_options", "purpose": "Admin denies a review (trashes the CPT post)." },
+    { "action": "bp_group_review_filter_ratings (+nopriv)", "handler": "BGR_AJAX::bp_group_review_filter_ratings", "nonce": "ajax-nonce", "capability": "public", "purpose": "Filter/render widget member ratings." },
+    { "action": "bgr_save_group_criteria_settings", "handler": "bgr_ajax_save_group_criteria_settings", "nonce": "checked", "capability": "group-manage context", "purpose": "Save per-group criteria settings." },
+    { "action": "bgr_add_custom_criteria", "handler": "bgr_ajax_add_custom_criteria", "nonce": "checked", "capability": "manage context", "purpose": "Add a custom criterion." },
+    { "action": "bgr_archive_custom_criteria", "handler": "bgr_ajax_archive_custom_criteria", "nonce": "checked", "capability": "manage context", "purpose": "Archive a custom criterion." },
+    { "action": "bgr_delete_custom_criteria", "handler": "bgr_ajax_delete_custom_criteria", "nonce": "checked", "capability": "manage context", "purpose": "Delete a custom criterion." },
+    { "action": "bgr_toggle_global_criteria", "handler": "bgr_ajax_toggle_global_criteria", "nonce": "checked", "capability": "manage context", "purpose": "Toggle a global criterion on/off." },
+    { "action": "bgr_get_group_criteria", "handler": "bgr_ajax_get_group_criteria", "nonce": "checked", "capability": "group context", "purpose": "Fetch per-group criteria." },
+    { "action": "wbcom_addons_cards", "handler": "Wbcom_Admin_Settings::wbcom_addons_cards_links", "nonce": "wbcom_admin_setting_nonce", "capability": "admin (wrapper)", "purpose": "OLD-wrapper: echo addon card markup. No DB write." }
+  ],
+  "admin_pages": [
+    { "title": "WB Plugins", "slug": "wbcomplugins", "parent": null, "capability": "manage_options", "source": "admin/bgr-admin.php:58", "hook": "admin_menu (BGR_Admin::bp_group_review_add_submenu_page_admin_settings)" },
+    { "title": "General", "slug": "wbcomplugins", "parent": "wbcomplugins", "capability": "manage_options", "source": "admin/bgr-admin.php:59" },
+    { "title": "Group Reviews", "slug": "group-review-settings", "parent": "wbcomplugins", "capability": "manage_options", "source": "admin/bgr-admin.php:61", "callback": "BGR_Admin::bp_group_review_admin_options_page", "note": "Primary plugin settings page. Tabs: welcome, general, criteria, display, emails." },
+    { "title": "Wbcom Plugins (wrapper)", "slug": "wbcom-plugins-page", "parent": "wbcomplugins", "capability": "manage_options", "source": "admin/wbcom/wbcom-admin-settings.php:230" },
+    { "title": "Support (wrapper)", "slug": "wbcom-support-page", "parent": "wbcomplugins", "capability": "manage_options", "source": "admin/wbcom/wbcom-admin-settings.php:238" },
+    { "title": "License (wrapper)", "slug": "wbcom-license-page", "parent": "wbcomplugins", "capability": "manage_options", "source": "admin/wbcom/wbcom-admin-settings.php:246" }
+  ],
+  "settings": [
+    { "key": "bgr_admin_general_settings", "group": "Group Reviews > General tab", "type": "array", "default": "[]", "controls": "General behaviour (auto-approve, review enable, etc.). Written by AJAX bp_group_review_save_admin_general_settings; read across includes via global $bgr." },
+    { "key": "bgr_admin_criteria_settings", "group": "Group Reviews > Criteria tab", "type": "array", "default": "[]", "controls": "Rating criteria definitions (add_review_rating_fields, active_rating_fields). Written by AJAX bp_group_review_save_admin_criteria_settings." },
+    { "key": "bgr_admin_display_settings", "group": "Group Reviews > Display tab", "type": "array", "default": "[]", "controls": "Display/appearance settings. Written by AJAX bp_group_review_save_admin_display_settings." },
+    { "key": "bp_group_review_email_settings", "group": "Group Reviews > Emails tab", "type": "array", "default": "[]", "controls": "Email notification copy/toggles. Registered via register_setting('bp_group_review_email_settings') on admin_menu; sanitized by bp_group_review_sanitize_email_settings." }
+  ],
+  "shortcodes": [
+    { "tag": "add_group_review_form", "handler": "BGR_Shortcodes::bp_group_review_add_new_review", "attrs": [] },
+    { "tag": "bgr_display_top_groups", "handler": "BGR_Shortcodes::bp_group_review_leaderboard", "attrs": [] },
+    { "tag": "wbcom_admin_setting_header", "handler": "Wbcom_Admin_Settings::wbcom_admin_setting_header_html", "attrs": [], "note": "OLD-wrapper header shortcode (admin only)." }
+  ],
+  "blocks": [],
+  "post_types": [
+    { "name": "review", "public": false, "show_ui": true, "capability_type": "post (mapped to *_review caps)", "supports": ["title", "editor", "author", "thumbnail"], "source": "admin/bgr-admin.php:147" }
+  ],
+  "taxonomies": [
+    { "name": "review_category", "post_type": "review", "hierarchical": true, "show_ui": false, "rewrite": "review_category", "source": "admin/bgr-admin.php:202" }
+  ],
+  "tables": [],
+  "capabilities": [
+    { "cap": "edit_review / edit_reviews / edit_others_reviews / publish_reviews / read_private_reviews / delete_review / delete_reviews / delete_others_reviews / delete_published_reviews", "default_roles": ["administrator"], "registered_at": "admin/bgr-admin.php:285 (bp_group_review_add_capabilities_to_roles, filter bgr_add_roles_capability)", "enforced_at": ["WP map_meta_cap on review CPT"], "meta": false, "requires_context": "post" },
+    { "cap": "manage_options", "default_roles": ["administrator"], "registered_at": "core", "enforced_at": ["includes/bgr-ajax.php:194", "includes/bgr-ajax.php:232", "includes/bgr-ajax.php:267", "admin menu registrations"], "meta": false, "requires_context": "none" }
+  ],
+  "services": [],
+  "hooks_fired": [
+    { "name": "bgr_group_add_review", "type": "action", "args_count": 1, "where": "includes (submit flow)", "consumed_by": [] },
+    { "name": "bgr_group_after_review_submit", "type": "action", "args_count": 1, "where": "submit flow", "consumed_by": [] },
+    { "name": "bgr_group_review_after_review_insert", "type": "action", "args_count": 1, "where": "submit flow", "consumed_by": [] },
+    { "name": "bgr_group_accept_review", "type": "action", "args_count": 1, "where": "accept flow", "consumed_by": [] },
+    { "name": "bgr_group_deny_review", "type": "action", "args_count": 1, "where": "includes/bgr-ajax.php:248", "consumed_by": [] },
+    { "name": "gamipress_bp_group_review", "type": "action", "args_count": 1, "where": "includes/bgr-ajax.php:215", "consumed_by": [], "note": "GamiPress integration award hook." },
+    { "name": "bgr_global_criteria_archived", "type": "action", "args_count": 1, "where": "criteria-ajax", "consumed_by": [] },
+    { "name": "bgr_global_criteria_deleted", "type": "action", "args_count": 1, "where": "criteria-ajax", "consumed_by": [] },
+    { "name": "bgr_display_ratings", "type": "action", "args_count": 1, "where": "rating-display", "consumed_by": [] },
+    { "name": "bgr_display_group_average_ratings", "type": "action", "args_count": 1, "where": "rating-display", "consumed_by": [] },
+    { "name": "bgr_display_widget_average_ratings", "type": "action", "args_count": 1, "where": "rating-display", "consumed_by": [] },
+    { "name": "wbcom_add_header_menu", "type": "action", "args_count": 0, "where": "wbcom wrapper", "consumed_by": [] },
+    { "name": "wbcom_add_plugin_license_code", "type": "action", "args_count": 0, "where": "wbcom wrapper", "consumed_by": [] },
+    { "name": "bgr_add_roles_capability", "type": "filter", "args_count": 1, "where": "admin/bgr-admin.php:286", "consumed_by": [] },
+    { "name": "bgr_filter_group_header_rating_details", "type": "filter", "args_count": 1, "where": "rating-display", "consumed_by": [] },
+    { "name": "bgr_listing_cat", "type": "filter", "args_count": 1, "where": "shortcodes", "consumed_by": [] },
+    { "name": "bgr_post_num", "type": "filter", "args_count": 1, "where": "shortcodes", "consumed_by": [] },
+    { "name": "bgr_thumbnail", "type": "filter", "args_count": 1, "where": "shortcodes", "consumed_by": [] },
+    { "name": "bgr_widget_title", "type": "filter", "args_count": 1, "where": "widgets", "consumed_by": [] },
+    { "name": "bp_group_review_add_review_tab_name", "type": "filter", "args_count": 1, "where": "bgr-grp-extn", "consumed_by": [] },
+    { "name": "bp_group_review_tab_name", "type": "filter", "args_count": 1, "where": "bgr-grp-extn", "consumed_by": [] },
+    { "name": "bp_group_review_tab_slug", "type": "filter", "args_count": 1, "where": "bgr-grp-extn", "consumed_by": [] },
+    { "name": "bp_group_review_nav_has_count", "type": "filter", "args_count": 1, "where": "bgr-grp-extn", "consumed_by": [] },
+    { "name": "buddypress_groups_review_nav_count", "type": "filter", "args_count": 1, "where": "bgr-grp-extn", "consumed_by": [] },
+    { "name": "bp_group_review_accept_review_notification_format", "type": "filter", "args_count": 1, "where": "notifications", "consumed_by": [] },
+    { "name": "bp_group_review_add_review_notification_format", "type": "filter", "args_count": 1, "where": "notifications", "consumed_by": [] },
+    { "name": "bp_group_review_deny_review_notification_format", "type": "filter", "args_count": 1, "where": "notifications", "consumed_by": [] },
+    { "name": "bp_group_review_group_create_posts_activity_action", "type": "filter", "args_count": 1, "where": "activity", "consumed_by": [] },
+    { "name": "widget_title", "type": "filter", "args_count": 1, "where": "includes/widgets/group-rating.php:122", "consumed_by": [], "note": "WP core filter name applied by this plugin's widget." },
+    { "name": "post_num", "type": "filter", "args_count": 1, "where": "includes/widgets/group-rating.php:123", "consumed_by": [], "note": "Non-namespaced filter name (should be bgr-prefixed)." },
+    { "name": "rating_default", "type": "filter", "args_count": 1, "where": "includes/widgets/group-rating.php:124", "consumed_by": [], "note": "Non-namespaced filter name (should be bgr-prefixed)." },
+    { "name": "bp_core_template_plugin", "type": "filter", "args_count": 1, "where": "includes/bgr-filters.php:924+", "consumed_by": [], "note": "BP core template-resolution filter applied by this plugin." }
+  ],
+  "interactivity": [],
+  "ui_activation": [],
+  "static_analysis": {
+    "dead_listeners": [],
+    "cap_context_mismatches": [],
+    "extensibility_gaps": [],
+    "js_only_activation": [
+      { "selector": "criteria admin UI", "default_hidden_by": "assets/js/bgr-group-criteria-admin.js", "php_fallback": false, "note": "Criteria management is fully JS-driven; uses alert()/confirm() (banned by dev rules)." }
+    ],
+    "rest_hang_risks": [],
+    "visual_required_no_enforcement": [],
+    "grid_track_overflow_risks": [],
+    "hook_signature_drift": [],
+    "adapter_undefined_calls": [],
+    "registry_bypasses": [],
+    "suppressed_baseline_inventory": { "phpcs_excludes": { "count": 2, "action": "Two phpcs:ignore on legacy InvalidClassFileName + GlobalVariablesOverride in bgr-ajax.php / bgr-admin.php. Acceptable legacy markers." } },
+    "registry_strategy": [],
+    "alert_confirm_violations": [
+      { "where": "admin/assets/js/bgr-admin.js:206", "kind": "confirm" },
+      { "where": "assets/js/bgr-group-criteria-admin.js:118,123,148,152,182,186", "kind": "alert" },
+      { "where": "assets/js/bgr-group-criteria-admin.js:160", "kind": "confirm" }
+    ],
+    "nonce_no_cap_triage": [
+      { "where": "includes/bgr-ajax.php:66", "verdict": "false_positive", "reason": "bp_group_review_filter_ratings is a public (nopriv) read-only widget render endpoint; no privileged action." },
+      { "where": "includes/bgr-ajax.php:394", "verdict": "false_positive", "reason": "bp_group_submit_review is nopriv-registered but immediately enforces is_user_logged_in() + group-membership checks." },
+      { "where": "admin/wbcom/wbcom-admin-settings.php:42", "verdict": "false_positive", "reason": "wbcom_addons_cards only echoes back sanitized input on an admin-area-only AJAX; no state change. OLD-wrapper code." }
+    ]
+  },
+  "buddypress_integration": { "enabled_when": "BuddyPress active + groups component active", "manager": "bp_group_review_plugin_execute / run_bp_group_reviews_plugin", "sub_classes": ["BGR_Notifications", "BGR_BP_REST_Integration", "BGR_Group_Criteria", "BGR_Multi_Support"] },
+  "frontend_assets": {
+    "js": ["assets/js/*", "assets/js/bgr-group-criteria-admin.js", "admin/assets/js/bgr-admin.js", "admin/assets/js/bgr-colorpicker.js"],
+    "css": ["assets/css/bgr-reviews.css", "admin/assets/css/bgr-admin.css"]
+  },
+  "cron": [],
+  "wp_cli": [],
+  "storage_drivers": [],
+  "security": {
+    "uploads_gate": "n/a",
+    "signing_entry_points": [],
+    "always_sign_filter": null,
+    "rate_limit_middleware": "none",
+    "notes": "AJAX handlers verify nonces (ajax-nonce for member-facing, admin-ajax-nonce for admin). Admin handlers additionally check current_user_can('manage_options'). REST uses per-route permission callbacks."
+  },
+  "ci_guards": { "script": null, "url_emission_regex": null, "storage_internal_marker": null, "phpstan_level": null },
+  "coding_rules": [],
+  "build_commands": { "release": "grunt (gruntfile.js)", "ci_local": null },
+  "category_sources": {
+    "rest": ["includes/bgr-bp-rest-integration.php", "includes/bgr-group-criteria-ajax.php"],
+    "ajax": ["includes/bgr-ajax.php", "includes/bgr-group-criteria-ajax.php", "admin/wbcom/wbcom-admin-settings.php"],
+    "admin_pages": ["admin/bgr-admin.php", "admin/wbcom/wbcom-admin-settings.php"],
+    "settings": ["includes/bgr-ajax.php", "review-bp-grps.php", "admin/**/*.php"],
+    "shortcodes": ["includes/bgr-shortcodes.php", "admin/wbcom/wbcom-admin-settings.php"],
+    "post_types": ["admin/bgr-admin.php"],
+    "taxonomies": ["admin/bgr-admin.php"],
+    "capabilities": ["admin/bgr-admin.php", "includes/bgr-ajax.php"],
+    "hooks_fired": ["includes/**/*.php", "admin/**/*.php"]
+  },
+  "generated": {
+    "at": "2026-06-05T00:00:00Z",
+    "from": "wp-plugin-onboard skill",
+    "branch": "3.9.0",
+    "schema_version": "v2.2",
+    "scan_scope": "fallback_defaults",
+    "scan_path": ".",
+    "php_file_count": 33
+  }
+}

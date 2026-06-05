@@ -201,10 +201,24 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 
 			// Enqueue group criteria admin script on group admin pages.
 			if ( function_exists( 'bp_is_group' ) && bp_is_group() && bp_is_group_admin_page() ) {
+				// Toast + confirm helpers replace native alert()/confirm()
+				// in the criteria management UI (dev rules 10 + 12).
+				wp_register_script( 'bgr-toast', BGR_PLUGIN_URL . 'public/js/toast.js', array(), BGR_PLUGIN_VERSION, true );
+				wp_register_script( 'bgr-confirm', BGR_PLUGIN_URL . 'public/js/confirm.js', array(), BGR_PLUGIN_VERSION, true );
+				wp_enqueue_script( 'bgr-toast' );
+				wp_enqueue_script( 'bgr-confirm' );
+
+				// Ensure the toast/confirm CSS (bundled in bgr-reviews.css)
+				// is present on the group admin screen.
+				if ( ! wp_style_is( 'bgr-reviews-css', 'enqueued' ) ) {
+					wp_register_style( 'bgr-reviews-css', BGR_PLUGIN_URL . 'assets/css' . $style_path . '/bgr-reviews' . $style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
+					wp_enqueue_style( 'bgr-reviews-css' );
+				}
+
 				wp_register_script(
 					'bgr-group-criteria-admin-js',
 					BGR_PLUGIN_URL . 'assets/js' . $script_path . '/bgr-group-criteria-admin' . $script_extension,
-					array( 'jquery' ),
+					array( 'jquery', 'bgr-toast', 'bgr-confirm' ),
 					BGR_PLUGIN_VERSION,
 					true
 				);
