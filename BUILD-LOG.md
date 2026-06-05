@@ -95,3 +95,22 @@ The `Wbcom_Admin_Settings` class (and its `wbcom_addons_cards` AJAX handler + `[
 ## Needs human eyes
 
 - Browser smoke on an install where the plugin is **active** (it is inactive on wbcom-free per the no-activation rule): click through all five tabs, save each (General/Criteria/Display via AJAX, Emails via options.php), confirm the deny-review and group-criteria confirm modals fire, and verify the WB Plugins hub renders with this plugin as a card alongside any un-migrated peers.
+
+---
+
+## 2026-06-05 — Bug fix: Emails-tab toggle selector mismatch (WRAPPER-AUDIT finding #1, MED)
+
+**Bug:** The change handler that shows/hides the `.review-email-section` rows bound to `#bgr-email`, but the Emails-tab checkbox id is `#bgr-allow-email` (`includes/admin/views/settings-emails.php:63`). The selector never matched, so the live show/hide toggle was permanently broken. The setting still saved via its `name` attribute (`bp_group_review_email_settings[bgr_allow_email]`) — only the toggle UX was dead. This was the pre-existing latent mismatch flagged in WRAPPER-AUDIT.md finding #1 and in the "Out of scope" TODO #5 above; now resolved.
+
+**Fix — files changed:**
+- `admin/assets/js/bgr-admin.js:177` — source: `#bgr-email` → `#bgr-allow-email`.
+- `admin/assets/js/min/bgr-admin.min.js` — minified build: same selector string hand-edited (`node_modules` absent, no grunt build available; single literal selector swap, no other change).
+
+**Enqueued file confirmed fixed:** `includes/bgr-scripts.php:267` enqueues `admin/assets/js{$script_path}/bgr-admin{$script_extension}` — resolves to `min/bgr-admin.min.js` when `SCRIPT_DEBUG` is off (default) and `bgr-admin.js` when on. Both branches now carry the fix.
+
+**Verification:**
+- `grep -rn '#bgr-email' admin/assets/js/` → no matches (only `#bgr-allow-email` remains, in both files).
+- `node --check` — clean on both `bgr-admin.js` and `min/bgr-admin.min.js`.
+- No commit / push performed.
+
+**Note (not in scope, left as-is):** `min/bgr-admin.min.js` still contains a native `confirm()` in the deny-review handler — the minified build predates the alert/confirm replacement that the audit (§8) verified in the source `bgr-admin.js`. The min file is stale relative to source on that point; a full rebuild/regrunt should be run before release to bring the minified bundle in line with the source. Out of scope for this single-bug fix.
