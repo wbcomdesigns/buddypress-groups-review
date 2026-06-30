@@ -20,9 +20,14 @@
     --bgr-approve-bg: #ebf9eb;
 }
 
-/* Dark theme support - Theme Variables with Fallbacks */
+/* Dark theme support - Theme Variables with Fallbacks.
+   BuddyX, BuddyX Pro and Reign expose dark mode as html[data-bx-mode="dark"]
+   (legacy builds use .buddyx-dark-theme); html.dark-mode / body.dark-scheme
+   are kept for other themes. */
 html.dark-mode,
-body.dark-scheme {
+body.dark-scheme,
+html[data-bx-mode="dark"],
+.buddyx-dark-theme {
 	--bgr-text-primary: var(--reign-site-headings-color, var(--global-title-color, #1a1a1a));
 	--bgr-text-secondary: var(--reign-site-body-text-color, var(--global-font-color, #777));
 	--bgr-text-muted: var(--reign-site-alternate-text-color, var(--color-meta, #888888));
@@ -475,24 +480,20 @@ div#add-review-groupbutton {
 .wb-reign-theme #buddypress #item-header-content #add-review-groupbutton a.group-button,
 .wp-theme-buddyx-pro #buddypress #item-header-content #add-review-groupbutton a.group-button {
     margin: 0;
-    height: 38px !important;
-    line-height: 38px !important;
+    /* Inherit the theme's native group-button height/line-height so the
+       "Add Review" button matches the sibling "Leave Group" button exactly.
+       Previously a hard-coded 38px (and an `auto` override below) forced a
+       different height, leaving the two buttons misaligned. */
     display: inline-flex !important;
     align-items: center !important;
 }
 
-/* Align Join Group and Add Review buttons for non-members */
+/* Align Join Group / Leave Group and Add Review buttons in one centered row. */
 .wb-reign-theme #buddypress #item-header-content .activity-meta.groups-meta.action,
 .wp-theme-buddyx-pro #buddypress #item-header-content .activity-meta.groups-meta.action {
     display: flex !important;
     align-items: center !important;
     gap: 8px;
-}
-
-.wb-reign-theme #buddypress #item-header-content .activity-meta.groups-meta.action #add-review-groupbutton a.group-button,
-.wp-theme-buddyx-pro #buddypress #item-header-content .activity-meta.groups-meta.action #add-review-groupbutton a.group-button {
-    height: auto !important;
-    line-height: inherit !important;
 }
 
 /*This is work for the youzify only and it pass the varibale here for the youzify */

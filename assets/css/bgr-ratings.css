@@ -8,9 +8,14 @@
     --bgr-bg-white: #fff;
 }
 
-/* Dark theme support - Theme Variables with Fallbacks */
+/* Dark theme support - Theme Variables with Fallbacks.
+   BuddyX, BuddyX Pro and Reign expose dark mode as html[data-bx-mode="dark"]
+   (legacy builds use .buddyx-dark-theme); html.dark-mode / body.dark-scheme
+   are kept for other themes. */
 html.dark-mode,
-body.dark-scheme {
+body.dark-scheme,
+html[data-bx-mode="dark"],
+.buddyx-dark-theme {
 	--bgr-bg-white: var(--reign-site-sections-bg-color, var(--color-theme-white-box, #1a1a1a));
 }
 
