@@ -25,10 +25,26 @@ html.dark-mode,
 body.dark-scheme,
 html[data-bx-mode="dark"],
 .buddyx-dark-theme {
+	--bgr-text-dark: var(--reign-site-headings-color, var(--global-title-color, #f5f5f5));
 	--bgr-text-muted: var(--reign-site-alternate-text-color, var(--color-meta, #888888));
-	--bgr-border-color: var(--reign-site-border-color, var(--global-border-color, #ddd));
+	--bgr-border-color: var(--reign-site-border-color, var(--global-border-color, #3d3d3d));
+	--bgr-border-light: var(--reign-site-border-color, var(--global-border-color, #3d3d3d));
 	--bgr-bg-light: var(--reign-site-secondary-bg-color, var(--global-body-lightcolor, #3d3d3d));
 	--bgr-bg-white: var(--reign-site-sections-bg-color, var(--color-theme-white-box, #1a1a1a));
+}
+
+/* BuddyX/Reign "auto" mode resolves dark from the OS preference
+   (@media prefers-color-scheme) without setting data-bx-mode="dark",
+   so the same remap must also fire for auto + system dark. */
+@media (prefers-color-scheme: dark) {
+	html[data-bx-mode="auto"] {
+		--bgr-text-dark: var(--reign-site-headings-color, var(--global-title-color, #f5f5f5));
+		--bgr-text-muted: var(--reign-site-alternate-text-color, var(--color-meta, #888888));
+		--bgr-border-color: var(--reign-site-border-color, var(--global-border-color, #3d3d3d));
+		--bgr-border-light: var(--reign-site-border-color, var(--global-border-color, #3d3d3d));
+		--bgr-bg-light: var(--reign-site-secondary-bg-color, var(--global-body-lightcolor, #3d3d3d));
+		--bgr-bg-white: var(--reign-site-sections-bg-color, var(--color-theme-white-box, #1a1a1a));
+	}
 }
 
 #group-reviews-list,
@@ -592,7 +608,8 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
 }
 
 .bgr-confirm-box {
-    background: #fff;
+    background: var(--bgr-bg-white, #fff);
+    border: 1px solid var(--bgr-border-color, transparent);
     border-radius: 8px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     max-width: 420px;
@@ -604,12 +621,12 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
     font-size: 16px;
     font-weight: 700;
     margin: 0 0 8px;
-    color: #1e293b;
+    color: var(--bgr-text-dark, #1e293b);
 }
 
 .bgr-confirm-box__message {
     font-size: 14px;
-    color: #475569;
+    color: var(--bgr-text-muted, #475569);
     margin: 0 0 18px;
     line-height: 1.5;
 }
@@ -631,9 +648,9 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
 }
 
 .bgr-confirm-box__btn--cancel {
-    background: #fff;
-    color: #1e293b;
-    border-color: #cbd5e1;
+    background: var(--bgr-bg-white, #fff);
+    color: var(--bgr-text-dark, #1e293b);
+    border-color: var(--bgr-border-color, #cbd5e1);
 }
 
 .bgr-confirm-box__btn--confirm {

@@ -17,13 +17,34 @@
     --bgr-primary-color: #0073aa;
 }
 
-/* Dark theme support - Theme Variables with Fallbacks */
+/* Dark theme support - Theme Variables with Fallbacks.
+   BuddyX, BuddyX Pro and Reign expose dark mode as html[data-bx-mode="dark"]
+   (legacy builds use .buddyx-dark-theme); html.dark-mode / body.dark-scheme
+   are kept for other themes. */
 html.dark-mode,
-body.dark-scheme {
+body.dark-scheme,
+html[data-bx-mode="dark"],
+.buddyx-dark-theme {
+	--bgr-text-dark: var(--reign-site-headings-color, var(--global-title-color, #f5f5f5));
 	--bgr-text-muted: var(--reign-site-alternate-text-color, var(--color-meta, #888888));
-	--bgr-border-color: var(--reign-site-border-color, var(--global-border-color, #ddd));
+	--bgr-border-color: var(--reign-site-border-color, var(--global-border-color, #3d3d3d));
+	--bgr-border-light: var(--reign-site-border-color, var(--global-border-color, #3d3d3d));
 	--bgr-bg-light: var(--reign-site-secondary-bg-color, var(--global-body-lightcolor, #3d3d3d));
 	--bgr-bg-white: var(--reign-site-sections-bg-color, var(--color-theme-white-box, #1a1a1a));
+}
+
+/* BuddyX/Reign "auto" mode resolves dark from the OS preference
+   (@media prefers-color-scheme) without setting data-bx-mode="dark",
+   so the same remap must also fire for auto + system dark. */
+@media (prefers-color-scheme: dark) {
+	html[data-bx-mode="auto"] {
+		--bgr-text-dark: var(--reign-site-headings-color, var(--global-title-color, #f5f5f5));
+		--bgr-text-muted: var(--reign-site-alternate-text-color, var(--color-meta, #888888));
+		--bgr-border-color: var(--reign-site-border-color, var(--global-border-color, #3d3d3d));
+		--bgr-border-light: var(--reign-site-border-color, var(--global-border-color, #3d3d3d));
+		--bgr-bg-light: var(--reign-site-secondary-bg-color, var(--global-body-lightcolor, #3d3d3d));
+		--bgr-bg-white: var(--reign-site-sections-bg-color, var(--color-theme-white-box, #1a1a1a));
+	}
 }
 
 #group-reviews-list,
@@ -384,11 +405,16 @@ body[class*="youzify"] button.btn.btn-default.bgr-submit-review,
 body[class*="youzify"] .bgr-col-2.bgr-generic-button .bgr-col-12.generic-button a,
 body[class*="youzify"] .generic-button a.button {
     min-width: 100%;
-    line-height: 15px;
-    padding: 8px;
+    /* 40px minimum tap target (WCAG 2.5.5 / Wbcom responsive contract):
+       padding 11px + line-height 18px ≈ 40px tall. */
+    line-height: 18px;
+    padding: 11px 12px;
+    min-height: 40px;
+    box-sizing: border-box;
     text-align: center;
-    display: inline-block;
-    height: initial;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     letter-spacing: initial;
     font-size: var(--yzfy-primary-font-size);
     background-color: var(--yzfy-scheme-color) !important;
@@ -514,5 +540,127 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
 
 .review-pagination .page-numbers:hover:not(.current) {
     background-color: var(--bgr-bg-light, #f5f5f5);
+}
+
+/* ───────────────────────────────────────────────────────────
+   Front-end toast + confirm helpers (replace native alert/confirm
+   on the group criteria management screen). Added in 3.9.0.
+   ─────────────────────────────────────────────────────────── */
+
+.bgr-toast-container {
+    position: fixed;
+    left: 24px;
+    bottom: 24px;
+    z-index: 100000;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+}
+
+.bgr-toast {
+    background: #1e293b;
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.4;
+    max-width: 360px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.bgr-toast--visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.bgr-toast--success {
+    background: #16a34a;
+}
+
+.bgr-toast--warning {
+    background: #b45309;
+}
+
+.bgr-toast--error {
+    background: #dc2626;
+}
+
+.bgr-confirm-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.5);
+    z-index: 100001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.bgr-confirm-overlay--visible {
+    opacity: 1;
+}
+
+.bgr-confirm-box {
+    background: var(--bgr-bg-white, #fff);
+    border: 1px solid var(--bgr-border-color, transparent);
+    border-radius: 8px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    max-width: 420px;
+    width: 100%;
+    padding: 24px;
+}
+
+.bgr-confirm-box__title {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: var(--bgr-text-dark, #1e293b);
+}
+
+.bgr-confirm-box__message {
+    font-size: 14px;
+    color: var(--bgr-text-muted, #475569);
+    margin: 0 0 18px;
+    line-height: 1.5;
+}
+
+.bgr-confirm-box__actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.bgr-confirm-box__btn {
+    min-height: 40px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.bgr-confirm-box__btn--cancel {
+    background: var(--bgr-bg-white, #fff);
+    color: var(--bgr-text-dark, #1e293b);
+    border-color: var(--bgr-border-color, #cbd5e1);
+}
+
+.bgr-confirm-box__btn--confirm {
+    background: #2563eb;
+    color: #fff;
+    border-color: #2563eb;
+}
+
+.bgr-confirm-box__btn--dangerous {
+    background: #dc2626;
+    border-color: #dc2626;
 }
 /*# sourceMappingURL=bgr-reviews.rtl.css.map */
