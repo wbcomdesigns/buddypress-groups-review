@@ -47,6 +47,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 			}
 
 			add_action( 'init', array( $this, 'bp_group_review_add_capabilities_to_roles' ) );
+			add_filter( 'map_meta_cap', array( $this, 'bp_group_review_map_review_meta_caps' ), 10, 4 );
 		}
 
 		/**
@@ -208,6 +209,45 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 					$role->add_cap( 'delete_published_reviews' );
 				}
 			}
+		}
+
+		/**
+		 * Map the review edit/delete meta caps so a review's author can
+		 * manage their own review.
+		 *
+		 * The REST PUT/DELETE routes check `edit_review` / `delete_review`
+		 * with a post ID. WordPress translates those registered meta caps to
+		 * `edit_post` / `delete_post` before this filter runs, then maps them
+		 * to primitive caps only administrators hold — so review authors
+		 * could never pass for their OWN review. This mapping grants the
+		 * author access to their own review while everyone else still needs
+		 * the `*_others_reviews` caps (administrators keep full override).
+		 *
+		 * @since 3.9.0
+		 *
+		 * @param string[] $caps    Primitive capabilities required.
+		 * @param string   $cap     Capability being checked.
+		 * @param int      $user_id User ID.
+		 * @param array    $args    Context args; $args[0] is the post ID.
+		 * @return string[] Mapped primitive capabilities.
+		 */
+		public function bp_group_review_map_review_meta_caps( $caps, $cap, $user_id, $args ) {
+			if ( 'edit_post' !== $cap && 'delete_post' !== $cap ) {
+				return $caps;
+			}
+
+			$review = ! empty( $args[0] ) ? get_post( $args[0] ) : null;
+			if ( ! $review || 'review' !== $review->post_type ) {
+				return $caps;
+			}
+
+			// A logged-in review author can always edit/delete their own review.
+			if ( $user_id && (int) $review->post_author === (int) $user_id ) {
+				return array( 'exist' );
+			}
+
+			// Everyone else needs the others-cap (granted to administrators).
+			return array( 'edit_post' === $cap ? 'edit_others_reviews' : 'delete_others_reviews' );
 		}
 	}
 	new BGR_Admin();
