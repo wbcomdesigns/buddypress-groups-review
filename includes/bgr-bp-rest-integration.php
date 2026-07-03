@@ -32,8 +32,11 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 		 */
 		public function __construct() {
 			// Add reviews data to BuddyPress Groups endpoint.
+			// Note: BuddyPress fires 'bp_rest_groups_prepare_value' (not the
+			// WP-core-style 'rest_prepare_buddypress_group', which never runs
+			// for BP groups) — verified against BP_REST_Groups_Endpoint.
 			add_filter( 'bp_rest_groups_get_item_schema', array( $this, 'add_review_fields_to_schema' ) );
-			add_filter( 'rest_prepare_buddypress_group', array( $this, 'add_review_data_to_response' ), 10, 3 );
+			add_filter( 'bp_rest_groups_prepare_value', array( $this, 'add_review_data_to_response' ), 10, 3 );
 
 			// Register custom endpoints under buddypress namespace.
 			add_action( 'rest_api_init', array( $this, 'register_bp_review_routes' ) );
@@ -154,71 +157,20 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 		/**
 		 * Get review statistics for a group.
 		 *
+		 * Delegates to the shared cached aggregate so BuddyPress /groups
+		 * list responses no longer trigger one unbounded review scan per
+		 * group in the payload.
+		 *
 		 * @param int $group_id Group ID.
 		 * @return array Review statistics.
 		 */
 		protected function get_group_review_stats( $group_id ) {
-			global $bgr;
-
-			$args = array(
-				'post_type'      => 'review',
-				'post_status'    => 'publish',
-				'posts_per_page' => -1,
-				'meta_query'     => array(
-					array(
-						'key'     => 'linked_group',
-						'value'   => $group_id,
-						'compare' => '=',
-					),
-				),
-			);
-
-			$reviews              = get_posts( $args );
-			$total_reviews        = count( $reviews );
-			$review_rating_fields = isset( $bgr['review_rating_fields'] ) ? $bgr['review_rating_fields'] : array();
-
-			if ( empty( $reviews ) ) {
-				return array(
-					'average'       => 0,
-					'total_reviews' => 0,
-					'ratings'       => array(),
-				);
-			}
-
-			$total_ratings   = 0;
-			$ratings_count   = 0;
-			$criteria_totals = array();
-
-			foreach ( $reviews as $review ) {
-				$review_ratings = get_post_meta( $review->ID, 'review_star_rating', true );
-
-				if ( ! empty( $review_ratings ) && is_array( $review_ratings ) ) {
-					foreach ( $review_ratings as $field => $rating ) {
-						if ( ! isset( $criteria_totals[ $field ] ) ) {
-							$criteria_totals[ $field ] = array(
-								'total' => 0,
-								'count' => 0,
-							);
-						}
-						$criteria_totals[ $field ]['total'] += $rating;
-						++$criteria_totals[ $field ]['count'];
-						$total_ratings += $rating;
-						++$ratings_count;
-					}
-				}
-			}
-
-			$average_rating = $ratings_count > 0 ? round( $total_ratings / $ratings_count, 2 ) : 0;
-
-			$criteria_averages = array();
-			foreach ( $criteria_totals as $field => $data ) {
-				$criteria_averages[ $field ] = $data['count'] > 0 ? round( $data['total'] / $data['count'], 2 ) : 0;
-			}
+			$stats = bgr_get_group_review_stats( $group_id );
 
 			return array(
-				'average'       => $average_rating,
-				'total_reviews' => $total_reviews,
-				'ratings'       => $criteria_averages,
+				'average'       => $stats['average'],
+				'total_reviews' => $stats['total_reviews'],
+				'ratings'       => $stats['ratings'],
 			);
 		}
 
