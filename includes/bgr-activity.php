@@ -211,11 +211,23 @@ class BGR_Activity {
 
 		if ( 'yes' === $allow_activity ) {
 			if ( ( 'publish' === $new_status && 'publish' !== $old_status ) && 'review' === $post->post_type ) {
+				$group_id = get_post_meta( $post->ID, 'linked_group', true );
+
+				// The 'review' CPT is shared with BuddyPress Member Reviews. Only
+				// generate a group-review activity when this review genuinely
+				// belongs to a group (non-empty linked_group) and is not a member
+				// review (which carries linked_bp_member instead). Otherwise a
+				// member review would produce a broken group activity with
+				// item_id=0 and an empty group link in the sitewide stream.
+				$linked_member = get_post_meta( $post->ID, 'linked_bp_member', true );
+				if ( empty( $group_id ) || ! empty( $linked_member ) ) {
+					return false;
+				}
+
 				$posts_id       = $post->ID;
 				$user_id        = $post->post_author;
 				$user_link      = bp_core_get_userlink( $user_id );
 				$post_title     = get_the_title( $posts_id );
-				$group_id       = get_post_meta( $post->ID, 'linked_group', true );
 				$group_name     = bp_get_group_name( groups_get_group( $group_id ) );
 				$group_obj      = groups_get_group( $group_id );
 				$review_data    = get_post( $posts_id );
