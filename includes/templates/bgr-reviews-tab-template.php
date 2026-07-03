@@ -35,63 +35,45 @@ if ( 'oldest' === $sort_by ) {
 	$bgr_order = 'ASC';
 }
 
-// For rating-based sorting, we need to get all reviews and sort in PHP.
+// Rating-based sorting uses the cached per-review rating index (built once
+// per group by bgr_get_group_review_stats(), invalidated on every review
+// write). Only the current page of posts is loaded — never the full set.
 $sort_by_rating = in_array( $sort_by, array( 'highest', 'lowest' ), true );
 
 if ( $sort_by_rating ) {
-	// Get all reviews first for rating-based sorting.
-	$args = array(
-		'post_type'      => 'review',
-		'post_status'    => 'publish',
-		'category'       => 'group',
-		'posts_per_page' => -1,
-		'meta_query'     => array(
+	$bgr_stats  = bgr_get_group_review_stats( bp_get_group_id() );
+	$bgr_index  = $bgr_stats['index']; // review_id => average rating, newest first.
+
+	if ( 'highest' === $sort_by ) {
+		arsort( $bgr_index, SORT_NUMERIC );
+	} else {
+		asort( $bgr_index, SORT_NUMERIC );
+	}
+
+	// Paginate against the index, then fetch only the page's posts.
+	$total_reviews = count( $bgr_index );
+	$offset        = ( $current_page - 1 ) * $reviews_per_page;
+	$page_ids      = array_slice( array_keys( $bgr_index ), $offset, $reviews_per_page );
+
+	$page_posts = array();
+	if ( ! empty( $page_ids ) ) {
+		$page_posts = get_posts(
 			array(
-				'key'     => 'linked_group',
-				'value'   => bp_get_group_id(),
-				'compare' => '=',
-			),
-		),
-	);
-
-	$all_reviews = get_posts( $args );
-
-	// Calculate average rating for each review.
-	$reviews_with_ratings = array();
-	foreach ( $all_reviews as $review_post ) {
-		$review_ratings = get_post_meta( $review_post->ID, 'review_star_rating', true );
-		$avg_rating     = 0;
-		if ( ! empty( $review_ratings ) && is_array( $review_ratings ) ) {
-			$avg_rating = array_sum( $review_ratings ) / count( $review_ratings );
-		}
-		$reviews_with_ratings[] = array(
-			'post'   => $review_post,
-			'rating' => $avg_rating,
+				'post_type'      => 'review',
+				'post_status'    => 'publish',
+				'posts_per_page' => count( $page_ids ),
+				'post__in'       => $page_ids,
+				'orderby'        => 'post__in',
+			)
 		);
 	}
 
-	// Sort by rating.
-	usort(
-		$reviews_with_ratings,
-		function ( $a, $b ) use ( $sort_by ) {
-			if ( 'highest' === $sort_by ) {
-				return $b['rating'] <=> $a['rating'];
-			}
-			return $a['rating'] <=> $b['rating'];
-		}
-	);
-
-	// Manual pagination.
-	$total_reviews = count( $reviews_with_ratings );
-	$offset        = ( $current_page - 1 ) * $reviews_per_page;
-	$paged_reviews = array_slice( $reviews_with_ratings, $offset, $reviews_per_page );
-
 	// Create a mock query object for template compatibility.
 	$reviews                 = new stdClass();
-	$reviews->posts          = array_column( $paged_reviews, 'post' );
-	$reviews->post_count     = count( $paged_reviews );
+	$reviews->posts          = $page_posts;
+	$reviews->post_count     = count( $page_posts );
 	$reviews->found_posts    = $total_reviews;
-	$reviews->max_num_pages  = ceil( $total_reviews / $reviews_per_page );
+	$reviews->max_num_pages  = (int) ceil( $total_reviews / max( 1, (int) $reviews_per_page ) );
 	$reviews->current_post   = -1;
 	$reviews->in_the_loop    = false;
 	$reviews->is_rating_sort = true;
