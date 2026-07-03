@@ -109,56 +109,45 @@ class Bgr_Single_Group_Rating_Widget extends WP_Widget {
 	 * @param array $instance Instance.
 	 */
 	public function widget( $args, $instance ) {
-		global $bp, $post;
-		global $bgr;
 		if ( ! bp_get_current_group_id() ) {
 			return;
 		}
-		$review_rating_fields = $bgr['review_rating_fields'];
-		$review_label         = $bgr['review_label'];
-
 		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract -- Legacy widget code.
 		extract( $instance, EXTR_SKIP );
 		$widget_title          = apply_filters( 'widget_title', $widget_title );
-		$widget_post_num       = apply_filters( 'post_num', $post_num );
+		$widget_post_num       = max( 1, absint( apply_filters( 'post_num', $post_num ) ) );
 		$widget_rating_default = apply_filters( 'rating_default', $rating_default );
 
-		// phpcs:disable WordPress.DB.SlowDBQuery.slow_db_query_meta_key, WordPress.DB.SlowDBQuery.slow_db_query_meta_value
-		$custom_args = array(
-			'post_type'      => 'review',
-			'posts_per_page' => -1,
-			'post_status'    => 'publish',
-			'category'       => 'review_category',
-			'meta_key'       => 'linked_group',
-			'meta_value'     => bp_get_current_group_id(),
-		);
-		// phpcs:enable WordPress.DB.SlowDBQuery.slow_db_query_meta_key, WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+		// Cached per-review rating index (review_id => average, newest first)
+		// replaces the previous unbounded get_posts( -1 ) + N+1 meta scan.
+		$stats          = bgr_get_group_review_stats( bp_get_current_group_id() );
+		$single_rev_avg = array_filter( $stats['index'] );
 
-		$reviews             = get_posts( $custom_args );
-		$single_review_count = 0;
-		$final_review_obj    = array();
-		if ( ! empty( $reviews ) ) {
-			$single_rev_avg = array();
-			foreach ( $reviews as $review ) {
-				$linked_group   = get_post_meta( $review->ID, 'linked_group', false );
-				$review_ratings = get_post_meta( $review->ID, 'review_star_rating', false );
-				if ( ! empty( $review_ratings ) && ! empty( $review_rating_fields ) ) {
-					$rev_rating_array    = $review_ratings[0];
-					$total_review        = 0;
-					$single_review_count = 0;
-					foreach ( $review_rating_fields as $rating_field ) {
-						if ( array_key_exists( $rating_field, $rev_rating_array ) ) {
-							$total_review += $rev_rating_array[ $rating_field ];
-							++$single_review_count;
-						}
-					}
-					if ( ! empty( $single_review_count ) ) {
-						$rev_avg                         = $total_review / $single_review_count;
-						$single_rev_avg[ $review->ID ]   = $rev_avg;
-						$final_review_obj[ $review->ID ] = $review;
-					}
-				}
+		if ( 'highest' === $widget_rating_default ) {
+			arsort( $single_rev_avg, SORT_NUMERIC );
+		} elseif ( 'lowest' === $widget_rating_default ) {
+			asort( $single_rev_avg, SORT_NUMERIC );
+		}
+
+		// Bound the working set to the widget's own display limit.
+		$single_rev_avg = array_slice( $single_rev_avg, 0, $widget_post_num, true );
+
+		$final_review_obj = array();
+		if ( ! empty( $single_rev_avg ) ) {
+			$review_posts = get_posts(
+				array(
+					'post_type'      => 'review',
+					'post_status'    => 'publish',
+					'posts_per_page' => count( $single_rev_avg ),
+					'post__in'       => array_keys( $single_rev_avg ),
+					'orderby'        => 'post__in',
+				)
+			);
+			foreach ( $review_posts as $review_post ) {
+				$final_review_obj[ $review_post->ID ] = $review_post;
 			}
+			// Drop index entries whose post no longer resolves.
+			$single_rev_avg = array_intersect_key( $single_rev_avg, $final_review_obj );
 		}
 		echo wp_kses_post( $args['before_widget'] );
 		if ( empty( $widget_title ) ) {
@@ -171,13 +160,6 @@ class Bgr_Single_Group_Rating_Widget extends WP_Widget {
 
 		$bgr_user_count = 0;
 		if ( ! empty( $single_rev_avg ) ) {
-			if ( 'highest' === $widget_rating_default ) {
-				arsort( $single_rev_avg );
-			} elseif ( 'lowest' === $widget_rating_default ) {
-				asort( $single_rev_avg );
-			} else {
-				$single_rev_avg = $single_rev_avg;
-			}
 			?>
 			<div class="item-options" id="bp-group-rating-list-options">
 				<a href="#" attr-val="latest" id="member_latest_reviews"

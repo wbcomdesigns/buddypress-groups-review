@@ -81,6 +81,9 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			add_action( 'bgr_group_accept_review', array( $this, 'invalidate_cache_on_review_action' ), 10, 1 );
 			add_action( 'bgr_group_deny_review', array( $this, 'invalidate_cache_on_review_action' ), 10, 1 );
 			add_action( 'before_delete_post', array( $this, 'invalidate_cache_on_review_action' ), 10, 1 );
+			add_action( 'added_post_meta', array( $this, 'invalidate_cache_on_meta_change' ), 10, 4 );
+			add_action( 'updated_post_meta', array( $this, 'invalidate_cache_on_meta_change' ), 10, 4 );
+			add_action( 'deleted_post_meta', array( $this, 'invalidate_cache_on_meta_change' ), 10, 4 );
 		}
 
 		/**
@@ -141,14 +144,19 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 * @return int The number of published reviews.
 		 */
 		public function get_group_review_count( $group_id ) {
-			$group_id      = absint( $group_id );
-			
-			if( empty( $group_id ) ) {
+			$group_id = absint( $group_id );
+
+			if ( empty( $group_id ) ) {
 				return 0;
 			}
 
+			$count = get_transient( 'bgr_review_count_' . $group_id );
+			if ( false !== $count ) {
+				return (int) $count;
+			}
+
 			global $wpdb;
-			
+
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Caching via transient.
 			$count = (int) $wpdb->get_var(
 				$wpdb->prepare(
@@ -162,7 +170,9 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				)
 			);
 
-			return (int) $count;
+			set_transient( 'bgr_review_count_' . $group_id, $count, HOUR_IN_SECONDS );
+
+			return $count;
 		}
 
 		/**
@@ -175,6 +185,40 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		public static function invalidate_group_review_cache( $group_id ) {
 			$group_id = absint( $group_id );
 			delete_transient( 'bgr_review_count_' . $group_id );
+			delete_transient( 'bgr_review_rating_' . $group_id );
+		}
+
+		/**
+		 * Invalidate the group cache when review meta changes.
+		 *
+		 * Covers write paths where 'linked_group' / 'review_star_rating' meta
+		 * is written after the post itself is saved (AJAX submit, REST
+		 * create/update with auto-approve), which save_post alone misses.
+		 *
+		 * @since  3.9.0
+		 *
+		 * @param int|array $meta_id    Meta ID(s).
+		 * @param int       $post_id    Post ID.
+		 * @param string    $meta_key   Meta key.
+		 * @param mixed     $meta_value Meta value.
+		 */
+		public function invalidate_cache_on_meta_change( $meta_id, $post_id, $meta_key, $meta_value ) {
+			if ( ! in_array( $meta_key, array( 'linked_group', 'review_star_rating' ), true ) ) {
+				return;
+			}
+
+			if ( 'review' !== get_post_type( $post_id ) ) {
+				return;
+			}
+
+			if ( 'linked_group' === $meta_key && is_numeric( $meta_value ) ) {
+				self::invalidate_group_review_cache( absint( $meta_value ) );
+			}
+
+			$group_id = get_post_meta( $post_id, 'linked_group', true );
+			if ( $group_id ) {
+				self::invalidate_group_review_cache( absint( $group_id ) );
+			}
 		}
 
 		/**
@@ -271,187 +315,83 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		/**
 		 *  Actions performed to add ratings in group directory page
 		 *
+		 *  Runs once per group card on the groups directory, so it MUST stay
+		 *  cheap: reads the cached aggregate from bgr_get_group_review_stats()
+		 *  instead of querying every review per card.
+		 *
 		 *  @since   1.0.0
 		 *  @access public
 		 *  @author  Wbcom Designs
 		 */
 		public function bp_group_review_group_directory_rating() {
 			global $bgr;
-			global $bp;
-			$args                 = array(
-				'post_type'      => 'review',
-				'posts_per_page' => -1,
-				'post_status'    => 'publish',
-				'category'       => 'group',
-				'meta_query'     => array(
-					array(
-						'key'     => 'linked_group',
-						'value'   => bp_get_group_id(),
-						'compare' => '=',
-					),
-				),
-			);
-			$reviews              = get_posts( $args );
-			$review_rating_fields = $bgr['review_rating_fields'];
-			$review_label         = bp_group_review_tab_name();
-			$exclude_groups       = isset( $bgr['exclude_groups'] ) ? array_map( 'absint', (array) $bgr['exclude_groups'] ) : array();
-			$current_group_id     = absint( bp_get_group_id() );
-			if ( ! empty( $exclude_groups ) ) {
-				if ( ! in_array( $current_group_id, $exclude_groups, true ) ) {
-					$this->bp_group_review_single_group_average_rating_data( $reviews, $review_rating_fields, $review_label );
-				}
-			} else {
-				$this->bp_group_review_single_group_average_rating_data( $reviews, $review_rating_fields, $review_label );
+
+			if ( empty( $bgr['review_rating_fields'] ) ) {
+				return;
 			}
-		}
 
-
-		/**
-		 * Actions performed to show rating on groups directing page.
-		 *
-		 * @since  1.0.0
-		 * @access public
-		 * @author Wbcom Designs
-		 *
-		 * @param array  $reviews              Array of review posts.
-		 * @param array  $review_rating_fields Array of rating field names.
-		 * @param string $review_label         Label for reviews (unused but kept for compatibility).
-		 * @return void
-		 */
-		public function bp_group_review_single_group_average_rating_data( $reviews, $review_rating_fields, $review_label ) {
-			if ( ! empty( $review_rating_fields ) ) {
-				if ( ! empty( $reviews ) ) {
-					$ttl_rating    = 0;
-					$reviews_count = 0;
-					foreach ( $reviews as $review ) {
-						$rate           = 0;
-						$review_ratings = get_post_meta( $review->ID, 'review_star_rating', false );
-
-						$reviews_field_count = 0;
-						// Ensure review_ratings[0] is an array before iterating.
-						if ( ! empty( $review_rating_fields ) && ! empty( $review_ratings[0] ) && is_array( $review_ratings[0] ) ) :
-							foreach ( $review_ratings[0] as $field => $value ) {
-								// Add all rating values regardless of field name match.
-								$rate += (int) $value;
-								++$reviews_field_count;
-							}
-							if ( $reviews_field_count > 0 ) {
-								++$reviews_count;
-								$ttl_rating += (int) $rate / $reviews_field_count;
-							}
-						endif;
-					}
-
-					$reviews_count = ( 0 === $reviews_count ) ? 1 : $reviews_count;
-					$avg_rating    = $ttl_rating / $reviews_count;
-					$avg_rating    = round( $avg_rating, 2 );
-					if ( $avg_rating > 0 ) {
-						?>
-					<div class="bgr-header-row"><div class="bgr-group-header-ratings"><div class="rating-bgr">
-						<?php
-						do_action( 'bgr_display_group_average_ratings', $avg_rating );
-						echo '</div></div></div>';
-					}
-				}
+			$current_group_id = absint( bp_get_group_id() );
+			$exclude_groups   = isset( $bgr['exclude_groups'] ) ? array_map( 'absint', (array) $bgr['exclude_groups'] ) : array();
+			if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) {
+				return;
 			}
+
+			$stats      = bgr_get_group_review_stats( $current_group_id );
+			$avg_rating = (float) $stats['average'];
+			if ( $avg_rating <= 0 ) {
+				return;
+			}
+			?>
+			<div class="bgr-header-row"><div class="bgr-group-header-ratings"><div class="rating-bgr">
+			<?php
+			do_action( 'bgr_display_group_average_ratings', $avg_rating );
+			echo '</div></div></div>';
 		}
 
 		/**
 		 *  Actions performed to show average rating on a group
+		 *
+		 *  Uses the cached aggregate from bgr_get_group_review_stats()
+		 *  instead of loading every review on each group-header render.
 		 *
 		 *  @since   1.0.0
 		 *  @access public
 		 *  @author  Wbcom Designs
 		 */
 		public function bp_group_review_group_average_rating() {
-			// Gather all the group reviews.
 			global $bgr;
-			global $bp;
-			$args                 = array(
-				'post_type'      => 'review',
-				'posts_per_page' => -1,
-				'post_status'    => 'publish',
-				'category'       => 'group',
-				'meta_query'     => array(
-					array(
-						'key'     => 'linked_group',
-						'value'   => bp_get_group_id(),
-						'compare' => '=',
-					),
-				),
-			);
-			$reviews              = get_posts( $args );
-			$review_rating_fields = $bgr['review_rating_fields'];
-			$review_label         = bp_group_review_tab_name();
-			$exclude_groups       = isset( $bgr['exclude_groups'] ) ? array_map( 'absint', (array) $bgr['exclude_groups'] ) : array();
-			$current_group_id     = absint( bp_get_group_id() );
-			if ( ! empty( $exclude_groups ) ) {
-				if ( ! in_array( $current_group_id, $exclude_groups, true ) ) {
-					$this->bp_group_review_group_average_rating_data( $reviews, $review_rating_fields, $review_label );
-				}
-			} else {
-				$this->bp_group_review_group_average_rating_data( $reviews, $review_rating_fields, $review_label );
+
+			if ( empty( $bgr['review_rating_fields'] ) ) {
+				return;
 			}
-		}
 
-		/**
-		 * Actions performed to show average rating.
-		 *
-		 * @since  1.0.0
-		 * @access public
-		 * @author Wbcom Designs
-		 *
-		 * @param array  $reviews              Array of review posts.
-		 * @param array  $review_rating_fields Array of rating field names.
-		 * @param string $review_label         Label for reviews.
-		 * @return void
-		 */
-		public function bp_group_review_group_average_rating_data( $reviews, $review_rating_fields, $review_label ) {
-			if ( ! empty( $review_rating_fields ) ) {
-				if ( ! empty( $reviews ) ) {
-					$ttl_rating         = 0;
-					$reviews_count      = 0;
-					$total_review_count = count( $reviews );
-					foreach ( $reviews as $review ) {
-						$rate           = 0;
-						$review_ratings = get_post_meta( $review->ID, 'review_star_rating', false );
-
-						$reviews_field_count = 0;
-						// Ensure review_ratings[0] is an array before iterating.
-						if ( ! empty( $review_rating_fields ) && ! empty( $review_ratings[0] ) && is_array( $review_ratings[0] ) ) :
-							foreach ( $review_ratings[0] as $field => $value ) {
-								// Add all rating values regardless of field name match.
-								$rate += (int) $value;
-								++$reviews_field_count;
-							}
-							if ( $reviews_field_count > 0 ) {
-								++$reviews_count;
-								$ttl_rating += (int) $rate / $reviews_field_count;
-							}
-						endif;
-					}
-
-					$reviews_count = ( 0 === $reviews_count ) ? 1 : $reviews_count;
-					$avg_rating    = $ttl_rating / $reviews_count;
-					$avg_rating    = round( $avg_rating, 2 );
-					if ( $avg_rating > 0 ) {
-						?>
-					<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr">
-						<?php
-						do_action( 'bgr_display_group_average_ratings', $avg_rating );
-
-						if ( $total_review_count <= 1 ) {
-
-							$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
-							$review_label               = isset( $bgr_admin_display_settings['review_label'] ) ? $bgr_admin_display_settings['review_label'] : esc_html__( 'Review', 'bp-group-reviews' );
-						}
-						$content = "<div class='rating-text'><span>" . esc_html__( 'Rating ', 'bp-group-reviews' ) . ' : ' . $avg_rating . '/5 - ' . $total_review_count . ' ' . $review_label . '</span></div>';
-
-						echo wp_kses_post( apply_filters( 'bgr_filter_group_header_rating_details', $content, $avg_rating, $review_label, $total_review_count, bp_get_group_id() ) );
-						echo '</div></div></div>';
-					}
-				}
+			$current_group_id = absint( bp_get_group_id() );
+			$exclude_groups   = isset( $bgr['exclude_groups'] ) ? array_map( 'absint', (array) $bgr['exclude_groups'] ) : array();
+			if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) {
+				return;
 			}
+
+			$stats              = bgr_get_group_review_stats( $current_group_id );
+			$avg_rating         = (float) $stats['average'];
+			$total_review_count = (int) $stats['total_reviews'];
+			$review_label       = bp_group_review_tab_name();
+
+			if ( $avg_rating <= 0 ) {
+				return;
+			}
+			?>
+			<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr">
+			<?php
+			do_action( 'bgr_display_group_average_ratings', $avg_rating );
+
+			if ( $total_review_count <= 1 ) {
+				$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
+				$review_label               = isset( $bgr_admin_display_settings['review_label'] ) ? $bgr_admin_display_settings['review_label'] : esc_html__( 'Review', 'bp-group-reviews' );
+			}
+			$content = "<div class='rating-text'><span>" . esc_html__( 'Rating ', 'bp-group-reviews' ) . ' : ' . $avg_rating . '/5 - ' . $total_review_count . ' ' . $review_label . '</span></div>';
+
+			echo wp_kses_post( apply_filters( 'bgr_filter_group_header_rating_details', $content, $avg_rating, $review_label, $total_review_count, bp_get_group_id() ) );
+			echo '</div></div></div>';
 		}
 
 		/**
