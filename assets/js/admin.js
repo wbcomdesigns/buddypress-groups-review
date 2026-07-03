@@ -13,6 +13,9 @@
 
 	var i18n = ( window.bgrAdminPanel && window.bgrAdminPanel.i18n ) || {};
 
+	// wp.i18n helper (handle depends on wp-i18n; guarded for safety).
+	var __ = ( window.wp && window.wp.i18n ) ? window.wp.i18n.__ : function ( text ) { return text; };
+
 	/* ─── Toast ─────────────────────────────────────────────── */
 
 	function getToastHost() {
@@ -83,12 +86,12 @@
 			var cancelBtn = document.createElement( 'button' );
 			cancelBtn.type = 'button';
 			cancelBtn.className = 'bgr-btn bgr-btn-secondary';
-			cancelBtn.textContent = opts.cancelLabel || i18n.confirmCancel || 'Cancel';
+			cancelBtn.textContent = opts.cancelLabel || i18n.confirmCancel || __( 'Cancel', 'bp-group-reviews' );
 
 			var confirmBtn = document.createElement( 'button' );
 			confirmBtn.type = 'button';
 			confirmBtn.className = 'bgr-btn ' + ( 'danger' === opts.tone ? 'bgr-btn-danger' : 'bgr-btn-primary' );
-			confirmBtn.textContent = opts.confirmLabel || i18n.confirmContinue || 'Continue';
+			confirmBtn.textContent = opts.confirmLabel || i18n.confirmContinue || __( 'Continue', 'bp-group-reviews' );
 
 			actions.appendChild( cancelBtn );
 			actions.appendChild( confirmBtn );

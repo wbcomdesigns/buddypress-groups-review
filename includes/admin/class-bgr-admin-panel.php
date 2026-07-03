@@ -184,10 +184,11 @@ class BGR_Admin_Panel {
 		wp_enqueue_script(
 			'bgr-admin-panel',
 			BGR_PLUGIN_URL . 'assets/js/admin.js',
-			array( 'jquery' ),
+			array( 'jquery', 'wp-i18n' ),
 			$version,
 			true
 		);
+		wp_set_script_translations( 'bgr-admin-panel', 'bp-group-reviews', BGR_PLUGIN_PATH . 'languages' );
 
 		wp_localize_script(
 			'bgr-admin-panel',

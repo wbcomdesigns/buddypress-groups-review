@@ -204,7 +204,8 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				// Toast + confirm helpers replace native alert()/confirm()
 				// in the criteria management UI (dev rules 10 + 12).
 				wp_register_script( 'bgr-toast', BGR_PLUGIN_URL . 'public/js/toast.js', array(), BGR_PLUGIN_VERSION, true );
-				wp_register_script( 'bgr-confirm', BGR_PLUGIN_URL . 'public/js/confirm.js', array(), BGR_PLUGIN_VERSION, true );
+				wp_register_script( 'bgr-confirm', BGR_PLUGIN_URL . 'public/js/confirm.js', array( 'wp-i18n' ), BGR_PLUGIN_VERSION, true );
+				wp_set_script_translations( 'bgr-confirm', 'bp-group-reviews', BGR_PLUGIN_PATH . 'languages' );
 				wp_enqueue_script( 'bgr-toast' );
 				wp_enqueue_script( 'bgr-confirm' );
 
@@ -218,10 +219,11 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				wp_register_script(
 					'bgr-group-criteria-admin-js',
 					BGR_PLUGIN_URL . 'assets/js' . $script_path . '/bgr-group-criteria-admin' . $script_extension,
-					array( 'jquery', 'bgr-toast', 'bgr-confirm' ),
+					array( 'jquery', 'wp-i18n', 'bgr-toast', 'bgr-confirm' ),
 					BGR_PLUGIN_VERSION,
 					true
 				);
+				wp_set_script_translations( 'bgr-group-criteria-admin-js', 'bp-group-reviews', BGR_PLUGIN_PATH . 'languages' );
 				wp_enqueue_script( 'bgr-group-criteria-admin-js' );
 				wp_localize_script(
 					'bgr-group-criteria-admin-js',
@@ -264,7 +266,8 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 
 			if ( ( 'review' == get_post_type() ) || ( 'wb-plugins_page_group-review-settings' == $screen->base ) || ( 'group-review-settings' == $page ) || 'toplevel_page_wbcomplugins' == $screen->base ) {
 
-				wp_register_script( 'bgr-js-admin', BGR_PLUGIN_URL . 'admin/assets/js' . $script_path . '/bgr-admin' . $script_extension, array( 'jquery' ), BGR_PLUGIN_VERSION, false );
+				wp_register_script( 'bgr-js-admin', BGR_PLUGIN_URL . 'admin/assets/js' . $script_path . '/bgr-admin' . $script_extension, array( 'jquery', 'wp-i18n' ), BGR_PLUGIN_VERSION, false );
+				wp_set_script_translations( 'bgr-js-admin', 'bp-group-reviews', BGR_PLUGIN_PATH . 'languages' );
 				wp_enqueue_script( 'bgr-js-admin' );
 				wp_localize_script(
 					'bgr-js-admin',

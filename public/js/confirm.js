@@ -17,7 +17,13 @@
 ( function () {
 	'use strict';
 
-	var i18n = window.bgrConfirmI18n || { confirm: 'Confirm', cancel: 'Cancel' };
+	// wp.i18n helper (handle depends on wp-i18n; guarded for safety).
+	var __ = ( window.wp && window.wp.i18n ) ? window.wp.i18n.__ : function ( text ) { return text; };
+
+	var i18n = window.bgrConfirmI18n || {
+		confirm: __( 'Confirm', 'bp-group-reviews' ),
+		cancel: __( 'Cancel', 'bp-group-reviews' )
+	};
 
 	window.bgrConfirm = function ( options ) {
 		return new Promise( function ( resolve ) {

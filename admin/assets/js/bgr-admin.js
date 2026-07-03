@@ -1,14 +1,23 @@
 jQuery.noConflict();
+
+// wp.i18n helper (handle depends on wp-i18n; guarded for safety).
+var bgrAdminI18n =
+  window.wp && window.wp.i18n
+    ? window.wp.i18n.__
+    : function (text) {
+        return text;
+      };
+
 jQuery(document).ready(function () {
   // Save Criteria Settings
   jQuery("#bgr-settings-updated").hide();
-  
+
   // Handle dismissible notices
   jQuery(document).on('click', '.notice-dismiss', function() {
     jQuery(this).closest('.notice').fadeOut();
   });
   jQuery("#bgr-exclude-group-review").selectize({
-    placeholder: "Select groups",
+    placeholder: bgrAdminI18n("Select groups", "bp-group-reviews"),
     plugins: ["remove_button"],
   });
 
@@ -184,7 +193,7 @@ jQuery(document).ready(function () {
 
   jQuery(document).on("click", ".bgr-approve-review", function () {
     var review_id = jQuery(this).data("rid");
-    jQuery(this).html("Approving..");
+    jQuery(this).html(bgrAdminI18n("Approving..", "bp-group-reviews"));
     jQuery.post(
       ajaxurl,
       {
@@ -208,7 +217,10 @@ jQuery(document).ready(function () {
       (window.bgrAdminPanel &&
         window.bgrAdminPanel.i18n &&
         window.bgrAdminPanel.i18n.denyReview) ||
-      "Are you sure you want to deny this review? It will be moved to trash.";
+      bgrAdminI18n(
+        "Are you sure you want to deny this review? It will be moved to trash.",
+        "bp-group-reviews"
+      );
 
     // Promise-based confirm modal (no native confirm()). Falls back to
     // immediate continue if the helper is somehow unavailable.
@@ -221,7 +233,7 @@ jQuery(document).ready(function () {
       if (!ok) {
         return;
       }
-      $btn.html("Denying..");
+      $btn.html(bgrAdminI18n("Denying..", "bp-group-reviews"));
       jQuery.post(
         ajaxurl,
         {
@@ -245,6 +257,8 @@ function BGRGetBGRDynamicTextBox(value) {
     '<span class="move-icons">&equiv;</span><input name="BGRDynamicTextBox" class="draggable" type="text" value="' +
     value +
     '" />' +
-    '<input type="button" value="Remove" class="remove button button-secondary bgr-remove" /><label class="wb-switch"><input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="" checked="checked" ><div class="wb-slider wb-round"></div></label>'
+    '<input type="button" value="' +
+    bgrAdminI18n("Remove", "bp-group-reviews") +
+    '" class="remove button button-secondary bgr-remove" /><label class="wb-switch"><input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="" checked="checked" ><div class="wb-slider wb-round"></div></label>'
   );
 }

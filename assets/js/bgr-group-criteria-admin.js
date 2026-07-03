@@ -10,6 +10,11 @@
 (function($) {
 	'use strict';
 
+	// wp.i18n helpers (handle depends on wp-i18n; guarded for safety).
+	var hasI18n = window.wp && window.wp.i18n;
+	var __ = hasI18n ? window.wp.i18n.__ : function (text) { return text; };
+	var sprintf = hasI18n ? window.wp.i18n.sprintf : function (format, value) { return format.replace('%s', value); };
+
 	var BGR_Group_Criteria = {
 		groupId: 0,
 		nonce: '',
@@ -84,7 +89,7 @@
 				enabledGlobal.push($(this).val());
 			});
 
-			self.setStatus('Saving...', '');
+			self.setStatus(__('Saving...', 'bp-group-reviews'), '');
 
 			$.ajax({
 				url: ajaxurl,
@@ -101,11 +106,11 @@
 						self.setStatus(response.data.message, 'success');
 						self.updatePreviewFromResponse(response.data.criteria);
 					} else {
-						self.setStatus(response.data.message || 'Error saving settings.', 'error');
+						self.setStatus(response.data.message || __('Error saving settings.', 'bp-group-reviews'), 'error');
 					}
 				},
 				error: function() {
-					self.setStatus('Network error. Please try again.', 'error');
+					self.setStatus(__('Network error. Please try again.', 'bp-group-reviews'), 'error');
 				}
 			});
 		},
@@ -125,12 +130,12 @@
 			var name = $('#bgr-new-criteria-name').val().trim();
 
 			if (!name) {
-				self.notify('Please enter a criteria name.', 'warning');
+				self.notify(__('Please enter a criteria name.', 'bp-group-reviews'), 'warning');
 				return;
 			}
 
 			if (name.length > 50) {
-				self.notify('Criteria name must be 50 characters or less.', 'warning');
+				self.notify(__('Criteria name must be 50 characters or less.', 'bp-group-reviews'), 'warning');
 				return;
 			}
 
@@ -148,18 +153,18 @@
 						// Add to the list
 						var html = '<div class="bgr-custom-criteria-item" data-name="' + self.escapeHtml(name) + '">' +
 							'<span class="bgr-criteria-name">' + self.escapeHtml(name) + '</span>' +
-							'<button type="button" class="bgr-archive-custom-criteria button-link" data-name="' + self.escapeHtml(name) + '">Archive</button>' +
+							'<button type="button" class="bgr-archive-custom-criteria button-link" data-name="' + self.escapeHtml(name) + '">' + __('Archive', 'bp-group-reviews') + '</button>' +
 							'</div>';
 						$('#bgr-custom-criteria-list').append(html);
 						$('#bgr-new-criteria-name').val('');
 						self.updatePreviewFromResponse(response.data.criteria);
 						self.setStatus(response.data.message, 'success');
 					} else {
-						self.notify((response.data && response.data.message) || 'Error adding criteria.', 'error');
+						self.notify((response.data && response.data.message) || __('Error adding criteria.', 'bp-group-reviews'), 'error');
 					}
 				},
 				error: function() {
-					self.notify('Network error. Please try again.', 'error');
+					self.notify(__('Network error. Please try again.', 'bp-group-reviews'), 'error');
 				}
 			});
 		},
@@ -169,9 +174,10 @@
 
 			var ask = typeof window.bgrConfirm === 'function'
 				? window.bgrConfirm({
-					title: 'Archive criteria?',
-					message: 'Are you sure you want to archive "' + name + '"? Historical reviews will be preserved.',
-					confirm: 'Archive',
+					title: __('Archive criteria?', 'bp-group-reviews'),
+					/* translators: %s: criteria name. */
+					message: sprintf(__('Are you sure you want to archive "%s"? Historical reviews will be preserved.', 'bp-group-reviews'), name),
+					confirm: __('Archive', 'bp-group-reviews'),
 					dangerous: true
 				})
 				: Promise.resolve(true);
@@ -198,11 +204,11 @@
 							self.updatePreviewFromResponse(response.data.criteria);
 							self.setStatus(response.data.message, 'success');
 						} else {
-							self.notify((response.data && response.data.message) || 'Error archiving criteria.', 'error');
+							self.notify((response.data && response.data.message) || __('Error archiving criteria.', 'bp-group-reviews'), 'error');
 						}
 					},
 					error: function() {
-						self.notify('Network error. Please try again.', 'error');
+						self.notify(__('Network error. Please try again.', 'bp-group-reviews'), 'error');
 					}
 				});
 			});
@@ -262,7 +268,7 @@
 					$list.append('<li>' + this.escapeHtml(criteria[i]) + '</li>');
 				}
 			} else {
-				$list.append('<li><em>No criteria selected</em></li>');
+				$list.append('<li><em>' + __('No criteria selected', 'bp-group-reviews') + '</em></li>');
 			}
 		},
 
