@@ -62,6 +62,16 @@ Check out paid community add-ons by Wbcom Designs:
 = EXPERT SUPPORT =
 We are ready to provide incredible support. Ask your questions at [contact us directly](https://wbcomdesigns.com/support/).
 
+== More Free Tools from Wbcom Designs ==
+
+BuddyPress Group Reviews adds a reputation and discovery layer to your groups: members rate them across your criteria, and the best-reviewed groups rise to the top. To build out the community those groups live in, pair it with the rest of the free Wbcom Designs stack.
+
+* **[BuddyNext](https://wbcomdesigns.com/downloads/buddynext/)** - A free, full-featured community platform that gives your site social feeds, member profiles, and connections.
+* **[Jetonomy](https://wbcomdesigns.com/downloads/jetonomy/)** - Free forums, Q&A, and idea boards with trust-level moderation, proven across more than 100,000 topics.
+* **[Mediaverse](https://wbcomdesigns.com/downloads/mediaverse/)** - A free photo and video community where AI moderation screens every upload automatically.
+* **[Listora](https://wbcomdesigns.com/downloads/listora/)** - Build searchable directories with ten distinct listing types, all for free.
+* **[Learnomy](https://wbcomdesigns.com/downloads/learnomy/)** - A free LMS for publishing courses and teaching your members right on your site.
+
 == Installation ==
 
 1. Upload the entire "review-bp-grps" folder to the /wp-content/plugins/ directory.
