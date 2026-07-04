@@ -548,6 +548,78 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
+   Discover — ecosystem cross-promotion cards
+   Token-driven, matches the card language. Responsive auto-fill:
+   1 column on mobile, 2-3 columns on wider screens.
+   ═══════════════════════════════════════════════════════════ */
+
+.bgr-discover-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	gap: var(--bgr-admin-gap-md);
+}
+
+.bgr-discover-card {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+	padding: 20px;
+	background: var(--bgr-admin-white);
+	border: 1px solid var(--bgr-admin-border);
+	border-radius: var(--bgr-admin-radius);
+	box-shadow: var(--bgr-admin-shadow);
+	transition: box-shadow 0.12s, border-color 0.12s, transform 0.12s;
+}
+
+.bgr-discover-card:hover {
+	border-color: var(--bgr-admin-border-strong);
+	box-shadow: var(--bgr-admin-shadow-hover);
+	transform: translateY(-1px);
+}
+
+.bgr-discover-card__logo {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 52px;
+	height: 52px;
+}
+
+.bgr-discover-card__logo img {
+	width: 52px;
+	height: 52px;
+	display: block;
+	border-radius: var(--bgr-admin-radius-sm);
+}
+
+.bgr-discover-card__title {
+	font-size: 15px;
+	font-weight: 700;
+	color: var(--bgr-admin-text);
+	line-height: 1.2;
+	margin: 0;
+}
+
+.bgr-discover-card__desc {
+	font-size: 13px;
+	color: var(--bgr-admin-text-3);
+	line-height: 1.5;
+	margin: 0;
+	flex: 1 1 auto;
+}
+
+.bgr-discover-card__cta {
+	margin-top: 4px;
+}
+
+.bgr-discover-card__cta .dashicons {
+	width: 14px;
+	height: 14px;
+	font-size: 14px;
+}
+
+/* ═══════════════════════════════════════════════════════════
    Form helpers
    ═══════════════════════════════════════════════════════════ */
 
@@ -968,5 +1040,9 @@
 	.bgr-card .form-table th {
 		padding-top: 16px;
 		padding-bottom: 4px;
+	}
+
+	.bgr-discover-grid {
+		grid-template-columns: 1fr;
 	}
 }

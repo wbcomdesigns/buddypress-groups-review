@@ -79,7 +79,29 @@ class BGR_Admin_Panel {
 				'group' => 'settings',
 			),
 		);
-		return apply_filters( 'bgr_admin_tabs', $tabs );
+
+		/**
+		 * Filter the card-panel settings tabs.
+		 *
+		 * @since 3.9.0
+		 *
+		 * @param array $tabs Tab descriptors keyed by slug.
+		 */
+		$tabs = apply_filters( 'bgr_admin_tabs', $tabs );
+
+		/*
+		 * Discover — ecosystem cross-promotion (read-only display view).
+		 * Appended AFTER the `bgr_admin_tabs` filter so it always renders
+		 * last, in its own sidebar group, regardless of what integrations
+		 * add or remove above it.
+		 */
+		$tabs['discover'] = array(
+			'label' => __( 'Discover', 'bp-group-reviews' ),
+			'icon'  => 'dashicons-products',
+			'group' => 'discover',
+		);
+
+		return $tabs;
 	}
 
 	/**
@@ -263,6 +285,7 @@ class BGR_Admin_Panel {
 			'criteria' => 'settings-criteria',
 			'display'  => 'settings-display',
 			'emails'   => 'settings-emails',
+			'discover' => 'discover',
 		);
 		$view     = isset( $view_map[ $active ] ) ? $view_map[ $active ] : 'welcome';
 

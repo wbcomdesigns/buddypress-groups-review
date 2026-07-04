@@ -66,6 +66,7 @@ $bgr_version = defined( 'BGR_PLUGIN_VERSION' ) ? BGR_PLUGIN_VERSION : '';
 				$bgr_printed_groups = array();
 				$bgr_group_labels   = array(
 					'settings' => esc_html__( 'Settings', 'bp-group-reviews' ),
+					'discover' => esc_html__( 'More Tools', 'bp-group-reviews' ),
 				);
 				foreach ( $bgr_tabs as $bgr_slug => $bgr_tab ) {
 					$bgr_group = isset( $bgr_tab['group'] ) ? $bgr_tab['group'] : 'main';
