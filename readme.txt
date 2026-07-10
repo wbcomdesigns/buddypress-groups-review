@@ -112,14 +112,12 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 
 
 == Screenshots ==
-1. Plugin settings- General Options.(png|jpg|jpeg|gif).
-2. Plugin settings- Review Criteria.(png|jpg|jpeg|gif).
-3. Plugin Option to approve review.(png|jpg|jpeg|gif).
-4. Plugin settings to change review label.(png|jpg|jpeg|gif).
-5. Group Reviews at group directory.(png|jpg|jpeg|gif).
-6. Activity posting on group review.(png|jpg|jpeg|gif).
-7. Review display at single group.(png|jpg|jpeg|gif).
-8. Review submission at single group.(png|jpg|jpeg|gif).
+1. Group Reviews tab with multi-criteria star ratings and the aggregate group score.
+2. Group Reviews tab rendered in BuddyX dark mode.
+3. Group Reviews on a mobile viewport with stacked criteria.
+4. Admin General settings - review submission and moderation options.
+5. Admin Criteria manager - add, reorder, and enable rating criteria.
+6. Admin Discover - more free tools from Wbcom Designs.
 
 == Changelog ==
 
