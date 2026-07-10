@@ -179,6 +179,7 @@ function bp_group_review_include_files_bp() {
 function run_bp_group_reviews_plugin() {
 	$include_files = array(
 		'includes/bgr-globals.php',
+		'includes/class-bgr-theme-integration.php',
 		'includes/bgr-scripts.php',
 		'admin/bgr-admin.php',
 		'admin/bgr-admin-feedback.php',
@@ -206,6 +207,12 @@ function run_bp_group_reviews_plugin() {
 	// Initialize the group criteria singleton to register its hooks.
 	if ( class_exists( 'BGR_Group_Criteria' ) ) {
 		BGR_Group_Criteria::get_instance();
+	}
+
+	// Initialize the theme-integration helper (adds bgr-theme-{slug} body class,
+	// centralizes theme token mapping). See UI-013.
+	if ( class_exists( 'BGR_Theme_Integration' ) ) {
+		BGR_Theme_Integration::get_instance();
 	}
 }
 

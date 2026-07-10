@@ -216,6 +216,11 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 					wp_enqueue_style( 'bgr-reviews-css' );
 				}
 
+				// Criteria settings screen styles. Extracted from a 125-line
+				// inline <style> block in the criteria template (UI-005).
+				wp_register_style( 'bgr-group-criteria-admin-css', BGR_PLUGIN_URL . 'assets/css' . $style_path . '/bgr-group-criteria-admin' . $style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
+				wp_enqueue_style( 'bgr-group-criteria-admin-css' );
+
 				wp_register_script(
 					'bgr-group-criteria-admin-js',
 					BGR_PLUGIN_URL . 'assets/js' . $script_path . '/bgr-group-criteria-admin' . $script_extension,

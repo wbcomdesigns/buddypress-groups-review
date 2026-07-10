@@ -3,8 +3,9 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups
 Requires at least: 4.0
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
+Requires Plugins: buddypress
 Stable tag: 3.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -122,11 +123,22 @@ Please visit https://wbcomdesigns.com/contact/ for any questions about the plugi
 
 == Changelog ==
 
-= 3.9.0 =
-* Improved: Rebuilt the admin settings screen with the modern Wbcom card-panel UI (sidebar navigation, consistent across the Wbcom plugin suite). Settings and saved data are unchanged.
-* Improved: Replaced browser alert/confirm dialogs in the group criteria manager with accessible toast and confirm modals.
-* Improved: Larger, accessible tap targets on the review submission button.
-* Fixed: Removed the deprecated bundled admin wrapper.
+= 3.9.0 - July 2026 =
+
+UI pass: BuddyX/Reign dark-mode token mapping, accessibility focus rings, and CSS cleanup.
+
+* New      - Centralized theme integration (BGR_Theme_Integration) that detects the active theme and adds a bgr-theme-{slug} body class with a filterable token map.
+* Improve  - Mapped review, rating and leaderboard colors to BuddyX --bx-color-* tokens with Reign and dark-literal fallbacks so dark mode renders correctly on BuddyX, BuddyX Pro and Reign.
+* Improve  - Unified the two admin stylesheets onto one shared --bgr-admin-* token vocabulary and tokenized the legacy admin colors.
+* Improve  - Rebuilt the admin settings screen with the modern Wbcom card-panel UI (sidebar navigation). Settings and saved data are unchanged.
+* Improve  - Replaced browser alert/confirm dialogs in the group criteria manager with accessible toast and confirm dialogs.
+* Improve  - Larger, accessible tap targets on the review submission button.
+* Improve  - Converted the star rating layout from floats to inline-flow so it mirrors correctly in RTL.
+* Fix      - Added visible :focus-visible outlines to review, rating, leaderboard and admin controls (WCAG 2.4.7).
+* Fix      - Dark mode now activates only on the explicit theme toggle (data-bx-mode="dark") and never from the OS preference.
+* Fix      - Removed the deprecated bundled admin wrapper.
+* Dev      - Extracted the 125-line inline style block from the group criteria template into an enqueued, tokenized stylesheet with min and RTL builds.
+* Dev      - Consolidated the duplicated rating-color CSS into a single shared helper.
 
 = 3.8.1 =
 * Fixed: Star rating UI display issue with half-star icons

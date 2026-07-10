@@ -112,7 +112,8 @@
     { "name": "widget_title", "type": "filter", "args_count": 1, "where": "includes/widgets/group-rating.php:122", "consumed_by": [], "note": "WP core filter name applied by this plugin's widget." },
     { "name": "post_num", "type": "filter", "args_count": 1, "where": "includes/widgets/group-rating.php:123", "consumed_by": [], "note": "Non-namespaced filter name (should be bgr-prefixed)." },
     { "name": "rating_default", "type": "filter", "args_count": 1, "where": "includes/widgets/group-rating.php:124", "consumed_by": [], "note": "Non-namespaced filter name (should be bgr-prefixed)." },
-    { "name": "bp_core_template_plugin", "type": "filter", "args_count": 1, "where": "includes/bgr-filters.php:924+", "consumed_by": [], "note": "BP core template-resolution filter applied by this plugin." }
+    { "name": "bp_core_template_plugin", "type": "filter", "args_count": 1, "where": "includes/bgr-filters.php:924+", "consumed_by": [], "note": "BP core template-resolution filter applied by this plugin." },
+    { "name": "bgr_theme_token_map", "type": "filter", "args_count": 2, "where": "includes/class-bgr-theme-integration.php (BGR_Theme_Integration::get_theme_token_map)", "consumed_by": [], "note": "3.9.0: filter the theme->plugin token map used for centralized theme integration (UI-013). Also adds body_class/admin_body_class 'bgr-theme-{slug}'." }
   ],
   "interactivity": [],
   "ui_activation": [],
@@ -145,7 +146,8 @@
   "buddypress_integration": { "enabled_when": "BuddyPress active + groups component active", "manager": "bp_group_review_plugin_execute / run_bp_group_reviews_plugin", "sub_classes": ["BGR_Notifications", "BGR_BP_REST_Integration", "BGR_Group_Criteria", "BGR_Multi_Support"], "notes": ["3.9.0: BP /groups REST 'reviews' field hooked to bp_rest_groups_prepare_value (was rest_prepare_buddypress_group, which BuddyPress never fires - the field was dead since 3.5.0); stats served from the cached aggregate bgr_get_group_review_stats()."] },
   "frontend_assets": {
     "js": ["assets/js/*", "assets/js/bgr-group-criteria-admin.js", "admin/assets/js/bgr-admin.js", "admin/assets/js/bgr-colorpicker.js"],
-    "css": ["assets/css/bgr-reviews.css", "admin/assets/css/bgr-admin.css"]
+    "css": ["assets/css/bgr-ratings.css", "assets/css/bgr-icons.css", "assets/css/bgr-reviews.css", "assets/css/bgr-front.css", "assets/css/bgr-group-criteria-admin.css (enqueued 3.9.0 on group admin criteria page; was previously an unenqueued dead file, revived when the inline <style> block was extracted from bgr-group-criteria-settings.php - UI-005)", "assets/css/admin.css (modern card panel, enqueued by includes/admin/class-bgr-admin-panel.php)", "admin/assets/css/bgr-admin.css (legacy tabs; 3.9.0 tokenized onto shared --bgr-admin-* vocabulary)"],
+    "css_note_3_9_0": "Dark mode across bgr-front/bgr-reviews/bgr-ratings/bgr-group-criteria-admin uses explicit selectors only ([data-bx-mode=dark], .buddyx-dark-theme, html.dark-mode, body.dark-scheme, body.dark) with a BuddyX --bx-color-* -> Reign --reign-* -> dark-literal fallback chain. No prefers-color-scheme (owner rule). Theme detection centralized in includes/class-bgr-theme-integration.php (BGR_Theme_Integration)."
   },
   "cron": [],
   "wp_cli": [],

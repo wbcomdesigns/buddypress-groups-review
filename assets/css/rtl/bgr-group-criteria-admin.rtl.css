@@ -1,17 +1,47 @@
 /**
- * Group Criteria Admin Styles
+ * Group Criteria Settings - front-end group-admin screen styles.
  *
- * Styles for the group admin panel review criteria settings.
+ * Was an unenqueued stylesheet; the live styles lived in a 125-line inline
+ * <style> block inside includes/templates/bgr-group-criteria-settings.php
+ * (UI-005). That block is now removed and this file is enqueued on the group
+ * admin criteria page (with .min + .rtl build variants). Structural colours
+ * use --bgr-* tokens with dark-mode remaps; status-badge colours are
+ * intentional semantic literals.
  *
  * @since   3.7.0
  * @package BuddyPress_Group_Review
  */
 
+:root {
+	--bgr-border-color: #ddd;
+	--bgr-accent: #2271b1;
+	--bgr-text-muted: #666;
+	--bgr-bg-item: #f9f9f9;
+	--bgr-bg-custom: #f0f7ff;
+	--bgr-bg-archived: #f5f5f5;
+	--bgr-bg-preview: #e7f3ff;
+}
+
+/* Dark mode - explicit selectors only (no OS/prefers-color-scheme). Chain:
+   BuddyX modern (--bx-color-*) -> Reign (--reign-*) -> dark literal. */
+html.dark-mode,
+body.dark-scheme,
+body.dark,
+html[data-bx-mode="dark"],
+.buddyx-dark-theme {
+	--bgr-border-color: var(--bx-color-border, var(--reign-site-border-color, #3d3d3d));
+	--bgr-accent: var(--bx-color-accent, var(--reign-primary-color, #4f8bf0));
+	--bgr-text-muted: var(--bx-color-fg-muted, var(--reign-site-alternate-text-color, #a0a0a0));
+	--bgr-bg-item: var(--bx-color-bg-muted, var(--reign-site-secondary-bg-color, #2a2a2a));
+	--bgr-bg-custom: var(--bx-color-bg-subtle, var(--reign-site-secondary-bg-color, #22303f));
+	--bgr-bg-archived: var(--bx-color-bg-muted, var(--reign-site-secondary-bg-color, #262626));
+	--bgr-bg-preview: var(--bx-color-bg-subtle, var(--reign-site-secondary-bg-color, #1e2a38));
+}
+
 .bgr-criteria-settings-wrap {
 	max-width: 800px;
 }
 
-/* Mode Options */
 .bgr-mode-options {
 	margin: 15px 0;
 }
@@ -20,18 +50,18 @@
 	display: block;
 	padding: 15px;
 	margin-bottom: 10px;
-	border: 1px solid #ddd;
+	border: 1px solid var(--bgr-border-color, #ddd);
 	border-radius: 4px;
 	cursor: pointer;
 	transition: border-color 0.2s;
 }
 
 .bgr-mode-option:hover {
-	border-color: #2271b1;
+	border-color: var(--bgr-accent, #2271b1);
 }
 
 .bgr-mode-option input[type="radio"] {
-	margin-left: 10px;
+	margin-inline-end: 10px;
 }
 
 .bgr-mode-label {
@@ -41,12 +71,11 @@
 .bgr-mode-desc {
 	display: block;
 	margin-top: 5px;
-	color: #666;
+	color: var(--bgr-text-muted, #666);
 	font-size: 13px;
-	margin-right: 24px;
+	margin-inline-start: 24px;
 }
 
-/* Criteria List */
 .bgr-criteria-list {
 	margin: 15px 0;
 }
@@ -55,7 +84,7 @@
 	display: block;
 	padding: 10px;
 	margin-bottom: 5px;
-	background: #f9f9f9;
+	background: var(--bgr-bg-item, #f9f9f9);
 	border-radius: 4px;
 }
 
@@ -67,13 +96,12 @@
 	font-weight: 500;
 }
 
-/* Badges */
 .bgr-criteria-badge {
 	display: inline-block;
 	padding: 2px 8px;
 	font-size: 11px;
 	border-radius: 3px;
-	margin-right: 10px;
+	margin-inline-start: 10px;
 }
 
 .bgr-badge-inactive {
@@ -86,14 +114,13 @@
 	color: #383d41;
 }
 
-/* Custom Criteria */
 .bgr-custom-criteria-item {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	padding: 10px;
 	margin-bottom: 5px;
-	background: #f0f7ff;
+	background: var(--bgr-bg-custom, #f0f7ff);
 	border-radius: 4px;
 }
 
@@ -108,11 +135,10 @@
 	max-width: 300px;
 }
 
-/* Archived Criteria */
 .bgr-archived-criteria {
 	margin-top: 20px;
 	padding: 15px;
-	background: #f5f5f5;
+	background: var(--bgr-bg-archived, #f5f5f5);
 	border-radius: 4px;
 }
 
@@ -122,19 +148,17 @@
 
 .bgr-archived-criteria ul {
 	margin: 10px 0 0;
-	padding-right: 20px;
+	padding-inline-start: 20px;
 }
 
-/* Actions */
 .bgr-criteria-actions {
 	margin-top: 20px;
 	padding-top: 20px;
-	border-top: 1px solid #ddd;
+	border-top: 1px solid var(--bgr-border-color, #ddd);
 }
 
-/* Save Status */
 .bgr-save-status {
-	margin-right: 15px;
+	margin-inline-start: 15px;
 	font-style: italic;
 }
 
@@ -146,11 +170,10 @@
 	color: #dc3232;
 }
 
-/* Preview Section */
 .bgr-preview-section {
 	margin-top: 30px;
 	padding: 15px;
-	background: #e7f3ff;
+	background: var(--bgr-bg-preview, #e7f3ff);
 	border-radius: 4px;
 }
 
@@ -160,11 +183,20 @@
 
 #bgr-active-criteria-preview {
 	margin: 10px 0 0;
-	padding-right: 20px;
+	padding-inline-start: 20px;
 }
 
 #bgr-active-criteria-preview li {
 	padding: 5px 0;
+}
+
+/* Accessibility: focus-visible rings on the criteria management controls. */
+.bgr-criteria-settings-wrap button:focus-visible,
+.bgr-criteria-settings-wrap input:focus-visible,
+.bgr-criteria-settings-wrap .bgr-mode-option:focus-within {
+	outline: 2px solid var(--bgr-accent, #2271b1);
+	outline-offset: 2px;
+	border-radius: 3px;
 }
 
 /*# sourceMappingURL=bgr-group-criteria-admin.rtl.css.map */
