@@ -338,10 +338,6 @@ html[data-bx-mode="dark"],
     padding: 10px 0;
 }
 
-.approve-message .fa-check {
-    padding: 0 5px;
-    color: green;
-}
 
 #request-review-list .review-pagination {
     text-align: center;

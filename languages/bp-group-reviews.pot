@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-03T09:39:08+00:00\n"
+"POT-Creation-Date: 2026-07-13T14:18:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bp-group-reviews\n"
@@ -42,7 +42,7 @@ msgstr ""
 #. translators: 1. Name
 #: admin/bgr-admin-feedback.php:210
 #: admin/bgr-admin-feedback.php:216
-#: includes/admin/class-bgr-admin-panel.php:120
+#: includes/admin/class-bgr-admin-panel.php:142
 #: includes/admin/views/shell.php:32
 #: includes/class-bgr-multi-support.php:133
 #: includes/class-bgr-multi-support.php:146
@@ -194,35 +194,97 @@ msgstr ""
 msgid "Emails"
 msgstr ""
 
-#: includes/admin/class-bgr-admin-panel.php:108
-#: includes/admin/class-bgr-admin-panel.php:109
+#: includes/admin/class-bgr-admin-panel.php:99
+msgid "Discover"
+msgstr ""
+
+#: includes/admin/class-bgr-admin-panel.php:130
+#: includes/admin/class-bgr-admin-panel.php:131
 #: includes/admin/views/hub.php:57
 msgid "WB Plugins"
 msgstr ""
 
-#: includes/admin/class-bgr-admin-panel.php:121
+#: includes/admin/class-bgr-admin-panel.php:143
 #: includes/admin/views/shell.php:60
 #: includes/bgr-notifications.php:50
 msgid "Group Reviews"
 msgstr ""
 
-#: includes/admin/class-bgr-admin-panel.php:198
+#: includes/admin/class-bgr-admin-panel.php:220
 msgid "Are you sure? This cannot be undone."
 msgstr ""
 
-#: includes/admin/class-bgr-admin-panel.php:199
+#: includes/admin/class-bgr-admin-panel.php:221
 #: assets/js/admin.js:94
 msgid "Continue"
 msgstr ""
 
-#: includes/admin/class-bgr-admin-panel.php:200
+#: includes/admin/class-bgr-admin-panel.php:222
 #: assets/js/admin.js:89
 #: public/js/confirm.js:25
 msgid "Cancel"
 msgstr ""
 
-#: includes/admin/class-bgr-admin-panel.php:201
+#: includes/admin/class-bgr-admin-panel.php:223
 msgid "Are you sure you want to deny this review? It will be moved to trash."
+msgstr ""
+
+#: includes/admin/views/discover.php:25
+msgid "BuddyNext"
+msgstr ""
+
+#: includes/admin/views/discover.php:27
+msgid "Spin up a complete BuddyPress social network with activity feeds, member profiles, and private messaging."
+msgstr ""
+
+#: includes/admin/views/discover.php:31
+msgid "Jetonomy"
+msgstr ""
+
+#: includes/admin/views/discover.php:33
+msgid "Add self-moderating forums and Q&A spaces where trust levels keep discussions clean at scale."
+msgstr ""
+
+#: includes/admin/views/discover.php:37
+msgid "Mediaverse"
+msgstr ""
+
+#: includes/admin/views/discover.php:39
+msgid "Let members post photos and video to a shared gallery, with AI moderation screening every upload."
+msgstr ""
+
+#: includes/admin/views/discover.php:43
+msgid "Listora"
+msgstr ""
+
+#: includes/admin/views/discover.php:45
+msgid "Publish searchable directories using ten ready-made listing types straight out of the box."
+msgstr ""
+
+#: includes/admin/views/discover.php:49
+msgid "Learnomy"
+msgstr ""
+
+#: includes/admin/views/discover.php:51
+msgid "Turn your community into a learning hub with a free, full-featured course platform."
+msgstr ""
+
+#: includes/admin/views/discover.php:59
+msgid "More Free Tools from Wbcom Designs"
+msgstr ""
+
+#: includes/admin/views/discover.php:60
+msgid "Group Reviews adds ratings and reputation to your groups. These free plugins from Wbcom Designs build out everything around them: the network itself, forums, media, directories, and courses."
+msgstr ""
+
+#: includes/admin/views/discover.php:72
+msgid "Get it free"
+msgstr ""
+
+#. translators: %s: product name.
+#: includes/admin/views/discover.php:77
+#, php-format
+msgid "%s (opens in a new tab)"
 msgstr ""
 
 #. translators: %d: active Wbcom plugin count
@@ -473,20 +535,24 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/views/shell.php:89
+#: includes/admin/views/shell.php:69
+msgid "More Tools"
+msgstr ""
+
+#: includes/admin/views/shell.php:90
 msgid "Resources"
 msgstr ""
 
-#: includes/admin/views/shell.php:92
+#: includes/admin/views/shell.php:93
 #: includes/admin/views/welcome.php:34
 msgid "Documentation"
 msgstr ""
 
-#: includes/admin/views/shell.php:94
+#: includes/admin/views/shell.php:95
 msgid "(opens in a new tab)"
 msgstr ""
 
-#: includes/admin/views/shell.php:110
+#: includes/admin/views/shell.php:111
 msgid "Settings saved."
 msgstr ""
 
@@ -551,7 +617,7 @@ msgstr ""
 
 #. translators: %1$s: User Link, %2$s: Group Link HTML.
 #: includes/bgr-activity.php:164
-#: includes/bgr-activity.php:235
+#: includes/bgr-activity.php:247
 #, php-format
 msgid "%1$s posted a review in the group %2$s"
 msgstr ""
@@ -596,11 +662,11 @@ msgstr ""
 #: includes/bgr-ajax.php:712
 #: includes/bgr-ajax.php:826
 #: includes/bgr-ajax.php:934
-#: includes/bgr-bp-rest-integration.php:464
-#: includes/bgr-bp-rest-integration.php:492
-#: includes/bgr-bp-rest-integration.php:538
-#: includes/bgr-bp-rest-integration.php:609
-#: includes/bgr-bp-rest-integration.php:630
+#: includes/bgr-bp-rest-integration.php:467
+#: includes/bgr-bp-rest-integration.php:495
+#: includes/bgr-bp-rest-integration.php:541
+#: includes/bgr-bp-rest-integration.php:612
+#: includes/bgr-bp-rest-integration.php:633
 msgid "Invalid review ID."
 msgstr ""
 
@@ -635,7 +701,7 @@ msgid "Group administrators cannot review their own groups."
 msgstr ""
 
 #: includes/bgr-ajax.php:494
-#: includes/bgr-bp-rest-integration.php:379
+#: includes/bgr-bp-rest-integration.php:382
 msgid "You must be a member of this group to submit a review."
 msgstr ""
 
@@ -726,93 +792,93 @@ msgstr ""
 msgid "You do not have permission to remove reviews for this group."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:50
+#: includes/bgr-bp-rest-integration.php:53
 msgid "Group review statistics."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:56
+#: includes/bgr-bp-rest-integration.php:59
 msgid "Average rating across all criteria."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:62
+#: includes/bgr-bp-rest-integration.php:65
 msgid "Total number of published reviews."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:68
+#: includes/bgr-bp-rest-integration.php:71
 msgid "Average ratings by criteria."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:74
+#: includes/bgr-bp-rest-integration.php:77
 msgid "Whether the current user can review this group."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:369
+#: includes/bgr-bp-rest-integration.php:372
 #: includes/bgr-group-criteria-ajax.php:30
 #: includes/bgr-group-criteria-ajax.php:245
 msgid "Invalid group ID."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:374
+#: includes/bgr-bp-rest-integration.php:377
 msgid "Group admins cannot review their own group."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:387
+#: includes/bgr-bp-rest-integration.php:390
 msgid "Reviews are disabled for this group."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:410
+#: includes/bgr-bp-rest-integration.php:413
 msgid "You have already reviewed this group."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:470
+#: includes/bgr-bp-rest-integration.php:473
 msgid "Review does not belong to this group."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:544
+#: includes/bgr-bp-rest-integration.php:547
 msgid "The review could not be deleted."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:613
+#: includes/bgr-bp-rest-integration.php:616
 msgid "You do not have permission to edit this review."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:634
+#: includes/bgr-bp-rest-integration.php:637
 msgid "You do not have permission to delete this review."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:652
+#: includes/bgr-bp-rest-integration.php:655
 msgid "Review ID."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:658
+#: includes/bgr-bp-rest-integration.php:661
 msgid "Group ID."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:664
+#: includes/bgr-bp-rest-integration.php:667
 msgid "Review title."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:670
+#: includes/bgr-bp-rest-integration.php:673
 msgid "Review content."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:676
+#: includes/bgr-bp-rest-integration.php:679
 msgid "Review status."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:682
+#: includes/bgr-bp-rest-integration.php:685
 msgid "Review author."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:688
+#: includes/bgr-bp-rest-integration.php:691
 msgid "Star ratings by criteria."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:693
+#: includes/bgr-bp-rest-integration.php:696
 msgid "Creation date."
 msgstr ""
 
-#: includes/bgr-bp-rest-integration.php:700
+#: includes/bgr-bp-rest-integration.php:703
 msgid "Last modified date."
 msgstr ""
 
@@ -1089,11 +1155,11 @@ msgstr ""
 msgid "View Less.."
 msgstr ""
 
-#: includes/bgr-scripts.php:277
+#: includes/bgr-scripts.php:282
 msgid "Activate"
 msgstr ""
 
-#: includes/bgr-scripts.php:278
+#: includes/bgr-scripts.php:283
 msgid "Deactivate"
 msgstr ""
 

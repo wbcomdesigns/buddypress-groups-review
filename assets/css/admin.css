@@ -28,7 +28,7 @@
 	--bgr-admin-text-2: #475569;
 	--bgr-admin-text-3: #64748b;
 	--bgr-admin-text-4: #374151;
-	--bgr-admin-text-muted: #94a3b8;
+	--bgr-admin-text-muted: #64748b; /* 4.76:1 on white; #94a3b8 was 2.56:1 and failed WCAG AA */
 
 	--bgr-admin-success: #16a34a;
 	--bgr-admin-success-light: #dcfce7;
