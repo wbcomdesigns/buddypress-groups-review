@@ -1,0 +1,523 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Constant BGR_PLUGIN_URL not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: admin/bgr-admin-feedback.php
+
+		-
+			message: '#^Offset ''slug'' does not exist on string\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: admin/bgr-admin-feedback.php
+
+		-
+			message: '#^Offset ''time_limit'' on string in isset\(\) does not exist\.$#'
+			identifier: isset.offset
+			count: 1
+			path: admin/bgr-admin-feedback.php
+
+		-
+			message: '#^Parameter \#1 \$args of class BGR_Admin_Feedback constructor expects string, array\<string, int\|string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: admin/bgr-admin-feedback.php
+
+		-
+			message: '#^Property BGR_Admin_Feedback\:\:\$name is unused\.$#'
+			identifier: property.unused
+			count: 1
+			path: admin/bgr-admin-feedback.php
+
+		-
+			message: '#^Property BGR_Admin_Feedback\:\:\$time_limit \(string\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: admin/bgr-admin-feedback.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between false and mixed will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: admin/bgr-admin-feedback.php
+
+		-
+			message: '#^Constant BGR_PLUGIN_PATH not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: admin/bgr-admin.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: admin/bgr-admin.php
+
+		-
+			message: '#^Parameter \#2 \$args of function register_post_type expects array\{label\?\: string, labels\?\: array\<string\>, description\?\: string, public\?\: bool, hierarchical\?\: bool, exclude_from_search\?\: bool, publicly_queryable\?\: bool, show_ui\?\: bool, \.\.\.\}, array\{labels\: array\{name\: string, singular_name\: string, menu_name\: string, name_admin_bar\: string, add_new\: string, add_new_item\: string, new_item\: string, view_item\: string, \.\.\.\}, public\: false, menu_icon\: ''dashicons…'', publicly_queryable\: true, show_ui\: true, show_in_menu\: true, query_var\: true, rewrite\: array\{slug\: ''review'', with_front\: false\}, \.\.\.\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: admin/bgr-admin.php
+
+		-
+			message: '#^Constant BGR_PLUGIN_PATH not found\.$#'
+			identifier: constant.notFound
+			count: 4
+			path: includes/admin/class-bgr-admin-panel.php
+
+		-
+			message: '#^Constant BGR_PLUGIN_URL not found\.$#'
+			identifier: constant.notFound
+			count: 2
+			path: includes/admin/class-bgr-admin-panel.php
+
+		-
+			message: '#^Constant BGR_PLUGIN_URL not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: includes/admin/views/discover.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_attr expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/admin/views/settings-general.php
+
+		-
+			message: '#^Action callback returns false\|null but should not return anything\.$#'
+			identifier: return.void
+			count: 1
+			path: includes/bgr-activity.php
+
+		-
+			message: '#^Action callback returns void\|false but should not return anything\.$#'
+			identifier: return.void
+			count: 2
+			path: includes/bgr-activity.php
+
+		-
+			message: '#^Method BGR_Activity\:\:bp_group_review_register_activity_actions\(\) should return false\|null but empty return statement found\.$#'
+			identifier: return.empty
+			count: 1
+			path: includes/bgr-activity.php
+
+		-
+			message: '#^Method BGR_Activity\:\:bp_group_review_register_activity_actions\(\) should return false\|null but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: includes/bgr-activity.php
+
+		-
+			message: '#^Parameter \#1 \$user_id of function bp_core_get_userlink expects int, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: includes/bgr-activity.php
+
+		-
+			message: '#^Parameter \#4 \$format_callback of function bp_activity_set_action expects bool\|\(callable\(\)\: mixed\), ''bp_group_review…'' given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/bgr-activity.php
+
+		-
+			message: '#^Access to protected property BP_Groups_Group\:\:\$admins\.$#'
+			identifier: property.protected
+			count: 2
+			path: includes/bgr-ajax.php
+
+		-
+			message: '#^Call to function is_wp_error\(\) with int\<0, max\> will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: includes/bgr-ajax.php
+
+		-
+			message: '#^Comparison operation "\<\=" between int\<min, 0\> and 0 is always true\.$#'
+			identifier: smallerOrEqual.alwaysTrue
+			count: 1
+			path: includes/bgr-ajax.php
+
+		-
+			message: '#^Parameter \#1 \$args of function get_posts expects array\{numberposts\?\: int, category\?\: int\|string, include\?\: array\<int\>, exclude\?\: array\<int\>, suppress_filters\?\: bool, attachment_id\?\: int, author\?\: int\|string, author_name\?\: string, \.\.\.\}\|null, array\{post_type\: ''review'', posts_per_page\: int\<1, max\>, paged\: 1, post_status\: ''publish'', category\: ''review_category'', orderby\: ''date'', order\: ''DESC'', fields\: ''ids'', \.\.\.\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/bgr-ajax.php
+
+		-
+			message: '#^Parameter \#1 \$group_id of function groups_get_group expects int, array\<string, int\<1, max\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/bgr-ajax.php
+
+		-
+			message: '#^Parameter \#1 \$group_id of function groups_get_group expects int, array\<string, mixed\> given\.$#'
+			identifier: argument.type
+			count: 2
+			path: includes/bgr-ajax.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_html expects string, float given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/bgr-ajax.php
+
+		-
+			message: '#^Parameter \#1 \$user_id of function bp_core_get_userlink expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/bgr-ajax.php
+
+		-
+			message: '#^Variable \$group_obj in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: includes/bgr-ajax.php
+
+		-
+			message: '#^Variable \$nonce in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 9
+			path: includes/bgr-ajax.php
+
+		-
+			message: '#^Variable \$rated_field_values might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: includes/bgr-ajax.php
+
+		-
+			message: '#^Call to function is_wp_error\(\) with int\<0, max\> will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 2
+			path: includes/bgr-bp-rest-integration.php
+
+		-
+			message: '#^Parameter \#1 \$user_id of function get_userdata expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/bgr-bp-rest-integration.php
+
+		-
+			message: '#^Parameter \#2 \$value of method WP_HTTP_Response\:\:header\(\) expects string, int given\.$#'
+			identifier: argument.type
+			count: 2
+			path: includes/bgr-bp-rest-integration.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: includes/bgr-dynamic-css.php
+
+		-
+			message: '#^Parameter \#1 \$group_id of function groups_get_group expects int, array\<string, int\<0, max\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/bgr-filters.php
+
+		-
+			message: '#^Parameter \#1 \$group_id of function groups_get_group expects int, array\<string, mixed\> given\.$#'
+			identifier: argument.type
+			count: 2
+			path: includes/bgr-filters.php
+
+		-
+			message: '#^Parameter \#1 \$user_id of function get_userdata expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/bgr-filters.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between 0 and array\{term_id\: string, term_taxonomy_id\: string\}\|null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: includes/bgr-filters.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: includes/bgr-filters.php
+
+		-
+			message: '#^Comparison operation "\>" between int\<1, max\> and 0 is always true\.$#'
+			identifier: greater.alwaysTrue
+			count: 2
+			path: includes/bgr-functions.php
+
+		-
+			message: '#^Function bgr_rest_update_group_criteria\(\) never returns WP_Error so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: includes/bgr-group-criteria-ajax.php
+
+		-
+			message: '#^Constant BGR_PLUGIN_PATH not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: includes/bgr-grp-extn.php
+
+		-
+			message: '#^Parameter \#1 \$user_id of function bp_core_get_userlink expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/bgr-grp-extn.php
+
+		-
+			message: '#^Access to an undefined property BuddyPress\:\:\$bgr_bp_review\.$#'
+			identifier: property.notFound
+			count: 3
+			path: includes/bgr-notifications.php
+
+		-
+			message: '#^Callback expects 1 parameter, \$accepted_args is set to 2\.$#'
+			identifier: arguments.count
+			count: 2
+			path: includes/bgr-notifications.php
+
+		-
+			message: '#^Parameter \#1 \$group_id of function groups_get_group expects int, array\<string, int\> given\.$#'
+			identifier: argument.type
+			count: 3
+			path: includes/bgr-notifications.php
+
+		-
+			message: '#^Binary operation "\-" between 5 and array results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: includes/bgr-rating-display.php
+
+		-
+			message: '#^Binary operation "\-" between 5 and string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: includes/bgr-rating-display.php
+
+		-
+			message: '#^Binary operation "\-" between array and 0\|1 results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: includes/bgr-rating-display.php
+
+		-
+			message: '#^Binary operation "\-" between int and string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: includes/bgr-rating-display.php
+
+		-
+			message: '#^Parameter \#1 \$num of function round expects float\|int, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/bgr-rating-display.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: includes/bgr-rating-display.php
+
+		-
+			message: '#^Comparison operation "\>" between int\<1, max\> and 0 is always true\.$#'
+			identifier: greater.alwaysTrue
+			count: 2
+			path: includes/bgr-schema.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: includes/bgr-schema.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_html expects string, float given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/bgr-schema.php
+
+		-
+			message: '#^Parameter \#1 \$user_id of function get_userdata expects int, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: includes/bgr-schema.php
+
+		-
+			message: '#^Constant BGR_PLUGIN_PATH not found\.$#'
+			identifier: constant.notFound
+			count: 3
+			path: includes/bgr-scripts.php
+
+		-
+			message: '#^Constant BGR_PLUGIN_URL not found\.$#'
+			identifier: constant.notFound
+			count: 17
+			path: includes/bgr-scripts.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/bgr-shortcodes.php
+
+		-
+			message: '#^Comparison operation "\>" between int\<1, max\> and 0 is always true\.$#'
+			identifier: greater.alwaysTrue
+			count: 1
+			path: includes/bgr-shortcodes.php
+
+		-
+			message: '#^Constant BGR_PLUGIN_URL not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: includes/bgr-shortcodes.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_attr expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/bgr-shortcodes.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_attr expects string, int\<1, 5\> given\.$#'
+			identifier: argument.type
+			count: 6
+			path: includes/bgr-shortcodes.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_attr expects string, int\<1, max\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/bgr-shortcodes.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_html expects string, float given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/bgr-shortcodes.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_html expects string, int\<0, max\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/bgr-shortcodes.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_html expects string, int\<1, max\> given\.$#'
+			identifier: argument.type
+			count: 3
+			path: includes/bgr-shortcodes.php
+
+		-
+			message: '#^Result of method BGR_Shortcodes\:\:bp_group_review_form\(\) \(void\) is used\.$#'
+			identifier: method.void
+			count: 1
+			path: includes/bgr-shortcodes.php
+
+		-
+			message: '#^Access to an undefined property BP_Groups_Component\:\:\$table_name_groupmeta\.$#'
+			identifier: property.notFound
+			count: 1
+			path: includes/class-bgr-group-criteria.php
+
+		-
+			message: '#^Property Buddypress_Group_Review_Multi_Support\:\:\$plugin_name is unused\.$#'
+			identifier: property.unused
+			count: 1
+			path: includes/class-bgr-multi-support.php
+
+		-
+			message: '#^Property Buddypress_Group_Review_Multi_Support\:\:\$version is unused\.$#'
+			identifier: property.unused
+			count: 1
+			path: includes/class-bgr-multi-support.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_attr expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/templates/bgr-group-criteria-settings.php
+
+		-
+			message: '#^Parameter \#1 \$array \(non\-empty\-list\<\(float\|int\)\>\) of array_values is already a list, call has no effect\.$#'
+			identifier: arrayValues.list
+			count: 1
+			path: includes/widgets/bgr-review.php
+
+		-
+			message: '#^Parameter \#1 \$group_id of function groups_get_group expects int, array\<string, \(int\|string\)\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/widgets/bgr-review.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_html expects string, int\<1, max\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/widgets/bgr-review.php
+
+		-
+			message: '#^Variable \$review_groups in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: includes/widgets/bgr-review.php
+
+		-
+			message: '#^Parameter \#1 \$group_id of function groups_get_group expects int, array\<string, int\<min, \-1\>\|int\<1, max\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/widgets/group-rating.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_attr expects string, int\<1, max\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/widgets/group-rating.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_html expects string, float given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/widgets/group-rating.php
+
+		-
+			message: '#^Parameter \#1 \$user_id of function bp_core_get_userlink expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/widgets/group-rating.php
+
+		-
+			message: '#^Variable \$post_num might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: includes/widgets/group-rating.php
+
+		-
+			message: '#^Variable \$rating_default might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: includes/widgets/group-rating.php
+
+		-
+			message: '#^Variable \$widget_title might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: includes/widgets/group-rating.php
+
+		-
+			message: '#^Access to an undefined property BuddyPress\:\:\$bgr_bp_review\.$#'
+			identifier: property.notFound
+			count: 1
+			path: review-bp-grps.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: review-bp-grps.php
+
+		-
+			message: '#^Parameter \#1 \.\.\.\$arrays of function array_merge expects array, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: review-bp-grps.php

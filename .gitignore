@@ -12,3 +12,6 @@ build
 !audit/**
 !audit/manifest.json
 !audit/manifest.summary.json
+
+# Composer dev dependencies (PHPStan + stubs). Not shipped.
+vendor/

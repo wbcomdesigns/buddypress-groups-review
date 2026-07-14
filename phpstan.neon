@@ -1,0 +1,29 @@
+# Static analysis for BuddyPress Group Reviews.
+#
+# Run with: composer phpstan
+#
+# The stubs are what make this trustworthy. Without them PHPStan does not know what
+# WordPress or BuddyPress are, so every core function reads as "undefined" and the few
+# real findings drown in hundreds of false ones. phpstan-wordpress also teaches PHPStan
+# about WordPress's dynamic return types (get_option, apply_filters and friends).
+#
+# Optional paths are marked (?) on purpose: PHPStan refuses to run AT ALL if an
+# excludePaths entry does not exist on disk, so a directory that may be absent must
+# never be listed as required.
+includes:
+    - phpstan-baseline.neon
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+    level: 5
+    paths:
+        - .
+    excludePaths:
+        analyseAndScan:
+            - vendor
+            - node_modules (?)
+            - dist (?)
+            - assets (?)
+            - languages (?)
+    scanFiles:
+        - vendor/gin0115/buddypress-stubs/buddypress-stubs.php
