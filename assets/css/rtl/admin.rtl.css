@@ -139,6 +139,9 @@
 
 .bgr-settings-sidebar {
 	width: 240px;
+	/* border-box, because the responsive rules below set width:100% and the 1px border
+	   on each side would otherwise push the sidebar 2px past the viewport. */
+	box-sizing: border-box;
 	flex-shrink: 0;
 	background: var(--bgr-admin-white);
 	border: 1px solid var(--bgr-admin-border);
@@ -1019,7 +1022,8 @@
 	}
 }
 
-@media (max-width: 640px) {
+/* 767px, not 640px: the plugin's single mobile tier (767 / 782 / 1024 / 1200). */
+@media (max-width: 767px) {
 	.bgr-admin {
 		margin-left: 0;
 	}
