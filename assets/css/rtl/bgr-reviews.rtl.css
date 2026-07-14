@@ -54,7 +54,7 @@ html[data-bx-mode="dark"],
 }
 
 #request-review-list input[type="submit"] {
-    display: none !important;
+    display: none;
 }
 
 
@@ -264,7 +264,7 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     margin-bottom: 15px;
     width: 100%;
     padding: 0;
-    background-color: transparent !important;
+    background-color: transparent;
 }
 
 .multi-review>div {
@@ -275,14 +275,20 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     width: 100%;
     margin: 0;
     max-width: 160px;
-    height: auto !important;
+    height: auto;
 }
 
-.bp-nouveau .bgr-row {
+/* Scoped through #buddypress on purpose. BuddyPress core ships
+   `body #buddypress div { border-radius: 2px }` at specificity (1,0,2), which
+   outranks a plain `.bp-nouveau .bgr-row` (0,2,0) and flattens the review card's
+   corners. This used to be forced with !important; `#buddypress .bgr-row` (1,1,0)
+   wins on specificity instead. Do not simplify the selector back. */
+.bp-nouveau #buddypress .bgr-row,
+#buddypress .bgr-row {
     margin-bottom: 20px;
     padding: 15px;
     background: var(--bgr-bg-white, #fff);
-    border-radius: 8px !important;
+    border-radius: 8px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05);
     border: 1px solid var(--bgr-border-light, #eee);
 }
@@ -356,7 +362,7 @@ body[class*="youzify"] #youzify-group-body .bgr-group-reviews-block {
 }
 
 body[class*="youzify"] .bgr-group-review-no-popup-add-block button.btn.bgr-submit-review {
-    color: #fff;
+    color: var(--bgr-bg-white, #fff);
 }
 
 body[class*="youzify"] .bgr-group-review-no-popup-add-block textarea.review_desc {
@@ -385,7 +391,7 @@ body[class*="youzify"] #youzify-group-body .group-request-list .item-title {
 
 body[class*="youzify"] #youzify-group-header .rating-text {
     margin-top: 10px;
-    color: #fff;
+    color: var(--bgr-bg-white, #fff);
 }
 
 body[class*="youzify"] button.btn.btn-default.bgr-submit-review,
@@ -404,8 +410,8 @@ body[class*="youzify"] .generic-button a.button {
     justify-content: center;
     letter-spacing: initial;
     font-size: var(--yzfy-primary-font-size);
-    background-color: var(--yzfy-scheme-color) !important;
-    color: var(--yzfy-scheme-text-color) !important;
+    background-color: var(--yzfy-scheme-color);
+    color: var(--yzfy-scheme-text-color);
     border-radius: 100px;
     cursor: pointer;
 }
@@ -460,10 +466,10 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
 .youzify-tabs-list-gradient a#managereview:before,
 .youzify-tabs-list-gradient a#manage-review:before,
 .youzify-tabs-list-gradient div.item-list-tabs li a.manage-review:before {
-    background: #FF9529;
-    background: url(../images/dotted-bg.png), -webkit-gradient(linear, left top, right top, from(#FFDF00), to(#FF9529));
-    background: url(../images/dotted-bg.png), linear-gradient(to right, #FFDF00, #FF9529);
-    background: url(../images/dotted-bg.png), -webkit-linear-gradient(left, #FFDF00, #FF9529);
+    background: var(--bgr-star-filled, #FF9529);
+    background: url(../images/dotted-bg.png), -webkit-gradient(linear, left top, right top, from(var(--bgr-star-empty, #FFDF00)), to(var(--bgr-star-filled, #FF9529)));
+    background: url(../images/dotted-bg.png), linear-gradient(to right, var(--bgr-star-empty, #FFDF00), var(--bgr-star-filled, #FF9529));
+    background: url(../images/dotted-bg.png), -webkit-linear-gradient(left, var(--bgr-star-empty, #FFDF00), var(--bgr-star-filled, #FF9529));
 }
 
 /* Widgets with Youzify */
@@ -499,7 +505,7 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
 
 .bgr-reviews-sorting select:hover,
 .bgr-reviews-sorting select:focus {
-    border-color: #999;
+    border-color: var(--bgr-text-subtle, #999);
     outline: none;
 }
 
@@ -546,8 +552,8 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
 }
 
 .bgr-toast {
-    background: #1e293b;
-    color: #fff;
+    background: var(--bgr-text-slate, #1e293b);
+    color: var(--bgr-bg-white, #fff);
     padding: 12px 16px;
     border-radius: 6px;
     font-size: 14px;
@@ -566,15 +572,15 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
 }
 
 .bgr-toast--success {
-    background: #16a34a;
+    background: var(--bgr-success, #16a34a);
 }
 
 .bgr-toast--warning {
-    background: #b45309;
+    background: var(--bgr-warning-text, #b45309);
 }
 
 .bgr-toast--error {
-    background: #dc2626;
+    background: var(--bgr-danger, #dc2626);
 }
 
 .bgr-confirm-overlay {
@@ -641,13 +647,13 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
 }
 
 .bgr-confirm-box__btn--confirm {
-    background: #2563eb;
-    color: #fff;
-    border-color: #2563eb;
+    background: var(--bgr-accent, #2563eb);
+    color: var(--bgr-bg-white, #fff);
+    border-color: var(--bgr-accent, #2563eb);
 }
 
 .bgr-confirm-box__btn--dangerous {
-    background: #dc2626;
-    border-color: #dc2626;
+    background: var(--bgr-danger, #dc2626);
+    border-color: var(--bgr-danger, #dc2626);
 }
 /*# sourceMappingURL=bgr-reviews.rtl.css.map */

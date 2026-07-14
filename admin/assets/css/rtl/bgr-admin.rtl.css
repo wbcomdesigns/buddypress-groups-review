@@ -141,7 +141,7 @@ html[data-bx-mode="dark"],
 }
 
 .bgr-btn-ajax {
-    color: var(--bgr-admin-info, #66c6e4) !important;
+    color: var(--bgr-admin-info, #66c6e4);
 }
 
 #bgr-settings-updated {
@@ -178,23 +178,23 @@ html[data-bx-mode="dark"],
 .rating-review-div input[type="button"],
 .rating-review-div input[type="button"]:hover,
 input#bgr-field-add {
-    padding: 12px 30px !important;
+    padding: 12px 30px;
     font-size: 15px;
     background: var(--bgr-admin-danger, #ee1313);
     text-shadow: none;
     font-weight: 600;
-    width: auto !important;
+    width: auto;
     color: var(--bgr-admin-white, #fff);
     line-height: 1;
     border: 0;
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
-    border-radius: 12px !important;
-    height: auto !important;
+    border-radius: 12px;
+    height: auto;
 }
 
 input#bgr-field-add {
-    padding: 16px 30px !important;
+    padding: 16px 30px;
     margin-bottom: 10px;
     margin-top: 10px;
     background: var(--bgr-admin-success, #08c462);
@@ -331,7 +331,7 @@ button.bgr-faq-accordion {
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 button.bgr-faq-accordion-active,
 button.bgr-faq-accordion:hover {
-    background-color: var(--bgr-admin-accent, #0073AA) !important;
+    background-color: var(--bgr-admin-accent, #0073AA);
     color: var(--bgr-admin-white, #fff);
 }
 
@@ -406,12 +406,12 @@ button.bgr-accordion.active::after {
 }
 
 .bgr-col-9 .selectize-control {
-    width: 50% !important;
+    width: 50%;
 }
 
 @media(max-width: 767px) {
     .bgr-col-9 .selectize-control {
-        width: 100% !important;
+        width: 100%;
     }
 
     .rating-review-div {
@@ -429,23 +429,23 @@ button.bgr-accordion.active::after {
 }
 
 .nav-tab-wrapper ul .general a:before {
-    content: "\f111" !important;
+    content: "\f111";
 }
 
 .nav-tab-wrapper ul .criteria a:before {
-    content: "\f155" !important;
+    content: "\f155";
 }
 
 .nav-tab-wrapper ul .shortcode a:before {
-    content: "\f150" !important;
+    content: "\f150";
 }
 
 .nav-tab-wrapper ul .display a:before {
-    content: "\f478" !important;
+    content: "\f478";
 }
 
 .nav-tab-wrapper ul .emails a:before {
-    content: "\f465" !important;
+    content: "\f465";
 }
 
 div#bgr-settings-updated {
@@ -460,7 +460,7 @@ div#bgr-settings-updated {
     color: var(--bgr-admin-success, #10AB00);
 }
 
-@media screen and (max-width: 1189px) {
+@media screen and (max-width: 1200px) {
     div#bgr-settings-updated {
         margin: 0;
         position: relative;
@@ -477,7 +477,7 @@ div#bgr-settings-updated {
 }
 
 button.notice-dismiss:before {
-    color: red !important;
+    color: red;
 }
 
 .wbcom-settings-section-wrap {

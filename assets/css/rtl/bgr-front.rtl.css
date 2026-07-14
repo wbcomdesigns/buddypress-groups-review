@@ -5,6 +5,15 @@
 */
 
 :root {
+    --bgr-text-black: #000;
+    --bgr-text-slate: #1e293b;
+    --bgr-text-subtle: #999;
+    --bgr-accent: #2563eb;
+    --bgr-danger: #dc2626;
+    --bgr-success: #16a34a;
+    --bgr-warning-text: #b45309;
+    --bgr-star-filled: #FF9529;
+    --bgr-star-empty: #FFDF00;
     --bgr-border-color: #ddd;
     --bgr-text-primary: #1a1a1a;
     --bgr-text-secondary: #777;
@@ -151,7 +160,7 @@ html[data-bx-mode="dark"],
 }
 
 #buddypress #bgr-message {
-    display: none !important;
+    display: none;
 }
 
 #bgr-message {
@@ -215,7 +224,7 @@ html[data-bx-mode="dark"],
 }
 
 .group-add-form h4 {
-    margin-top: 0 !important;
+    margin-top: 0;
 }
 
 
@@ -265,11 +274,11 @@ html[data-bx-mode="dark"],
 #bgr_review_success_msg_modal .modal-content {
     min-height: 200px;
     min-width: 300px;
-    background-color: #f0f0f0;
+    background-color: var(--bgr-bg-light, #f0f0f0);
 }
 
 #bgr_review_success_msg_modal .modal-header {
-    background-color: #f0f0f0;
+    background-color: var(--bgr-bg-light, #f0f0f0);
 }
 
 #bgr_review_success_msg_modal p {
@@ -278,7 +287,7 @@ html[data-bx-mode="dark"],
 }
 
 #bgr_review_success_msg_modal .close {
-    color: #000;
+    color: var(--bgr-text-black, #000);
 }
 
 .bgr-error-fields {
@@ -352,12 +361,12 @@ html[data-bx-mode="dark"],
     height: 30px;
     line-height: 30px;
     text-transform: capitalize;
-    background: #f5f5f5;
+    background: var(--bgr-bg-offset, #f5f5f5);
     border-radius: 50%;
 }
 
 #request-review-list .review-pagination span.page-numbers.current {
-    color: #000;
+    color: var(--bgr-text-black, #000);
     font-weight: bold;
 }
 
@@ -368,7 +377,7 @@ html[data-bx-mode="dark"],
 }
 
 .bgr-col-4 .required {
-    color: #e63946;
+    color: var(--bgr-error-color, #e63946);
     font-weight: bold;
 }
 
@@ -406,8 +415,8 @@ div#add-review-groupbutton {
 
 #buddypress .groups-header #add-review-groupbutton,
 #buddypress #item-header #add-review-groupbutton {
-    display: inline-flex !important;
-    margin: 0 !important;
+    display: inline-flex;
+    margin: 0;
 }
 
 /* BuddyBoss Theme - Inline buttons */
@@ -436,35 +445,35 @@ div#add-review-groupbutton {
 }
 
 .buddyboss-theme .groups-header #add-review-groupbutton {
-    display: inline-flex !important;
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    margin: 0 !important;
+    display: inline-flex;
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 0;
 }
 
 .buddyboss-theme div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton {
-    top: auto !important;
-    left: auto !important;
-    margin: 0 !important;
-    position: relative !important;
+    top: auto;
+    left: auto;
+    margin: 0;
+    position: relative;
 }
 
 .buddyboss-theme .groups-header #item-header-content .generic-button .group-button {
     margin-left: 0;
-    font-size: 13px !important;
+    font-size: 13px;
 }
 
 /* Reign Theme / BuddyX Pro - Inline buttons (must come after default BuddyPress rules) */
 .buddyx-nav-iconic .subnav li[id^="manage-"] a:before,
 .reign-nav-iconic .subnav li[id^="manage-"] a:before {
-    content: "\f5c0" !important;
+    content: "\f5c0";
 }
 
 .wb-reign-theme #buddypress #item-header-content>.group-actions-absolute:not(#add-review-groupbutton),
 .wp-theme-buddyx-pro #buddypress #item-header-content>.group-actions-absolute:not(#add-review-groupbutton) {
-    display: inline-flex !important;
-    width: auto !important;
+    display: inline-flex;
+    width: auto;
     flex-wrap: wrap;
     gap: 8px;
     align-items: center;
@@ -472,11 +481,11 @@ div#add-review-groupbutton {
 
 .wb-reign-theme #buddypress #item-header-content>#add-review-groupbutton,
 .wp-theme-buddyx-pro #buddypress #item-header-content>#add-review-groupbutton {
-    display: inline-flex !important;
-    width: auto !important;
-    margin-top: -38px !important;
-    margin-right: 170px !important;
-    align-self: flex-start !important;
+    display: inline-flex;
+    width: auto;
+    margin-top: -38px;
+    margin-right: 170px;
+    align-self: flex-start;
 }
 
 .wb-reign-theme #buddypress #item-header-content #add-review-groupbutton a.group-button,
@@ -486,15 +495,15 @@ div#add-review-groupbutton {
        "Add Review" button matches the sibling "Leave Group" button exactly.
        Previously a hard-coded 38px (and an `auto` override below) forced a
        different height, leaving the two buttons misaligned. */
-    display: inline-flex !important;
-    align-items: center !important;
+    display: inline-flex;
+    align-items: center;
 }
 
 /* Align Join Group / Leave Group and Add Review buttons in one centered row. */
 .wb-reign-theme #buddypress #item-header-content .activity-meta.groups-meta.action,
 .wp-theme-buddyx-pro #buddypress #item-header-content .activity-meta.groups-meta.action {
-    display: flex !important;
-    align-items: center !important;
+    display: flex;
+    align-items: center;
     gap: 8px;
 }
 
@@ -509,13 +518,13 @@ div#add-review-groupbutton {
     height: initial;
     letter-spacing: initial;
     font-size: var(--yzfy-primary-font-size);
-    background-color: var(--yzfy-scheme-color) !important;
-    color: var(--yzfy-scheme-text-color) !important;
+    background-color: var(--yzfy-scheme-color);
+    color: var(--yzfy-scheme-text-color);
     border-radius: 100px;
     margin-top: 10px;
 }
 
-@media only screen and (max-width: 689px) {
+@media only screen and (max-width: 767px) {
     .bgr-group-header-ratings .rating-bgr {
         text-align: center;
     }
@@ -529,28 +538,28 @@ div#add-review-groupbutton {
     }
 
     .wb-reign-theme .wbtm-member-info-section div#item-header-content #add-review-groupbutton {
-        margin-top: 0 !important;
+        margin-top: 0;
     }
 
     .wb-reign-theme .wbtm-member-info-section div#item-header-content #add-review-groupbutton a.group-button {
-        font-size: 13px !important;
+        font-size: 13px;
     }
 
     .wb-reign-theme.groups div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton {
-        margin-bottom: 15px !important;
+        margin-bottom: 15px;
     }
 
     .buddyboss-theme div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton {
-        margin-top: 0 !important;
+        margin-top: 0;
     }
 }
 
 .single-item.groups #nav-manage-review-groups-li {
-    display: none !important;
+    display: none;
 }
 
 .single-item.groups #bp-group-edit-manage-review-submit {
-    display: none !important;
+    display: none;
 }
 
 /* ========== Leaderboard List ========== */

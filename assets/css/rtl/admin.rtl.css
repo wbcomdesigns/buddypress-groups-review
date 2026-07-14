@@ -734,7 +734,7 @@
 }
 
 .bgr-empty-state__icon {
-	display: flex !important;
+	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 64px;
