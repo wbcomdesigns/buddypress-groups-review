@@ -1,115 +1,230 @@
 === Wbcom Designs - BuddyPress Group Reviews ===
 Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
-Tags: buddypress, groups
-Requires at least: 6.9
+Tags: buddypress, groups, reviews, ratings, community
+Requires at least: 6.1
 Tested up to: 7.0
-Requires PHP: 7.4
-Requires Plugins: buddypress
 Stable tag: 3.9.0
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: bp-group-reviews
+Domain Path: /languages
 
-BuddyPress Group Reviews allows members to add group reviews and rate groups with multiple criteria.
+Let members review and rate BuddyPress groups across your own criteria, with moderation, a top-groups leaderboard, and SEO-ready rating markup.
 
 == Description ==
 
-BuddyPress Group Reviews allows BuddyPress members to add group reviews & give multiple to given criteria(s). After posting reviews, all reviews will be displayed in the Manage Review section of the group.
-Admins can approve or deny the review. When the admin approves the review, it will be published. All published reviews will be shown in the reviews tab on the single group page. Admin can add as many criteria for the rating as he wants.
+**BuddyPress Group Reviews** adds a reputation layer to your groups. Members write a review and rate the group across as many criteria as you define. Group admins and site admins approve or deny each review before it is published, and the resulting average rating appears on the group page and across the group directory so the best groups are easy to find.
 
-Group Ratings will also be visible on the group directory page.
+It needs BuddyPress (or BuddyBoss Platform) with the Groups component active. Ratings publish as Schema.org markup, so search engines can show your group scores in results.
 
-* Allows review moderation
-* Allows BuddyPress notification for group admin for new reviews
-* Allows BuddyPress Email Notification for group admin for new reviews
-* Allows to exclude certain groups from review criteria
-* Allows to add multiple criteria as per your choice
+= What you get =
 
-It's designed to be reliable, scalable, secure, and flexible. We've made it easy to use and would love your feedback on how to improve it.
+**Reviews and multi-criteria ratings**
+* Members post a text review and rate the group on every criterion you define.
+* Add, reorder and enable or disable rating criteria from the Criteria tab.
+* Optionally let members leave more than one review of the same group ("Enable Multiple Reviews").
+* Reviews can be submitted even when rating criteria are turned off.
+* Group admins cannot review their own group.
+* Set how many reviews show per page.
+
+**Group-level review criteria**
+* Turn on "Group-Level Criteria" and each group admin gets a Review Criteria tab to tailor criteria for their own group.
+* A group can use your global criteria, pick a subset, or add its own custom criteria.
+* Criteria that you deactivate globally are archived rather than lost.
+
+**Moderation you control**
+* Every review goes to a Manage tab on the group for approval or denial, with auto-approval available.
+* Bulk Approve and Bulk Deny to clear a queue quickly.
+* Export every review and its ratings to CSV.
+* Exclude any group from reviews entirely; the review form and tabs disappear for that group.
+
+**Discovery and SEO**
+* A top-groups leaderboard via the [bgr_display_top_groups] shortcode, ranked by top rated, most reviewed, or member count.
+* Group ratings on the group directory page.
+* Schema.org JSON-LD AggregateRating plus Review microdata so search engines can read your ratings.
+* Two widgets: "BP Group Review Widget" and "BP Displayed Group Rating Widget" for sidebars and footers.
+
+**Community integration**
+* Reviews post to the group activity stream (optional).
+* BuddyPress notifications and email notifications to group admins on a new review.
+* GamiPress integration: reward members with points and badges for reviewing.
+* Multisite support.
+* Rename the Review and Reviews labels and pick your star rating color.
+
+**Developer-friendly**
+* REST API: group reviews (list, create, read, update, delete) under the buddypress/v1 namespace, and group criteria (read, update) under bgr/v1.
+* Action and filter hooks throughout, translation ready with a POT file, and RTL support.
+
+= Shortcodes =
+
+**[add_group_review_form]** - Renders the review submission form. No attributes. Use it inside a group context so the form knows which group it belongs to.
+
+**[bgr_display_top_groups]** - Renders a leaderboard of groups that have at least one published review.
+
+* `title` - heading text above the list. Default empty.
+* `total_groups` - how many groups to list. Default 10.
+* `type` - `top rated` (highest average rating), `most reviewed` (highest review count), or `members` (highest member count). Default `top rated`.
+* `show_avatar` - `true` or `false`. Default `true`.
+* `show_rating` - `true` or `false`. Default `true`.
+
+Example: `[bgr_display_top_groups title="Most Reviewed" total_groups="10" type="most reviewed"]`
+
+= Perfect For =
+
+* Community sites where members need to find the right group to join
+* Directories of clubs, teams, chapters or classes
+* Membership sites that surface their most active and best-run groups
+* Any BuddyPress or BuddyBoss community that wants trust signals on groups
+
+= Premium Support =
+
+Our dedicated support team is ready to help you get the most out of this plugin. Whether you need help with setup, customization, or troubleshooting, we're here to assist.
+
+= Documentation =
+
+* **[Documentation and Support](https://docs.wbcomdesigns.com/)** - Setup walkthrough, settings reference, and usage guides
+
+= Translations =
+
+* English (default)
+* Ready for translation in your language with included POT file
+* RTL language support included
 
 = Links =
 
-[vimeo https://vimeo.com/556662460 ]
+* [Plugin Homepage](https://wbcomdesigns.com/downloads/buddypress-group-reviews/)
+* [Documentation](https://docs.wbcomdesigns.com/)
+* [Support](https://wbcomdesigns.com/support/)
+* [Request Features](https://wbcomdesigns.com/contact/)
 
-[Live demo >](https://bb-free.buddyxtheme.com/)
+= Compatibility =
 
-=== THEME - WORDPRESS THEME WITH OUTSTANDING BUDDYPRESS SUPPORT ===
-* [FREE BuddyPress Theme: BuddyX](https://wordpress.org/themes/buddyx/) - Offers unique layouts with clean code and easy-to-customize options, giving you a whole new way to visualize BuddyPress.
+* WordPress 6.1 and higher
+* PHP 7.4 and higher (8.0+ recommended)
+* BuddyPress or BuddyBoss Platform with the Groups component active (required)
+* Multisite supported
+* Tested with popular themes including BuddyX, Reign and Youzify
 
-#### OUR ADON PLUGINS TO FURTHER IMPROVE YOUR BUDDYPRESS OR BUDDYBOSS PLATFORM COMMUNITY
-Check out free community add-ons by Wbcom Designs:
+= What's New in 3.9.0 =
 
-* **[Wbcom Designs - BuddyPress Member Reviews](https://wordpress.org/plugins/bp-user-profile-reviews/)** Allow members to add ratings or feedback to other community members.
-* **[Wbcom Designs - BuddyPress Group Reviews](https://wordpress.org/plugins/review-buddypress-groups/)** Allow members to add ratings or feedback to BuddyPress groups.
-* **[Wbcom Designs - BuddyPress Activity Social Share](https://wordpress.org/plugins/bp-activity-social-share/)** Allow members to share activities on their social profiles like Facebook, Twitter, What's App, and LinkedIn with OG metadata.
-* **[Wbcom Designs – Private Community with BP Lock](https://wordpress.org/plugins/lock-my-bp/)** A plugin to make your community private and only accessible to logged-in users. It also allows you to keep select pages or the component public.
-* **[Wbcom Designs - BuddyPress Job Manager](https://wordpress.org/plugins/bp-job-manager/)** Allows you to integrate the WP Job Manager plugin into BuddyPress.
-* **[Wbcom Designs - Check-ins for BuddyPress Activity](https://wordpress.org/plugins/bp-check-in/)** Allow members to add their location or post their check-in updates to the activity.
-* **[Wbcom Designs - BuddyPress Favorite Notification](https://wordpress.org/plugins/bp-favorite-notification/)** Allow members to be notified after any like or favorite on their BuddyPress activity.
-* **[Wbcom Designs – Shortcodes & Elementor Widgets For BuddyPress](https://wordpress.org/plugins/shortcodes-for-buddypress/)** It offers shortcodes and elementor widgets for the activity listing, member's directory display, and the group's directory on any post/page.
-
-Check out paid community add-ons by Wbcom Designs:
-
-* **[Wbcom Designs - BuddyPress Hashtags](https://wbcomdesigns.com/downloads/buddypress-hashtags/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allows members to use hashtags in BuddyPress or BuddyBoss Platform activities and bbPress topics.
-* **[Wbcom Designs - BuddyPress Polls](https://wbcomdesigns.com/downloads/buddypress-polls/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)**  It allows you to extend BuddyPress or BuddyBoss Platform Activity for members to publish Polls with various options and works perfectly for individual activities and group activities.
-* **[Wbcom Designs - BuddyPress Quotes](https://wbcomdesigns.com/downloads/buddypress-quotes/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** It allows the feature to let members post their activity updates with interactive background selection such as colors and images set by the site administrator to tell a more expressive story.
-* **[Wbcom Designs – BuddyPress Status & Reaction](https://wbcomdesigns.com/downloads/buddypress-status/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allow your members to set a status icon and tagline on their profile and offer a big set of icons to react to published activities.
-* **[Wbcom Designs - BuddyPress Profanity](https://wbcomdesigns.com/downloads/buddypress-profanity/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allow you to censor content in your community! Easily Censor all the unwanted words in activities, and private message contents by specifying a list of keywords to be filtered.
-* **[Wbcom Designs - BuddyPress Sticky Post](https://wbcomdesigns.com/downloads/buddypress-sticky-post/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allows site administrators to prioritize certain activities over others. It lets the admin pin up site-wide and group activities to the top of the activity list.
-* **[Wbcom Designs - BuddyPress Auto Friends](https://wbcomdesigns.com/downloads/buddypress-auto-friends/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allow the site admin to select global friends for all his members and add bulk global friends.
-* **[Wbcom Designs – Shortcodes & Elementor Widgets For BuddyPress Pro](https://wordpress.org/plugins/shortcodes-for-buddypress/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** It offers shortcodes and elementor widgets with various argument parameters for the activity listing, member's directory display, and the group's directory on any post/page.
-
-
-= EXPERT SUPPORT =
-We are ready to provide incredible support. Ask your questions at [contact us directly](https://wbcomdesigns.com/support/).
+A UI pass focused on how reviews look in real themes. Review, rating and leaderboard colors now map to BuddyX and Reign design tokens so dark mode renders correctly, dark mode follows the theme toggle instead of the OS setting, star ratings mirror properly in RTL, and every control has a visible keyboard focus ring. The admin settings screen is rebuilt on the modern Wbcom card panel UI. Your settings and saved reviews are unchanged.
 
 == More Free Tools from Wbcom Designs ==
 
-BuddyPress Group Reviews adds a reputation and discovery layer to your groups: members rate them across your criteria, and the best-reviewed groups rise to the top. To build out the community those groups live in, pair it with the rest of the free Wbcom Designs stack.
+Group Reviews gives members a way to judge which groups are worth joining, but trust and discovery only matter once there is a community worth exploring. These other free tools from Wbcom Designs build out the rest of it, from the theme and social network itself to forums, media, events, gamification, directories, jobs, and courses.
 
-* **[BuddyNext](https://wbcomdesigns.com/downloads/buddynext/)** - A free, full-featured community platform that gives your site social feeds, member profiles, and connections.
-* **[Jetonomy](https://wbcomdesigns.com/downloads/jetonomy/)** - Free forums, Q&A, and idea boards with trust-level moderation, proven across more than 100,000 topics.
-* **[Mediaverse](https://wbcomdesigns.com/downloads/mediaverse/)** - A free photo and video community where AI moderation screens every upload automatically.
-* **[Listora](https://wbcomdesigns.com/downloads/listora/)** - Build searchable directories with ten distinct listing types, all for free.
-* **[Learnomy](https://wbcomdesigns.com/downloads/learnomy/)** - A free LMS for publishing courses and teaching your members right on your site.
+* **[BuddyX](https://wbcomdesigns.com/downloads/buddyx-theme/)** - A free, fast community theme for BuddyPress, BuddyBoss and PeepSo with a modern layout and dark mode.
+* **[BuddyNext](https://wbcomdesigns.com/downloads/buddynext/)** - Stand up a complete WordPress community with activity streams, member spaces, profiles, direct messaging, and built-in moderation.
+* **[Jetonomy](https://wbcomdesigns.com/downloads/jetonomy/)** - Add forums, question-and-answer boards, and idea spaces that stay tidy through trust-based auto-moderation even past 100,000 topics.
+* **[Mediaverse](https://wbcomdesigns.com/downloads/mediaverse/)** - Let members build photo and video albums, react, follow each other, and message privately while AI moderation keeps things clean.
+* **[Eventonomy](https://wbcomdesigns.com/downloads/eventonomy/)** - Run community events with RSVPs, calendars, and front-end submissions.
+* **[WB Gamification](https://wbcomdesigns.com/downloads/wordpress-gamification-plugin/)** - Reward members with points, badges, and leaderboards to keep engagement high.
+* **[Listora](https://wbcomdesigns.com/downloads/listora/)** - Publish searchable directories across ten listing types with reviews, maps, and member-submitted entries from the front end.
+* **[WP Career Board](https://wbcomdesigns.com/downloads/wp-career-board/)** - Add a job board with front-end listings, applications, and employer profiles.
+* **[Learnomy](https://wbcomdesigns.com/downloads/learnomy/)** - Build and sell online courses, auto-grade quizzes, collect payments, and award certificates when learners finish.
 
 == Installation ==
 
-1. Upload the entire "review-bp-grps" folder to the /wp-content/plugins/ directory.
-2. Activate the plugin through the 'Plugins' menu in WordPress.
+= Automatic Installation (Recommended) =
+
+1. Log in to your WordPress admin dashboard
+2. Navigate to Plugins > Add New
+3. Search for "BuddyPress Group Reviews"
+4. Click "Install Now" on the Wbcom Designs - BuddyPress Group Reviews plugin
+5. After installation, click "Activate"
+6. Go to WB Plugins > Group Reviews to configure the plugin
+
+= Manual Installation =
+
+1. Download the plugin ZIP file
+2. Upload the entire "buddypress-groups-review" folder to the /wp-content/plugins/ directory, or use Plugins > Add New > Upload Plugin
+3. Activate the plugin through the 'Plugins' menu in WordPress
+4. Configure settings at WB Plugins > Group Reviews
+
+= Post-Installation Setup =
+
+After activating the plugin, we recommend:
+
+1. Visit **WB Plugins > Group Reviews > General** to set auto approval, multiple reviews, reviews per page, and any groups to exclude
+2. Add your rating criteria under the **Criteria** tab
+3. Rename the review labels and pick your star color under the **Display** tab
+4. Review the notification templates under the **Emails** tab
+5. Open any group and check the Reviews tab
+6. See the [documentation](https://docs.wbcomdesigns.com/) for detailed instructions
+
+= Requirements =
+
+* WordPress 6.1 or higher
+* PHP 7.4 or higher
+* BuddyPress or BuddyBoss Platform with the Groups component active
 
 == Frequently Asked Questions ==
 
-= Where do I get support?
-We'd like you to use [Wbcom Designs](https://wbcomdesigns.com/contact/) for all the support questions. We love helping. Using Wbcom Designs allows us to assist you better and quicker.
+= Is BuddyPress required for this plugin? =
+
+Yes. This plugin extends BuddyPress groups, so BuddyPress (or BuddyBoss Platform) must be active with the Groups component enabled. If it is not, the plugin deactivates itself and explains why.
 
 = How can we submit a review to a group using this plugin? =
-When visiting the "/groups" section in the site, go for single group view page, there you can see a menu namely, "Reviews" that will allow you if you are a site member to add group review.
+
+Visit the "/groups" section of your site and open a single group. Members see a "Reviews" tab there that lets them add a group review.
 
 = How do we allow users to give multiple reviews on the same group? =
-A new functionality, "Multiple Review," has been added to this version of the plugin. In general settings, you can enable or disable it.
+
+Enable **Enable Multiple Reviews** under WB Plugins > Group Reviews > General. It is off by default, so each member can review a group once.
 
 = What will I do if I don't want to provide review functionality to any group? =
-If you don't want to provide review functionality to any group, you can exclude that group from this functionality. For exclude, the plugin can exclude groups in the General tab. Here, you exclude one or more groups from reviews.
+
+Use the **Exclude Groups** setting in the General tab. Selected groups lose review functionality entirely: the review form and the review tabs no longer appear for them.
 
 = How do you hide some rating criteria from the Review form? =
-You can hide criteria by disabling criteria in the 'Criteria' tab.
 
-= How do you change the label of the 'Reviews' tab or the label of the 'Reviews' sub-tab under the 'Manage' tab? =
-This plugin provides settings to change labels; you can see settings in the plugin's settings 'Display' tab.
+You can hide criteria by disabling them in the 'Criteria' tab.
+
+= Can group admins set their own rating criteria? =
+
+Yes. Turn on **Group-Level Criteria** in the General tab. Each group admin then gets a "Review Criteria" tab in their group where they can use your global criteria, select a subset, or add custom criteria for that group only.
+
+= How do you change the label of the 'Reviews' tab or the 'Manage Reviews' tab? =
+
+This plugin provides settings to change labels; you can see them under the plugin's 'Display' tab. The group tabs are "Reviews" and a separate "Manage Reviews" tab, both of which follow your custom label.
 
 = Why is the 'Add Review' option not displayed in a group I created? =
-This option is not displaying because group admin can't review own group, you can add the review to only that groups in which you are not the admin.
+
+Group admins can't review their own group. You can only add a review to groups where you are not the admin.
 
 = How do you display groups' average reviews according to reviews or ratings in the sidebar or footer? =
-This plugin provides a widget to show average ratings or reviews of BuddyPress Groups, you can use it for display average rating & reviews.
+
+The plugin ships two widgets, "BP Group Review Widget" and "BP Displayed Group Rating Widget", which display average ratings and reviews for BuddyPress groups.
 
 = How can I use the review form on any other page? =
-Yes, you can use the review form on another page; copy the shortcode from the review settings page and paste it on the other page.
 
-= Where do I ask for support?
-Please visit https://wbcomdesigns.com/contact/ for any questions about the plugin and BuddyPress.
+Add the [add_group_review_form] shortcode to the page. It takes no attributes. Use it in a group context so the form knows which group the review belongs to.
 
+= How do I show a list of the best groups? =
+
+Use the [bgr_display_top_groups] shortcode on any page. For example, [bgr_display_top_groups title="Top Groups" total_groups="10" type="top rated"] lists your ten highest-rated groups. Set type to "most reviewed" or "members" to rank differently. See the Shortcodes section above for every attribute.
+
+= Does the plugin remove its data when I delete it? =
+
+No, not by default. Deleting the plugin leaves your reviews and settings intact so you can reinstall without losing anything. If you want a clean uninstall, add `define( 'BGR_REMOVE_DATA_ON_UNINSTALL', true );` to your wp-config.php before deleting the plugin.
+
+= Does this plugin work with multisite? =
+
+Yes, the plugin supports multisite networks.
+
+= Is the plugin translation ready? =
+
+Yes. The plugin is fully translation ready with an included POT file, and it includes RTL language support.
+
+= Where do I get support? =
+
+We'd like you to use [Wbcom Designs](https://wbcomdesigns.com/contact/) for all support questions. We love helping. Using Wbcom Designs allows us to assist you better and quicker.
+
+* [Documentation](https://docs.wbcomdesigns.com/) - Free guides for every Wbcom plugin
+* [Support](https://wbcomdesigns.com/support/) - Get help from our team
+* [Contact us](https://wbcomdesigns.com/contact/) - Report bugs and request features
 
 == Screenshots ==
 1. Group Reviews tab with multi-criteria star ratings and the aggregate group score.
@@ -143,7 +258,7 @@ UI pass: BuddyX/Reign dark-mode token mapping, accessibility focus rings, and CS
 * Fixed: Reviews count not displaying correctly on group tab
 
 = 3.8.0 =
-* New: Group leaderboard shortcode [bgr_group_leaderboard]
+* New: Group leaderboard shortcode [bgr_display_top_groups]
 * Improved: Leaderboard shortcode listing UI
 * Improved: CSS variables with fallback values for better theme compatibility
 * Updated: Review tab label customization
@@ -182,7 +297,7 @@ UI pass: BuddyX/Reign dark-mode token mapping, accessibility focus rings, and CS
 * New: Mobile app and headless CMS support - Reviews now work with custom mobile apps
 * New: Better search engine visibility with improved SEO markup
 * New: Enhanced accessibility for users with disabilities (keyboard navigation and screen reader support)
-* New: Clean uninstall option - Removes all plugin data when you delete the plugin
+* New: Opt-in clean uninstall - define BGR_REMOVE_DATA_ON_UNINSTALL in wp-config.php to remove all plugin data when you delete the plugin. Deleting the plugin removes nothing unless you set it.
 * Improved: Faster page loading with optimized CSS and JavaScript
 * Improved: Better compatibility with popular themes (Reign, BuddyX)
 * Improved: More consistent and clearer interface text throughout the plugin
@@ -207,7 +322,7 @@ UI pass: BuddyX/Reign dark-mode token mapping, accessibility focus rings, and CS
 * Fixed: Review tab appears with correct name on new installations
 * Fixed: Pagination works properly in Manage Reviews section
 * Fixed: Email settings now save correctly
-* Fixed: Various compatibility issues with Youzify theme  
+* Fixed: Various compatibility issues with Youzify theme
 
 = 3.3.0 =
 * New: Multisite network support - Use the plugin across multiple sites
@@ -371,7 +486,6 @@ UI pass: BuddyX/Reign dark-mode token mapping, accessibility focus rings, and CS
 * Enhancement - Simplified rating view on single group page
 * Fix - Removed JS tab for add review and added real sub nav to add reviews
 
-
 = 1.0.2 =
 * Fix : Notice fixes
 * Fix : Remove "Add" button for admins
@@ -393,5 +507,8 @@ UI pass: BuddyX/Reign dark-mode token mapping, accessibility focus rings, and CS
 * Initial release.
 
 == Upgrade Notice ==
-= 1.0.0 =
-This version is the pro version of the plugin with advance functionality of add review to BuddyPress Groups.
+
+= 3.9.0 =
+UI and accessibility pass. Dark mode now renders correctly on BuddyX and Reign and follows the theme toggle rather than the OS setting. Settings and saved reviews are unchanged.
+</content>
+</invoke>

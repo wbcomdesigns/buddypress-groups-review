@@ -302,7 +302,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 	 * Usage example:
 	 *   [bgr_display_top_groups title="Most Reviewed" total_groups="10" type="top rated"]
 	 *
-	 * @since   3.7.0
+	 * @since   3.8.0
 	 * @author  Wbcom Designs
 	 * @param   array $atts Shortcode attributes.
 	 * @return  string HTML output.
