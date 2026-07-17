@@ -120,7 +120,7 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 				<div class="multi-review <?php echo $is_archived ? 'bgr-archived-criteria' : ''; ?>">
 					<div class="bgr-col-6">
 						<?php
-						echo esc_html( $review_field ) . ' : ';
+						echo esc_html( bp_group_review_get_criteria_label( $review_field ) ) . ' : ';
 						if ( $is_archived ) {
 							?>
 							<span class="bgr-legacy-indicator" title="<?php esc_attr_e( 'This criterion is no longer active', 'bp-group-reviews' ); ?>">

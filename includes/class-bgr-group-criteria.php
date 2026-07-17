@@ -659,7 +659,7 @@ class BGR_Group_Criteria {
 			return $settings['active_rating_fields'];
 		}
 
-		return array( 'Quality', 'Relevance', 'Engagement' );
+		return bp_group_review_get_default_criteria();
 	}
 
 	/**
@@ -681,7 +681,7 @@ class BGR_Group_Criteria {
 			return $settings['add_review_rating_fields'];
 		}
 
-		return array( 'Quality', 'Relevance', 'Engagement' );
+		return bp_group_review_get_default_criteria();
 	}
 
 	/**

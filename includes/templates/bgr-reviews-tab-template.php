@@ -164,10 +164,10 @@ if ( $sort_by_rating ) {
 											<?php
 											// Build group URL safely for both BuddyPress and BuddyBoss.
 											if ( function_exists( 'bp_get_group_url' ) ) {
-												$review_url = bp_get_group_url() . sanitize_title( bp_group_review_tab_name() ) . '/view/' . $review_id;
+												$review_url = bp_get_group_url() . bp_group_review_manage_tab_slug() . '/view/' . $review_id;
 											} else {
 												// Fallback for older versions.
-												$review_url = bp_get_group_permalink() . sanitize_title( bp_group_review_tab_name() ) . '/view/' . $review_id;
+												$review_url = bp_get_group_permalink() . bp_group_review_manage_tab_slug() . '/view/' . $review_id;
 											}
 											if ( ! empty( $trimcontent ) ) {
 												$len = strlen( $trimcontent );

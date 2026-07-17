@@ -89,13 +89,20 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		 * Mark Notification as read.
 		 */
 		public function bp_group_review_mark_group_notification_as_read() {
-			$current_user_id = get_current_user_id();
-			$group_id        = bp_get_current_group_id();
+			// Bail before touching any Groups API: the Groups component can be
+			// deactivated at runtime, in which case bp_get_current_group_id() and
+			// friends do not exist at all. bp_is_active() is core and always safe.
+			if ( ! bp_is_active( 'groups' ) ) {
+				return;
+			}
 
 			// Security: Must be on groups component and reviews action.
 			if ( ! bp_is_groups_component() || ! bp_is_current_action( 'reviews' ) ) {
 				return;
 			}
+
+			$current_user_id = get_current_user_id();
+			$group_id        = bp_get_current_group_id();
 
 			// Security: Must have referer parameter.
 			if ( ! isset( $_GET['referer'] ) || empty( $_GET['referer'] ) ) {       // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -258,7 +265,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 				// Fallback for older versions - build URL manually.
 				$group_link = bp_get_groups_directory_permalink() . $group->slug . '/';
 			}
-			$review_plural_label = ! empty( $bgr['manage_review_label'] ) ? sanitize_title( $bgr['manage_review_label'] ) : 'reviews';
+			$review_plural_label = bp_group_review_manage_tab_slug();
 			if ( 'yes' === $bgr['auto_approve_reviews'] ) {
 				// For auto-approved reviews, link to the public reviews tab.
 				$notification_link = trailingslashit( $group_link . $review_plural_label );
@@ -315,7 +322,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			}
 
 			// Link to public reviews tab (not admin) so members can access it.
-			$review_plural_label = ! empty( $bgr['manage_review_label'] ) ? sanitize_title( $bgr['manage_review_label'] ) : 'reviews';
+			$review_plural_label = bp_group_review_manage_tab_slug();
 			$notification_link   = trailingslashit( $group_link . $review_plural_label );
 			/* translators: %1$s: Review label. */
 			$notification_title = sprintf( esc_html__( '%1$s accepted.', 'bp-group-reviews' ), $review_label );
@@ -365,7 +372,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 				$group_link = bp_get_groups_directory_permalink() . $group->slug . '/';
 			}
 
-			$review_plural_label = ! empty( $bgr['manage_review_label'] ) ? sanitize_title( $bgr['manage_review_label'] ) : 'reviews';
+			$review_plural_label = bp_group_review_manage_tab_slug();
 			$notification_link   = trailingslashit( $group_link . $review_plural_label );
 			/* translators: %1$s: Review label. */
 			$notification_title = sprintf( esc_html__( '%1$s denied.', 'bp-group-reviews' ), $review_label );

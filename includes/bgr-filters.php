@@ -102,9 +102,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				return $count;
 			}
 
-			global $bgr;
-
-			if ( sanitize_title( $bgr['manage_review_label'] ) === $nav_item->slug ) {
+			if ( bp_group_review_manage_tab_slug() === $nav_item->slug ) {
 				$count = true;
 			}
 
@@ -126,9 +124,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				return $count;
 			}
 
-			global $bgr;
-
-			if ( sanitize_title( $bgr['manage_review_label'] ) === $nav_item->slug ) {
+			if ( bp_group_review_manage_tab_slug() === $nav_item->slug ) {
 				$count = $this->get_group_review_count( bp_get_group_id() );
 			}
 
@@ -385,8 +381,8 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			do_action( 'bgr_display_group_average_ratings', $avg_rating );
 
 			if ( $total_review_count <= 1 ) {
-				$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
-				$review_label               = isset( $bgr_admin_display_settings['review_label'] ) ? $bgr_admin_display_settings['review_label'] : esc_html__( 'Review', 'bp-group-reviews' );
+				// Singular when there is at most one review.
+				$review_label = bp_group_review_add_review_tab_name();
 			}
 			$content = "<div class='rating-text'><span>" . esc_html__( 'Rating ', 'bp-group-reviews' ) . ' : ' . $avg_rating . '/5 - ' . $total_review_count . ' ' . $review_label . '</span></div>';
 
@@ -608,9 +604,11 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				__( 'Average Rating', 'bp-group-reviews' ),
 			);
 
-			// Add rating field columns.
+			// Add rating field columns. The header is human-readable copy (the rest
+			// of this row is already translated), so the criterion is translated for
+			// display here. The value lookup below still uses the raw stored key.
 			foreach ( $review_rating_fields as $field ) {
-				$headers[] = $field . ' ' . __( 'Rating', 'bp-group-reviews' );
+				$headers[] = bp_group_review_get_criteria_label( $field ) . ' ' . __( 'Rating', 'bp-group-reviews' );
 			}
 
 			fputcsv( $output, $headers );
@@ -686,7 +684,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						// Fallback for older versions - build URL manually.
 						$group_url = bp_get_groups_directory_permalink() . $group->slug . '/';
 					}
-					$review_url = $group_url . sanitize_title( bp_group_review_tab_name() ) . '/view/' . $post->ID;
+					$review_url = $group_url . bp_group_review_manage_tab_slug() . '/view/' . $post->ID;
 
 					$actions['view_review'] = '<a href="' . $review_url . '" title="' . $review_title . '">' . esc_html__( 'View', 'bp-group-reviews' ) . '</a>';
 
@@ -730,9 +728,8 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				global $bp;
 				global $bgr;
 				$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
-				$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
-				$review_label               = isset( $bgr['manage_review_label'] ) ? $bgr['manage_review_label'] : '';
-				$add_review_label           = ! empty( $bgr_admin_display_settings ) ? bp_group_review_add_review_tab_name() : esc_html__( 'Review', 'bp-group-reviews' );
+				$review_label               = bp_group_review_tab_name();
+				$add_review_label           = bp_group_review_add_review_tab_name();
 
 				$post_count = $this->get_group_review_count( $bp->groups->current_group->id );
 
@@ -760,7 +757,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 							bp_core_new_subnav_item(
 								array(
 									'name'            => $review_label . ' ' . $count_notification,
-									'slug'            => sanitize_title( $bgr['manage_review_label'] ),
+									'slug'            => bp_group_review_manage_tab_slug(),
 									'parent_slug'     => $bp->groups->current_group->slug,
 									'parent_url'      => $gp_parent_url,
 									'screen_function' => array( $this, 'bp_group_review_tab' ),
@@ -790,7 +787,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						bp_core_new_subnav_item(
 							array(
 								'name'            => $review_label . ' ' . $count_notification,
-								'slug'            => sanitize_title( $bgr['manage_review_label'] ),
+								'slug'            => bp_group_review_manage_tab_slug(),
 								'parent_slug'     => $bp->groups->current_group->slug,
 								'parent_url'      => $gp_parent_url,
 								'screen_function' => array( $this, 'bp_group_review_tab' ),
@@ -820,7 +817,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					bp_core_new_subnav_item(
 						array(
 							'name'            => $review_label . ' ' . $count_notification,
-							'slug'            => sanitize_title( $bgr['manage_review_label'] ),
+							'slug'            => bp_group_review_manage_tab_slug(),
 							'parent_slug'     => $bp->groups->current_group->slug,
 							'parent_url'      => $gp_parent_url,
 							'screen_function' => array( $this, 'bp_group_review_tab' ),
@@ -893,9 +890,9 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 		 */
 		public function bp_group_reviews_tab_template() {
 			global $bgr;
-			if ( isset( $_SERVER['REQUEST_URI'] ) && strpos( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ), sanitize_title( bp_group_review_tab_name() ) . '/view' ) !== false ) {
+			if ( isset( $_SERVER['REQUEST_URI'] ) && strpos( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ), bp_group_review_manage_tab_slug() . '/view' ) !== false ) {
 				include 'templates/bgr-single-review-template.php';
-			} elseif ( sanitize_title( $bgr['manage_review_label'] ) === bp_current_action() ) {
+			} elseif ( bp_group_review_manage_tab_slug() === bp_current_action() ) {
 				include 'templates/bgr-reviews-tab-template.php';
 			}
 		}
@@ -955,7 +952,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				$user_id = $args[0];
 			}
 			return $user_id;
+		}
 	}
-}
-new BGR_Custom_Hooks();
+	new BGR_Custom_Hooks();
 }

@@ -436,10 +436,6 @@ button.bgr-accordion.active::after {
     content: "\f155";
 }
 
-.nav-tab-wrapper ul .shortcode a:before {
-    content: "\f150";
-}
-
 .nav-tab-wrapper ul .display a:before {
     content: "\f478";
 }

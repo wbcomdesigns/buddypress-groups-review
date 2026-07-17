@@ -31,6 +31,14 @@ $bgr_active_rating = isset( $bgr['active_rating_fields'] ) ? (array) $bgr['activ
 	<div class="bgr-card__body">
 		<div id="bgr-textbox-container" class="bgr-criteria-list">
 			<?php
+			/*
+			 * These inputs are an IDENTIFIER editor, not display copy. bgr-admin.js
+			 * reads their values straight back and posts them as the criterion keys
+			 * that get stored in the `review_star_rating` post meta. Do NOT run these
+			 * through bp_group_review_get_criteria_label(): a non-English admin who
+			 * opened this tab and hit Save would rewrite "Quality" to its translation
+			 * and orphan every rating ever stored under the old key.
+			 */
 			if ( ! empty( $bgr_review_rating ) ) {
 				foreach ( $bgr_review_rating as $bgr_rating_field ) :
 					?>

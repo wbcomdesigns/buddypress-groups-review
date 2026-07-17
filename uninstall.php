@@ -75,6 +75,7 @@ function bgr_delete_plugin_data() {
 	delete_option( 'bgr_admin_criteria_settings' );
 	delete_option( 'bgr_admin_display_settings' );
 	delete_option( 'bp_group_review_email_settings' );
+	delete_option( 'bgr_display_labels_migrated' );
 
 	// Delete user meta if any (check for review-related user meta).
 	$wpdb->query( "DELETE FROM {$wpdb->usermeta} WHERE meta_key LIKE '%bgr_%'" );

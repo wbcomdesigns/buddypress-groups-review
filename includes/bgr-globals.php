@@ -13,6 +13,51 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * The rating criteria a fresh install ships with.
+ *
+ * These strings are IDENTIFIERS, not display copy. They are persisted as the
+ * array keys of the `review_star_rating` post meta and are compared with
+ * in_array() / isset() / array_key_exists() throughout the plugin (see
+ * BGR_Group_Criteria::criterion_has_reviews()). They must therefore never be
+ * translated at rest: wrapping them in __() would make every stored rating key
+ * locale-dependent, and a site that changed its language would orphan every
+ * rating ever submitted. Translate at render time with
+ * bp_group_review_get_criteria_label() instead.
+ *
+ * @since   3.9.1
+ * @return  string[] Untranslated criterion identifiers.
+ */
+function bp_group_review_get_default_criteria() {
+	return array( 'Quality', 'Relevance', 'Engagement' );
+}
+
+/**
+ * Translate a criterion identifier for display.
+ *
+ * Render-time lookup only - the stored key is never rewritten. Only the shipped
+ * defaults have translations; a criterion a site owner typed in themselves is
+ * their own copy and is returned verbatim.
+ *
+ * Do NOT use this anywhere the value is written back as an identifier - the
+ * global criteria editor (admin/views/settings-criteria.php) and the per-group
+ * criteria checkboxes must keep emitting the raw key, or saving the form in a
+ * non-English locale would rewrite the stored keys.
+ *
+ * @since   3.9.1
+ * @param   string $name Stored criterion identifier.
+ * @return  string Translated label, or $name when there is nothing to translate.
+ */
+function bp_group_review_get_criteria_label( $name ) {
+	$labels = array(
+		'Quality'    => __( 'Quality', 'bp-group-reviews' ),
+		'Relevance'  => __( 'Relevance', 'bp-group-reviews' ),
+		'Engagement' => __( 'Engagement', 'bp-group-reviews' ),
+	);
+
+	return isset( $labels[ $name ] ) ? $labels[ $name ] : $name;
+}
+
+/**
  * Group Review Plugin Global Variables
  *
  *  @since   1.0.0
@@ -80,8 +125,8 @@ function bp_group_review_globals() {
 		$review_rating_fields = isset( $bgr_admin_criteria_settings['add_review_rating_fields'] ) ? $bgr_admin_criteria_settings['add_review_rating_fields'] : array();
 		$active_rating_fields = isset( $bgr_admin_criteria_settings['active_rating_fields'] ) ? $bgr_admin_criteria_settings['active_rating_fields'] : array();
 	} else {
-		$review_rating_fields = array( 'Quality', 'Relevance', 'Engagement' );
-		$active_rating_fields = array( 'Quality', 'Relevance', 'Engagement' );
+		$review_rating_fields = bp_group_review_get_default_criteria();
+		$active_rating_fields = bp_group_review_get_default_criteria();
 		$bgr_admin_settings   = array(
 			'add_review_rating_fields' => $review_rating_fields,
 			'active_rating_fields'     => $active_rating_fields,
@@ -92,20 +137,31 @@ function bp_group_review_globals() {
 	/**** Global variable values for Display settings */
 
 	if ( ! empty( $bgr_admin_display_settings ) ) {
-		$review_label        = isset( $bgr_admin_display_settings['review_label'] ) ? $bgr_admin_display_settings['review_label'] : esc_html__( 'Review', 'bp-group-reviews' );
-		$manage_review_label = isset( $bgr_admin_display_settings['manage_review_label'] ) ? $bgr_admin_display_settings['manage_review_label'] : esc_html__( 'Reviews', 'bp-group-reviews' );
-		$rating_color        = isset( $bgr_admin_display_settings['bgr_rating_color'] ) ? $bgr_admin_display_settings['bgr_rating_color'] : '#FFC400';
+		$rating_color = isset( $bgr_admin_display_settings['bgr_rating_color'] ) ? $bgr_admin_display_settings['bgr_rating_color'] : '#FFC400';
 	} else {
-		$review_label               = esc_html__( 'Review', 'bp-group-reviews' );
-		$manage_review_label        = esc_html__( 'Reviews', 'bp-group-reviews' );
-		$rating_color               = '#FFC400';
+		$rating_color = '#FFC400';
+
+		/*
+		 * Seed the labels EMPTY, never with a translated string. An empty label
+		 * means "no rename - use the default", and the default is translated at
+		 * render time by bp_group_review_tab_name() / _add_review_tab_name(). The
+		 * old code called esc_html__() here and update_option()'d the result, which
+		 * froze whichever locale the very first admin happened to be using into the
+		 * database forever - so a site that later switched language kept rendering
+		 * group nav tabs in the original one. Only a genuine rename is persisted.
+		 */
 		$bgr_admin_display_settings = array(
-			'review_label'        => $review_label,
-			'manage_review_label' => $manage_review_label,
+			'review_label'        => '',
+			'manage_review_label' => '',
 			'bgr_rating_color'    => $rating_color,
 		);
 		update_option( 'bgr_admin_display_settings', $bgr_admin_display_settings );
 	}
+
+	// Resolve through the accessors so the stored-vs-default fallback lives in
+	// exactly one place.
+	$review_label        = bp_group_review_add_review_tab_name();
+	$manage_review_label = bp_group_review_tab_name();
 
 	$bgr = array(
 		'multi_reviews'               => $multi_reviews,
@@ -134,27 +190,121 @@ function bp_group_review_globals() {
 add_action( 'init', 'bp_group_review_globals' );
 
 /**
- * BGR group review tab name.
+ * BGR group review tab name (plural, e.g. "Reviews").
+ *
+ * A stored label is a deliberate rename by the site owner and is returned as-is.
+ * An empty/absent label means "not renamed", so the shipped default is translated
+ * here, at render time, in the current request's locale.
+ *
+ * NOTE: this is DISPLAY copy. Never sanitize_title() the result to build a URL -
+ * that would make the slug follow the visitor's language. Use
+ * bp_group_review_manage_tab_slug() for slugs.
  */
 function bp_group_review_tab_name() {
 	$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
-	$group_review_tab_name      = isset( $bgr_admin_display_settings['manage_review_label'] ) ? $bgr_admin_display_settings['manage_review_label'] : esc_html__( 'Reviews', 'bp-group-reviews' );
+	$stored                     = isset( $bgr_admin_display_settings['manage_review_label'] ) ? trim( (string) $bgr_admin_display_settings['manage_review_label'] ) : '';
+	$group_review_tab_name      = '' !== $stored ? $stored : esc_html__( 'Reviews', 'bp-group-reviews' );
+
 	return apply_filters( 'bp_group_review_tab_name', $group_review_tab_name );
 }
 /**
- * BGR add group review tab name.
+ * BGR add group review tab name (singular, e.g. "Review").
+ *
+ * Same contract as bp_group_review_tab_name(): stored rename wins, otherwise the
+ * default is translated at render time. Display copy - not for slugs.
  */
 function bp_group_review_add_review_tab_name() {
 	$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
-	$group_add_review_tab_name  = isset( $bgr_admin_display_settings['review_label'] ) ? $bgr_admin_display_settings['review_label'] : esc_html__( 'Review', 'bp-group-reviews' );
+	$stored                     = isset( $bgr_admin_display_settings['review_label'] ) ? trim( (string) $bgr_admin_display_settings['review_label'] ) : '';
+	$group_add_review_tab_name  = '' !== $stored ? $stored : esc_html__( 'Review', 'bp-group-reviews' );
+
 	return apply_filters( 'bp_group_review_add_review_tab_name', $group_add_review_tab_name );
 }
 /**
- * BGR group review tab slug.
+ * BGR group review tab slug (singular base, e.g. "review").
+ *
+ * Derived from the stored rename when there is one, otherwise a hard-coded,
+ * locale-independent constant. It deliberately does NOT fall back to the
+ * translated label: group nav URLs must not change when a visitor switches
+ * language, and stored links must keep resolving.
  */
 function bp_group_review_tab_slug() {
 	$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
-	$group_review_tab_slug      = isset( $bgr_admin_display_settings['review_label'] ) ? sanitize_title( $bgr_admin_display_settings['review_label'] ) : 'review';
+	$stored                     = isset( $bgr_admin_display_settings['review_label'] ) ? trim( (string) $bgr_admin_display_settings['review_label'] ) : '';
+	$group_review_tab_slug      = '' !== $stored ? sanitize_title( $stored ) : 'review';
 
 	return apply_filters( 'bp_group_review_tab_slug', $group_review_tab_slug );
 }
+
+/**
+ * BGR manage-reviews tab slug (plural base, e.g. "reviews").
+ *
+ * The locale-independent counterpart to bp_group_review_tab_name(). Every place
+ * that used to build this slug with sanitize_title( bp_group_review_tab_name() )
+ * must call this instead - once the plural default became translatable, running
+ * sanitize_title() over the display name would have produced "avis" for a French
+ * visitor and "reviews" for an English one on the same site, breaking group nav
+ * matching and every stored review URL.
+ *
+ * @since   3.9.1
+ * @return  string
+ */
+function bp_group_review_manage_tab_slug() {
+	$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
+	$stored                     = isset( $bgr_admin_display_settings['manage_review_label'] ) ? trim( (string) $bgr_admin_display_settings['manage_review_label'] ) : '';
+	$manage_tab_slug            = '' !== $stored ? sanitize_title( $stored ) : 'reviews';
+
+	return apply_filters( 'bp_group_review_manage_tab_slug', $manage_tab_slug );
+}
+
+/**
+ * One-time migration: unfreeze display labels that were only ever a default.
+ *
+ * Before 3.9.1 the first page load persisted esc_html__( 'Review' / 'Reviews' )
+ * into bgr_admin_display_settings, freezing the first admin's locale into the DB.
+ * Clearing those rows lets the render-time default take over, so the tab finally
+ * follows the visitor's language.
+ *
+ * SAFETY: we only clear a label that exactly matches the UNTRANSLATED English
+ * default. We deliberately do not compare against the current locale's
+ * translation, because we cannot distinguish "frozen French default" from
+ * "owner deliberately renamed the tab to that word" - and clearing it would
+ * silently move the tab's URL from /avis/ to /reviews/, breaking existing links.
+ * Sites first installed in a non-English locale therefore keep their frozen
+ * label; that is the pre-3.9.1 behaviour, unchanged, and a rename in the Display
+ * tab still works. See the release notes for the QA follow-up.
+ *
+ * @since   3.9.1
+ * @return  void
+ */
+function bp_group_review_migrate_display_labels() {
+	if ( 'done' === get_option( 'bgr_display_labels_migrated' ) ) {
+		return;
+	}
+
+	$settings = get_option( 'bgr_admin_display_settings' );
+
+	if ( ! empty( $settings ) && is_array( $settings ) ) {
+		$defaults = array(
+			'review_label'        => 'Review',
+			'manage_review_label' => 'Reviews',
+		);
+		$changed  = false;
+
+		foreach ( $defaults as $key => $english_default ) {
+			$stored = isset( $settings[ $key ] ) ? trim( (string) $settings[ $key ] ) : '';
+
+			if ( '' !== $stored && $stored === $english_default ) {
+				$settings[ $key ] = '';
+				$changed          = true;
+			}
+		}
+
+		if ( $changed ) {
+			update_option( 'bgr_admin_display_settings', $settings );
+		}
+	}
+
+	update_option( 'bgr_display_labels_migrated', 'done' );
+}
+add_action( 'init', 'bp_group_review_migrate_display_labels', 5 );

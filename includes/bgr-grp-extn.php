@@ -42,16 +42,12 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			global $bgr;
 			$enabled                    = true;
 			$add_review_nav             = false;
-			$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
 			$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
 
-			if ( ! empty( $bgr_admin_display_settings ) ) {
-				$review_label     = bp_group_review_tab_name();
-				$add_review_label = bp_group_review_add_review_tab_name();
-			} else {
-				$review_label     = esc_html__( 'Reviews', 'bp-group-reviews' );
-				$add_review_label = esc_html__( 'Review', 'bp-group-reviews' );
-			}
+			// The accessors already resolve "stored rename, else translated default",
+			// so the old empty-option branch is redundant.
+			$review_label     = bp_group_review_tab_name();
+			$add_review_label = bp_group_review_add_review_tab_name();
 
 			// Check if current group is excluded from reviews.
 			$current_group_id  = absint( bp_get_current_group_id() );
@@ -119,8 +115,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		public function edit_screen( $group_id = null ) {
 			global $bp, $wpdb, $post, $wp_query;
 			// Admin Settings.
-			$bgr_admin_settings         = get_option( 'bgr_admin_general_settings' );
-			$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
+			$bgr_admin_settings = get_option( 'bgr_admin_general_settings' );
 			if ( ! empty( $bgr_admin_settings ) ) {
 				$reviews_per_page = $bgr_admin_settings['reviews_per_page'];
 				if ( empty( $reviews_per_page ) ) {
@@ -130,14 +125,10 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				$reviews_per_page = -1;
 			}
 
-			if ( ! empty( $bgr_admin_display_settings ) ) {
-				$review_label = $bgr_admin_display_settings['review_label'];
-				if ( empty( $review_label ) ) {
-					$review_label = esc_html__( 'Reviews', 'bp-group-reviews' );
-				}
-			} else {
-				$review_label = esc_html__( 'Reviews', 'bp-group-reviews' );
-			}
+			// Only used for the plural "Sorry, no %s were found." empty state below,
+			// so this resolves the plural label. The old code read the singular
+			// review_label key but fell back to the plural default - inconsistent.
+			$review_label = bp_group_review_tab_name();
 
 			$paged   = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 			$args    = array(

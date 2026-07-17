@@ -288,7 +288,7 @@ class BGR_Activity {
 			foreach ( $review_rating_fields as $review_field ) {
 				if ( array_key_exists( $review_field, $review_ratings[0] ) ) {
 					$review_start .= '<div class="multi-review">';
-					$review_start .= '<div class="bgr-col-6">' . esc_html( $review_field ) . '</div>';
+					$review_start .= '<div class="bgr-col-6">' . esc_html( bp_group_review_get_criteria_label( $review_field ) ) . '</div>';
 					$review_start .= '<div class="bgr-col-6">';
 					// Display star ratings.
 					$stars_on  = $review_ratings[0][ $review_field ];

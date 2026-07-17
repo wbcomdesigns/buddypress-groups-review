@@ -15,3 +15,6 @@ build
 
 # Composer dev dependencies (PHPStan + stubs). Not shipped.
 vendor/
+
+# Build artifacts (zips are release outputs, not source).
+dist/

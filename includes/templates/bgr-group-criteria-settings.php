@@ -67,8 +67,9 @@ $nonce             = wp_create_nonce( 'bgr_group_criteria_nonce' );
 						$is_active_global = in_array( $criterion_name, $global_active, true );
 						?>
 						<label class="bgr-criteria-item <?php echo $is_active_global ? '' : 'bgr-inactive-global'; ?>">
+							<?php // The checkbox value is the stored identifier and is posted back as one - it must stay untranslated. Only the visible span is translated. ?>
 							<input type="checkbox" name="bgr_enabled_global[]" value="<?php echo esc_attr( $criterion_name ); ?>" <?php checked( $is_enabled ); ?>>
-							<span class="bgr-criteria-name"><?php echo esc_html( $criterion_name ); ?></span>
+							<span class="bgr-criteria-name"><?php echo esc_html( bp_group_review_get_criteria_label( $criterion_name ) ); ?></span>
 							<?php if ( ! $is_active_global ) : ?>
 								<span class="bgr-criteria-badge bgr-badge-inactive"><?php esc_html_e( 'Inactive globally', 'bp-group-reviews' ); ?></span>
 							<?php endif; ?>

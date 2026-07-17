@@ -247,7 +247,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 					if ( in_array( $review_rating_field, $active_rating_fields, true ) ) {
 						?>
 							<div class="multi-review">
-								<div class="bgr-col-4 "><?php echo esc_html( $review_rating_field ); ?> <span class="required"> * </span>  </div>
+								<div class="bgr-col-4 "><?php echo esc_html( bp_group_review_get_criteria_label( $review_rating_field ) ); ?> <span class="required"> * </span>  </div>
 								<div id="review<?php echo esc_html( $field_counter ); ?>" class="bgr-col-4">
 										<input type="hidden" id="<?php echo 'clicked' . esc_html( $field_counter ); ?>" value="not_clicked">
 										<input type="hidden" name="rated_stars[]" class="rated_stars bgr_mrating" id="<?php echo 'rated_stars' . esc_html( $field_counter ); ?>" value="0">

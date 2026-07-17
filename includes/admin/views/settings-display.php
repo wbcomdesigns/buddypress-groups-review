@@ -18,10 +18,22 @@ defined( 'ABSPATH' ) || exit;
 
 global $bgr;
 
-$bgr_spinner_src  = includes_url() . 'images/spinner.gif';
-$bgr_review_label = isset( $bgr['review_label'] ) ? $bgr['review_label'] : esc_html__( 'Review', 'bp-group-reviews' );
-$bgr_manage_label = isset( $bgr['manage_review_label'] ) ? $bgr['manage_review_label'] : esc_html__( 'Reviews', 'bp-group-reviews' );
-$bgr_rating_color = isset( $bgr['rating_color'] ) ? $bgr['rating_color'] : '#FFC400';
+$bgr_spinner_src = includes_url() . 'images/spinner.gif';
+
+/*
+ * These two inputs must show the RAW stored value, not the resolved label. An
+ * empty box means "not renamed - follow the site language", and the translated
+ * default is shown as the placeholder instead. Prefilling with the resolved
+ * label would mean any admin who opened this tab and hit Save silently froze
+ * their own locale's wording into the database - the exact trap this release
+ * removes.
+ */
+$bgr_display_raw    = get_option( 'bgr_admin_display_settings' );
+$bgr_review_label   = isset( $bgr_display_raw['review_label'] ) ? (string) $bgr_display_raw['review_label'] : '';
+$bgr_manage_label   = isset( $bgr_display_raw['manage_review_label'] ) ? (string) $bgr_display_raw['manage_review_label'] : '';
+$bgr_review_default = esc_html__( 'Review', 'bp-group-reviews' );
+$bgr_manage_default = esc_html__( 'Reviews', 'bp-group-reviews' );
+$bgr_rating_color   = isset( $bgr['rating_color'] ) ? $bgr['rating_color'] : '#FFC400';
 ?>
 <div class="bgr-card">
 	<div class="bgr-card__head">
@@ -32,15 +44,31 @@ $bgr_rating_color = isset( $bgr['rating_color'] ) ? $bgr['rating_color'] : '#FFC
 		<tr>
 			<th scope="row"><label for="bgrReviewLabel"><?php esc_html_e( 'Review', 'bp-group-reviews' ); ?></label></th>
 			<td>
-				<input name="bgrReviewLabel" id="bgrReviewLabel" type="text" class="regular-text" value="<?php echo esc_attr( $bgr_review_label ); ?>" />
-				<p class="description"><?php esc_html_e( 'Change the singular review label. The default is "Review".', 'bp-group-reviews' ); ?></p>
+				<input name="bgrReviewLabel" id="bgrReviewLabel" type="text" class="regular-text" value="<?php echo esc_attr( $bgr_review_label ); ?>" placeholder="<?php echo esc_attr( $bgr_review_default ); ?>" />
+				<p class="description">
+					<?php
+					printf(
+						/* translators: %s: the default singular label in the current language, e.g. "Review". */
+						esc_html__( 'Change the singular review label. Leave empty to use the default (%s), which follows the site language.', 'bp-group-reviews' ),
+						esc_html( $bgr_review_default )
+					);
+					?>
+				</p>
 			</td>
 		</tr>
 		<tr>
 			<th scope="row"><label for="bgrManageReviewLabel"><?php esc_html_e( 'Reviews (Plural)', 'bp-group-reviews' ); ?></label></th>
 			<td>
-				<input name="bgrManageReviewLabel" id="bgrManageReviewLabel" type="text" class="regular-text" value="<?php echo esc_attr( $bgr_manage_label ); ?>" />
-				<p class="description"><?php esc_html_e( 'Change the plural form of "Review".', 'bp-group-reviews' ); ?></p>
+				<input name="bgrManageReviewLabel" id="bgrManageReviewLabel" type="text" class="regular-text" value="<?php echo esc_attr( $bgr_manage_label ); ?>" placeholder="<?php echo esc_attr( $bgr_manage_default ); ?>" />
+				<p class="description">
+					<?php
+					printf(
+						/* translators: %s: the default plural label in the current language, e.g. "Reviews". */
+						esc_html__( 'Change the plural review label. Leave empty to use the default (%s), which follows the site language.', 'bp-group-reviews' ),
+						esc_html( $bgr_manage_default )
+					);
+					?>
+				</p>
 			</td>
 		</tr>
 	</table>

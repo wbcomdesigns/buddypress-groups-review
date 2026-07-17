@@ -179,7 +179,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 
 				wp_register_script( 'bgr-front-js', BGR_PLUGIN_URL . 'assets/js' . $script_path . '/bgr-front' . $script_extension, array( 'jquery' ), BGR_PLUGIN_VERSION, false );
 				wp_register_script( 'bgr-ratings-js', BGR_PLUGIN_URL . 'assets/js' . $script_path . '/bgr-ratings' . $script_extension, array( 'jquery' ), BGR_PLUGIN_VERSION, false );
-				wp_register_script( 'bgr-accessibility-js', BGR_PLUGIN_URL . 'assets/js/bgr-accessibility.js', array( 'jquery' ), BGR_PLUGIN_VERSION, true );
+				wp_register_script( 'bgr-accessibility-js', BGR_PLUGIN_URL . 'assets/js' . $script_path . '/bgr-accessibility' . $script_extension, array( 'jquery' ), BGR_PLUGIN_VERSION, true );
 
 				wp_enqueue_style( 'bgr-icons' ); // Local CSS-based icons (replaces FontAwesome CDN).
 				wp_enqueue_style( 'bgr-reviews-css' );
@@ -233,7 +233,13 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 						'wbcom_nonce'          => wp_create_nonce( 'ajax-nonce' ),
 						'auto_approve_reviews' => $auto_approve_reviews,
 						'exclude_groups'       => $exclude_groups,
-						'review_label'         => isset( $bgr_admin_display_settings['review_label'] ) ? strtolower( $bgr_admin_display_settings['review_label'] ) : esc_html( strtolower( 'Review' ) ),
+						// bgr-front.js uses this to build DOM id selectors ("#manage-" +
+						// review_label, "#nav-add-" + review_label + "-groups-li"), which are
+						// built from the nav SLUG - so it must be the slug, never the display
+						// label. strtolower() was only ever an approximation of
+						// sanitize_title() and already missed any multi-word rename
+						// ("My Reviews" -> "my reviews" never matched "my-reviews").
+						'review_label'         => bp_group_review_tab_slug(),
 						'group_id'             => bp_get_current_group_id(),
 						'check_group_admin'    => $group_admin,
 					)

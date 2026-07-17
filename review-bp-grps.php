@@ -79,8 +79,11 @@ add_action( 'bp_loaded', 'bp_group_review_plugin_execute' );
  *  @author   Wbcom Designs
  */
 function bp_group_review_plugin_execute() {
-	$bp_active_components = get_option( 'bp-active-components', true );
-	if ( ! class_exists( 'BuddyPress' ) && ! array_key_exists( 'groups', $bp_active_components ) ) {
+	// bp_is_active() is the authority on component state - the raw option can be
+	// stale or filtered. Guard with || (either condition is disqualifying); the
+	// old && meant a BP-active/Groups-off site fell through to the else branch
+	// and loaded Groups-bound code anyway.
+	if ( ! class_exists( 'BuddyPress' ) || ! function_exists( 'bp_is_active' ) || ! bp_is_active( 'groups' ) ) {
 		add_action( 'admin_notices', 'bp_group_review_admin_group_notice' );
 	} else {
 		run_bp_group_reviews_plugin();
@@ -97,7 +100,15 @@ add_action( 'bp_init', 'bp_group_review_notifications', 12 );
  *  @author   Wbcom Designs
  */
 function bp_group_review_notifications() {
-	include 'includes/bgr-notifications.php';
+	// The whole notification component is Groups-bound: every one of its
+	// callbacks reads Groups APIs that only exist while the Groups component is
+	// active. Registering it with Groups off is what used to fatal the front end
+	// on every page load. Do not lean on the admin_init self-deactivate here -
+	// admin_init never runs for a front-end request.
+	if ( ! function_exists( 'bp_is_active' ) || ! bp_is_active( 'groups' ) ) {
+		return;
+	}
+	include_once 'includes/bgr-notifications.php';
 	buddypress()->bgr_bp_review                        = new BGR_Notifications();
 	buddypress()->bgr_bp_review->notification_callback = 'bp_group_review_format_notifications';
 }
@@ -272,17 +283,10 @@ function bp_group_review_sanitize_email_settings( $input ) {
 	return $sanitized;
 }
 
-/**
- * Save option of email setting.
+/*
+ * The Emails tab's register_setting() lives in BGR_Admin_Panel::register_settings()
+ * (admin_init) as of the 3.9.0 card-panel migration. The duplicate registration that
+ * used to sit here on admin_menu was a leftover from that migration and has been
+ * removed. bp_group_review_sanitize_email_settings() above is still the sanitize
+ * callback the panel points at, so the save contract is unchanged.
  */
-function bp_group_review_save_email_settigs() {
-	register_setting(
-		'bp_group_review_email_settings',
-		'bp_group_review_email_settings',
-		array(
-			'type'              => 'array',
-			'sanitize_callback' => 'bp_group_review_sanitize_email_settings',
-		)
-	);
-}
-add_action( 'admin_menu', 'bp_group_review_save_email_settigs' );
