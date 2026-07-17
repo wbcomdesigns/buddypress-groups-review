@@ -24,7 +24,7 @@ defined( 'ABSPATH' ) || exit;
  * rating ever submitted. Translate at render time with
  * bp_group_review_get_criteria_label() instead.
  *
- * @since   3.9.1
+ * @since   3.9.0
  * @return  string[] Untranslated criterion identifiers.
  */
 function bp_group_review_get_default_criteria() {
@@ -43,7 +43,7 @@ function bp_group_review_get_default_criteria() {
  * criteria checkboxes must keep emitting the raw key, or saving the form in a
  * non-English locale would rewrite the stored keys.
  *
- * @since   3.9.1
+ * @since   3.9.0
  * @param   string $name Stored criterion identifier.
  * @return  string Translated label, or $name when there is nothing to translate.
  */
@@ -246,7 +246,7 @@ function bp_group_review_tab_slug() {
  * visitor and "reviews" for an English one on the same site, breaking group nav
  * matching and every stored review URL.
  *
- * @since   3.9.1
+ * @since   3.9.0
  * @return  string
  */
 function bp_group_review_manage_tab_slug() {
@@ -260,7 +260,7 @@ function bp_group_review_manage_tab_slug() {
 /**
  * One-time migration: unfreeze display labels that were only ever a default.
  *
- * Before 3.9.1 the first page load persisted esc_html__( 'Review' / 'Reviews' )
+ * Before 3.9.0 the first page load persisted esc_html__( 'Review' / 'Reviews' )
  * into bgr_admin_display_settings, freezing the first admin's locale into the DB.
  * Clearing those rows lets the render-time default take over, so the tab finally
  * follows the visitor's language.
@@ -271,10 +271,10 @@ function bp_group_review_manage_tab_slug() {
  * "owner deliberately renamed the tab to that word" - and clearing it would
  * silently move the tab's URL from /avis/ to /reviews/, breaking existing links.
  * Sites first installed in a non-English locale therefore keep their frozen
- * label; that is the pre-3.9.1 behaviour, unchanged, and a rename in the Display
+ * label; that is the pre-3.9.0 behaviour, unchanged, and a rename in the Display
  * tab still works. See the release notes for the QA follow-up.
  *
- * @since   3.9.1
+ * @since   3.9.0
  * @return  void
  */
 function bp_group_review_migrate_display_labels() {

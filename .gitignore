@@ -14,7 +14,13 @@ build
 !audit/manifest.summary.json
 
 # Composer dev dependencies (PHPStan + stubs). Not shipped.
-vendor/
+# Anchored with a leading slash so this only matches the top-level Composer
+# directory. Unanchored "vendor/" matched EVERY vendor dir at any depth,
+# including admin/assets/js/vendor/ and admin/assets/css/vendor/, which silently
+# ignored newly added third-party sources (e.g. selectize.js). The libraries
+# already tracked there were unaffected only because .gitignore does not apply to
+# files already in the index. Do not remove the leading slash.
+/vendor/
 
 # Build artifacts (zips are release outputs, not source).
 dist/

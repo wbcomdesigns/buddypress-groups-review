@@ -16,8 +16,8 @@
  * Plugin URI: https://wbcomdesigns.com/contact/
  * Description: This plugin allows BuddyPress Members to give reviews to BuddyPress groups on the site. The review form allows users to give text reviews and even rate the group based on multiple criteria.
  * Version: 3.9.0
- * Requires at least: 6.1
- * Requires PHP: 7.4
+ * Requires at least: 6.5
+ * Requires PHP: 8.0
  * Author: Wbcom Designs
  * Author URI: http://wbcomdesigns.com
  * License: GPLv2+
@@ -135,7 +135,7 @@ function bp_group_review_admin_notice() {
 		return;
 	}
 	$bpquotes_plugin = esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' );
-	$bp_plugin       = esc_html__( 'BuddyPress', 'bp-group-reviews' );
+	$bp_plugin       = 'BuddyPress';
 	echo '<div class="error"><p>';
 	if ( class_exists( 'BuddyPress' ) ) {
 		if ( ! bp_is_active( 'groups' ) ) {
