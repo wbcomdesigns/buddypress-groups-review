@@ -1,14 +1,23 @@
 jQuery.noConflict();
+
+// wp.i18n helper (handle depends on wp-i18n; guarded for safety).
+var bgrAdminI18n =
+  window.wp && window.wp.i18n
+    ? window.wp.i18n.__
+    : function (text) {
+        return text;
+      };
+
 jQuery(document).ready(function () {
   // Save Criteria Settings
   jQuery("#bgr-settings-updated").hide();
-  
+
   // Handle dismissible notices
   jQuery(document).on('click', '.notice-dismiss', function() {
     jQuery(this).closest('.notice').fadeOut();
   });
   jQuery("#bgr-exclude-group-review").selectize({
-    placeholder: "Select groups",
+    placeholder: bgrAdminI18n("Select groups", "bp-group-reviews"),
     plugins: ["remove_button"],
   });
 
@@ -174,7 +183,7 @@ jQuery(document).ready(function () {
     return false;
   });
 
-  jQuery(document).on("change", "#bgr-email", function () {
+  jQuery(document).on("change", "#bgr-allow-email", function () {
     if (jQuery(this).prop("checked") == true) {
       jQuery(".review-email-section").show();
     } else {
@@ -184,7 +193,7 @@ jQuery(document).ready(function () {
 
   jQuery(document).on("click", ".bgr-approve-review", function () {
     var review_id = jQuery(this).data("rid");
-    jQuery(this).html("Approving..");
+    jQuery(this).html(bgrAdminI18n("Approving..", "bp-group-reviews"));
     jQuery.post(
       ajaxurl,
       {
@@ -200,26 +209,45 @@ jQuery(document).ready(function () {
     );
   });
 
-  // Deny review from row action
+  // Deny review from row action.
   jQuery(document).on("click", ".bgr-deny-review", function () {
-    var review_id = jQuery(this).data("rid");
-    if (!confirm("Are you sure you want to deny this review? It will be moved to trash.")) {
-      return;
-    }
-    jQuery(this).html("Denying..");
-    jQuery.post(
-      ajaxurl,
-      {
-        action: "bp_group_review_admin_deny_review",
-        review_id: review_id,
-        nonce: bgr_admin_js.wbcom_nonce,
-      },
-      function (response) {
-        if (response === "review-denied-successfully") {
-          window.location.href = window.location.href;
-        }
+    var $btn = jQuery(this);
+    var review_id = $btn.data("rid");
+    var denyMsg =
+      (window.bgrAdminPanel &&
+        window.bgrAdminPanel.i18n &&
+        window.bgrAdminPanel.i18n.denyReview) ||
+      bgrAdminI18n(
+        "Are you sure you want to deny this review? It will be moved to trash.",
+        "bp-group-reviews"
+      );
+
+    // Promise-based confirm modal (no native confirm()). Falls back to
+    // immediate continue if the helper is somehow unavailable.
+    var ask =
+      typeof window.bgrConfirm === "function"
+        ? window.bgrConfirm({ message: denyMsg, tone: "danger" })
+        : Promise.resolve(true);
+
+    ask.then(function (ok) {
+      if (!ok) {
+        return;
       }
-    );
+      $btn.html(bgrAdminI18n("Denying..", "bp-group-reviews"));
+      jQuery.post(
+        ajaxurl,
+        {
+          action: "bp_group_review_admin_deny_review",
+          review_id: review_id,
+          nonce: bgr_admin_js.wbcom_nonce,
+        },
+        function (response) {
+          if (response === "review-denied-successfully") {
+            window.location.href = window.location.href;
+          }
+        }
+      );
+    });
   });
 });
 
@@ -229,6 +257,8 @@ function BGRGetBGRDynamicTextBox(value) {
     '<span class="move-icons">&equiv;</span><input name="BGRDynamicTextBox" class="draggable" type="text" value="' +
     value +
     '" />' +
-    '<input type="button" value="Remove" class="remove button button-secondary bgr-remove" /><label class="wb-switch"><input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="" checked="checked" ><div class="wb-slider wb-round"></div></label>'
+    '<input type="button" value="' +
+    bgrAdminI18n("Remove", "bp-group-reviews") +
+    '" class="remove button button-secondary bgr-remove" /><label class="wb-switch"><input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="" checked="checked" ><div class="wb-slider wb-round"></div></label>'
   );
 }

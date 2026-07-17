@@ -77,7 +77,8 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						'enable_nav_item'   => $add_review_nav,
 						'screens'           => array(
 							'admin' => array(
-								'name'    => 'Manage ' . $review_label,
+								/* translators: %s is replaced with review_label */
+								'name'    => sprintf( __( 'Manage %s', 'bp-group-reviews' ), $review_label ),
 								'slug'    => 'manage-' . bp_group_review_tab_slug(),
 								'enabled' => $enabled,
 							),
@@ -95,7 +96,8 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 						'enable_nav_item'   => $add_review_nav,
 						'screens'           => array(
 							'edit' => array(
-								'name'    => 'Manage ' . $review_label,
+								/* translators: %s is replaced with review_label */
+								'name'    => sprintf( __( 'Manage %s', 'bp-group-reviews' ), $review_label ),
 								'slug'    => 'manage-' . bp_group_review_tab_slug(),
 								'enabled' => $enabled,
 							),
@@ -256,8 +258,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					<?php } else { ?>
 						<div id="message" class="info">
 					<?php } ?>
-						<?php /* translators: %s is replaced with review_label */ ?>
-						<p><?php printf( esc_html__( 'Sorry, no %s were found.', 'bp-group-reviews' ), esc_html( $review_label ) ); ?></p>
+						<p><?php /* translators: %s: review label (e.g. "Reviews"). */ printf( esc_html__( 'Sorry, no %s were found.', 'bp-group-reviews' ), esc_html( $review_label ) ); ?></p>
 					</div>
 					<?php
 			endif;

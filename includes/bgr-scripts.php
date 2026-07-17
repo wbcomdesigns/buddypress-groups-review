@@ -38,6 +38,30 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 			// Add Scripts only on reviews tab.
 			add_action( 'wp_enqueue_scripts', array( $this, 'bp_group_review_custom_variables' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'bp_group_review_admin_custom_variables' ) );
+			add_filter( 'load_script_textdomain_relative_path', array( $this, 'bgr_filter_script_translation_relative_path' ), 10, 2 );
+		}
+
+		/**
+		 * Point JED lookups at the unminified script path.
+		 *
+		 * Outside SCRIPT_DEBUG the admin script is served from admin/assets/js/min/.
+		 * Core strips a trailing ".min.js" when it hashes the path for the JED
+		 * filename, but it does NOT strip the "/min/" directory segment - so it
+		 * looks for a hash of "admin/assets/js/min/bgr-admin.js" while the shipped
+		 * JSON is keyed on "admin/assets/js/bgr-admin.js". The two never match and
+		 * every wp.i18n string silently falls back to English in production.
+		 *
+		 * @since   3.9.0
+		 * @param   string $relative Relative path core will hash.
+		 * @param   string $src      Full script URL.
+		 * @return  string
+		 */
+		public function bgr_filter_script_translation_relative_path( $relative, $src ) {
+			if ( ! is_string( $relative ) || false === strpos( $src, 'buddypress-groups-review/' ) ) {
+				return $relative;
+			}
+			// "admin/assets/js/min/bgr-admin.js" -> "admin/assets/js/bgr-admin.js".
+			return preg_replace( '#/min/([^/]+)$#', '/$1', $relative );
 		}
 
 		/**
@@ -163,6 +187,25 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				wp_enqueue_script( 'bgr-front-js' );
 				wp_enqueue_script( 'bgr-accessibility-js' );
 
+				// i18n for the accessibility script. These strings are only ever
+				// rendered as ARIA labels / skip-link text by JS, so PHP is their
+				// only translation home; the JS literals are fallbacks only.
+				wp_localize_script(
+					'bgr-accessibility-js',
+					'bgr_a11y_i18n',
+					array(
+						'defaultCriteria' => esc_html__( 'Rating', 'bp-group-reviews' ),
+						/* translators: %1$s: star rating number (1-5), %2$s: criteria name being rated. */
+						'rateStars'       => esc_html__( 'Rate %1$s out of 5 stars for %2$s', 'bp-group-reviews' ),
+						'reviewSubject'   => esc_html__( 'Review subject', 'bp-group-reviews' ),
+						'reviewDesc'      => esc_html__( 'Review description', 'bp-group-reviews' ),
+						'acceptReview'    => esc_html__( 'Accept this review', 'bp-group-reviews' ),
+						'denyReview'      => esc_html__( 'Deny this review', 'bp-group-reviews' ),
+						'deleteReview'    => esc_html__( 'Delete this review', 'bp-group-reviews' ),
+						'skipToReviews'   => esc_html__( 'Skip to reviews', 'bp-group-reviews' ),
+					)
+				);
+
 				$bgr_admin_settings         = get_option( 'bgr_admin_general_settings' );
 				$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );
 				$exclude_groups             = isset( $bgr_admin_settings['exclude_groups'] ) ? array_map( 'absint', (array) $bgr_admin_settings['exclude_groups'] ) : array();
@@ -201,13 +244,34 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 
 			// Enqueue group criteria admin script on group admin pages.
 			if ( function_exists( 'bp_is_group' ) && bp_is_group() && bp_is_group_admin_page() ) {
+				// Toast + confirm helpers replace native alert()/confirm()
+				// in the criteria management UI (dev rules 10 + 12).
+				wp_register_script( 'bgr-toast', BGR_PLUGIN_URL . 'public/js/toast.js', array(), BGR_PLUGIN_VERSION, true );
+				wp_register_script( 'bgr-confirm', BGR_PLUGIN_URL . 'public/js/confirm.js', array( 'wp-i18n' ), BGR_PLUGIN_VERSION, true );
+				wp_set_script_translations( 'bgr-confirm', 'bp-group-reviews', BGR_PLUGIN_PATH . 'languages' );
+				wp_enqueue_script( 'bgr-toast' );
+				wp_enqueue_script( 'bgr-confirm' );
+
+				// Ensure the toast/confirm CSS (bundled in bgr-reviews.css)
+				// is present on the group admin screen.
+				if ( ! wp_style_is( 'bgr-reviews-css', 'enqueued' ) ) {
+					wp_register_style( 'bgr-reviews-css', BGR_PLUGIN_URL . 'assets/css' . $style_path . '/bgr-reviews' . $style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
+					wp_enqueue_style( 'bgr-reviews-css' );
+				}
+
+				// Criteria settings screen styles. Extracted from a 125-line
+				// inline <style> block in the criteria template (UI-005).
+				wp_register_style( 'bgr-group-criteria-admin-css', BGR_PLUGIN_URL . 'assets/css' . $style_path . '/bgr-group-criteria-admin' . $style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
+				wp_enqueue_style( 'bgr-group-criteria-admin-css' );
+
 				wp_register_script(
 					'bgr-group-criteria-admin-js',
 					BGR_PLUGIN_URL . 'assets/js' . $script_path . '/bgr-group-criteria-admin' . $script_extension,
-					array( 'jquery' ),
+					array( 'jquery', 'wp-i18n', 'bgr-toast', 'bgr-confirm' ),
 					BGR_PLUGIN_VERSION,
 					true
 				);
+				wp_set_script_translations( 'bgr-group-criteria-admin-js', 'bp-group-reviews', BGR_PLUGIN_PATH . 'languages' );
 				wp_enqueue_script( 'bgr-group-criteria-admin-js' );
 				wp_localize_script(
 					'bgr-group-criteria-admin-js',
@@ -250,7 +314,8 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 
 			if ( ( 'review' == get_post_type() ) || ( 'wb-plugins_page_group-review-settings' == $screen->base ) || ( 'group-review-settings' == $page ) || 'toplevel_page_wbcomplugins' == $screen->base ) {
 
-				wp_register_script( 'bgr-js-admin', BGR_PLUGIN_URL . 'admin/assets/js' . $script_path . '/bgr-admin' . $script_extension, array( 'jquery' ), BGR_PLUGIN_VERSION, false );
+				wp_register_script( 'bgr-js-admin', BGR_PLUGIN_URL . 'admin/assets/js' . $script_path . '/bgr-admin' . $script_extension, array( 'jquery', 'wp-i18n' ), BGR_PLUGIN_VERSION, false );
+				wp_set_script_translations( 'bgr-js-admin', 'bp-group-reviews', BGR_PLUGIN_PATH . 'languages' );
 				wp_enqueue_script( 'bgr-js-admin' );
 				wp_localize_script(
 					'bgr-js-admin',

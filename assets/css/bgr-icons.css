@@ -83,33 +83,6 @@
 	/* Color is set via dynamic CSS from admin settings - do not hardcode here */
 }
 
-/* Admin Icons - Tags (fa fa-tags) */
-.fa.fa-tags {
-	display: inline-block;
-	width: 1em;
-	height: 1em;
-	line-height: 1;
-	font-style: normal;
-	font-weight: normal;
-}
-
-.fa.fa-tags::before {
-	content: "\1F3F7"; /* 🏷 Unicode tag emoji */
-}
-
-/* Admin Icons - Comments (fa fa-comments) */
-.fa.fa-comments {
-	display: inline-block;
-	width: 1em;
-	height: 1em;
-	line-height: 1;
-	font-style: normal;
-	font-weight: normal;
-}
-
-.fa.fa-comments::before {
-	content: "\1F4AC"; /* 💬 Unicode speech balloon emoji */
-}
 
 /* Ensure icons inherit color from parent */
 .fas.fa-star.stars,

@@ -8,34 +8,39 @@
     --bgr-bg-white: #fff;
 }
 
-/* Dark theme support - Theme Variables with Fallbacks */
+/* Dark theme support - explicit selectors only (no OS/prefers-color-scheme).
+   BuddyX modern (--bx-color-*) -> Reign (--reign-*) -> BuddyX legacy -> dark
+   literal (Reign 8 exposes no --bx-color-*, so the literal stays dark). */
 html.dark-mode,
-body.dark-scheme {
-	--bgr-bg-white: var(--reign-site-sections-bg-color, var(--color-theme-white-box, #1a1a1a));
+body.dark-scheme,
+body.dark,
+html[data-bx-mode="dark"],
+.buddyx-dark-theme {
+	--bgr-bg-white: var(--bx-color-bg-elevated, var(--reign-site-sections-bg-color, var(--color-theme-white-box, #1a1a1a)));
 }
 
 .bgr-bars {
-	display: block;
+	display: inline-block;
 	width: 30px;
 	height: 8px;
-	float: right;
+	vertical-align: middle;
 	background-color: var(--bgr-bg-white, #fff);
 	margin: 1px;
 }
 
 .bgr-filled-bars {
-	display: block;
+	display: inline-block;
 	width: 30px;
 	height: 8px;
-	float: right;
+	vertical-align: middle;
 	margin: 1px;
 }
 
 .bgr-half-filled-bars {
-	display: block;
+	display: inline-block;
 	width: 30px;
 	height: 8px;
-	float: right;
+	vertical-align: middle;
 	background-color: var(--bgr-bg-white, #fff);
 	margin: 1px;
 }
@@ -51,10 +56,10 @@ body.dark-scheme {
 */
 
 .bgr-numbers {
-	display: block;
+	display: inline-block;
 	width: 25px;
 	height: 25px;
-	float: right;
+	vertical-align: middle;
 	background-color: var(--bgr-bg-white, #fff);
 	margin: 2px;
 	text-decoration: none;
@@ -65,10 +70,10 @@ body.dark-scheme {
 }
 
 .bgr-half-filled-numbers {
-	display: block;
+	display: inline-block;
 	width: 25px;
 	height: 25px;
-	float: right;
+	vertical-align: middle;
 	background-color: var(--bgr-bg-white, white);
 	margin: 2px;
 	text-decoration: none;
@@ -79,10 +84,10 @@ body.dark-scheme {
 }
 
 .bgr-filled-numbers {
-	display: block;
+	display: inline-block;
 	width: 25px;
 	height: 25px;
-	float: right;
+	vertical-align: middle;
 	margin: 2px;
 	text-decoration: none;
 	font-size: 12px;

@@ -14,6 +14,39 @@ defined( 'ABSPATH' ) || exit;
 
 
 /**
+ * Build the rating-color CSS block.
+ *
+ * Single source of truth for the star rating color rules, shared by the
+ * primary wp_add_inline_style() path and the wp_head fallback so the selector
+ * list + !important overrides never drift out of sync (previously duplicated).
+ * The !important is required: it overrides the theme/plugin colour set on the
+ * star pseudo-elements from the admin "rating color" setting.
+ *
+ * @param string $rating_color Sanitized hex colour (e.g. #ffb900).
+ * @return string CSS rules, or empty string when no colour supplied.
+ */
+function bp_group_review_get_rating_color_css( $rating_color ) {
+	$rating_color = sanitize_hex_color( $rating_color );
+
+	if ( empty( $rating_color ) ) {
+		return '';
+	}
+
+	return "
+		.bgr-star-rate { color: {$rating_color} !important; }
+		.fas.fa-star.bgr-star-rate::before,
+		.far.fa-star.bgr-star-rate::before,
+		.fas.fa-star-half-alt.bgr-star-rate::before,
+		.fas.fa-star-half-alt.bgr-star-rate::after,
+		.fas.fa-star.stars::before,
+		.far.fa-star.stars::before,
+		.fas.fa-star-half-alt.stars::before,
+		.fas.fa-star-half-alt.stars::after,
+		.far.fa-star.bgr-stars::before { color: {$rating_color} !important; }
+	";
+}
+
+/**
  * Actions performed to add dynamic css via wp_add_inline_style
  *
  * @return void
@@ -26,29 +59,15 @@ function bp_group_review_dynamic_rating_method() {
 		return;
 	}
 
-	$rating_color = sanitize_hex_color( $bgr['rating_color'] );
+	$custom_css = bp_group_review_get_rating_color_css( $bgr['rating_color'] );
 
 	// Only proceed if we have a valid color.
-	if ( empty( $rating_color ) ) {
+	if ( empty( $custom_css ) ) {
 		return;
 	}
 
 	// Check if the stylesheet is enqueued before adding inline style.
 	if ( wp_style_is( 'bgr-ratings-css', 'enqueued' ) ) {
-		// Target ::before and ::after pseudo-elements directly with !important
-		// to ensure the admin color setting overrides any theme or plugin styles.
-		$custom_css = "
-			.bgr-star-rate { color: {$rating_color} !important; }
-			.fas.fa-star.bgr-star-rate::before,
-			.far.fa-star.bgr-star-rate::before,
-			.fas.fa-star-half-alt.bgr-star-rate::before,
-			.fas.fa-star-half-alt.bgr-star-rate::after,
-			.fas.fa-star.stars::before,
-			.far.fa-star.stars::before,
-			.fas.fa-star-half-alt.stars::before,
-			.fas.fa-star-half-alt.stars::after,
-			.far.fa-star.bgr-stars::before { color: {$rating_color} !important; }
-		";
 		wp_add_inline_style( 'bgr-ratings-css', $custom_css );
 	}
 }
@@ -88,23 +107,12 @@ function bp_group_review_rating_color_fallback() {
 		return;
 	}
 
-	$rating_color = sanitize_hex_color( $bgr['rating_color'] );
+	$custom_css = bp_group_review_get_rating_color_css( $bgr['rating_color'] );
 
-	if ( ! empty( $rating_color ) ) {
-		// Target ::before and ::after pseudo-elements directly with !important
-		// to ensure the admin color setting overrides any theme or plugin styles.
-		echo '<style id="bgr-rating-color-fallback">
-			.bgr-star-rate { color: ' . esc_attr( $rating_color ) . ' !important; }
-			.fas.fa-star.bgr-star-rate::before,
-			.far.fa-star.bgr-star-rate::before,
-			.fas.fa-star-half-alt.bgr-star-rate::before,
-			.fas.fa-star-half-alt.bgr-star-rate::after,
-			.fas.fa-star.stars::before,
-			.far.fa-star.stars::before,
-			.fas.fa-star-half-alt.stars::before,
-			.fas.fa-star-half-alt.stars::after,
-			.far.fa-star.bgr-stars::before { color: ' . esc_attr( $rating_color ) . ' !important; }
-		</style>' . "\n";
+	if ( ! empty( $custom_css ) ) {
+		// Same rules as the primary inline-style path (shared helper) so the
+		// admin colour setting overrides theme/plugin styles consistently.
+		echo '<style id="bgr-rating-color-fallback">' . wp_kses_post( $custom_css ) . '</style>' . "\n";
 	}
 }
 add_action( 'wp_head', 'bp_group_review_rating_color_fallback', 999 );

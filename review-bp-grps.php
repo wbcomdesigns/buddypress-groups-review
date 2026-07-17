@@ -15,7 +15,9 @@
  * Plugin Name: Wbcom Designs - BuddyPress Group Reviews
  * Plugin URI: https://wbcomdesigns.com/contact/
  * Description: This plugin allows BuddyPress Members to give reviews to BuddyPress groups on the site. The review form allows users to give text reviews and even rate the group based on multiple criteria.
- * Version: 3.8.1
+ * Version: 3.9.0
+ * Requires at least: 6.1
+ * Requires PHP: 7.4
  * Author: Wbcom Designs
  * Author URI: http://wbcomdesigns.com
  * License: GPLv2+
@@ -54,7 +56,7 @@ function bp_group_review_load_textdomain() {
  *  @since   1.0.0
  *  @author  Wbcom Designs
 */
-define( 'BGR_PLUGIN_VERSION', '3.8.1' );
+define( 'BGR_PLUGIN_VERSION', '3.9.0' );
 define( 'BGR_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BGR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
@@ -127,11 +129,11 @@ function bp_group_review_admin_notice() {
 	if ( class_exists( 'BuddyPress' ) ) {
 		if ( ! bp_is_active( 'groups' ) ) {
 			$bp_gp_component = esc_html__( 'BuddyPress Groups Component', 'bp-group-reviews' );
-			/* translators: %s: search term */
+			/* translators: %1$s: this plugin's name, %2$s: BuddyPress, %3$s: BuddyPress Groups Component. All are wrapped in <strong> tags. */
 			printf( esc_html__( '%1$s requires %2$s to be installed and active, and the %3$s to be enabled.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>', '<strong>' . esc_html( $bp_gp_component ) . '</strong>' );
 		}
 	} else {
-		/* translators: %s: search term */
+		/* translators: %1$s: this plugin's name, %2$s: BuddyPress. Both are wrapped in <strong> tags. */
 			printf( esc_html__( '%1$s requires %2$s to be installed and active.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>' );
 	}
 	echo '</p></div>';
@@ -179,8 +181,8 @@ function bp_group_review_include_files_bp() {
 function run_bp_group_reviews_plugin() {
 	$include_files = array(
 		'includes/bgr-globals.php',
+		'includes/class-bgr-theme-integration.php',
 		'includes/bgr-scripts.php',
-		'admin/wbcom/wbcom-admin-settings.php',
 		'admin/bgr-admin.php',
 		'admin/bgr-admin-feedback.php',
 		'includes/bgr-dynamic-css.php',
@@ -207,6 +209,12 @@ function run_bp_group_reviews_plugin() {
 	// Initialize the group criteria singleton to register its hooks.
 	if ( class_exists( 'BGR_Group_Criteria' ) ) {
 		BGR_Group_Criteria::get_instance();
+	}
+
+	// Initialize the theme-integration helper (adds bgr-theme-{slug} body class,
+	// centralizes theme token mapping). See UI-013.
+	if ( class_exists( 'BGR_Theme_Integration' ) ) {
+		BGR_Theme_Integration::get_instance();
 	}
 }
 

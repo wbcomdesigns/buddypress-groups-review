@@ -40,18 +40,39 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 				return;
 			}
 
-			global $bgr;
-
 			$group_id = bp_get_current_group_id();
 			if ( ! $group_id ) {
 				return;
 			}
 
-			// Get all published reviews for this group.
+			// Aggregate rating comes from the shared cached stats (no unbounded scan).
+			$stats = bgr_get_group_review_stats( $group_id );
+
+			if ( empty( $stats['total_reviews'] ) ) {
+				return;
+			}
+
+			/**
+			 * Filter how many individual reviews are embedded in the JSON-LD output.
+			 *
+			 * The aggregateRating always covers ALL reviews (from the cached
+			 * stats); this only bounds the per-review `review` entries.
+			 *
+			 * @since 3.9.0
+			 *
+			 * @param int $limit    Maximum individual reviews in schema. Default 10.
+			 * @param int $group_id The group ID.
+			 */
+			$schema_reviews_limit = (int) apply_filters( 'bgr_schema_reviews_limit', 10, $group_id );
+
+			// Most recent published reviews for the per-review schema entries (bounded).
 			$args = array(
 				'post_type'      => 'review',
 				'post_status'    => 'publish',
-				'posts_per_page' => -1,
+				'posts_per_page' => $schema_reviews_limit,
+				'orderby'        => 'date',
+				'order'          => 'DESC',
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Bounded query, runs once per group page.
 				'meta_query'     => array(
 					array(
 						'key'     => 'linked_group',
@@ -62,10 +83,6 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 			);
 
 			$reviews = get_posts( $args );
-
-			if ( empty( $reviews ) ) {
-				return;
-			}
 
 			// Get group object safely to avoid BuddyBoss template errors.
 			$group = groups_get_group( $group_id );
@@ -85,11 +102,10 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 				$group_link = bp_get_groups_directory_permalink() . $group->slug . '/';
 			}
 
-			// Calculate aggregate rating.
-			$total_reviews        = count( $reviews );
-			$review_rating_fields = isset( $bgr['review_rating_fields'] ) ? $bgr['review_rating_fields'] : array();
-			$total_ratings        = 0;
-			$ratings_count        = 0;
+			// Aggregate rating from the cached stats (covers all reviews).
+			$total_reviews  = (int) $stats['total_reviews'];
+			$ratings_count  = (int) $stats['ratings_count'];
+			$average_rating = round( (float) $stats['average'], 1 );
 
 			$review_schemas = array();
 
@@ -105,8 +121,6 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 					foreach ( $review_ratings as $rating ) {
 						$review_total += $rating;
 						++$review_count;
-						$total_ratings += $rating;
-						++$ratings_count;
 					}
 
 					$review_average = $review_count > 0 ? round( $review_total / $review_count, 1 ) : 0;
@@ -130,8 +144,6 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 					);
 				}
 			}
-
-			$average_rating = $ratings_count > 0 ? round( $total_ratings / $ratings_count, 1 ) : 0;
 
 			// Build organization/group schema.
 			$schema = array(

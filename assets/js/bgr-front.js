@@ -113,7 +113,7 @@ jQuery(document).ready(function (e) {
     } else {
       jQuery(".review-full-description").hide();
       jQuery(".review-excerpt").show();
-      jQuery(".review-full-description").next().text("View More..");
+      jQuery(".review-full-description").next().text(bgr_front_js_object.view_more_text);
       jQuery(this).parent().children(".review-excerpt").slideUp(500);
       jQuery(this).parent().children(".review-full-description").slideDown(500);
       jQuery(this).text(bgr_front_js_object.view_less_text);

@@ -1,0 +1,1052 @@
+/**
+ * BuddyPress Group Reviews — Admin Styles (card-panel).
+ *
+ * Card-based settings panel following the wp-plugin-development skill
+ * Part 6 pattern and the wbcom-wrapper-migration playbook. All tokens
+ * scoped under --bgr-admin-* so nothing leaks to other plugins on the
+ * same admin screen.
+ *
+ * @since 3.9.0
+ */
+
+/* ═══════════════════════════════════════════════════════════
+   Design Tokens
+   ═══════════════════════════════════════════════════════════ */
+
+.bgr-admin {
+	--bgr-admin-accent: #2563eb;
+	--bgr-admin-accent-hover: #1d4ed8;
+	--bgr-admin-accent-light: #eff6ff;
+
+	--bgr-admin-white: #ffffff;
+	--bgr-admin-surface-1: #f8fafc;
+	--bgr-admin-surface-2: #f1f5f9;
+	--bgr-admin-border: #e2e8f0;
+	--bgr-admin-border-strong: #cbd5e1;
+
+	--bgr-admin-text: #1e293b;
+	--bgr-admin-text-2: #475569;
+	--bgr-admin-text-3: #64748b;
+	--bgr-admin-text-4: #374151;
+	--bgr-admin-text-muted: #64748b; /* 4.76:1 on white; #94a3b8 was 2.56:1 and failed WCAG AA */
+
+	--bgr-admin-success: #16a34a;
+	--bgr-admin-success-light: #dcfce7;
+	--bgr-admin-warn: #f59e0b;
+	--bgr-admin-warn-light: #fef9c3;
+	--bgr-admin-danger: #dc2626;
+	--bgr-admin-danger-dark: #b91c1c;
+	--bgr-admin-danger-light: #fee2e2;
+
+	--bgr-admin-radius: 8px;
+	--bgr-admin-radius-sm: 6px;
+	--bgr-admin-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+	--bgr-admin-shadow-hover: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.04);
+
+	--bgr-admin-gap-sm: 8px;
+	--bgr-admin-gap-md: 16px;
+	--bgr-admin-gap-lg: 20px;
+	--bgr-admin-gap-xl: 32px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Page wrapper + page header
+   ═══════════════════════════════════════════════════════════ */
+
+.bgr-admin {
+	margin: 0 20px 0 0;
+	color: var(--bgr-admin-text);
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.bgr-admin h1,
+.bgr-admin h2,
+.bgr-admin h3,
+.bgr-admin p {
+	margin: 0;
+	color: inherit;
+}
+
+.bgr-admin a {
+	color: var(--bgr-admin-accent);
+}
+
+.bgr-page-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--bgr-admin-gap-md);
+	padding: 18px 0 14px;
+	margin: 0 0 18px;
+	border-bottom: 1px solid var(--bgr-admin-border);
+}
+
+.bgr-page-header__title {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.bgr-page-header__title h1 {
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 1.2;
+	margin: 0;
+	padding: 0;
+}
+
+.bgr-page-header__title .dashicons {
+	color: var(--bgr-admin-accent);
+	width: 24px;
+	height: 24px;
+	font-size: 24px;
+}
+
+.bgr-page-header__subtitle {
+	font-size: 13px;
+	color: var(--bgr-admin-text-3);
+	margin: 2px 0 0;
+}
+
+.bgr-page-header__actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.bgr-version-pill {
+	display: inline-block;
+	padding: 4px 10px;
+	background: var(--bgr-admin-accent);
+	color: #fff;
+	border-radius: 999px;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.03em;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Two-column settings layout
+   ═══════════════════════════════════════════════════════════ */
+
+.bgr-settings-layout {
+	display: flex;
+	align-items: flex-start;
+	gap: 0;
+	margin-top: var(--bgr-admin-gap-md);
+}
+
+.bgr-settings-sidebar {
+	width: 240px;
+	/* border-box, because the responsive rules below set width:100% and the 1px border
+	   on each side would otherwise push the sidebar 2px past the viewport. */
+	box-sizing: border-box;
+	flex-shrink: 0;
+	background: var(--bgr-admin-white);
+	border: 1px solid var(--bgr-admin-border);
+	border-radius: var(--bgr-admin-radius);
+	box-shadow: var(--bgr-admin-shadow);
+	position: sticky;
+	top: 32px;
+	overflow: hidden;
+}
+
+.bgr-settings-sidebar-brand {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 16px 16px 14px;
+	border-bottom: 1px solid var(--bgr-admin-surface-2);
+}
+
+.bgr-settings-brand-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	border-radius: var(--bgr-admin-radius-sm);
+	background: var(--bgr-admin-accent);
+	color: #fff;
+	flex-shrink: 0;
+}
+
+.bgr-settings-brand-icon .dashicons {
+	color: #fff;
+	width: 18px;
+	height: 18px;
+	font-size: 18px;
+}
+
+.bgr-settings-brand-text {
+	min-width: 0;
+}
+
+.bgr-settings-brand-name {
+	margin: 0;
+	font-size: 13px;
+	font-weight: 700;
+	color: var(--bgr-admin-text);
+	line-height: 1.2;
+}
+
+.bgr-settings-brand-sub {
+	margin: 2px 0 0;
+	font-size: 10px;
+	color: var(--bgr-admin-text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	font-weight: 600;
+}
+
+.bgr-settings-sidebar-nav {
+	padding: 8px;
+}
+
+.bgr-snav-link {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 9px 10px;
+	border-radius: var(--bgr-admin-radius-sm);
+	color: var(--bgr-admin-text-2);
+	text-decoration: none;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 1.4;
+	transition: background 0.12s, color 0.12s;
+	margin-bottom: 1px;
+	min-height: 40px;
+	box-sizing: border-box;
+}
+
+.bgr-snav-link .dashicons {
+	width: 16px;
+	height: 16px;
+	font-size: 16px;
+	flex-shrink: 0;
+	color: var(--bgr-admin-text-muted);
+	transition: color 0.12s;
+}
+
+.bgr-snav-link:hover,
+.bgr-snav-link:focus {
+	background: var(--bgr-admin-surface-1);
+	color: var(--bgr-admin-text);
+	box-shadow: none;
+}
+
+.bgr-snav-link:focus:not(:focus-visible) {
+	outline: none;
+}
+
+.bgr-snav-link:hover .dashicons,
+.bgr-snav-link:focus .dashicons {
+	color: var(--bgr-admin-text-3);
+}
+
+.bgr-snav-link:focus-visible {
+	outline: 2px solid var(--bgr-admin-accent);
+	outline-offset: 2px;
+}
+
+.bgr-snav-link--active,
+.bgr-snav-link--active:hover,
+.bgr-snav-link--active:focus {
+	background: var(--bgr-admin-accent-light);
+	color: var(--bgr-admin-accent);
+	font-weight: 600;
+}
+
+.bgr-snav-link--active .dashicons {
+	color: var(--bgr-admin-accent);
+}
+
+.bgr-snav-link__ext {
+	margin-left: auto;
+}
+
+.bgr-snav-divider {
+	height: 1px;
+	background: var(--bgr-admin-surface-2);
+	margin: 8px 0;
+}
+
+.bgr-snav-section-label {
+	margin: 8px 0 4px 10px;
+	font-size: 10px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: var(--bgr-admin-text-muted);
+}
+
+.bgr-settings-main {
+	flex: 1;
+	min-width: 0;
+	margin-left: var(--bgr-admin-gap-lg);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Cards
+   ═══════════════════════════════════════════════════════════ */
+
+.bgr-card {
+	background: var(--bgr-admin-white);
+	border: 1px solid var(--bgr-admin-border);
+	border-radius: var(--bgr-admin-radius);
+	box-shadow: var(--bgr-admin-shadow);
+	margin-bottom: var(--bgr-admin-gap-lg);
+	overflow: hidden;
+}
+
+.bgr-card--spaced {
+	margin-top: var(--bgr-admin-gap-lg);
+}
+
+.bgr-card__head {
+	padding: 14px 20px 12px;
+	border-bottom: 1px solid var(--bgr-admin-border);
+	background: var(--bgr-admin-surface-1);
+}
+
+.bgr-card__title {
+	font-size: 13px;
+	font-weight: 700;
+	color: var(--bgr-admin-text);
+	margin: 0 0 2px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.bgr-card__desc {
+	font-size: 13px;
+	color: var(--bgr-admin-text-3);
+	margin: 0;
+	line-height: 1.5;
+}
+
+.bgr-card__body {
+	padding: 20px;
+}
+
+.bgr-card__body-text {
+	margin: 0 0 8px;
+	line-height: 1.6;
+}
+
+.bgr-card__body-text:last-child {
+	margin-bottom: 0;
+}
+
+.bgr-card .form-table {
+	margin: 0;
+}
+
+.bgr-card .form-table th {
+	padding: 14px 20px;
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--bgr-admin-text-4);
+	width: 240px;
+	vertical-align: middle;
+}
+
+.bgr-card .form-table td {
+	padding: 14px 20px;
+}
+
+.bgr-card .form-table tr {
+	border-bottom: 1px solid var(--bgr-admin-surface-2);
+}
+
+.bgr-card .form-table tr:last-child {
+	border-bottom: none;
+}
+
+.bgr-card .form-table .description {
+	margin: 6px 0 0;
+	color: var(--bgr-admin-text-3);
+	font-size: 12px;
+	line-height: 1.5;
+}
+
+.bgr-card .form-table input[type="text"],
+.bgr-card .form-table input[type="number"],
+.bgr-card .form-table input[type="email"],
+.bgr-card .form-table input[type="url"],
+.bgr-card .form-table select {
+	padding: 8px 10px;
+	border: 1px solid var(--bgr-admin-border-strong);
+	border-radius: var(--bgr-admin-radius-sm);
+	font-size: 13px;
+	line-height: 1.4;
+	box-shadow: none;
+	background: var(--bgr-admin-white);
+	color: var(--bgr-admin-text);
+}
+
+.bgr-card .form-table input[type="text"]:focus,
+.bgr-card .form-table input[type="number"]:focus,
+.bgr-card .form-table input[type="email"]:focus,
+.bgr-card .form-table input[type="url"]:focus,
+.bgr-card .form-table select:focus {
+	border-color: var(--bgr-admin-accent);
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.bgr-card .form-table input[type="text"]:focus:not(:focus-visible),
+.bgr-card .form-table input[type="number"]:focus:not(:focus-visible),
+.bgr-card .form-table input[type="email"]:focus:not(:focus-visible),
+.bgr-card .form-table input[type="url"]:focus:not(:focus-visible),
+.bgr-card .form-table select:focus:not(:focus-visible) {
+	outline: none;
+}
+
+.bgr-card .form-table input.regular-text {
+	width: 100%;
+	max-width: 400px;
+}
+
+.bgr-card .form-table input.large-text {
+	width: 100%;
+	max-width: 100%;
+}
+
+.bgr-card .form-table input.small-text {
+	width: 90px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   wb-switch toggle (kept from legacy markup, re-styled)
+   ═══════════════════════════════════════════════════════════ */
+
+.bgr-admin .wb-switch {
+	position: relative;
+	display: inline-block;
+	width: 44px;
+	height: 24px;
+	vertical-align: middle;
+}
+
+.bgr-admin .wb-switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.bgr-admin .wb-slider {
+	position: absolute;
+	cursor: pointer;
+	inset: 0;
+	background: var(--bgr-admin-border-strong);
+	transition: 0.2s;
+	border-radius: 24px;
+}
+
+.bgr-admin .wb-slider::before {
+	position: absolute;
+	content: "";
+	height: 18px;
+	width: 18px;
+	left: 3px;
+	bottom: 3px;
+	background: #fff;
+	transition: 0.2s;
+	border-radius: 50%;
+}
+
+.bgr-admin .wb-switch input:checked + .wb-slider {
+	background: var(--bgr-admin-accent);
+}
+
+.bgr-admin .wb-switch input:focus-visible + .wb-slider {
+	outline: 2px solid var(--bgr-admin-accent);
+	outline-offset: 2px;
+}
+
+.bgr-admin .wb-switch input:checked + .wb-slider::before {
+	transform: translateX(20px);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Criteria list (drag-sortable)
+   ═══════════════════════════════════════════════════════════ */
+
+.bgr-criteria-list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-bottom: 12px;
+}
+
+.bgr-criteria-list .rating-review-div {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 10px 12px;
+	background: var(--bgr-admin-surface-1);
+	border: 1px solid var(--bgr-admin-border);
+	border-radius: var(--bgr-admin-radius-sm);
+}
+
+.bgr-criteria-list .move-icons {
+	cursor: grab;
+	color: var(--bgr-admin-text-muted);
+	font-size: 18px;
+	line-height: 1;
+}
+
+.bgr-criteria-list input[type="text"].draggable {
+	flex: 1;
+	min-width: 0;
+	padding: 8px 10px;
+	border: 1px solid var(--bgr-admin-border-strong);
+	border-radius: var(--bgr-admin-radius-sm);
+	font-size: 13px;
+	background: var(--bgr-admin-white);
+	color: var(--bgr-admin-text);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Resource grid (Welcome tab)
+   ═══════════════════════════════════════════════════════════ */
+
+.bgr-resource-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: var(--bgr-admin-gap-md);
+}
+
+.bgr-resource {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 8px;
+	padding: 16px;
+	background: var(--bgr-admin-surface-1);
+	border: 1px solid var(--bgr-admin-border);
+	border-radius: var(--bgr-admin-radius-sm);
+}
+
+.bgr-resource__title {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--bgr-admin-text);
+}
+
+.bgr-resource__title .dashicons {
+	color: var(--bgr-admin-accent);
+}
+
+.bgr-resource__desc {
+	font-size: 12px;
+	color: var(--bgr-admin-text-3);
+	line-height: 1.5;
+	flex: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Discover — ecosystem cross-promotion cards
+   Token-driven, matches the card language. Responsive auto-fill:
+   1 column on mobile, 2-3 columns on wider screens.
+   ═══════════════════════════════════════════════════════════ */
+
+.bgr-discover-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	gap: var(--bgr-admin-gap-md);
+}
+
+.bgr-discover-card {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+	padding: 20px;
+	background: var(--bgr-admin-white);
+	border: 1px solid var(--bgr-admin-border);
+	border-radius: var(--bgr-admin-radius);
+	box-shadow: var(--bgr-admin-shadow);
+	transition: box-shadow 0.12s, border-color 0.12s, transform 0.12s;
+}
+
+.bgr-discover-card:hover {
+	border-color: var(--bgr-admin-border-strong);
+	box-shadow: var(--bgr-admin-shadow-hover);
+	transform: translateY(-1px);
+}
+
+.bgr-discover-card__logo {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 52px;
+	height: 52px;
+}
+
+.bgr-discover-card__logo img {
+	width: 52px;
+	height: 52px;
+	display: block;
+	border-radius: var(--bgr-admin-radius-sm);
+}
+
+.bgr-discover-card__title {
+	font-size: 15px;
+	font-weight: 700;
+	color: var(--bgr-admin-text);
+	line-height: 1.2;
+	margin: 0;
+}
+
+.bgr-discover-card__desc {
+	font-size: 13px;
+	color: var(--bgr-admin-text-3);
+	line-height: 1.5;
+	margin: 0;
+	flex: 1 1 auto;
+}
+
+.bgr-discover-card__cta {
+	margin-top: 4px;
+}
+
+.bgr-discover-card__cta .dashicons {
+	width: 14px;
+	height: 14px;
+	font-size: 14px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Form helpers
+   ═══════════════════════════════════════════════════════════ */
+
+.bgr-inline-hint {
+	display: inline-block;
+	margin-left: 8px;
+	color: var(--bgr-admin-text-3);
+	font-size: 12px;
+	font-weight: 400;
+}
+
+.bgr-save-bar {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 16px 0 0;
+}
+
+.bgr-card > .bgr-save-bar,
+.bgr-card > form > .bgr-save-bar {
+	padding: 16px 20px 20px;
+	border-top: 1px solid var(--bgr-admin-border);
+	background: var(--bgr-admin-surface-1);
+}
+
+.bgr-admin-general-settings-spinner,
+.bgr-admin-criteria-settings-spinner,
+.bgr-admin-display-settings-spinner {
+	display: none;
+	width: 18px;
+	height: 18px;
+}
+
+.bgr-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	padding: 8px 16px;
+	border-radius: var(--bgr-admin-radius-sm);
+	border: 1px solid transparent;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 1.4;
+	cursor: pointer;
+	text-decoration: none;
+	transition: background 0.12s, border-color 0.12s, color 0.12s;
+	min-height: 40px;
+	box-shadow: none;
+}
+
+.bgr-admin .bgr-btn-primary,
+.bgr-admin input.button.bgr-btn-primary {
+	background: var(--bgr-admin-accent);
+	color: #fff;
+	border-color: var(--bgr-admin-accent);
+}
+
+.bgr-admin .bgr-btn-primary:hover,
+.bgr-admin .bgr-btn-primary:focus {
+	background: var(--bgr-admin-accent-hover);
+	border-color: var(--bgr-admin-accent-hover);
+	color: #fff;
+}
+
+.bgr-admin .bgr-btn-secondary {
+	background: var(--bgr-admin-white);
+	color: var(--bgr-admin-text);
+	border-color: var(--bgr-admin-border-strong);
+}
+
+.bgr-admin .bgr-btn-secondary:hover,
+.bgr-admin .bgr-btn-secondary:focus {
+	background: var(--bgr-admin-surface-1);
+	color: var(--bgr-admin-text);
+	border-color: var(--bgr-admin-border-strong);
+}
+
+.bgr-admin .bgr-btn-danger {
+	background: var(--bgr-admin-white);
+	color: var(--bgr-admin-danger);
+	border-color: var(--bgr-admin-danger-light);
+}
+
+.bgr-admin .bgr-btn-danger:hover,
+.bgr-admin .bgr-btn-danger:focus {
+	background: var(--bgr-admin-danger);
+	color: #fff;
+	border-color: var(--bgr-admin-danger);
+}
+
+.bgr-btn:focus-visible {
+	outline: 2px solid var(--bgr-admin-accent);
+	outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Empty state
+   ═══════════════════════════════════════════════════════════ */
+
+.bgr-empty-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: var(--bgr-admin-white);
+	border: 1px solid var(--bgr-admin-border);
+	border-radius: var(--bgr-admin-radius);
+	box-shadow: var(--bgr-admin-shadow);
+	padding: 56px 32px;
+	text-align: center;
+}
+
+.bgr-empty-state__icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 64px;
+	height: 64px;
+	margin: 0 auto 16px;
+	background: var(--bgr-admin-accent-light);
+	color: var(--bgr-admin-accent);
+	border-radius: 50%;
+	font-size: 32px;
+}
+
+.bgr-empty-state__icon .dashicons {
+	width: 32px;
+	height: 32px;
+	font-size: 32px;
+	line-height: 1;
+	color: inherit;
+}
+
+.bgr-empty-state__title {
+	font-size: 16px;
+	font-weight: 700;
+	color: var(--bgr-admin-text);
+	margin: 0 0 6px;
+	line-height: 1.3;
+}
+
+.bgr-empty-state__desc {
+	font-size: 13px;
+	color: var(--bgr-admin-text-3);
+	margin: 0 auto;
+	max-width: 440px;
+	line-height: 1.55;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Toast + confirm modal (JS-driven, admin)
+   ═══════════════════════════════════════════════════════════ */
+
+.bgr-toast-host {
+	position: fixed;
+	right: 24px;
+	bottom: 24px;
+	z-index: 100000;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	pointer-events: none;
+}
+
+.bgr-toast {
+	background: var(--bgr-admin-text);
+	color: #fff;
+	padding: 12px 16px;
+	border-radius: var(--bgr-admin-radius-sm);
+	font-size: 13px;
+	font-weight: 500;
+	box-shadow: var(--bgr-admin-shadow-hover);
+	min-width: 240px;
+	max-width: 360px;
+	pointer-events: auto;
+	transform: translateY(8px);
+	opacity: 0;
+	transition: opacity 0.2s, transform 0.2s;
+}
+
+.bgr-toast--visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.bgr-toast--success {
+	background: var(--bgr-admin-success);
+}
+
+.bgr-toast--error {
+	background: var(--bgr-admin-danger);
+}
+
+.bgr-confirm-backdrop {
+	position: fixed;
+	inset: 0;
+	background: rgba(15, 23, 42, 0.5);
+	z-index: 100001;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+}
+
+.bgr-confirm {
+	background: var(--bgr-admin-white);
+	border-radius: var(--bgr-admin-radius);
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+	max-width: 420px;
+	width: 100%;
+	padding: 24px;
+}
+
+.bgr-confirm__title {
+	font-size: 16px;
+	font-weight: 700;
+	margin: 0 0 8px;
+	color: var(--bgr-admin-text);
+}
+
+.bgr-confirm__desc {
+	font-size: 13px;
+	color: var(--bgr-admin-text-3);
+	margin: 0 0 18px;
+	line-height: 1.5;
+}
+
+.bgr-confirm__actions {
+	display: flex;
+	gap: 8px;
+	justify-content: flex-end;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   WB Plugins hub landing dashboard
+   ═══════════════════════════════════════════════════════════ */
+
+.bgr-hub-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	gap: var(--bgr-admin-gap-md);
+	margin: 0 0 var(--bgr-admin-gap-lg);
+}
+
+.bgr-hub-card {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+	padding: 20px;
+	background: var(--bgr-admin-white);
+	border: 1px solid var(--bgr-admin-border);
+	border-radius: var(--bgr-admin-radius);
+	box-shadow: var(--bgr-admin-shadow);
+	text-decoration: none;
+	color: var(--bgr-admin-text);
+	transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
+}
+
+.bgr-hub-card:hover,
+.bgr-hub-card:focus {
+	border-color: var(--bgr-admin-accent);
+	box-shadow: var(--bgr-admin-shadow-hover);
+	transform: translateY(-1px);
+	color: var(--bgr-admin-text);
+	text-decoration: none;
+}
+
+.bgr-hub-card:focus:not(:focus-visible) {
+	outline: none;
+}
+
+.bgr-hub-card:focus-visible {
+	outline: 2px solid var(--bgr-admin-accent);
+	outline-offset: 2px;
+}
+
+.bgr-hub-card__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	border-radius: 10px;
+	background: var(--bgr-admin-accent-light);
+	color: var(--bgr-admin-accent);
+}
+
+.bgr-hub-card__icon .dashicons {
+	width: 22px;
+	height: 22px;
+	font-size: 22px;
+	color: inherit;
+}
+
+.bgr-hub-card__title {
+	font-size: 15px;
+	font-weight: 700;
+	color: var(--bgr-admin-text);
+	line-height: 1.2;
+}
+
+.bgr-hub-card__subtitle {
+	font-size: 12px;
+	color: var(--bgr-admin-text-3);
+	line-height: 1.4;
+}
+
+.bgr-hub-card__cta {
+	margin-top: auto;
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	padding-top: 6px;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--bgr-admin-accent);
+}
+
+.bgr-hub-card__cta .dashicons {
+	width: 16px;
+	height: 16px;
+	font-size: 16px;
+	transition: transform 0.12s;
+}
+
+.bgr-hub-card:hover .bgr-hub-card__cta .dashicons {
+	transform: translateX(2px);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Settings notices ("Settings saved.", error banners)
+   ═══════════════════════════════════════════════════════════ */
+
+.bgr-admin .notice {
+	border-radius: var(--bgr-admin-radius);
+	box-shadow: var(--bgr-admin-shadow);
+	padding: 12px 16px;
+	margin: 0 0 18px;
+	font-size: 14px;
+	line-height: 1.5;
+	border-width: 0 0 0 4px;
+	border-style: solid;
+}
+
+.bgr-admin .notice p {
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.bgr-admin .notice.is-dismissible {
+	padding-right: 38px;
+}
+
+.bgr-admin .notice .notice-dismiss {
+	top: 8px;
+	right: 8px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Responsive — exactly two media blocks (skill Part 7.5)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+	.bgr-settings-layout {
+		flex-direction: column;
+	}
+
+	.bgr-settings-sidebar {
+		width: 100%;
+		position: static;
+		top: auto;
+	}
+
+	.bgr-settings-sidebar-nav {
+		display: flex;
+		flex-wrap: wrap;
+		padding: 8px;
+	}
+
+	.bgr-snav-link {
+		flex: 1 1 auto;
+		justify-content: center;
+	}
+
+	.bgr-snav-divider,
+	.bgr-snav-section-label {
+		display: none;
+	}
+
+	.bgr-settings-main {
+		margin-left: 0;
+		margin-top: var(--bgr-admin-gap-md);
+	}
+}
+
+/* 767px, not 640px: the plugin's single mobile tier (767 / 782 / 1024 / 1200). */
+@media (max-width: 767px) {
+	.bgr-admin {
+		margin-right: 0;
+	}
+
+	.bgr-page-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+	}
+
+	.bgr-card .form-table th,
+	.bgr-card .form-table td {
+		display: block;
+		width: 100%;
+		padding: 8px 16px;
+	}
+
+	.bgr-card .form-table th {
+		padding-top: 16px;
+		padding-bottom: 4px;
+	}
+
+	.bgr-discover-grid {
+		grid-template-columns: 1fr;
+	}
+}

@@ -5,3 +5,13 @@ npm-debug.log
 # The build directory.
 build
 *.json
+
+# AutoVAP onboarding artifacts — keep tracked despite broad ignores above
+!CLAUDE.md
+!audit/
+!audit/**
+!audit/manifest.json
+!audit/manifest.summary.json
+
+# Composer dev dependencies (PHPStan + stubs). Not shipped.
+vendor/

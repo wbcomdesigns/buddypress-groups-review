@@ -1,6 +1,16 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Legacy file name.
 /**
- * This file is used for plugin admin.
+ * Plugin admin service class.
+ *
+ * As of 3.9.0 the admin UI was migrated from the legacy Wbcom tab
+ * wrapper (admin/wbcom/) to the card-panel pattern. This class no
+ * longer renders the settings page or the WB Plugins menu — that is
+ * owned by BGR_Admin_Panel (includes/admin/class-bgr-admin.php).
+ *
+ * What this class STILL owns (retained, non-wrapper logic):
+ *   - The `review` custom post type + `review_category` taxonomy.
+ *   - Adding the review capabilities to roles.
+ *   - The pending-review count badge on the Reviews menu item.
  *
  * @link       https://wbcomdesigns.com/
  * @since      1.0.0
@@ -13,136 +23,37 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-// Add admin page for importing Review(s).
 if ( ! class_exists( 'BGR_Admin' ) ) {
 
 	/**
-	 * This file is used for plugin admin.
+	 * Admin service class — CPT, taxonomy, caps, and review-count badge.
 	 *
-	 * @link       https://wbcomdesigns.com/
-	 * @since      1.0.0
-	 *
-	 * @package    BuddyPress_Group_Review
-	 * @subpackage BuddyPress_Group_Review/admin
+	 * @since 1.0.0
 	 */
 	class BGR_Admin {
 
 		/**
-		 * Constructor for admin settings
+		 * Constructor.
 		 *
-		 * @since    1.0.0
-		 * @author   Wbcom Designs
+		 * @since 1.0.0
 		 */
 		public function __construct() {
-			add_action( 'admin_menu', array( $this, 'bp_group_review_add_submenu_page_admin_settings' ) );
 			add_action( 'admin_menu', array( $this, 'bp_group_review_get_review_count' ) );
-			add_action( 'in_admin_header', array( $this, 'wbcom_hide_all_admin_notices_from_setting_page' ) );
+
 			$post_types = get_post_types();
 			if ( ! in_array( 'review', $post_types, true ) ) {
-				// Custom Post Type.
 				add_action( 'init', array( $this, 'bp_group_review_cpt' ) );
 				add_action( 'init', array( $this, 'bp_group_review_taxonomy_cpt' ) );
 			}
 
 			add_action( 'init', array( $this, 'bp_group_review_add_capabilities_to_roles' ) );
+			add_filter( 'map_meta_cap', array( $this, 'bp_group_review_map_review_meta_caps' ), 10, 4 );
 		}
 
 		/**
-		 * Actions performed on loading admin_menu.
+		 * Register the `review` custom post type.
 		 *
-		 * @since    1.0.0
-		 * @author   Wbcom Designs
-		 */
-		public function bp_group_review_add_submenu_page_admin_settings() {
-			if ( empty( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
-				add_menu_page( esc_html__( 'WB Plugins', 'bp-group-reviews' ), esc_html__( 'WB Plugins', 'bp-group-reviews' ), 'manage_options', 'wbcomplugins', array( $this, 'bp_group_review_admin_options_page' ), 'dashicons-lightbulb', 59 );
-				add_submenu_page( 'wbcomplugins', esc_html__( 'General', 'bp-group-reviews' ), esc_html__( 'General', 'bp-group-reviews' ), 'manage_options', 'wbcomplugins' );
-			}
-			add_submenu_page( 'wbcomplugins', esc_html__( 'Group Reviews', 'bp-group-reviews' ), esc_html__( 'Group Reviews', 'bp-group-reviews' ), 'manage_options', 'group-review-settings', array( $this, 'bp_group_review_admin_options_page' ) );
-		}
-
-		/**
-		 * Hide all notices from the setting page.
-		 *
-		 * @return void
-		 */
-		public function wbcom_hide_all_admin_notices_from_setting_page() {
-			$wbcom_pages_array  = array( 'wbcomplugins', 'wbcom-plugins-page', 'wbcom-support-page', 'group-review-settings' );
-			$wbcom_setting_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : '';
-
-			if ( in_array( $wbcom_setting_page, $wbcom_pages_array, true ) ) {
-				remove_all_actions( 'admin_notices' );
-				remove_all_actions( 'all_admin_notices' );
-			}
-		}
-
-		/**
-		 * Actions performed on changing admin settings tab
-		 *
-		 * @since    1.0.0
-		 * @param string $current for the admin options.
-		 * @author   Wbcom Designs
-		 */
-		public function bp_group_review_admin_options_page( $current = 'welcome' ) {
-				$current      = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'welcome';
-					$bgr_tabs = array(
-						'welcome'  => esc_html__( 'Welcome', 'bp-group-reviews' ),
-						'general'  => esc_html__( 'General', 'bp-group-reviews' ),
-						'criteria' => esc_html__( 'Criteria', 'bp-group-reviews' ),
-						'display'  => esc_html__( 'Display', 'bp-group-reviews' ),
-						'emails'   => esc_html__( 'Emails', 'bp-group-reviews' ),
-					);
-					?>
-					<div class="wrap">
-						<div class="wbcom-bb-plugins-offer-wrapper">
-							<div id="wb_admin_logo">
-							</div>
-						</div>
-					<div class="wbcom-wrap">
-						<div class="bupr-header">
-							<div class="wbcom_admin_header-wrapper">
-								<div id="wb_admin_plugin_name">
-									<?php esc_html_e( 'BuddyPress Group Review', 'bp-group-reviews' ); ?>
-									<span>
-										<?php
-										/* translators: %s: */
-										printf( esc_html__( 'Version %s', 'bp-group-reviews' ), esc_attr( BGR_PLUGIN_VERSION ) );
-										?>
-									</span>
-								</div>
-								<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
-							</div>
-						</div>
-						<div id="bgr-settings-updated" class="updated settings-error notice is-dismissible" style="display:none;">
-								<p>
-									<strong>
-										<?php esc_html_e( 'Settings Saved.', 'bp-group-reviews' ); ?>
-									</strong>
-								</p>
-								<button type="button" class="notice-dismiss">
-										<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'bp-group-reviews' ); ?></span>
-								</button>
-						</div>
-						<div class="wbcom-admin-settings-page">								
-								<?php
-								$bgr_tab_html = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
-								foreach ( $bgr_tabs as $bgr_tab => $bgr_name ) {
-												$class         = ( $bgr_tab === $current ) ? 'nav-tab-active' : '';
-												$bgr_tab_html .= '<li class="' . $bgr_tab . '"><a class="nav-tab ' . $class . '" href="admin.php?page=group-review-settings&tab=' . $bgr_tab . '">' . $bgr_name . '</a></li>';
-								}
-								$bgr_tab_html .= '</div></ul></div>';
-
-								echo wp_kses_post( $bgr_tab_html );
-								echo '<div class="wbcom-tab-content"><div class="wbcom-wrapper-admin">';
-								include 'review-admin-options-page.php';
-								echo '</div></div></div></div></div>';
-		}
-
-		/**
-		 * Actions performed to create Review cpt
-		 *
-		 * @since    1.0.0
-		 * @author   Wbcom Designs
+		 * @since 1.0.0
 		 */
 		public function bp_group_review_cpt() {
 			$labels = array(
@@ -192,12 +103,10 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 			register_post_type( 'review', $args );
 		}
 
-
 		/**
-		 * Actions performed to create Review cpt taxonomy
+		 * Register the `review_category` taxonomy.
 		 *
-		 * @since    1.0.0
-		 * @author   Wbcom Designs
+		 * @since 1.0.0
 		 */
 		public function bp_group_review_taxonomy_cpt() {
 			$category_labels = array(
@@ -225,13 +134,13 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		}
 
 		/**
-		 * [bp_group_review_get_review_count description] Function count
+		 * Append a pending-review count badge to the Reviews menu item.
 		 *
-		 * @return [type] [Count on Review menu item ]
+		 * @return void
 		 */
 		public function bp_group_review_get_review_count() {
 			global $bgr, $menu; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Modifying admin menu count badge.
-			if ( 'yes' !== $bgr['auto_approve_reviews'] ) {
+			if ( isset( $bgr['auto_approve_reviews'] ) && 'yes' !== $bgr['auto_approve_reviews'] ) {
 
 				foreach ( $menu as $each_menu ) {
 					if ( 'edit.php?post_type=review' === $each_menu[2] ) {
@@ -256,11 +165,11 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		}
 
 		/**
-		 * [bp_group_review_recursive_array_search description]
+		 * Recursive search helper for the menu array.
 		 *
-		 * @param  sting $needle Value.
-		 * @param  array $haystack Haystack.
-		 * @return number  [Return array key.]
+		 * @param string $needle   Value to find.
+		 * @param array  $haystack Haystack.
+		 * @return int|false Array key, or false.
 		 */
 		public function bp_group_review_recursive_array_search( $needle, $haystack ) {
 			foreach ( $haystack as $key => $value ) {
@@ -268,7 +177,7 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 				if (
 					$needle === $value
 					|| ( is_array( $value )
-				&& false !== $this->bp_group_review_recursive_array_search( $needle, $value ) )
+					&& false !== $this->bp_group_review_recursive_array_search( $needle, $value ) )
 				) {
 					return $current_key;
 				}
@@ -277,17 +186,18 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 		}
 
 		/**
-		 * Add custom capabilities to roles.
+		 * Add custom review capabilities to roles.
 		 *
-		 * This function adds capabilities to administrator by default,
-		 * and other roles can be added via the 'bp_business_profile_roles' filter.
+		 * Administrator by default; other roles can be added via the
+		 * 'bgr_add_roles_capability' filter.
+		 *
+		 * @since 1.0.0
 		 */
 		public function bp_group_review_add_capabilities_to_roles() {
 			$roles = apply_filters( 'bgr_add_roles_capability', array( 'administrator' ) );
 			foreach ( $roles as $role_name ) {
 				$role = get_role( $role_name );
 				if ( $role ) {
-					// Add custom capabilities for business post type.
 					$role->add_cap( 'edit_review' );
 					$role->add_cap( 'edit_reviews' );
 					$role->add_cap( 'edit_others_reviews' );
@@ -300,6 +210,51 @@ if ( ! class_exists( 'BGR_Admin' ) ) {
 				}
 			}
 		}
+
+		/**
+		 * Map the review edit/delete meta caps so a review's author can
+		 * manage their own review.
+		 *
+		 * The REST PUT/DELETE routes check `edit_review` / `delete_review`
+		 * with a post ID. WordPress translates those registered meta caps to
+		 * `edit_post` / `delete_post` before this filter runs, then maps them
+		 * to primitive caps only administrators hold — so review authors
+		 * could never pass for their OWN review. This mapping grants the
+		 * author access to their own review while everyone else still needs
+		 * the `*_others_reviews` caps (administrators keep full override).
+		 *
+		 * @since 3.9.0
+		 *
+		 * @param string[] $caps    Primitive capabilities required.
+		 * @param string   $cap     Capability being checked.
+		 * @param int      $user_id User ID.
+		 * @param array    $args    Context args; $args[0] is the post ID.
+		 * @return string[] Mapped primitive capabilities.
+		 */
+		public function bp_group_review_map_review_meta_caps( $caps, $cap, $user_id, $args ) {
+			if ( 'edit_post' !== $cap && 'delete_post' !== $cap ) {
+				return $caps;
+			}
+
+			$review = ! empty( $args[0] ) ? get_post( $args[0] ) : null;
+			if ( ! $review || 'review' !== $review->post_type ) {
+				return $caps;
+			}
+
+			// A logged-in review author can always edit/delete their own review.
+			if ( $user_id && (int) $review->post_author === (int) $user_id ) {
+				return array( 'exist' );
+			}
+
+			// Everyone else needs the others-cap (granted to administrators).
+			return array( 'edit_post' === $cap ? 'edit_others_reviews' : 'delete_others_reviews' );
+		}
 	}
 	new BGR_Admin();
+
+	// New card-panel admin (menu + enqueue + render). Replaces the
+	// legacy Wbcom tab wrapper as of 3.9.0.
+	require_once BGR_PLUGIN_PATH . 'includes/admin/class-bgr-admin-panel.php';
+	$bgr_admin_panel = new BGR_Admin_Panel();
+	$bgr_admin_panel->register();
 }
