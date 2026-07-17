@@ -25,14 +25,15 @@ $bgr_email_settings = get_option( 'bp_group_review_email_settings' );
 if ( empty( $bgr_email_settings ) ) {
 	$bgr_email_settings = array(
 		'bgr_allow_email'             => 'yes',
-		'review_email_subject'        => 'New Review Submitted for Your Group [group-name] on [site-name]',
-		'review_email_message'        => 'Hello [admin-name],<br><br>A new review has been submitted for your group [group-name] by [user-name].<br><br>You can view and respond to the review here: [review-link]<br><br>Thank you for creating a space where members can share their experiences!<br><br>Best regards,<br>The [site-name] Team',
+		// The [token] strings are substituted at send time, not translated.
+		'review_email_subject'        => __( 'New Review Submitted for Your Group [group-name] on [site-name]', 'bp-group-reviews' ),
+		'review_email_message'        => __( 'Hello [admin-name],<br><br>A new review has been submitted for your group [group-name] by [user-name].<br><br>You can view and respond to the review here: [review-link]<br><br>Thank you for creating a space where members can share their experiences!<br><br>Best regards,<br>The [site-name] Team', 'bp-group-reviews' ),
 		'bgr_accept_enable'           => 'yes',
-		'review_accept_email_subject' => 'Your Review for [group-name] on [site-name] Has Been Approved',
-		'review_accept_email_message' => 'Hello [user-name],<br><br>Your review for [group-name] on [site-name] has been approved and is now published.<br><br>Thank you for sharing your thoughts with the community. View your review here: [review-link]<br><br>Best regards,<br>The [site-name] Team',
+		'review_accept_email_subject' => __( 'Your Review for [group-name] on [site-name] Has Been Approved', 'bp-group-reviews' ),
+		'review_accept_email_message' => __( 'Hello [user-name],<br><br>Your review for [group-name] on [site-name] has been approved and is now published.<br><br>Thank you for sharing your thoughts with the community. View your review here: [review-link]<br><br>Best regards,<br>The [site-name] Team', 'bp-group-reviews' ),
 		'bgr_deny_email'              => 'yes',
-		'review_deny_email_subject'   => 'Your Review for [group-name] on [site-name] Was Not Approved',
-		'review_deny_email_message'   => 'Hello [user-name],<br><br>Your review for [group-name] on [site-name] was not approved by the group administrator.<br><br>If you have questions about our community guidelines, please contact the group admin.<br><br>Thank you for your understanding.<br><br>Best regards,<br>The [site-name] Team',
+		'review_deny_email_subject'   => __( 'Your Review for [group-name] on [site-name] Was Not Approved', 'bp-group-reviews' ),
+		'review_deny_email_message'   => __( 'Hello [user-name],<br><br>Your review for [group-name] on [site-name] was not approved by the group administrator.<br><br>If you have questions about our community guidelines, please contact the group admin.<br><br>Thank you for your understanding.<br><br>Best regards,<br>The [site-name] Team', 'bp-group-reviews' ),
 	);
 	update_option( 'bp_group_review_email_settings', $bgr_email_settings );
 }

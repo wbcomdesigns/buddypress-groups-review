@@ -178,8 +178,8 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 
 			$group_avg_rating = round( $group_avg_rating, 2 );
 			echo '</div><div class="bupr-meta">';
-			esc_html_e( 'Rating', 'bp-group-reviews' );
-			echo ' : (' . esc_html( $group_avg_rating ) . ')';
+			/* translators: %s: average star rating value, e.g. "4.5". */
+			printf( esc_html__( 'Rating : (%s)', 'bp-group-reviews' ), esc_html( $group_avg_rating ) );
 		}
 
 		/**

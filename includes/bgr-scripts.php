@@ -38,6 +38,30 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 			// Add Scripts only on reviews tab.
 			add_action( 'wp_enqueue_scripts', array( $this, 'bp_group_review_custom_variables' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'bp_group_review_admin_custom_variables' ) );
+			add_filter( 'load_script_textdomain_relative_path', array( $this, 'bgr_filter_script_translation_relative_path' ), 10, 2 );
+		}
+
+		/**
+		 * Point JED lookups at the unminified script path.
+		 *
+		 * Outside SCRIPT_DEBUG the admin script is served from admin/assets/js/min/.
+		 * Core strips a trailing ".min.js" when it hashes the path for the JED
+		 * filename, but it does NOT strip the "/min/" directory segment - so it
+		 * looks for a hash of "admin/assets/js/min/bgr-admin.js" while the shipped
+		 * JSON is keyed on "admin/assets/js/bgr-admin.js". The two never match and
+		 * every wp.i18n string silently falls back to English in production.
+		 *
+		 * @since   3.9.0
+		 * @param   string $relative Relative path core will hash.
+		 * @param   string $src      Full script URL.
+		 * @return  string
+		 */
+		public function bgr_filter_script_translation_relative_path( $relative, $src ) {
+			if ( ! is_string( $relative ) || false === strpos( $src, 'buddypress-groups-review/' ) ) {
+				return $relative;
+			}
+			// "admin/assets/js/min/bgr-admin.js" -> "admin/assets/js/bgr-admin.js".
+			return preg_replace( '#/min/([^/]+)$#', '/$1', $relative );
 		}
 
 		/**
@@ -162,6 +186,25 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 				wp_enqueue_style( 'bgr-front-css' );
 				wp_enqueue_script( 'bgr-front-js' );
 				wp_enqueue_script( 'bgr-accessibility-js' );
+
+				// i18n for the accessibility script. These strings are only ever
+				// rendered as ARIA labels / skip-link text by JS, so PHP is their
+				// only translation home; the JS literals are fallbacks only.
+				wp_localize_script(
+					'bgr-accessibility-js',
+					'bgr_a11y_i18n',
+					array(
+						'defaultCriteria' => esc_html__( 'Rating', 'bp-group-reviews' ),
+						/* translators: %1$s: star rating number (1-5), %2$s: criteria name being rated. */
+						'rateStars'       => esc_html__( 'Rate %1$s out of 5 stars for %2$s', 'bp-group-reviews' ),
+						'reviewSubject'   => esc_html__( 'Review subject', 'bp-group-reviews' ),
+						'reviewDesc'      => esc_html__( 'Review description', 'bp-group-reviews' ),
+						'acceptReview'    => esc_html__( 'Accept this review', 'bp-group-reviews' ),
+						'denyReview'      => esc_html__( 'Deny this review', 'bp-group-reviews' ),
+						'deleteReview'    => esc_html__( 'Delete this review', 'bp-group-reviews' ),
+						'skipToReviews'   => esc_html__( 'Skip to reviews', 'bp-group-reviews' ),
+					)
+				);
 
 				$bgr_admin_settings         = get_option( 'bgr_admin_general_settings' );
 				$bgr_admin_display_settings = get_option( 'bgr_admin_display_settings' );

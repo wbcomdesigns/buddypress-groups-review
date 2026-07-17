@@ -240,6 +240,7 @@ We'd like you to use [Wbcom Designs](https://wbcomdesigns.com/contact/) for all 
 
 UI pass: BuddyX/Reign dark-mode token mapping, accessibility focus rings, and CSS cleanup.
 
+* New      - Added German, Spanish, Italian and Portuguese (Brazil) translations, and completed the existing French one.
 * New      - Centralized theme integration (BGR_Theme_Integration) that detects the active theme and adds a bgr-theme-{slug} body class with a filterable token map.
 * Improve  - Mapped review, rating and leaderboard colors to BuddyX --bx-color-* tokens with Reign and dark-literal fallbacks so dark mode renders correctly on BuddyX, BuddyX Pro and Reign.
 * Improve  - Unified the two admin stylesheets onto one shared --bgr-admin-* token vocabulary and tokenized the legacy admin colors.
@@ -247,6 +248,10 @@ UI pass: BuddyX/Reign dark-mode token mapping, accessibility focus rings, and CS
 * Improve  - Replaced browser alert/confirm dialogs in the group criteria manager with accessible toast and confirm dialogs.
 * Improve  - Larger, accessible tap targets on the review submission button.
 * Improve  - Converted the star rating layout from floats to inline-flow so it mirrors correctly in RTL.
+* Fix      - JavaScript translations could never load in production: the translation file lookup used the minified script path, which never matches the file the build produces.
+* Fix      - The screen-reader labels on the star rating, the review actions and the skip link had no translatable source.
+* Fix      - The default review notification emails were hardcoded in English and could not be translated.
+* Fix      - Several translator notes sat in a separate PHP block from their string, so they never reached translators.
 * Fix      - Added visible :focus-visible outlines to review, rating, leaderboard and admin controls (WCAG 2.4.7).
 * Fix      - Dark mode now activates only on the explicit theme toggle (data-bx-mode="dark") and never from the OS preference.
 * Fix      - Removed the deprecated bundled admin wrapper.

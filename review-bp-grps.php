@@ -129,11 +129,11 @@ function bp_group_review_admin_notice() {
 	if ( class_exists( 'BuddyPress' ) ) {
 		if ( ! bp_is_active( 'groups' ) ) {
 			$bp_gp_component = esc_html__( 'BuddyPress Groups Component', 'bp-group-reviews' );
-			/* translators: %s: search term */
+			/* translators: %1$s: this plugin's name, %2$s: BuddyPress, %3$s: BuddyPress Groups Component. All are wrapped in <strong> tags. */
 			printf( esc_html__( '%1$s requires %2$s to be installed and active, and the %3$s to be enabled.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>', '<strong>' . esc_html( $bp_gp_component ) . '</strong>' );
 		}
 	} else {
-		/* translators: %s: search term */
+		/* translators: %1$s: this plugin's name, %2$s: BuddyPress. Both are wrapped in <strong> tags. */
 			printf( esc_html__( '%1$s requires %2$s to be installed and active.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>' );
 	}
 	echo '</p></div>';

@@ -212,8 +212,10 @@ if ( ! class_exists( 'BGR_Admin_Feedback' ) ) :
 					<div class="bp-group-reviews-notice-content">
 						<h3><?php echo esc_html__( 'Are you enjoying BuddyPress Group Reviews?', 'bp-group-reviews' ); ?></h3>
 						<p>
-							<?php /* translators: 1. Name */ ?>
-							<?php printf( esc_html__( 'We hope you\'re enjoying %1$s! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'bp-group-reviews' ), esc_html_e( 'BuddyPress Group Reviews', 'bp-group-reviews' ) ); ?>
+							<?php
+							/* translators: %1$s: plugin name. */
+							printf( esc_html__( 'We hope you\'re enjoying %1$s! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'bp-group-reviews' ), esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' ) );
+							?>
 						</p>
 					</div>
 					<div class="bp-group-reviews-install-now">

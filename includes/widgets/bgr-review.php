@@ -259,7 +259,7 @@ class Bgr_Review_Widget extends WP_Widget {
 						'object'     => 'group',
 						'type'       => 'full',
 						'avatar_dir' => 'group-avatars',
-						'alt'        => 'Group avatar',
+						'alt'        => esc_attr__( 'Group avatar', 'bp-group-reviews' ),
 						'class'      => 'sidebar_review_avatar avatar',
 					);
 					if ( 0 !== $group->id ) {
@@ -283,8 +283,8 @@ class Bgr_Review_Widget extends WP_Widget {
 								</div>
 								<div class="bupr-meta">
 									<?php
-									esc_html_e( 'Total', 'bp-group-reviews' );
-									echo ' ' . esc_html( $review_label ) . ' : ' . esc_html( $review_groups_count[ $gid ] );
+									/* translators: %1$s: review label (e.g. "Reviews"), %2$s: number of reviews. */
+									printf( esc_html__( 'Total %1$s : %2$s', 'bp-group-reviews' ), esc_html( $review_label ), esc_html( $review_groups_count[ $gid ] ) );
 									?>
 								</div>
 							<?php } ?>

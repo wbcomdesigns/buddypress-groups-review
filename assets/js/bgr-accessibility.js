@@ -9,6 +9,40 @@
   'use strict';
 
   /**
+   * i18n dictionary localized from PHP (see BGRScriptsStyles::
+   * bp_group_review_custom_variables). The literals below are fallbacks
+   * only — PHP is the translation home for every string here.
+   */
+  var i18n = window.bgr_a11y_i18n || {};
+
+  /**
+   * Read a translated string, falling back to the English literal.
+   *
+   * @param {string} key      Key in the localized i18n object.
+   * @param {string} fallback English fallback.
+   * @return {string} Translated string.
+   */
+  function t(key, fallback) {
+    return i18n[key] || fallback;
+  }
+
+  /**
+   * Minimal sprintf for %1$s / %2$s placeholders, so translators keep
+   * control of word order instead of us concatenating fragments.
+   *
+   * @param {string} format Format string containing %1$s style tokens.
+   * @param {...string} args Replacement values.
+   * @return {string} Formatted string.
+   */
+  function format(fmt) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    return String(fmt).replace(/%(\d+)\$s/g, function (match, index) {
+      var value = args[index - 1];
+      return 'undefined' !== typeof value ? value : match;
+    });
+  }
+
+  /**
    * Initialize accessibility features.
    */
   function initAccessibility() {
@@ -34,7 +68,7 @@
   function addStarRatingAccessibility() {
     $('.bgr-stars').each(function () {
       var $stars = $(this).find('.fa-star, .fas, .far');
-      var criteriaName = $(this).closest('.bgr-criteria-block').find('.bgr-criteria-label').text() || 'Rating';
+      var criteriaName = $(this).closest('.bgr-criteria-block').find('.bgr-criteria-label').text() || t('defaultCriteria', 'Rating');
 
       $stars.each(function (index) {
         var rating = index + 1;
@@ -42,7 +76,11 @@
           .attr({
             'role': 'button',
             'tabindex': '0',
-            'aria-label': 'Rate ' + rating + ' out of 5 stars for ' + criteriaName,
+            'aria-label': format(
+              t('rateStars', 'Rate %1$s out of 5 stars for %2$s'),
+              rating,
+              criteriaName
+            ),
           })
           .on('keypress', function (e) {
             if (e.which === 13 || e.which === 32) { // Enter or Space
@@ -63,12 +101,12 @@
   function improveFormAccessibility() {
     // Ensure all form fields have proper labels
     $('input[name="review-subject"]').attr({
-      'aria-label': 'Review subject',
+      'aria-label': t('reviewSubject', 'Review subject'),
       'aria-required': 'true'
     });
 
     $('textarea[name="review-desc"]').attr({
-      'aria-label': 'Review description',
+      'aria-label': t('reviewDesc', 'Review description'),
       'aria-required': 'true'
     });
 
@@ -158,9 +196,9 @@
    */
   function improveButtonAccessibility() {
     // Add descriptive ARIA labels to action buttons
-    $('.accept-button').attr('aria-label', 'Accept this review');
-    $('.deny-button').attr('aria-label', 'Deny this review');
-    $('.remove-review-button').attr('aria-label', 'Delete this review');
+    $('.accept-button').attr('aria-label', t('acceptReview', 'Accept this review'));
+    $('.deny-button').attr('aria-label', t('denyReview', 'Deny this review'));
+    $('.remove-review-button').attr('aria-label', t('deleteReview', 'Delete this review'));
 
     // Ensure buttons are keyboard accessible
     $('.button, .generic-button a').each(function () {
@@ -190,7 +228,7 @@
         'id': 'bgr-skip-to-reviews',
         'href': '#group-reviews-list',
         'class': 'skip-link screen-reader-text',
-        'text': 'Skip to reviews'
+        'text': t('skipToReviews', 'Skip to reviews')
       });
 
       skipLink.on('focus', function () {

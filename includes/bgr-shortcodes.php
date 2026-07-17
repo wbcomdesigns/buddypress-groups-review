@@ -178,16 +178,14 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 							<input name="review-subject" type="hidden" value="<?php echo esc_attr( $review_subject ); ?>">
 						</p>
 						<?php $this->bp_group_review_display_form_rating(); ?>
-					<?php /* translators: %s: search term */ ?>
-							<textarea class="review_desc" name="review-desc" placeholder="<?php printf( esc_attr__( '%1$s Description (optional)', 'bp-group-reviews' ), esc_attr( $review_label ) ); ?>" rows="3" cols="50"></textarea>
+							<textarea class="review_desc" name="review-desc" placeholder="<?php /* translators: %1$s: review label (e.g. "Review"). */ printf( esc_attr__( '%1$s Description (optional)', 'bp-group-reviews' ), esc_attr( $review_label ) ); ?>" rows="3" cols="50"></textarea>
 							<br/>
 						<p>
 							<input type="hidden" name="bgr-flag" value="1">
 						</p>
 						<p>
 							<?php wp_nonce_field( 'save-group-review', 'security-nonce' ); ?>
-							<?php /* translators: %1$s is used for review label */ ?>
-							<button class="btn btn-default bgr-submit-review" name="bgr-submit-review"><?php printf( esc_html__( 'Submit %1$s', 'bp-group-reviews' ), esc_html( $review_label ) ); ?></button>
+							<button class="btn btn-default bgr-submit-review" name="bgr-submit-review"><?php /* translators: %1$s: review label (e.g. "Review"). */ printf( esc_html__( 'Submit %1$s', 'bp-group-reviews' ), esc_html( $review_label ) ); ?></button>
 						</p>
 					</div>
 				</form>
