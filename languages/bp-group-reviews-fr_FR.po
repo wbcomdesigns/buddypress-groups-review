@@ -857,13 +857,13 @@ msgstr "Les avis ne sont pas activés pour ce groupe."
 #. Translators: %1$s: Review Label
 #, php-format
 msgid "A new %1$s posted."
-msgstr "Un nouveau%1$s validé."
+msgstr "Un nouveau %1$s validé."
 
 #: includes/bgr-ajax.php:533
 #. Translators: %1$s: Review Label %2$s Group Name %3$s User Name %4$s User Link
 #, php-format
 msgid "A new %1$s for %2$s added by %3$s. Link: %4$s"
-msgstr "Un nouveau%1$s pour%2$s ajouté par%3$s. lien:%4$s"
+msgstr "Un nouveau %1$s pour %2$s ajouté par %3$s. Lien : %4$s"
 
 #: includes/bgr-ajax.php:536
 #. Translators: %1$s: User Name %2$s Review Label %3$s Group Name
@@ -1269,7 +1269,7 @@ msgstr "Un nouvel %1$s a été publié."
 #. translators: %1$s: User name, %2$s: Review label, %3$s: Group name.
 #, php-format
 msgid "%1$s posted a %2$s for %3$s."
-msgstr "%1$s a affiché un%2$s pour%3$s."
+msgstr "%1$s a affiché un %2$s pour %3$s."
 
 #: includes/bgr-notifications.php:328
 #. translators: %1$s: Review label.
@@ -1369,13 +1369,13 @@ msgstr "te connecter"
 #. translators: %1$s is used for review label
 #, php-format
 msgid "You already posted a %1$s for this group."
-msgstr "Vous avez déjà affiché un%1$s pour ce groupe."
+msgstr "Vous avez déjà affiché un %1$s pour ce groupe."
 
 #: includes/bgr-shortcodes.php:172
 #. translators: %1$s is used for review label
 #, php-format
 msgid "Write a %1$s"
-msgstr "Ecrire un%1$s"
+msgstr "Écrire un %1$s"
 
 #: includes/bgr-shortcodes.php:181
 #. translators: %1$s: review label (e.g. "Review").
@@ -1387,7 +1387,7 @@ msgstr "%1$s Description (facultatif)"
 #. translators: %1$s: review label (e.g. "Review").
 #, php-format
 msgid "Submit %1$s"
-msgstr "Envoyer%1$s"
+msgstr "Envoyer %1$s"
 
 #: includes/bgr-shortcodes.php:258 includes/bgr-shortcodes.php:278
 msgid "This field is required."
@@ -1578,7 +1578,7 @@ msgstr "Afficher les évaluations de groupe."
 
 #: includes/widgets/bgr-review.php:42
 msgid "BP Group Review Widget"
-msgstr "BP groupe examen widget"
+msgstr "Widget d'avis de groupe BP"
 
 #: includes/widgets/bgr-review.php:70 includes/widgets/group-rating.php:68
 msgid "Title"
@@ -1630,7 +1630,7 @@ msgstr "Aucune évaluation n'a encore été donnée à aucun groupe."
 #. translators: %1$s: Review label.
 #, php-format
 msgid "No %1$s has been given to any group yet!"
-msgstr "Aucun%1$s n'a été donné à un groupe encore!"
+msgstr "Aucun %1$s n'a été donné à un groupe encore !"
 
 #: includes/widgets/group-rating.php:36
 msgid "Display displayed group ratings."

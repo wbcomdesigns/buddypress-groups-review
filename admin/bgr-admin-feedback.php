@@ -248,7 +248,7 @@ endif;
 */
 new BGR_Admin_Feedback(
 	array(
-		'slug'       => 'bp_group_types',
+		'slug'       => 'bp-group-reviews',
 		'time_limit' => WEEK_IN_SECONDS,
 	)
 );

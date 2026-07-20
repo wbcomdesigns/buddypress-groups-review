@@ -3,13 +3,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Wbcom Designs - BuddyPress Group Reviews 3.9.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/buddypress-groups-review\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bgr-retag\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-17T10:19:11+00:00\n"
+"POT-Creation-Date: 2026-07-20T10:09:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bp-group-reviews\n"
@@ -74,7 +74,7 @@ msgstr ""
 #: admin/bgr-admin.php:63
 #: includes/admin/views/settings-display.php:35
 #: includes/admin/views/settings-general.php:131
-#: includes/bgr-ajax.php:441
+#: includes/bgr-ajax.php:440
 #: includes/bgr-globals.php:206
 msgid "Reviews"
 msgstr ""
@@ -82,7 +82,7 @@ msgstr ""
 #: admin/bgr-admin.php:61
 #: includes/admin/views/settings-display.php:34
 #: includes/admin/views/settings-display.php:45
-#: includes/bgr-ajax.php:438
+#: includes/bgr-ajax.php:437
 #: includes/bgr-globals.php:219
 msgid "Review"
 msgstr ""
@@ -585,7 +585,7 @@ msgid "BuddyPress Group Reviews lets members add reviews for groups and rate the
 msgstr ""
 
 #: includes/admin/views/welcome.php:28
-msgid "Help &amp; Support Resources"
+msgid "Help & Support Resources"
 msgstr ""
 
 #: includes/admin/views/welcome.php:29
@@ -642,13 +642,13 @@ msgstr ""
 msgid "%1$s posted a review in the group %2$s"
 msgstr ""
 
-#: includes/bgr-ajax.php:67
-#: includes/bgr-ajax.php:248
-#: includes/bgr-ajax.php:286
-#: includes/bgr-ajax.php:465
-#: includes/bgr-ajax.php:713
-#: includes/bgr-ajax.php:828
-#: includes/bgr-ajax.php:937
+#: includes/bgr-ajax.php:66
+#: includes/bgr-ajax.php:247
+#: includes/bgr-ajax.php:285
+#: includes/bgr-ajax.php:464
+#: includes/bgr-ajax.php:712
+#: includes/bgr-ajax.php:827
+#: includes/bgr-ajax.php:936
 #: includes/bgr-filters.php:562
 #: includes/bgr-group-criteria-ajax.php:23
 #: includes/bgr-group-criteria-ajax.php:75
@@ -661,27 +661,27 @@ msgstr ""
 
 #. translators: %1$s is replaced with $bgr_avg_rating
 #. translators: %1$s: Average rating value.
-#: includes/bgr-ajax.php:216
+#: includes/bgr-ajax.php:215
 #: includes/widgets/group-rating.php:237
 #, php-format
 msgid "Rating : ( %1$s )"
 msgstr ""
 
-#: includes/bgr-ajax.php:225
+#: includes/bgr-ajax.php:224
 #: includes/widgets/group-rating.php:250
 msgid "No ratings have been given by any members yet."
 msgstr ""
 
-#: includes/bgr-ajax.php:252
-#: includes/bgr-ajax.php:290
+#: includes/bgr-ajax.php:251
+#: includes/bgr-ajax.php:289
 msgid "Permission denied."
 msgstr ""
 
-#: includes/bgr-ajax.php:257
-#: includes/bgr-ajax.php:295
-#: includes/bgr-ajax.php:725
-#: includes/bgr-ajax.php:839
-#: includes/bgr-ajax.php:947
+#: includes/bgr-ajax.php:256
+#: includes/bgr-ajax.php:294
+#: includes/bgr-ajax.php:724
+#: includes/bgr-ajax.php:838
+#: includes/bgr-ajax.php:946
 #: includes/bgr-bp-rest-integration.php:467
 #: includes/bgr-bp-rest-integration.php:495
 #: includes/bgr-bp-rest-integration.php:541
@@ -690,125 +690,125 @@ msgstr ""
 msgid "Invalid review ID."
 msgstr ""
 
-#: includes/bgr-ajax.php:263
-#: includes/bgr-ajax.php:301
-#: includes/bgr-ajax.php:731
-#: includes/bgr-ajax.php:845
-#: includes/bgr-ajax.php:953
+#: includes/bgr-ajax.php:262
+#: includes/bgr-ajax.php:300
+#: includes/bgr-ajax.php:730
+#: includes/bgr-ajax.php:844
+#: includes/bgr-ajax.php:952
 #: includes/templates/bgr-single-review-template.php:25
 #: includes/templates/bgr-single-review-template.php:33
 msgid "Review not found."
 msgstr ""
 
-#: includes/bgr-ajax.php:469
+#: includes/bgr-ajax.php:468
 msgid "You must be logged in to submit a review."
 msgstr ""
 
-#: includes/bgr-ajax.php:478
+#: includes/bgr-ajax.php:477
 msgid "Invalid form data."
 msgstr ""
 
-#: includes/bgr-ajax.php:487
+#: includes/bgr-ajax.php:486
 msgid "Invalid group."
 msgstr ""
 
-#: includes/bgr-ajax.php:494
+#: includes/bgr-ajax.php:493
 msgid "Group not found."
 msgstr ""
 
-#: includes/bgr-ajax.php:502
+#: includes/bgr-ajax.php:501
 msgid "Group administrators cannot review their own groups."
 msgstr ""
 
-#: includes/bgr-ajax.php:507
+#: includes/bgr-ajax.php:506
 #: includes/bgr-bp-rest-integration.php:382
 msgid "You must be a member of this group to submit a review."
 msgstr ""
 
-#: includes/bgr-ajax.php:514
+#: includes/bgr-ajax.php:513
 msgid "Reviews are not enabled for this group."
 msgstr ""
 
 #. Translators: %1$s: Review Label
-#: includes/bgr-ajax.php:531
+#: includes/bgr-ajax.php:530
 #, php-format
 msgid "A new %1$s posted."
 msgstr ""
 
 #. Translators: %1$s: Review Label %2$s Group Name %3$s User Name %4$s User Link
-#: includes/bgr-ajax.php:533
+#: includes/bgr-ajax.php:532
 #, php-format
 msgid "A new %1$s for %2$s added by %3$s. Link: %4$s"
 msgstr ""
 
 #. Translators: %1$s: User Name %2$s Review Label %3$s Group Name
-#: includes/bgr-ajax.php:536
+#: includes/bgr-ajax.php:535
 #, php-format
 msgid "%1$s %2$ss Group %3$s."
 msgstr ""
 
 #. translators: %1$s is replaced with review_label
-#: includes/bgr-ajax.php:566
+#: includes/bgr-ajax.php:565
 #, php-format
 msgid "You have already submitted a %1$s for this group."
 msgstr ""
 
-#: includes/bgr-ajax.php:573
+#: includes/bgr-ajax.php:572
 msgid "Please wait, your review is being processed."
 msgstr ""
 
 #. translators: %1$s is replaced with review_label
-#: includes/bgr-ajax.php:583
+#: includes/bgr-ajax.php:582
 #, php-format
 msgid "Thank you for sharing your %1$s!"
 msgstr ""
 
 #. translators: %1$s is replaced with review_label
-#: includes/bgr-ajax.php:587
+#: includes/bgr-ajax.php:586
 #, php-format
 msgid "Thank you for your %1$s! It will be published after the group admin approves it."
 msgstr ""
 
-#: includes/bgr-ajax.php:612
+#: includes/bgr-ajax.php:611
 msgid "Failed to create review. Please try again."
 msgstr ""
 
 #. translators: %1$s: review label, %2$s: group name
-#: includes/bgr-ajax.php:650
+#: includes/bgr-ajax.php:649
 #, php-format
 msgid "New %1$s submitted for %2$s"
 msgstr ""
 
-#: includes/bgr-ajax.php:717
-#: includes/bgr-ajax.php:832
-#: includes/bgr-ajax.php:941
+#: includes/bgr-ajax.php:716
+#: includes/bgr-ajax.php:831
+#: includes/bgr-ajax.php:940
 msgid "You must be logged in."
 msgstr ""
 
-#: includes/bgr-ajax.php:737
-#: includes/bgr-ajax.php:851
-#: includes/bgr-ajax.php:959
+#: includes/bgr-ajax.php:736
+#: includes/bgr-ajax.php:850
+#: includes/bgr-ajax.php:958
 msgid "Invalid group for this review."
 msgstr ""
 
-#: includes/bgr-ajax.php:743
-#: includes/bgr-ajax.php:857
+#: includes/bgr-ajax.php:742
+#: includes/bgr-ajax.php:856
 msgid "You do not have permission to manage reviews for this group."
 msgstr ""
 
 #. translators: %1$s: review label, %2$s: group name
-#: includes/bgr-ajax.php:782
+#: includes/bgr-ajax.php:781
 #, php-format
 msgid "Your %1$s for %2$s has been approved"
 msgstr ""
 
 #. translators: %1$s: review label, %2$s: group name
-#: includes/bgr-ajax.php:893
+#: includes/bgr-ajax.php:892
 #, php-format
 msgid "Your %1$s for %2$s was not approved"
 msgstr ""
 
-#: includes/bgr-ajax.php:965
+#: includes/bgr-ajax.php:964
 msgid "You do not have permission to remove reviews for this group."
 msgstr ""
 

@@ -61,7 +61,7 @@ $bgr_deny_email_message   = isset( $bgr_email_settings['review_deny_email_messag
 				<th scope="row"><?php esc_html_e( 'Enable Email', 'bp-group-reviews' ); ?></th>
 				<td>
 					<label class="wb-switch" for="bgr-allow-email">
-						<input type="checkbox" id="bgr-allow-email" name="bp_group_review_email_settings[bgr_allow_email]" value="yes" <?php checked( $bgr_allow_email, 'yes' ); ?>>
+						<input type="hidden" name="bp_group_review_email_settings[bgr_allow_email]" value="no"><input type="checkbox" id="bgr-allow-email" name="bp_group_review_email_settings[bgr_allow_email]" value="yes" <?php checked( $bgr_allow_email, 'yes' ); ?>>
 						<div class="wb-slider wb-round"></div>
 					</label>
 					<p class="description"><?php esc_html_e( 'Notify the group admin by email when a review is submitted.', 'bp-group-reviews' ); ?></p>
@@ -101,7 +101,7 @@ $bgr_deny_email_message   = isset( $bgr_email_settings['review_deny_email_messag
 				<th scope="row"><?php esc_html_e( 'Enable Email', 'bp-group-reviews' ); ?></th>
 				<td>
 					<label class="wb-switch" for="bgr-accept-enable">
-						<input type="checkbox" id="bgr-accept-enable" name="bp_group_review_email_settings[bgr_accept_enable]" value="yes" <?php checked( $bgr_accept_enable, 'yes' ); ?>>
+						<input type="hidden" name="bp_group_review_email_settings[bgr_accept_enable]" value="no"><input type="checkbox" id="bgr-accept-enable" name="bp_group_review_email_settings[bgr_accept_enable]" value="yes" <?php checked( $bgr_accept_enable, 'yes' ); ?>>
 						<div class="wb-slider wb-round"></div>
 					</label>
 				</td>
@@ -140,7 +140,7 @@ $bgr_deny_email_message   = isset( $bgr_email_settings['review_deny_email_messag
 				<th scope="row"><?php esc_html_e( 'Enable Email', 'bp-group-reviews' ); ?></th>
 				<td>
 					<label class="wb-switch" for="bgr-deny-email">
-						<input type="checkbox" id="bgr-deny-email" name="bp_group_review_email_settings[bgr_deny_email]" value="yes" <?php checked( $bgr_deny_email, 'yes' ); ?>>
+						<input type="hidden" name="bp_group_review_email_settings[bgr_deny_email]" value="no"><input type="checkbox" id="bgr-deny-email" name="bp_group_review_email_settings[bgr_deny_email]" value="yes" <?php checked( $bgr_deny_email, 'yes' ); ?>>
 						<div class="wb-slider wb-round"></div>
 					</label>
 				</td>

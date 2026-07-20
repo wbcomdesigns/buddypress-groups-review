@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) || exit;
 
 <div class="bgr-card">
 	<div class="bgr-card__head">
-		<p class="bgr-card__title"><?php esc_html_e( 'Help &amp; Support Resources', 'bp-group-reviews' ); ?></p>
+		<p class="bgr-card__title"><?php esc_html_e( 'Help & Support Resources', 'bp-group-reviews' ); ?></p>
 		<p class="bgr-card__desc"><?php esc_html_e( 'If you need assistance, here are some helpful resources. Our documentation is a great place to start, and our support team is available if you require further help.', 'bp-group-reviews' ); ?></p>
 	</div>
 	<div class="bgr-card__body">

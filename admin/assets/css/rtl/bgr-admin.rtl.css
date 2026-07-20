@@ -222,87 +222,6 @@ span.move-icons {
     margin: 0 10px;
 }
 
-/* The bgr-switch - the toggle-switch in admin settings */
-.bgr-switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-}
-
-/* Hide default HTML checkbox */
-.bgr-switch input {
-    display: none;
-}
-
-/* The bgr-slider */
-.bgr-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    background-color: var(--bgr-admin-border-strong, #ccc);
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-.bgr-slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    right: 4px;
-    bottom: 4px;
-    background-color: var(--bgr-admin-white, #fff);
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-input:checked+.bgr-slider {
-    background-color: var(--bgr-admin-accent, #1d76da);
-}
-
-input:focus+.bgr-slider {
-    box-shadow: 0 0 1px var(--bgr-admin-accent, #1d76da);
-}
-
-input:checked+.bgr-slider:before {
-    -webkit-transform: translateX(-26px);
-    -ms-transform: translateX(-26px);
-    transform: translateX(-26px);
-}
-
-/* Rounded sliders */
-.bgr-slider.round {
-    border-radius: 34px;
-}
-
-.bgr-slider.round:before {
-    border-radius: 50%;
-}
-
-@media (min-width: 782px) {
-    .bgr-switch {
-        width: 30px;
-        height: 17px;
-    }
-
-    .bgr-slider:before {
-        height: 13px;
-        width: 13px;
-        right: 2px;
-        bottom: 2px;
-    }
-
-    input:checked+.bgr-slider:before {
-        -webkit-transform: translateX(-13px);
-        -ms-transform: translateX(-13px);
-        transform: translateX(-13px);
-    }
-}
-
 /*** Accordion css start***/
 /* Style the buttons that are used to open and close the bgr-faq-accordion bgr-faq-panel */
 button.bgr-faq-accordion {
@@ -349,11 +268,11 @@ button.bgr-faq-accordion:hover {
 }
 
 button.bgr-accordion {
-    background-color: hsl(0, 0%, 87%);
+    background-color: #dedede;
     border: medium none;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    color: hsl(0, 0%, 27%);
+    color: #454545;
     cursor: pointer;
     font-size: 15px;
     margin: 0 5%;
@@ -367,8 +286,8 @@ button.bgr-accordion {
 
 button.bgr-accordion.active,
 button.bgr-accordion:hover {
-    background-color: hsl(207, 90%, 54%);
-    color: white;
+    background-color: #2196f3;
+    color: #fff;
 }
 
 div.panel {
@@ -382,7 +301,7 @@ div.panel {
 }
 
 button.bgr-accordion::after {
-    color: hsl(0, 0%, 47%);
+    color: #787878;
     content: "+";
     float: left;
     font-size: 13px;
@@ -503,8 +422,7 @@ div#bgr-email-settings-updated{
 .rating-review-div input:focus-visible,
 input#bgr-field-add:focus-visible,
 button.bgr-faq-accordion:focus-visible,
-button.bgr-accordion:focus-visible,
-.bgr-switch input:focus-visible + .bgr-slider {
+button.bgr-accordion:focus-visible {
     outline: 2px solid var(--bgr-admin-focus, #2271b1);
     outline-offset: 2px;
     box-shadow: none;

@@ -33,9 +33,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Load plugin textdomain.
  *
  * @since 1.0.0
- *  @since   1.0.0
- *  @author  Wbcom Designs
-*/
+ *
+ * @author Wbcom Designs
+ */
 
 add_action( 'init', 'bp_group_review_load_textdomain' );
 

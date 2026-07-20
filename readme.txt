@@ -255,8 +255,17 @@ UI pass: BuddyX/Reign dark-mode token mapping, accessibility focus rings, and CS
 * Fix      - Added visible :focus-visible outlines to review, rating, leaderboard and admin controls (WCAG 2.4.7).
 * Fix      - Dark mode now activates only on the explicit theme toggle (data-bx-mode="dark") and never from the OS preference.
 * Fix      - Removed the deprecated bundled admin wrapper.
+* Fix      - Review acceptance and denial notification emails could not be turned off; the enable toggles now persist an explicit off state.
+* Fix      - The acceptance and denial email toggles now hide their subject and message fields when switched off, matching the submission toggle.
+* Fix      - Removed the stray filled background bar behind each rating criterion in the Add Review form.
+* Fix      - Reworked the reviews pagination into a single consistent, theme-aware style with a clearly marked active page.
+* Fix      - Corrected the feedback slug so plugin activation data is stored under the plugin's own key.
+* Fix      - Corrected a double-escaped ampersand in the Help and Support heading.
+* Fix      - Fixed missing spaces before placeholders and a mistranslation in the French strings, and corrected the Portuguese (Brazil) New Post string.
+* Security - Removed logged-out AJAX registrations for the accept, deny, remove and submit review endpoints, which require an authenticated user.
 * Dev      - Extracted the 125-line inline style block from the group criteria template into an enqueued, tokenized stylesheet with min and RTL builds.
 * Dev      - Consolidated the duplicated rating-color CSS into a single shared helper.
+* Dev      - Replaced HSL colors in the admin accordion with hex, and removed the unused .bgr-switch/.bgr-slider toggle CSS.
 
 = 3.8.1 =
 * Fixed: Star rating UI display issue with half-star icons

@@ -348,33 +348,11 @@ html[data-bx-mode="dark"],
 }
 
 
-#request-review-list .review-pagination {
-    text-align: center;
-    display: flex;
-}
-
-#request-review-list .review-pagination .page-numbers {
-    font-size: 16px;
-    margin: 2px;
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-transform: capitalize;
-    background: var(--bgr-bg-offset, #f5f5f5);
-    border-radius: 50%;
-}
-
-#request-review-list .review-pagination span.page-numbers.current {
-    color: var(--bgr-text-black, #000);
-    font-weight: bold;
-}
-
-#request-review-list .review-pagination a.next.page-numbers,
-#request-review-list .review-pagination a.prev.page-numbers {
-    width: 70px;
-    border-radius: 100px;
-}
+/* Pagination styling is owned by the single canonical `.review-pagination`
+   block in bgr-reviews.css so every context (Reviews tab + admin Manage
+   screen) renders identically. The old #request-review-list circle overrides
+   were removed - they produced the outdated 30px circles, an invisible
+   dark-on-dark "current" page, and inconsistent prev/next pills. */
 
 .bgr-col-4 .required {
     color: var(--bgr-error-color, #e63946);

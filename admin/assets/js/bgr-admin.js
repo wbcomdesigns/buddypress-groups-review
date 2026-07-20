@@ -183,12 +183,31 @@ jQuery(document).ready(function () {
     return false;
   });
 
-  jQuery(document).on("change", "#bgr-allow-email", function () {
-    if (jQuery(this).prop("checked") == true) {
-      jQuery(".review-email-section").show();
+  // Each email toggle shows/hides its own subject + message rows. Bind all
+  // three and sync the initial state on load so a saved-off toggle starts
+  // collapsed instead of only reacting to the next change event.
+  var bgrEmailToggles = {
+    "#bgr-allow-email": ".review-email-section",
+    "#bgr-accept-enable": ".review-accept-email-section",
+    "#bgr-deny-email": ".review-deny-email-section",
+  };
+
+  function bgrSyncEmailSection(toggle, section) {
+    if (jQuery(toggle).prop("checked") === true) {
+      jQuery(section).show();
     } else {
-      jQuery(".review-email-section").hide();
+      jQuery(section).hide();
     }
+  }
+
+  jQuery.each(bgrEmailToggles, function (toggle, section) {
+    if (!jQuery(toggle).length) {
+      return;
+    }
+    bgrSyncEmailSection(toggle, section);
+    jQuery(document).on("change", toggle, function () {
+      bgrSyncEmailSection(toggle, section);
+    });
   });
 
   jQuery(document).on("click", ".bgr-approve-review", function () {

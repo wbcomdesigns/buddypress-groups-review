@@ -267,6 +267,16 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     background-color: transparent;
 }
 
+/* Each criterion row (Quality / Relevance / Engagement) must sit flush in the
+   form with no filled background bar. The Reign theme ships
+   `.multi-review { background: var(--reign-site-secondary-bg-color) }` at equal
+   specificity that loads after this plugin and paints a grey/dark row behind
+   every criterion. Scope through #buddypress (1,1,0) to reclaim a transparent
+   background without deleting the structural flex wrapper the star JS relies on. */
+#buddypress .multi-review {
+    background: transparent;
+}
+
 .multi-review>div {
     padding: 0;
 }
@@ -509,30 +519,63 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
     outline: none;
 }
 
-/* Review Pagination */
+/* Review Pagination - single canonical style shared by the Reviews tab and
+   the admin Manage screen. Token-driven so it adapts to light/dark themes;
+   40px targets meet the tap-target minimum. */
 .review-pagination {
-    margin-top: 20px;
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 24px;
 }
 
 .review-pagination .page-numbers {
-    display: inline-block;
-    padding: 8px 12px;
-    margin: 0 2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
     text-decoration: none;
-    border: 1px solid var(--bgr-border-color, #ddd);
-    border-radius: 4px;
+    text-transform: capitalize;
+    color: var(--bgr-text-dark, #1e1e1e);
     background-color: var(--bgr-bg-white, #fff);
+    border: 1px solid var(--bgr-border-color, #ddd);
+    border-radius: 8px;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-.review-pagination .page-numbers.current {
-    background-color: var(--bgr-primary-color, #0073aa);
-    color: var(--bgr-text-light, #fff);
+.review-pagination a.page-numbers:hover {
+    color: var(--bgr-primary-color, #0073aa);
     border-color: var(--bgr-primary-color, #0073aa);
+    background-color: var(--bgr-bg-light, #f5f5f5);
 }
 
-.review-pagination .page-numbers:hover:not(.current) {
-    background-color: var(--bgr-bg-light, #f5f5f5);
+.review-pagination span.page-numbers.current,
+.review-pagination .page-numbers.current {
+    color: var(--bgr-text-light, #fff);
+    background-color: var(--bgr-primary-color, #0073aa);
+    border-color: var(--bgr-primary-color, #0073aa);
+    font-weight: 600;
+}
+
+.review-pagination .page-numbers.dots {
+    min-width: auto;
+    padding: 0 4px;
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.review-pagination a.page-numbers:focus-visible {
+    outline: 2px solid var(--bgr-focus-color, #3b82f6);
+    outline-offset: 2px;
 }
 
 /* ───────────────────────────────────────────────────────────

@@ -758,7 +758,7 @@ msgstr "Enviar Comentários"
 
 #: includes/bgr-activity.php:89 includes/bgr-activity.php:91
 msgid "New Post"
-msgstr "Novo Posto"
+msgstr "Nova Postagem"
 
 #: includes/bgr-activity.php:115
 #. translators: %1$s: User Link, %2$s: Post Link HTML, %3$s: Group Name.

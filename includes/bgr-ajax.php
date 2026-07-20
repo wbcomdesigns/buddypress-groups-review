@@ -37,14 +37,13 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			add_action( 'wp_ajax_bp_group_review_save_admin_criteria_settings', array( $this, 'bp_group_review_save_admin_criteria_settings' ) );
 			add_action( 'wp_ajax_bp_group_review_save_admin_display_settings', array( $this, 'bp_group_review_save_admin_display_settings' ) );
 			add_action( 'wp_ajax_bp_group_review_save_admin_general_settings', array( $this, 'bp_group_review_save_admin_general_settings' ) );
+			// Accept/deny/remove/submit all require a logged-in user (group admin
+			// caps for the first three, group membership for submit). No nopriv
+			// hooks - logged-out requests must not reach these endpoints.
 			add_action( 'wp_ajax_bp_group_review_accept_review', array( $this, 'bp_group_review_accept_review' ) );
-			add_action( 'wp_ajax_nopriv_bp_group_review_accept_review', array( $this, 'bp_group_review_accept_review' ) );
 			add_action( 'wp_ajax_bp_group_review_deny_review', array( $this, 'bp_group_review_deny_review' ) );
-			add_action( 'wp_ajax_nopriv_bp_group_review_deny_review', array( $this, 'bp_group_review_deny_review' ) );
 			add_action( 'wp_ajax_bp_group_remove_review', array( $this, 'bp_group_remove_review' ) );
-			add_action( 'wp_ajax_nopriv_bp_group_remove_review', array( $this, 'bp_group_remove_review' ) );
 			add_action( 'wp_ajax_bp_group_submit_review', array( $this, 'bp_group_submit_review' ) );
-			add_action( 'wp_ajax_nopriv_bp_group_submit_review', array( $this, 'bp_group_submit_review' ) );
 
 			/* add action for approving reviews - admin-only, no nopriv hook needed */
 			add_action( 'wp_ajax_bp_group_review_admin_approve_review', array( $this, 'bp_group_review_admin_approve_review' ) );
