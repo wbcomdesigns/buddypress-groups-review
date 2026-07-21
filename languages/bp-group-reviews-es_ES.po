@@ -6,7 +6,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/buddypress-groups-review\n"
 "POT-Creation-Date: 2026-07-17T10:19:11+00:00\n"
-"PO-Revision-Date: 2026-07-16T11:32:29+00:00\n"
+"PO-Revision-Date: 2026-07-21T00:00:00+00:00\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -434,7 +434,7 @@ msgstr "Cambia el color de la calificación de estrellas."
 
 #: includes/admin/views/settings-emails.php:29
 msgid "New Review Submitted for Your Group [group-name] on [site-name]"
-msgstr "Nueva revisión enviada para tu grupo [group-name] en [site-name]"
+msgstr "Nueva reseña enviada para tu grupo [group-name] en [site-name]"
 
 #: includes/admin/views/settings-emails.php:30
 msgid ""
@@ -443,15 +443,15 @@ msgid ""
 "here: [review-link]<br><br>Thank you for creating a space where members can "
 "share their experiences!<br><br>Best regards,<br>The [site-name] Team"
 msgstr ""
-"Hola [admin-name],<br><br>Una nueva revisión ha sido enviada para tu grupo "
-"[group-name] por [user-name].<br><br>Puedes ver y responder a la revisión "
+"Hola [admin-name],<br><br>Una nueva reseña ha sido enviada para tu grupo "
+"[group-name] por [user-name].<br><br>Puedes ver y responder a la reseña "
 "aquí: [review-link]<br><br>¡Gracias por crear un espacio donde los miembros "
 "pueden compartir sus experiencias!<br><br>Saludos cordiales,<br>El equipo "
 "de [site-name]"
 
 #: includes/admin/views/settings-emails.php:32
 msgid "Your Review for [group-name] on [site-name] Has Been Approved"
-msgstr "Tu revisión para [group-name] en [site-name] ha sido aprobada"
+msgstr "Tu reseña para [group-name] en [site-name] ha sido aprobada"
 
 #: includes/admin/views/settings-emails.php:33
 msgid ""
@@ -460,14 +460,14 @@ msgid ""
 "thoughts with the community. View your review here: "
 "[review-link]<br><br>Best regards,<br>The [site-name] Team"
 msgstr ""
-"Hola [user-name],<br><br>Tu revisión para [group-name] en [site-name] ha "
+"Hola [user-name],<br><br>Tu reseña para [group-name] en [site-name] ha "
 "sido aprobada y ahora está publicada.<br><br>Gracias por compartir tus "
-"pensamientos con la comunidad. Ver tu revisión aquí: "
+"pensamientos con la comunidad. Ver tu reseña aquí: "
 "[review-link]<br><br>Saludos cordiales,<br>El equipo de [site-name]"
 
 #: includes/admin/views/settings-emails.php:35
 msgid "Your Review for [group-name] on [site-name] Was Not Approved"
-msgstr "Tu revisión para [group-name] en [site-name] no fue aprobada"
+msgstr "Tu reseña para [group-name] en [site-name] no fue aprobada"
 
 #: includes/admin/views/settings-emails.php:36
 msgid ""
@@ -476,7 +476,7 @@ msgid ""
 "our community guidelines, please contact the group admin.<br><br>Thank you "
 "for your understanding.<br><br>Best regards,<br>The [site-name] Team"
 msgstr ""
-"Hola [user-name],<br><br>Tu revisión para [group-name] en [site-name] no "
+"Hola [user-name],<br><br>Tu reseña para [group-name] en [site-name] no "
 "fue aprobada por el administrador del grupo.<br><br>Si tienes preguntas "
 "sobre nuestras directrices comunitarias, ponte en contacto con el "
 "administrador del grupo.<br><br>Gracias por tu comprensión.<br><br>Saludos "
@@ -1318,27 +1318,27 @@ msgstr "Califica %1$s de 5 estrellas para %2$s"
 
 #: includes/bgr-scripts.php:200
 msgid "Review subject"
-msgstr "Asunto de la revisión"
+msgstr "Asunto de la reseña"
 
 #: includes/bgr-scripts.php:201
 msgid "Review description"
-msgstr "Descripción de la revisión"
+msgstr "Descripción de la reseña"
 
 #: includes/bgr-scripts.php:202
 msgid "Accept this review"
-msgstr "Aceptar esta revisión"
+msgstr "Aceptar esta reseña"
 
 #: includes/bgr-scripts.php:203
 msgid "Deny this review"
-msgstr "Rechazar esta revisión"
+msgstr "Rechazar esta reseña"
 
 #: includes/bgr-scripts.php:204
 msgid "Delete this review"
-msgstr "Eliminar esta revisión"
+msgstr "Eliminar esta reseña"
 
 #: includes/bgr-scripts.php:205
 msgid "Skip to reviews"
-msgstr "Ir a las revisiones"
+msgstr "Ir a las reseñas"
 
 #: includes/bgr-scripts.php:232
 msgid "View Less.."
