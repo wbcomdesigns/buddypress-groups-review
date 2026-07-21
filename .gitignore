@@ -6,6 +6,12 @@ npm-debug.log
 build
 *.json
 
+# JS translation files. The blanket *.json above was silently excluding these
+# from the repo and therefore from every release zip, so wp_set_script_translations()
+# had nothing to load and all JS strings fell back to English in every locale.
+# Regenerate with `php bin/make-js-translations.php`. Keep them tracked.
+!languages/*.json
+
 # AutoVAP onboarding artifacts — keep tracked despite broad ignores above
 !CLAUDE.md
 !audit/

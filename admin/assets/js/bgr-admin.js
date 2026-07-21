@@ -1,7 +1,12 @@
 jQuery.noConflict();
 
 // wp.i18n helper (handle depends on wp-i18n; guarded for safety).
-var bgrAdminI18n =
+//
+// This MUST be named `__`. `wp i18n make-pot` extracts by function name, so an
+// aliased call - this file previously used `bgrAdminI18n( 'Text', 'domain' )` -
+// is invisible to the extractor: the string never reaches the .pot and can
+// never be translated. Do not rename it back.
+var __ =
   window.wp && window.wp.i18n
     ? window.wp.i18n.__
     : function (text) {
@@ -17,7 +22,7 @@ jQuery(document).ready(function () {
     jQuery(this).closest('.notice').fadeOut();
   });
   jQuery("#bgr-exclude-group-review").selectize({
-    placeholder: bgrAdminI18n("Select groups", "bp-group-reviews"),
+    placeholder: __("Select groups", "bp-group-reviews"),
     plugins: ["remove_button"],
   });
 
@@ -212,7 +217,7 @@ jQuery(document).ready(function () {
 
   jQuery(document).on("click", ".bgr-approve-review", function () {
     var review_id = jQuery(this).data("rid");
-    jQuery(this).html(bgrAdminI18n("Approving..", "bp-group-reviews"));
+    jQuery(this).html(__("Approving..", "bp-group-reviews"));
     jQuery.post(
       ajaxurl,
       {
@@ -236,7 +241,7 @@ jQuery(document).ready(function () {
       (window.bgrAdminPanel &&
         window.bgrAdminPanel.i18n &&
         window.bgrAdminPanel.i18n.denyReview) ||
-      bgrAdminI18n(
+      __(
         "Are you sure you want to deny this review? It will be moved to trash.",
         "bp-group-reviews"
       );
@@ -252,7 +257,7 @@ jQuery(document).ready(function () {
       if (!ok) {
         return;
       }
-      $btn.html(bgrAdminI18n("Denying..", "bp-group-reviews"));
+      $btn.html(__("Denying..", "bp-group-reviews"));
       jQuery.post(
         ajaxurl,
         {
@@ -277,7 +282,7 @@ function BGRGetBGRDynamicTextBox(value) {
     value +
     '" />' +
     '<input type="button" value="' +
-    bgrAdminI18n("Remove", "bp-group-reviews") +
+    __("Remove", "bp-group-reviews") +
     '" class="remove button button-secondary bgr-remove" /><label class="wb-switch"><input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="" checked="checked" ><div class="wb-slider wb-round"></div></label>'
   );
 }
