@@ -33,7 +33,16 @@ module.exports = function (grunt) {
                     '**/*.php',
                     '!node_modules/**',
                     '!options/framework/**',
-                    '!tests/**'
+                    '!tests/**',
+                    // Dev-only Composer deps. wordpress-stubs.php contains WP
+                    // core's own gettext calls with the "default" domain, which
+                    // made this gate abort on 14 false positives and never
+                    // actually check our code.
+                    '!vendor/**',
+                    // Compiled translation artifacts, not source.
+                    '!languages/*.l10n.php',
+                    // Build tooling, never loaded by WordPress.
+                    '!bin/**'
                 ],
                 expand: true
             },
@@ -280,6 +289,7 @@ module.exports = function (grunt) {
     // current .po files, or the release ships stale/English strings.
     grunt.registerTask('dist', [
         'clean:dist',       // Clean old dist folder
+        'checktextdomain',  // Gate: every string wrapped with the right domain
         'cssmin',           // Minify CSS
         'uglify',           // Minify JS
         'rtlcss',           // Generate RTL CSS
@@ -292,10 +302,11 @@ module.exports = function (grunt) {
     // Register build task for WordPress.org distribution
     grunt.registerTask('build', [
         'clean:dist',       // Clean old dist folder
+        'checktextdomain',  // Gate: every string wrapped with the right domain
         'cssmin',           // Minify CSS
         'uglify',           // Minify JS
         'rtlcss',           // Generate RTL CSS
-        'shell',            // Generate POT file
+        'shell',            // Regenerate POT, then .mo + .l10n.php + JS JSON
         'copy:dist',        // Copy files to dist
         'compress:dist',    // Create ZIP file
         'clean:postbuild'   // Clean temp folder, keep ZIP
