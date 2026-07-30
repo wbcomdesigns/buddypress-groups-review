@@ -130,7 +130,7 @@ class Buddypress_Group_Review_Multi_Support {
 		printf(
 			/* translators: %1$s: Plugin name. */
 			esc_html__( '%1$s is only active on the subsite defined by BP_ROOT_BLOG.', 'bp-group-reviews' ),
-			'<strong>' . esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' ) . '</strong>'
+			'<strong>BuddyPress Group Reviews</strong>'
 		);
 		echo '</p></div>';
 	}
@@ -143,7 +143,7 @@ class Buddypress_Group_Review_Multi_Support {
 		printf(
 			/* translators: %1$s: Plugin name. */
 			esc_html__( '%1$s can only be activated on the BuddyPress root blog.', 'bp-group-reviews' ),
-			'<strong>' . esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' ) . '</strong>'
+			'<strong>BuddyPress Group Reviews</strong>'
 		);
 		echo '</p></div>';
 	}
@@ -156,7 +156,7 @@ class Buddypress_Group_Review_Multi_Support {
 		printf(
 			/* translators: %1$s: Plugin name. */
 			esc_html__( '%1$s requires BuddyPress to be active on this subsite. The plugin has been deactivated.', 'bp-group-reviews' ),
-			'<strong>' . esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' ) . '</strong>'
+			'<strong>BuddyPress Group Reviews</strong>'
 		);
 		echo '</p></div>';
 	}

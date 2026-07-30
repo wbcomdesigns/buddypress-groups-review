@@ -43,6 +43,25 @@ $lang_dir   = $plugin_dir . '/languages';
 $slug       = 'bp-group-reviews';
 
 /**
+ * A fresh, empty PO entry accumulator.
+ *
+ * Declared as its own function so the accumulator carries a nullable string
+ * shape. Initialising the array inline instead types both fields as literal
+ * null, which makes the `null !==` guards in the flush closure below read as
+ * statically impossible even though the parse loop fills them in.
+ *
+ * @param array<int,string> $refs Reference comments already buffered for this entry.
+ * @return array{msgid:?string,msgstr:?string,refs:array<int,string>}
+ */
+function bgr_new_po_entry( array $refs = array() ): array {
+	return array(
+		'msgid'  => null,
+		'msgstr' => null,
+		'refs'   => $refs,
+	);
+}
+
+/**
  * Parse a .po file into entries with their source references.
  *
  * @param string $path Path to the .po file.
@@ -52,11 +71,7 @@ function bgr_parse_po( string $path ): array {
 	$lines   = file( $path, FILE_IGNORE_NEW_LINES );
 	$entries = array();
 	$headers = array();
-	$cur     = array(
-		'msgid'  => null,
-		'msgstr' => null,
-		'refs'   => array(),
-	);
+	$cur     = bgr_new_po_entry();
 	$mode    = null;
 
 	// `#:` reference comments appear BEFORE their msgid, so they are buffered
@@ -68,11 +83,7 @@ function bgr_parse_po( string $path ): array {
 		if ( null !== $cur['msgid'] && '' !== $cur['msgid'] && null !== $cur['msgstr'] && '' !== $cur['msgstr'] ) {
 			$entries[] = $cur;
 		}
-		$cur          = array(
-			'msgid'  => null,
-			'msgstr' => null,
-			'refs'   => $pending_refs,
-		);
+		$cur          = bgr_new_po_entry( $pending_refs );
 		$pending_refs = array();
 	};
 

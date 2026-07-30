@@ -139,7 +139,9 @@ class BGR_Admin_Panel {
 
 		add_submenu_page(
 			'wbcomplugins',
-			esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' ),
+			// Product name - a brand, never translated. The menu label below is
+			// descriptive UI copy and stays translatable.
+			'BuddyPress Group Reviews',
 			esc_html__( 'Group Reviews', 'bp-group-reviews' ),
 			$cap,
 			self::MENU_SLUG,

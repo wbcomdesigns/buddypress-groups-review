@@ -52,16 +52,21 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 		 * every wp.i18n string silently falls back to English in production.
 		 *
 		 * @since   3.9.0
-		 * @param   string $relative Relative path core will hash.
+		 * @param   mixed  $relative Relative path core will hash. Core passes false when
+		 *                           the script path does not resolve, and an earlier
+		 *                           callback on this filter may pass anything at all.
 		 * @param   string $src      Full script URL.
-		 * @return  string
+		 * @return  mixed  The rewritten path, or the input untouched when it is not ours.
 		 */
 		public function bgr_filter_script_translation_relative_path( $relative, $src ) {
 			if ( ! is_string( $relative ) || false === strpos( $src, 'buddypress-groups-review/' ) ) {
 				return $relative;
 			}
 			// "admin/assets/js/min/bgr-admin.js" -> "admin/assets/js/bgr-admin.js".
-			return preg_replace( '#/min/([^/]+)$#', '/$1', $relative );
+			$stripped = preg_replace( '#/min/([^/]+)$#', '/$1', $relative );
+
+			// preg_replace() returns null on failure; never hand core a null path.
+			return null === $stripped ? $relative : $stripped;
 		}
 
 		/**

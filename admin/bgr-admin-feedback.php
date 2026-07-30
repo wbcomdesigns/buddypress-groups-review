@@ -207,14 +207,14 @@ if ( ! class_exists( 'BGR_Admin_Feedback' ) ) :
 			<div class="notice updated bp-group-reviews-notice">
 				<div class="bp-group-reviews-notice-inner">
 					<div class="bp-group-reviews-notice-icon">
-						<img src="<?php echo esc_url( BGR_PLUGIN_URL ) . 'admin/assets/imgs/bgr.png'; ?>" alt="<?php echo esc_attr__( 'BuddyPress Group Reviews', 'bp-group-reviews' ); ?>" />
+						<img src="<?php echo esc_url( BGR_PLUGIN_URL ) . 'admin/assets/imgs/bgr.png'; ?>" alt="BuddyPress Group Reviews" />
 					</div>
 					<div class="bp-group-reviews-notice-content">
-						<h3><?php echo esc_html__( 'Are you enjoying BuddyPress Group Reviews?', 'bp-group-reviews' ); ?></h3>
+						<h3><?php /* translators: %1$s: plugin name (a brand, not translated). */ printf( esc_html__( 'Are you enjoying %1$s?', 'bp-group-reviews' ), 'BuddyPress Group Reviews' ); ?></h3>
 						<p>
 							<?php
 							/* translators: %1$s: plugin name. */
-							printf( esc_html__( 'We hope you\'re enjoying %1$s! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'bp-group-reviews' ), esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' ) );
+							printf( esc_html__( 'We hope you\'re enjoying %1$s! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'bp-group-reviews' ), 'BuddyPress Group Reviews' );
 							?>
 						</p>
 					</div>

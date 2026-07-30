@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-21T14:13:27+00:00\n"
+"POT-Creation-Date: 2026-07-30T12:53:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bp-group-reviews\n"
@@ -39,20 +39,10 @@ msgstr ""
 msgid "http://wbcomdesigns.com"
 msgstr ""
 
-#. translators: %1$s: plugin name.
-#: admin/bgr-admin-feedback.php:210
-#: admin/bgr-admin-feedback.php:217
-#: includes/admin/class-bgr-admin-panel.php:142
-#: includes/admin/views/shell.php:32
-#: includes/class-bgr-multi-support.php:133
-#: includes/class-bgr-multi-support.php:146
-#: includes/class-bgr-multi-support.php:159
-#: review-bp-grps.php:137
-msgid "BuddyPress Group Reviews"
-msgstr ""
-
+#. translators: %1$s: plugin name (a brand, not translated).
 #: admin/bgr-admin-feedback.php:213
-msgid "Are you enjoying BuddyPress Group Reviews?"
+#, php-format
+msgid "Are you enjoying %1$s?"
 msgstr ""
 
 #. translators: %1$s: plugin name.
@@ -196,28 +186,28 @@ msgstr ""
 msgid "WB Plugins"
 msgstr ""
 
-#: includes/admin/class-bgr-admin-panel.php:143
-#: includes/admin/views/shell.php:60
+#: includes/admin/class-bgr-admin-panel.php:145
+#: includes/admin/views/shell.php:61
 #: includes/bgr-notifications.php:50
 msgid "Group Reviews"
 msgstr ""
 
-#: includes/admin/class-bgr-admin-panel.php:220
+#: includes/admin/class-bgr-admin-panel.php:222
 msgid "Are you sure? This cannot be undone."
 msgstr ""
 
-#: includes/admin/class-bgr-admin-panel.php:221
+#: includes/admin/class-bgr-admin-panel.php:223
 #: assets/js/admin.js:94
 msgid "Continue"
 msgstr ""
 
-#: includes/admin/class-bgr-admin-panel.php:222
+#: includes/admin/class-bgr-admin-panel.php:224
 #: assets/js/admin.js:89
 #: public/js/confirm.js:25
 msgid "Cancel"
 msgstr ""
 
-#: includes/admin/class-bgr-admin-panel.php:223
+#: includes/admin/class-bgr-admin-panel.php:225
 #: admin/assets/js/bgr-admin.js:244
 msgid "Are you sure you want to deny this review? It will be moved to trash."
 msgstr ""
@@ -540,41 +530,41 @@ msgstr ""
 msgid "Showing the %s most recent groups. Groups already excluded remain selected. Use the bgr_exclude_groups_select_limit filter to raise this cap."
 msgstr ""
 
-#: includes/admin/views/shell.php:33
+#: includes/admin/views/shell.php:34
 msgid "Let members rate and review your BuddyPress groups across multiple criteria, with admin approval, notifications, and activity integration."
 msgstr ""
 
-#: includes/admin/views/shell.php:61
+#: includes/admin/views/shell.php:62
 msgid "Plugin"
 msgstr ""
 
-#: includes/admin/views/shell.php:64
+#: includes/admin/views/shell.php:65
 msgid "Group Reviews navigation"
 msgstr ""
 
-#: includes/admin/views/shell.php:68
-#: review-bp-grps.php:175
+#: includes/admin/views/shell.php:69
+#: review-bp-grps.php:177
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/views/shell.php:69
+#: includes/admin/views/shell.php:70
 msgid "More Tools"
 msgstr ""
 
-#: includes/admin/views/shell.php:90
+#: includes/admin/views/shell.php:91
 msgid "Resources"
 msgstr ""
 
-#: includes/admin/views/shell.php:93
+#: includes/admin/views/shell.php:94
 #: includes/admin/views/welcome.php:34
 msgid "Documentation"
 msgstr ""
 
-#: includes/admin/views/shell.php:95
+#: includes/admin/views/shell.php:96
 msgid "(opens in a new tab)"
 msgstr ""
 
-#: includes/admin/views/shell.php:111
+#: includes/admin/views/shell.php:112
 msgid "Settings saved."
 msgstr ""
 
@@ -986,7 +976,7 @@ msgid "Average Rating"
 msgstr ""
 
 #: includes/bgr-filters.php:611
-#: includes/bgr-scripts.php:197
+#: includes/bgr-scripts.php:202
 msgid "Rating"
 msgstr ""
 
@@ -1117,7 +1107,7 @@ msgid "Full Description"
 msgstr ""
 
 #: includes/bgr-grp-extn.php:195
-#: includes/bgr-scripts.php:231
+#: includes/bgr-scripts.php:236
 msgid "View More.."
 msgstr ""
 
@@ -1195,44 +1185,44 @@ msgid "Anonymous"
 msgstr ""
 
 #. translators: %1$s: star rating number (1-5), %2$s: criteria name being rated.
-#: includes/bgr-scripts.php:199
+#: includes/bgr-scripts.php:204
 #, php-format
 msgid "Rate %1$s out of 5 stars for %2$s"
 msgstr ""
 
-#: includes/bgr-scripts.php:200
+#: includes/bgr-scripts.php:205
 msgid "Review subject"
 msgstr ""
 
-#: includes/bgr-scripts.php:201
+#: includes/bgr-scripts.php:206
 msgid "Review description"
 msgstr ""
 
-#: includes/bgr-scripts.php:202
+#: includes/bgr-scripts.php:207
 msgid "Accept this review"
 msgstr ""
 
-#: includes/bgr-scripts.php:203
+#: includes/bgr-scripts.php:208
 msgid "Deny this review"
 msgstr ""
 
-#: includes/bgr-scripts.php:204
+#: includes/bgr-scripts.php:209
 msgid "Delete this review"
 msgstr ""
 
-#: includes/bgr-scripts.php:205
+#: includes/bgr-scripts.php:210
 msgid "Skip to reviews"
 msgstr ""
 
-#: includes/bgr-scripts.php:232
+#: includes/bgr-scripts.php:237
 msgid "View Less.."
 msgstr ""
 
-#: includes/bgr-scripts.php:331
+#: includes/bgr-scripts.php:336
 msgid "Activate"
 msgstr ""
 
-#: includes/bgr-scripts.php:332
+#: includes/bgr-scripts.php:337
 msgid "Deactivate"
 msgstr ""
 
@@ -1537,23 +1527,19 @@ msgstr ""
 msgid "%s's Ratings"
 msgstr ""
 
-#: review-bp-grps.php:142
-msgid "BuddyPress Groups Component"
-msgstr ""
-
 #. translators: %1$s: this plugin's name, %2$s: BuddyPress, %3$s: BuddyPress Groups Component. All are wrapped in <strong> tags.
-#: review-bp-grps.php:144
+#: review-bp-grps.php:146
 #, php-format
 msgid "%1$s requires %2$s to be installed and active, and the %3$s to be enabled."
 msgstr ""
 
 #. translators: %1$s: this plugin's name, %2$s: BuddyPress. Both are wrapped in <strong> tags.
-#: review-bp-grps.php:148
+#: review-bp-grps.php:150
 #, php-format
 msgid "%1$s requires %2$s to be installed and active."
 msgstr ""
 
-#: review-bp-grps.php:162
+#: review-bp-grps.php:164
 msgid "BuddyPress Group Reviews requires the BuddyPress Groups Component to be active."
 msgstr ""
 

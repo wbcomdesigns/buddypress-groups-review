@@ -1,0 +1,20 @@
+{
+    "name": "wbcomdesigns/buddypress-groups-review",
+    "description": "Static analysis tooling for BuddyPress Group Reviews. Dev dependencies only - nothing here ships in the release zip.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "require-dev": {
+        "phpstan/phpstan": "2.2.5",
+        "szepeviktor/phpstan-wordpress": "v2.0.3",
+        "gin0115/buddypress-stubs": "12.6.0",
+        "php-stubs/generator": "v0.9.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "szepeviktor/phpstan-wordpress": true
+        }
+    },
+    "scripts": {
+        "phpstan": "phpstan analyse --no-progress --memory-limit 3G"
+    }
+}

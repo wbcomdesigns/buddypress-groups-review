@@ -19,6 +19,19 @@ build
 !audit/manifest.json
 !audit/manifest.summary.json
 
+# Release-gate config. The blanket *.json above was silently excluding these too,
+# which is the same trap that already cost us languages/*.json and audit/*.json:
+#   - composer.json pins the PHPStan + stub versions that composer.lock locks.
+#     Without it `composer install` cannot run at all (Composer needs the root
+#     manifest), so the PHPStan release gate was not reproducible locally and CI
+#     silently fell back to resolving whatever was latest.
+#   - .contract-audit-baseline.json records verified contract-audit exceptions
+#     with their reasons; without it the audit re-flags known false positives on
+#     every run and the gate reads red for no reason.
+# Neither ships in the release zip. Keep them tracked.
+!composer.json
+!.contract-audit-baseline.json
+
 # Composer dev dependencies (PHPStan + stubs). Not shipped.
 # Anchored with a leading slash so this only matches the top-level Composer
 # directory. Unanchored "vendor/" matched EVERY vendor dir at any depth,

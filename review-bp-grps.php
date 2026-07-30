@@ -134,12 +134,14 @@ function bp_group_review_admin_notice() {
 	if ( is_multisite() ) {
 		return;
 	}
-	$bpquotes_plugin = esc_html__( 'BuddyPress Group Reviews', 'bp-group-reviews' );
+	// Product and component names are brands, not copy - kept as literals so no
+	// locale can rewrite them (matching the $bp_plugin literal already below).
+	$bpquotes_plugin = 'BuddyPress Group Reviews';
 	$bp_plugin       = 'BuddyPress';
 	echo '<div class="error"><p>';
 	if ( class_exists( 'BuddyPress' ) ) {
 		if ( ! bp_is_active( 'groups' ) ) {
-			$bp_gp_component = esc_html__( 'BuddyPress Groups Component', 'bp-group-reviews' );
+			$bp_gp_component = 'BuddyPress Groups Component';
 			/* translators: %1$s: this plugin's name, %2$s: BuddyPress, %3$s: BuddyPress Groups Component. All are wrapped in <strong> tags. */
 			printf( esc_html__( '%1$s requires %2$s to be installed and active, and the %3$s to be enabled.', 'bp-group-reviews' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>', '<strong>' . esc_html( $bp_gp_component ) . '</strong>' );
 		}

@@ -1,0 +1,9 @@
+{
+    "generated": "2026-07-30T00:00:00+00:00",
+    "suppressions": [
+        {
+            "id": "ajax-action-no-handler:bgr_export_reviews",
+            "reason": "False positive, verified 2026-07-30 (also recorded in AUDIT-VERDICT.md row 15). The CSV export is not an AJAX flow: bgr-filters.php builds a GET admin.php?action=bgr_export_reviews link and bp_group_review_handle_csv_export() serves it on admin_init, so there is deliberately no wp_ajax_ handler. The endpoint is gated by current_user_can('manage_options') plus wp_verify_nonce('bgr_export_reviews') at includes/bgr-filters.php:557-563. Re-verify if the export ever moves to admin-ajax.php."
+        }
+    ]
+}

@@ -29,7 +29,8 @@ $bgr_version = defined( 'BGR_PLUGIN_VERSION' ) ? BGR_PLUGIN_VERSION : '';
 		<div class="bgr-page-header__title">
 			<span class="dashicons dashicons-star-filled" aria-hidden="true"></span>
 			<div>
-				<h1><?php esc_html_e( 'BuddyPress Group Reviews', 'bp-group-reviews' ); ?></h1>
+				<?php // Product name - a brand, deliberately not translatable. ?>
+				<h1>BuddyPress Group Reviews</h1>
 				<p class="bgr-page-header__subtitle"><?php esc_html_e( 'Let members rate and review your BuddyPress groups across multiple criteria, with admin approval, notifications, and activity integration.', 'bp-group-reviews' ); ?></p>
 			</div>
 		</div>

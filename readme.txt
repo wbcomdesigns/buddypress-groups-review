@@ -262,10 +262,13 @@ UI pass: BuddyX/Reign dark-mode token mapping, accessibility focus rings, and CS
 * Fix      - Corrected the feedback slug so plugin activation data is stored under the plugin's own key.
 * Fix      - Corrected a double-escaped ampersand in the Help and Support heading.
 * Fix      - Fixed missing spaces before placeholders and a mistranslation in the French strings, and corrected the Portuguese (Brazil) New Post string.
+* Fix      - The plugin name is no longer translatable, so no locale can rename the product. French rendered it as "BuddyPress Group Evaluations" in the settings heading, the browser title and the feedback prompt.
 * Security - Removed logged-out AJAX registrations for the accept, deny, remove and submit review endpoints, which require an authenticated user.
 * Dev      - Extracted the 125-line inline style block from the group criteria template into an enqueued, tokenized stylesheet with min and RTL builds.
 * Dev      - Consolidated the duplicated rating-color CSS into a single shared helper.
 * Dev      - Replaced HSL colors in the admin accordion with hex, and removed the unused .bgr-switch/.bgr-slider toggle CSS.
+* Dev      - Corrected two PHPStan findings in the translation tooling and the script-textdomain filter, so static analysis runs clean at the configured level.
+* Dev      - Tracked composer.json and the contract-audit baseline, which the blanket *.json ignore rule had been excluding, so the static analysis and contract gates are reproducible.
 
 = 3.8.1 =
 * Fixed: Star rating UI display issue with half-star icons
