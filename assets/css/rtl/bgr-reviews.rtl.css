@@ -14,7 +14,11 @@
     --bgr-bg-light: #f5f5f5;
     --bgr-modal-overlay: rgba(0, 0, 0, 0.4);
     --bgr-focus-color: #3b82f6;
-    --bgr-primary-color: #0073aa;
+    /* Accent follows the active theme's button colours (BuddyX modern ->
+       BuddyX legacy -> Reign -> block theme preset -> WordPress blue), with
+       the matching text colour so a light accent never gets white text. */
+    --bgr-primary-color: var(--bx-color-button-bg, var(--button-background-color, var(--reign-site-button-bg-color, var(--wp--preset--color--primary, var(--wp--preset--color--contrast, #0073aa)))));
+    --bgr-on-primary: var(--bx-color-button-fg, var(--button-text-color, var(--reign-site-button-text-color, var(--wp--preset--color--base, #fff))));
 }
 
 /* Dark theme support - explicit selectors only (no OS/prefers-color-scheme).
@@ -281,10 +285,13 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     padding: 0;
 }
 
+/* Sized by its label: owners rename "Review" (e.g. "Feedback") and
+   translations run longer, so a fixed width wraps the text. max-width is
+   reset because themes cap this class (Reign: max-width 130px). */
 .bgr-group-review-no-popup-add-block .bgr-submit-review {
-    width: 100%;
+    width: auto;
+    max-width: none;
     margin: 0;
-    max-width: 160px;
     height: auto;
 }
 
@@ -560,7 +567,7 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
 
 .review-pagination span.page-numbers.current,
 .review-pagination .page-numbers.current {
-    color: var(--bgr-text-light, #fff);
+    color: var(--bgr-on-primary, #fff);
     background-color: var(--bgr-primary-color, #0073aa);
     border-color: var(--bgr-primary-color, #0073aa);
     font-weight: 600;
@@ -691,7 +698,7 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
 
 .bgr-confirm-box__btn--confirm {
     background: var(--bgr-accent, #2563eb);
-    color: var(--bgr-bg-white, #fff);
+    color: var(--bgr-on-accent, #fff);
     border-color: var(--bgr-accent, #2563eb);
 }
 

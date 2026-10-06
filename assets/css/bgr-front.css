@@ -8,7 +8,9 @@
     --bgr-text-black: #000;
     --bgr-text-slate: #1e293b;
     --bgr-text-subtle: #999;
-    --bgr-accent: #2563eb;
+    /* Accent, its text and links follow the active theme (see bgr-reviews.css). */
+    --bgr-accent: var(--bx-color-button-bg, var(--button-background-color, var(--reign-site-button-bg-color, var(--wp--preset--color--primary, var(--wp--preset--color--contrast, #0073aa)))));
+    --bgr-on-accent: var(--bx-color-button-fg, var(--button-text-color, var(--reign-site-button-text-color, var(--wp--preset--color--base, #fff))));
     --bgr-danger: #dc2626;
     --bgr-success: #16a34a;
     --bgr-warning-text: #b45309;
@@ -18,7 +20,7 @@
     --bgr-text-primary: #1a1a1a;
     --bgr-text-secondary: #777;
     --bgr-text-muted: #888;
-    --bgr-link-color: #4f46e5;
+    --bgr-link-color: var(--bx-color-link, var(--color-link, var(--reign-site-link-color, var(--wp--preset--color--primary, var(--wp--preset--color--contrast, #0073aa)))));
     --bgr-success-bg: #DFF2BF;
     --bgr-success-border: #cb2;
     --bgr-success-text: #4F8A10;
@@ -45,7 +47,7 @@ html[data-bx-mode="dark"],
 	--bgr-text-primary: var(--bx-color-fg, var(--reign-site-headings-color, var(--global-title-color, #f5f5f5)));
 	--bgr-text-secondary: var(--bx-color-fg-subtle, var(--reign-site-body-text-color, var(--global-font-color, #a0a0a0)));
 	--bgr-text-muted: var(--bx-color-fg-muted, var(--reign-site-alternate-text-color, var(--color-meta, #888888)));
-	--bgr-link-color: var(--bx-color-accent, var(--reign-primary-color, var(--global-title-color, #8ab4f8)));
+	--bgr-link-color: var(--bx-color-link, var(--reign-site-link-color, var(--bx-color-accent, var(--global-title-color, #8ab4f8))));
 	--bgr-border-color: var(--bx-color-border, var(--reign-site-border-color, var(--global-border-color, #3d3d3d)));
 	--bgr-bg-light: var(--bx-color-bg-muted, var(--reign-site-secondary-bg-color, var(--global-body-lightcolor, #3d3d3d)));
 	--bgr-bg-white: var(--bx-color-bg-elevated, var(--reign-site-sections-bg-color, var(--color-theme-white-box, #1a1a1a)));
