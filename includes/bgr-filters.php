@@ -561,17 +561,6 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			global $bgr;
 			$review_rating_fields = isset( $bgr['review_rating_fields'] ) ? $bgr['review_rating_fields'] : array();
 
-			// Get all reviews.
-			$args = array(
-				'post_type'      => 'review',
-				'post_status'    => array( 'publish', 'draft' ),
-				'posts_per_page' => -1,
-				'orderby'        => 'date',
-				'order'          => 'DESC',
-			);
-
-			$reviews = get_posts( $args );
-
 			// Set headers for CSV download.
 			$filename = 'group-reviews-' . gmdate( 'Y-m-d-His' ) . '.csv';
 			header( 'Content-Type: text/csv; charset=utf-8' );
@@ -609,40 +598,65 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 
 			fputcsv( $output, $headers );
 
-			// CSV data rows.
-			foreach ( $reviews as $review ) {
-				$author_id      = $review->post_author;
-				$author_info    = get_userdata( $author_id );
-				$linked_group   = get_post_meta( $review->ID, 'linked_group', true );
-				$group          = groups_get_group( array( 'group_id' => $linked_group ) );
-				$group_name     = $group ? $group->name : __( 'Unknown Group', 'bp-group-reviews' );
-				$review_ratings = get_post_meta( $review->ID, 'review_star_rating', true );
-
-				// Calculate average rating.
-				$avg_rating = 0;
-				if ( ! empty( $review_ratings ) && is_array( $review_ratings ) ) {
-					$avg_rating = round( array_sum( $review_ratings ) / count( $review_ratings ), 2 );
-				}
-
-				$row = array(
-					$review->ID,
-					get_the_date( 'Y-m-d H:i:s', $review->ID ),
-					$review->post_status,
-					$author_info ? $author_info->display_name : __( 'Unknown', 'bp-group-reviews' ),
-					$author_info ? $author_info->user_email : '',
-					$group_name,
-					$linked_group,
-					wp_strip_all_tags( $review->post_content ),
-					$avg_rating,
+			// CSV data rows, streamed in batches so memory stays flat on large sites.
+			// Group reviews only: the review CPT is shared with Member Reviews.
+			$page = 1;
+			do {
+				$reviews = get_posts(
+					array(
+						'post_type'      => 'review',
+						'post_status'    => array( 'publish', 'draft' ),
+						'posts_per_page' => 200,
+						'paged'          => $page,
+						'orderby'        => array(
+							'date' => 'DESC',
+							'ID'   => 'DESC',
+						),
+						'meta_key'       => 'linked_group', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Indexed key, restricts to group reviews.
+					)
 				);
+				cache_users( wp_list_pluck( $reviews, 'post_author' ) );
 
-				// Add individual rating values.
-				foreach ( $review_rating_fields as $field ) {
-					$row[] = isset( $review_ratings[ $field ] ) ? $review_ratings[ $field ] : '';
+				foreach ( $reviews as $review ) {
+					$author_id      = $review->post_author;
+					$author_info    = get_userdata( $author_id );
+					$linked_group   = get_post_meta( $review->ID, 'linked_group', true );
+					$group          = groups_get_group( array( 'group_id' => $linked_group ) );
+					$group_name     = $group ? $group->name : __( 'Unknown Group', 'bp-group-reviews' );
+					$review_ratings = get_post_meta( $review->ID, 'review_star_rating', true );
+
+					// Calculate average rating.
+					$avg_rating = 0;
+					if ( ! empty( $review_ratings ) && is_array( $review_ratings ) ) {
+						$avg_rating = round( array_sum( $review_ratings ) / count( $review_ratings ), 2 );
+					}
+
+					$row = array(
+						$review->ID,
+						get_the_date( 'Y-m-d H:i:s', $review->ID ),
+						$review->post_status,
+						$author_info ? $author_info->display_name : __( 'Unknown', 'bp-group-reviews' ),
+						$author_info ? $author_info->user_email : '',
+						$group_name,
+						$linked_group,
+						wp_strip_all_tags( $review->post_content ),
+						$avg_rating,
+					);
+
+					// Add individual rating values.
+					foreach ( $review_rating_fields as $field ) {
+						$row[] = isset( $review_ratings[ $field ] ) ? $review_ratings[ $field ] : '';
+					}
+
+					fputcsv( $output, $row );
 				}
 
-				fputcsv( $output, $row );
-			}
+				// Each batch's posts, meta and users are not needed again.
+				if ( wp_cache_supports( 'flush_runtime' ) ) {
+					wp_cache_flush_runtime();
+				}
+				++$page;
+			} while ( 200 === count( $reviews ) );
 
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- Closing php://output for CSV streaming.
 			fclose( $output );

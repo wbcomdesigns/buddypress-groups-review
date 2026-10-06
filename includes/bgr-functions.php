@@ -29,6 +29,7 @@ defined( 'ABSPATH' ) || exit;
  *     @type int   $total_reviews Number of published reviews.
  *     @type int   $ratings_count Number of individual rating values across all reviews.
  *     @type array $ratings       Per-criteria average ratings (criteria name => average).
+ *     @type array $criteria      Raw per-criteria sums (criteria name => [total, count]).
  *     @type array $index         review_id => per-review average, ordered newest first.
  * }
  */
@@ -40,6 +41,7 @@ function bgr_get_group_review_stats( $group_id ) {
 		'total_reviews' => 0,
 		'ratings_count' => 0,
 		'ratings'       => array(),
+		'criteria'      => array(),
 		'index'         => array(),
 	);
 
@@ -48,7 +50,7 @@ function bgr_get_group_review_stats( $group_id ) {
 	}
 
 	$stats = get_transient( 'bgr_review_rating_' . $group_id );
-	if ( is_array( $stats ) && isset( $stats['average'], $stats['index'] ) ) {
+	if ( is_array( $stats ) && isset( $stats['average'], $stats['index'], $stats['criteria'] ) ) {
 		return $stats;
 	}
 
@@ -141,6 +143,7 @@ function bgr_get_group_review_stats( $group_id ) {
 		'total_reviews' => count( $index ),
 		'ratings_count' => $ratings_count,
 		'ratings'       => $criteria_averages,
+		'criteria'      => $criteria_totals,
 		'index'         => $index,
 	);
 
