@@ -220,6 +220,7 @@ module.exports = function (grunt) {
                     '!build/**',
                     '!docs/**',
                     '!audit/**',
+                    '!plan/**',
                     '!marketing/**',
                     '!**/*.md',
                     '!*.md',
