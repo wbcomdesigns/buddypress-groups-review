@@ -43,7 +43,7 @@ It needs BuddyPress (or BuddyBoss Platform) with the Groups component active. Ra
 **Discovery and SEO**
 * A top-groups leaderboard via the [bgr_display_top_groups] shortcode, ranked by top rated, most reviewed, or member count.
 * Group ratings on the group directory page.
-* Schema.org JSON-LD AggregateRating plus Review microdata so search engines can read your ratings.
+* Schema.org JSON-LD AggregateRating plus individual Review entries so search engines can read your ratings.
 * Two widgets: "BP Group Review Widget" and "BP Displayed Group Rating Widget" for sidebars and footers.
 
 **Community integration**

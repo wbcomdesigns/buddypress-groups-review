@@ -17,7 +17,7 @@ Follow the **`/wp-plugin-development`** skill for all conventions (hooks ownersh
 
 - **Main file:** `review-bp-grps.php`
 - **Version:** **3.9.0** — header (`review-bp-grps.php:18`), `BGR_PLUGIN_VERSION` (`:58`) and `package.json` all agree.
-- **Requires:** WP **6.1** (`:19`) · PHP **7.4** (`:20`)
+- **Requires:** WP **6.5** (`:19`) · PHP **8.0** (`:20`)
 - **Text domain:** `bp-group-reviews` · **Type:** free BuddyPress addon
 - **Hard dependency:** BuddyPress + Groups component (self-deactivates otherwise).
 
@@ -37,7 +37,13 @@ Lets BuddyPress group members post text + multi-criteria star reviews of groups.
 
 ## Big-site readiness flags
 - `bp_group_review_filter_ratings` scan is now **bounded** by the `bgr_filter_ratings_max_scan` filter (default 500, `bgr-ajax.php:94`). Aggregate stats are cached (`bgr_get_group_review_stats`, limit filter `bgr_review_stats_query_limit` default 10000). Still no true pagination on the ratings filter — revisit before any very-large-site release.
-- `uninstall.php` fetches all `review` posts with `posts_per_page => -1` (ids only) — accepted: one-shot path, gated behind `BGR_REMOVE_DATA_ON_UNINSTALL`.
+- `uninstall.php` deletes only reviews carrying `linked_group` (one SQL id list, one-shot, gated behind `BGR_REMOVE_DATA_ON_UNINSTALL`). The `review` CPT is **shared with BuddyPress Member Reviews** - never delete or query "all reviews" without the `linked_group` scope.
+- CSV export streams 200 rows per batch (`bp_group_review_handle_csv_export`). Criteria averages come from the cached `bgr_get_group_review_stats()` (`criteria` key holds raw totals) - do not re-scan reviews.
+
+## Review lifecycle (one place each)
+- **Submitted** (group form AJAX *and* REST create): `do_action( 'bgr_group_after_review_submit', $author_id, $group_id, $review_id )` → `bgr_handle_review_submitted()` (term, GamiPress, admin notification + email, `bgr_group_review_after_review_insert`). Add new submit side effects there, not in a handler.
+- **Approved / denied** (Manage tab, wp-admin row + bulk, editor, REST): status change pending→publish / pending→trash → `bgr_handle_review_decision()` (reviewer email, `bgr_group_accept_review` / `bgr_group_deny_review`, GamiPress). Handlers only change the status.
+- Notification listeners check `allow_notification` themselves; lifecycle actions always fire (cache invalidation hangs on them).
 
 ## Vendored libraries (third-party) — source must ship beside every min
 
