@@ -446,6 +446,9 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 				update_post_meta( $review_id, 'review_star_rating', $sanitized_ratings );
 			}
 
+			// Same side effects as a review submitted from the group form.
+			do_action( 'bgr_group_after_review_submit', $user_id, $group_id, $review_id );
+
 			$review = get_post( $review_id );
 
 			return rest_ensure_response( $this->prepare_review_for_response( $review, $group_id ) );

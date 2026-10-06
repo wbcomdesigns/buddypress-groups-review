@@ -123,7 +123,7 @@ $bgr = array(
 
 #### `bgr_group_after_review_submit`
 
-Fires after a review has been successfully submitted.
+Fires after a review has been successfully submitted, from the group form (AJAX) or the REST create route (`POST buddypress/v1/groups/{id}/reviews`). The plugin's own term, GamiPress, admin notification, admin email and activity side effects run on this hook (`bgr_handle_review_submitted()`, priority 10; activity at 15).
 
 **Parameters:**
 - `int $author_id` - User ID of review author
@@ -153,7 +153,7 @@ function my_review_submitted_action( $author_id, $group_id, $review_id ) {
 
 #### `bgr_group_accept_review`
 
-Fires when a group admin approves a review.
+Fires when a pending review is approved from any path: group Manage tab, wp-admin row or bulk action, post editor, or REST update. Fired by `bgr_handle_review_decision()` on the pending -> publish status change, regardless of the notification setting.
 
 **Parameters:**
 - `int $review_id` - Review post ID being approved
@@ -172,13 +172,13 @@ function my_review_approved_action( $review_id ) {
 }
 ```
 
-**Location:** `includes/bgr-ajax.php:557`
+**Location:** `bgr_handle_review_decision()` in `includes/bgr-functions.php`
 
 ---
 
 #### `bgr_group_deny_review`
 
-Fires when a group admin denies/rejects a review.
+Fires when a pending review is denied from any path (pending -> trash). Removing an already published review does not fire it.
 
 **Parameters:**
 - `int $review_id` - Review post ID being denied
@@ -196,34 +196,37 @@ function my_review_denied_action( $review_id ) {
 }
 ```
 
-**Location:** `includes/bgr-ajax.php:645`
+**Location:** `bgr_handle_review_decision()` in `includes/bgr-functions.php`
 
 ---
 
 #### `bgr_group_review_after_review_insert`
 
-Fires immediately after a review post is inserted into database.
+Fires once after a group review is created, from the group form (AJAX) or REST, after its group and ratings are saved.
 
-**Parameters:** None
+**Parameters** (since 3.9.1; earlier versions passed none):
+- `int $review_id` - Review post ID
+- `int $group_id` - BuddyPress group ID
+- `int $author_id` - Reviewer user ID
 
 **Example:**
 ```php
-add_action( 'bgr_group_review_after_review_insert', 'my_post_insert_action' );
+add_action( 'bgr_group_review_after_review_insert', 'my_post_insert_action', 10, 3 );
 
-function my_post_insert_action() {
+function my_post_insert_action( $review_id, $group_id, $author_id ) {
     // Clear caches
     // Update counters
     // Sync external systems
 }
 ```
 
-**Location:** `includes/bgr-ajax.php:404`
+**Location:** `bgr_handle_review_submitted()` in `includes/bgr-functions.php`
 
 ---
 
 #### `bgr_group_add_review`
 
-Fires when adding a review (email notification context).
+Fires once per group admin when a review is submitted and BuddyPress Notifications is on.
 
 **Parameters:**
 - `int $group_id` - BuddyPress group ID
@@ -240,7 +243,7 @@ function my_review_notification( $group_id, $admin_id ) {
 }
 ```
 
-**Location:** `includes/bgr-ajax.php:465`
+**Location:** `bgr_handle_review_submitted()` in `includes/bgr-functions.php`
 
 ---
 
@@ -399,7 +402,7 @@ function my_custom_bulk_handler( $redirect_to, $doaction, $post_ids ) {
 
 **Built-in Actions:**
 - `approve_reviews` - Publishes draft reviews and triggers `bgr_group_accept_review`
-- `deny_reviews` - Moves reviews to trash and triggers `bgr_group_deny_review`
+- `deny_reviews` - Moves reviews to trash; triggers `bgr_group_deny_review` (and the denial email) only for reviews that were still pending
 
 ---
 

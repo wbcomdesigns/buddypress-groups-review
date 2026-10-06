@@ -267,3 +267,98 @@ function bgr_handle_review_decision( $new_status, $old_status, $post ) {
 	wp_mail( $author->user_email, sanitize_text_field( str_replace( array( "\r", "\n" ), '', $subject ) ), nl2br( $message ), array( 'Content-Type: text/html; charset=UTF-8' ) );
 }
 add_action( 'transition_post_status', 'bgr_handle_review_decision', 10, 3 );
+
+/**
+ * Apply the side effects of a newly submitted group review.
+ *
+ * Runs for the group form (AJAX) and the REST create route alike, so both
+ * entry points tag the review, notify and email the group admins, and fire
+ * the public after-insert action the same way.
+ *
+ * @since 3.9.1
+ *
+ * @param int $author_id Reviewer user ID.
+ * @param int $group_id  Reviewed group ID.
+ * @param int $review_id Review post ID.
+ */
+function bgr_handle_review_submitted( $author_id, $group_id, $review_id ) {
+	global $bgr;
+
+	$group  = groups_get_group( absint( $group_id ) );
+	$author = get_userdata( $author_id );
+	if ( empty( $group->id ) || ! $author ) {
+		return;
+	}
+
+	wp_set_object_terms( $review_id, 'Group', 'review_category' );
+
+	if ( 'publish' === get_post_status( $review_id ) ) {
+		do_action( 'gamipress_bp_group_review', $author_id );
+	}
+
+	/**
+	 * Fires after a group review is created, from the group form or REST.
+	 *
+	 * @since 3.9.1 Passes the review, group and reviewer IDs.
+	 *
+	 * @param int $review_id Review post ID.
+	 * @param int $group_id  Reviewed group ID.
+	 * @param int $author_id Reviewer user ID.
+	 */
+	do_action( 'bgr_group_review_after_review_insert', $review_id, $group->id, $author_id );
+
+	if ( 'yes' === $bgr['allow_notification'] ) {
+		foreach ( $group->admins as $group_admin ) {
+			do_action( 'bgr_group_add_review', $group->id, $group_admin->user_id );
+		}
+	}
+
+	if ( 'yes' !== $bgr['allow_email'] ) {
+		return;
+	}
+
+	$settings     = (array) get_option( 'bp_group_review_email_settings', array() );
+	$creator      = get_userdata( $group->creator_id );
+	$creator_name = $creator ? $creator->display_name : '';
+	$site_name    = get_bloginfo( 'name' );
+
+	if ( 'yes' === $bgr['auto_approve_reviews'] ) {
+		$group_url = function_exists( 'bp_get_group_url' ) ? bp_get_group_url( $group ) : bp_get_group_permalink( $group );
+		$mail_link = $group_url . bp_group_review_manage_tab_slug() . '/';
+	} else {
+		$mail_link = '<a href="' . esc_url( admin_url( 'edit.php?post_type=review' ) ) . '">' . esc_html( admin_url( 'edit.php?post_type=review' ) ) . '</a>';
+	}
+
+	if ( ! empty( $settings['review_email_subject'] ) ) {
+		$subject = str_replace( array( '[group-name]', '[site-name]' ), array( $group->name, $site_name ), $settings['review_email_subject'] );
+	} else {
+		/* translators: %1$s: review label, %2$s: group name */
+		$subject = sprintf( __( 'New %1$s submitted for %2$s', 'bp-group-reviews' ), $bgr['review_label'], $group->name );
+	}
+
+	if ( ! empty( $settings['review_email_message'] ) ) {
+		$message = $settings['review_email_message'];
+	} else {
+		$message = 'Hello [admin-name],<br><br>
+		A new review has been submitted for your group [group-name] by [user-name].<br><br>
+		You can view and respond to the review here: [review-link]<br><br>
+		Thank you for creating a space where members can share their experiences!<br><br>
+		Best regards,<br>
+		The [site-name] Team';
+	}
+
+	$message = str_replace(
+		array( '[admin-name]', '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
+		array( $creator_name, $group->name, $author->user_login, $mail_link, $site_name ),
+		$message
+	);
+	$subject = sanitize_text_field( str_replace( array( "\r", "\n" ), '', $subject ) );
+
+	foreach ( $group->admins as $group_admin ) {
+		$admin = get_userdata( $group_admin->user_id );
+		if ( $admin ) {
+			wp_mail( $admin->user_email, $subject, nl2br( $message ), array( 'Content-Type: text/html; charset=UTF-8' ) );
+		}
+	}
+}
+add_action( 'bgr_group_after_review_submit', 'bgr_handle_review_submitted', 10, 3 );
