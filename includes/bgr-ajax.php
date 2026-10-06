@@ -267,8 +267,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					'post_status' => 'publish',
 				);
 				wp_update_post( $args );
-				$author_id = get_post_field( 'post_author', $rid );
-				do_action( 'gamipress_bp_group_review', $author_id );
 				echo 'review-approved-successfully';
 				die;
 			}
@@ -301,7 +299,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				}
 
 				wp_trash_post( $rid );
-				do_action( 'bgr_group_deny_review', $rid );
 				echo 'review-denied-successfully';
 				die;
 			}
@@ -722,8 +719,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			if ( ! is_user_logged_in() ) {
 				wp_send_json_error( new WP_Error( '002', esc_html__( 'You must be logged in.', 'bp-group-reviews' ), 'login_required' ) );
 			}
-			global $bgr;
-			global $bp;
 
 			// Validate and sanitize review ID.
 			$post_id = isset( $_POST['accept_review_id'] ) ? absint( $_POST['accept_review_id'] ) : 0;
@@ -749,76 +744,8 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				wp_send_json_error( new WP_Error( '006', esc_html__( 'You do not have permission to manage reviews for this group.', 'bp-group-reviews' ), 'permission_denied' ) );
 			}
 
-			if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
-				$group_permalink = bp_get_groups_directory_permalink();
-			} else {
-				$group_permalink = bp_get_groups_directory_url();
-			}
-
-			$bp_group_review_email_settings = get_option( 'bp_group_review_email_settings' );
-			$post_author_id                 = get_post_field( 'post_author', $post_id );
+			// Email, notification and GamiPress run on the status change: bgr_handle_review_decision().
 			wp_publish_post( $post_id );
-			$allow_notification   = $bgr['allow_notification'];
-			$allow_email          = $bgr['accept_email_enable'];
-			$review_label         = $bgr['review_label'];
-			$group_id             = get_post_meta( $post_id, 'linked_group', true );
-			$group                = groups_get_group( array( 'group_id' => $group_id ) );
-			$creator_info         = get_userdata( $post_author_id );
-			$creator_name         = $creator_info->display_name;
-			$group_name           = $group->name;
-			$site_name            = get_bloginfo( 'name' );
-			$review_link          = $group_permalink . $group->slug . "/reviews/view/$post_id/";
-			$headers[]            = 'Content-Type: text/html; charset=UTF-8';
-			$auto_approve_reviews = $bgr['auto_approve_reviews'];
-			if ( 'yes' === $auto_approve_reviews ) {
-				$mail_link = $group_permalink . $group->slug . '/' . bp_group_review_manage_tab_slug() . '/';
-			} else {
-				$mail_link = '<a href=" ' . admin_url( 'edit.php?post_type=review' ) . ' ">' . admin_url( 'edit.php?post_type=review' ) . '</a>';
-			}
-
-			// Use custom subject if set, otherwise use default.
-			if ( isset( $bp_group_review_email_settings['review_accept_email_subject'] ) && ! empty( $bp_group_review_email_settings['review_accept_email_subject'] ) ) {
-				$mail_title = str_replace(
-					array( '[group-name]', '[site-name]' ),
-					array( $group_name, $site_name ),
-					$bp_group_review_email_settings['review_accept_email_subject']
-				);
-			} else {
-				/* translators: %1$s: review label, %2$s: group name */
-				$mail_title = sprintf( __( 'Your %1$s for %2$s has been approved', 'bp-group-reviews' ), $review_label, $group_name );
-			}
-
-			// Use custom message if set.
-			if ( isset( $bp_group_review_email_settings['review_accept_email_message'] ) && ! empty( $bp_group_review_email_settings['review_accept_email_message'] ) ) {
-				$mail_content = str_replace(
-					array( '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
-					array( $group_name, $creator_name, $mail_link, $site_name ),
-					$bp_group_review_email_settings['review_accept_email_message']
-				);
-			} else {
-				$accept_message = 'Hello [user-name],<br><br>
-				Your review for [group-name] on [site-name] has been approved and is now published.<br><br>
-				Thank you for sharing your thoughts with the community. View your review here: [review-link]<br><br>
-				Best regards,<br>
-				The [site-name] Team';
-				$mail_content   = str_replace(
-					array( '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
-					array( $group_name, $creator_name, $mail_link, $site_name ),
-					$accept_message
-				);
-			}
-
-			if ( 'yes' === $allow_notification ) {
-				do_action( 'bgr_group_accept_review', $post_id );
-			}
-
-			if ( 'yes' === $allow_email ) {
-				$author_email = get_the_author_meta( 'user_email', $post_author_id );
-				wp_mail( $author_email, $mail_title, nl2br( $mail_content ), $headers );
-			}
-
-			do_action( 'gamipress_bp_group_review', $post_author_id );
-
 			wp_die();
 		}
 
@@ -837,7 +764,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			if ( ! is_user_logged_in() ) {
 				wp_send_json_error( new WP_Error( '002', esc_html__( 'You must be logged in.', 'bp-group-reviews' ), 'login_required' ) );
 			}
-			global $bgr;
 
 			// Validate and sanitize review ID.
 			$post_id = isset( $_POST['deny_review_id'] ) ? absint( $_POST['deny_review_id'] ) : 0;
@@ -863,71 +789,8 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				wp_send_json_error( new WP_Error( '006', esc_html__( 'You do not have permission to manage reviews for this group.', 'bp-group-reviews' ), 'permission_denied' ) );
 			}
 
-			$post_author_id                 = get_post_field( 'post_author', $post_id );
-			$bp_group_review_email_settings = get_option( 'bp_group_review_email_settings' );
+			// Email and notification run on the status change: bgr_handle_review_decision().
 			wp_trash_post( $post_id );
-			$allow_notification   = $bgr['allow_notification'];
-			$allow_email          = $bgr['deny_email_enable'];
-			$review_label         = $bgr['review_label'];
-			$group_id             = get_post_meta( $post_id, 'linked_group', true );
-			$group                = groups_get_group( array( 'group_id' => $group_id ) );
-			$creator_info         = get_userdata( $post_author_id );
-			$creator_name         = $creator_info->display_name;
-			$group_name           = $group->name;
-			$site_name            = get_bloginfo( 'name' );
-			$auto_approve_reviews = $bgr['auto_approve_reviews'];
-			$headers[]            = 'Content-Type: text/html; charset=UTF-8';
-			if ( 'yes' === $auto_approve_reviews ) {
-				if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
-					$mail_link = bp_get_groups_directory_permalink() . $group->slug . '/' . bp_group_review_manage_tab_slug() . '/';
-				} else {
-					$mail_link = bp_get_groups_directory_url() . $group->slug . '/' . bp_group_review_manage_tab_slug() . '/';
-				}
-			} else {
-				$mail_link = '<a href=" ' . admin_url( 'edit.php?post_type=review' ) . ' ">' . admin_url( 'edit.php?post_type=review' ) . '</a>';
-			}
-
-			// Use custom subject if set, otherwise use default.
-			if ( isset( $bp_group_review_email_settings['review_deny_email_subject'] ) && ! empty( $bp_group_review_email_settings['review_deny_email_subject'] ) ) {
-				$mail_title = str_replace(
-					array( '[group-name]', '[site-name]' ),
-					array( $group_name, $site_name ),
-					$bp_group_review_email_settings['review_deny_email_subject']
-				);
-			} else {
-				/* translators: %1$s: review label, %2$s: group name */
-				$mail_title = sprintf( __( 'Your %1$s for %2$s was not approved', 'bp-group-reviews' ), $review_label, $group_name );
-			}
-
-			// Use custom message if set.
-			if ( isset( $bp_group_review_email_settings['review_deny_email_message'] ) && ! empty( $bp_group_review_email_settings['review_deny_email_message'] ) ) {
-				$mail_content = str_replace(
-					array( '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
-					array( $group_name, $creator_name, $mail_link, $site_name ),
-					$bp_group_review_email_settings['review_deny_email_message']
-				);
-			} else {
-				$deny_message = 'Hello [user-name],<br><br>
-				Your review for [group-name] on [site-name] was not approved by the group administrator.<br><br>
-				If you have questions about our community guidelines, please contact the group admin.<br><br>
-				Thank you for your understanding.<br><br>
-				Best regards,<br>
-				The [site-name] Team';
-				$mail_content = str_replace(
-					array( '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
-					array( $group_name, $creator_name, $mail_link, $site_name ),
-					$deny_message
-				);
-			}
-
-			if ( 'yes' === $allow_notification ) {
-				do_action( 'bgr_group_deny_review', $post_id );
-			}
-
-			if ( 'yes' === $allow_email ) {
-				$author_email = get_the_author_meta( 'user_email', $post_author_id );
-				wp_mail( $author_email, $mail_title, nl2br( $mail_content ), $headers );
-			}
 			die;
 		}
 

@@ -440,15 +440,11 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 								'post_status' => 'publish',
 							)
 						);
-						$author_id = $post->post_author;
-						do_action( 'gamipress_bp_group_review', $author_id );
-						do_action( 'bgr_group_accept_review', $post_id );
 						++$processed;
 					}
 				} elseif ( 'deny_reviews' === $doaction ) {
 					// Move to trash.
 					wp_trash_post( $post_id );
-					do_action( 'bgr_group_deny_review', $post_id );
 					++$processed;
 				}
 			}

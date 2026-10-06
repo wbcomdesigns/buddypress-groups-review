@@ -179,3 +179,88 @@ function bp_group_review_remove_add_review_tab() {
 	}
 }
 add_action( 'wp_head', 'bp_group_review_remove_add_review_tab' );
+/**
+ * Apply the side effects of a moderation decision on a group review.
+ *
+ * Every path that approves or denies a pending review - the group Manage tab,
+ * the wp-admin row and bulk actions, the post editor, REST - ends in a status
+ * change, so the decision is handled once, here: pending -> publish is an
+ * approval, pending -> trash a denial. Removing an already published review is
+ * not a denial and sends nothing.
+ *
+ * @since 3.9.1
+ *
+ * @param string  $new_status New post status.
+ * @param string  $old_status Previous post status.
+ * @param WP_Post $post       Post object.
+ */
+function bgr_handle_review_decision( $new_status, $old_status, $post ) {
+	if ( 'review' !== $post->post_type || ! in_array( $old_status, array( 'draft', 'pending' ), true ) || ! in_array( $new_status, array( 'publish', 'trash' ), true ) ) {
+		return;
+	}
+
+	// The review CPT is shared with Member Reviews; only group reviews carry linked_group.
+	$group = groups_get_group( absint( get_post_meta( $post->ID, 'linked_group', true ) ) );
+	if ( empty( $group->id ) ) {
+		return;
+	}
+
+	global $bgr;
+	$approved  = 'publish' === $new_status;
+	$author_id = (int) $post->post_author;
+
+	if ( $approved ) {
+		do_action( 'gamipress_bp_group_review', $author_id );
+		do_action( 'bgr_group_accept_review', $post->ID );
+	} else {
+		do_action( 'bgr_group_deny_review', $post->ID );
+	}
+
+	$author = get_userdata( $author_id );
+	if ( ! $author || 'yes' !== $bgr[ $approved ? 'accept_email_enable' : 'deny_email_enable' ] ) {
+		return;
+	}
+
+	$settings  = (array) get_option( 'bp_group_review_email_settings', array() );
+	$key       = $approved ? 'review_accept_email' : 'review_deny_email';
+	$site_name = get_bloginfo( 'name' );
+
+	if ( ! empty( $settings[ $key . '_subject' ] ) ) {
+		$subject = str_replace( array( '[group-name]', '[site-name]' ), array( $group->name, $site_name ), $settings[ $key . '_subject' ] );
+	} elseif ( $approved ) {
+		/* translators: %1$s: review label, %2$s: group name */
+		$subject = sprintf( __( 'Your %1$s for %2$s has been approved', 'bp-group-reviews' ), $bgr['review_label'], $group->name );
+	} else {
+		/* translators: %1$s: review label, %2$s: group name */
+		$subject = sprintf( __( 'Your %1$s for %2$s was not approved', 'bp-group-reviews' ), $bgr['review_label'], $group->name );
+	}
+
+	if ( ! empty( $settings[ $key . '_message' ] ) ) {
+		$message = $settings[ $key . '_message' ];
+	} elseif ( $approved ) {
+		$message = 'Hello [user-name],<br><br>
+		Your review for [group-name] on [site-name] has been approved and is now published.<br><br>
+		Thank you for sharing your thoughts with the community. View your review here: [review-link]<br><br>
+		Best regards,<br>
+		The [site-name] Team';
+	} else {
+		$message = 'Hello [user-name],<br><br>
+		Your review for [group-name] on [site-name] was not approved by the group administrator.<br><br>
+		If you have questions about our community guidelines, please contact the group admin.<br><br>
+		Thank you for your understanding.<br><br>
+		Best regards,<br>
+		The [site-name] Team';
+	}
+
+	// The reviewer is pointed at the group's reviews, never at wp-admin.
+	$group_url   = function_exists( 'bp_get_group_url' ) ? bp_get_group_url( $group ) : bp_get_group_permalink( $group );
+	$review_link = $group_url . bp_group_review_manage_tab_slug() . '/';
+	$message     = str_replace(
+		array( '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
+		array( $group->name, $author->display_name, $review_link, $site_name ),
+		$message
+	);
+
+	wp_mail( $author->user_email, sanitize_text_field( str_replace( array( "\r", "\n" ), '', $subject ) ), nl2br( $message ), array( 'Content-Type: text/html; charset=UTF-8' ) );
+}
+add_action( 'transition_post_status', 'bgr_handle_review_decision', 10, 3 );
