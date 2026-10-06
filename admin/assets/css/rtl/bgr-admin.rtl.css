@@ -175,37 +175,22 @@ html[data-bx-mode="dark"],
     background-color: var(--bgr-admin-surface-1, #fafafa);
 }
 
-.rating-review-div input[type="button"],
-.rating-review-div input[type="button"]:hover,
-input#bgr-field-add {
-    padding: 12px 30px;
-    font-size: 15px;
-    background: var(--bgr-admin-danger, #ee1313);
-    text-shadow: none;
-    font-weight: 600;
-    width: auto;
-    color: var(--bgr-admin-white, #fff);
-    line-height: 1;
-    border: 0;
-    -webkit-transition: all 0.3s;
-    transition: all 0.3s;
-    border-radius: 12px;
-    height: auto;
+/* Criteria row actions use WordPress's own button-link-delete / .button
+   styles (colour, hover and focus ring), so nothing is restyled here. */
+.rating-review-div .bgr-remove {
+    flex: none;
 }
 
-input#bgr-field-add {
-    padding: 16px 30px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    background: var(--bgr-admin-success, #08c462);
+/* WordPress's own mobile breakpoint: give the text link a 40px touch target. */
+@media screen and (max-width: 782px) {
+    .rating-review-div .bgr-remove {
+        min-height: 40px;
+        padding: 0 4px;
+    }
 }
 
-input#bgr-field-add:hover {
-    background: var(--bgr-admin-text, #272B41);
-}
-
-.rating-review-div input[type="button"]:hover {
-    box-shadow: 0px 8px 20px rgba(32, 53, 85, 0.35);
+#bgr-field-add {
+    margin: 10px 0;
 }
 
 .bgr-row-setting {
@@ -402,7 +387,6 @@ button.bgr-accordion.active::after {
    Replaces the browser-default dotted outline with a 2px solid ring. */
 .bgr-btn-ajax:focus-visible,
 .rating-review-div input:focus-visible,
-input#bgr-field-add:focus-visible,
 button.bgr-faq-accordion:focus-visible,
 button.bgr-accordion:focus-visible {
     outline: 2px solid var(--bgr-admin-focus, #2271b1);

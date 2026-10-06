@@ -45,7 +45,8 @@ $bgr_active_rating = isset( $bgr['active_rating_fields'] ) ? (array) $bgr['activ
 					<div class="rating-review-div">
 						<span class="move-icons" aria-hidden="true">&equiv;</span>
 						<input name="BGRDynamicTextBox" class="draggable" type="text" value="<?php echo esc_attr( $bgr_rating_field ); ?>" />
-						<input type="button" value="<?php esc_attr_e( 'Remove', 'bp-group-reviews' ); ?>" class="remove button button-secondary" />
+						<?php /* translators: %s: criterion name. */ ?>
+						<button type="button" class="button-link button-link-delete bgr-remove" aria-label="<?php echo esc_attr( sprintf( __( 'Remove %s', 'bp-group-reviews' ), $bgr_rating_field ) ); ?>"><?php esc_html_e( 'Remove', 'bp-group-reviews' ); ?></button>
 						<label class="wb-switch">
 							<input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="<?php echo esc_attr( $bgr_rating_field ); ?>" <?php checked( in_array( $bgr_rating_field, $bgr_active_rating, true ) ); ?>>
 							<div class="wb-slider wb-round"></div>
@@ -57,7 +58,7 @@ $bgr_active_rating = isset( $bgr['active_rating_fields'] ) ? (array) $bgr['activ
 			?>
 		</div>
 		<p>
-			<input id="bgr-field-add" type="button" value="<?php esc_attr_e( 'Add Review Criteria', 'bp-group-reviews' ); ?>" class="button button-secondary" />
+			<button type="button" id="bgr-field-add" class="button"><?php esc_html_e( 'Add Review Criteria', 'bp-group-reviews' ); ?></button>
 		</p>
 	</div>
 	<div class="bgr-save-bar">
