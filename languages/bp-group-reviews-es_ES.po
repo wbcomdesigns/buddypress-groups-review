@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Wbcom Designs - BuddyPress Group Reviews 3.9.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/buddypress-groups-"
 "review\n"
-"POT-Creation-Date: 2026-07-30T12:53:39+00:00\n"
+"POT-Creation-Date: 2026-10-06T11:25:03+00:00\n"
 "PO-Revision-Date: 2026-07-21T00:00:00+00:00\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -75,13 +75,13 @@ msgstr "No, gracias / Ya lo hice"
 
 #: admin/bgr-admin.php:60 admin/bgr-admin.php:62 admin/bgr-admin.php:63
 #: includes/admin/views/settings-display.php:35
-#: includes/admin/views/settings-general.php:131 includes/bgr-ajax.php:440
+#: includes/admin/views/settings-general.php:131 includes/bgr-ajax.php:441
 #: includes/bgr-globals.php:206
 msgid "Reviews"
 msgstr "Reseñas"
 
 #: admin/bgr-admin.php:61 includes/admin/views/settings-display.php:34
-#: includes/admin/views/settings-display.php:45 includes/bgr-ajax.php:437
+#: includes/admin/views/settings-display.php:45 includes/bgr-ajax.php:438
 #: includes/bgr-globals.php:219
 msgid "Review"
 msgstr "Reseña"
@@ -194,7 +194,8 @@ msgid "WB Plugins"
 msgstr "Plugins de WB"
 
 #: includes/admin/class-bgr-admin-panel.php:145
-#: includes/admin/views/shell.php:61 includes/bgr-notifications.php:50
+#: includes/admin/views/shell.php:61 includes/bgr-activity.php:91
+#: includes/bgr-notifications.php:50
 msgid "Group Reviews"
 msgstr "Reseñas de Grupos"
 
@@ -212,7 +213,7 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: includes/admin/class-bgr-admin-panel.php:225
-#: admin/assets/js/bgr-admin.js:244
+#: admin/assets/js/bgr-admin.js:255
 msgid "Are you sure you want to deny this review? It will be moved to trash."
 msgstr ""
 "¿Estás seguro de que deseas denegar esta reseña? Se trasladará a la papelera."
@@ -371,16 +372,24 @@ msgstr ""
 "Agrega múltiples criterios de calificación. Ningún criterio se muestra a los "
 "miembros hasta que está habilitado. Arrastra para reordenar."
 
-#: includes/admin/views/settings-criteria.php:48
-#: admin/assets/js/bgr-admin.js:285
+#. translators: %s: criterion name.
+#: includes/admin/views/settings-criteria.php:49
+#: admin/assets/js/bgr-admin.js:159
+#, php-format
+msgid "Remove %s"
+msgstr "Eliminar %s"
+
+#. translators: %s: criterion name.
+#: includes/admin/views/settings-criteria.php:49
+#: admin/assets/js/bgr-admin.js:296
 msgid "Remove"
 msgstr "Eliminar"
 
-#: includes/admin/views/settings-criteria.php:60
+#: includes/admin/views/settings-criteria.php:61
 msgid "Add Review Criteria"
 msgstr "Agregar Criterios de Reseña"
 
-#: includes/admin/views/settings-criteria.php:64
+#: includes/admin/views/settings-criteria.php:65
 #: includes/admin/views/settings-display.php:91
 #: includes/admin/views/settings-emails.php:171
 #: includes/admin/views/settings-general.php:223
@@ -704,7 +713,7 @@ msgstr ""
 
 #: includes/admin/views/welcome.php:28
 msgid "Help & Support Resources"
-msgstr ""
+msgstr "Recursos de ayuda y soporte"
 
 #: includes/admin/views/welcome.php:29
 msgid ""
@@ -761,26 +770,20 @@ msgstr ""
 msgid "Send Feedback"
 msgstr "Enviar Retroalimentación"
 
-#: includes/bgr-activity.php:89 includes/bgr-activity.php:91
-msgid "New Post"
-msgstr "Nueva Publicación"
-
-#. translators: %1$s: User Link, %2$s: Post Link HTML, %3$s: Group Name.
-#: includes/bgr-activity.php:115
-#, php-format
-msgid "%1$s posted a new post %2$s in group %3$s"
-msgstr "%1$s publicó una nueva publicación %2$s en el grupo %3$s"
+#: includes/bgr-activity.php:89
+msgid "Posted a group review"
+msgstr "Publicó una reseña de grupo"
 
 #. translators: %1$s: User Link, %2$s: Group Link HTML.
-#: includes/bgr-activity.php:164 includes/bgr-activity.php:247
+#: includes/bgr-activity.php:140 includes/bgr-activity.php:223
 #, php-format
 msgid "%1$s posted a review in the group %2$s"
 msgstr "%1$s publicó una reseña en el grupo %2$s"
 
-#: includes/bgr-ajax.php:66 includes/bgr-ajax.php:247 includes/bgr-ajax.php:285
-#: includes/bgr-ajax.php:464 includes/bgr-ajax.php:712
-#: includes/bgr-ajax.php:827 includes/bgr-ajax.php:936
-#: includes/bgr-filters.php:562 includes/bgr-group-criteria-ajax.php:23
+#: includes/bgr-ajax.php:66 includes/bgr-ajax.php:251 includes/bgr-ajax.php:287
+#: includes/bgr-ajax.php:465 includes/bgr-ajax.php:637
+#: includes/bgr-ajax.php:682 includes/bgr-ajax.php:727
+#: includes/bgr-filters.php:559 includes/bgr-group-criteria-ajax.php:23
 #: includes/bgr-group-criteria-ajax.php:75
 #: includes/bgr-group-criteria-ajax.php:124
 #: includes/bgr-group-criteria-ajax.php:162
@@ -789,103 +792,102 @@ msgstr "%1$s publicó una reseña en el grupo %2$s"
 msgid "Security check failed."
 msgstr "La verificación de seguridad falló."
 
+#: includes/bgr-ajax.php:76 includes/bgr-bp-rest-integration.php:632
+msgid "Sorry, you cannot view this group's reviews."
+msgstr "Lo sentimos, no puedes ver las reseñas de este grupo."
+
 #. translators: %1$s is replaced with $bgr_avg_rating
 #. translators: %1$s: Average rating value.
-#: includes/bgr-ajax.php:215 includes/widgets/group-rating.php:237
+#: includes/bgr-ajax.php:219 includes/widgets/group-rating.php:237
 #, php-format
 msgid "Rating : ( %1$s )"
 msgstr "Calificación : ( %1$s )"
 
-#: includes/bgr-ajax.php:224 includes/widgets/group-rating.php:250
+#: includes/bgr-ajax.php:228 includes/widgets/group-rating.php:250
 msgid "No ratings have been given by any members yet."
 msgstr "Ningún miembro ha dado calificaciones aún."
 
-#: includes/bgr-ajax.php:251 includes/bgr-ajax.php:289
+#: includes/bgr-ajax.php:255 includes/bgr-ajax.php:291
 msgid "Permission denied."
 msgstr "Permiso denegado."
 
-#: includes/bgr-ajax.php:256 includes/bgr-ajax.php:294
-#: includes/bgr-ajax.php:724 includes/bgr-ajax.php:838
-#: includes/bgr-ajax.php:946 includes/bgr-bp-rest-integration.php:467
-#: includes/bgr-bp-rest-integration.php:495
-#: includes/bgr-bp-rest-integration.php:541
-#: includes/bgr-bp-rest-integration.php:612
-#: includes/bgr-bp-rest-integration.php:633
+#: includes/bgr-ajax.php:260 includes/bgr-ajax.php:296
+#: includes/bgr-ajax.php:647 includes/bgr-ajax.php:692
+#: includes/bgr-ajax.php:737 includes/bgr-bp-rest-integration.php:473
+#: includes/bgr-bp-rest-integration.php:484
+#: includes/bgr-bp-rest-integration.php:506
+#: includes/bgr-bp-rest-integration.php:552
+#: includes/bgr-bp-rest-integration.php:646
+#: includes/bgr-bp-rest-integration.php:667
 msgid "Invalid review ID."
 msgstr "ID de reseña inválido."
 
-#: includes/bgr-ajax.php:262 includes/bgr-ajax.php:300
-#: includes/bgr-ajax.php:730 includes/bgr-ajax.php:844
-#: includes/bgr-ajax.php:952
+#: includes/bgr-ajax.php:266 includes/bgr-ajax.php:302
+#: includes/bgr-ajax.php:653 includes/bgr-ajax.php:698
+#: includes/bgr-ajax.php:743
 #: includes/templates/bgr-single-review-template.php:25
 #: includes/templates/bgr-single-review-template.php:33
 msgid "Review not found."
 msgstr "Reseña no encontrada."
 
-#: includes/bgr-ajax.php:468
+#: includes/bgr-ajax.php:469
 msgid "You must be logged in to submit a review."
 msgstr "Debes estar conectado para enviar una reseña."
 
-#: includes/bgr-ajax.php:477
+#: includes/bgr-ajax.php:478
 msgid "Invalid form data."
 msgstr "Datos de formulario inválidos."
 
-#: includes/bgr-ajax.php:486
+#: includes/bgr-ajax.php:487
 msgid "Invalid group."
 msgstr "Grupo inválido."
 
-#: includes/bgr-ajax.php:493
+#: includes/bgr-ajax.php:494
 msgid "Group not found."
 msgstr "Grupo no encontrado."
 
-#: includes/bgr-ajax.php:501
+#: includes/bgr-ajax.php:502
 msgid "Group administrators cannot review their own groups."
 msgstr "Los administradores del grupo no pueden reseñar sus propios grupos."
 
-#: includes/bgr-ajax.php:506 includes/bgr-bp-rest-integration.php:382
+#: includes/bgr-ajax.php:507 includes/bgr-bp-rest-integration.php:385
 msgid "You must be a member of this group to submit a review."
 msgstr "Debes ser miembro de este grupo para enviar una reseña."
 
-#: includes/bgr-ajax.php:513
+#: includes/bgr-ajax.php:514
 msgid "Reviews are not enabled for this group."
 msgstr "Las reseñas no están habilitadas para este grupo."
 
-#. Translators: %1$s: Review Label
-#: includes/bgr-ajax.php:530
-#, php-format
-msgid "A new %1$s posted."
-msgstr "Un nuevo %1$s publicado."
-
-#. Translators: %1$s: Review Label %2$s Group Name %3$s User Name %4$s User Link
-#: includes/bgr-ajax.php:532
-#, php-format
-msgid "A new %1$s for %2$s added by %3$s. Link: %4$s"
-msgstr "Un nuevo %1$s para %2$s agregado por %3$s. Enlace: %4$s"
-
 #. Translators: %1$s: User Name %2$s Review Label %3$s Group Name
-#: includes/bgr-ajax.php:535
+#: includes/bgr-ajax.php:527
 #, php-format
 msgid "%1$s %2$ss Group %3$s."
 msgstr "%1$s %2$ss del Grupo %3$s."
 
+#: includes/bgr-ajax.php:538
+msgid ""
+"The rating criteria have changed. Please reload the page and submit your "
+"review again."
+msgstr "Los criterios de valoración han cambiado. Recarga la página y vuelve a enviar tu reseña."
+
 #. translators: %1$s is replaced with review_label
-#: includes/bgr-ajax.php:565
+#: includes/bgr-ajax.php:574
 #, php-format
 msgid "You have already submitted a %1$s for this group."
 msgstr "Ya has enviado un %1$s para este grupo."
 
-#: includes/bgr-ajax.php:572
+#: includes/bgr-ajax.php:581
 msgid "Please wait, your review is being processed."
 msgstr "Por favor espera, tu reseña está siendo procesada."
 
 #. translators: %1$s is replaced with review_label
-#: includes/bgr-ajax.php:582
+#: includes/bgr-ajax.php:591
 #, php-format
 msgid "Thank you for sharing your %1$s!"
 msgstr "¡Gracias por compartir tu %1$s!"
 
 #. translators: %1$s is replaced with review_label
-#: includes/bgr-ajax.php:586
+#: includes/bgr-ajax.php:595
 #, php-format
 msgid ""
 "Thank you for your %1$s! It will be published after the group admin approves "
@@ -894,43 +896,25 @@ msgstr ""
 "¡Gracias por tu %1$s! Se publicará después de que el administrador del grupo "
 "la apruebe."
 
-#: includes/bgr-ajax.php:611
+#: includes/bgr-ajax.php:610
 msgid "Failed to create review. Please try again."
 msgstr "No se pudo crear la reseña. Por favor intenta de nuevo."
 
-#. translators: %1$s: review label, %2$s: group name
-#: includes/bgr-ajax.php:649
-#, php-format
-msgid "New %1$s submitted for %2$s"
-msgstr "Nuevo %1$s enviado para %2$s"
-
-#: includes/bgr-ajax.php:716 includes/bgr-ajax.php:831
-#: includes/bgr-ajax.php:940
+#: includes/bgr-ajax.php:641 includes/bgr-ajax.php:686
+#: includes/bgr-ajax.php:731
 msgid "You must be logged in."
 msgstr "Debes estar conectado."
 
-#: includes/bgr-ajax.php:736 includes/bgr-ajax.php:850
-#: includes/bgr-ajax.php:958
+#: includes/bgr-ajax.php:659 includes/bgr-ajax.php:704
+#: includes/bgr-ajax.php:749
 msgid "Invalid group for this review."
 msgstr "Grupo inválido para esta reseña."
 
-#: includes/bgr-ajax.php:742 includes/bgr-ajax.php:856
+#: includes/bgr-ajax.php:665 includes/bgr-ajax.php:710
 msgid "You do not have permission to manage reviews for this group."
 msgstr "No tienes permiso para gestionar reseñas para este grupo."
 
-#. translators: %1$s: review label, %2$s: group name
-#: includes/bgr-ajax.php:781
-#, php-format
-msgid "Your %1$s for %2$s has been approved"
-msgstr "Tu %1$s para %2$s ha sido aprobado"
-
-#. translators: %1$s: review label, %2$s: group name
-#: includes/bgr-ajax.php:892
-#, php-format
-msgid "Your %1$s for %2$s was not approved"
-msgstr "Tu %1$s para %2$s no fue aprobado"
-
-#: includes/bgr-ajax.php:964
+#: includes/bgr-ajax.php:755
 msgid "You do not have permission to remove reviews for this group."
 msgstr "No tienes permiso para eliminar reseñas para este grupo."
 
@@ -954,97 +938,98 @@ msgstr "Calificaciones promedio por criterios."
 msgid "Whether the current user can review this group."
 msgstr "Si el usuario actual puede reseñar este grupo."
 
-#: includes/bgr-bp-rest-integration.php:372
+#: includes/bgr-bp-rest-integration.php:375
+#: includes/bgr-bp-rest-integration.php:625
 #: includes/bgr-group-criteria-ajax.php:30
 #: includes/bgr-group-criteria-ajax.php:245
 msgid "Invalid group ID."
 msgstr "ID de grupo inválido."
 
-#: includes/bgr-bp-rest-integration.php:377
+#: includes/bgr-bp-rest-integration.php:380
 msgid "Group admins cannot review their own group."
 msgstr "Los administradores del grupo no pueden reseñar su propio grupo."
 
-#: includes/bgr-bp-rest-integration.php:390
+#: includes/bgr-bp-rest-integration.php:393
 msgid "Reviews are disabled for this group."
 msgstr "Las reseñas están deshabilitadas para este grupo."
 
-#: includes/bgr-bp-rest-integration.php:413
+#: includes/bgr-bp-rest-integration.php:416
 msgid "You have already reviewed this group."
 msgstr "Ya has reseñado este grupo."
 
-#: includes/bgr-bp-rest-integration.php:473
+#: includes/bgr-bp-rest-integration.php:479
 msgid "Review does not belong to this group."
 msgstr "La reseña no pertenece a este grupo."
 
-#: includes/bgr-bp-rest-integration.php:547
+#: includes/bgr-bp-rest-integration.php:558
 msgid "The review could not be deleted."
 msgstr "La reseña no pudo ser eliminada."
 
-#: includes/bgr-bp-rest-integration.php:616
+#: includes/bgr-bp-rest-integration.php:650
 msgid "You do not have permission to edit this review."
 msgstr "No tienes permiso para editar esta reseña."
 
-#: includes/bgr-bp-rest-integration.php:637
+#: includes/bgr-bp-rest-integration.php:671
 msgid "You do not have permission to delete this review."
 msgstr "No tienes permiso para eliminar esta reseña."
 
-#: includes/bgr-bp-rest-integration.php:655
+#: includes/bgr-bp-rest-integration.php:689
 msgid "Review ID."
 msgstr "ID de Reseña."
 
-#: includes/bgr-bp-rest-integration.php:661
+#: includes/bgr-bp-rest-integration.php:695
 msgid "Group ID."
 msgstr "ID de Grupo."
 
-#: includes/bgr-bp-rest-integration.php:667
+#: includes/bgr-bp-rest-integration.php:701
 msgid "Review title."
 msgstr "Título de Reseña."
 
-#: includes/bgr-bp-rest-integration.php:673
+#: includes/bgr-bp-rest-integration.php:707
 msgid "Review content."
 msgstr "Contenido de Reseña."
 
-#: includes/bgr-bp-rest-integration.php:679
+#: includes/bgr-bp-rest-integration.php:713
 msgid "Review status."
 msgstr "Estado de Reseña."
 
-#: includes/bgr-bp-rest-integration.php:685
+#: includes/bgr-bp-rest-integration.php:719
 msgid "Review author."
 msgstr "Autor de Reseña."
 
-#: includes/bgr-bp-rest-integration.php:691
+#: includes/bgr-bp-rest-integration.php:725
 msgid "Star ratings by criteria."
 msgstr "Calificaciones de estrellas por criterios."
 
-#: includes/bgr-bp-rest-integration.php:696
+#: includes/bgr-bp-rest-integration.php:730
 msgid "Creation date."
 msgstr "Fecha de Creación."
 
-#: includes/bgr-bp-rest-integration.php:703
+#: includes/bgr-bp-rest-integration.php:737
 msgid "Last modified date."
 msgstr "Fecha de Última Modificación."
 
 #. translators: %1$s is replaced with bp_group_review_add_review_tab_name()
-#: includes/bgr-filters.php:304
+#: includes/bgr-filters.php:305
 #, php-format
 msgid "Add %1$s"
 msgstr "Agregar %1$s"
 
-#: includes/bgr-filters.php:387
+#: includes/bgr-filters.php:388
 msgid "Rating "
 msgstr "Calificación "
 
-#: includes/bgr-filters.php:405 includes/bgr-filters.php:693
+#: includes/bgr-filters.php:406 includes/bgr-filters.php:704
 msgid "Approve"
 msgstr "Aprobar"
 
-#: includes/bgr-filters.php:406 includes/bgr-filters.php:698
+#: includes/bgr-filters.php:407 includes/bgr-filters.php:709
 #: includes/bgr-grp-extn.php:209
 msgid "Deny"
 msgstr "Denegar"
 
 #. translators: %d: number of reviews
-#: includes/bgr-filters.php:492
+#: includes/bgr-filters.php:489
 #, php-format
 msgid "%d review approved."
 msgid_plural "%d reviews approved."
@@ -1052,94 +1037,112 @@ msgstr[0] "%d reseña aprobada."
 msgstr[1] "%d reseñas aprobadas."
 
 #. translators: %d: number of reviews
-#: includes/bgr-filters.php:504
+#: includes/bgr-filters.php:501
 #, php-format
 msgid "%d review denied and moved to trash."
 msgid_plural "%d reviews denied and moved to trash."
 msgstr[0] "%d reseña denegada y trasladada a la papelera."
 msgstr[1] "%d reseñas denegadas y trasladadas a la papelera."
 
-#: includes/bgr-filters.php:541
+#: includes/bgr-filters.php:538
 msgid "Export to CSV"
 msgstr "Exportar a CSV"
 
-#: includes/bgr-filters.php:558
+#: includes/bgr-filters.php:555
 msgid "You do not have permission to export reviews."
 msgstr "No tienes permiso para exportar reseñas."
 
-#: includes/bgr-filters.php:596
+#: includes/bgr-filters.php:582
 msgid "Review ID"
 msgstr "ID de Reseña"
 
-#: includes/bgr-filters.php:597
+#: includes/bgr-filters.php:583
 msgid "Date"
 msgstr "Fecha"
 
-#: includes/bgr-filters.php:598
+#: includes/bgr-filters.php:584
 msgid "Status"
 msgstr "Estado"
 
-#: includes/bgr-filters.php:599
+#: includes/bgr-filters.php:585
 msgid "Reviewer"
 msgstr "Reseñador"
 
-#: includes/bgr-filters.php:600
+#: includes/bgr-filters.php:586
 msgid "Reviewer Email"
 msgstr "Correo del Reseñador"
 
-#: includes/bgr-filters.php:601
+#: includes/bgr-filters.php:587
 msgid "Group Name"
 msgstr "Nombre del Grupo"
 
-#: includes/bgr-filters.php:602
+#: includes/bgr-filters.php:588
 msgid "Group ID"
 msgstr "ID del Grupo"
 
-#: includes/bgr-filters.php:603
+#: includes/bgr-filters.php:589
 msgid "Review Content"
 msgstr "Contenido de Reseña"
 
-#: includes/bgr-filters.php:604
+#: includes/bgr-filters.php:590
 msgid "Average Rating"
 msgstr "Calificación Promedio"
 
-#: includes/bgr-filters.php:611 includes/bgr-scripts.php:202
+#: includes/bgr-filters.php:597 includes/bgr-scripts.php:202
 msgid "Rating"
 msgstr "Calificación"
 
-#: includes/bgr-filters.php:622
+#: includes/bgr-filters.php:626
 msgid "Unknown Group"
 msgstr "Grupo Desconocido"
 
-#: includes/bgr-filters.php:635
+#: includes/bgr-filters.php:639
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: includes/bgr-filters.php:689
+#: includes/bgr-filters.php:700
 msgid "View"
 msgstr "Ver"
 
 #. translators: %s: review label (e.g., "Review")
-#: includes/bgr-filters.php:774 includes/bgr-filters.php:804
-#: includes/bgr-filters.php:834
+#: includes/bgr-filters.php:785 includes/bgr-filters.php:815
+#: includes/bgr-filters.php:845
 #, php-format
 msgid "Add %s"
 msgstr "Agregar %s"
 
-#: includes/bgr-filters.php:919
+#: includes/bgr-filters.php:930
 msgid ""
 "Your Response added. This will be published when group admin has approved it."
 msgstr ""
 "Tu Respuesta añadida. Se publicará cuando el administrador del grupo la "
 "apruebe."
 
-#: includes/bgr-filters.php:935
+#: includes/bgr-filters.php:946
 msgid "BuddyPress Group Review"
 msgstr "Reseña de Grupo de BuddyPress"
 
-#: includes/bgr-filters.php:936
+#: includes/bgr-filters.php:947
 msgid "Give Group Review"
 msgstr "Dar Reseña de Grupo"
+
+#. translators: %1$s: review label, %2$s: group name
+#: includes/bgr-functions.php:261
+#, php-format
+msgid "Your %1$s for %2$s has been approved"
+msgstr "Tu %1$s para %2$s ha sido aprobado"
+
+#. translators: %1$s: review label, %2$s: group name
+#: includes/bgr-functions.php:264
+#, php-format
+msgid "Your %1$s for %2$s was not approved"
+msgstr "Tu %1$s para %2$s no fue aprobado"
+
+#. translators: %1$s: review label, %2$s: group name
+#: includes/bgr-functions.php:362
+#, php-format
+msgid "New %1$s submitted for %2$s"
+msgstr "Nuevo %1$s enviado para %2$s"
 
 #: includes/bgr-globals.php:52
 msgid "Quality"
@@ -1256,37 +1259,37 @@ msgid "Sorry, no %s were found."
 msgstr "Lo siento, no se encontró %s."
 
 #. translators: %1$s: Review label.
-#: includes/bgr-notifications.php:277
+#: includes/bgr-notifications.php:279
 #, php-format
 msgid "A new %1$s was posted."
 msgstr "Un nuevo %1$s fue publicado."
 
 #. translators: %1$s: User name, %2$s: Review label, %3$s: Group name.
-#: includes/bgr-notifications.php:279
+#: includes/bgr-notifications.php:281
 #, php-format
 msgid "%1$s posted a %2$s for %3$s."
 msgstr "%1$s publicó un %2$s para %3$s."
 
 #. translators: %1$s: Review label.
-#: includes/bgr-notifications.php:328
+#: includes/bgr-notifications.php:330
 #, php-format
 msgid "%1$s accepted."
 msgstr "%1$s aceptado."
 
 #. translators: %1$s: Review label, %2$s: Group name.
-#: includes/bgr-notifications.php:330
+#: includes/bgr-notifications.php:332
 #, php-format
 msgid "Your %1$s for %2$s was accepted by the group admin."
 msgstr "Tu %1$s para %2$s fue aceptado por el administrador del grupo."
 
 #. translators: %1$s: Review label.
-#: includes/bgr-notifications.php:378
+#: includes/bgr-notifications.php:380
 #, php-format
 msgid "%1$s denied."
 msgstr "%1$s denegado."
 
 #. translators: %1$s: Review label, %2$s: Group name.
-#: includes/bgr-notifications.php:380
+#: includes/bgr-notifications.php:382
 #, php-format
 msgid "Your %1$s for %2$s was denied by the group admin."
 msgstr "Tu %1$s para %2$s fue denegado por el administrador del grupo."
@@ -1305,7 +1308,7 @@ msgstr "heredado"
 msgid "Rating : (%s)"
 msgstr "Calificación : (%s)"
 
-#: includes/bgr-schema.php:133 includes/bgr-schema.php:206
+#: includes/bgr-schema.php:133
 msgid "Anonymous"
 msgstr "Anónimo"
 
@@ -1610,22 +1613,22 @@ msgstr "Ocultar"
 msgid "Show"
 msgstr "Mostrar"
 
-#: includes/widgets/bgr-review.php:262
+#: includes/widgets/bgr-review.php:222
 msgid "Group avatar"
 msgstr "Avatar del grupo"
 
 #. translators: %1$s: review label (e.g. "Reviews"), %2$s: number of reviews.
-#: includes/widgets/bgr-review.php:287
+#: includes/widgets/bgr-review.php:246
 #, php-format
 msgid "Total %1$s : %2$s"
 msgstr "Total %1$s : %2$s"
 
-#: includes/widgets/bgr-review.php:302
+#: includes/widgets/bgr-review.php:258
 msgid "No ratings have been given to any groups yet."
 msgstr "Ninguna calificación ha sido dada a ningún grupo aún."
 
 #. translators: %1$s: Review label.
-#: includes/widgets/bgr-review.php:309
+#: includes/widgets/bgr-review.php:265
 #, php-format
 msgid "No %1$s has been given to any group yet!"
 msgstr "¡Ningún %1$s ha sido dado a ningún grupo aún!"
@@ -1684,15 +1687,15 @@ msgstr ""
 
 #: admin/assets/js/bgr-admin.js:25
 msgid "Select groups"
-msgstr ""
+msgstr "Seleccionar grupos"
 
-#: admin/assets/js/bgr-admin.js:220
+#: admin/assets/js/bgr-admin.js:231
 msgid "Approving.."
-msgstr ""
+msgstr "Aprobando.."
 
-#: admin/assets/js/bgr-admin.js:260
+#: admin/assets/js/bgr-admin.js:271
 msgid "Denying.."
-msgstr ""
+msgstr "Rechazando.."
 
 #: assets/js/bgr-group-criteria-admin.js:92
 msgid "Saving..."
@@ -1740,12 +1743,3 @@ msgstr "Sin criterios seleccionados"
 #: public/js/confirm.js:24
 msgid "Confirm"
 msgstr "Confirmar"
-
-#~ msgid "BuddyPress Group Reviews"
-#~ msgstr "Reseñas de Grupos de BuddyPress"
-
-#~ msgid "Are you enjoying BuddyPress Group Reviews?"
-#~ msgstr "¿Te está gustando Reseñas de Grupos de BuddyPress?"
-
-#~ msgid "BuddyPress Groups Component"
-#~ msgstr "Componente de Grupos de BuddyPress"
