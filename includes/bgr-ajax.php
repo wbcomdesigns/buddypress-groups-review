@@ -71,6 +71,10 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				$filter               = sanitize_text_field( filter_input( INPUT_POST, 'filter' ) );
 				$limit                = (int) sanitize_text_field( filter_input( INPUT_POST, 'limit' ) );
 				$group_id             = absint( filter_input( INPUT_POST, 'group_id' ) );
+				// Open to logged-out visitors for public groups; private and hidden groups stay private.
+				if ( ! bgr_can_view_group_reviews( $group_id ) ) {
+					wp_send_json_error( new WP_Error( '403', esc_html__( 'Sorry, you cannot view this group\'s reviews.', 'bp-group-reviews' ), 'forbidden' ) );
+				}
 				$html                 = '';
 				$review_rating_fields = $bgr['review_rating_fields'];
 
