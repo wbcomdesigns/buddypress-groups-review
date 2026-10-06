@@ -522,7 +522,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				: $bgr['active_rating_fields'];
 			$allow_notification   = $bgr['allow_notification'];
 			$allow_email          = $bgr_allow_email;
-			$allow_activity       = $bgr['allow_activity'];
 			$review_label         = $bgr['review_label'];
 			$auto_approve_reviews = $bgr['auto_approve_reviews'];
 			$multi_reviews        = $bgr['multi_reviews'];
@@ -534,6 +533,24 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			/* Translators: %1$s: User Name %2$s Review Label %3$s Group Name */
 			$review_cpt_subject = sprintf( esc_html__( '%1$s %2$ss Group %3$s.', 'bp-group-reviews' ), $user_name, $review_label, $group_name );
 			$headers[]          = 'Content-Type: text/html; charset=UTF-8';
+
+			// Star inputs are keyed by criterion name, so a rating can never land on
+			// another criterion. A form rendered before an admin changed the criteria
+			// misses a key: reject it rather than store a partial or shifted set.
+			$posted_stars = isset( $formarray['rated_stars'] ) ? (array) wp_unslash( $formarray['rated_stars'] ) : array();
+			$rated_stars  = array();
+			if ( ! empty( $active_rating_fields ) ) {
+				foreach ( $active_rating_fields as $rating_field ) {
+					$star = isset( $posted_stars[ $rating_field ] ) ? absint( $posted_stars[ $rating_field ] ) : 0;
+					if ( $star < 1 || $star > 5 ) {
+						wp_send_json_error( new WP_Error( '012', esc_html__( 'The rating criteria have changed. Please reload the page and submit your review again.', 'bp-group-reviews' ), 'criteria_changed' ) );
+					}
+					$rated_stars[ $rating_field ] = $star;
+				}
+			} elseif ( ! empty( $posted_stars ) ) {
+				// No criteria configured: the form posts a single overall rating.
+				$rated_stars = array( min( 5, max( 1, absint( reset( $posted_stars ) ) ) ) );
+			}
 
 			// Check for existing reviews FIRST (before acquiring lock) to prevent race conditions.
 			$lock_key        = 'bgr_review_lock_' . $member_id . '_' . $form_group_id;
@@ -585,16 +602,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					/* translators: %1$s is replaced with review_label */
 					$review_add_msg = sprintf( __( 'Thank you for your %1$s! It will be published after the group admin approves it.', 'bp-group-reviews' ), strtolower( $review_label ) );
 					$review_status  = 'draft';
-				}
-
-				if ( ! empty( $formarray['rated_stars'] ) ) {
-					$rated_field_values = array_map( 'sanitize_text_field', wp_unslash( $formarray['rated_stars'] ) );
-				}
-
-				if ( ! empty( $active_rating_fields ) && ! empty( $rated_field_values ) ) {
-					$rated_stars = array_combine( $active_rating_fields, $rated_field_values );
-				} else {
-					$rated_stars = $rated_field_values;
 				}
 
 				$add_review_args = array(
@@ -678,7 +685,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 
 				$group_admins = groups_get_group( $form_group_id );
 
-				if ( 'yes' === $allow_notification || 'yes' === $allow_activity ) {
+				if ( 'yes' === $allow_notification ) {
 					foreach ( $group_admins->admins as $group_admin ) {
 						$admin_id = $group_admin->user_id;
 						do_action( 'bgr_group_add_review', $form_group_id, $admin_id );
