@@ -47,6 +47,17 @@ if ( is_multisite() ) {
 	bgr_delete_plugin_data();
 }
 
+// Network-wide data, removed once: per-group criteria live in BuddyPress's
+// shared groupmeta table, and the review-prompt flags are site options.
+$bgr_bp_prefix = function_exists( 'bp_core_get_table_prefix' ) ? bp_core_get_table_prefix() : $wpdb->base_prefix;
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- One-shot uninstall cleanup.
+if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $bgr_bp_prefix . 'bp_groups_groupmeta' ) ) ) ) {
+	$wpdb->query( $wpdb->prepare( "DELETE FROM {$bgr_bp_prefix}bp_groups_groupmeta WHERE meta_key = %s", 'bgr_group_criteria_settings' ) );
+}
+// phpcs:enable
+delete_site_option( 'bp-group-reviews_activation_date' );
+delete_site_option( 'bp-group-reviews_no_bug' );
+
 /**
  * Delete all plugin data.
  *
@@ -55,19 +66,18 @@ if ( is_multisite() ) {
 function bgr_delete_plugin_data() {
 	global $wpdb;
 
-	// Delete all review posts.
-	$review_posts = get_posts(
-		array(
-			'post_type'      => 'review',
-			'post_status'    => 'any',
-			'posts_per_page' => -1,
-			'fields'         => 'ids',
-		)
+	// Delete group reviews only. The review CPT is shared with BuddyPress Member
+	// Reviews; its posts carry no linked_group and must survive this uninstall.
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- One-shot uninstall cleanup.
+	$review_posts = $wpdb->get_col(
+		"SELECT DISTINCT p.ID FROM {$wpdb->posts} p
+		INNER JOIN {$wpdb->postmeta} pm ON pm.post_id = p.ID AND pm.meta_key = 'linked_group'
+		WHERE p.post_type = 'review'"
 	);
 
 	foreach ( $review_posts as $post_id ) {
 		// This will also delete post meta, comments, and terms.
-		wp_delete_post( $post_id, true );
+		wp_delete_post( (int) $post_id, true );
 	}
 
 	// Delete plugin options.
@@ -77,24 +87,22 @@ function bgr_delete_plugin_data() {
 	delete_option( 'bp_group_review_email_settings' );
 	delete_option( 'bgr_display_labels_migrated' );
 
-	// Delete user meta if any (check for review-related user meta).
-	$wpdb->query( "DELETE FROM {$wpdb->usermeta} WHERE meta_key LIKE '%bgr_%'" );
+	// Per-group stats caches and submit locks (bgr_review_count_*, bgr_review_rating_*, bgr_review_lock_*).
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- One-shot uninstall cleanup.
+	$wpdb->query(
+		$wpdb->prepare(
+			"DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s",
+			$wpdb->esc_like( '_transient_bgr_review_' ) . '%',
+			$wpdb->esc_like( '_transient_timeout_bgr_review_' ) . '%'
+		)
+	);
 
-	// Delete any custom database tables if they were created.
-	// Currently, this plugin uses custom post types, so no custom tables to delete.
-
-	// Delete capabilities from roles.
-	$roles = array( 'administrator', 'editor' );
-	foreach ( $roles as $role_name ) {
-		$role = get_role( $role_name );
-		if ( $role ) {
-			$role->remove_cap( 'edit_review' );
-			$role->remove_cap( 'read_review' );
-			$role->remove_cap( 'delete_review' );
-			$role->remove_cap( 'edit_reviews' );
-			$role->remove_cap( 'edit_others_reviews' );
-			$role->remove_cap( 'publish_reviews' );
-			$role->remove_cap( 'read_private_reviews' );
+	// Remove every review capability this plugin grants, from whichever roles
+	// the bgr_add_roles_capability filter gave them to.
+	$caps = array( 'edit_review', 'read_review', 'delete_review', 'edit_reviews', 'edit_others_reviews', 'publish_reviews', 'read_private_reviews', 'delete_reviews', 'delete_others_reviews', 'delete_published_reviews' );
+	foreach ( wp_roles()->role_objects as $role ) {
+		foreach ( $caps as $cap ) {
+			$role->remove_cap( $cap );
 		}
 	}
 
