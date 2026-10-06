@@ -33,7 +33,7 @@ defined( 'ABSPATH' ) || exit;
 			<div class="bgr-resource">
 				<h3 class="bgr-resource__title"><span class="dashicons dashicons-book" aria-hidden="true"></span><?php esc_html_e( 'Documentation', 'bp-group-reviews' ); ?></h3>
 				<p class="bgr-resource__desc"><?php esc_html_e( 'Explore our detailed guide to understand all the features and how to make the most of them.', 'bp-group-reviews' ); ?></p>
-				<a href="https://docs.wbcomdesigns.com/docs/buddypress-group-review/" class="bgr-btn bgr-btn-secondary" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Read Documentation', 'bp-group-reviews' ); ?></a>
+				<a href="https://docs.wbcomdesigns.com/bp-family/buddypress-group-reviews/" class="bgr-btn bgr-btn-secondary" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Read Documentation', 'bp-group-reviews' ); ?></a>
 			</div>
 			<div class="bgr-resource">
 				<h3 class="bgr-resource__title"><span class="dashicons dashicons-sos" aria-hidden="true"></span><?php esc_html_e( 'Support Center', 'bp-group-reviews' ); ?></h3>

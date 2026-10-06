@@ -89,7 +89,7 @@ $bgr_version = defined( 'BGR_PLUGIN_VERSION' ) ? BGR_PLUGIN_VERSION : '';
 
 				<div class="bgr-snav-divider" role="separator"></div>
 				<p class="bgr-snav-section-label"><?php esc_html_e( 'Resources', 'bp-group-reviews' ); ?></p>
-				<a href="https://docs.wbcomdesigns.com/docs/buddypress-group-review/" class="bgr-snav-link" target="_blank" rel="noopener noreferrer">
+				<a href="https://docs.wbcomdesigns.com/bp-family/buddypress-group-reviews/" class="bgr-snav-link" target="_blank" rel="noopener noreferrer">
 					<span class="dashicons dashicons-book" aria-hidden="true"></span>
 					<?php esc_html_e( 'Documentation', 'bp-group-reviews' ); ?>
 					<span class="dashicons dashicons-external bgr-snav-link__ext" aria-hidden="true"></span>

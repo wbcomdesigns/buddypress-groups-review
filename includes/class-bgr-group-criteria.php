@@ -570,74 +570,18 @@ class BGR_Group_Criteria {
 	 * @return array Associative array of criteria => [average, count].
 	 */
 	public function calculate_group_averages( $group_id ) {
-		$reviews = $this->get_group_reviews( $group_id );
-
-		// Only count published reviews.
-		$reviews = array_filter(
-			$reviews,
-			function ( $review ) {
-				return 'publish' === $review->post_status;
-			}
-		);
-
-		if ( empty( $reviews ) ) {
-			return array();
-		}
-
-		$criteria_totals = array();
-		$criteria_counts = array();
-
-		foreach ( $reviews as $review ) {
-			$ratings = get_post_meta( $review->ID, 'review_star_rating', true );
-
-			if ( ! is_array( $ratings ) ) {
-				continue;
-			}
-
-			foreach ( $ratings as $name => $value ) {
-				if ( ! isset( $criteria_totals[ $name ] ) ) {
-					$criteria_totals[ $name ] = 0;
-					$criteria_counts[ $name ] = 0;
-				}
-				$criteria_totals[ $name ] += floatval( $value );
-				++$criteria_counts[ $name ];
-			}
-		}
-
+		// Reuse the cached aggregate instead of loading every review of the group.
+		$stats    = bgr_get_group_review_stats( $group_id );
 		$averages = array();
-		foreach ( $criteria_totals as $name => $total ) {
+
+		foreach ( $stats['criteria'] as $name => $totals ) {
 			$averages[ $name ] = array(
-				'average' => round( $total / $criteria_counts[ $name ], 1 ),
-				'count'   => $criteria_counts[ $name ],
+				'average' => round( $totals['total'] / $totals['count'], 1 ),
+				'count'   => $totals['count'],
 			);
 		}
 
 		return $averages;
-	}
-
-	/**
-	 * Calculate overall average rating for a group.
-	 *
-	 * @since 3.7.0
-	 * @param int $group_id The group ID.
-	 * @return float The overall average rating.
-	 */
-	public function calculate_overall_average( $group_id ) {
-		$averages = $this->calculate_group_averages( $group_id );
-
-		if ( empty( $averages ) ) {
-			return 0;
-		}
-
-		$total = 0;
-		$count = 0;
-
-		foreach ( $averages as $data ) {
-			$total += $data['average'] * $data['count'];
-			$count += $data['count'];
-		}
-
-		return $count > 0 ? round( $total / $count, 1 ) : 0;
 	}
 
 	/**

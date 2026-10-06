@@ -41,7 +41,7 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 			}
 
 			$group_id = bp_get_current_group_id();
-			if ( ! $group_id ) {
+			if ( ! $group_id || ! bgr_can_view_group_reviews( $group_id ) ) {
 				return;
 			}
 
@@ -171,50 +171,6 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 			echo '<script type="application/ld+json">';
 			echo wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT );
 			echo '</script>' . "\n";
-		}
-
-		/**
-		 * Get schema markup for a single review (for use in templates).
-		 *
-		 * @since 3.5.0
-		 * @param int $review_id Review post ID.
-		 * @return string HTML with microdata.
-		 */
-		public static function get_review_microdata( $review_id ) {
-			$review         = get_post( $review_id );
-			$review_ratings = get_post_meta( $review_id, 'review_star_rating', true );
-			$author_id      = $review->post_author;
-			$author_info    = get_userdata( $author_id );
-
-			if ( empty( $review_ratings ) || ! is_array( $review_ratings ) ) {
-				return '';
-			}
-
-			$review_total = 0;
-			$review_count = 0;
-
-			foreach ( $review_ratings as $rating ) {
-				$review_total += $rating;
-				++$review_count;
-			}
-
-			$review_average = $review_count > 0 ? round( $review_total / $review_count, 1 ) : 0;
-
-			$output  = '<div itemscope itemtype="https://schema.org/Review" style="display:none;">';
-			$output .= '<span itemprop="name">' . esc_html( $review->post_title ) . '</span>';
-			$output .= '<span itemprop="author" itemscope itemtype="https://schema.org/Person">';
-			$output .= '<span itemprop="name">' . esc_html( $author_info ? $author_info->display_name : __( 'Anonymous', 'bp-group-reviews' ) ) . '</span>';
-			$output .= '</span>';
-			$output .= '<span itemprop="reviewBody">' . esc_html( wp_strip_all_tags( $review->post_content ) ) . '</span>';
-			$output .= '<span itemprop="datePublished" content="' . esc_attr( get_the_date( 'c', $review_id ) ) . '">' . esc_html( get_the_date( '', $review_id ) ) . '</span>';
-			$output .= '<div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">';
-			$output .= '<span itemprop="ratingValue">' . esc_html( $review_average ) . '</span>';
-			$output .= '<span itemprop="bestRating">5</span>';
-			$output .= '<span itemprop="worstRating">1</span>';
-			$output .= '</div>';
-			$output .= '</div>';
-
-			return $output;
 		}
 	}
 

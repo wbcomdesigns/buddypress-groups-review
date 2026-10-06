@@ -250,7 +250,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 								<div class="bgr-col-4 "><?php echo esc_html( bp_group_review_get_criteria_label( $review_rating_field ) ); ?> <span class="required"> * </span>  </div>
 								<div id="review<?php echo esc_html( $field_counter ); ?>" class="bgr-col-4">
 										<input type="hidden" id="<?php echo 'clicked' . esc_html( $field_counter ); ?>" value="not_clicked">
-										<input type="hidden" name="rated_stars[]" class="rated_stars bgr_mrating" id="<?php echo 'rated_stars' . esc_html( $field_counter ); ?>" value="0">
+										<input type="hidden" name="rated_stars[<?php echo esc_attr( $review_rating_field ); ?>]" class="rated_stars bgr_mrating" id="<?php echo 'rated_stars' . esc_html( $field_counter ); ?>" value="0">
 										<?php for ( $i = 1; $i <= 5; $i++ ) { ?>
 												<span class="far fa-star bgr-stars bgr-star-rate <?php echo esc_attr( $i ); ?>" id="<?php echo esc_attr( $field_counter ) . esc_attr( $i ); ?>" data-attr="<?php echo esc_attr( $i ); ?>" ></span>
 											<?php } ?>

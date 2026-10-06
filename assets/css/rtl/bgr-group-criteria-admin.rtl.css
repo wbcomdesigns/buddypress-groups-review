@@ -14,7 +14,7 @@
 
 :root {
 	--bgr-border-color: #ddd;
-	--bgr-accent: #2271b1;
+	--bgr-accent: var(--bx-color-button-bg, var(--button-background-color, var(--reign-site-button-bg-color, var(--wp--preset--color--primary, var(--wp--preset--color--contrast, #0073aa)))));
 	--bgr-text-muted: #666;
 	--bgr-bg-item: #f9f9f9;
 	--bgr-bg-custom: #f0f7ff;
@@ -30,7 +30,7 @@ body.dark,
 html[data-bx-mode="dark"],
 .buddyx-dark-theme {
 	--bgr-border-color: var(--bx-color-border, var(--reign-site-border-color, #3d3d3d));
-	--bgr-accent: var(--bx-color-accent, var(--reign-primary-color, #4f8bf0));
+	--bgr-accent: var(--bx-color-button-bg, var(--button-background-color, var(--reign-site-button-bg-color, #4f8bf0)));
 	--bgr-text-muted: var(--bx-color-fg-muted, var(--reign-site-alternate-text-color, #a0a0a0));
 	--bgr-bg-item: var(--bx-color-bg-muted, var(--reign-site-secondary-bg-color, #2a2a2a));
 	--bgr-bg-custom: var(--bx-color-bg-subtle, var(--reign-site-secondary-bg-color, #22303f));

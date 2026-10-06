@@ -147,8 +147,19 @@ jQuery(document).ready(function () {
   });
 
   /*** Remove criteria field ****/
-  jQuery("body").on("click", ".remove", function () {
-    jQuery(this).closest("div").remove();
+  jQuery("#bgr-textbox-container").on("click", ".bgr-remove", function () {
+    jQuery(this).closest(".rating-review-div").remove();
+  });
+
+  /*** Keep each Remove button's accessible name in step with its criterion ***/
+  jQuery("#bgr-textbox-container").on("input", "input.draggable", function () {
+    var remove = jQuery(this).siblings(".bgr-remove");
+    if (this.value) {
+      /* translators: %s: criterion name. */
+      remove.attr("aria-label", wp.i18n.sprintf(__("Remove %s", "bp-group-reviews"), this.value));
+    } else {
+      remove.removeAttr("aria-label");
+    }
   });
 
   /*** FAQ(s) accordion js ***/
@@ -281,8 +292,8 @@ function BGRGetBGRDynamicTextBox(value) {
     '<span class="move-icons">&equiv;</span><input name="BGRDynamicTextBox" class="draggable" type="text" value="' +
     value +
     '" />' +
-    '<input type="button" value="' +
+    '<button type="button" class="button-link button-link-delete bgr-remove">' +
     __("Remove", "bp-group-reviews") +
-    '" class="remove button button-secondary bgr-remove" /><label class="wb-switch"><input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="" checked="checked" ><div class="wb-slider wb-round"></div></label>'
+    '</button><label class="wb-switch"><input type="checkbox" class="bgr-criteria-state" name="bgr-criteria-state" data-attr="" checked="checked" ><div class="wb-slider wb-round"></div></label>'
   );
 }

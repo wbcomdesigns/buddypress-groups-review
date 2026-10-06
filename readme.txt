@@ -3,8 +3,8 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups, reviews, ratings, community
 Requires at least: 6.5
-Tested up to: 7.0
-Stable tag: 3.9.0
+Tested up to: 7.1
+Stable tag: 3.9.1
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -43,7 +43,7 @@ It needs BuddyPress (or BuddyBoss Platform) with the Groups component active. Ra
 **Discovery and SEO**
 * A top-groups leaderboard via the [bgr_display_top_groups] shortcode, ranked by top rated, most reviewed, or member count.
 * Group ratings on the group directory page.
-* Schema.org JSON-LD AggregateRating plus Review microdata so search engines can read your ratings.
+* Schema.org JSON-LD AggregateRating plus individual Review entries so search engines can read your ratings.
 * Two widgets: "BP Group Review Widget" and "BP Displayed Group Rating Widget" for sidebars and footers.
 
 **Community integration**
@@ -236,6 +236,41 @@ We'd like you to use [Wbcom Designs](https://wbcomdesigns.com/contact/) for all 
 
 == Changelog ==
 
+= 3.9.1 - October 2026 =
+
+Privacy, moderation email and theme fixes. Recommended for every site with private or hidden groups.
+
+* Improve  - Pagination, buttons and links now use the active theme's own button and link colors, in light and dark mode.
+* Improve  - The Top Rated Groups widget reads cached group ratings instead of loading every review, and its ratings now match the group header.
+* Improve  - The review CSV export now runs in batches, so large sites can export without running out of memory.
+* Improve  - The criteria Remove and Add controls use standard WordPress buttons, each Remove labelled with its criterion for screen readers.
+* Improve  - Reviews created through the REST API now get the same notifications, emails, activity and hooks as reviews submitted in the group.
+* Fix      - Submitting a review after the rating criteria changed could fail with an error or save stars against the wrong criteria.
+* Fix      - Approving or denying a review from wp-admin, bulk actions or the post editor now emails the reviewer.
+* Fix      - The approval email now links the reviewer to the group's reviews instead of wp-admin.
+* Fix      - Turning BuddyPress Notifications off now stops every review notification.
+* Fix      - Group reviews now appear as an option in the activity stream Show filter.
+* Fix      - The Submit button no longer wraps onto two lines when the review label is renamed or translated.
+* Fix      - Uninstalling Group Reviews no longer deletes BuddyPress Member Reviews, which share the same review type.
+* Fix      - Uninstall now removes all of the plugin's own data, including per-group criteria, cached ratings and saved options.
+* Fix      - The Documentation links open the current documentation page directly.
+* Fix      - Review acceptance and denial notification emails could not be turned off; the enable toggles now persist an explicit off state.
+* Fix      - The acceptance and denial email toggles now hide their subject and message fields when switched off, matching the submission toggle.
+* Fix      - Removed the stray filled background bar behind each rating criterion in the Add Review form.
+* Fix      - Reworked the reviews pagination into a single consistent, theme-aware style with a clearly marked active page.
+* Fix      - Corrected the feedback slug so plugin activation data is stored under the plugin's own key.
+* Fix      - Corrected a double-escaped ampersand in the Help and Support heading.
+* Fix      - Fixed missing spaces before placeholders and a mistranslation in the French strings, and corrected the Portuguese (Brazil) New Post string.
+* Fix      - The plugin name is no longer translatable, so no locale can rename the product. French rendered it as "BuddyPress Group Evaluations" in the settings heading, the browser title and the feedback prompt.
+* Security - Reviews and ratings of private and hidden groups are no longer shown to non-members through the REST API, the ratings filter, the group page or the widgets.
+* Security - Group and member names are now escaped in review notification emails.
+* Security - Removed logged-out AJAX registrations for the accept, deny, remove and submit review endpoints, which require an authenticated user.
+* Dev      - The bgr_group_review_after_review_insert action now passes the review, group and reviewer IDs and fires for REST-created reviews too.
+* Dev      - Added bgr_can_view_group_reviews() so integrations can apply the same review visibility rule.
+* Dev      - Replaced HSL colors in the admin accordion with hex, and removed the unused .bgr-switch/.bgr-slider toggle CSS.
+* Dev      - Corrected two PHPStan findings in the translation tooling and the script-textdomain filter, so static analysis runs clean at the configured level.
+* Dev      - Tracked composer.json and the contract-audit baseline, which the blanket *.json ignore rule had been excluding, so the static analysis and contract gates are reproducible.
+
 = 3.9.0 - July 2026 =
 
 UI pass: BuddyX/Reign dark-mode token mapping, accessibility focus rings, and CSS cleanup.
@@ -255,20 +290,8 @@ UI pass: BuddyX/Reign dark-mode token mapping, accessibility focus rings, and CS
 * Fix      - Added visible :focus-visible outlines to review, rating, leaderboard and admin controls (WCAG 2.4.7).
 * Fix      - Dark mode now activates only on the explicit theme toggle (data-bx-mode="dark") and never from the OS preference.
 * Fix      - Removed the deprecated bundled admin wrapper.
-* Fix      - Review acceptance and denial notification emails could not be turned off; the enable toggles now persist an explicit off state.
-* Fix      - The acceptance and denial email toggles now hide their subject and message fields when switched off, matching the submission toggle.
-* Fix      - Removed the stray filled background bar behind each rating criterion in the Add Review form.
-* Fix      - Reworked the reviews pagination into a single consistent, theme-aware style with a clearly marked active page.
-* Fix      - Corrected the feedback slug so plugin activation data is stored under the plugin's own key.
-* Fix      - Corrected a double-escaped ampersand in the Help and Support heading.
-* Fix      - Fixed missing spaces before placeholders and a mistranslation in the French strings, and corrected the Portuguese (Brazil) New Post string.
-* Fix      - The plugin name is no longer translatable, so no locale can rename the product. French rendered it as "BuddyPress Group Evaluations" in the settings heading, the browser title and the feedback prompt.
-* Security - Removed logged-out AJAX registrations for the accept, deny, remove and submit review endpoints, which require an authenticated user.
 * Dev      - Extracted the 125-line inline style block from the group criteria template into an enqueued, tokenized stylesheet with min and RTL builds.
 * Dev      - Consolidated the duplicated rating-color CSS into a single shared helper.
-* Dev      - Replaced HSL colors in the admin accordion with hex, and removed the unused .bgr-switch/.bgr-slider toggle CSS.
-* Dev      - Corrected two PHPStan findings in the translation tooling and the script-textdomain filter, so static analysis runs clean at the configured level.
-* Dev      - Tracked composer.json and the contract-audit baseline, which the blanket *.json ignore rule had been excluding, so the static analysis and contract gates are reproducible.
 
 = 3.8.1 =
 * Fixed: Star rating UI display issue with half-star icons
@@ -524,6 +547,9 @@ UI pass: BuddyX/Reign dark-mode token mapping, accessibility focus rings, and CS
 * Initial release.
 
 == Upgrade Notice ==
+
+= 3.9.1 =
+Privacy fix: reviews and ratings of private and hidden groups are no longer visible to non-members. Also fixes moderation emails and uninstall. Recommended update.
 
 = 3.9.0 =
 UI and accessibility pass. Dark mode now renders correctly on BuddyX and Reign and follows the theme toggle rather than the OS setting. Settings and saved reviews are unchanged.

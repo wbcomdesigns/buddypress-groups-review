@@ -109,7 +109,7 @@ class Bgr_Single_Group_Rating_Widget extends WP_Widget {
 	 * @param array $instance Instance.
 	 */
 	public function widget( $args, $instance ) {
-		if ( ! bp_get_current_group_id() ) {
+		if ( ! bp_get_current_group_id() || ! bgr_can_view_group_reviews( bp_get_current_group_id() ) ) {
 			return;
 		}
 		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract -- Legacy widget code.

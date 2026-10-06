@@ -94,7 +94,10 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 		 * @return WP_REST_Response Modified response.
 		 */
 		public function add_review_data_to_response( $response, $request, $group ) {
-			global $bgr;
+			// BuddyPress returns private groups to outsiders; their ratings stay private.
+			if ( ! bgr_can_view_group_reviews( $group ) ) {
+				return $response;
+			}
 
 			$group_id = $group->id;
 
@@ -188,7 +191,7 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 					array(
 						'methods'             => WP_REST_Server::READABLE,
 						'callback'            => array( $this, 'get_group_reviews' ),
-						'permission_callback' => '__return_true',
+						'permission_callback' => array( $this, 'read_reviews_permissions_check' ),
 						'args'                => array(
 							'group_id' => array(
 								'required'          => true,
@@ -247,7 +250,7 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 					array(
 						'methods'             => WP_REST_Server::READABLE,
 						'callback'            => array( $this, 'get_single_review' ),
-						'permission_callback' => '__return_true',
+						'permission_callback' => array( $this, 'read_reviews_permissions_check' ),
 						'args'                => array(
 							'group_id'  => array(
 								'required'          => true,
@@ -446,6 +449,9 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 				update_post_meta( $review_id, 'review_star_rating', $sanitized_ratings );
 			}
 
+			// Same side effects as a review submitted from the group form.
+			do_action( 'bgr_group_after_review_submit', $user_id, $group_id, $review_id );
+
 			$review = get_post( $review_id );
 
 			return rest_ensure_response( $this->prepare_review_for_response( $review, $group_id ) );
@@ -471,6 +477,11 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 			$linked_group = get_post_meta( $review_id, 'linked_group', true );
 			if ( absint( $linked_group ) !== absint( $group_id ) ) {
 				return new WP_Error( 'rest_review_invalid', __( 'Review does not belong to this group.', 'bp-group-reviews' ), array( 'status' => 404 ) );
+			}
+
+			// Pending reviews are visible only to those who can moderate or edit them.
+			if ( 'publish' !== $review->post_status && ! current_user_can( 'edit_review', $review->ID ) ) {
+				return new WP_Error( 'rest_review_invalid', __( 'Invalid review ID.', 'bp-group-reviews' ), array( 'status' => 404 ) );
 			}
 
 			return rest_ensure_response( $this->prepare_review_for_response( $review, $group_id ) );
@@ -596,6 +607,29 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 				'created'     => mysql_to_rfc3339( $review->post_date ),
 				'modified'    => mysql_to_rfc3339( $review->post_modified ),
 			);
+		}
+
+		/**
+		 * Permission check for reading a group's reviews.
+		 *
+		 * Mirrors BuddyPress's own group routes: reviews of a private or hidden
+		 * group are readable only by its members and site moderators.
+		 *
+		 * @param WP_REST_Request $request Request object.
+		 * @return bool|WP_Error
+		 */
+		public function read_reviews_permissions_check( $request ) {
+			$group = groups_get_group( absint( $request->get_param( 'group_id' ) ) );
+
+			if ( empty( $group->id ) ) {
+				return new WP_Error( 'rest_invalid_group', __( 'Invalid group ID.', 'bp-group-reviews' ), array( 'status' => 404 ) );
+			}
+
+			if ( bgr_can_view_group_reviews( $group ) ) {
+				return true;
+			}
+
+			return new WP_Error( 'bp_rest_authorization_required', __( 'Sorry, you cannot view this group\'s reviews.', 'bp-group-reviews' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		/**

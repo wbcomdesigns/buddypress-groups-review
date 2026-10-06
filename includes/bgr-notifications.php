@@ -196,7 +196,8 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		 * @return void
 		 */
 		public function bp_group_review_accept_review_notification( $review_id ) {
-			if ( bp_is_active( 'notifications' ) ) {
+			global $bgr;
+			if ( 'yes' === $bgr['allow_notification'] && bp_is_active( 'notifications' ) ) {
 				$group_id       = get_post_meta( $review_id, 'linked_group', true );
 				$post_author_id = get_post_field( 'post_author', $review_id );
 				$args           = bp_notifications_add_notification(
@@ -221,7 +222,8 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 		 * @return void
 		 */
 		public function bp_group_review_deny_review_notification( $review_id ) {
-			if ( bp_is_active( 'notifications' ) ) {
+			global $bgr;
+			if ( 'yes' === $bgr['allow_notification'] && bp_is_active( 'notifications' ) ) {
 				$group_id       = get_post_meta( $review_id, 'linked_group', true );
 				$post_author_id = get_post_field( 'post_author', $review_id );
 				bp_notifications_add_notification(

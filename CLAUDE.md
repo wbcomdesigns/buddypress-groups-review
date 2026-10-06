@@ -4,7 +4,7 @@
 This plugin is **onboarded**. Before grepping the codebase, read the machine-readable inventory:
 
 1. **`audit/manifest.json`** — canonical inventory (REST, AJAX, admin pages, settings, hooks, CPT, caps). Answer "what does this plugin do / where is X" from here.
-2. **`audit/FEATURE_AUDIT.md`** — feature-by-feature human view.
+2. **`CAPABILITIES.md`** — buyer-level "can it do X?" roll-up with `file:line`; **`audit/FEATURE_AUDIT.md`** — feature-by-feature human view.
 3. **`audit/CODE_FLOWS.md`** — request pipelines (submit/approve/settings/criteria/REST).
 4. **`audit/graph.html`** — interactive manifest graph (open in browser).
 5. **`audit/wppqa-baseline-2026-06-05/SUMMARY.md`** — known bugs at onboarding.
@@ -16,8 +16,8 @@ Follow the **`/wp-plugin-development`** skill for all conventions (hooks ownersh
 # buddypress-groups-review — Wbcom Designs - BuddyPress Group Reviews
 
 - **Main file:** `review-bp-grps.php`
-- **Version:** **3.9.0** — header (`review-bp-grps.php:18`), `BGR_PLUGIN_VERSION` (`:58`) and `package.json` all agree.
-- **Requires:** WP **6.1** (`:19`) · PHP **7.4** (`:20`)
+- **Version:** header (`review-bp-grps.php:18`), `BGR_PLUGIN_VERSION` (`:59`) and `package.json` must all agree.
+- **Requires:** WP **6.5** (`:19`) · PHP **8.0** (`:20`)
 - **Text domain:** `bp-group-reviews` · **Type:** free BuddyPress addon
 - **Hard dependency:** BuddyPress + Groups component (self-deactivates otherwise).
 
@@ -33,11 +33,17 @@ Lets BuddyPress group members post text + multi-criteria star reviews of groups.
 - The legacy bundled wrapper `admin/wbcom/` was **REMOVED** in 3.9.0 — with it went the `wbcom_admin_setting_header` shortcode, the `wbcom_addons_cards` AJAX, and the `wbcom-plugins-page` / `-support-` / `-license-` pages. `admin/bgr-admin.php` survives but registers **no menu** — it only handles the `review` CPT, `review_category` taxonomy, capabilities and `map_meta_cap`.
 
 ## Settings options (all arrays; deleted on uninstall)
-`bgr_admin_general_settings`, `bgr_admin_criteria_settings`, `bgr_admin_display_settings`, `bp_group_review_email_settings`.
+`bgr_admin_general_settings`, `bgr_admin_criteria_settings`, `bgr_admin_display_settings`, `bp_group_review_email_settings` (the Emails tab's `register_setting()` lives only in `BGR_Admin_Panel::register_settings`).
 
 ## Big-site readiness flags
-- `bp_group_review_filter_ratings` scan is now **bounded** by the `bgr_filter_ratings_max_scan` filter (default 500, `bgr-ajax.php:94`). Aggregate stats are cached (`bgr_get_group_review_stats`, limit filter `bgr_review_stats_query_limit` default 10000). Still no true pagination on the ratings filter — revisit before any very-large-site release.
-- `uninstall.php` fetches all `review` posts with `posts_per_page => -1` (ids only) — accepted: one-shot path, gated behind `BGR_REMOVE_DATA_ON_UNINSTALL`.
+- `bp_group_review_filter_ratings` scan is now **bounded** by the `bgr_filter_ratings_max_scan` filter (default 500, `bgr-ajax.php:97`). Aggregate stats are cached (`bgr_get_group_review_stats`, limit filter `bgr_review_stats_query_limit` default 10000). Still no true pagination on the ratings filter — revisit before any very-large-site release.
+- `uninstall.php` deletes only reviews carrying `linked_group` (one SQL id list, one-shot, gated behind `BGR_REMOVE_DATA_ON_UNINSTALL`). The `review` CPT is **shared with BuddyPress Member Reviews** - never delete or query "all reviews" without the `linked_group` scope.
+- CSV export streams 200 rows per batch (`bp_group_review_handle_csv_export`). Criteria averages come from the cached `bgr_get_group_review_stats()` (`criteria` key holds raw totals) - do not re-scan reviews.
+
+## Review lifecycle (one place each)
+- **Submitted** (group form AJAX *and* REST create): `do_action( 'bgr_group_after_review_submit', $author_id, $group_id, $review_id )` → `bgr_handle_review_submitted()` (term, GamiPress, admin notification + email, `bgr_group_review_after_review_insert`). Add new submit side effects there, not in a handler.
+- **Approved / denied** (Manage tab, wp-admin row + bulk, editor, REST): status change pending→publish / pending→trash → `bgr_handle_review_decision()` (reviewer email, `bgr_group_accept_review` / `bgr_group_deny_review`, GamiPress). Handlers only change the status.
+- `allow_notification` gates the accept/deny notifications inside their listeners and the new-review notification inside `bgr_handle_review_submitted()`; the lifecycle actions themselves always fire (cache invalidation hangs on them).
 
 ## Vendored libraries (third-party) — source must ship beside every min
 
@@ -53,7 +59,7 @@ so this plugin vendors selectize and ships its source.
 | selectize.js (standalone build = sifter + microplugin + selectize) | **0.12.1** | `admin/assets/js/vendor/selectize.min.js` (enqueued) + `selectize.js` (source, added 2026-07-17) | min: https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/js/standalone/selectize.min.js <br> source: https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/js/standalone/selectize.js | **Stock.** Our min is byte-identical to upstream's apart from one trailing newline (verified 2026-07-17). |
 | selectize.css | **0.12.1** | `admin/assets/css/vendor/selectize.css` (source only — no min shipped or needed) | https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/css/selectize.css | **LOCAL FORK — do not blindly overwrite.** See below. |
 
-Enqueued at `includes/bgr-scripts.php:342` (`wbcom-selectize-css`) and `:350`
+Enqueued at `includes/bgr-scripts.php:346-348` (`wbcom-selectize-css`) and `:354-356`
 (`wbcom-selectize-js` — the **min**). `selectize.js` is shipped for compliance only and is never
 enqueued; nothing should ever enqueue it.
 
@@ -79,9 +85,9 @@ unaffected only because .gitignore does not apply to files already in the index)
 anchored to `/vendor/`. **Do not remove the leading slash** — doing so re-breaks this silently.
 
 ## Known issues (updated 3.9.0 — supersedes the wppqa baseline)
-- ~~8 banned `alert()`/`confirm()` calls~~ — **RESOLVED**. Replaced by `public/js/toast.js` + `public/js/confirm.js` (registered as `bgr-toast` / `bgr-confirm`, `bgr-scripts.php:206-207`) and a promise-based confirm modal in `bgr-admin.js`.
-- One < 40px button tap target (`bgr-reviews.css:383`) — verify against current file before acting.
-- 2 nonce-no-cap wppqa flags = **false positives** (public nopriv endpoints). The 3rd (echo-only wrapper) is moot — the wrapper is gone.
+- ~~8 banned `alert()`/`confirm()` calls~~ — **RESOLVED**. Replaced by `public/js/toast.js` + `public/js/confirm.js` (registered as `bgr-toast` / `bgr-confirm`, `bgr-scripts.php:260-261`) and a promise-based confirm modal in `bgr-admin.js`.
+- One < 40px button tap target flagged at onboarding (old pointer `bgr-reviews.css:383` no longer matches) — re-measure in the browser before acting.
+- nonce-no-cap wppqa flags = **false positives**: `bp_group_review_filter_ratings` is the only `nopriv` action (read-only render, private/hidden groups skipped via `bgr_can_view_group_reviews()`); `bp_group_submit_review` is authenticated-only since 3.9.0; the echo-only wrapper is gone.
 
 ## Refresh
 Re-run `/wp-plugin-onboard --refresh` after structural changes. Artifacts live in `audit/`.

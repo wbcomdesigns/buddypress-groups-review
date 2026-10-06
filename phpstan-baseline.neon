@@ -115,18 +115,6 @@ parameters:
 			path: includes/bgr-activity.php
 
 		-
-			message: '#^Parameter \#4 \$format_callback of function bp_activity_set_action expects bool\|\(callable\(\)\: mixed\), ''bp_group_review…'' given\.$#'
-			identifier: argument.type
-			count: 1
-			path: includes/bgr-activity.php
-
-		-
-			message: '#^Access to protected property BP_Groups_Group\:\:\$admins\.$#'
-			identifier: property.protected
-			count: 2
-			path: includes/bgr-ajax.php
-
-		-
 			message: '#^Call to function is_wp_error\(\) with int\<0, max\> will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
@@ -142,18 +130,6 @@ parameters:
 			message: '#^Parameter \#1 \$args of function get_posts expects array\{numberposts\?\: int, category\?\: int\|string, include\?\: array\<int\>, exclude\?\: array\<int\>, suppress_filters\?\: bool, attachment_id\?\: int, author\?\: int\|string, author_name\?\: string, \.\.\.\}\|null, array\{post_type\: ''review'', posts_per_page\: int\<1, max\>, paged\: 1, post_status\: ''publish'', category\: ''review_category'', orderby\: ''date'', order\: ''DESC'', fields\: ''ids'', \.\.\.\} given\.$#'
 			identifier: argument.type
 			count: 1
-			path: includes/bgr-ajax.php
-
-		-
-			message: '#^Parameter \#1 \$group_id of function groups_get_group expects int, array\<string, int\<1, max\>\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: includes/bgr-ajax.php
-
-		-
-			message: '#^Parameter \#1 \$group_id of function groups_get_group expects int, array\<string, mixed\> given\.$#'
-			identifier: argument.type
-			count: 2
 			path: includes/bgr-ajax.php
 
 		-
@@ -178,12 +154,6 @@ parameters:
 			message: '#^Variable \$nonce in isset\(\) always exists and is not nullable\.$#'
 			identifier: isset.variable
 			count: 9
-			path: includes/bgr-ajax.php
-
-		-
-			message: '#^Variable \$rated_field_values might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
 			path: includes/bgr-ajax.php
 
 		-
@@ -321,7 +291,7 @@ parameters:
 		-
 			message: '#^Comparison operation "\>" between int\<1, max\> and 0 is always true\.$#'
 			identifier: greater.alwaysTrue
-			count: 2
+			count: 1
 			path: includes/bgr-schema.php
 
 		-
@@ -331,15 +301,9 @@ parameters:
 			path: includes/bgr-schema.php
 
 		-
-			message: '#^Parameter \#1 \$text of function esc_html expects string, float given\.$#'
-			identifier: argument.type
-			count: 1
-			path: includes/bgr-schema.php
-
-		-
 			message: '#^Parameter \#1 \$user_id of function get_userdata expects int, string given\.$#'
 			identifier: argument.type
-			count: 2
+			count: 1
 			path: includes/bgr-schema.php
 
 		-
@@ -439,26 +403,8 @@ parameters:
 			path: includes/templates/bgr-group-criteria-settings.php
 
 		-
-			message: '#^Parameter \#1 \$array \(non\-empty\-list\<\(float\|int\)\>\) of array_values is already a list, call has no effect\.$#'
-			identifier: arrayValues.list
-			count: 1
-			path: includes/widgets/bgr-review.php
-
-		-
 			message: '#^Parameter \#1 \$group_id of function groups_get_group expects int, array\<string, \(int\|string\)\> given\.$#'
 			identifier: argument.type
-			count: 1
-			path: includes/widgets/bgr-review.php
-
-		-
-			message: '#^Parameter \#1 \$text of function esc_html expects string, int\<1, max\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: includes/widgets/bgr-review.php
-
-		-
-			message: '#^Variable \$review_groups in empty\(\) always exists and is not falsy\.$#'
-			identifier: empty.variable
 			count: 1
 			path: includes/widgets/bgr-review.php
 
