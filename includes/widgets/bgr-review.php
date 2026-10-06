@@ -202,8 +202,8 @@ class Bgr_Review_Widget extends WP_Widget {
 					break;
 				}
 				$group = groups_get_group( array( 'group_id' => $gid ) );
-				// Hidden groups are listed only to their members and site moderators.
-				if ( empty( $group->id ) || ( 'hidden' === $group->status && ! groups_is_user_member( get_current_user_id(), $group->id ) && ! bp_current_user_can( 'bp_moderate' ) ) ) {
+				// Private and hidden groups' ratings are shown only to their members and site moderators.
+				if ( empty( $group->id ) || ! bgr_can_view_group_reviews( $group ) ) {
 					continue;
 				}
 				++$post_num_counter;

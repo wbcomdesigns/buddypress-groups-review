@@ -183,6 +183,32 @@ function bp_group_review_remove_add_review_tab() {
 }
 add_action( 'wp_head', 'bp_group_review_remove_add_review_tab' );
 /**
+ * Whether the current user may see a group's reviews, including its ratings.
+ *
+ * Public groups: everyone. Private and hidden groups: members and site
+ * moderators only - the same rule BuddyPress applies to the group's member
+ * list and member count. Every surface that shows reviews or ratings (REST,
+ * group header, directory, schema, widgets) must check this.
+ *
+ * @since 3.9.1
+ *
+ * @param BP_Groups_Group|int $group Group object or ID.
+ * @return bool
+ */
+function bgr_can_view_group_reviews( $group ) {
+	if ( ! $group instanceof BP_Groups_Group ) {
+		$group = groups_get_group( absint( $group ) );
+	}
+	if ( empty( $group->id ) ) {
+		return false;
+	}
+
+	return 'public' === $group->status
+		|| bp_current_user_can( 'bp_moderate' )
+		|| groups_is_user_member( get_current_user_id(), $group->id );
+}
+
+/**
  * Apply the side effects of a moderation decision on a group review.
  *
  * Every path that approves or denies a pending review - the group Manage tab,

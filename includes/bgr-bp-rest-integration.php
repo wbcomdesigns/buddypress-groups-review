@@ -94,7 +94,10 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 		 * @return WP_REST_Response Modified response.
 		 */
 		public function add_review_data_to_response( $response, $request, $group ) {
-			global $bgr;
+			// BuddyPress returns private groups to outsiders; their ratings stay private.
+			if ( ! bgr_can_view_group_reviews( $group ) ) {
+				return $response;
+			}
 
 			$group_id = $group->id;
 
@@ -622,7 +625,7 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 				return new WP_Error( 'rest_invalid_group', __( 'Invalid group ID.', 'bp-group-reviews' ), array( 'status' => 404 ) );
 			}
 
-			if ( 'public' === $group->status || bp_current_user_can( 'bp_moderate' ) || groups_is_user_member( get_current_user_id(), $group->id ) ) {
+			if ( bgr_can_view_group_reviews( $group ) ) {
 				return true;
 			}
 

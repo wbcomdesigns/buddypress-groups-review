@@ -329,7 +329,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 
 			$current_group_id = absint( bp_get_group_id() );
 			$exclude_groups   = isset( $bgr['exclude_groups'] ) ? array_map( 'absint', (array) $bgr['exclude_groups'] ) : array();
-			if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) {
+			if ( ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) || ! bgr_can_view_group_reviews( $current_group_id ) ) {
 				return;
 			}
 
@@ -364,7 +364,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 
 			$current_group_id = absint( bp_get_group_id() );
 			$exclude_groups   = isset( $bgr['exclude_groups'] ) ? array_map( 'absint', (array) $bgr['exclude_groups'] ) : array();
-			if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) {
+			if ( ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) || ! bgr_can_view_group_reviews( $current_group_id ) ) {
 				return;
 			}
 
