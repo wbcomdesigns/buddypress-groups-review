@@ -43,7 +43,7 @@ Lets BuddyPress group members post text + multi-criteria star reviews of groups.
 ## Review lifecycle (one place each)
 - **Submitted** (group form AJAX *and* REST create): `do_action( 'bgr_group_after_review_submit', $author_id, $group_id, $review_id )` → `bgr_handle_review_submitted()` (term, GamiPress, admin notification + email, `bgr_group_review_after_review_insert`). Add new submit side effects there, not in a handler.
 - **Approved / denied** (Manage tab, wp-admin row + bulk, editor, REST): status change pending→publish / pending→trash → `bgr_handle_review_decision()` (reviewer email, `bgr_group_accept_review` / `bgr_group_deny_review`, GamiPress). Handlers only change the status.
-- Notification listeners check `allow_notification` themselves; lifecycle actions always fire (cache invalidation hangs on them).
+- `allow_notification` gates the accept/deny notifications inside their listeners and the new-review notification inside `bgr_handle_review_submitted()`; the lifecycle actions themselves always fire (cache invalidation hangs on them).
 
 ## Vendored libraries (third-party) — source must ship beside every min
 
