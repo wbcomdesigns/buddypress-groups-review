@@ -139,10 +139,8 @@ class Bgr_Review_Widget extends WP_Widget {
 	 * @return void
 	 */
 	public function widget( $args, $instance ) {
-		global $bp;
 		global $bgr;
-		$review_rating_fields = $bgr['review_rating_fields'];
-		$review_label         = $bgr['review_label'];
+		$review_label = $bgr['review_label'];
 
 		// Use direct array access instead of extract() for security.
 		$widget_title       = apply_filters( 'bgr_widget_title', $instance['widget_title'] );
@@ -150,81 +148,36 @@ class Bgr_Review_Widget extends WP_Widget {
 		$widget_post_num    = apply_filters( 'bgr_post_num', $instance['post_num'] );
 		$widget_thumbnail   = apply_filters( 'bgr_thumbnail', $instance['thumbnail'] );
 
-		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Required for review query.
-		$custom_args         = array(
-			'post_type'      => 'review',
-			'posts_per_page' => -1,
-			'post_status'    => 'publish',
-			'category'       => 'review_category',
-			'meta_key'       => 'linked_group',
-		);
-		$reviews             = get_posts( $custom_args );
-		$review_groups       = array();
-		$review_groups_count = array();
-		$single_review_count = 0;
-
-		if ( ! empty( $reviews ) ) {
-			$single_rev_avg = array();
-			foreach ( $reviews as $review ) {
-				$linked_group   = get_post_meta( $review->ID, 'linked_group', false );
-				$review_ratings = get_post_meta( $review->ID, 'review_star_rating', false );
-				if ( ! empty( $review_ratings ) && ! empty( $review_rating_fields ) ) {
-					$rev_rating_array    = $review_ratings[0];
-					$total_review        = 0;
-					$single_review_count = 0;
-					foreach ( $review_rating_fields as $rating_field ) {
-						if ( array_key_exists( $rating_field, $rev_rating_array ) ) {
-							$total_review += $rev_rating_array[ $rating_field ];
-							++$single_review_count;
-						}
-					}
-					if ( ! empty( $single_review_count ) ) {
-						$rev_avg                       = $total_review / $single_review_count;
-						$single_rev_avg[ $review->ID ] = array( $linked_group[0] => $rev_avg );
-					}
-				}
-
-				// Review count.
-				if ( ! empty( $linked_group[0] ) ) {
-					if ( array_key_exists( $linked_group[0], $review_groups_count ) ) {
-						$value                                   = $review_groups_count[ $linked_group[0] ];
-						$review_groups_count[ $linked_group[0] ] = (int) $value + 1;
-					} else {
-						$review_groups_count[ $linked_group[0] ] = 1;
-					}
+		// Rank every reviewed group from the cached per-group stats, so the widget
+		// matches the group header's rating and never loads reviews itself. The
+		// ranking is shared and cleared by invalidate_group_review_cache().
+		$ranking = get_transient( 'bgr_widget_group_ranking' );
+		if ( ! is_array( $ranking ) ) {
+			global $wpdb;
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Cached in the transient above.
+			$group_ids = $wpdb->get_col(
+				"SELECT DISTINCT pm.meta_value FROM {$wpdb->posts} p
+				INNER JOIN {$wpdb->postmeta} pm ON pm.post_id = p.ID AND pm.meta_key = 'linked_group'
+				WHERE p.post_type = 'review' AND p.post_status = 'publish'"
+			);
+			$ranking   = array();
+			// ponytail: one cached stats read per reviewed group on a cold cache; fine to a few thousand groups.
+			foreach ( $group_ids as $group_id ) {
+				$stats = bgr_get_group_review_stats( $group_id );
+				if ( $stats['total_reviews'] ) {
+					$ranking[ (int) $group_id ] = array(
+						'average' => $stats['average'],
+						'count'   => $stats['total_reviews'],
+					);
 				}
 			}
-			// Sort Group ids according reviews and ratings.
-			if ( ! empty( $single_rev_avg ) ) {
-				$review_groups = array();
-				$rev_arr       = array();
-				foreach ( $single_rev_avg as $single_avg ) {
-					foreach ( $single_avg as $gid => $avg ) {
-						if ( array_key_exists( $gid, $review_groups ) ) {
-							$rev_arr = $review_groups[ $gid ];
-							array_push( $rev_arr, $avg );
-							$review_groups[ $gid ] = $rev_arr;
-						} else {
-							$review_groups[ $gid ] = array( $avg );
-						}
-					}
-				}
-				arsort( $review_groups_count );
-				// Count Average.
-				if ( ! empty( $review_groups ) ) {
-					foreach ( $review_groups as $key => $val ) {
-						$count = count( $val );
-						if ( $count > 1 ) {
-							$sum                   = array_sum( array_values( $val ) );
-							$review_groups[ $key ] = $sum / $count;
-						} else {
-							$review_groups[ $key ] = $val[0];
-						}
-					}
-					arsort( $review_groups );
-				}
-			}
+			set_transient( 'bgr_widget_group_ranking', $ranking, DAY_IN_SECONDS );
 		}
+
+		$review_groups       = array_filter( wp_list_pluck( $ranking, 'average' ) );
+		$review_groups_count = wp_list_pluck( $ranking, 'count' );
+		arsort( $review_groups );
+		arsort( $review_groups_count );
 
 		echo wp_kses_post( $args['before_widget'] );
 		if ( ! empty( $widget_title ) ) {
@@ -245,54 +198,57 @@ class Bgr_Review_Widget extends WP_Widget {
 			$gids = array_keys( $group_args );
 			echo '<ul class="bupr-group-main">';
 			foreach ( $gids as $gid ) {
-				if ( $post_num_counter < $widget_post_num ) :
-					$group = groups_get_group( array( 'group_id' => $gid ) );
-					// Build group URL safely for both BuddyPress and BuddyBoss.
-					if ( function_exists( 'bp_get_group_url' ) ) {
-						$group_url = bp_get_group_url( $group );
-					} else {
-						// Fallback for older versions - build URL manually.
-						$group_url = bp_get_groups_directory_permalink() . $group->slug . '/';
-					}
-					$avatar_options = array(
-						'item_id'    => $gid,
-						'object'     => 'group',
-						'type'       => 'full',
-						'avatar_dir' => 'group-avatars',
-						'alt'        => esc_attr__( 'Group avatar', 'bp-group-reviews' ),
-						'class'      => 'sidebar_review_avatar avatar',
-					);
-					if ( 0 !== $group->id ) {
-						?>
-						<li class="bupr-group">
-							<?php if ( 'show' === $widget_thumbnail ) { ?>
-								<div class="bupr-img-widget">
-									<a href="<?php echo esc_url( $group_url ); ?>"><?php echo wp_kses_post( bp_core_fetch_avatar( $avatar_options ) ); ?></a>
-								</div>
-							<?php } ?>
-							<div class="bupr-content-widget">
-								<div class="bupr-group-title"><a href="<?php echo esc_url( $group_url ); ?>"><?php echo esc_html( $group->name ); ?></a></div>
-								<div class="bupr-group-rating">
-									<?php
-									if ( ! empty( $review_groups ) ) {
-										if ( array_key_exists( $gid, $review_groups ) ) {
-											do_action( 'bgr_display_widget_average_ratings', $review_groups[ $gid ] );
-										}
+				if ( $post_num_counter >= $widget_post_num ) {
+					break;
+				}
+				$group = groups_get_group( array( 'group_id' => $gid ) );
+				// Hidden groups are listed only to their members and site moderators.
+				if ( empty( $group->id ) || ( 'hidden' === $group->status && ! groups_is_user_member( get_current_user_id(), $group->id ) && ! bp_current_user_can( 'bp_moderate' ) ) ) {
+					continue;
+				}
+				++$post_num_counter;
+				// Build group URL safely for both BuddyPress and BuddyBoss.
+				if ( function_exists( 'bp_get_group_url' ) ) {
+					$group_url = bp_get_group_url( $group );
+				} else {
+					// Fallback for older versions - build URL manually.
+					$group_url = bp_get_groups_directory_permalink() . $group->slug . '/';
+				}
+				$avatar_options = array(
+					'item_id'    => $gid,
+					'object'     => 'group',
+					'type'       => 'full',
+					'avatar_dir' => 'group-avatars',
+					'alt'        => esc_attr__( 'Group avatar', 'bp-group-reviews' ),
+					'class'      => 'sidebar_review_avatar avatar',
+				);
+				?>
+					<li class="bupr-group">
+						<?php if ( 'show' === $widget_thumbnail ) { ?>
+							<div class="bupr-img-widget">
+								<a href="<?php echo esc_url( $group_url ); ?>"><?php echo wp_kses_post( bp_core_fetch_avatar( $avatar_options ) ); ?></a>
+							</div>
+						<?php } ?>
+						<div class="bupr-content-widget">
+							<div class="bupr-group-title"><a href="<?php echo esc_url( $group_url ); ?>"><?php echo esc_html( $group->name ); ?></a></div>
+							<div class="bupr-group-rating">
+								<?php
+								if ( ! empty( $review_groups ) ) {
+									if ( array_key_exists( $gid, $review_groups ) ) {
+										do_action( 'bgr_display_widget_average_ratings', $review_groups[ $gid ] );
 									}
-									?>
-								</div>
-								<div class="bupr-meta">
-									<?php
-									/* translators: %1$s: review label (e.g. "Reviews"), %2$s: number of reviews. */
-									printf( esc_html__( 'Total %1$s : %2$s', 'bp-group-reviews' ), esc_html( $review_label ), esc_html( $review_groups_count[ $gid ] ) );
-									?>
-								</div>
-							<?php } ?>
+								}
+								?>
+							</div>
+							<div class="bupr-meta">
+								<?php
+								/* translators: %1$s: review label (e.g. "Reviews"), %2$s: number of reviews. */
+								printf( esc_html__( 'Total %1$s : %2$s', 'bp-group-reviews' ), esc_html( $review_label ), esc_html( $review_groups_count[ $gid ] ) );
+								?>
+							</div>
 						</div>
 					</li>
-					<?php
-				endif;
-				++$post_num_counter;
+				<?php
 			}
 			echo '</ul>';
 		} elseif ( 'toprated' === $widget_listing_cat ) {

@@ -182,6 +182,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			$group_id = absint( $group_id );
 			delete_transient( 'bgr_review_count_' . $group_id );
 			delete_transient( 'bgr_review_rating_' . $group_id );
+			delete_transient( 'bgr_widget_group_ranking' );
 		}
 
 		/**
