@@ -286,7 +286,7 @@ function bgr_handle_review_decision( $new_status, $old_status, $post ) {
 	$review_link = $group_url . bp_group_review_manage_tab_slug() . '/';
 	$message     = str_replace(
 		array( '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
-		array( $group->name, $author->display_name, $review_link, $site_name ),
+		array( esc_html( $group->name ), esc_html( $author->display_name ), esc_url( $review_link ), esc_html( $site_name ) ),
 		$message
 	);
 
@@ -350,7 +350,7 @@ function bgr_handle_review_submitted( $author_id, $group_id, $review_id ) {
 
 	if ( 'yes' === $bgr['auto_approve_reviews'] ) {
 		$group_url = function_exists( 'bp_get_group_url' ) ? bp_get_group_url( $group ) : bp_get_group_permalink( $group );
-		$mail_link = $group_url . bp_group_review_manage_tab_slug() . '/';
+		$mail_link = esc_url( $group_url . bp_group_review_manage_tab_slug() . '/' );
 	} else {
 		$mail_link = '<a href="' . esc_url( admin_url( 'edit.php?post_type=review' ) ) . '">' . esc_html( admin_url( 'edit.php?post_type=review' ) ) . '</a>';
 	}
@@ -375,7 +375,7 @@ function bgr_handle_review_submitted( $author_id, $group_id, $review_id ) {
 
 	$message = str_replace(
 		array( '[admin-name]', '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
-		array( $creator_name, $group->name, $author->user_login, $mail_link, $site_name ),
+		array( esc_html( $creator_name ), esc_html( $group->name ), esc_html( $author->user_login ), $mail_link, esc_html( $site_name ) ),
 		$message
 	);
 	$subject = sanitize_text_field( str_replace( array( "\r", "\n" ), '', $subject ) );
