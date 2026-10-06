@@ -334,7 +334,7 @@ function bgr_handle_review_submitted( $author_id, $group_id, $review_id ) {
 	do_action( 'bgr_group_review_after_review_insert', $review_id, $group->id, $author_id );
 
 	if ( 'yes' === $bgr['allow_notification'] ) {
-		foreach ( $group->admins as $group_admin ) {
+		foreach ( groups_get_group_admins( $group->id ) as $group_admin ) {
 			do_action( 'bgr_group_add_review', $group->id, $group_admin->user_id );
 		}
 	}
@@ -380,7 +380,7 @@ function bgr_handle_review_submitted( $author_id, $group_id, $review_id ) {
 	);
 	$subject = sanitize_text_field( str_replace( array( "\r", "\n" ), '', $subject ) );
 
-	foreach ( $group->admins as $group_admin ) {
+	foreach ( groups_get_group_admins( $group->id ) as $group_admin ) {
 		$admin = get_userdata( $group_admin->user_id );
 		if ( $admin ) {
 			wp_mail( $admin->user_email, $subject, nl2br( $message ), array( 'Content-Type: text/html; charset=UTF-8' ) );
