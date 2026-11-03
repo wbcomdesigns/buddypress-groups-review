@@ -52,6 +52,17 @@ jobs:
           if [ -n "$junk" ]; then echo "::error::Dev files in the release zip:"; echo "$junk"; exit 1; fi
           echo "Zip is clean: $(find . -type f | wc -l) files"
 
+      - name: Plugin Check (report only)
+        # Findings appear as annotations on this run; they never block the
+        # deploy. Text domain mismatch is an accepted owner decision (the
+        # bp-group-reviews domain stays), so it is filtered out of the report.
+        continue-on-error: true
+        uses: WordPress/plugin-check-action@10857da14b6c2246d15402b3e69f777edcf8c12e # v1.1.9
+        with:
+          build-dir: ${{ env.BUILD_DIR }}
+          slug: ${{ env.SLUG }}
+          ignore-codes: WordPress.WP.I18n.TextDomainMismatch,textdomain_mismatch
+
       - name: Deploy to WordPress.org
         uses: 10up/action-wordpress-plugin-deploy@54bd289b8525fd23a5c365ec369185f2966529c2 # stable, 2026-11-03
         env:
