@@ -1,0 +1,70 @@
+# Deploys a published GitHub Release to WordPress.org SVN.
+# Ships the exact zip attached to the release (the one QA tested), creates
+# tags/X.Y.Z, updates trunk and syncs .wordpress-org/ to SVN assets.
+# Re-cutting the same tag before publishing is safe: nothing runs until
+# the release is published.
+# Secrets: SVN_USERNAME, SVN_PASSWORD (WordPress.org login), org-level.
+name: Deploy to WordPress.org
+
+on:
+  release:
+    types: [published]
+
+env:
+  SLUG: review-buddypress-groups
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Unpack the release zip
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          gh release download "$TAG" --pattern '*.zip' --dir release-zip
+          test "$(find release-zip -maxdepth 1 -name '*.zip' | wc -l)" -eq 1 || { echo "::error::Release must have exactly one zip"; exit 1; }
+          unzip -q release-zip/*.zip -d release-zip/unpacked
+          dir="$(find release-zip/unpacked -mindepth 1 -maxdepth 1 -type d | head -1)"
+          version="${TAG#v}"
+          stable="$(grep -iE '^Stable tag:' "$dir/readme.txt" | sed -E 's/^[^:]+:[[:space:]]*//' | tr -d '\r')"
+          header="$(grep -iE '^[[:space:]*]*Version:' "$dir"/*.php | head -1 | sed -E 's/.*Version:[[:space:]]*//' | tr -d '\r')"
+          echo "tag=$version stable=$stable header=$header"
+          [ "$stable" = "$version" ] || { echo "::error::readme Stable tag ($stable) does not match release $version"; exit 1; }
+          [ "$header" = "$version" ] || { echo "::error::plugin header Version ($header) does not match release $version"; exit 1; }
+          echo "BUILD_DIR=$dir" >> "$GITHUB_ENV"
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+
+      - name: Refuse junk in the zip
+        # Top-level dev folders, plus dev file types anywhere. Nested vendor/
+        # folders (bundled JS/CSS libraries) are runtime code and allowed.
+        run: |
+          cd "$BUILD_DIR"
+          junk="$( { find . -mindepth 1 -maxdepth 1 \( -name '.*' -o -name node_modules -o -name vendor -o -name tests -o -name docs \
+                       -o -name audit -o -name plan -o -name marketing -o -name bin -o -name dist -o -name build \) -print
+                     find . -type f \( -name '.*' -o -name '*.md' -o -name '*.map' -o -name '*.zip' -o -name '*.log' -o -name '*.neon' \
+                       -o -name '*.lock' -o -name '*.dist' -o -name '*.sh' -o -name 'screenshot-*' -o -name 'composer.json' \
+                       -o -name 'package.json' -o -name 'package-lock.json' -o -iname 'gruntfile.js' -o -name 'phpunit.xml*' \) -print; } | sort -u)"
+          if [ -n "$junk" ]; then echo "::error::Dev files in the release zip:"; echo "$junk"; exit 1; fi
+          echo "Zip is clean: $(find . -type f | wc -l) files"
+
+      - name: Plugin Check (report only)
+        # Findings appear as annotations on this run; they never block the
+        # deploy. Text domain mismatch is an accepted owner decision (the
+        # bp-group-reviews domain stays), so it is filtered out of the report.
+        continue-on-error: true
+        uses: WordPress/plugin-check-action@10857da14b6c2246d15402b3e69f777edcf8c12e # v1.1.9
+        with:
+          build-dir: ${{ env.BUILD_DIR }}
+          slug: ${{ env.SLUG }}
+          ignore-codes: WordPress.WP.I18n.TextDomainMismatch,textdomain_mismatch
+
+      - name: Deploy to WordPress.org
+        uses: 10up/action-wordpress-plugin-deploy@54bd289b8525fd23a5c365ec369185f2966529c2 # stable, 2026-11-03
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
