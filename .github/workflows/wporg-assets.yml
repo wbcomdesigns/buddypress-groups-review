@@ -1,0 +1,41 @@
+# Pushes readme.txt and .wordpress-org/ changes on master to WordPress.org
+# without a version bump (FAQs, Tested up to, banners, screenshots).
+# Skips when the readme's Stable tag is not on SVN yet: that version ships
+# through wporg-deploy.yml when its release is published.
+# Secrets: SVN_USERNAME, SVN_PASSWORD (WordPress.org login), org-level.
+name: WordPress.org readme and assets
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - readme.txt
+      - .wordpress-org/**
+
+env:
+  SLUG: review-buddypress-groups
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the Stable tag exists on WordPress.org
+        id: guard
+        run: |
+          stable="$(grep -iE '^Stable tag:' readme.txt | sed -E 's/^[^:]+:[[:space:]]*//' | tr -d '\r')"
+          code="$(curl -s -o /dev/null -w '%{http_code}' "https://plugins.svn.wordpress.org/$SLUG/tags/$stable/")"
+          echo "stable=$stable svn=$code"
+          if [ "$code" = 200 ]; then echo "run=true" >> "$GITHUB_OUTPUT"; else
+            echo "::notice::tags/$stable is not on WordPress.org yet; it ships with the release deploy."; echo "run=false" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Update readme and assets
+        if: steps.guard.outputs.run == 'true'
+        uses: 10up/action-wordpress-plugin-asset-update@stable
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          IGNORE_OTHER_FILES: true
