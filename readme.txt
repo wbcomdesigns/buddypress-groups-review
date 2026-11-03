@@ -1,13 +1,12 @@
 === Wbcom Designs - BuddyPress Group Reviews ===
 Contributors: wbcomdesigns, vapvarun
-Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, groups, reviews, ratings, community
 Requires at least: 6.5
 Tested up to: 7.1
 Stable tag: 3.9.1
 Requires PHP: 8.0
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: bp-group-reviews
 Domain Path: /languages
 
@@ -84,7 +83,7 @@ Our dedicated support team is ready to help you get the most out of this plugin.
 
 = Documentation =
 
-* **[Documentation and Support](https://docs.wbcomdesigns.com/)** - Setup walkthrough, settings reference, and usage guides
+* **[Group Reviews documentation](https://docs.wbcomdesigns.com/bp-family/buddypress-group-reviews/)** - Setup walkthrough, settings reference, and usage guides
 
 = Translations =
 
@@ -95,7 +94,7 @@ Our dedicated support team is ready to help you get the most out of this plugin.
 = Links =
 
 * [Plugin Homepage](https://wbcomdesigns.com/downloads/buddypress-group-reviews/)
-* [Documentation](https://docs.wbcomdesigns.com/)
+* [Documentation](https://docs.wbcomdesigns.com/bp-family/buddypress-group-reviews/)
 * [Support](https://wbcomdesigns.com/support/)
 * [Request Features](https://wbcomdesigns.com/contact/)
 
@@ -105,25 +104,21 @@ Our dedicated support team is ready to help you get the most out of this plugin.
 * PHP 8.0 and higher
 * BuddyPress or BuddyBoss Platform with the Groups component active (required)
 * Multisite supported
-* Tested with popular themes including BuddyX, Reign and Youzify
+* Styled for the BuddyX and Reign themes, including their dark mode
+* Youzify: the average rating and review button appear in the Youzify group header
 
-= What's New in 3.9.0 =
+= What's New in 3.9.1 =
 
-A UI pass focused on how reviews look in real themes. Review, rating and leaderboard colors now map to BuddyX and Reign design tokens so dark mode renders correctly, dark mode follows the theme toggle instead of the OS setting, star ratings mirror properly in RTL, and every control has a visible keyboard focus ring. The admin settings screen is rebuilt on the modern Wbcom card panel UI. Your settings and saved reviews are unchanged.
+Privacy, moderation email and theme fixes. Reviewers are now emailed when a review is approved or denied from wp-admin, bulk actions or the editor, review notifications respect the BuddyPress Notifications setting, the CSV export runs in batches for large sites, and uninstalling no longer touches BuddyPress Member Reviews data. See the changelog for the full list.
 
-== More Free Tools from Wbcom Designs ==
+== More from Wbcom Designs ==
 
-Group Reviews gives members a way to judge which groups are worth joining, but trust and discovery only matter once there is a community worth exploring. These other free tools from Wbcom Designs build out the rest of it, from the theme and social network itself to forums, media, events, gamification, directories, jobs, and courses.
+Group Reviews helps members pick the right group. These Wbcom Designs products fit the same kind of site:
 
-* **[BuddyX](https://wbcomdesigns.com/downloads/buddyx-theme/)** - A free, fast community theme for BuddyPress, BuddyBoss and PeepSo with a modern layout and dark mode.
-* **[BuddyNext](https://wbcomdesigns.com/downloads/buddynext/)** - Stand up a complete WordPress community with activity streams, member spaces, profiles, direct messaging, and built-in moderation.
-* **[Jetonomy](https://wbcomdesigns.com/downloads/jetonomy/)** - Add forums, question-and-answer boards, and idea spaces that stay tidy through trust-based auto-moderation even past 100,000 topics.
-* **[Mediaverse](https://wbcomdesigns.com/downloads/mediaverse/)** - Let members build photo and video albums, react, follow each other, and message privately while AI moderation keeps things clean.
-* **[Eventonomy](https://wbcomdesigns.com/downloads/eventonomy/)** - Run community events with RSVPs, calendars, and front-end submissions.
-* **[WB Gamification](https://wbcomdesigns.com/downloads/wordpress-gamification-plugin/)** - Reward members with points, badges, and leaderboards to keep engagement high.
-* **[Listora](https://wbcomdesigns.com/downloads/listora/)** - Publish searchable directories across ten listing types with reviews, maps, and member-submitted entries from the front end.
-* **[WP Career Board](https://wbcomdesigns.com/downloads/wp-career-board/)** - Add a job board with front-end listings, applications, and employer profiles.
-* **[Learnomy](https://wbcomdesigns.com/downloads/learnomy/)** - Build and sell online courses, auto-grade quizzes, collect payments, and award certificates when learners finish.
+* **[BuddyX](https://buddyxtheme.com/features/)** - A free community theme on WordPress.org. Group Reviews takes its colors from BuddyX and follows its dark mode toggle.
+* **[Reign](https://reigntheme.com/best-wordpress-community-theme/)** - A community theme for BuddyPress and BuddyBoss sites. Review cards, stars and the leaderboard use Reign's own color settings.
+* **[Listora](https://listora.org/features/reviews-and-trust/)** - A directory plugin for places, businesses and services. Members review listings and owners reply, in the free version.
+* **[BuddyNext](https://buddynext.com/features/)** - Our standalone community plugin with a feed, spaces, profiles, messaging and moderation, for new sites that do not need BuddyPress.
 
 == Installation ==
 
@@ -152,7 +147,7 @@ After activating the plugin, we recommend:
 3. Rename the review labels and pick your star color under the **Display** tab
 4. Review the notification templates under the **Emails** tab
 5. Open any group and check the Reviews tab
-6. See the [documentation](https://docs.wbcomdesigns.com/) for detailed instructions
+6. See the [documentation](https://docs.wbcomdesigns.com/bp-family/buddypress-group-reviews/) for detailed instructions
 
 = Requirements =
 
@@ -218,11 +213,27 @@ Yes, the plugin supports multisite networks.
 
 Yes. The plugin is fully translation ready with an included POT file, and it includes RTL language support.
 
+= Does it work with BuddyNext? =
+
+No. BuddyNext is a standalone community plugin that runs instead of BuddyPress, and its spaces are not BuddyPress groups, so Group Reviews has nothing to attach to there. Group Reviews is for sites running BuddyPress or BuddyBoss Platform.
+
+= Will reviews match my theme and its dark mode? =
+
+Reviews use your theme's own link and button colors. On BuddyX and Reign the review cards, stars and leaderboard also take their colors from the theme, and dark mode follows the theme's toggle rather than the visitor's system setting. With Youzify active, the group's average rating and the review button appear in the Youzify group header.
+
+= Can members earn points or badges for writing reviews? =
+
+Yes, with GamiPress. Group Reviews adds a "Give Group Review" event to GamiPress, so you can award points, achievements or ranks when a member reviews a group.
+
+= Can members review places or businesses instead of groups? =
+
+Not with this plugin; it reviews BuddyPress groups only. For reviews of listings such as places, businesses or services, use [Listora](https://listora.org/features/reviews-and-trust/), where members review listings and owners can reply.
+
 = Where do I get support? =
 
 We'd like you to use [Wbcom Designs](https://wbcomdesigns.com/contact/) for all support questions. We love helping. Using Wbcom Designs allows us to assist you better and quicker.
 
-* [Documentation](https://docs.wbcomdesigns.com/) - Free guides for every Wbcom plugin
+* [Documentation](https://docs.wbcomdesigns.com/bp-family/buddypress-group-reviews/) - Setup and settings guide for Group Reviews
 * [Support](https://wbcomdesigns.com/support/) - Get help from our team
 * [Contact us](https://wbcomdesigns.com/contact/) - Report bugs and request features
 
@@ -232,7 +243,6 @@ We'd like you to use [Wbcom Designs](https://wbcomdesigns.com/contact/) for all 
 3. Group Reviews on a mobile viewport with stacked criteria.
 4. Admin General settings - review submission and moderation options.
 5. Admin Criteria manager - add, reorder, and enable rating criteria.
-6. Admin Discover - more free tools from Wbcom Designs.
 
 == Changelog ==
 

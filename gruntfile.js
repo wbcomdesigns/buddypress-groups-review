@@ -229,6 +229,7 @@ module.exports = function (grunt) {
                     // grow to exclude languages/*.json, which MUST ship or every
                     // JS string falls back to English.
                     '!bin/**',
+                    '!.wordpress-org/**',
                     '!marketing/**',
                     '!BUDDYBOSS-COMPATIBILITY.md',
                     '!.DS_Store',
