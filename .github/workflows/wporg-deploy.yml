@@ -39,6 +39,19 @@ jobs:
           echo "BUILD_DIR=$dir" >> "$GITHUB_ENV"
           echo "VERSION=$version" >> "$GITHUB_ENV"
 
+      - name: Refuse junk in the zip
+        # Top-level dev folders, plus dev file types anywhere. Nested vendor/
+        # folders (bundled JS/CSS libraries) are runtime code and allowed.
+        run: |
+          cd "$BUILD_DIR"
+          junk="$( { find . -mindepth 1 -maxdepth 1 \( -name '.*' -o -name node_modules -o -name vendor -o -name tests -o -name docs \
+                       -o -name audit -o -name plan -o -name marketing -o -name bin -o -name dist -o -name build \) -print
+                     find . -type f \( -name '.*' -o -name '*.md' -o -name '*.map' -o -name '*.zip' -o -name '*.log' -o -name '*.neon' \
+                       -o -name '*.lock' -o -name '*.dist' -o -name '*.sh' -o -name 'screenshot-*' -o -name 'composer.json' \
+                       -o -name 'package.json' -o -name 'package-lock.json' -o -iname 'gruntfile.js' -o -name 'phpunit.xml*' \) -print; } | sort -u)"
+          if [ -n "$junk" ]; then echo "::error::Dev files in the release zip:"; echo "$junk"; exit 1; fi
+          echo "Zip is clean: $(find . -type f | wc -l) files"
+
       - name: Deploy to WordPress.org
         uses: 10up/action-wordpress-plugin-deploy@54bd289b8525fd23a5c365ec369185f2966529c2 # stable, 2026-11-03
         env:

@@ -126,8 +126,8 @@ module.exports = function (grunt) {
         rtlcss: {
             myTask: {
                 options: {
-                    // Generate source maps
-                    map: { inline: false },
+                    // No source maps: they are dev-only and must not ship.
+                    map: false,
                     // RTL CSS options
                     opts: {
                         clean: false
@@ -243,8 +243,8 @@ module.exports = function (grunt) {
                     '!composer.json',
                     '!composer.lock',
                     '!*.zip',
-                    '!assets/js/*.map',
-                    '!admin/assets/js/*.map',
+                    '!**/*.map',
+                    '!screenshot-*.*',
                     'assets/js/min/**',
                     'admin/assets/js/min/**',
                 ],
