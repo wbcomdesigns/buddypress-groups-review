@@ -66,33 +66,31 @@
    * Add ARIA labels and keyboard support to star ratings.
    */
   function addStarRatingAccessibility() {
+    // Each .bgr-stars span is one star; its row (.multi-review) holds the criteria name.
     $('.bgr-stars').each(function () {
-      var $stars = $(this).find('.fa-star, .fas, .far');
-      var criteriaName = $(this).closest('.bgr-criteria-block').find('.bgr-criteria-label').text() || t('defaultCriteria', 'Rating');
+      var $label = $(this).closest('.multi-review').children().first().clone();
+      $label.children().remove();
+      var criteriaName = $.trim($label.text()) || t('defaultCriteria', 'Rating');
 
-      $stars.each(function (index) {
-        var rating = index + 1;
-        $(this)
-          .attr({
-            'role': 'button',
-            'tabindex': '0',
-            'aria-label': format(
-              t('rateStars', 'Rate %1$s out of 5 stars for %2$s'),
-              rating,
-              criteriaName
-            ),
-          })
-          .on('keypress', function (e) {
-            if (e.which === 13 || e.which === 32) { // Enter or Space
-              e.preventDefault();
-              $(this).trigger('click');
-            }
-          });
-      });
+      $(this)
+        .attr({
+          'role': 'button',
+          'tabindex': '0',
+          'aria-label': format(
+            t('rateStars', 'Rate %1$s out of 5 stars for %2$s'),
+            $(this).data('attr'),
+            criteriaName
+          ),
+        })
+        .on('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            $(this).trigger('click');
+          }
+        });
     });
 
-    // Add role and label to star rating container
-    $('.bgr-criteria-block').attr('role', 'group');
+    $('.multi-review').attr('role', 'group');
   }
 
   /**
@@ -248,7 +246,7 @@
     // Add CSS for focus-visible (keyboard navigation)
     var focusStyles = `
       <style id="bgr-a11y-focus">
-        .bgr-stars .fa-star:focus,
+        .bgr-stars:focus-visible,
         .button:focus,
         .generic-button a:focus,
         input:focus,
