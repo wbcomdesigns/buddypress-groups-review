@@ -46,6 +46,15 @@ html[data-bx-mode="dark"],
 	margin: 15px 0;
 }
 
+/* Radio beside its label. BuddyPress makes every .standard-form label a block
+   (.buddypress-wrap .standard-form label, 0,2,1), so this needs 0,3,1. */
+.bgr-criteria-settings-wrap .bgr-mode-options label.bgr-mode-option {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: start;
+	column-gap: 10px;
+}
+
 .bgr-mode-option {
 	display: block;
 	padding: 15px;
@@ -61,7 +70,7 @@ html[data-bx-mode="dark"],
 }
 
 .bgr-mode-option input[type="radio"] {
-	margin-inline-end: 10px;
+	margin: 0.2em 0 0;
 }
 
 .bgr-mode-label {
@@ -73,7 +82,17 @@ html[data-bx-mode="dark"],
 	margin-top: 5px;
 	color: var(--bgr-text-muted, #666);
 	font-size: 13px;
-	margin-inline-start: 24px;
+}
+
+/* BuddyPress paints .standard-form .description with a light band (#fafafa). */
+#bgr-group-criteria-settings p.description {
+	background: transparent;
+	padding: 0;
+}
+
+/* BuddyPress's muted grey is 4.2:1 on the tinted preview band; use the body colour there. */
+#bgr-group-criteria-settings .bgr-preview-section p.description {
+	color: inherit;
 }
 
 .bgr-criteria-list {

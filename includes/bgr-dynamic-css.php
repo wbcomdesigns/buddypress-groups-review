@@ -20,7 +20,9 @@ defined( 'ABSPATH' ) || exit;
  * primary wp_add_inline_style() path and the wp_head fallback so the selector
  * list + !important overrides never drift out of sync (previously duplicated).
  * The !important is required: it overrides the theme/plugin colour set on the
- * star pseudo-elements from the admin "rating color" setting.
+ * star pseudo-elements from the admin "rating color" setting. Every selector
+ * carries a bgr- class: the generic .stars class is shared with BuddyPress
+ * Member Reviews, and painting it recoloured that plugin's stars.
  *
  * @param string $rating_color Sanitized hex colour (e.g. #ffb900).
  * @return string CSS rules, or empty string when no colour supplied.
@@ -38,10 +40,6 @@ function bp_group_review_get_rating_color_css( $rating_color ) {
 		.far.fa-star.bgr-star-rate::before,
 		.fas.fa-star-half-alt.bgr-star-rate::before,
 		.fas.fa-star-half-alt.bgr-star-rate::after,
-		.fas.fa-star.stars::before,
-		.far.fa-star.stars::before,
-		.fas.fa-star-half-alt.stars::before,
-		.fas.fa-star-half-alt.stars::after,
 		.far.fa-star.bgr-stars::before { color: {$rating_color} !important; }
 	";
 }

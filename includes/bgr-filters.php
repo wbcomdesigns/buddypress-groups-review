@@ -636,11 +636,11 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						$review->ID,
 						get_the_date( 'Y-m-d H:i:s', $review->ID ),
 						$review->post_status,
-						$author_info ? $author_info->display_name : __( 'Unknown', 'bp-group-reviews' ),
-						$author_info ? $author_info->user_email : '',
-						$group_name,
+						self::csv_safe( $author_info ? $author_info->display_name : __( 'Unknown', 'bp-group-reviews' ) ),
+						self::csv_safe( $author_info ? $author_info->user_email : '' ),
+						self::csv_safe( $group_name ),
 						$linked_group,
-						wp_strip_all_tags( $review->post_content ),
+						self::csv_safe( wp_strip_all_tags( $review->post_content ) ),
 						$avg_rating,
 					);
 
@@ -662,6 +662,23 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- Closing php://output for CSV streaming.
 			fclose( $output );
 			exit;
+		}
+
+		/**
+		 * Neutralise a member-written CSV cell so spreadsheets read it as text.
+		 *
+		 * A cell starting with = + - @, a tab or a carriage return is run as a
+		 * formula by Excel, Numbers and Google Sheets. Prefixing a single quote
+		 * is the OWASP mitigation; numeric columns never pass through here.
+		 *
+		 * @since 3.9.2
+		 *
+		 * @param string $value Cell value.
+		 * @return string
+		 */
+		private static function csv_safe( $value ) {
+			$value = (string) $value;
+			return ( '' !== $value && false !== strpos( "=+-@\t\r", $value[0] ) ) ? "'" . $value : $value;
 		}
 
 		/**

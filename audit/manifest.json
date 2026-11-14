@@ -3,8 +3,8 @@
   "plugin": {
     "slug": "buddypress-groups-review",
     "name": "Wbcom Designs - BuddyPress Group Reviews",
-    "version": "3.9.1",
-    "version_note": "Release 3.9.1: plugin header (review-bp-grps.php:18), BGR_PLUGIN_VERSION (review-bp-grps.php:59), readme Stable tag and package.json all read 3.9.1. Support floors: Requires at least 6.5, Requires PHP 8.0 (since 3.9.0).",
+    "version": "3.9.2",
+    "version_note": "Release 3.9.2: plugin header (review-bp-grps.php:18), BGR_PLUGIN_VERSION (review-bp-grps.php:59), readme Stable tag and package.json all read 3.9.2. Support floors: Requires at least 6.5, Requires PHP 8.0 (since 3.9.0).",
     "namespace": "global functions (bp_group_review_*, bgr_*) + classes BGR_*",
     "main_file": "review-bp-grps.php",
     "text_domain": "bp-group-reviews",
@@ -911,7 +911,8 @@
       "button": "restrict_manage_posts (includes/bgr-filters.php:45, renderer @:521)",
       "handler": "admin_init (includes/bgr-filters.php:46, bp_group_review_handle_csv_export @:549)",
       "capability": "manage_options (includes/bgr-filters.php:554)",
-      "output": "group-reviews-{Y-m-d-His}.csv streamed via php://output"
+      "output": "group-reviews-{Y-m-d-His}.csv streamed via php://output",
+      "formula_guard": "BGR_Custom_Hooks::csv_safe() (includes/bgr-filters.php:679) prefixes a quote to text cells starting with = + - @ tab or CR; numeric columns are written raw (since 3.9.2)"
     },
     "pending_badge": "admin/bgr-admin.php:139+ appends a pending-review count badge to the Reviews menu item."
   },

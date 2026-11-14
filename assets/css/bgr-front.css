@@ -24,7 +24,7 @@
     --bgr-success-bg: #DFF2BF;
     --bgr-success-border: #cb2;
     --bgr-success-text: #4F8A10;
-    --bgr-error-color: #e63946;
+    --bgr-error-color: #d1293d; /* 5.1:1 on white (#e63946 was 4.17:1). */
     --bgr-bg-light: #f0f0f0;
     --bgr-bg-white: #ffffff;
     --bgr-bg-offset: #f5f5f5;
@@ -53,6 +53,7 @@ html[data-bx-mode="dark"],
 	--bgr-bg-white: var(--bx-color-bg-elevated, var(--reign-site-sections-bg-color, var(--color-theme-white-box, #1a1a1a)));
 	--bgr-bg-offset: var(--bx-color-bg-subtle, var(--reign-site-sections-bg-color, var(--color-theme-white-box, #262626)));
 	--bgr-approve-bg: var(--bx-color-bg-muted, var(--reign-site-secondary-bg-color, var(--global-body-lightcolor, #3d3d3d)));
+	--bgr-error-color: #ff6b6b;
 }
 
 [class*="bgr-col-"] {
@@ -294,7 +295,7 @@ html[data-bx-mode="dark"],
 
 .bgr-error-fields {
     font-size: 0.85rem;
-    color: var(--bgr-error-color, #e63946);
+    color: var(--bgr-error-color, #d1293d);
     margin-top: 5px;
     display: none;
     float: left;
@@ -317,9 +318,14 @@ html[data-bx-mode="dark"],
     padding-bottom: 5px;
 }
 
+/* The plugin sizes its own rating row. Stars are 1em, so without an explicit
+   size they inherit whatever the card or header uses (22px on Reign's group
+   cards), doubling the row height. */
 .bgr-group-header-ratings {
     display: block;
-    padding: 10px 0;
+    padding: 0;
+    font-size: 15px;
+    line-height: 1.5;
 }
 
 .bgr-star-rate {
@@ -357,7 +363,7 @@ html[data-bx-mode="dark"],
    dark-on-dark "current" page, and inconsistent prev/next pills. */
 
 .bgr-col-4 .required {
-    color: var(--bgr-error-color, #e63946);
+    color: var(--bgr-error-color, #d1293d);
     font-weight: bold;
 }
 
@@ -400,10 +406,6 @@ div#add-review-groupbutton {
 }
 
 /* BuddyBoss Theme - Inline buttons */
-.buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-group-header-ratings {
-    padding: 0px;
-}
-
 .buddyboss-theme #buddypress #groups-dir-list .list-wrap .bgr-header-row {
     text-align: left;
 }

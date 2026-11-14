@@ -138,7 +138,7 @@ jQuery(document).ready(function () {
   });
 
   /*** Add new criteria field ***/
-  jQuery("#bgr-field-add").bind("click", function () {
+  jQuery("#bgr-field-add").on("click", function () {
     var div = jQuery("<div class='rating-review-div' />");
     div.html(BGRGetBGRDynamicTextBox(""));
     jQuery("#bgr-textbox-container")
