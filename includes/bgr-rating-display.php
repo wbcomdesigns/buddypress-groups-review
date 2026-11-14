@@ -191,20 +191,8 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		 * @param string $avg_rating Average Rating.
 		 */
 		public function bp_group_review_average_group_ratings( $avg_rating ) {
-			global $bgr;
-			$type = gettype( $avg_rating );
-			$var  = (int) $avg_rating - $avg_rating;
-			if ( 0 === $var ) {
-					$stars_on   = $avg_rating;
-					$stars_off  = 5 - $avg_rating;
-					$stars_half = 0;
-			} else {
-					$stars_on   = intval( $avg_rating );
-					$stars_half = 1;
-					$stars_off  = 5 - ( $stars_on + $stars_half );
-			}
-
-			$this->bp_group_review_average_star_rating( $stars_on, $stars_half, $stars_off );
+			// Same star maths as the widget, so a whole rating never gets a half star.
+			$this->bp_group_review_widget_average_ratings( $avg_rating );
 		}
 
 		/**
