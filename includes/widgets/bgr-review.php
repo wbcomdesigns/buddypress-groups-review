@@ -231,15 +231,15 @@ class Bgr_Review_Widget extends WP_Widget {
 						<?php } ?>
 						<div class="bupr-content-widget">
 							<div class="bupr-group-title"><a href="<?php echo esc_url( $group_url ); ?>"><?php echo esc_html( $group->name ); ?></a></div>
-							<div class="bupr-group-rating">
-								<?php
-								if ( ! empty( $review_groups ) ) {
-									if ( array_key_exists( $gid, $review_groups ) ) {
-										do_action( 'bgr_display_widget_average_ratings', $review_groups[ $gid ] );
-									}
-								}
-								?>
-							</div>
+							<?php if ( ! empty( $review_groups[ $gid ] ) ) : ?>
+								<div class="bupr-group-rating"><?php do_action( 'bgr_display_widget_average_ratings', $review_groups[ $gid ] ); ?></div>
+								<div class="bupr-meta">
+									<?php
+									/* translators: %s: average star rating value, e.g. "4.5". */
+									printf( esc_html__( 'Rating : (%s)', 'bp-group-reviews' ), esc_html( round( (float) $review_groups[ $gid ], 2 ) ) );
+									?>
+								</div>
+							<?php endif; ?>
 							<div class="bupr-meta">
 								<?php
 								/* translators: %1$s: review label (e.g. "Reviews"), %2$s: number of reviews. */

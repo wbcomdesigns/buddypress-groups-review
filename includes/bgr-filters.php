@@ -339,11 +339,16 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				return;
 			}
 			?>
-			<div class="bgr-header-row"><div class="bgr-group-header-ratings"><div class="rating-bgr">
+			<div class="bgr-header-row"><div class="bgr-group-header-ratings">
+				<div class="rating-bgr"><?php do_action( 'bgr_display_group_average_ratings', $avg_rating ); ?></div>
+				<div class="bupr-meta">
+					<?php
+					/* translators: %s: average star rating value, e.g. "4.5". */
+					printf( esc_html__( 'Rating : (%s)', 'bp-group-reviews' ), esc_html( round( $avg_rating, 2 ) ) );
+					?>
+				</div>
+			</div></div>
 			<?php
-			// Stars plus the "Rating : (X)" line: a directory card has no other rating text.
-			do_action( 'bgr_display_widget_average_ratings', $avg_rating );
-			echo '</div></div></div>';
 		}
 
 		/**
@@ -378,10 +383,9 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				return;
 			}
 			?>
-			<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr">
+			<div class="bgr-header-row"><div class="bgr-group-header-ratings">
+				<div class="rating-bgr"><?php do_action( 'bgr_display_group_average_ratings', $avg_rating ); ?></div>
 			<?php
-			do_action( 'bgr_display_group_average_ratings', $avg_rating );
-			echo '</div>'; // .rating-bgr holds the stars only.
 
 			if ( $total_review_count <= 1 ) {
 				// Singular when there is at most one review.

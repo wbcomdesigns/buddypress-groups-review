@@ -37,8 +37,8 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		 */
 		public function __construct() {
 			add_action( 'bgr_display_ratings', array( $this, 'bp_group_review_select_rating_type' ) );
-			add_action( 'bgr_display_widget_average_ratings', array( $this, 'bp_group_review_widget_average_ratings' ) );
-			add_action( 'bgr_display_group_average_ratings', array( $this, 'bp_group_review_average_group_ratings' ) );
+			add_action( 'bgr_display_widget_average_ratings', array( $this, 'bp_group_review_average_stars' ) );
+			add_action( 'bgr_display_group_average_ratings', array( $this, 'bp_group_review_average_stars' ) );
 		}
 
 		/**
@@ -152,43 +152,16 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		}
 
 		/**
-		 *  Actions performed for rating display in  Widgets
+		 * Print the stars for an average rating (0-5); a whole rating never gets a half star.
 		 *
-		 *  @since   1.0.0
-		 *  @author  Wbcom Designs
-		 *
-		 * @param Array $review_groups Revie Groups.
-		 */
-		public function bp_group_review_widget_average_ratings( $review_groups ) {
-			$this->bp_group_review_average_stars( $review_groups );
-
-			echo '</div><div class="bupr-meta">';
-			/* translators: %s: average star rating value, e.g. "4.5". */
-			printf( esc_html__( 'Rating : (%s)', 'bp-group-reviews' ), esc_html( round( (float) $review_groups, 2 ) ) );
-		}
-
-		/**
-		 *  Actions performed for rating display in  Group Header
-		 *
-		 *  Stars only: the header prints its own "Rating : X/5 - N Reviews" line.
-		 *
-		 *  @since   1.0.0
-		 *  @author  Wbcom Designs
-		 *
-		 * @param string $avg_rating Average Rating.
-		 */
-		public function bp_group_review_average_group_ratings( $avg_rating ) {
-			$this->bp_group_review_average_stars( $avg_rating );
-		}
-
-		/**
-		 * Print the stars for an average rating; a whole rating never gets a half star.
+		 * Stars only. The caller owns the wrapper and any text label, so the
+		 * markup is balanced wherever the stars are used.
 		 *
 		 * @since 3.9.2
 		 *
-		 * @param float $avg_rating Average rating, 0-5.
+		 * @param float $avg_rating Average rating.
 		 */
-		private function bp_group_review_average_stars( $avg_rating ) {
+		public function bp_group_review_average_stars( $avg_rating ) {
 			$avg_rating = (float) $avg_rating;
 			$stars_on   = (int) $avg_rating;
 			$stars_half = ( $avg_rating - $stars_on ) > 0 ? 1 : 0;
