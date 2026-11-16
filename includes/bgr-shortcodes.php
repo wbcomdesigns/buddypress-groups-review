@@ -465,7 +465,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 		$output .= '<div class="bgr-leaderboard-list">';
 
 		foreach ( $groups as $group ) {
-			$group_url    = bp_get_group_permalink( $group );
+			$group_url    = bgr_get_group_url( $group );
 			$group_avatar = bp_core_fetch_avatar(
 				array(
 					'item_id'    => $group->id,

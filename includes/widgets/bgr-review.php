@@ -207,13 +207,7 @@ class Bgr_Review_Widget extends WP_Widget {
 					continue;
 				}
 				++$post_num_counter;
-				// Build group URL safely for both BuddyPress and BuddyBoss.
-				if ( function_exists( 'bp_get_group_url' ) ) {
-					$group_url = bp_get_group_url( $group );
-				} else {
-					// Fallback for older versions - build URL manually.
-					$group_url = bp_get_groups_directory_permalink() . $group->slug . '/';
-				}
+				$group_url = bgr_get_group_url( $group );
 				$avatar_options = array(
 					'item_id'    => $gid,
 					'object'     => 'group',

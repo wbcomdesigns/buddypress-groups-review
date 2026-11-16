@@ -260,13 +260,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			// $user_id is the admin who receives the notification.
 			$user_info = get_userdata( $review_id );
 			$user_name = $user_info->user_login;
-			// Build group URL safely for both BuddyPress and BuddyBoss.
-			if ( function_exists( 'bp_get_group_url' ) ) {
-				$group_link = bp_get_group_url( $group );
-			} else {
-				// Fallback for older versions - build URL manually.
-				$group_link = bp_get_groups_directory_permalink() . $group->slug . '/';
-			}
+			$group_link = bgr_get_group_url( $group );
 			$review_plural_label = bp_group_review_manage_tab_slug();
 			if ( 'yes' === $bgr['auto_approve_reviews'] ) {
 				// For auto-approved reviews, link to the public reviews tab.
@@ -315,13 +309,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$review_label = $bgr['review_label'];
 			$group        = groups_get_group( array( 'group_id' => $grp_id ) );
 			$group_name   = $group->name;
-			// Build group URL safely for both BuddyPress and BuddyBoss.
-			if ( function_exists( 'bp_get_group_url' ) ) {
-				$group_link = bp_get_group_url( $group );
-			} else {
-				// Fallback for older versions - build URL manually.
-				$group_link = bp_get_groups_directory_permalink() . $group->slug . '/';
-			}
+			$group_link = bgr_get_group_url( $group );
 
 			// Link to public reviews tab (not admin) so members can access it.
 			$review_plural_label = bp_group_review_manage_tab_slug();
@@ -366,13 +354,7 @@ if ( ! class_exists( 'BGR_Notifications' ) ) {
 			$review_label = $bgr['review_label'];
 			$group        = groups_get_group( array( 'group_id' => $grp_id ) );
 			$group_name   = $group->name;
-			// Build group URL safely for both BuddyPress and BuddyBoss.
-			if ( function_exists( 'bp_get_group_url' ) ) {
-				$group_link = bp_get_group_url( $group );
-			} else {
-				// Fallback for older versions - build URL manually.
-				$group_link = bp_get_groups_directory_permalink() . $group->slug . '/';
-			}
+			$group_link = bgr_get_group_url( $group );
 
 			$review_plural_label = bp_group_review_manage_tab_slug();
 			$notification_link   = trailingslashit( $group_link . $review_plural_label );

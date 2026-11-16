@@ -209,6 +209,32 @@ function bgr_can_view_group_reviews( $group ) {
 }
 
 /**
+ * A group's permalink, trailing slash included, on BuddyPress 12+ and BuddyBoss.
+ *
+ * @since 3.9.2
+ *
+ * @param BP_Groups_Group|null $group Group; null for the current group.
+ * @return string
+ */
+function bgr_get_group_url( $group = null ) {
+	$group = $group ? $group : groups_get_current_group();
+	return trailingslashit( function_exists( 'bp_get_group_url' ) ? bp_get_group_url( $group ) : bp_get_group_permalink( $group ) );
+}
+
+/**
+ * URL of one review's view inside its group (.../reviews/view/{id}/).
+ *
+ * @since 3.9.2
+ *
+ * @param BP_Groups_Group|null $group     Group the review belongs to.
+ * @param int                  $review_id Review post ID.
+ * @return string
+ */
+function bgr_get_review_url( $group, $review_id ) {
+	return bgr_get_group_url( $group ) . bp_group_review_manage_tab_slug() . '/view/' . absint( $review_id ) . '/';
+}
+
+/**
  * Whether the current viewer may read one review on a group's single-review view.
  *
  * The review must belong to the group being viewed. A published review follows
@@ -258,8 +284,7 @@ function bgr_redirect_review_single() {
 		return;
 	}
 	if ( 'publish' === get_post_status( $review_id ) ) {
-		$group_url = function_exists( 'bp_get_group_url' ) ? bp_get_group_url( $group ) : bp_get_group_permalink( $group );
-		wp_safe_redirect( trailingslashit( $group_url ) . bp_group_review_manage_tab_slug() . '/view/' . $review_id . '/', 301 );
+		wp_safe_redirect( bgr_get_review_url( $group, $review_id ), 301 );
 		exit;
 	}
 	global $wp_query;
@@ -342,7 +367,7 @@ function bgr_handle_review_decision( $new_status, $old_status, $post ) {
 	}
 
 	// The reviewer is pointed at the group's reviews, never at wp-admin.
-	$group_url   = function_exists( 'bp_get_group_url' ) ? bp_get_group_url( $group ) : bp_get_group_permalink( $group );
+	$group_url   = bgr_get_group_url( $group );
 	$review_link = $group_url . bp_group_review_manage_tab_slug() . '/';
 	$message     = str_replace(
 		array( '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
@@ -409,7 +434,7 @@ function bgr_handle_review_submitted( $author_id, $group_id, $review_id ) {
 	$site_name    = get_bloginfo( 'name' );
 
 	if ( 'yes' === $bgr['auto_approve_reviews'] ) {
-		$group_url = function_exists( 'bp_get_group_url' ) ? bp_get_group_url( $group ) : bp_get_group_permalink( $group );
+		$group_url = bgr_get_group_url( $group );
 		$mail_link = esc_url( $group_url . bp_group_review_manage_tab_slug() . '/' );
 	} else {
 		$mail_link = '<a href="' . esc_url( admin_url( 'edit.php?post_type=review' ) ) . '">' . esc_html( admin_url( 'edit.php?post_type=review' ) ) . '</a>';

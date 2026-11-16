@@ -290,12 +290,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 
 			// Build group URL safely for both BuddyPress and BuddyBoss.
 			$current_group = groups_get_group( array( 'group_id' => $current_group_id ) );
-			if ( function_exists( 'bp_get_group_url' ) ) {
-				$current_group_link = bp_get_group_url( $current_group );
-			} else {
-				// Fallback for older versions - build URL manually.
-				$current_group_link = bp_get_groups_directory_permalink() . $current_group->slug . '/';
-			}
+			$current_group_link = bgr_get_group_url( $current_group );
 			$current_group_link .= 'add-' . bp_group_review_tab_slug();
 			?>
 			<div class="group-button group-actions-absolute public generic-button" id="add-review-groupbutton">
@@ -711,16 +706,8 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$review_title = $post->post_title;
 					$linked_group = get_post_meta( $post->ID, 'linked_group', true );
 					$group        = groups_get_group( array( 'group_id' => $linked_group ) );
-					// Build group URL safely for both BuddyPress and BuddyBoss.
-					if ( function_exists( 'bp_get_group_url' ) ) {
-						$group_url = bp_get_group_url( $group );
-					} else {
-						// Fallback for older versions - build URL manually.
-						$group_url = bp_get_groups_directory_permalink() . $group->slug . '/';
-					}
-					$review_url = $group_url . bp_group_review_manage_tab_slug() . '/view/' . $post->ID;
 
-					$actions['view_review'] = '<a href="' . $review_url . '" title="' . $review_title . '">' . esc_html__( 'View', 'bp-group-reviews' ) . '</a>';
+					$actions['view_review'] = '<a href="' . esc_url( bgr_get_review_url( $group, $post->ID ) ) . '" title="' . esc_attr( $review_title ) . '">' . esc_html__( 'View', 'bp-group-reviews' ) . '</a>';
 
 					// Add Approve Link for draft reviews.
 					if ( 'draft' === $post->post_status ) {
@@ -768,13 +755,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				$post_count = $this->get_group_review_count( $bp->groups->current_group->id );
 
 				$count_notification = '<span>' . $post_count . '</span>';
-				// Build group URL safely for both BuddyPress and BuddyBoss.
-				if ( function_exists( 'bp_get_group_url' ) ) {
-					$gp_parent_url = bp_get_group_url( $bp->groups->current_group );
-				} else {
-					// Fallback for older versions - build URL manually.
-					$gp_parent_url = bp_get_groups_directory_permalink() . $bp->groups->current_group->slug . '/';
-				}
+				$gp_parent_url = bgr_get_group_url( $bp->groups->current_group );
 
 				// Check if user can add reviews (must be logged in, member, and not admin).
 				$current_group_id = absint( $bp->groups->current_group->id );

@@ -93,14 +93,7 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 			$group_name        = bp_get_group_name( $group );
 			$group_description = bp_get_group_description( $group );
 
-			// Build group URL safely without relying on template globals.
-			if ( function_exists( 'bp_get_group_url' ) ) {
-				// BuddyPress 12.0+ URL function.
-				$group_link = bp_get_group_url( $group );
-			} else {
-				// Fallback: build URL manually to avoid template dependency.
-				$group_link = bp_get_groups_directory_permalink() . $group->slug . '/';
-			}
+			$group_link = bgr_get_group_url( $group );
 
 			// Aggregate rating from the cached stats (covers all reviews).
 			$total_reviews  = (int) $stats['total_reviews'];

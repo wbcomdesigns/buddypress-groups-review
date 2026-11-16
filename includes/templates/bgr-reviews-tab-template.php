@@ -162,13 +162,7 @@ if ( $sort_by_rating ) {
 									<div class="item-description">
 										<div class="review-description">
 											<?php
-											// Build group URL safely for both BuddyPress and BuddyBoss.
-											if ( function_exists( 'bp_get_group_url' ) ) {
-												$review_url = bp_get_group_url() . bp_group_review_manage_tab_slug() . '/view/' . $review_id;
-											} else {
-												// Fallback for older versions.
-												$review_url = bp_get_group_permalink() . bp_group_review_manage_tab_slug() . '/view/' . $review_id;
-											}
+											$review_url = bgr_get_review_url( groups_get_current_group(), $review_id );
 											if ( ! empty( $trimcontent ) ) {
 												$len = strlen( $trimcontent );
 												if ( $len > 150 ) {
