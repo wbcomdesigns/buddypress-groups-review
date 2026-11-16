@@ -240,21 +240,8 @@ function bgrHandleReviewResponse(form) {
     jQuery(".bgr-group-review-no-popup-add-block").hide();
     jQuery("#bgr-add-review-modal").hide();
     jQuery("#bgr-message").html(response).css("display", "block");
-    var date = new Date();
-    date.setTime(date.getTime() + 20 * 1000);
-    jQuery.cookie("res_content", response, { expires: date });
   };
 }
-
-/*----------------------------------------
- * Display message after review submit
- *-----------------------------------------*/
-jQuery(function () {
-  if (jQuery.cookie("res_content")) {
-    jQuery(".error").hide();
-    jQuery.cookie("res_content", "", -1);
-  }
-});
 
 jQuery(function () {
   var show_last_form;
