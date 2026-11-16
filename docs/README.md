@@ -87,7 +87,7 @@ Reference for:
 
 - WordPress 5.0 or higher
 - PHP 7.4 or higher
-- BuddyPress 5.0 or higher with Groups component active
+- BuddyPress 12.0 or higher with Groups component active
 
 ### Install Steps
 

@@ -24,7 +24,7 @@ This developer guide provides technical documentation for extending and customiz
 **Plugin Version:** 3.6.0
 **Minimum PHP:** 7.4
 **Minimum WordPress:** 4.0
-**Requires BuddyPress:** 5.0+
+**Requires BuddyPress:** 12.0+
 
 **Key Features for Developers:**
 - Extensive hook system for customization

@@ -315,7 +315,7 @@ See: [Developer API → WordPress Hooks](developer-api-group-criteria.md#wordpre
 ## Requirements
 
 - WordPress 5.0+
-- BuddyPress 5.0+ (Groups component active)
+- BuddyPress 12.0+ (Groups component active)
 - PHP 7.4+
 
 ## Support

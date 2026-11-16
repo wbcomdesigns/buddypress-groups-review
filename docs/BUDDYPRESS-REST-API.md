@@ -614,7 +614,7 @@ curl http://yoursite.local/wp-json/buddypress/v1/groups | jq '.[0].reviews'
 
 ## Version Compatibility
 
-- **BuddyPress**: 5.0.0+
+- **BuddyPress**: 12.0.0+
 - **WordPress**: 5.0+
 - **PHP**: 7.4+
 
