@@ -481,6 +481,23 @@ div#add-review-groupbutton {
     align-items: center;
 }
 
+/* Reign paints .generic-button a with the button fill but colours .groups-meta a
+   as a link, so Add Review read link text on the blue fill (1.9:1 in dark, and
+   text on fill went invisible on hover). Use Reign's own button tokens, the same
+   pair its Leave Group button uses. #item-header covers every Reign header layout. */
+.wb-reign-theme #buddypress #item-header #add-review-groupbutton a.group-button {
+    background-color: var(--reign-site-button-bg-color, #1d76da);
+    border-color: var(--reign-site-button-bg-color, #1d76da);
+    color: var(--reign-site-button-text-color, #fff);
+}
+
+.wb-reign-theme #buddypress #item-header #add-review-groupbutton a.group-button:hover,
+.wb-reign-theme #buddypress #item-header #add-review-groupbutton a.group-button:focus-visible {
+    background-color: var(--reign-site-button-bg-hover-color, var(--reign-site-button-bg-color, #1d76da));
+    border-color: var(--reign-site-button-bg-hover-color, var(--reign-site-button-bg-color, #1d76da));
+    color: var(--reign-site-button-text-hover-color, var(--reign-site-button-text-color, #fff));
+}
+
 /* Align Join Group / Leave Group and Add Review buttons in one centered row. */
 .wb-reign-theme #buddypress #item-header-content .activity-meta.groups-meta.action,
 .wp-theme-buddyx-pro #buddypress #item-header-content .activity-meta.groups-meta.action {
