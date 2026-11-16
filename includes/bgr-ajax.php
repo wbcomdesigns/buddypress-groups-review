@@ -523,8 +523,8 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			$auto_approve_reviews = $bgr['auto_approve_reviews'];
 			$multi_reviews        = $bgr['multi_reviews'];
 			$group_name           = $group_obj->name;
-			/* Translators: %1$s: User Name %2$s Review Label %3$s Group Name */
-			$review_cpt_subject = sprintf( esc_html__( '%1$s %2$ss Group %3$s.', 'bp-group-reviews' ), $user_name, $review_label, $group_name );
+			/* Translators: %1$s: User Name %2$s Plural review label, e.g. "Reviews" %3$s Group Name */
+			$review_cpt_subject = sprintf( esc_html__( '%1$s %2$s Group %3$s.', 'bp-group-reviews' ), $user_name, bp_group_review_tab_name(), $group_name );
 
 			// Star inputs are keyed by criterion name, so a rating can never land on
 			// another criterion. A form rendered before an admin changed the criteria

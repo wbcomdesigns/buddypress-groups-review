@@ -123,6 +123,7 @@ jQuery(document).ready(function (e) {
   // Submit Group Review
   jQuery("#bgr-add-review-form").on("submit", function (e) {
     var loc;
+    var form = this;
     e.preventDefault();
     var rating_exist = [];
     var bgr_groupid = jQuery("#form-group-id", this).val();
@@ -154,23 +155,7 @@ jQuery(document).ready(function (e) {
               nonce: bgr_front_js_object.wbcom_nonce,
               data: jQuery(this).serialize(),
             },
-            function (response) {
-              jQuery(".bgr-bp-success p")
-                .html(response)
-                .css("display", "block");
-              jQuery(".bgr-bp-success").fadeIn();
-              jQuery(".bgr-group-review-no-popup-add-block").hide();
-              jQuery("#bgr-add-review-modal").hide();
-              jQuery("#bgr-message").html(response);
-              jQuery("#bgr-message").css("display", "block");
-              // sessionStorage.reloadAfterPageLoad = true;
-              var date = new Date();
-              date.setTime(date.getTime() + 20 * 1000);
-              jQuery.cookie("res_content", response, {
-                expires: date,
-              });
-              // window.location.reload();
-            }
+            bgrHandleReviewResponse(form)
           );
         }
       }
@@ -192,20 +177,7 @@ jQuery(document).ready(function (e) {
             nonce: bgr_front_js_object.wbcom_nonce,
             data: jQuery(this).serialize(),
           },
-          function (response) {
-            jQuery(".bgr-bp-success p").html(response).css("display", "block");
-            jQuery(".bgr-bp-success").fadeIn();
-            jQuery(".bgr-group-review-no-popup-add-block").hide();
-            jQuery("#bgr-add-review-modal").hide();
-            jQuery("#bgr-message").html(response);
-            jQuery("#bgr-message").css("display", "block");
-            // sessionStorage.reloadAfterPageLoad = true;
-            var date = new Date();
-            date.setTime(date.getTime() + 20 * 1000);
-            jQuery.cookie("res_content", response, {
-              expires: date,
-            });
-          }
+          bgrHandleReviewResponse(form)
         );
       }
     }
@@ -241,6 +213,38 @@ jQuery(document).ready(function (e) {
 
 
 });
+
+/**
+ * Handle the review submit response. Success is the plain-text message; a
+ * failure is wp_send_json_error()'s object, shown as an error above the form,
+ * which stays open so the member can fix and resend.
+ *
+ * @param {HTMLFormElement} form Submitted review form.
+ * @return {Function} jQuery.post success callback.
+ */
+function bgrHandleReviewResponse(form) {
+  return function (response) {
+    var $form = jQuery(form);
+    $form.prev(".bgr-submit-error").remove();
+    if (response && typeof response === "object" && false === response.success) {
+      var data = response.data;
+      var message = Array.isArray(data) && data[0] && data[0].message ? data[0].message : "";
+      jQuery('<div class="bp-feedback error bgr-submit-error" role="alert"><span class="bp-icon" aria-hidden="true"></span><p></p></div>')
+        .find("p").text(message || bgr_front_js_object.submit_error_text).end()
+        .insertBefore($form);
+      return;
+    }
+    // The success message is plain text, already escaped by the server.
+    jQuery(".bgr-bp-success p").html(response).css("display", "block");
+    jQuery(".bgr-bp-success").fadeIn();
+    jQuery(".bgr-group-review-no-popup-add-block").hide();
+    jQuery("#bgr-add-review-modal").hide();
+    jQuery("#bgr-message").html(response).css("display", "block");
+    var date = new Date();
+    date.setTime(date.getTime() + 20 * 1000);
+    jQuery.cookie("res_content", response, { expires: date });
+  };
+}
 
 /*----------------------------------------
  * Display message after review submit

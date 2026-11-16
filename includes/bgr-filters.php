@@ -341,7 +341,8 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			?>
 			<div class="bgr-header-row"><div class="bgr-group-header-ratings"><div class="rating-bgr">
 			<?php
-			do_action( 'bgr_display_group_average_ratings', $avg_rating );
+			// Stars plus the "Rating : (X)" line: a directory card has no other rating text.
+			do_action( 'bgr_display_widget_average_ratings', $avg_rating );
 			echo '</div></div></div>';
 		}
 
@@ -380,6 +381,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			<div class="bgr-header-row"><div class=" bgr-group-header-ratings"><div class="rating-bgr">
 			<?php
 			do_action( 'bgr_display_group_average_ratings', $avg_rating );
+			echo '</div>'; // .rating-bgr holds the stars only.
 
 			if ( $total_review_count <= 1 ) {
 				// Singular when there is at most one review.
@@ -388,7 +390,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			$content = "<div class='rating-text'><span>" . esc_html__( 'Rating ', 'bp-group-reviews' ) . ' : ' . $avg_rating . '/5 - ' . $total_review_count . ' ' . $review_label . '</span></div>';
 
 			echo wp_kses_post( apply_filters( 'bgr_filter_group_header_rating_details', $content, $avg_rating, $review_label, $total_review_count, bp_get_group_id() ) );
-			echo '</div></div></div>';
+			echo '</div></div>';
 		}
 
 		/**

@@ -235,6 +235,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 					array(
 						'view_more_text'       => esc_html__( 'View More..', 'bp-group-reviews' ),
 						'view_less_text'       => esc_html__( 'View Less..', 'bp-group-reviews' ),
+						'submit_error_text'    => esc_html__( 'Your review could not be submitted. Please try again.', 'bp-group-reviews' ),
 						'wbcom_nonce'          => wp_create_nonce( 'ajax-nonce' ),
 						'auto_approve_reviews' => $auto_approve_reviews,
 						'exclude_groups'       => $exclude_groups,

@@ -160,30 +160,17 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		 * @param Array $review_groups Revie Groups.
 		 */
 		public function bp_group_review_widget_average_ratings( $review_groups ) {
-			global $bgr;
-			$group_avg_rating = $review_groups;
-			$remaining        = $group_avg_rating - (int) $group_avg_rating;
+			$this->bp_group_review_average_stars( $review_groups );
 
-			if ( $remaining > 0 ) {
-					$stars_on   = intval( $group_avg_rating );
-					$stars_half = 1;
-					$stars_off  = 5 - ( $stars_on + $stars_half );
-			} else {
-					$stars_on   = $group_avg_rating;
-					$stars_off  = 5 - $group_avg_rating;
-					$stars_half = 0;
-			}
-
-			$this->bp_group_review_average_star_rating( $stars_on, $stars_half, $stars_off );
-
-			$group_avg_rating = round( $group_avg_rating, 2 );
 			echo '</div><div class="bupr-meta">';
 			/* translators: %s: average star rating value, e.g. "4.5". */
-			printf( esc_html__( 'Rating : (%s)', 'bp-group-reviews' ), esc_html( $group_avg_rating ) );
+			printf( esc_html__( 'Rating : (%s)', 'bp-group-reviews' ), esc_html( round( (float) $review_groups, 2 ) ) );
 		}
 
 		/**
 		 *  Actions performed for rating display in  Group Header
+		 *
+		 *  Stars only: the header prints its own "Rating : X/5 - N Reviews" line.
 		 *
 		 *  @since   1.0.0
 		 *  @author  Wbcom Designs
@@ -191,8 +178,21 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		 * @param string $avg_rating Average Rating.
 		 */
 		public function bp_group_review_average_group_ratings( $avg_rating ) {
-			// Same star maths as the widget, so a whole rating never gets a half star.
-			$this->bp_group_review_widget_average_ratings( $avg_rating );
+			$this->bp_group_review_average_stars( $avg_rating );
+		}
+
+		/**
+		 * Print the stars for an average rating; a whole rating never gets a half star.
+		 *
+		 * @since 3.9.2
+		 *
+		 * @param float $avg_rating Average rating, 0-5.
+		 */
+		private function bp_group_review_average_stars( $avg_rating ) {
+			$avg_rating = (float) $avg_rating;
+			$stars_on   = (int) $avg_rating;
+			$stars_half = ( $avg_rating - $stars_on ) > 0 ? 1 : 0;
+			$this->bp_group_review_average_star_rating( $stars_on, $stars_half, 5 - $stars_on - $stars_half );
 		}
 
 		/**

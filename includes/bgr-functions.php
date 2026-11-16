@@ -209,6 +209,66 @@ function bgr_can_view_group_reviews( $group ) {
 }
 
 /**
+ * Whether the current viewer may read one review on a group's single-review view.
+ *
+ * The review must belong to the group being viewed. A published review follows
+ * the group's review visibility; an unapproved one is shown only to its author,
+ * the group's admins and moderators, and site moderators.
+ *
+ * @since 3.9.2
+ *
+ * @param WP_Post $review   Review post.
+ * @param int     $group_id Group the view is rendered under.
+ * @return bool
+ */
+function bgr_can_view_review( $review, $group_id ) {
+	$group_id = absint( $group_id );
+	if ( ! $group_id || absint( get_post_meta( $review->ID, 'linked_group', true ) ) !== $group_id ) {
+		return false;
+	}
+	if ( 'publish' === $review->post_status ) {
+		return bgr_can_view_group_reviews( $group_id );
+	}
+	if ( ! in_array( $review->post_status, array( 'draft', 'pending' ), true ) ) {
+		return false;
+	}
+	$user_id = get_current_user_id();
+	return $user_id && (
+		absint( $review->post_author ) === $user_id
+		|| bp_current_user_can( 'bp_moderate' )
+		|| groups_is_user_admin( $user_id, $group_id )
+		|| groups_is_user_mod( $user_id, $group_id )
+	);
+}
+
+/**
+ * Send the core single URL of a group review (/review/<slug>/) to the group's
+ * guarded review view, so the post type's own permalink never bypasses
+ * bgr_can_view_review(). Unpublished group reviews 404 here.
+ *
+ * @since 3.9.2
+ */
+function bgr_redirect_review_single() {
+	if ( ! is_singular( 'review' ) ) {
+		return;
+	}
+	$review_id = get_queried_object_id();
+	$group     = groups_get_group( absint( get_post_meta( $review_id, 'linked_group', true ) ) );
+	if ( empty( $group->id ) ) {
+		return;
+	}
+	if ( 'publish' === get_post_status( $review_id ) ) {
+		$group_url = function_exists( 'bp_get_group_url' ) ? bp_get_group_url( $group ) : bp_get_group_permalink( $group );
+		wp_safe_redirect( trailingslashit( $group_url ) . bp_group_review_manage_tab_slug() . '/view/' . $review_id . '/', 301 );
+		exit;
+	}
+	global $wp_query;
+	$wp_query->set_404();
+	status_header( 404 );
+}
+add_action( 'template_redirect', 'bgr_redirect_review_single' );
+
+/**
  * Apply the side effects of a moderation decision on a group review.
  *
  * Every path that approves or denies a pending review - the group Manage tab,

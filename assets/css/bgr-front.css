@@ -132,10 +132,6 @@ html[data-bx-mode="dark"],
 * This section includes css for design front-end review ,manage review page content.
 */
 
-.stars {
-    display: inline-block;
-}
-
 .review-full-description {
     padding-top: 20px;
     display: none;
@@ -307,6 +303,12 @@ html[data-bx-mode="dark"],
 
 .rating-bgr {
     overflow: hidden;
+}
+
+/* Themes size .rating-bgr on its own (BuddyX: 14px); the stars follow the
+   plugin's rating row instead. */
+.bgr-group-header-ratings .rating-bgr {
+    font-size: inherit;
 }
 
 .rating-bgr .rating-text {
@@ -524,14 +526,6 @@ div#add-review-groupbutton {
 }
 
 @media only screen and (max-width: 767px) {
-    .bgr-group-header-ratings .rating-bgr {
-        text-align: center;
-    }
-
-    .buddyboss-theme .bgr-group-header-ratings .rating-bgr {
-        text-align: left;
-    }
-
     .single-item.groups #cover-image-container div#item-header-cover-image.bb-enable-cover-img .group-button#add-review-groupbutton {
         text-align: center;
     }

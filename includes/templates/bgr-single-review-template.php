@@ -28,8 +28,8 @@ if ( empty( $review_id ) ) {
 
 $review = get_post( $review_id );
 
-// Bail if review doesn't exist.
-if ( ! $review || 'review' !== $review->post_type ) {
+// Bail if the review doesn't exist or this viewer may not read it here.
+if ( ! $review || 'review' !== $review->post_type || ! bgr_can_view_review( $review, bp_get_current_group_id() ) ) {
 	echo '<div class="bp-feedback error"><p>' . esc_html__( 'Review not found.', 'bp-group-reviews' ) . '</p></div>';
 	return;
 }
