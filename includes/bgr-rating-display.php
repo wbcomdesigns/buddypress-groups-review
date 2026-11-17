@@ -117,7 +117,7 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 				// Check if this criterion is currently active.
 				$is_archived = ! in_array( $review_field, $active_criteria, true );
 				?>
-				<div class="multi-review <?php echo $is_archived ? 'bgr-archived-criteria' : ''; ?>">
+				<div class="multi-review bgr-criteria-row <?php echo $is_archived ? 'bgr-archived-criteria' : ''; ?>">
 					<div class="bgr-col-6">
 						<?php
 						echo esc_html( bp_group_review_get_criteria_label( $review_field ) ) . ' : ';

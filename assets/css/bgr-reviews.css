@@ -261,7 +261,11 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     margin-top: 10px;
 }
 
-.multi-review {
+/* Criterion row. Targeted through the plugin's own .bgr-criteria-row class so
+   these rules never restyle a .multi-review element output by another plugin
+   or theme. Two classes (0,2,0) also beat a theme's bare
+   `.multi-review` rule that loads later, where #buddypress is absent. */
+.multi-review.bgr-criteria-row {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -277,11 +281,11 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
    specificity that loads after this plugin and paints a grey/dark row behind
    every criterion. Scope through #buddypress (1,1,0) to reclaim a transparent
    background without deleting the structural flex wrapper the star JS relies on. */
-#buddypress .multi-review {
+#buddypress .bgr-criteria-row {
     background: transparent;
 }
 
-.multi-review>div {
+.bgr-criteria-row>div {
     padding: 0;
 }
 
@@ -359,7 +363,7 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
 }
 
 @media screen and (max-width: 767px) {
-    .multi-review {
+    .bgr-criteria-row {
         flex-flow: row wrap;
     }
 

@@ -246,7 +246,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				foreach ( $review_rating_fields as $review_rating_field ) :
 					if ( in_array( $review_rating_field, $active_rating_fields, true ) ) {
 						?>
-							<div class="multi-review">
+							<div class="multi-review bgr-criteria-row">
 								<div class="bgr-col-4 "><?php echo esc_html( bp_group_review_get_criteria_label( $review_rating_field ) ); ?> <span class="required"> * </span>  </div>
 								<div id="review<?php echo esc_html( $field_counter ); ?>" class="bgr-col-4">
 										<input type="hidden" id="<?php echo 'clicked' . esc_html( $field_counter ); ?>" value="not_clicked">
@@ -266,7 +266,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			} else {
 				$field_counter = 1;
 				?>
-				<div class="multi-review">
+				<div class="multi-review bgr-criteria-row">
 					<div class="bgr-col-4"><?php esc_html_e( 'Your Rating', 'bp-group-reviews' ); ?><span class="required"> * </span> </div>
 					<div id="review" class="bgr-col-4">
 						<input type="hidden" id="<?php echo 'clicked'; ?>" value="not_clicked">

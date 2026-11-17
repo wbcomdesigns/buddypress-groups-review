@@ -90,7 +90,7 @@
         });
     });
 
-    $('.multi-review').attr('role', 'group');
+    $('.bgr-criteria-row').attr('role', 'group');
   }
 
   /**
