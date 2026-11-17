@@ -75,7 +75,6 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				if ( ! bgr_can_view_group_reviews( $group_id ) ) {
 					wp_send_json_error( new WP_Error( '403', esc_html__( 'Sorry, you cannot view this group\'s reviews.', 'bp-group-reviews' ), 'forbidden' ) );
 				}
-				$html                 = '';
 				$review_rating_fields = $bgr['review_rating_fields'];
 
 				/**
@@ -160,72 +159,14 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 						}
 					}
 				}
-				$bgr_user_count = 0;
-				if ( ! empty( $single_rev_avg ) ) {
-					if ( 'highest' === $filter ) {
-						arsort( $single_rev_avg );
-					} elseif ( 'lowest' === $filter ) {
-						asort( $single_rev_avg );
-					} else {
-						$single_rev_avg = $single_rev_avg;
-					}
-					foreach ( $single_rev_avg as $bgr_key => $bgr_value ) {
-						if ( $bgr_user_count === $limit ) {
-							break;
-						} else {
-							$html .= '<li class="vcard"><div class="item-avatar">';
-							$html .= get_avatar( $final_review_obj[ $bgr_key ]->post_author, 65 );
-							$html .= '</div>';
-							$html .= '<div class="item">';
-
-							$members_profile = bp_core_get_userlink( $final_review_obj[ $bgr_key ]->post_author );
-							$html           .= '<div class="item-title fn">';
-							$html           .= $members_profile;
-							$html           .= '</div>';
-
-							$bgr_avg_rating = $bgr_value;
-							$stars_on       = '';
-							$stars_off      = '';
-							$stars_half     = '';
-							$remaining      = $bgr_avg_rating - (int) $bgr_avg_rating;
-							if ( $remaining > 0 ) {
-								$stars_on       = intval( $bgr_avg_rating );
-								$stars_half     = 1;
-								$bgr_half_squar = 1;
-								$stars_off      = 5 - ( $stars_on + $stars_half );
-							} else {
-								$stars_on   = $bgr_avg_rating;
-								$stars_off  = 5 - $bgr_avg_rating;
-								$stars_half = 0;
-							}
-							$html .= '<div class="item-meta">';
-							for ( $i = 1; $i <= $stars_on; $i++ ) {
-								$html .= '<span class="fas fa-star stars bgr-star-rate"></span>';
-							}
-
-							for ( $i = 1; $i <= $stars_half; $i++ ) {
-								$html .= '<span class="fas fa-star-half-alt stars bgr-star-rate"></span>';
-							}
-
-							for ( $i = 1; $i <= $stars_off; $i++ ) {
-								$html .= '<span class="far fa-star stars bgr-star-rate"></span>';
-							}
-
-							$html .= '</div>';
-
-							$bgr_avg_rating = round( $bgr_avg_rating, 2 );
-							$html          .= '<span class="bgr-meta">';
-							/* translators: %1$s is replaced with $bgr_avg_rating  */
-							$html .= sprintf( esc_html__( 'Rating : ( %1$s )', 'bp-group-reviews' ), esc_html( $bgr_avg_rating ) );
-							$html .= '</span>';
-							$html .= '</div></li>';
-
-						}
-
-						++$bgr_user_count;
-					}
-				} else {
-					$html .= '<p>' . esc_html__( 'No ratings have been given by any members yet.', 'bp-group-reviews' ) . '</p>';
+				if ( 'highest' === $filter ) {
+					arsort( $single_rev_avg );
+				} elseif ( 'lowest' === $filter ) {
+					asort( $single_rev_avg );
+				}
+				$html = Bgr_Single_Group_Rating_Widget::render_rows( $single_rev_avg, $final_review_obj, min( Bgr_Single_Group_Rating_Widget::MAX_ITEMS, max( 1, $limit ) ) );
+				if ( '' === $html ) {
+					$html = '<li class="bgr-widget-empty">' . esc_html__( 'No ratings have been given by any members yet.', 'bp-group-reviews' ) . '</li>';
 				}
 				// `html` is the only key the existing JS consumer reads
 				// (bgr-front.js: obj.html). `total`/`limit`/`scanned` are additive

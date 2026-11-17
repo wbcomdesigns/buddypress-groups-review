@@ -43,34 +43,38 @@ class Bgr_Single_Group_Rating_Widget extends WP_Widget {
 	}
 
 	/**
+	 * Most reviews one instance lists; keeps the review read bounded.
+	 *
+	 * @since 3.9.2
+	 */
+	const MAX_ITEMS = 20;
+
+	/**
 	 * Form display for widget in admin panel.
 	 *
 	 * @since 1.0.0
 	 * @param array $instance Instance.
 	 */
 	public function form( $instance ) {
-		if ( empty( $instance ) ) {
-			$instance = wp_parse_args(
-				(array) $instance,
-				array(
-					'widget_title'   => '',
-					'post_num'       => '5',
-					'rating_default' => 'latest',
-				)
-			);
-		}
-		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract -- Legacy widget code.
-		extract( $instance );
-		$rating_default = esc_attr( $instance['rating_default'] );
+		$instance       = wp_parse_args(
+			(array) $instance,
+			array(
+				'post_num'       => '5',
+				'rating_default' => 'latest',
+			)
+		);
+		$title          = Bgr_Review_Widget::get_title( $instance );
+		$post_num       = $instance['post_num'];
+		$rating_default = $instance['rating_default'];
 		?>
 		<div class="bgr_review_listing_form">
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'widget_title' ) ); ?>"><?php esc_html_e( 'Title', 'bp-group-reviews' ); ?>:</label>
-				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'widget_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'widget_title' ) ); ?>" type="text" value="<?php echo esc_attr( $widget_title ); ?>" />
+				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title', 'bp-group-reviews' ); ?>:</label>
+				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 			</p>
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'post_num' ) ); ?>"><?php esc_html_e( 'Number of reviews to show', 'bp-group-reviews' ); ?>:
-					<input id="<?php echo esc_attr( $this->get_field_id( 'post_num' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'post_num' ) ); ?>" type="number" min="1" step="1" value="<?php echo esc_attr( $post_num ); ?>" />
+					<input id="<?php echo esc_attr( $this->get_field_id( 'post_num' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'post_num' ) ); ?>" type="number" min="1" max="<?php echo esc_attr( (string) self::MAX_ITEMS ); ?>" step="1" value="<?php echo esc_attr( $post_num ); ?>" />
 				</label>
 			</p>
 			<p>
@@ -95,32 +99,36 @@ class Bgr_Single_Group_Rating_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance                   = $old_instance;
-		$instance['widget_title']   = wp_strip_all_tags( $new_instance['widget_title'] );
-		$instance['post_num']       = $new_instance['post_num'];
-		$instance['rating_default'] = $new_instance['rating_default'];
+		$instance['title']          = wp_strip_all_tags( $new_instance['title'] ?? '' );
+		$instance['post_num']       = min( self::MAX_ITEMS, max( 1, absint( $new_instance['post_num'] ?? 5 ) ) );
+		$instance['rating_default'] = in_array( $new_instance['rating_default'] ?? '', array( 'highest', 'lowest' ), true ) ? $new_instance['rating_default'] : 'latest';
+		unset( $instance['widget_title'] );
 		return $instance;
 	}
 
 	/**
 	 * Display Widget content.
 	 *
+	 * Contextual: shows the ratings of the group being viewed, so it renders
+	 * only on single group pages (place it in the group sidebar area).
+	 *
 	 * @since 1.0.0
 	 * @param array $args     Widget arguments.
 	 * @param array $instance Instance.
 	 */
 	public function widget( $args, $instance ) {
-		if ( ! bp_get_current_group_id() || ! bgr_can_view_group_reviews( bp_get_current_group_id() ) ) {
+		$group_id = (int) bp_get_current_group_id();
+		if ( ! $group_id || ! bgr_can_view_group_reviews( $group_id ) ) {
 			return;
 		}
-		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract -- Legacy widget code.
-		extract( $instance, EXTR_SKIP );
-		$widget_title          = apply_filters( 'widget_title', $widget_title );
-		$widget_post_num       = max( 1, absint( apply_filters( 'post_num', $post_num ) ) );
-		$widget_rating_default = apply_filters( 'rating_default', $rating_default );
+		$widget_title          = Bgr_Review_Widget::get_title( $instance );
+		$widget_title          = apply_filters( 'widget_title', '' !== $widget_title ? $widget_title : __( 'Group Ratings', 'bp-group-reviews' ), $instance, $this->id_base );
+		$widget_post_num       = min( self::MAX_ITEMS, max( 1, absint( apply_filters( 'post_num', $instance['post_num'] ?? 5 ) ) ) );
+		$widget_rating_default = apply_filters( 'rating_default', $instance['rating_default'] ?? 'latest' );
 
 		// Cached per-review rating index (review_id => average, newest first)
 		// replaces the previous unbounded get_posts( -1 ) + N+1 meta scan.
-		$stats          = bgr_get_group_review_stats( bp_get_current_group_id() );
+		$stats          = bgr_get_group_review_stats( $group_id );
 		$single_rev_avg = array_filter( $stats['index'] );
 
 		if ( 'highest' === $widget_rating_default ) {
@@ -146,116 +154,70 @@ class Bgr_Single_Group_Rating_Widget extends WP_Widget {
 			foreach ( $review_posts as $review_post ) {
 				$final_review_obj[ $review_post->ID ] = $review_post;
 			}
-			// Drop index entries whose post no longer resolves.
-			$single_rev_avg = array_intersect_key( $single_rev_avg, $final_review_obj );
 		}
+		$rows = self::render_rows( $single_rev_avg, $final_review_obj, $widget_post_num );
+
 		echo wp_kses_post( $args['before_widget'] );
-		if ( empty( $widget_title ) ) {
-			$group      = groups_get_group( array( 'group_id' => bp_get_current_group_id() ) );
-			$group_name = $group->name;
-			/* translators: %s: Group name. */
-			$widget_title = sprintf( __( "%s's Ratings", 'bp-group-reviews' ), $group_name );
+		if ( '' !== $widget_title ) {
+			echo wp_kses_post( $args['before_title'] . $widget_title . $args['after_title'] );
 		}
-		echo wp_kses_post( $args['before_title'] . $widget_title . $args['after_title'] );
 
-		$bgr_user_count = 0;
-		if ( ! empty( $single_rev_avg ) ) {
+		if ( '' !== $rows ) {
+			$filters = array(
+				'latest'  => __( 'Latest', 'bp-group-reviews' ),
+				'highest' => __( 'Highest', 'bp-group-reviews' ),
+				'lowest'  => __( 'Lowest', 'bp-group-reviews' ),
+			);
 			?>
-			<div class="item-options" id="bp-group-rating-list-options">
-				<a href="#" attr-val="latest" id="member_latest_reviews"
-				<?php
-				if ( 'latest' === $rating_default ) :
-					?>
-					class="selected"<?php endif; ?>><?php esc_html_e( 'Latest', 'bp-group-reviews' ); ?></a>
-				| <a href="#" attr-val="highest" id="member_good_reviews"
-				<?php
-				if ( 'highest' === $rating_default ) :
-					?>
-					class="selected"<?php endif; ?>><?php esc_html_e( 'Highest', 'bp-group-reviews' ); ?></a>
-				| <a href="#" attr-val="lowest" id="member_bad_reviews"
-				<?php
-				if ( 'lowest' === $rating_default ) :
-					?>
-					class="selected"<?php endif; ?>><?php esc_html_e( 'Lowest', 'bp-group-reviews' ); ?></a>
+			<div class="bgr-widget-filters" id="bp-group-rating-list-options" role="group" aria-label="<?php esc_attr_e( 'Sort ratings', 'bp-group-reviews' ); ?>">
+				<?php foreach ( $filters as $filter => $label ) : ?>
+					<button type="button" class="bgr-widget-filter<?php echo $filter === $widget_rating_default ? ' selected' : ''; ?>" data-filter="<?php echo esc_attr( $filter ); ?>" aria-pressed="<?php echo $filter === $widget_rating_default ? 'true' : 'false'; ?>"><?php echo esc_html( $label ); ?></button>
+				<?php endforeach; ?>
 			</div>
+			<ul class="bgr-widget-list" id="bp-group-rating" aria-live="polite"><?php echo $rows; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in render_rows(). ?></ul>
+			<input type="hidden" value="<?php echo esc_attr( (string) $widget_post_num ); ?>" class="group-rating-limit">
 			<?php
-			echo '<ul class="item-list" id="bp-group-rating">';
-			foreach ( $single_rev_avg as $bgr_key => $bgr_value ) {
-				if ( (int) $bgr_user_count === (int) $widget_post_num ) {
-					break;
-				} else {
-					echo '<li class="vcard"><div class="item-avatar">';
-					echo get_avatar( $final_review_obj[ $bgr_key ]->post_author, 65 );
-					echo '</div>';
-					echo '<div class="item">';
-
-					$members_profile = bp_core_get_userlink( $final_review_obj[ $bgr_key ]->post_author );
-					echo '<div class="item-title fn">';
-					echo wp_kses_post( $members_profile );
-					echo '</div>';
-
-					$bgr_avg_rating = $bgr_value;
-					$stars_on       = 0;
-					$stars_off      = 0;
-					$stars_half     = 0;
-					$remaining      = $bgr_avg_rating - (int) $bgr_avg_rating;
-					if ( $remaining > 0 ) {
-						$stars_on       = intval( $bgr_avg_rating );
-						$stars_half     = 1;
-						$bgr_half_squar = 1;
-						$stars_off      = 5 - ( $stars_on + $stars_half );
-					} else {
-						$stars_on   = $bgr_avg_rating;
-						$stars_off  = 5 - $bgr_avg_rating;
-						$stars_half = 0;
-					}
-					echo '<div class="item-meta">';
-					for ( $i = 1; $i <= $stars_on; $i++ ) {
-
-						?>
-					<span class="fas fa-star stars bgr-star-rate"></span>
-						<?php
-					}
-					for ( $i = 1; $i <= $stars_half; $i++ ) {
-
-						?>
-					<span class="fas fa-star-half-alt stars bgr-star-rate"></span>
-						<?php
-					}
-					for ( $i = 1; $i <= $stars_off; $i++ ) {
-
-						?>
-					<span class="far fa-star stars bgr-star-rate"></span>
-						<?php
-					}
-
-					echo '</div>';
-
-					$bgr_avg_rating = round( $bgr_avg_rating, 2 );
-					echo '<span class="bgr-meta">';
-					/* translators: %1$s: Average rating value. */
-					printf( esc_html__( 'Rating : ( %1$s )', 'bp-group-reviews' ), esc_html( $bgr_avg_rating ) );
-					echo '</span>';
-					echo '</div></li>';
-
-				}
-
-				++$bgr_user_count;
-			}
-			echo '</ul>';
 		} else {
-			?>
-			<div id="message" class="info">
-			<?php
-			esc_html_e( 'No ratings have been given by any members yet.', 'bp-group-reviews' );
-			?>
-			</div>
-			<?php
+			echo '<p class="bgr-widget-empty">' . esc_html__( 'No ratings have been given by any members yet.', 'bp-group-reviews' ) . '</p>';
 		}
-		?>
-		<input type="hidden" value="<?php echo esc_attr( $widget_post_num ); ?>" class="group-rating-limit">
-		<?php
 		echo wp_kses_post( $args['after_widget'] );
+	}
+
+	/**
+	 * Reviewer rows for the widget and its sort AJAX: 50px avatar, name, stars.
+	 *
+	 * @since 3.9.2
+	 *
+	 * @param array $averages Review ID => average rating, in display order.
+	 * @param array $reviews  Review ID => WP_Post.
+	 * @param int   $limit    Most rows to return.
+	 * @return string Escaped `<li>` markup, '' when there is nothing to show.
+	 */
+	public static function render_rows( $averages, $reviews, $limit ) {
+		$html = '';
+		foreach ( $averages as $review_id => $average ) {
+			if ( $limit < 1 ) {
+				break;
+			}
+			if ( empty( $reviews[ $review_id ] ) ) {
+				continue;
+			}
+			--$limit;
+			$author = (int) $reviews[ $review_id ]->post_author;
+			/* translators: %s: average rating, e.g. "4.5". */
+			$stars_label = sprintf( __( 'Rated %s out of 5', 'bp-group-reviews' ), (string) round( (float) $average, 2 ) );
+			ob_start();
+			do_action( 'bgr_display_widget_average_ratings', $average );
+			$stars = (string) ob_get_clean();
+
+			$html .= '<li class="bgr-widget-row">'
+				. '<span class="bgr-widget-avatar">' . get_avatar( $author, 50, '', '', array( 'class' => 'sidebar_review_avatar' ) ) . '</span>'
+				. '<div class="bgr-widget-body">'
+				. '<span class="bgr-widget-name">' . wp_kses_post( bp_core_get_userlink( $author ) ) . '</span>'
+				. '<span class="bgr-widget-stars" role="img" aria-label="' . esc_attr( $stars_label ) . '">' . $stars . '</span>'
+				. '</div></li>';
+		}
+		return $html;
 	}
 }
 

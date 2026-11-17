@@ -186,12 +186,12 @@ jQuery(document).ready(function (e) {
   // Ratings Widget filter.
   jQuery(document).on(
     "click",
-    "#bp-group-rating-list-options > a",
+    "#bp-group-rating-list-options > button",
     function (event) {
       event.preventDefault();
       var jQ = jQuery(this);
-      jQ.siblings("a").removeClass("selected");
-      var filter = jQ.attr("attr-val");
+      jQ.siblings("button").removeClass("selected").attr("aria-pressed", "false");
+      var filter = jQ.data("filter");
       var limit = jQ.parent().siblings(".group-rating-limit").val();
       jQuery.post(
         ajaxurl,
@@ -204,7 +204,7 @@ jQuery(document).ready(function (e) {
         },
         function (response) {
           var obj = JSON.parse(response);
-          jQ.addClass("selected");
+          jQ.addClass("selected").attr("aria-pressed", "true");
           jQ.parent().siblings("#bp-group-rating").html(obj.html);
         }
       );

@@ -646,28 +646,28 @@
       "name": "bgr_listing_cat",
       "type": "filter",
       "args_count": 1,
-      "where": "includes/widgets/bgr-review.php:147",
+      "where": "includes/widgets/bgr-review.php:154",
       "consumed_by": []
     },
     {
       "name": "bgr_post_num",
       "type": "filter",
       "args_count": 1,
-      "where": "includes/widgets/bgr-review.php:148",
+      "where": "includes/widgets/bgr-review.php:155",
       "consumed_by": []
     },
     {
       "name": "bgr_thumbnail",
       "type": "filter",
       "args_count": 1,
-      "where": "includes/widgets/bgr-review.php:149",
+      "where": "includes/widgets/bgr-review.php:156",
       "consumed_by": []
     },
     {
       "name": "bgr_widget_title",
       "type": "filter",
       "args_count": 1,
-      "where": "includes/widgets/bgr-review.php:146",
+      "where": "includes/widgets/bgr-review.php:152",
       "consumed_by": []
     },
     {
@@ -729,8 +729,8 @@
     {
       "name": "widget_title",
       "type": "filter",
-      "args_count": 1,
-      "where": "includes/widgets/group-rating.php:117",
+      "args_count": 3,
+      "where": "includes/widgets/group-rating.php:125, includes/widgets/bgr-review.php:153",
       "consumed_by": [],
       "note": "WP core filter name applied by this plugin's widget."
     },
@@ -738,7 +738,7 @@
       "name": "post_num",
       "type": "filter",
       "args_count": 1,
-      "where": "includes/widgets/group-rating.php:118",
+      "where": "includes/widgets/group-rating.php:126",
       "consumed_by": [],
       "note": "Non-namespaced filter name (should be bgr-prefixed)."
     },
@@ -746,7 +746,7 @@
       "name": "rating_default",
       "type": "filter",
       "args_count": 1,
-      "where": "includes/widgets/group-rating.php:119",
+      "where": "includes/widgets/group-rating.php:127",
       "consumed_by": [],
       "note": "Non-namespaced filter name (should be bgr-prefixed)."
     },
@@ -772,13 +772,17 @@
       "class": "Bgr_Review_Widget",
       "id_base": "bgr_group_review_widget",
       "name": "BP Group Review Widget",
-      "source": "includes/widgets/bgr-review.php:26 (registered @:281, widgets_init @:284)"
+      "source": "includes/widgets/bgr-review.php:26 (registered @:290, widgets_init @:293)",
+      "settings": "title (legacy widget_title read as fallback), listing_cat, post_num (1-20), thumbnail",
+      "note": "Bgr_Review_Widget::get_title() is the shared title reader for both widgets."
     },
     {
       "class": "Bgr_Single_Group_Rating_Widget",
       "id_base": "bgr_group_rating_widget",
       "name": "BP Displayed Group Rating Widget",
-      "source": "includes/widgets/group-rating.php:26 (registered @:268)"
+      "source": "includes/widgets/group-rating.php:26 (registered @:230)",
+      "settings": "title (legacy widget_title read as fallback), post_num (1-20), rating_default",
+      "note": "Contextual: renders only on a single group page (place it in the group sidebar area). Rows come from the static render_rows(), shared with the bp_group_review_filter_ratings AJAX sort."
     }
   ],
   "group_nav": [

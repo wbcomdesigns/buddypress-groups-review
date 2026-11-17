@@ -137,14 +137,8 @@ html[data-bx-mode="dark"],
     display: none;
 }
 
-.sidebar_review_avatar {
-    height: 50px;
-    width: 50px;
-    border-radius: 3px;
-}
-
-.round-avatars .sidebar_review_avatar,
-.bp-nouveau.round-avatars .sidebar_review_avatar {
+.round-avatars .widget_bp_group_review_tab img.sidebar_review_avatar,
+.bp-nouveau.round-avatars .widget_bp_group_review_tab img.sidebar_review_avatar {
     border-radius: 50%;
 }
 
