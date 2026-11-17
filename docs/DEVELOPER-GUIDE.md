@@ -990,7 +990,7 @@ $export_url = wp_nonce_url(
 
 **Location:** `includes/bgr-filters.php:550` (`BGR_Custom_Hooks::bp_group_review_handle_csv_export()`)
 
-**Spreadsheet formula safety (OWASP CSV injection):** since 3.9.2, `BGR_Custom_Hooks::csv_safe()` prefixes a single quote to any text cell that starts with `=`, `+`, `-`, `@`, a tab or a carriage return. It covers reviewer name and email, group name, review title and content, and the criterion column headers. Numeric columns (ID, group ID, average, ratings) are not changed. The method is private, so you cannot call it. If you write your own export of review data, apply the same rule.
+**Spreadsheet formula safety (OWASP CSV injection):** since 3.9.2, `BGR_Custom_Hooks::csv_safe()` prefixes a single quote to any text cell that starts with `=`, `+`, `-`, `@`, a tab or a carriage return. It covers reviewer name and email, group name, review title and content, the criterion column headers and the criterion values. Numeric cells (ID, group ID, average, ratings) are not changed. The method is private, so you cannot call it. If you write your own export of review data, apply the same rule.
 
 **Access control:** the handler runs on `admin_init`. It checks `manage_options` and the `bgr_export_reviews` nonce, streams the file, then calls `exit`.
 

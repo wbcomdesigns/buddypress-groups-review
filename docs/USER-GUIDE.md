@@ -735,7 +735,7 @@ A: By default, your review data is kept safe when you deactivate or delete the p
 **Solutions:**
 1. **Check auto-approve** - Maybe it's turned off
 2. **Verify approval** - Go to Manage Reviews tab
-3. **Check review status** - In WordPress backend (Posts → Reviews)
+3. **Check review status** - In WordPress backend (the **Reviews** menu in the WordPress admin sidebar, added by Member Reviews)
 4. **Clear cache** - Site cache might be showing old data
 
 ---
