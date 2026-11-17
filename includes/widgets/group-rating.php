@@ -122,7 +122,11 @@ class Bgr_Single_Group_Rating_Widget extends WP_Widget {
 			return;
 		}
 		$widget_title          = Bgr_Review_Widget::get_title( $instance );
-		$widget_title          = apply_filters( 'widget_title', '' !== $widget_title ? $widget_title : __( 'Group Ratings', 'bp-group-reviews' ), $instance, $this->id_base );
+		if ( '' === $widget_title ) {
+			/* translators: %s: Group name. */
+			$widget_title = sprintf( __( "%s's Ratings", 'bp-group-reviews' ), bp_get_current_group_name() );
+		}
+		$widget_title          = apply_filters( 'widget_title', $widget_title, $instance, $this->id_base );
 		$widget_post_num       = min( self::MAX_ITEMS, max( 1, absint( apply_filters( 'post_num', $instance['post_num'] ?? 5 ) ) ) );
 		$widget_rating_default = apply_filters( 'rating_default', $instance['rating_default'] ?? 'latest' );
 

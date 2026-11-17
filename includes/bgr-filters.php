@@ -640,7 +640,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					// Add individual rating values. A column added by a later review
 					// is simply missing (blank) on the rows written before it.
 					foreach ( $criteria as $field ) {
-						$row[] = isset( $review_ratings[ $field ] ) ? $review_ratings[ $field ] : '';
+						$row[] = isset( $review_ratings[ $field ] ) ? self::csv_safe( $review_ratings[ $field ] ) : '';
 					}
 
 					fputcsv( $rows, $row, ',', '"', '' );
