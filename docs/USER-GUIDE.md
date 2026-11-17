@@ -585,7 +585,7 @@ Widgets saved before 3.9.2 keep their title; saving them again stores it under t
 
 ## Using Group Reviews with Member Reviews
 
-Group Reviews and BuddyPress Member Reviews store their reviews in the same `review` post type, so both appear in the one Reviews list in wp-admin. A Group Review is tied to a group, a Member Review to a member. Group Reviews only counts and shows Group Reviews, and the CSV export only contains Group Reviews. Member Reviews 3.8.3 still includes flagged Group Reviews in its Flagged view of the Reviews list. See the [compatibility guide](member-reviews-compatibility.md) for the details.
+Group Reviews and BuddyPress Member Reviews store their reviews in the same `review` post type, so both appear in the one Reviews list in wp-admin. A Group Review is tied to a group, a Member Review to a member. Group Reviews only counts and shows Group Reviews, and the CSV export only contains Group Reviews. Member Reviews 3.8.3 keeps its Flagged and Auto-hidden views to Member Reviews. See the [compatibility guide](member-reviews-compatibility.md) for the details.
 
 ---
 
