@@ -301,8 +301,10 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				return; // Feature not enabled, don't register this extension.
 			}
 
-			// Check if current group is excluded from reviews.
-			$current_group_id  = absint( bp_get_current_group_id() );
+			// Check if current group is excluded from reviews. wp-admin Edit Group
+			// has no current group, so read the id BuddyPress itself uses there.
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only, picks the group whose box is shown.
+			$current_group_id  = absint( is_admin() && isset( $_GET['gid'] ) ? wp_unslash( $_GET['gid'] ) : bp_get_current_group_id() );
 			$is_group_excluded = false;
 
 			if ( ! empty( $bgr_admin_general_settings ) && isset( $bgr_admin_general_settings['exclude_groups'] ) ) {
