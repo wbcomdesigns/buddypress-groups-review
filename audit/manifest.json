@@ -941,6 +941,7 @@
       "assets/css/admin.css (modern card panel, enqueued by includes/admin/class-bgr-admin-panel.php:201)",
       "admin/assets/css/bgr-admin.css (bgr-css-admin; 3.9.0 tokenized onto shared --bgr-admin-* vocabulary)"
     ],
+    "scope_rule": "3.9.2: every selector in bgr-reviews.css and bgr-front.css carries a plugin-owned token (bgr-*, #add-review*, manage-review, widget_bp_group_review_tab), because both sheets load site-wide when a widget is active. Generic classes are reached through .bgr-row, .bgr-add-form and .bgr-review-pagination; theme header layout rules use :has(#add-review-groupbutton). The dead modal CSS (markup removed in 351095a) was deleted.",
     "min_rtl": "assets/css/min + assets/css/rtl + assets/js/min built by grunt; includes/bgr-scripts.php swaps $style_path/$style_extension per environment.",
     "dynamic_css": "includes/bgr-dynamic-css.php:75 (bp_group_review_dynamic_rating_method on wp_enqueue_scripts prio 20).",
     "css_note_3_9_0": "Dark mode across bgr-front/bgr-reviews/bgr-ratings/bgr-group-criteria-admin uses explicit selectors only ([data-bx-mode=dark], .buddyx-dark-theme, html.dark-mode, body.dark-scheme, body.dark) with a BuddyX --bx-color-* -> Reign --reign-* -> dark-literal fallback chain. No prefers-color-scheme (owner rule). Theme detection centralized in includes/class-bgr-theme-integration.php (BGR_Theme_Integration).",

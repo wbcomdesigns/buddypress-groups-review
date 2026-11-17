@@ -165,7 +165,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			?>
 			<form id="bgr-add-review-form" method="POST">
 				<input type="hidden" id="reviews_pluginurl"  name="reviews_pluginurl" value="<?php echo esc_attr( BGR_PLUGIN_URL ); ?>">
-				<div class="group-add-form">
+				<div class="group-add-form bgr-add-form">
 					<h4>
 						<?php
 						/* translators: %1$s is used for review label */

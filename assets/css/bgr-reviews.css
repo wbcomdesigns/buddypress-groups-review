@@ -12,7 +12,6 @@
     --bgr-text-muted: #888;
     --bgr-bg-white: #fff;
     --bgr-bg-light: #f5f5f5;
-    --bgr-modal-overlay: rgba(0, 0, 0, 0.4);
     --bgr-focus-color: #3b82f6;
     /* Accent follows the active theme's button colours (BuddyX modern ->
        BuddyX legacy -> Reign -> block theme preset -> WordPress blue), with
@@ -39,13 +38,13 @@ html[data-bx-mode="dark"],
 }
 
 #group-reviews-list,
-.group-add-form textarea,
-.group-add-form input,
-.group-add-form button {
+.bgr-add-form textarea,
+.bgr-add-form input,
+.bgr-add-form button {
     width: 100%;
 }
 
-.group-add-form p {
+.bgr-add-form p {
     text-align: center;
 }
 
@@ -57,111 +56,6 @@ html[data-bx-mode="dark"],
     display: block;
 }
 
-#request-review-list input[type="submit"] {
-    display: none;
-}
-
-
-/****************** MODAL CSS ***********************/
-
-
-/* The Modal (background) */
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: var(--bgr-modal-overlay, rgba(0, 0, 0, 0.4));
-    z-index: 9999;
-}
-
-
-/* Modal Content */
-
-.modal-content {
-    position: relative;
-    background-color: var(--bgr-bg-white, #fefefe);
-    margin: auto;
-    padding: 0;
-    border: 1px solid var(--bgr-text-muted, #888);
-    width: 26%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    -webkit-animation-name: animatetop;
-    animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-duration: 0.4s;
-}
-
-@media (max-width: 1024px) {
-    #bgr-add-review-modal .modal-content {
-        min-width: 300px;
-    }
-}
-
-
-/* Add Animation */
-
-@-webkit-keyframes animatetop {
-    from {
-        top: -300px;
-        opacity: 0;
-    }
-
-    to {
-        top: 0;
-        opacity: 1;
-    }
-}
-
-@keyframes animatetop {
-    from {
-        top: -300px;
-        opacity: 0;
-    }
-
-    to {
-        top: 0;
-        opacity: 1;
-    }
-}
-
-
-/* The Close Button */
-
-.close {
-    color: var(--bgr-text-light, white);
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    right: 10px;
-}
-
-.close:hover,
-.close:focus {
-    color: var(--bgr-text-dark, #000);
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal-header {
-    padding: 19px 0 6px 24px;
-    background-color: var(--bgr-text-muted, #c5c5c5);
-    color: var(--bgr-text-light, white);
-    position: relative;
-}
-
-.modal-body {
-    padding: 2px 16px;
-}
 
 .bgr-group-review-add-block {
     overflow: hidden;
@@ -275,14 +169,14 @@ html[data-bx-mode="dark"],
     }
 }
 
-.group-add-form,
+.bgr-add-form,
 .bgr-group-reviews-block {
     background: var(--bgr-bg-white, #fff);
     margin-top: 15px;
     padding: 15px;
 }
 
-.group-add-form p {
+.bgr-add-form p {
     text-align: left;
     margin: 10px 0;
 }
@@ -300,7 +194,7 @@ html[data-bx-mode="dark"],
     outline: none;
 }
 
-.review-ratings {
+.bgr-row .review-ratings {
     margin-top: 10px;
 }
 
@@ -368,7 +262,7 @@ html[data-bx-mode="dark"],
     gap: 10px;
 }
 
-.group-request-list .review-description {
+.bgr-row .review-description {
     margin: 10px 0;
 }
 
@@ -388,7 +282,7 @@ html[data-bx-mode="dark"],
     margin-left: 60px;
 }
 
-.remove-review.generic-button {
+.bgr-row .remove-review.generic-button {
     margin-left: 60px;
     margin-top: 5px;
     width: 100%;
@@ -437,30 +331,30 @@ body[class*="youzify"] #youzify-group-body .group-reviews {
     margin: 0;
 }
 
-body[class*="youzify"] #youzify-group-body #request-review-list .item-list.group-request-list {
+body[class*="youzify"] #youzify-group-body #request-review-list .bgr-row.group-request-list {
     margin: 20px 0;
     padding-bottom: 10px;
 }
 
-body[class*="youzify"] #youzify-group-body #request-review-list .item-list.group-request-list:last-child {
+body[class*="youzify"] #youzify-group-body #request-review-list .bgr-row.group-request-list:last-child {
     border: none;
     padding-bottom: 0;
 }
 
-body[class*="youzify"] #youzify-group-body .group-request-list .item-title {
+body[class*="youzify"] #youzify-group-body .bgr-row .item-title {
     margin-bottom: 10px;
     display: block;
     font-weight: bold;
 }
 
-body[class*="youzify"] #youzify-group-header .rating-text {
+body[class*="youzify"] #youzify-group-header .bgr-group-header-ratings .rating-text {
     margin-top: 10px;
     color: var(--bgr-bg-white, #fff);
 }
 
 body[class*="youzify"] button.btn.btn-default.bgr-submit-review,
 body[class*="youzify"] .bgr-col-2.bgr-generic-button .bgr-col-12.generic-button a,
-body[class*="youzify"] .generic-button a.button {
+body[class*="youzify"] .bgr-row .generic-button a.button {
     min-width: 100%;
     /* 40px minimum tap target (WCAG 2.5.5 / Wbcom responsive contract):
        padding 11px + line-height 18px ≈ 40px tall. */
@@ -480,13 +374,13 @@ body[class*="youzify"] .generic-button a.button {
     cursor: pointer;
 }
 
-body[class*="youzify"] .group-request-list .avatar,
+body[class*="youzify"] .bgr-row .avatar,
 body[class*="youzify"] .bgr-group-profiles img.avatar {
     border-radius: 100px;
 }
 
 body[class*="youzify"] button.btn.btn-default.bgr-submit-review,
-body[class*="youzify"] .generic-button a.button {
+body[class*="youzify"] .bgr-row .generic-button a.button {
     padding: 12px 20px;
     min-width: auto;
     border: none;
@@ -505,7 +399,7 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
     align-items: center;
 }
 
-.youzify .review-description {
+.youzify .bgr-row .review-description {
     line-height: 1.5;
 }
 
@@ -569,9 +463,9 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
 }
 
 /* Review Pagination - single canonical style shared by the Reviews tab and
-   the admin Manage screen. Token-driven so it adapts to light/dark themes;
+   the group Manage screen. Token-driven so it adapts to light/dark themes;
    40px targets meet the tap-target minimum. */
-.review-pagination {
+.bgr-review-pagination {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -580,7 +474,7 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
     margin-top: 24px;
 }
 
-.review-pagination .page-numbers {
+.bgr-review-pagination .page-numbers {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -601,28 +495,28 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
     transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-.review-pagination a.page-numbers:hover {
+.bgr-review-pagination a.page-numbers:hover {
     color: var(--bgr-primary-color, #0073aa);
     border-color: var(--bgr-primary-color, #0073aa);
     background-color: var(--bgr-bg-light, #f5f5f5);
 }
 
-.review-pagination span.page-numbers.current,
-.review-pagination .page-numbers.current {
+.bgr-review-pagination span.page-numbers.current,
+.bgr-review-pagination .page-numbers.current {
     color: var(--bgr-on-primary, #fff);
     background-color: var(--bgr-primary-color, #0073aa);
     border-color: var(--bgr-primary-color, #0073aa);
     font-weight: 600;
 }
 
-.review-pagination .page-numbers.dots {
+.bgr-review-pagination .page-numbers.dots {
     min-width: auto;
     padding: 0 4px;
     border-color: transparent;
     background-color: transparent;
 }
 
-.review-pagination a.page-numbers:focus-visible {
+.bgr-review-pagination a.page-numbers:focus-visible {
     outline: 2px solid var(--bgr-focus-color, #3b82f6);
     outline-offset: 2px;
 }

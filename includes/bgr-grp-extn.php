@@ -217,7 +217,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					$total_pages = $reviews->max_num_pages;
 					if ( $total_pages > 1 ) {
 						?>
-						<div class="review-pagination">
+						<div class="review-pagination bgr-review-pagination">
 							<?php
 							$current_page = max( 1, get_query_var( 'paged', 1 ) ); // Ensures default value is 1.
 							$format       = '?paged=%#%';
@@ -233,7 +233,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 							);
 
 							if ( $pagination ) {
-								echo wp_kses_post( '<div class="review-pagination">' . $pagination . '</div>' );
+								echo wp_kses_post( '<div class="review-pagination bgr-review-pagination">' . $pagination . '</div>' );
 							}
 							?>
 						</div>

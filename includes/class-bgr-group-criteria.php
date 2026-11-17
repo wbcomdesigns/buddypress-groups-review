@@ -510,31 +510,43 @@ class BGR_Group_Criteria {
 	 * @return bool True if reviews exist with this criterion.
 	 */
 	public function criterion_has_reviews( $group_id, $criteria_name ) {
-		$reviews = $this->get_group_reviews( $group_id );
-
-		foreach ( $reviews as $review ) {
-			$ratings = get_post_meta( $review->ID, 'review_star_rating', true );
-			if ( is_array( $ratings ) && isset( $ratings[ $criteria_name ] ) ) {
-				return true;
+		// Walk the group's reviews one bounded page at a time and stop at the first match.
+		$page = 1;
+		do {
+			$reviews = $this->get_group_reviews( $group_id, 200, $page );
+			$fetched = count( $reviews );
+			foreach ( $reviews as $review ) {
+				$ratings = get_post_meta( $review->ID, 'review_star_rating', true );
+				if ( is_array( $ratings ) && isset( $ratings[ $criteria_name ] ) ) {
+					return true;
+				}
 			}
-		}
+			++$page;
+		} while ( 200 === $fetched );
 
 		return false;
 	}
 
 	/**
-	 * Get all reviews for a group.
+	 * Get one page of a group's published and pending reviews.
 	 *
 	 * @since 3.7.0
+	 * @since 3.9.2 Bounded: returns at most $per_page reviews per call.
 	 * @param int $group_id The group ID.
-	 * @return array Array of review post objects.
+	 * @param int $per_page Reviews per page. Default 200.
+	 * @param int $page     Page number, 1-based. Default 1.
+	 * @return array Array of review post objects (post meta cache primed).
 	 */
-	public function get_group_reviews( $group_id ) {
+	public function get_group_reviews( $group_id, $per_page = 200, $page = 1 ) {
 		$args = array(
 			'post_type'      => 'review',
 			'post_status'    => array( 'publish', 'draft' ),
-			'posts_per_page' => -1,
-			'meta_query'     => array(
+			'posts_per_page' => max( 1, (int) $per_page ),
+			'paged'          => max( 1, (int) $page ),
+			'orderby'        => 'ID',
+			'order'          => 'ASC',
+			'no_found_rows'  => true,
+			'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- linked_group is the review's group key.
 				array(
 					'key'   => 'linked_group',
 					'value' => $group_id,

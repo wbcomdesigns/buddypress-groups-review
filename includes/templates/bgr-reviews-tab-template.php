@@ -205,7 +205,7 @@ if ( $sort_by_rating ) {
 						}
 						$format = ( strpos( $pagination_base, '?' ) !== false ) ? '&paged=%#%' : '?paged=%#%';
 						?>
-							<div class="review-pagination">
+							<div class="review-pagination bgr-review-pagination">
 								<?php
 								echo wp_kses_post(
 									paginate_links(

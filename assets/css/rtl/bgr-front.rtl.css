@@ -132,7 +132,7 @@ html[data-bx-mode="dark"],
 * This section includes css for design front-end review ,manage review page content.
 */
 
-.review-full-description {
+.bgr-row .review-full-description {
     padding-top: 20px;
     display: none;
 }
@@ -141,13 +141,13 @@ html[data-bx-mode="dark"],
     border-radius: 50%;
 }
 
-.expand-review-des {
+.bgr-row .expand-review-des {
     cursor: pointer;
 }
 
-.remove-review-button,
-.accept-button,
-.deny-button {
+.bgr-row .remove-review-button,
+.bgr-row .accept-button,
+.bgr-row .deny-button {
     float: left;
 }
 
@@ -181,7 +181,7 @@ html[data-bx-mode="dark"],
     padding: 5px 0 10px;
 }
 
-.group-request-list .avatar {
+.bgr-row .avatar {
     height: 70%;
     width: 70%;
 }
@@ -211,11 +211,11 @@ html[data-bx-mode="dark"],
     display: none;
 }
 
-.group-add-form p {
+.bgr-add-form p {
     margin: 10px 0;
 }
 
-.group-add-form h4 {
+.bgr-add-form h4 {
     margin-top: 0;
 }
 
@@ -231,23 +231,23 @@ html[data-bx-mode="dark"],
 
 @media(max-width: 767px) {
 
-    .remove-review-button,
-    .accept-button,
-    .deny-button {
+    .bgr-row .remove-review-button,
+    .bgr-row .accept-button,
+    .bgr-row .deny-button {
         float: none;
         display: block;
     }
 
-    .group-request-list .avatar {
+    .bgr-row .avatar {
         display: block;
     }
 
-    .group-request-list .item-title a {
+    .bgr-row .item-title a {
         /* text-align: center; */
         display: block;
     }
 
-    .group-request-list .avatar {
+    .bgr-row .avatar {
         height: 70px;
         width: 70px;
     }
@@ -263,35 +263,12 @@ html[data-bx-mode="dark"],
     }
 }
 
-#bgr_review_success_msg_modal .modal-content {
-    min-height: 200px;
-    min-width: 300px;
-    background-color: var(--bgr-bg-light, #f0f0f0);
-}
-
-#bgr_review_success_msg_modal .modal-header {
-    background-color: var(--bgr-bg-light, #f0f0f0);
-}
-
-#bgr_review_success_msg_modal p {
-    font-weight: 600;
-    padding-top: 8%;
-}
-
-#bgr_review_success_msg_modal .close {
-    color: var(--bgr-text-black, #000);
-}
-
 .bgr-error-fields {
     font-size: 0.85rem;
     color: var(--bgr-error-color, #d1293d);
     margin-top: 5px;
     display: none;
     float: right;
-}
-
-#form-group-id {
-    width: 100%;
 }
 
 .rating-bgr {
@@ -342,16 +319,7 @@ html[data-bx-mode="dark"],
     color: inherit;
 }
 
-.approve-message {
-    background: var(--bgr-approve-bg, #ebf9eb);
-    border: 1px solid green;
-    border-radius: 0;
-    margin-bottom: 20px;
-    padding: 10px 0;
-}
-
-
-/* Pagination styling is owned by the single canonical `.review-pagination`
+/* Pagination styling is owned by the single canonical `.bgr-review-pagination`
    block in bgr-reviews.css so every context (Reviews tab + admin Manage
    screen) renders identically. The old #request-review-list circle overrides
    were removed - they produced the outdated 30px circles, an invisible
@@ -386,8 +354,10 @@ div#add-review-groupbutton {
 }
 
 /* Default BuddyPress - Inline buttons */
-#buddypress .groups-header .item-buttons,
-#buddypress #item-header .item-buttons {
+/* :has() limits these to the header that holds the Add Review button, so
+   member headers and other plugins' button rows keep their own layout. */
+#buddypress .groups-header .item-buttons:has(#add-review-groupbutton),
+#buddypress #item-header .item-buttons:has(#add-review-groupbutton) {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -414,7 +384,7 @@ div#add-review-groupbutton {
 }
 
 /* BuddyBoss group header buttons inline */
-.buddyboss-theme .groups-header .item-buttons {
+.buddyboss-theme .groups-header .item-buttons:has(#add-review-groupbutton) {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -436,14 +406,14 @@ div#add-review-groupbutton {
     position: relative;
 }
 
-.buddyboss-theme .groups-header #item-header-content .generic-button .group-button {
+.buddyboss-theme .groups-header #item-header-content:has(#add-review-groupbutton) .generic-button .group-button {
     margin-left: 0;
     font-size: 13px;
 }
 
 /* Reign Theme / BuddyX Pro - Inline buttons (must come after default BuddyPress rules) */
-.buddyx-nav-iconic .subnav li[id^="manage-"] a:before,
-.reign-nav-iconic .subnav li[id^="manage-"] a:before {
+.buddyx-nav-iconic .subnav li a.manage-review:before,
+.reign-nav-iconic .subnav li a.manage-review:before {
     content: "\f5c0";
 }
 
@@ -494,15 +464,15 @@ div#add-review-groupbutton {
 }
 
 /* Align Join Group / Leave Group and Add Review buttons in one centered row. */
-.wb-reign-theme #buddypress #item-header-content .activity-meta.groups-meta.action,
-.wp-theme-buddyx-pro #buddypress #item-header-content .activity-meta.groups-meta.action {
+.wb-reign-theme #buddypress #item-header-content:has(#add-review-groupbutton) .activity-meta.groups-meta.action,
+.wp-theme-buddyx-pro #buddypress #item-header-content:has(#add-review-groupbutton) .activity-meta.groups-meta.action {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
 /*This is work for the youzify only and it pass the varibale here for the youzify */
-.youzify-inner-content .youzify-head-content .group-button .group-button {
+.youzify-inner-content .youzify-head-content #add-review-groupbutton .group-button {
     min-width: 150px;
     font-weight: 600;
     line-height: 24px;
@@ -661,12 +631,12 @@ div#add-review-groupbutton {
 .bgr-group-review-no-popup-add-block textarea:focus-visible,
 .bgr-star-rate:focus-visible,
 .bgr-submit-review:focus-visible,
-.remove-review-button:focus-visible,
-.accept-button:focus-visible,
-.deny-button:focus-visible,
+.bgr-row .remove-review-button:focus-visible,
+.bgr-row .accept-button:focus-visible,
+.bgr-row .deny-button:focus-visible,
 .bgr-group-leaderboard a:focus-visible,
 .bgr-reviews-sorting select:focus-visible,
-.review-pagination a:focus-visible {
+.bgr-review-pagination a:focus-visible {
     outline: 2px solid var(--bgr-focus-color, #2271b1);
     outline-offset: 2px;
     border-radius: 3px;
