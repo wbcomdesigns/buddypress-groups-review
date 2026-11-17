@@ -19,12 +19,12 @@ A review should carry only one of the two keys. Treat the key as the source of t
 
 ## What Each Plugin Counts
 
-Each plugin counts and lists only its own reviews.
+Group Reviews counts and lists only group reviews. Member Reviews counts and lists member reviews, with one exception today, described under [Member Reviews and Member Reviews Pro](#member-reviews-and-member-reviews-pro).
 
 | Plugin | Counts and lists | Ignores |
 |--------|------------------|---------|
 | Group Reviews | Reviews with `linked_group` | Reviews with `linked_bp_member` |
-| Member Reviews | Reviews with `linked_bp_member` | Reviews with `linked_group` |
+| Member Reviews | Reviews with `linked_bp_member` | Reviews with `linked_group`, except in the Flagged view |
 
 In Group Reviews this applies to:
 
@@ -34,7 +34,15 @@ In Group Reviews this applies to:
 - Activity posts. A member review never creates a group review activity item.
 - Uninstall. With `BGR_REMOVE_DATA_ON_UNINSTALL` set, only reviews with `linked_group` are deleted. Member Reviews data is kept.
 
-Member Reviews Pro keeps its dashboard, verified and flagged filters to member reviews only. Group reviews no longer appear in them.
+### Member Reviews and Member Reviews Pro
+
+This is the state with Member Reviews 3.8.3 and Member Reviews Pro 1.0.1:
+
+- The Member Reviews Pro management dashboard counts member reviews only.
+- The Verified filter in the wp-admin Reviews list shows member reviews only.
+- The Flagged view still includes group reviews. Member Reviews adds a **Flagged (N)** link to the wp-admin Reviews list, and both that count and the list it opens include any group review that carries a flag. Member Reviews Pro's flagged filter runs through the same list, so it shows them too.
+
+A Member Reviews fix that limits the Flagged view and its count to member reviews is in progress. Until you run a Member Reviews release whose changelog lists that fix, expect group reviews in Flagged. Group Reviews itself never reads or writes the Member Reviews flag.
 
 ## Check a Review in Code
 
