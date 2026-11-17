@@ -46,6 +46,18 @@ class Bgr_Review_Widget extends WP_Widget {
 	}
 
 	/**
+	 * Empty-state sentence shared by both Group Reviews widgets and the rating
+	 * widget's sort AJAX, so every empty widget reads the same.
+	 *
+	 * @since 3.9.2
+	 *
+	 * @return string
+	 */
+	public static function empty_text() {
+		return __( 'No ratings have been given by any members yet.', 'bp-group-reviews' );
+	}
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 1.0.0
@@ -146,9 +158,6 @@ class Bgr_Review_Widget extends WP_Widget {
 	 * @return void
 	 */
 	public function widget( $args, $instance ) {
-		global $bgr;
-		$review_label = $bgr['review_label'];
-
 		$widget_title       = apply_filters( 'bgr_widget_title', self::get_title( $instance ) );
 		$widget_title       = apply_filters( 'widget_title', $widget_title, $instance, $this->id_base );
 		$widget_listing_cat = apply_filters( 'bgr_listing_cat', $instance['listing_cat'] ?? 'topreviewed' );
@@ -201,7 +210,7 @@ class Bgr_Review_Widget extends WP_Widget {
 				continue;
 			}
 			++$shown;
-			$rows .= $this->render_row( $group, (float) ( $review_groups[ $gid ] ?? 0 ), (int) $review_groups_count[ $gid ], $review_label, 'show' === $widget_thumbnail );
+			$rows .= $this->render_row( $group, (float) ( $review_groups[ $gid ] ?? 0 ), (int) $review_groups_count[ $gid ], 'show' === $widget_thumbnail );
 		}
 
 		echo wp_kses_post( $args['before_widget'] );
@@ -212,12 +221,7 @@ class Bgr_Review_Widget extends WP_Widget {
 		if ( '' !== $rows ) {
 			echo '<ul class="bgr-widget-list">' . $rows . '</ul>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in render_row().
 		} else {
-			echo '<p class="bgr-widget-empty">' . esc_html(
-				'toprated' === $widget_listing_cat
-					? __( 'No ratings have been given to any groups yet.', 'bp-group-reviews' )
-					/* translators: %1$s: Review label. */
-					: sprintf( __( 'No %1$s has been given to any group yet!', 'bp-group-reviews' ), $review_label )
-			) . '</p>';
+			echo '<p class="bgr-widget-empty">' . esc_html( self::empty_text() ) . '</p>';
 		}
 		echo wp_kses_post( $args['after_widget'] );
 	}
@@ -230,11 +234,10 @@ class Bgr_Review_Widget extends WP_Widget {
 	 * @param BP_Groups_Group $group          Group.
 	 * @param float           $average        Average rating (0 when unrated).
 	 * @param int             $count          Number of reviews.
-	 * @param string          $review_label   Plural review label.
 	 * @param bool            $show_thumbnail Whether to print the avatar.
 	 * @return string Escaped row markup.
 	 */
-	private function render_row( $group, $average, $count, $review_label, $show_thumbnail ) {
+	private function render_row( $group, $average, $count, $show_thumbnail ) {
 		$group_url = bgr_get_group_url( $group );
 		/* translators: %s: average rating, e.g. "4.5". */
 		$stars_label = sprintf( __( 'Rated %s out of 5', 'bp-group-reviews' ), (string) round( $average, 2 ) );
@@ -269,10 +272,7 @@ class Bgr_Review_Widget extends WP_Widget {
 					</span>
 				<?php endif; ?>
 				<span class="bgr-widget-meta">
-					<?php
-					/* translators: %1$s: number of reviews, %2$s: review label (e.g. "Reviews"). */
-					printf( esc_html__( '%1$s %2$s', 'bp-group-reviews' ), esc_html( number_format_i18n( $count ) ), esc_html( $review_label ) );
-					?>
+					<?php echo esc_html( bgr_review_count_label( $count ) ); ?>
 				</span>
 			</div>
 		</li>

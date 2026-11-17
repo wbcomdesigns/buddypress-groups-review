@@ -255,6 +255,7 @@ Star colour, CSV export and theme layout fixes.
 * Fix      - The group Review Criteria mode options show each radio beside its label, with the description underneath and no grey band.
 * Fix      - Required-field markers and review form error messages now meet text contrast in light and dark mode.
 * Fix      - The note in the Current Active Criteria box is now readable against its tinted background.
+* Fix      - The Group Review and Group Rating widgets show 50px avatars with 8px corners on group pages, 15px text, review counts that read 1 Review or 3 Reviews, and the same empty message.
 * Security - The review CSV export now neutralises cells that start with =, +, -, @, tab or return, so a review cannot run as a spreadsheet formula.
 * Dev      - Replaced the deprecated jQuery .bind() call on the admin criteria screen with .on().
 

@@ -514,8 +514,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				$output .= '</div>';
 
 				$output .= '<div class="bgr-members">';
-				$output .= '<span class="bgr-member-count">' . esc_html( $group->review_count ) . '</span> ';
-				$output .= '<span class="bgr-member-label">' . esc_html__( 'reviews', 'bp-group-reviews' ) . '</span>';
+				$output .= '<span class="bgr-member-label">' . esc_html( bgr_review_count_label( (int) $group->review_count ) ) . '</span>';
 				$output .= '</div>';
 				$output .= '</div>'; // End bgr-item-stats
 			}

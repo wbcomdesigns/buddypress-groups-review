@@ -774,7 +774,7 @@
       "name": "BP Group Review Widget",
       "source": "includes/widgets/bgr-review.php:26 (registered @:290, widgets_init @:293)",
       "settings": "title (legacy widget_title read as fallback), listing_cat, post_num (1-20), thumbnail",
-      "note": "Bgr_Review_Widget::get_title() is the shared title reader for both widgets."
+      "note": "Bgr_Review_Widget::get_title() is the shared title reader for both widgets; Bgr_Review_Widget::empty_text() is the one empty-state sentence for both widgets and the rating sort AJAX."
     },
     {
       "class": "Bgr_Single_Group_Rating_Widget",
@@ -1038,6 +1038,12 @@
     "php_file_count": 43
   },
   "functions": [
+    {
+      "name": "bgr_review_count_label",
+      "source": "includes/bgr-globals.php:232",
+      "since": "3.9.2",
+      "purpose": "Review count with the owner-set singular or plural label via _n() (\"1 Review\", \"3 Reviews\"). Used by the group header rating line, the Group Review widget and the top groups shortcode; build every count label through it."
+    },
     {
       "name": "bgr_get_group_review_stats",
       "source": "includes/bgr-functions.php:36",

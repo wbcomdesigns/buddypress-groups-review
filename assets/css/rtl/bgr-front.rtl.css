@@ -137,8 +137,7 @@ html[data-bx-mode="dark"],
     display: none;
 }
 
-.round-avatars .widget_bp_group_review_tab img.sidebar_review_avatar,
-.bp-nouveau.round-avatars .widget_bp_group_review_tab img.sidebar_review_avatar {
+.round-avatars .widget_bp_group_review_tab .bgr-widget-list .bgr-widget-row .bgr-widget-avatar img {
     border-radius: 50%;
 }
 

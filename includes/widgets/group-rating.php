@@ -182,7 +182,7 @@ class Bgr_Single_Group_Rating_Widget extends WP_Widget {
 			<input type="hidden" value="<?php echo esc_attr( (string) $widget_post_num ); ?>" class="group-rating-limit">
 			<?php
 		} else {
-			echo '<p class="bgr-widget-empty">' . esc_html__( 'No ratings have been given by any members yet.', 'bp-group-reviews' ) . '</p>';
+			echo '<p class="bgr-widget-empty">' . esc_html( Bgr_Review_Widget::empty_text() ) . '</p>';
 		}
 		echo wp_kses_post( $args['after_widget'] );
 	}

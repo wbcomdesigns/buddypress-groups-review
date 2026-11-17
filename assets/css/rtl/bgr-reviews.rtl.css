@@ -193,8 +193,9 @@ html[data-bx-mode="dark"],
     line-height: 0;
 }
 
-.widget_bp_group_review_tab .bgr-widget-avatar img,
-.widget_bp_group_review_tab img.sidebar_review_avatar {
+/* List-scoped so it outranks theme and BP Nouveau avatar radius rules such as
+   .bp-nouveau .buddypress-wrap .avatar on the group sidebar, without !important. */
+.widget_bp_group_review_tab .bgr-widget-list .bgr-widget-row .bgr-widget-avatar img {
     width: 50px;
     height: 50px;
     max-width: none;
@@ -226,7 +227,7 @@ html[data-bx-mode="dark"],
 .widget_bp_group_review_tab .bgr-widget-meta,
 .widget_bp_group_review_tab .bgr-widget-empty {
     margin: 0;
-    font-size: 14px;
+    font-size: 15px;
     color: var(--bx-color-fg-muted, var(--reign-site-alternate-text-color, var(--color-meta, inherit)));
 }
 

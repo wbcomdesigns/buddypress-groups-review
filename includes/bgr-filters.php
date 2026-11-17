@@ -382,11 +382,11 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				<div class="rating-bgr"><?php do_action( 'bgr_display_group_average_ratings', $avg_rating ); ?></div>
 			<?php
 
-			if ( $total_review_count <= 1 ) {
-				// Singular when there is at most one review.
+			if ( 1 === $total_review_count ) {
+				// Label passed to the filter below matches the count.
 				$review_label = bp_group_review_add_review_tab_name();
 			}
-			$content = "<div class='rating-text'><span>" . esc_html__( 'Rating ', 'bp-group-reviews' ) . ' : ' . $avg_rating . '/5 - ' . $total_review_count . ' ' . $review_label . '</span></div>';
+			$content = "<div class='rating-text'><span>" . esc_html__( 'Rating ', 'bp-group-reviews' ) . ' : ' . $avg_rating . '/5 - ' . esc_html( bgr_review_count_label( $total_review_count ) ) . '</span></div>';
 
 			echo wp_kses_post( apply_filters( 'bgr_filter_group_header_rating_details', $content, $avg_rating, $review_label, $total_review_count, bp_get_group_id() ) );
 			echo '</div></div>';

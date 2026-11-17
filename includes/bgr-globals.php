@@ -221,6 +221,25 @@ function bp_group_review_add_review_tab_name() {
 	return apply_filters( 'bp_group_review_add_review_tab_name', $group_add_review_tab_name );
 }
 /**
+ * Review count with the singular or plural review label, e.g. "1 Review",
+ * "3 Reviews". Every count label goes through here so they pluralise alike.
+ *
+ * @since 3.9.2
+ *
+ * @param int $count Number of reviews.
+ * @return string Unescaped label.
+ */
+function bgr_review_count_label( $count ) {
+	$count = (int) $count;
+	return sprintf(
+		/* translators: 1: number of reviews, 2: singular review label (e.g. "Review"), 3: plural review label (e.g. "Reviews"). */
+		_n( '%1$s %2$s', '%1$s %3$s', $count, 'bp-group-reviews' ), // phpcs:ignore WordPress.WP.I18n.MismatchedPlaceholders -- Each form picks its own owner-set label.
+		number_format_i18n( $count ),
+		bp_group_review_add_review_tab_name(),
+		bp_group_review_tab_name()
+	);
+}
+/**
  * BGR group review tab slug (singular base, e.g. "review").
  *
  * Derived from the stored rename when there is one, otherwise a hard-coded,

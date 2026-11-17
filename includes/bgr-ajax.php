@@ -166,7 +166,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 				}
 				$html = Bgr_Single_Group_Rating_Widget::render_rows( $single_rev_avg, $final_review_obj, min( Bgr_Single_Group_Rating_Widget::MAX_ITEMS, max( 1, $limit ) ) );
 				if ( '' === $html ) {
-					$html = '<li class="bgr-widget-empty">' . esc_html__( 'No ratings have been given by any members yet.', 'bp-group-reviews' ) . '</li>';
+					$html = '<li class="bgr-widget-empty">' . esc_html( Bgr_Review_Widget::empty_text() ) . '</li>';
 				}
 				// `html` is the only key the existing JS consumer reads
 				// (bgr-front.js: obj.html). `total`/`limit`/`scanned` are additive
