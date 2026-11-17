@@ -6,14 +6,14 @@ Fast lookup guide for group-level review criteria feature (v3.7.0).
 
 ### Enabling the Feature
 
-- [ ] Go to **BuddyPress → Group Reviews → General Settings**
+- [ ] Go to **WB Plugins → Group Reviews → General**
 - [ ] Toggle **Enable Group-Level Criteria** to ON
 - [ ] Click **Save Settings**
 - [ ] Inform group admins of the new feature
 
 ### Managing Global Criteria
 
-**Location:** BuddyPress → Group Reviews → Criteria Settings
+**Location:** WB Plugins → Group Reviews → Criteria
 
 **Add Criterion:**
 1. Enter name in "Add New Criterion" field
@@ -132,7 +132,7 @@ $has_reviews = $criteria->criterion_has_reviews( $group_id, 'Quality' );
 **Base:** `/wp-json/bgr/v1/`
 
 **GET** `/groups/{id}/criteria`
-- Public access
+- Requires a logged-in user (`401` otherwise); private and hidden groups need membership or `manage_options`
 - Returns group criteria info
 
 **POST** `/groups/{id}/criteria`
@@ -153,10 +153,7 @@ do_action( 'bgr_global_criteria_archived', $criteria_name );
 
 ### Filters
 
-```php
-// Change max length for custom criteria names (default: 50)
-apply_filters( 'bgr_group_criteria_max_length', 50 );
-```
+None. The 50-character limit on custom criteria names is fixed.
 
 ## Database
 
@@ -243,7 +240,7 @@ foreach ( $ratings as $name => $value ) {
 ### Group admin can't see Review Criteria tab
 
 **Check:**
-1. Is feature enabled? (BuddyPress → Group Reviews → General Settings)
+1. Is feature enabled? (WB Plugins → Group Reviews → General)
 2. Is group excluded from reviews?
 3. Is user actually a group admin?
 

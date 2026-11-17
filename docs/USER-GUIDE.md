@@ -51,15 +51,12 @@ Imagine you run a community about photography:
 
 ### How It Looks
 
-**Groups Directory with Star Ratings:**
+**Single Group Header and Reviews Tab:**
 
-![Groups Directory](../screenshot-5.png)
-*Star ratings displayed in the groups directory help members discover quality groups*
+![Group header with the average rating and the Reviews tab listing a review with per-criterion stars](../.wordpress-org/screenshot-1.png)
+*The group header shows the overall rating and review count. The Reviews tab lists each review with its criteria ratings.*
 
-**Single Group Header:**
-
-![Group Header](../screenshot-6.png)
-*Group header shows the overall rating and review count*
+The groups directory also shows each group's average rating next to its card.
 
 ---
 
@@ -88,7 +85,7 @@ Imagine you run a community about photography:
 
 ### General Settings Tab
 
-![General Settings](../screenshot-1.png)
+![General settings tab](../.wordpress-org/screenshot-4.png)
 *General Settings tab with review options*
 
 #### 1. **Allow Multiple Reviews**
@@ -173,7 +170,7 @@ Imagine you run a community about photography:
 
 ### Criteria Settings Tab
 
-![Criteria Settings](../screenshot-2.png)
+![Criteria tab](../.wordpress-org/screenshot-5.png)
 *Configure review criteria that members rate*
 
 #### What are Criteria?
@@ -231,8 +228,7 @@ Imagine you run a community about photography:
 
 ### Display Settings Tab
 
-![Display Settings](../screenshot-4.png)
-*Customize how reviews appear on your site*
+Customize how reviews appear on your site.
 
 #### 1. **Reviews Tab Label**
 - **What it does:** Changes the name of the "Reviews" tab in groups
@@ -273,36 +269,39 @@ Imagine you run a community about photography:
 
 ### Emails Settings Tab
 
+The Emails tab has three emails: review submitted (sent to the group admin), review approved and review denied (both sent to the reviewer). Each has its own on/off switch, subject and message.
+
+Placeholders use square brackets, for example `[group-name]`. They are replaced when the email is sent.
+
 #### 1. **Email Subject**
-- **What it does:** Subject line of notification emails
-- **Default:** "A new review posted"
-- **Available placeholders:** You can use special codes that get replaced:
-  - `%review_label%` - The word you use for reviews
-  - `%group_name%` - Name of the group being reviewed
+- **What it does:** Subject line of the email
+- **Default (submission):** "New Review Submitted for Your Group [group-name] on [site-name]"
+- **Subject placeholders:**
+  - `[group-name]` - Name of the group being reviewed
+  - `[site-name]` - Your site name
 
 **Example:**
-- Template: "New Review for %group_name%"
+- Template: "New Review for [group-name]"
 - Result: "New Review for WordPress Developers"
 
 ---
 
 #### 2. **Email Message**
-- **What it does:** Body text of notification emails
-- **Available placeholders:**
-  - `%review_label%` - Your review label
-  - `%group_name%` - Group name
-  - `%user_name%` - Reviewer's name
-  - `%review_link%` - Link to view the review
+- **What it does:** Body text of the email
+- **Message placeholders:**
+  - `[group-name]` - Group name
+  - `[user-name]` - Reviewer's name
+  - `[review-link]` - Link to the review (the group's reviews page, or the wp-admin reviews list when moderation is on)
+  - `[site-name]` - Your site name
+  - `[admin-name]` - Group creator's name (submission email only)
 
 **Example Template:**
 ```
-Hello!
+Hello [admin-name],
 
-A new review has been submitted for your group %group_name%.
+A new review has been submitted for your group [group-name] by [user-name].
 
-Reviewer: %user_name%
-
-Click here to view it: %review_link%
+View it here: [review-link]
 ```
 
 **Tips:**
@@ -317,8 +316,7 @@ Click here to view it: %review_link%
 
 ### Viewing Reviews
 
-![Reviews List](../screenshot-7.png)
-*Reviews tab showing approved reviews with criteria ratings*
+The Reviews tab shows approved reviews with their criteria ratings (see the screenshot in [How It Looks](#how-it-looks)).
 
 **Where to Find Reviews:**
 1. Go to any BuddyPress group
@@ -336,8 +334,7 @@ Click here to view it: %review_link%
 
 ### Submitting a Review
 
-![Add Review Form](../screenshot-8.png)
-*The Add Review form with star rating selectors for each criteria*
+The Add Review form has a star selector for each criterion.
 
 **Step-by-Step for Members:**
 
@@ -394,8 +391,7 @@ Click here to view it: %review_link%
 
 ### The Manage Reviews Tab
 
-![Manage Reviews](../screenshot-3.png)
-*Manage Reviews tab with pending reviews showing Accept/Deny buttons*
+The Manage Reviews tab lists pending reviews with Accept and Deny buttons.
 
 **Where to Find It:**
 1. Go to your group (where you're admin)
@@ -530,6 +526,8 @@ Go to **WordPress Admin → Reviews** to see all reviews from every group.
 - Sharing data with stakeholders
 - Backing up review data
 
+**Spreadsheet safety:** Since 3.9.2, any cell that starts with `=`, `+`, `-`, `@`, a tab or a carriage return gets a leading single quote. This stops a member's review text from running as a spreadsheet formula (OWASP CSV injection). You will see the extra `'` in those cells.
+
 **Tips:**
 - Open CSV in Excel, Google Sheets, or Numbers
 - Use filters to analyze specific groups or time periods
@@ -550,38 +548,39 @@ Go to **WordPress Admin → Reviews** to see all reviews from every group.
 
 ### Group Reviews Widget
 
-**What it does:** Shows recent reviews in your sidebar or footer.
+**What it does:** Shows the top-rated groups, or the groups with the most reviews, in a sidebar or footer widget area.
 
 **Setting it Up:**
 
 1. Go to **Appearance → Widgets**
 2. Find "Group Reviews Widget"
-3. Drag it to a widget area (like sidebar)
+3. Drag it to a widget area (like the sidebar)
 4. Configure options:
-   - **Title:** Widget heading (e.g., "Recent Reviews")
-   - **Number of Reviews:** How many to show (5-10 recommended)
-   - **Filter:** Show highest rated, lowest rated, or recent
+   - **Title:** Widget heading. It is printed by your theme, so it matches your other widgets.
+   - **Number of groups:** How many to show (1 to 20).
+   - **List type** and **Thumbnails:** Which groups to rank and whether to show their avatars.
 
-**Best Places to Use:**
-- Homepage sidebar
-- Group directory pages
-- Member profiles
+When no group has a review yet, the widget shows one short sentence instead of a list.
 
 ---
 
 ### Group Rating Widget
 
-**What it does:** Shows groups with their average ratings.
+**What it does:** Shows the ratings given to one group, with Latest, Highest and Lowest sort buttons.
+
+**Where it works:** Only on a group page, because it shows the ratings of the group you are viewing. Add it to the widget area your theme provides for single groups. On other pages it has nothing to show.
 
 **Setting it Up:**
-1. Add widget to sidebar
-2. Choose how many groups to display
-3. Select filter (highest rated, most reviewed, etc.)
+1. Add the widget to the group page widget area
+2. Set the title and how many ratings to show (1 to 20)
 
-**Use Cases:**
-- "Top Rated Groups" section
-- Showcase popular groups
-- Help members discover quality groups
+Widgets saved before 3.9.2 keep their title; saving them again stores it under the new setting.
+
+---
+
+## Using Group Reviews with Member Reviews
+
+Group Reviews and BuddyPress Member Reviews store their reviews in the same `review` post type, so both appear in the one Reviews list in wp-admin. Each plugin only counts and shows its own: a Group Review is tied to a group, a Member Review to a member. The CSV export only contains Group Reviews. See the [compatibility guide](member-reviews-compatibility.md) for the details.
 
 ---
 
@@ -640,7 +639,7 @@ A: This is not built-in, but it's good practice to only review groups you've exp
 A: Old reviews keep their ratings, but new reviews use the new criteria.
 
 **Q: Can different groups have different criteria?**
-A: No, criteria are site-wide for consistency.
+A: Yes, when you turn on **Group-Level Criteria** (WB Plugins → Group Reviews → General). Each group admin can then use your global criteria, pick a subset, or add criteria for their own group. With the setting off, every group uses your site-wide criteria.
 
 **Q: What happens to reviews if I exclude a group?**
 A: Existing reviews remain, but the "Add Review" button disappears.
@@ -839,6 +838,5 @@ Congratulations! You now know how to use the BuddyPress Group Reviews plugin eff
 
 ---
 
-**Plugin Version:** 3.6.0
-**Last Updated:** January 2026
+**Plugin Version:** 3.9.2
 **License:** GPL-2.0+

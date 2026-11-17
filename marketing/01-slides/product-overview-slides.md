@@ -170,8 +170,8 @@ Star ratings in search results
 ### Works With Your Stack
 
 **Requirements:**
-- WordPress 6.0+
-- PHP 7.4+
+- WordPress 6.5+
+- PHP 8.0+
 - BuddyPress 12.0+ or BuddyBoss Platform
 
 **Theme Compatibility:**

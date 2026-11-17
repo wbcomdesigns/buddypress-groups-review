@@ -1,6 +1,6 @@
 # Changelog: Version 3.7.0
 
-Release Date: [Current Date]
+Release Date: 2026-01 (version 3.7.0)
 
 ## Major Features
 
@@ -12,7 +12,7 @@ Version 3.7.0 introduces the ability for group administrators to customize revie
 
 **New Setting: Enable Group-Level Criteria**
 
-Location: BuddyPress → Group Reviews → General Settings
+Location: WB Plugins → Group Reviews → General
 
 When enabled, group administrators can customize which rating criteria appear on their group's review form.
 
@@ -117,7 +117,7 @@ BuddyPress Group Extension providing admin interface.
 ### New REST API Endpoints
 
 **GET** `/wp-json/bgr/v1/groups/{id}/criteria`
-- Public endpoint
+- Requires a logged-in user; private and hidden groups need membership or `manage_options`
 - Returns group criteria settings and effective criteria
 
 **POST** `/wp-json/bgr/v1/groups/{id}/criteria`
@@ -130,8 +130,7 @@ BuddyPress Group Extension providing admin interface.
 - `bgr_global_criteria_deleted` - Fires when site admin deletes global criterion
 - `bgr_global_criteria_archived` - Fires when site admin archives global criterion
 
-**Filters:**
-- `bgr_group_criteria_max_length` - Filter max length for custom criteria names (default: 50)
+**Filters:** none. The 50-character limit on custom criteria names is fixed.
 
 ### Database Changes
 
@@ -352,10 +351,7 @@ Tested on:
 
 ### WordPress Compatibility
 
-Tested with:
-- WordPress 6.0+
-- BuddyPress 10.0+
-- PHP 7.4, 8.0, 8.1, 8.2
+Released against the requirements of that version. Current requirements (WordPress 6.5+, PHP 8.0+, BuddyPress or BuddyBoss Platform with Groups active) are in `readme.txt`.
 
 ## Known Limitations
 
@@ -371,7 +367,7 @@ Maximum 50 characters for custom criteria names.
 
 **Rationale:** Ensures consistent display across all devices and themes.
 
-**Override:** Use filter `bgr_group_criteria_max_length` if needed.
+**Override:** None. The limit is fixed and no filter changes it.
 
 ### Archived Criteria
 

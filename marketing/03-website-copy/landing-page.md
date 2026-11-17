@@ -259,7 +259,7 @@ Free to download. Easy to set up. Powerful results.
 
 ## Footer Notes
 
-**Version:** 3.6.0
-**Requires:** WordPress 6.0+ | BuddyPress 12.0+ | PHP 7.4+
+**Version:** 3.9.2
+**Requires:** WordPress 6.5+ | BuddyPress 12.0+ | PHP 8.0+
 **Author:** Wbcom Designs
 **License:** GPLv2+

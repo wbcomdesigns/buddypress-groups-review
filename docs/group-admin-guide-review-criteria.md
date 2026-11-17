@@ -260,4 +260,4 @@ Contact your site administrator if:
 - You need criteria the site doesn't offer
 - You want to delete an archived criterion permanently
 
-This feature requires site administrator to enable it at: **BuddyPress → Group Reviews → General Settings → Enable Group-Level Criteria**
+This feature requires site administrator to enable it at: **WB Plugins → Group Reviews → General → Group-Level Criteria**

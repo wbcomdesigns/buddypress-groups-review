@@ -78,10 +78,10 @@ Surface welcoming, active groups
 
 | Platform | Status |
 |----------|--------|
-| WordPress | 6.0+ Required |
+| WordPress | 6.5+ Required |
 | BuddyPress | 12.0+ Required |
 | BuddyBoss Platform | Fully Compatible |
-| PHP | 7.4+ Required |
+| PHP | 8.0+ Required |
 
 **Theme Support:**
 BuddyBoss Theme, BuddyX, Reign, Youzify, Standard BuddyPress Themes

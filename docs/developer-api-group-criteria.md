@@ -419,7 +419,7 @@ Toggle global criterion on/off for group.
 
 Get group criteria information.
 
-**Permission:** Public (read-only)
+**Permission:** Logged-in users only. Logged-out requests get `401`. For a public group any logged-in user can read it. For a private or hidden group you must be a group member or have `manage_options`. An unknown group ID is also refused.
 
 **Response:**
 ```json
@@ -434,7 +434,11 @@ Get group criteria information.
 
 **Example:**
 ```javascript
-fetch('/wp-json/bgr/v1/groups/123/criteria')
+// Send the REST nonce so WordPress knows who you are (wp_create_nonce( 'wp_rest' )).
+fetch('/wp-json/bgr/v1/groups/123/criteria', {
+  credentials: 'same-origin',
+  headers: { 'X-WP-Nonce': wpApiSettings.nonce }
+})
   .then(res => res.json())
   .then(data => console.log(data.effective));
 ```
@@ -510,21 +514,7 @@ add_action( 'bgr_global_criteria_archived', function( $criteria_name ) {
 
 ### Filters
 
-#### `bgr_group_criteria_max_length`
-
-Filter max length for custom criteria names.
-
-**Parameters:**
-- `$length` (int) Default: 50
-
-**Example:**
-```php
-add_filter( 'bgr_group_criteria_max_length', function( $length ) {
-    return 100; // Allow longer names
-} );
-```
-
-**Since:** 3.7.0
+The group criteria system has no filters of its own. The 50-character limit on custom criteria names is fixed in `includes/bgr-group-criteria-ajax.php` and cannot be changed with a hook.
 
 ## Database Schema
 

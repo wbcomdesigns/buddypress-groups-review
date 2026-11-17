@@ -113,9 +113,9 @@ Full REST API support enables mobile app and headless CMS integration. GamiPress
 Works beautifully with BuddyBoss Platform, BuddyX, Reign, Youzify, and standard BuddyPress themes.
 
 **Requirements:**
-- WordPress 6.0+
+- WordPress 6.5+
 - BuddyPress 12.0+ (Groups component active)
-- PHP 7.4+
+- PHP 8.0+
 
 Start collecting authentic member feedback that builds trust and helps your community thrive.
 
@@ -180,8 +180,8 @@ Tested and styled for:
 
 #### Requirements
 
-- WordPress 6.0+
-- PHP 7.4+
+- WordPress 6.5+
+- PHP 8.0+
 - BuddyPress 12.0+ (Groups component)
 - OR BuddyBoss Platform
 

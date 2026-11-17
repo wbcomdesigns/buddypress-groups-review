@@ -21,10 +21,10 @@
 
 This developer guide provides technical documentation for extending and customizing the BuddyPress Group Reviews plugin. It includes all available hooks, filters, functions, and integration points.
 
-**Plugin Version:** 3.6.0
-**Minimum PHP:** 7.4
-**Minimum WordPress:** 4.0
-**Requires BuddyPress:** 12.0+
+**Plugin Version:** 3.9.2
+**Minimum PHP:** 8.0
+**Minimum WordPress:** 6.5
+**Requires:** BuddyPress or BuddyBoss Platform with the Groups component active
 
 **Key Features for Developers:**
 - Extensive hook system for customization
@@ -123,7 +123,7 @@ $bgr = array(
 
 #### `bgr_group_after_review_submit`
 
-Fires after a review has been successfully submitted, from the group form (AJAX) or the REST create route (`POST buddypress/v1/groups/{id}/reviews`). The plugin's own term, GamiPress, admin notification, admin email and activity side effects run on this hook (`bgr_handle_review_submitted()`, priority 10; activity at 15).
+Fires after a review has been successfully submitted, from the group form (AJAX) or the REST create route (`POST buddypress/v1/groups/{id}/reviews`). The plugin's own tagging, GamiPress award, admin notification, admin email and activity side effects run on this hook (`bgr_handle_review_submitted()`, priority 10; activity at 15).
 
 **Parameters:**
 - `int $author_id` - User ID of review author
@@ -324,13 +324,14 @@ Displays average ratings in widget context.
 add_action( 'bgr_display_widget_average_ratings', 'my_widget_rating_addon' );
 
 function my_widget_rating_addon( $avg_rating ) {
-    // Add review count next to stars in widget
-    $review_count = get_reviews_count_for_group( $group_id );
-    echo sprintf( '<span class="review-count">(%d reviews)</span>', $review_count );
+    // Print the numeric average next to the stars.
+    echo '<span class="my-avg">' . esc_html( number_format_i18n( (float) $avg_rating, 1 ) ) . '</span>';
 }
 ```
 
-**Location:** `includes/widgets/bgr-review.php:265`
+The hook has no group ID. To get a review count, call `bgr_get_group_review_stats( $group_id )` from a place where you know the group.
+
+**Location:** `includes/widgets/bgr-review.php` and `includes/widgets/group-rating.php`
 
 ---
 
@@ -433,40 +434,29 @@ function my_custom_review_activity() {
 
 ---
 
-### Admin/Plugin Integration Hooks
+### Admin Settings Filters
 
-#### `wbcom_add_plugin_license_code`
+The settings screen (WB Plugins → Group Reviews) was rebuilt in 3.9.0. The bundled wrapper and its license and header-menu actions were removed in that release. Use these filters instead.
 
-Adds license input fields for premium version.
+#### `bgr_admin_capability`
 
-**Example:**
+Filters the capability required to open the WB Plugins hub and the Group Reviews page. Default `manage_options`.
+
 ```php
-add_action( 'wbcom_add_plugin_license_code', 'my_custom_license_field' );
-
-function my_custom_license_field() {
-    // Add custom license validation
-    // Integrate with your own licensing system
-}
+add_filter( 'bgr_admin_capability', function ( $cap ) {
+    return 'manage_options';
+} );
 ```
 
-**Location:** `admin/wbcom/templates/wbcom-license-page.php:34`
+#### `bgr_admin_tabs`
 
----
+Filters the settings tabs (array keyed by tab slug). The Discover tab is added after this filter and cannot be removed here.
 
-#### `wbcom_add_header_menu`
-
-Adds custom menu items to plugin admin header.
-
-**Example:**
 ```php
-add_action( 'wbcom_add_header_menu', 'my_custom_admin_menu' );
-
-function my_custom_admin_menu() {
-    echo '<li><a href="my-page">Custom Reports</a></li>';
-}
+add_filter( 'bgr_admin_tabs', function ( array $tabs ) {
+    return $tabs; // Inspect the array to see each tab's keys before editing.
+} );
 ```
-
-**Location:** `admin/wbcom/wbcom-admin-settings.php:342`
 
 ---
 
@@ -559,18 +549,16 @@ Determines if review tab should display count badge.
 
 **Parameters:**
 - `bool $has_count` - Whether nav has count
-- `object $nav_item` - Navigation item object
-- `string $component` - Current component
 
 **Returns:** `bool`
 
 **Example:**
 ```php
-add_filter( 'bp_group_review_nav_has_count', 'my_hide_review_count', 10, 3 );
+add_filter( 'bp_group_review_nav_has_count', 'my_hide_review_count' );
 
-function my_hide_review_count( $has_count, $nav_item, $component ) {
-    // Hide count for private groups
-    if ( bp_get_group_status() === 'private' ) {
+function my_hide_review_count( $has_count ) {
+    // Hide the count badge for private groups.
+    if ( 'private' === bp_get_group_status() ) {
         return false;
     }
     return $has_count;
@@ -587,22 +575,16 @@ Filters the actual count number displayed in navigation.
 
 **Parameters:**
 - `int $count` - Number of published reviews
-- `object $nav_item` - Navigation item object
-- `string $component` - Current component
 
 **Returns:** `int`
 
 **Example:**
 ```php
-add_filter( 'buddypress_groups_review_nav_count', 'my_modify_count', 10, 3 );
+add_filter( 'buddypress_groups_review_nav_count', 'my_modify_count' );
 
-function my_modify_count( $count, $nav_item, $component ) {
-    // Show count + pending reviews for group admins
-    if ( groups_is_user_admin( bp_loggedin_user_id(), bp_get_current_group_id() ) ) {
-        $pending = get_pending_reviews_count( bp_get_current_group_id() );
-        return $count + $pending;
-    }
-    return $count;
+function my_modify_count( $count ) {
+    // Cap the badge at 99.
+    return min( 99, (int) $count );
 }
 ```
 
@@ -684,7 +666,7 @@ function my_custom_review_template( $template ) {
 Filters the activity action text when review is posted.
 
 **Parameters:**
-- `string $action_text` - Default action string (e.g., "%1$s posted a review in the group %2$s")
+- `string $action_text` - Default action format passed to `sprintf()` with the user link (`%1$s`) and group link (`%2$s`), e.g. "%1$s posted a review in the group %2$s". Keep both placeholders.
 
 **Returns:** `string`
 
@@ -704,57 +686,6 @@ function my_custom_activity_text( $action_text ) {
 Activity posts for reviews in private or hidden groups are automatically hidden from the sitewide activity feed. They only appear within the group's own activity stream. This is handled by the `hide_sitewide` parameter in `bp_activity_add()`.
 
 **Location:** `includes/bgr-activity.php:168`, `includes/bgr-activity.php:240`
-
----
-
-#### `bp_group_review_group_create_posts_activity_action`
-
-Filters the formatted activity action for review posts.
-
-**Parameters:**
-- `string $action` - Formatted action HTML with user/group links
-
-**Returns:** `string`
-
-**Example:**
-```php
-add_filter( 'bp_group_review_group_create_posts_activity_action', 'my_activity_action' );
-
-function my_activity_action( $action ) {
-    // Add emoji or icon
-    return '⭐ ' . $action;
-}
-```
-
-**Location:** `includes/bgr-activity.php:117`
-
----
-
-### Review Form Filters
-
-#### `bgr_review_form_group_status`
-
-Filters which group statuses are included in review form group selector.
-
-**Parameters:**
-- `array $statuses` - Array of group statuses
-
-**Returns:** `array`
-
-**Default:** `array( 'public', 'hidden' )`
-
-**Example:**
-```php
-add_filter( 'bgr_review_form_group_status', 'my_reviewable_groups' );
-
-function my_reviewable_groups( $statuses ) {
-    // Also allow reviewing private groups
-    $statuses[] = 'private';
-    return $statuses;
-}
-```
-
-**Location:** `includes/bgr-shortcodes.php:167`
 
 ---
 
@@ -888,7 +819,7 @@ Filters number of posts shown in widget.
 
 **Returns:** `int`
 
-**Location:** `includes/widgets/bgr-review.php:143`, `includes/widgets/group-rating.php:119`
+**Location:** `includes/widgets/bgr-review.php` (the rating widget uses core-style `post_num` instead). The value is clamped between 1 and the widget's maximum.
 
 ---
 
@@ -902,6 +833,25 @@ Filters whether to show thumbnails in widget.
 **Returns:** `bool`
 
 **Location:** `includes/widgets/bgr-review.php:144`
+
+---
+
+### Query Limit Filters
+
+Big sites can tune these safety bounds.
+
+| Filter | Default | Arguments | Purpose |
+|--------|---------|-----------|---------|
+| `bgr_review_stats_query_limit` | `10000` | `$limit, $group_id` | Max reviews aggregated per group (result is cached for an hour) |
+| `bgr_filter_ratings_max_scan` | `500` | `$limit, $group_id` | Max reviews scanned when the widget filters by rating |
+| `bgr_schema_reviews_limit` | `10` | `$limit, $group_id` | Reviews written into the Schema.org markup |
+| `bgr_exclude_groups_select_limit` | `200` | `$limit` | Groups listed in the Exclude Groups selector |
+
+```php
+add_filter( 'bgr_schema_reviews_limit', function ( $limit, $group_id ) {
+    return 5;
+}, 10, 2 );
+```
 
 ---
 
@@ -1040,19 +990,17 @@ $export_url = wp_nonce_url(
 
 **Location:** `includes/bgr-filters.php:550` (`BGR_Custom_Hooks::bp_group_review_handle_csv_export()`)
 
-**Customizing Export:**
-```php
-// Add custom data to CSV export (hook into the export process)
-add_action( 'admin_init', 'customize_review_export', 5 );
+**Spreadsheet formula safety (OWASP CSV injection):** since 3.9.2, `BGR_Custom_Hooks::csv_safe()` prefixes a single quote to any text cell that starts with `=`, `+`, `-`, `@`, a tab or a carriage return. It covers reviewer name and email, group name, review title and content, and the criterion column headers. Numeric columns (ID, group ID, average, ratings) are not changed. The method is private, so you cannot call it. If you write your own export of review data, apply the same rule.
 
-function customize_review_export() {
-    if ( isset( $_GET['action'] ) && 'bgr_export_reviews' === $_GET['action'] ) {
-        // Add custom headers or processing before export runs
-    }
-}
-```
+**Access control:** the handler runs on `admin_init`. It checks `manage_options` and the `bgr_export_reviews` nonce, streams the file, then calls `exit`.
+
+**Customizing Export:** the export has no action or filter, and it calls `exit` after streaming, so a hook on `admin_init` cannot change the file. To produce a different CSV, register your own admin action with its own capability check and nonce, and read reviews in batches (`posts_per_page` of 200 with `paged`, `meta_key` `linked_group`).
 
 ---
+
+## Compatibility with BuddyPress Member Reviews
+
+Both plugins register reviews in the shared `review` post type and `review_category` taxonomy. Group Reviews mark a post with the `linked_group` meta, Member Reviews with `linked_bp_member`. Always scope a query on `review` with the meta key you mean, and use `bupr_is_member_review( $post )` (Member Reviews 3.8.3+) to test a post. The CSV export reads only posts with `linked_group`. Full details: [member-reviews-compatibility.md](member-reviews-compatibility.md).
 
 ## Uninstall & Data Cleanup
 
@@ -1068,31 +1016,22 @@ define( 'BGR_REMOVE_DATA_ON_UNINSTALL', true );
 **Step 2:** Delete the plugin through WordPress admin.
 
 **What Gets Removed:**
-- All review posts and their meta data
+- Group review posts (reviews with `linked_group` meta) and their meta data. BuddyPress Member Reviews posts share the `review` post type and are kept.
 - Plugin options:
   - `bgr_admin_general_settings`
   - `bgr_admin_criteria_settings`
   - `bgr_admin_display_settings`
   - `bp_group_review_email_settings`
-- User meta with `bgr_` prefix
-- Custom capabilities from roles
-- All cached data
+- Per-group criteria (`bgr_group_criteria_settings` group meta)
+- Cached ratings and submit locks (`bgr_review_*` transients)
+- Review capabilities from roles
 
 **Multisite Support:**
 On multisite installations, data is removed from all network sites.
 
 **Location:** `uninstall.php`
 
-**Custom Cleanup Hook:**
-```php
-// Run custom cleanup before plugin data is removed
-add_action( 'plugins_loaded', function() {
-    if ( defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-        // Your cleanup code here
-        // This runs before bgr_delete_plugin_data()
-    }
-});
-```
+**Custom cleanup:** there is no uninstall hook. `uninstall.php` runs on its own without loading other plugins, so `plugins_loaded` callbacks do not run. Remove any data your own code attached (for example extra review meta) from your own plugin's uninstall routine.
 
 ---
 
@@ -1253,18 +1192,12 @@ array(
 
 ### Custom Review Criteria
 
-Add/modify review criteria programmatically:
+There is no filter for the site-wide criteria list. Manage it on the **Criteria** tab. To add criteria for one group in code, use the group criteria API (see [developer-api-group-criteria.md](developer-api-group-criteria.md)):
 
 ```php
-add_filter( 'bgr_admin_criteria_settings', 'add_custom_criteria' );
-
-function add_custom_criteria( $criteria_settings ) {
-    // Add new criterion
-    $criteria_settings['review_rating_fields'][] = 'Innovation';
-    $criteria_settings['active_rating_fields'][] = 'Innovation';
-
-    return $criteria_settings;
-}
+$criteria = bgr_group_criteria();
+$criteria->set_criteria_mode( $group_id, 'override' );
+$criteria->add_custom_criteria( $group_id, 'Innovation' );
 ```
 
 ### Custom Review Validation
@@ -1292,71 +1225,27 @@ function validate_review_content( $author_id, $group_id, $review_id ) {
 
 ### Custom Email Templates
 
-Customize email notifications:
+The subject and message of each email are saved options, not filters. Edit them on **WB Plugins → Group Reviews → Emails**, using the `[group-name]`, `[user-name]`, `[review-link]`, `[site-name]` and (submission email only) `[admin-name]` placeholders. The subject accepts `[group-name]` and `[site-name]`.
+
+To change the email programmatically, filter the saved option:
 
 ```php
-add_filter( 'bp_group_review_email_subject', 'custom_email_subject', 10, 2 );
-
-function custom_email_subject( $subject, $group_id ) {
-    $group_name = bp_get_group_name( groups_get_group( $group_id ) );
-    return "⭐ New Review for {$group_name}";
-}
-
-add_filter( 'bp_group_review_email_message', 'custom_email_body', 10, 4 );
-
-function custom_email_body( $message, $group_id, $user_id, $review_id ) {
-    // Custom HTML email template
-    $review_link = get_review_permalink( $review_id );
-
-    ob_start();
-    include 'path/to/custom-email-template.php';
-    return ob_get_clean();
-}
+add_filter( 'option_bp_group_review_email_settings', function ( $settings ) {
+    $settings = (array) $settings;
+    $settings['review_email_subject'] = 'New review for [group-name]';
+    return $settings;
+} );
 ```
+
+The option keys are `review_email_subject`, `review_email_message`, `review_accept_email_subject`, `review_accept_email_message`, `review_deny_email_subject` and `review_deny_email_message`.
 
 ### Schema.org Customization
 
-Modify structured data output:
-
-```php
-add_filter( 'bgr_schema_output', 'modify_schema_data', 10, 2 );
-
-function modify_schema_data( $schema, $group_id ) {
-    // Add additional schema properties
-    $schema['@type'] = 'Organization';
-    $schema['logo'] = get_group_logo_url( $group_id );
-    $schema['contactPoint'] = array(
-        '@type' => 'ContactPoint',
-        'email' => get_group_email( $group_id )
-    );
-
-    return $schema;
-}
-```
+The JSON-LD block is printed on `wp_head` (priority 5) with no filter. The only control is `bgr_schema_reviews_limit`, which sets how many reviews it lists (default 10). See [Query Limit Filters](#query-limit-filters).
 
 ### Custom Widget Output
 
-Modify widget display:
-
-```php
-add_filter( 'bgr_widget_review_html', 'custom_widget_review', 10, 2 );
-
-function custom_widget_review( $html, $review ) {
-    // Custom review card design
-    $custom_html = sprintf(
-        '<div class="custom-review-card">
-            <div class="review-author">%s</div>
-            <div class="review-rating">%s</div>
-            <div class="review-excerpt">%s</div>
-        </div>',
-        get_the_author_meta( 'display_name', $review->post_author ),
-        get_review_stars( $review->ID ),
-        wp_trim_words( $review->post_content, 20 )
-    );
-
-    return $custom_html;
-}
-```
+The widgets have no HTML filter. You can change the title with `bgr_widget_title`, the list type with `bgr_listing_cat`, the item count with `bgr_post_num` and thumbnails with `bgr_thumbnail`. See [Widget Filters](#widget-filters).
 
 ---
 
@@ -1371,8 +1260,9 @@ function custom_widget_review( $html, $review ) {
 add_action( 'bgr_group_after_review_submit', 'award_excellence_badge', 10, 3 );
 
 function award_excellence_badge( $author_id, $group_id, $review_id ) {
-    // Calculate new average
-    $avg_rating = calculate_group_average_rating( $group_id );
+    // Cached, bounded aggregate maintained by the plugin (no review loop needed).
+    $stats      = bgr_get_group_review_stats( $group_id );
+    $avg_rating = $stats['average'];
 
     if ( $avg_rating >= 4.5 ) {
         // Award badge
@@ -1393,45 +1283,9 @@ function award_excellence_badge( $author_id, $group_id, $review_id ) {
         }
     }
 }
-
-function calculate_group_average_rating( $group_id ) {
-    global $bgr;
-
-    $args = array(
-        'post_type'      => 'review',
-        'posts_per_page' => -1,
-        'post_status'    => 'publish',
-        'meta_query'     => array(
-            array(
-                'key'     => 'linked_group',
-                'value'   => $group_id,
-                'compare' => '='
-            )
-        )
-    );
-
-    $reviews = get_posts( $args );
-    $rating_fields = $bgr['review_rating_fields'];
-
-    $total_rating = 0;
-    $count = 0;
-
-    foreach ( $reviews as $review ) {
-        $ratings = get_post_meta( $review->ID, 'review_star_rating', true );
-
-        if ( ! empty( $ratings ) ) {
-            foreach ( $ratings as $field => $value ) {
-                if ( in_array( $field, $rating_fields ) ) {
-                    $total_rating += $value;
-                    $count++;
-                }
-            }
-        }
-    }
-
-    return $count > 0 ? round( $total_rating / $count, 2 ) : 0;
-}
 ```
+
+`bgr_get_group_review_stats( $group_id )` runs one bounded query (capped by `bgr_review_stats_query_limit`, default 10000) and caches the result for an hour. It returns `average`, `total_reviews`, per-criterion `ratings` and a per-review `index`. Do not load every review of a group with an unbounded query: it holds them all in memory and breaks on large sites.
 
 ### Example 2: Restrict Reviews to Group Members
 
@@ -1500,66 +1354,13 @@ function sync_to_crm( $author_id, $group_id, $review_id ) {
 
 ### Example 4: Display Top Rated Groups Shortcode
 
+The plugin already ships a leaderboard shortcode. Use it instead of looping over groups yourself, which costs one rating lookup per group:
+
 ```php
-/**
- * Custom shortcode to display top-rated groups
- * Usage: [top_rated_groups limit="5"]
- */
-add_shortcode( 'top_rated_groups', 'top_rated_groups_shortcode' );
-
-function top_rated_groups_shortcode( $atts ) {
-    $atts = shortcode_atts( array(
-        'limit' => 5,
-    ), $atts );
-
-    // Get all groups
-    $all_groups = groups_get_groups( array(
-        'per_page' => 100,
-        'orderby'  => 'date_created',
-    ) );
-
-    // Calculate ratings for each group
-    $rated_groups = array();
-
-    foreach ( $all_groups['groups'] as $group ) {
-        $avg_rating = calculate_group_average_rating( $group->id );
-
-        if ( $avg_rating > 0 ) {
-            $rated_groups[] = array(
-                'group'  => $group,
-                'rating' => $avg_rating,
-            );
-        }
-    }
-
-    // Sort by rating
-    usort( $rated_groups, function( $a, $b ) {
-        return $b['rating'] <=> $a['rating'];
-    } );
-
-    // Limit results
-    $rated_groups = array_slice( $rated_groups, 0, $atts['limit'] );
-
-    // Build output
-    ob_start();
-    ?>
-    <div class="top-rated-groups">
-        <h3>Top Rated Groups</h3>
-        <ul class="group-list">
-            <?php foreach ( $rated_groups as $item ) : ?>
-                <li class="group-item">
-                    <a href="<?php echo bp_get_group_url( $item['group'] ); ?>">
-                        <strong><?php echo esc_html( $item['group']->name ); ?></strong>
-                        <span class="rating">⭐ <?php echo number_format( $item['rating'], 1 ); ?>/5</span>
-                    </a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-    <?php
-    return ob_get_clean();
-}
+echo do_shortcode( '[bgr_display_top_groups title="Top Rated Groups" total_groups="5" type="top rated"]' );
 ```
+
+Attributes: `title`, `total_groups` (default 10), `type` (`top rated`, `most reviewed` or `members`), `show_avatar` and `show_rating`.
 
 ### Example 5: Auto-Feature Highly Rated Groups
 
@@ -1570,8 +1371,9 @@ function top_rated_groups_shortcode( $atts ) {
 add_action( 'bgr_group_after_review_submit', 'auto_feature_top_groups', 15, 3 );
 
 function auto_feature_top_groups( $author_id, $group_id, $review_id ) {
-    $avg_rating = calculate_group_average_rating( $group_id );
-    $review_count = get_group_review_count( $group_id );
+    $stats        = bgr_get_group_review_stats( $group_id );
+    $avg_rating   = $stats['average'];
+    $review_count = $stats['total_reviews'];
 
     // Feature if rating is 4.8+ and has at least 10 reviews
     if ( $avg_rating >= 4.8 && $review_count >= 10 ) {
@@ -1581,36 +1383,8 @@ function auto_feature_top_groups( $author_id, $group_id, $review_id ) {
         if ( ! in_array( $group_id, $featured_groups ) ) {
             $featured_groups[] = $group_id;
             update_option( 'bp_featured_group_ids', $featured_groups );
-
-            // Notify group admins
-            $message = sprintf(
-                'Congratulations! Your group has been featured due to excellent reviews (%.1f/5 from %d reviews).',
-                $avg_rating,
-                $review_count
-            );
-
-            bp_groups_send_admin_notice( $group_id, 'Group Featured', $message );
         }
     }
-}
-
-function get_group_review_count( $group_id ) {
-    $args = array(
-        'post_type'      => 'review',
-        'posts_per_page' => -1,
-        'post_status'    => 'publish',
-        'meta_query'     => array(
-            array(
-                'key'     => 'linked_group',
-                'value'   => $group_id,
-                'compare' => '='
-            )
-        ),
-        'fields'         => 'ids',
-    );
-
-    $reviews = get_posts( $args );
-    return count( $reviews );
 }
 ```
 
@@ -1840,7 +1614,7 @@ Check logs at: `wp-content/debug.log`
 
 ## Changelog
 
-See `docs/CHANGELOG-3.5.0.md` for version history and release notes.
+See the Changelog section of `readme.txt` for version history and release notes.
 
 ---
 

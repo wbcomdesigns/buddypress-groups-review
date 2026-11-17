@@ -1,6 +1,6 @@
-# BuddyPress Group Reviews v3.7.0 Documentation Index
+# BuddyPress Group Reviews Documentation Index
 
-Complete documentation for Group-Level Review Criteria feature.
+Documentation for BuddyPress Group Reviews 3.9.2, including the Group-Level Review Criteria feature.
 
 ## Documentation Files
 
@@ -11,6 +11,22 @@ Complete documentation for Group-Level Review Criteria feature.
 - Quick links to all documentation
 - Installation and basic configuration
 - Common use cases
+
+**[User Guide](USER-GUIDE.md)**
+- Plain-language walkthrough of every setting
+- How members submit reviews
+- How group admins moderate reviews
+- Widgets, email notifications and CSV export
+
+**[Feature Overview](FEATURE-OVERVIEW.md)**
+- Summary of the Group-Level Criteria feature
+- Who can do what
+- Where each setting lives
+
+**[Member Reviews Compatibility](member-reviews-compatibility.md)**
+- How Group Reviews and BuddyPress Member Reviews share the `review` post type
+- What each plugin counts
+- What happens on uninstall
 
 ### 👨‍💼 For Site Administrators
 
@@ -51,6 +67,18 @@ Complete documentation for Group-Level Review Criteria feature.
 
 **Word count:** ~3,500 words | **Read time:** 15 minutes
 
+**[Developer Guide](DEVELOPER-GUIDE.md)**
+- Action and filter hook reference
+- Function reference
+- Database structure and custom post type
+- CSV export, uninstall and REST integration
+- Code examples
+
+**[BuddyPress REST API](BUDDYPRESS-REST-API.md)**
+- Review endpoints under `buddypress/v1`
+- Authentication and permissions
+- Request and response examples
+
 ### 🔍 Quick References
 
 **[Quick Reference Guide](quick-reference-group-criteria.md)**
@@ -87,6 +115,13 @@ Complete documentation for Group-Level Review Criteria feature.
 - Known limitations
 
 **Word count:** ~3,000 words | **Read time:** 12 minutes
+
+**[Changelog 3.5.0](CHANGELOG-3.5.0.md)**
+- Mobile app and headless REST support
+- Accessibility and SEO markup
+- Opt-in clean uninstall
+
+Release notes for every later version are in `readme.txt`.
 
 ## Documentation by Role
 
@@ -231,12 +266,18 @@ Yes. See [Developer API → Integration Examples](developer-api-group-criteria.m
 docs/
 ├── INDEX.md (this file)                      # Documentation index
 ├── README.md                                  # Overview
+├── USER-GUIDE.md                              # Plain-language user guide
+├── DEVELOPER-GUIDE.md                         # Hooks, functions, examples
+├── FEATURE-OVERVIEW.md                        # Group-Level Criteria summary
+├── BUDDYPRESS-REST-API.md                     # buddypress/v1 review endpoints
+├── member-reviews-compatibility.md            # Shared review post type
 ├── admin-guide-group-level-criteria.md       # Site admin guide
 ├── group-admin-guide-review-criteria.md      # Group admin guide
 ├── developer-api-group-criteria.md           # Developer reference
 ├── quick-reference-group-criteria.md         # Quick lookups
 ├── visual-guide-group-criteria.md            # Diagrams & examples
-└── CHANGELOG-v3.7.0.md                       # Release notes
+├── CHANGELOG-3.5.0.md                         # 3.5.0 release notes
+└── CHANGELOG-v3.7.0.md                       # 3.7.0 release notes
 ```
 
 ## Feature Components
@@ -271,7 +312,7 @@ See: [Developer API → Database Schema](developer-api-group-criteria.md#databas
 ### REST API
 
 **GET** `/wp-json/bgr/v1/groups/{id}/criteria`
-- Get group criteria settings
+- Get group criteria settings (logged-in users only; private and hidden groups need membership)
 
 **POST** `/wp-json/bgr/v1/groups/{id}/criteria`
 - Update group criteria
@@ -299,24 +340,20 @@ do_action( 'bgr_global_criteria_archived', $criteria_name );
 
 ### Filters
 
-```php
-apply_filters( 'bgr_group_criteria_max_length', 50 );
-```
+The criteria system has no filters. For the full list of plugin hooks see the [Developer Guide](DEVELOPER-GUIDE.md#action-hooks-reference).
 
 See: [Developer API → WordPress Hooks](developer-api-group-criteria.md#wordpress-hooks)
 
 ## Version Information
 
-**Plugin Version:** 3.7.0
-**Feature Version:** 3.7.0 (initial release)
-**Documentation Version:** 1.0
-**Last Updated:** January 2026
+**Plugin Version:** 3.9.2
+**Group-Level Criteria:** added in 3.7.0
 
 ## Requirements
 
-- WordPress 5.0+
-- BuddyPress 12.0+ (Groups component active)
-- PHP 7.4+
+- WordPress 6.5+
+- PHP 8.0+
+- BuddyPress or BuddyBoss Platform with the Groups component active
 
 ## Support
 

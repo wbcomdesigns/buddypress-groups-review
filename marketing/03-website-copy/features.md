@@ -390,8 +390,8 @@ GDPR-friendly and respectful of your database—when you're done, you're done.
 
 | Requirement | Version |
 |-------------|---------|
-| WordPress | 6.0+ |
-| PHP | 7.4+ |
+| WordPress | 6.5+ |
+| PHP | 8.0+ |
 | BuddyPress | 12.0+ |
 | BuddyBoss Platform | Compatible |
 

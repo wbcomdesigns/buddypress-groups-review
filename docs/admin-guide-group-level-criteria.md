@@ -1,6 +1,6 @@
 # Group-Level Review Criteria - Site Admin Guide
 
-Version 3.7.0 introduces group-level review criteria, allowing group admins to customize which rating criteria appear on their group's review form.
+Group-level review criteria (added in 3.7.0) allow group admins to customize which rating criteria appear on their group's review form.
 
 ## Overview
 
@@ -15,12 +15,12 @@ By default, all groups use the site-wide review criteria you configure. With gro
 
 ### Step 1: Access Review Settings
 
-1. Go to **BuddyPress → Group Reviews → General Settings** in your WordPress admin
-2. Locate the **Enable Group-Level Criteria** option
+1. Go to **WB Plugins → Group Reviews → General** in your WordPress admin
+2. Locate the **Group-Level Criteria** option
 
 ### Step 2: Enable Group-Level Criteria
 
-1. Toggle the **Enable Group-Level Criteria** switch to **ON**
+1. Toggle the **Group-Level Criteria** switch to **ON**
 2. Click **Save Settings**
 
 Once enabled, group admins will see a new **Review Criteria** tab in their group admin panel.
@@ -60,7 +60,7 @@ As site admin, you control:
 
 ### Adding New Global Criteria
 
-1. Go to **BuddyPress → Group Reviews → Criteria Settings**
+1. Go to **WB Plugins → Group Reviews → Criteria**
 2. Add your new criterion
 3. Save changes
 
@@ -70,7 +70,7 @@ As site admin, you control:
 
 ### Deactivating Global Criteria
 
-1. Go to **BuddyPress → Group Reviews → Criteria Settings**
+1. Go to **WB Plugins → Group Reviews → Criteria**
 2. Deactivate the criterion
 3. Save changes
 
@@ -166,7 +166,7 @@ When you enable this feature, inform your group admins:
 Located below Enable Group-Level Criteria. Groups excluded from reviews won't have the Review Criteria tab.
 
 **Site-Wide Criteria Settings**
-Configure your default criteria at: **BuddyPress → Group Reviews → Criteria Settings**
+Configure your default criteria at: **WB Plugins → Group Reviews → Criteria**
 
 ## Technical Notes
 

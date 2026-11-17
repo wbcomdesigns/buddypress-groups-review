@@ -26,11 +26,11 @@
 **VISUAL:** Requirements checklist
 
 **NARRATOR:**
-"Before we begin, make sure you have WordPress 6.0 or higher, PHP 7.4 or higher, and BuddyPress 12 or higher with the Groups component active. The plugin also works with BuddyBoss Platform."
+"Before we begin, make sure you have WordPress 6.5 or higher, PHP 8.0 or higher, and BuddyPress 12 or higher with the Groups component active. The plugin also works with BuddyBoss Platform."
 
 **ON-SCREEN TEXT:**
-- WordPress 6.0+
-- PHP 7.4+
+- WordPress 6.5+
+- PHP 8.0+
 - BuddyPress 12.0+ (Groups active)
 - OR BuddyBoss Platform
 

@@ -578,5 +578,3 @@ Privacy fix: reviews and ratings of private and hidden groups are no longer visi
 
 = 3.9.0 =
 UI and accessibility pass. Dark mode now renders correctly on BuddyX and Reign and follows the theme toggle rather than the OS setting. Settings and saved reviews are unchanged.
-</content>
-</invoke>

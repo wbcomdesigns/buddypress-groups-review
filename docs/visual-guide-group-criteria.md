@@ -220,11 +220,11 @@ Always stays in sync
 ```
 Step 1: Admin Panel
 ┌──────────────────────────────┐
-│ BuddyPress > Group Reviews   │
-│ > General Settings           │
+│ WB Plugins > Group Reviews   │
+│ > General                    │
 │                              │
-│ [✓] Enable Group-Level       │
-│     Criteria                 │
+│ [✓] Group-Level Criteria     │
+│                              │
 │                              │
 │ [Save Settings]              │
 └──────────────────────────────┘

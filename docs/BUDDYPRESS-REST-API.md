@@ -67,7 +67,7 @@ GET /wp-json/buddypress/v1/groups/123
 
 **Endpoint:** `GET /wp-json/buddypress/v1/groups/{group_id}/reviews`
 
-**Authentication:** None (public reviews)
+**Authentication:** None for public groups. Reviews of private and hidden groups need group membership or `bp_moderate` (since 3.9.1).
 
 **Parameters:**
 | Parameter | Type | Default | Description |
@@ -460,7 +460,7 @@ Returns schema and available methods.
 
 ### Review Permissions:
 - **Create**: `is_user_logged_in()`
-- **Read**: Public (anyone)
+- **Read**: Anyone for public groups; members or `bp_moderate` for private and hidden groups
 - **Update**: `edit_review` capability (author or admin)
 - **Delete**: `delete_review` capability (author or admin)
 
@@ -614,9 +614,9 @@ curl http://yoursite.local/wp-json/buddypress/v1/groups | jq '.[0].reviews'
 
 ## Version Compatibility
 
-- **BuddyPress**: 12.0.0+
-- **WordPress**: 5.0+
-- **PHP**: 7.4+
+- **BuddyPress** or BuddyBoss Platform with the Groups component active
+- **WordPress**: 6.5+
+- **PHP**: 8.0+
 
 ---
 

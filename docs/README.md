@@ -1,18 +1,20 @@
 # BuddyPress Group Reviews Documentation
 
-Complete documentation for BuddyPress Group Reviews plugin v3.7.0 by Wbcom Designs.
+Complete documentation for BuddyPress Group Reviews plugin 3.9.2 by Wbcom Designs.
 
 ## Quick Links
 
+- [Documentation Index](INDEX.md)
+- [User Guide](USER-GUIDE.md)
+- [Developer Guide](DEVELOPER-GUIDE.md)
+- [Member Reviews Compatibility](member-reviews-compatibility.md)
 - [Site Admin Guide: Group-Level Criteria](admin-guide-group-level-criteria.md)
 - [Group Admin Guide: Review Criteria](group-admin-guide-review-criteria.md)
 - [Developer API: Group Criteria](developer-api-group-criteria.md)
 
-## What's New in v3.7.0
+## Group-Level Review Criteria
 
-### Group-Level Review Criteria
-
-Version 3.7.0 introduces group-level review criteria customization. Group admins can now:
+Added in 3.7.0, group-level criteria let group admins:
 
 - Choose to use site-wide criteria or customize for their group
 - Enable/disable individual global criteria
@@ -85,15 +87,15 @@ Reference for:
 
 ### Requirements
 
-- WordPress 5.0 or higher
-- PHP 7.4 or higher
-- BuddyPress 12.0 or higher with Groups component active
+- WordPress 6.5 or higher
+- PHP 8.0 or higher
+- BuddyPress or BuddyBoss Platform with the Groups component active
 
 ### Install Steps
 
 1. Upload plugin folder to `/wp-content/plugins/`
 2. Activate via **Plugins** menu in WordPress admin
-3. Configure at **BuddyPress → Group Reviews**
+3. Configure at **WB Plugins → Group Reviews**
 4. Enable Groups component in BuddyPress settings if not already active
 
 ## Basic Configuration
@@ -101,13 +103,13 @@ Reference for:
 ### Initial Setup
 
 1. **General Settings**
-   - Go to **BuddyPress → Group Reviews → General Settings**
+   - Go to **WB Plugins → Group Reviews → General**
    - Configure reviews per page
    - Set review moderation options
    - Enable/disable group-level criteria
 
 2. **Criteria Settings**
-   - Go to **BuddyPress → Group Reviews → Criteria Settings**
+   - Go to **WB Plugins → Group Reviews → Criteria**
    - Add rating criteria (Quality, Relevance, etc.)
    - Activate criteria for use across site
 
@@ -118,8 +120,8 @@ Reference for:
 
 ### Enable Group-Level Criteria
 
-1. Go to **BuddyPress → Group Reviews → General Settings**
-2. Toggle **Enable Group-Level Criteria** to ON
+1. Go to **WB Plugins → Group Reviews → General**
+2. Toggle **Group-Level Criteria** to ON
 3. Save settings
 4. Group admins can now customize criteria at **Group → Manage → Review Criteria**
 

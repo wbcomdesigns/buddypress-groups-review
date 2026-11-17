@@ -1,10 +1,10 @@
 # Group-Level Review Criteria - Feature Overview
 
-**BuddyPress Group Reviews v3.7.0**
+**BuddyPress Group Reviews 3.9.2** (feature added in 3.7.0)
 
-## What's New
+## What It Does
 
-Groups can now customize review criteria instead of using only site-wide settings.
+Groups can customize review criteria instead of using only site-wide settings.
 
 ## Key Benefits
 
@@ -27,12 +27,12 @@ Groups can now customize review criteria instead of using only site-wide setting
 ### Site Admin (You Control)
 
 **Step 1:** Enable the feature
-- Go to **BuddyPress → Group Reviews → General Settings**
-- Toggle **Enable Group-Level Criteria** to ON
+- Go to **WB Plugins → Group Reviews → General**
+- Toggle **Group-Level Criteria** to ON
 - Save
 
 **Step 2:** Manage global criteria
-- Add/remove criteria at **Criteria Settings**
+- Add/remove criteria on the **Criteria** tab
 - Your criteria are available to all groups
 - Changes affect groups in Inherit mode automatically
 
@@ -98,8 +98,8 @@ This preserves review history and data integrity.
 ## Site Admin Quick Start
 
 ```
-1. BuddyPress → Group Reviews → General Settings
-2. Toggle "Enable Group-Level Criteria" → ON
+1. WB Plugins → Group Reviews → General
+2. Toggle "Group-Level Criteria" → ON
 3. Save Settings
 4. (Optional) Inform group admins of new feature
 ```
@@ -137,8 +137,8 @@ bgr_group_criteria()->add_custom_criteria( $group_id, 'Code Quality' );
 
 ### REST API
 ```
-GET  /wp-json/bgr/v1/groups/{id}/criteria
-POST /wp-json/bgr/v1/groups/{id}/criteria
+GET  /wp-json/bgr/v1/groups/{id}/criteria   (logged-in users; private/hidden groups need membership)
+POST /wp-json/bgr/v1/groups/{id}/criteria   (group admin or site admin)
 ```
 
 **Full API:** See [developer-api-group-criteria.md](developer-api-group-criteria.md)
@@ -255,9 +255,8 @@ docs/
 
 ## Version Info
 
-**Plugin:** BuddyPress Group Reviews 3.7.0
-**Feature:** Group-Level Criteria (new in 3.7.0)
-**Released:** January 2026
+**Plugin:** BuddyPress Group Reviews 3.9.2
+**Feature:** Group-Level Criteria (added in 3.7.0)
 
 ## License
 
