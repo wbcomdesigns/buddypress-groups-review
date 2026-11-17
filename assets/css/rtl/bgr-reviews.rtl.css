@@ -136,7 +136,10 @@ html[data-bx-mode="dark"],
     margin-block-end: 15px;
 }
 
-.widget_bp_group_review_tab .bgr-widget-filter {
+/* Scoped under the filter group so the controls outrank BP Nouveau's
+   .buddypress .buddypress-wrap button (0,2,1) and its :hover/:focus (0,3,1),
+   which otherwise repaint every button white and hide the selected state. */
+.widget_bp_group_review_tab .bgr-widget-filters .bgr-widget-filter {
     flex: 1 1 auto;
     min-height: 40px;
     margin: 0;
@@ -151,20 +154,28 @@ html[data-bx-mode="dark"],
     border-radius: 8px;
 }
 
-.widget_bp_group_review_tab .bgr-widget-filter.selected,
-.widget_bp_group_review_tab .bgr-widget-filter[aria-pressed="true"] {
+.widget_bp_group_review_tab .bgr-widget-filters .bgr-widget-filter:hover,
+.widget_bp_group_review_tab .bgr-widget-filters .bgr-widget-filter:focus {
+    background: transparent;
+    border-color: var(--bgr-primary-color);
+    color: inherit;
+}
+
+.widget_bp_group_review_tab .bgr-widget-filters .bgr-widget-filter.selected,
+.widget_bp_group_review_tab .bgr-widget-filters .bgr-widget-filter[aria-pressed="true"] {
     background: var(--bgr-primary-color);
     border-color: var(--bgr-primary-color);
     color: var(--bgr-on-primary);
+    font-weight: 600;
 }
 
-.widget_bp_group_review_tab .bgr-widget-filter:focus-visible {
+.widget_bp_group_review_tab .bgr-widget-filters .bgr-widget-filter:focus-visible {
     outline: 2px solid var(--bgr-primary-color);
     outline-offset: 2px;
 }
 
 @media (max-width: 480px) {
-    .widget_bp_group_review_tab .bgr-widget-filter {
+    .widget_bp_group_review_tab .bgr-widget-filters .bgr-widget-filter {
         min-height: 44px;
     }
 }
