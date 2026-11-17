@@ -19,28 +19,28 @@ Enable your members to rate and review BuddyPress groups with multi-criteria sta
 ### Screenshots
 
 1. **General Settings** - Configure review options, notifications, and activity stream integration
-   ![General Settings](../../screenshot-1.png)
+   ![General Settings](../../.wordpress-org/screenshot-4.png)
 
 2. **Review Criteria** - Define custom rating criteria for your community
-   ![Criteria Settings](../../screenshot-2.png)
+   ![Criteria Settings](../../.wordpress-org/screenshot-5.png)
 
 3. **Manage Reviews** - Group admins approve or deny pending reviews
-   ![Manage Reviews](../../screenshot-3.png)
+   <!-- Screenshot to capture: docs/website/images/manage-reviews-pending.webp (see the docs screenshot capture list). -->
 
 4. **Display Settings** - Customize labels and star colors
-   ![Display Settings](../../screenshot-4.png)
+   <!-- Screenshot to capture: docs/website/images/display-settings.webp (see the docs screenshot capture list). -->
 
 5. **Groups Directory** - Star ratings displayed on group listings
-   ![Groups Directory](../../screenshot-5.png)
+   <!-- Screenshot to capture: docs/website/images/groups-directory-ratings.webp (see the docs screenshot capture list). -->
 
 6. **Group Header** - Rating display in group header
-   ![Group Header](../../screenshot-6.png)
+   ![Group header with the average rating](../../.wordpress-org/screenshot-1.png)
 
 7. **Reviews Tab** - Approved reviews with criteria ratings
-   ![Reviews Tab](../../screenshot-7.png)
+   ![Reviews tab in dark mode](../../.wordpress-org/screenshot-2.png)
 
 8. **Add Review Form** - Members rate each criteria
-   ![Add Review Form](../../screenshot-8.png)
+   <!-- Screenshot to capture: docs/website/images/add-review-form.webp (see the docs screenshot capture list). -->
 
 **Key Features:**
 

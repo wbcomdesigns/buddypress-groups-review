@@ -56,6 +56,9 @@ Imagine you run a community about photography:
 ![Group header with the average rating and the Reviews tab listing a review with per-criterion stars](../.wordpress-org/screenshot-1.png)
 *The group header shows the overall rating and review count. The Reviews tab lists each review with its criteria ratings.*
 
+![The same group and Reviews tab in BuddyX dark mode](../.wordpress-org/screenshot-2.png)
+*Reviews follow the theme's dark mode.*
+
 The groups directory also shows each group's average rating next to its card.
 
 ---
@@ -317,6 +320,8 @@ View it here: [review-link]
 ### Viewing Reviews
 
 The Reviews tab shows approved reviews with their criteria ratings (see the screenshot in [How It Looks](#how-it-looks)).
+
+![The Reviews tab on a phone, with each criterion's stars stacked under the review text](../.wordpress-org/screenshot-3.png)
 
 **Where to Find Reviews:**
 1. Go to any BuddyPress group
