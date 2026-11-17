@@ -86,7 +86,7 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 
 			// Get group object safely to avoid BuddyBoss template errors.
 			$group = groups_get_group( $group_id );
-			if ( ! $group ) {
+			if ( empty( $group->id ) ) {
 				return;
 			}
 

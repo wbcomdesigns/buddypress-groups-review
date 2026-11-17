@@ -516,11 +516,12 @@ Go to **WordPress Admin → Reviews** to see all reviews from every group.
 | Status | Published or Draft (pending) |
 | Reviewer | Member's display name |
 | Reviewer Email | Member's email address |
-| Group Name | Name of the reviewed group |
+| Group Name | Name of the reviewed group ("Unknown Group" if the group was deleted) |
 | Group ID | BuddyPress group identifier |
+| Review Title | The review's title |
 | Review Content | The written review text |
 | Average Rating | Overall rating (1-5) |
-| Individual Ratings | One column per rating criterion |
+| Individual Ratings | One column per rating criterion found on the exported reviews: site-wide criteria plus each group's own criteria, including criteria a group has since removed |
 
 **Use Cases:**
 - Monthly community reports

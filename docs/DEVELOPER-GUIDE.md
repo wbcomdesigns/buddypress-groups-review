@@ -1034,10 +1034,11 @@ $export_url = wp_nonce_url(
 
 **CSV Columns:**
 - Review ID, Date, Status, Reviewer, Reviewer Email
-- Group Name, Group ID, Review Content, Average Rating
-- Individual rating columns for each criterion
+- Group Name, Group ID, Review Title, Review Content, Average Rating
+- One rating column per criterion key found in the exported reviews' `review_star_rating` meta: the global criteria first, then group-level criteria in first-seen order (criteria since removed from a group still export). Legacy single-rating reviews (integer key) add no column.
+- Rows are written to `php://temp` in batches of 200 and copied out after the header, because the criterion columns are only known once every review has been read.
 
-**Location:** `includes/bgr-filters.php:530`
+**Location:** `includes/bgr-filters.php:550` (`BGR_Custom_Hooks::bp_group_review_handle_csv_export()`)
 
 **Customizing Export:**
 ```php

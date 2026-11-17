@@ -570,35 +570,17 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			header( 'Pragma: no-cache' );
 			header( 'Expires: 0' );
 
-			// Create output stream.
-			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- Using php://output for CSV streaming.
-			$output = fopen( 'php://output', 'w' );
+			// Rows go to php://temp first: a group's own criteria are only known once
+			// every review has been read, and the header row must list them. Memory
+			// stays flat because php://temp spills to disk past 2 MB.
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- Temp stream for CSV streaming.
+			$rows = fopen( 'php://temp', 'w+' );
 
-			// Add UTF-8 BOM for Excel compatibility.
-			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fputs -- Required for CSV output.
-			fputs( $output, "\xEF\xBB\xBF" );
-
-			// CSV header row.
-			$headers = array(
-				__( 'Review ID', 'bp-group-reviews' ),
-				__( 'Date', 'bp-group-reviews' ),
-				__( 'Status', 'bp-group-reviews' ),
-				__( 'Reviewer', 'bp-group-reviews' ),
-				__( 'Reviewer Email', 'bp-group-reviews' ),
-				__( 'Group Name', 'bp-group-reviews' ),
-				__( 'Group ID', 'bp-group-reviews' ),
-				__( 'Review Content', 'bp-group-reviews' ),
-				__( 'Average Rating', 'bp-group-reviews' ),
-			);
-
-			// Add rating field columns. The header is human-readable copy (the rest
-			// of this row is already translated), so the criterion is translated for
-			// display here. The value lookup below still uses the raw stored key.
-			foreach ( $review_rating_fields as $field ) {
-				$headers[] = bp_group_review_get_criteria_label( $field ) . ' ' . __( 'Rating', 'bp-group-reviews' );
-			}
-
-			fputcsv( $output, $headers );
+			// Criterion columns: global criteria first (existing column order), then
+			// every other criterion key found on the exported reviews, in first-seen
+			// order. Keys come from review meta, not groupmeta, so criteria a group
+			// has since removed still export their old ratings.
+			$criteria = array_values( array_filter( (array) $review_rating_fields, 'is_string' ) );
 
 			// CSV data rows, streamed in batches so memory stays flat on large sites.
 			// Group reviews only: the review CPT is shared with Member Reviews.
@@ -620,16 +602,18 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				cache_users( wp_list_pluck( $reviews, 'post_author' ) );
 
 				foreach ( $reviews as $review ) {
-					$author_id      = $review->post_author;
-					$author_info    = get_userdata( $author_id );
-					$linked_group   = get_post_meta( $review->ID, 'linked_group', true );
-					$group          = groups_get_group( array( 'group_id' => $linked_group ) );
-					$group_name     = $group ? $group->name : __( 'Unknown Group', 'bp-group-reviews' );
+					$author_id    = $review->post_author;
+					$author_info  = get_userdata( $author_id );
+					$linked_group = get_post_meta( $review->ID, 'linked_group', true );
+					$group        = groups_get_group( array( 'group_id' => $linked_group ) );
+					// groups_get_group() returns an empty object, never false, for a deleted group.
+					$group_name     = ( ! empty( $group->id ) && '' !== (string) $group->name ) ? $group->name : __( 'Unknown Group', 'bp-group-reviews' );
 					$review_ratings = get_post_meta( $review->ID, 'review_star_rating', true );
+					$review_ratings = is_array( $review_ratings ) ? $review_ratings : array();
 
 					// Calculate average rating.
 					$avg_rating = 0;
-					if ( ! empty( $review_ratings ) && is_array( $review_ratings ) ) {
+					if ( ! empty( $review_ratings ) ) {
 						$avg_rating = round( array_sum( $review_ratings ) / count( $review_ratings ), 2 );
 					}
 
@@ -641,16 +625,25 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 						self::csv_safe( $author_info ? $author_info->user_email : '' ),
 						self::csv_safe( $group_name ),
 						$linked_group,
+						self::csv_safe( $review->post_title ),
 						self::csv_safe( wp_strip_all_tags( $review->post_content ) ),
 						$avg_rating,
 					);
 
-					// Add individual rating values.
-					foreach ( $review_rating_fields as $field ) {
+					// Integer keys are legacy single-rating reviews, not criteria.
+					foreach ( array_keys( $review_ratings ) as $field ) {
+						if ( is_string( $field ) && ! in_array( $field, $criteria, true ) ) {
+							$criteria[] = $field;
+						}
+					}
+
+					// Add individual rating values. A column added by a later review
+					// is simply missing (blank) on the rows written before it.
+					foreach ( $criteria as $field ) {
 						$row[] = isset( $review_ratings[ $field ] ) ? $review_ratings[ $field ] : '';
 					}
 
-					fputcsv( $output, $row );
+					fputcsv( $rows, $row, ',', '"', '' );
 				}
 
 				// Each batch's posts, meta and users are not needed again.
@@ -659,6 +652,39 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				}
 				++$page;
 			} while ( 200 === count( $reviews ) );
+
+			// CSV header row.
+			$headers = array(
+				__( 'Review ID', 'bp-group-reviews' ),
+				__( 'Date', 'bp-group-reviews' ),
+				__( 'Status', 'bp-group-reviews' ),
+				__( 'Reviewer', 'bp-group-reviews' ),
+				__( 'Reviewer Email', 'bp-group-reviews' ),
+				__( 'Group Name', 'bp-group-reviews' ),
+				__( 'Group ID', 'bp-group-reviews' ),
+				__( 'Review Title', 'bp-group-reviews' ),
+				__( 'Review Content', 'bp-group-reviews' ),
+				__( 'Average Rating', 'bp-group-reviews' ),
+			);
+
+			// Add rating field columns. The header is human-readable copy, so the
+			// criterion is translated for display; the value lookup above uses the
+			// raw stored key. csv_safe() because REST accepts any criterion key.
+			foreach ( $criteria as $field ) {
+				$headers[] = self::csv_safe( bp_group_review_get_criteria_label( $field ) . ' ' . __( 'Rating', 'bp-group-reviews' ) );
+			}
+
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- Using php://output for CSV streaming.
+			$output = fopen( 'php://output', 'w' );
+
+			// Add UTF-8 BOM for Excel compatibility.
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fputs -- Required for CSV output.
+			fputs( $output, "\xEF\xBB\xBF" );
+			fputcsv( $output, $headers, ',', '"', '' );
+			rewind( $rows );
+			stream_copy_to_stream( $rows, $output );
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- Closing the temp stream.
+			fclose( $rows );
 
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- Closing php://output for CSV streaming.
 			fclose( $output );
@@ -707,7 +733,10 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 					$linked_group = get_post_meta( $post->ID, 'linked_group', true );
 					$group        = groups_get_group( array( 'group_id' => $linked_group ) );
 
-					$actions['view_review'] = '<a href="' . esc_url( bgr_get_review_url( $group, $post->ID ) ) . '" title="' . esc_attr( $review_title ) . '">' . esc_html__( 'View', 'bp-group-reviews' ) . '</a>';
+					// No View link for a deleted group: there is no group page to open.
+					if ( ! empty( $group->id ) ) {
+						$actions['view_review'] = '<a href="' . esc_url( bgr_get_review_url( $group, $post->ID ) ) . '" title="' . esc_attr( $review_title ) . '">' . esc_html__( 'View', 'bp-group-reviews' ) . '</a>';
+					}
 
 					// Add Approve Link for draft reviews.
 					if ( 'draft' === $post->post_status ) {
