@@ -18,7 +18,7 @@
     --bgr-star-empty: #FFDF00;
     --bgr-border-color: #ddd;
     --bgr-text-primary: #1a1a1a;
-    --bgr-text-secondary: #777;
+    --bgr-text-secondary: #767676; /* 4.54:1 on white (#777 was 4.48:1). */
     --bgr-text-muted: #888;
     --bgr-link-color: var(--bx-color-link, var(--color-link, var(--reign-site-link-color, var(--wp--preset--color--primary, var(--wp--preset--color--contrast, #0073aa)))));
     --bgr-success-bg: #DFF2BF;
@@ -283,6 +283,16 @@ html[data-bx-mode="dark"],
 
 .rating-bgr .rating-text {
     margin-top: 5px;
+}
+
+/* Reign header layouts 1 and 2 sit the header text on a dark scrim over the
+   cover from 1025px and paint each line with --reign-color-white, so the
+   rating line follows that token instead of inheriting the page text colour.
+   Override per site with --bgr-header-rating-color. */
+@media (min-width: 1025px) {
+    :is(.wbtm-cover-header-type-1, .wbtm-cover-header-type-2) #item-header-cover-image .bgr-group-header-ratings .rating-text {
+        color: var(--bgr-header-rating-color, var(--reign-color-white, #fff));
+    }
 }
 
 .bgr-header-row {
@@ -592,7 +602,7 @@ div#add-review-groupbutton {
 
 .bgr-members {
     font-size: 13px;
-    color: var(--bgr-text-secondary, #777);
+    color: var(--bgr-text-secondary, #767676);
 }
 
 .bgr-item-members {

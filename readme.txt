@@ -252,6 +252,7 @@ Star colour, CSV export and theme layout fixes.
 
 * Fix      - Group Reviews no longer recolours BuddyPress Member Reviews stars in the activity stream, so each plugin keeps its own star colour.
 * Fix      - The rating row in the group directory and group header no longer adds extra height or shrinks the stars on Reign and BuddyX.
+* Fix      - The rating line under the stars in the group header is readable on the cover image in Reign's cover layouts, and the review count in the Top Rated Groups shortcode now meets text contrast.
 * Fix      - The group Review Criteria mode options show each radio beside its label, with the description underneath and no grey band.
 * Fix      - Required-field markers and review form error messages now meet text contrast in light and dark mode.
 * Fix      - The note in the Current Active Criteria box is now readable against its tinted background.

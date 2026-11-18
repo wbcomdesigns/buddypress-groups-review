@@ -360,7 +360,8 @@ body[class*="youzify"] #youzify-group-body .bgr-row .item-title {
 
 body[class*="youzify"] #youzify-group-header .bgr-group-header-ratings .rating-text {
     margin-top: 10px;
-    color: var(--bgr-bg-white, #fff);
+    /* Light text on Youzify's cover in every colour mode; --bgr-bg-white turns dark in dark mode. */
+    color: var(--bgr-header-rating-color, #fff);
 }
 
 body[class*="youzify"] button.btn.btn-default.bgr-submit-review,
