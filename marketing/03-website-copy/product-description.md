@@ -31,7 +31,7 @@ Enable your members to rate and review BuddyPress groups with multi-criteria sta
    ![Display tab with the Review and Reviews (Plural) label fields and the Rating Color picker](../../docs/website/images/display-settings.webp)
 
 5. **Group Header** - Rating display in group header
-   ![Group header in the Reign theme with the average star rating under the group name, an Add Review button, and the Reviews tab with its review count](../../docs/website/images/group-header.webp)
+   ![Group header in the Reign theme with the average star rating and the Rating 4.2/5 - 5 Reviews line under the group name, an Add Review button, and the Reviews tab with its review count](../../docs/website/images/group-header.webp)
 
 6. **Reviews Tab** - Approved reviews with criteria ratings
    ![Reviews tab of a group listing five reviews, each with the reviewer's name and photo, the review text and star ratings for Quality, Relevance and Engagement, under a Sort by menu set to Newest First](../../docs/website/images/reviews-list.webp)

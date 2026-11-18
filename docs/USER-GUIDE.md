@@ -53,8 +53,8 @@ Imagine you run a community about photography:
 
 **Single Group Header:**
 
-![Group header in the Reign theme with the average star rating under the group name, an Add Review button, and the Reviews tab with its review count](website/images/group-header.webp)
-*The group header shows the average star rating. The Reviews tab shows how many reviews the group has, and members who can review see an Add Review button and tab.*
+![Group header in the Reign theme with the average star rating and the Rating 4.2/5 - 5 Reviews line under the group name, an Add Review button, and the Reviews tab with its review count](website/images/group-header.webp)
+*The group header shows the average star rating, with the average score out of 5 and the number of reviews under the stars. The Reviews tab shows how many reviews the group has, and members who can review see an Add Review button and tab.*
 
 **Reviews Tab:**
 
