@@ -8,13 +8,13 @@
 **Give Your Community a Voice with Group Reviews**
 
 ### Subheadline
-Let members rate and review BuddyPress groups with multi-criteria ratings, powerful moderation, and seamless integration—so the best groups rise to the top.
+Let members rate and review BuddyPress groups with multi-criteria ratings, powerful moderation, and seamless integration - so the best groups rise to the top.
 
 ### Primary CTA
 **Download Free** | View Features
 
 ### Hero Image
-![Group header with the average rating and the Reviews tab](../../.wordpress-org/screenshot-1.png)
+![Group header with the average rating and the Reviews tab listing a review with per-criterion stars](../../docs/website/images/group-reviews-tab.webp)
 *A group's average rating in its header, with every review and its criteria ratings in the Reviews tab*
 
 ---
@@ -79,7 +79,7 @@ Define custom rating criteria that matter to your community. Rate groups on comm
 Approve or deny reviews before publishing. Maintain quality standards while giving members a voice.
 
 #### BuddyPress Notifications
-Native notifications alert group admins when reviews are submitted—no separate notification system needed.
+Native notifications alert group admins when reviews are submitted - no separate notification system needed.
 
 #### Activity Stream Integration
 Reviews appear in the activity feed, sparking conversations and showcasing active, well-reviewed groups.
@@ -101,20 +101,20 @@ Display top-rated groups anywhere with widgets and shortcodes. Showcase your bes
 Install from WordPress.org or upload the plugin. Activate and you're ready to configure.
 
 ### Step 2: Set Your Criteria
-Define the rating criteria that matter to your community. Communication, helpfulness, activity—you decide.
+Define the rating criteria that matter to your community. Communication, helpfulness, activity - you decide.
 
-![Criteria Settings](../../.wordpress-org/screenshot-5.png)
+![Criteria tab listing the Quality, Relevance and Engagement criteria, each with a drag handle, a Remove link and an on/off switch, above the Add Review Criteria button](../../docs/website/images/criteria-settings.webp)
 *Configure custom rating criteria in admin settings*
 
 ### Step 3: Members Start Reviewing
 Members visit groups and share their experiences. Reviews appear in a dedicated tab on each group page.
 
-<!-- Screenshot to capture: docs/website/images/add-review-form.webp (see the docs screenshot capture list). -->
+![Add Review tab with the Write a Review form: required star ratings for Quality, Relevance and Engagement, an optional Review Description box and a Submit Review button](../../docs/website/images/add-review-form.webp)
 
 ### Step 4: Moderate & Publish
 Group admins review submissions and approve authentic feedback. Published reviews build social proof.
 
-<!-- Screenshot to capture: docs/website/images/manage-reviews-pending.webp (see the docs screenshot capture list). -->
+![Manage Reviews screen in a group's Manage menu listing two pending reviews, each with the reviewer's name, a short description, a View More link and Accept and Deny buttons](../../docs/website/images/manage-reviews-pending.webp)
 
 ---
 
@@ -173,13 +173,13 @@ Help enthusiasts find their people. Surface the most active and welcoming groups
 *[Placeholder for customer testimonials]*
 
 > "Finally, a way to see which groups actually deliver value. Our members love being able to rate groups!"
-> — *Community Manager, [Site Name]*
+> - *Community Manager, [Site Name]*
 
 > "The moderation features give us control without censorship. We publish real feedback and our groups have improved."
-> — *Site Administrator, [Site Name]*
+> - *Site Administrator, [Site Name]*
 
 > "REST API support meant we could add reviews to our mobile app. Game changer for our community."
-> — *Lead Developer, [Agency Name]*
+> - *Lead Developer, [Agency Name]*
 
 ---
 

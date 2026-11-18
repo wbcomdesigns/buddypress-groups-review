@@ -19,28 +19,25 @@ Enable your members to rate and review BuddyPress groups with multi-criteria sta
 ### Screenshots
 
 1. **General Settings** - Configure review options, notifications, and activity stream integration
-   ![General Settings](../../.wordpress-org/screenshot-4.png)
+   ![General settings tab with the Enable Multiple Reviews, Auto Approval of Reviews, Reviews Per Page, BuddyPress Notifications, Review Activity, Group-Level Criteria and Exclude Groups settings](../../docs/website/images/general-settings.webp)
 
 2. **Review Criteria** - Define custom rating criteria for your community
-   ![Criteria Settings](../../.wordpress-org/screenshot-5.png)
+   ![Criteria tab listing the Quality, Relevance and Engagement criteria, each with a drag handle, a Remove link and an on/off switch, above the Add Review Criteria button](../../docs/website/images/criteria-settings.webp)
 
 3. **Manage Reviews** - Group admins approve or deny pending reviews
-   <!-- Screenshot to capture: docs/website/images/manage-reviews-pending.webp (see the docs screenshot capture list). -->
+   ![Manage Reviews screen in a group's Manage menu listing two pending reviews, each with the reviewer's name, a short description, a View More link and Accept and Deny buttons](../../docs/website/images/manage-reviews-pending.webp)
 
 4. **Display Settings** - Customize labels and star colors
-   <!-- Screenshot to capture: docs/website/images/display-settings.webp (see the docs screenshot capture list). -->
+   ![Display tab with the Review and Reviews (Plural) label fields and the Rating Color picker](../../docs/website/images/display-settings.webp)
 
-5. **Groups Directory** - Star ratings displayed on group listings
-   <!-- Screenshot to capture: docs/website/images/groups-directory-ratings.webp (see the docs screenshot capture list). -->
+5. **Group Header** - Rating display in group header
+   ![Group header in the Reign theme with the average star rating under the group name, an Add Review button, and the Reviews tab with its review count](../../docs/website/images/group-header.webp)
 
-6. **Group Header** - Rating display in group header
-   ![Group header with the average rating](../../.wordpress-org/screenshot-1.png)
+6. **Reviews Tab** - Approved reviews with criteria ratings
+   ![Reviews tab of a group listing five reviews, each with the reviewer's name and photo, the review text and star ratings for Quality, Relevance and Engagement, under a Sort by menu set to Newest First](../../docs/website/images/reviews-list.webp)
 
-7. **Reviews Tab** - Approved reviews with criteria ratings
-   ![Reviews tab in dark mode](../../.wordpress-org/screenshot-2.png)
-
-8. **Add Review Form** - Members rate each criteria
-   <!-- Screenshot to capture: docs/website/images/add-review-form.webp (see the docs screenshot capture list). -->
+7. **Add Review Form** - Members rate each criterion
+   ![Add Review tab with the Write a Review form: required star ratings for Quality, Relevance and Engagement, an optional Review Description box and a Submit Review button](../../docs/website/images/add-review-form.webp)
 
 **Key Features:**
 
@@ -86,7 +83,7 @@ BuddyPress Group Reviews lets community members rate and review groups with mult
 
 ## 100-Word Description
 
-Transform your BuddyPress community with member-driven group reviews. Let members rate groups using customizable criteria—Communication, Helpfulness, Activity Level, and more. Group admins moderate reviews before publishing, maintaining quality while giving members a voice.
+Transform your BuddyPress community with member-driven group reviews. Let members rate groups using customizable criteria - Communication, Helpfulness, Activity Level, and more. Group admins moderate reviews before publishing, maintaining quality while giving members a voice.
 
 Reviews integrate seamlessly with BuddyPress notifications and activity streams. Group ratings appear in the directory, helping members find quality groups instantly. Widgets and shortcodes let you showcase top-rated groups anywhere.
 
@@ -98,10 +95,10 @@ Advanced features include REST API for mobile apps, Google rating schema for SEO
 
 **Give your community the transparency it deserves with BuddyPress Group Reviews.**
 
-Enable members to rate and review groups using customizable star-rating criteria. Whether it's communication quality, activity level, or helpfulness—you decide what matters to your community. Group admins moderate reviews before publishing, ensuring authentic feedback while preventing spam.
+Enable members to rate and review groups using customizable star-rating criteria. Whether it's communication quality, activity level, or helpfulness - you decide what matters to your community. Group admins moderate reviews before publishing, ensuring authentic feedback while preventing spam.
 
 **Seamless BuddyPress Integration**
-Reviews appear in a dedicated tab on group pages and optionally in the activity stream. Group admins receive native BuddyPress notifications when new reviews arrive. Customizable email notifications keep everyone informed—even when offline.
+Reviews appear in a dedicated tab on group pages and optionally in the activity stream. Group admins receive native BuddyPress notifications when new reviews arrive. Customizable email notifications keep everyone informed - even when offline.
 
 **Built for Discovery**
 Group ratings display prominently in the groups directory, helping members find quality groups at a glance. Widgets showcase top-rated groups in sidebars and footers. Google rating schema improves search visibility with rich snippets.

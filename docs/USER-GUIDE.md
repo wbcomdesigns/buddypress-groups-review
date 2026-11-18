@@ -51,12 +51,17 @@ Imagine you run a community about photography:
 
 ### How It Looks
 
-**Single Group Header and Reviews Tab:**
+**Single Group Header:**
 
-![Group header with the average rating and the Reviews tab listing a review with per-criterion stars](../.wordpress-org/screenshot-1.png)
-*The group header shows the overall rating and review count. The Reviews tab lists each review with its criteria ratings.*
+![Group header in the Reign theme with the average star rating under the group name, an Add Review button, and the Reviews tab with its review count](website/images/group-header.webp)
+*The group header shows the average star rating. The Reviews tab shows how many reviews the group has, and members who can review see an Add Review button and tab.*
 
-![The same group and Reviews tab in BuddyX dark mode](../.wordpress-org/screenshot-2.png)
+**Reviews Tab:**
+
+![Group header with the average rating and the Reviews tab listing a review with per-criterion stars](website/images/group-reviews-tab.webp)
+*The Reviews tab lists each review with its criteria ratings. This group uses the BuddyX theme.*
+
+![The same group and Reviews tab in BuddyX dark mode](website/images/group-reviews-tab-dark-mode.webp)
 *Reviews follow the theme's dark mode.*
 
 The groups directory also shows each group's average rating next to its card.
@@ -88,10 +93,10 @@ The groups directory also shows each group's average rating next to its card.
 
 ### General Settings Tab
 
-![General settings tab](../.wordpress-org/screenshot-4.png)
+![General settings tab with the Enable Multiple Reviews, Auto Approval of Reviews, Reviews Per Page, BuddyPress Notifications, Review Activity, Group-Level Criteria and Exclude Groups settings](website/images/general-settings.webp)
 *General Settings tab with review options*
 
-#### 1. **Allow Multiple Reviews**
+#### 1. **Enable Multiple Reviews**
 - **What it does:** Lets members submit more than one review for the same group
 - **When to enable:**
   - ✅ If groups change over time and you want updated feedback
@@ -104,7 +109,7 @@ The groups directory also shows each group's average rating next to its card.
 
 ---
 
-#### 2. **Auto Approve Reviews**
+#### 2. **Auto Approval of Reviews**
 - **What it does:** Reviews appear immediately without waiting for approval
 - **When to enable:**
   - ✅ For trusted communities
@@ -128,25 +133,14 @@ The groups directory also shows each group's average rating next to its card.
 
 ---
 
-#### 4. **Allow Email Notifications**
-- **What it does:** Group admins receive emails when someone reviews their group
-- **When to enable:**
-  - ✅ Admins want to know about new feedback
-  - ✅ For important groups that need monitoring
-- **When to disable:**
-  - ❌ If email notifications become too frequent
-  - ❌ Admins prefer to check manually
-
----
-
-#### 5. **Allow BuddyPress Notifications**
+#### 4. **BuddyPress Notifications**
 - **What it does:** Shows notifications in BuddyPress notification bell
-- **Difference from email:** Shows up in the site, not inbox
+- **Difference from email:** Shows up in the site, not inbox. Emails are switched on and off per email in the [Emails Settings Tab](#emails-settings-tab)
 - **Best practice:** Enable this - it's less intrusive than email
 
 ---
 
-#### 6. **Allow Activity Stream**
+#### 5. **Review Activity**
 - **What it does:** Posts reviews to BuddyPress activity feed
 - **When to enable:**
   - ✅ To increase visibility of reviews
@@ -160,7 +154,13 @@ The groups directory also shows each group's average rating next to its card.
 
 ---
 
-#### 7. **Exclude Groups from Reviews**
+#### 6. **Group-Level Criteria**
+- **What it does:** Lets each group admin customize the review criteria for their own group
+- **When off:** Every group uses the site-wide criteria from the Criteria tab
+
+---
+
+#### 7. **Exclude Groups**
 - **What it does:** Prevents certain groups from being reviewed
 - **Use cases:**
   - Test groups
@@ -173,33 +173,35 @@ The groups directory also shows each group's average rating next to its card.
 
 ### Criteria Settings Tab
 
-![Criteria tab](../.wordpress-org/screenshot-5.png)
+![Criteria tab listing the Quality, Relevance and Engagement criteria, each with a drag handle, a Remove link and an on/off switch, above the Add Review Criteria button](website/images/criteria-settings.webp)
 *Configure review criteria that members rate*
 
 #### What are Criteria?
 **Criteria are the different aspects members rate.** Instead of just one overall star rating, you can have multiple categories.
 
-#### Default Criteria Examples:
+#### Default Criteria:
 - **Quality** - How good is the content?
+- **Relevance** - Does the group stay on its topic?
 - **Engagement** - Are members active and helpful?
-- **Helpfulness** - Does the group solve problems?
-- **Organization** - Is the group well-managed?
 
 #### Managing Criteria
 
 **Add New Criteria:**
-1. Type the name in the "Add Criteria" field
-2. Click "Add" button
+1. Click "Add Review Criteria"
+2. Type the name in the new row
 3. Click "Save Settings"
 
 **Remove Criteria:**
-1. Click the X next to the criteria name
+1. Click "Remove" next to the criterion
 2. Click "Save Settings"
 
 **Enable/Disable Criteria:**
-- Toggle the checkbox next to each criteria
+- Use the on/off switch at the end of each row
 - Disabled criteria won't show in review form
 - Old reviews keep their ratings
+
+**Reorder Criteria:**
+- Drag a row by its handle, then click "Save Settings"
 
 **Best Practices:**
 - Use 3-5 criteria (not too many!)
@@ -233,34 +235,34 @@ The groups directory also shows each group's average rating next to its card.
 
 Customize how reviews appear on your site.
 
-#### 1. **Reviews Tab Label**
-- **What it does:** Changes the name of the "Reviews" tab in groups
-- **Default:** "Reviews"
-- **Why change it:** To match your site's language/style
+![Display tab with the Review and Reviews (Plural) label fields and the Rating Color picker](website/images/display-settings.webp)
+*Display tab with the review labels and the star color*
+
+#### 1. **Review**
+- **What it does:** Changes the singular word "Review", used on the "Add Review" button and tab
+- **Default:** "Review" (leave empty to keep it, in the site's language)
+- **Examples:**
+  - "Feedback"
+  - "Rating"
+  - "Testimonial"
+
+---
+
+#### 2. **Reviews (Plural)**
+- **What it does:** Changes the plural word "Reviews", used for the group's Reviews tab and the "Manage Reviews" screen group admins see
+- **Default:** "Reviews" (leave empty to keep it, in the site's language)
 - **Examples:**
   - "Feedback"
   - "Ratings"
-  - "Member Reviews"
   - "Testimonials"
 
 ---
 
-#### 2. **Manage Reviews Tab Label**
-- **What it does:** Changes the name of the admin tab for managing reviews
-- **Default:** "Manage Reviews"
-- **When members see it:** Only group admins see this tab
-- **Examples:**
-  - "Review Management"
-  - "Pending Reviews"
-  - "Moderate Feedback"
-
----
-
-#### 3. **Rating Star Color**
+#### 3. **Rating Color**
 - **What it does:** Changes the color of rating stars
-- **Default:** Orange/Gold
+- **Default:** Gold
 - **Why change it:** To match your site's design
-- **How to use:** Click the color box, pick a color, save
+- **How to use:** Click "Select Color", pick a color, save
 
 **Design Tips:**
 - Use colors that stand out
@@ -319,9 +321,12 @@ View it here: [review-link]
 
 ### Viewing Reviews
 
-The Reviews tab shows approved reviews with their criteria ratings (see the screenshot in [How It Looks](#how-it-looks)).
+The Reviews tab shows approved reviews with their criteria ratings.
 
-![The Reviews tab on a phone, with each criterion's stars stacked under the review text](../.wordpress-org/screenshot-3.png)
+![Reviews tab of a group listing five reviews, each with the reviewer's name and photo, the review text and star ratings for Quality, Relevance and Engagement, under a Sort by menu set to Newest First](website/images/reviews-list.webp)
+*The Reviews tab with the Sort by menu. Long reviews are shortened with a read more link.*
+
+![The Reviews tab on a phone, with each criterion's stars stacked under the review text](website/images/group-reviews-tab-mobile.webp)
 
 **Where to Find Reviews:**
 1. Go to any BuddyPress group
@@ -330,16 +335,19 @@ The Reviews tab shows approved reviews with their criteria ratings (see the scre
 
 **What Members See:**
 - Reviewer's name and photo
-- Review date
-- Star ratings for each criteria
-- Written review text
-- Average rating at the top
+- Written review text (long reviews end in a "read more" link)
+- Star ratings for each criterion
+- A **Sort by** menu: Newest First, Oldest First, Highest Rated, Lowest Rated
+- The group's average rating in the group header
 
 ---
 
 ### Submitting a Review
 
 The Add Review form has a star selector for each criterion.
+
+![Add Review tab with the Write a Review form: required star ratings for Quality, Relevance and Engagement, an optional Review Description box and a Submit Review button](website/images/add-review-form.webp)
+*The Add Review form. Every criterion needs a rating; the description is optional.*
 
 **Step-by-Step for Members:**
 
@@ -348,13 +356,12 @@ The Add Review form has a star selector for each criterion.
    - Can't review groups where you're an admin!
 
 2. **Click Add Review**
-   - Look for "Add Review" button in the group
-   - Or go to the Reviews tab
+   - Use the "Add Review" button in the group header
+   - Or open the group's "Add Review" tab
 
 3. **Fill Out the Form**
-   - **Subject:** Short title for your review
-   - **Description:** Detailed feedback
-   - **Ratings:** Click stars to rate (1-5 stars per criteria)
+   - **Ratings:** Click stars to rate each criterion from 1 to 5 (required)
+   - **Review Description:** Your written feedback (optional)
 
 4. **Submit**
    - Click "Submit Review"
@@ -398,15 +405,20 @@ The Add Review form has a star selector for each criterion.
 
 The Manage Reviews tab lists pending reviews with Accept and Deny buttons.
 
+![Manage Reviews screen in a group's Manage menu listing two pending reviews, each with the reviewer's name, a short description, a View More link and Accept and Deny buttons](website/images/manage-reviews-pending.webp)
+*Pending reviews waiting for the group admin*
+
 **Where to Find It:**
 1. Go to your group (where you're admin)
 2. Click "Manage" menu
 3. Look for "Manage Reviews" option
 
 **What You See:**
-- Pending reviews (if auto-approve is OFF)
-- Published reviews
-- Options to approve, deny, or delete
+- Pending reviews (when Auto Approval of Reviews is off)
+- The reviewer's name and a short description, with "View More.." for the full text and ratings
+- Accept and Deny buttons for each review
+
+Published reviews are listed on the group's Reviews tab, where group admins can delete them.
 
 ---
 
@@ -417,7 +429,7 @@ The Manage Reviews tab lists pending reviews with Accept and Deny buttons.
 1. Go to Manage Reviews tab
 2. See list of pending reviews
 3. Read each review carefully
-4. Click "Approve" or "Deny"
+4. Click "Accept" or "Deny"
 
 **Should You Approve?**
 ✅ **Approve if:**
@@ -444,7 +456,7 @@ The Manage Reviews tab lists pending reviews with Accept and Deny buttons.
 - Member requests removal
 
 **How to Delete:**
-1. Go to Manage Reviews
+1. Go to the group's Reviews tab
 2. Find the review
 3. Click "Delete" button
 4. Confirm deletion
@@ -712,7 +724,7 @@ A: By default, your review data is kept safe when you deactivate or delete the p
 **Problem:** Not receiving email notifications.
 
 **Solutions:**
-1. **Check Email Settings tab** - Is "Allow Email" enabled?
+1. **Check the Emails tab** - Is "Enable Email" switched on for that email?
 2. **Check spam folder** - Emails might be filtered
 3. **Verify WordPress email** - Test with other WP emails
 4. **Check notification preferences** - In your BuddyPress profile

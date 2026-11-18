@@ -18,11 +18,11 @@ Everything you need to collect, manage, and display member reviews for BuddyPres
 
 ### Multi-Criteria Rating System
 
-![Criteria Settings](../../.wordpress-org/screenshot-5.png)
+![Criteria tab listing the Quality, Relevance and Engagement criteria, each with a drag handle, a Remove link and an on/off switch, above the Add Review Criteria button](../../docs/website/images/criteria-settings.webp)
 *Configure custom rating criteria in admin settings*
 
 **What It Does:**
-Create unlimited custom rating criteria so members can rate groups on multiple dimensions—not just a single star rating.
+Create unlimited custom rating criteria so members can rate groups on multiple dimensions - not just a single star rating.
 
 **The Benefit:**
 Get detailed, actionable feedback that shows exactly what members love and what needs improvement, so group admins can focus on specific areas.
@@ -38,13 +38,14 @@ Get detailed, actionable feedback that shows exactly what members love and what 
 
 ### Review Moderation System
 
-<!-- Screenshot to capture: docs/website/images/manage-reviews-pending.webp (see the docs screenshot capture list). -->
+![Manage Reviews screen in a group's Manage menu listing two pending reviews, each with the reviewer's name, a short description, a View More link and Accept and Deny buttons](../../docs/website/images/manage-reviews-pending.webp)
+*Group admins accept or deny pending reviews*
 
 **What It Does:**
 Group admins approve or deny reviews before they appear publicly, giving you control over published content.
 
 **The Benefit:**
-Maintain quality standards and prevent spam without heavy-handed censorship—publish authentic reviews while filtering inappropriate content.
+Maintain quality standards and prevent spam without heavy-handed censorship - publish authentic reviews while filtering inappropriate content.
 
 **Why It Matters:**
 - New reviews go to moderation queue
@@ -61,7 +62,7 @@ Maintain quality standards and prevent spam without heavy-handed censorship—pu
 Native integration with BuddyPress Notifications component alerts group admins when new reviews are submitted.
 
 **The Benefit:**
-Never miss important feedback—get instant alerts within BuddyPress so you can respond quickly to member reviews.
+Never miss important feedback - get instant alerts within BuddyPress so you can respond quickly to member reviews.
 
 **Why It Matters:**
 - Appears in standard BuddyPress notification area
@@ -95,7 +96,7 @@ Turn every review into community content that sparks conversations and showcases
 Automated, customizable email notifications for new review submissions, approvals, and denials.
 
 **The Benefit:**
-Keep group admins and reviewers informed even when they're not logged in—no one misses important updates.
+Keep group admins and reviewers informed even when they're not logged in - no one misses important updates.
 
 **Why It Matters:**
 - Three email types: new submission, approval, denial
@@ -112,7 +113,7 @@ Keep group admins and reviewers informed even when they're not logged in—no on
 Display group ratings and recent reviews in any widget area using the included WordPress widget.
 
 **The Benefit:**
-Showcase your best-rated groups in sidebars, footers, or any widget area—drive traffic to quality groups.
+Showcase your best-rated groups in sidebars, footers, or any widget area - drive traffic to quality groups.
 
 **Why It Matters:**
 - Filter by rating (show only 4+ star groups)
@@ -142,13 +143,14 @@ Create visual impact with beautiful star rating displays that catch member atten
 
 ### Shortcode Support
 
-<!-- Screenshot to capture: docs/website/images/add-review-form.webp (see the docs screenshot capture list). -->
+![Add Review tab with the Write a Review form: required star ratings for Quality, Relevance and Engagement, an optional Review Description box and a Submit Review button](../../docs/website/images/add-review-form.webp)
+*The review form members fill in on a group*
 
 **What It Does:**
 Use shortcodes to display the review form or review listings on any page or post.
 
 **The Benefit:**
-Place review functionality anywhere on your site—create dedicated review pages or embed in custom layouts.
+Place review functionality anywhere on your site - create dedicated review pages or embed in custom layouts.
 
 **Why It Matters:**
 - `[bgr_review_form]` - Display review submission form
@@ -166,7 +168,7 @@ Place review functionality anywhere on your site—create dedicated review pages
 ### REST API Integration
 
 **What It Does:**
-Full REST API access for reviews, ratings, and moderation—build custom interfaces and mobile apps.
+Full REST API access for reviews, ratings, and moderation - build custom interfaces and mobile apps.
 
 **The Benefit:**
 Integrate group reviews into mobile apps, headless frontends, or external systems with complete API access.
@@ -186,7 +188,7 @@ Integrate group reviews into mobile apps, headless frontends, or external system
 Automatic structured data markup that Google and other search engines understand.
 
 **The Benefit:**
-Get star ratings displayed in Google search results—increase click-through rates and visibility.
+Get star ratings displayed in Google search results - increase click-through rates and visibility.
 
 **Why It Matters:**
 - AggregateRating schema automatically added
@@ -203,7 +205,7 @@ Get star ratings displayed in Google search results—increase click-through rat
 Allow members to submit multiple reviews for the same group over time.
 
 **The Benefit:**
-Members can update their feedback as groups evolve—perfect for communities where groups change over time.
+Members can update their feedback as groups evolve - perfect for communities where groups change over time.
 
 **Why It Matters:**
 - Enable/disable in settings
@@ -251,7 +253,7 @@ Deploy group reviews across your entire network with a single plugin installatio
 ### GamiPress Integration
 
 **What It Does:**
-Integration with GamiPress for gamification—trigger events when members submit reviews.
+Integration with GamiPress for gamification - trigger events when members submit reviews.
 
 **The Benefit:**
 Reward members for leaving reviews with points, badges, or other GamiPress rewards.
@@ -267,8 +269,6 @@ Reward members for leaving reviews with points, badges, or other GamiPress rewar
 
 ## Display & Customization
 
-<!-- Screenshot to capture: docs/website/images/groups-directory-ratings.webp (see the docs screenshot capture list). -->
-
 ---
 
 ### Customizable Labels
@@ -277,7 +277,7 @@ Reward members for leaving reviews with points, badges, or other GamiPress rewar
 Change the "Review" and "Reviews" labels throughout the plugin to match your community's language.
 
 **The Benefit:**
-Use terminology that fits your community—call them "Feedback," "Testimonials," "Ratings," or anything else.
+Use terminology that fits your community - call them "Feedback," "Testimonials," "Ratings," or anything else.
 
 **Why It Matters:**
 - Singular label (Review)
@@ -290,13 +290,14 @@ Use terminology that fits your community—call them "Feedback," "Testimonials,"
 
 ### Rating Star Colors
 
-<!-- Screenshot to capture: docs/website/images/display-settings.webp (see the docs screenshot capture list). -->
+![Display tab with the Review and Reviews (Plural) label fields and the Rating Color picker](../../docs/website/images/display-settings.webp)
+*Pick the star color and rename the review labels*
 
 **What It Does:**
 Customize the color of star ratings to match your site's branding.
 
 **The Benefit:**
-Seamlessly integrate review stars with your site design—no generic yellow stars that clash with your theme.
+Seamlessly integrate review stars with your site design - no generic yellow stars that clash with your theme.
 
 **Why It Matters:**
 - Color picker in settings
@@ -313,7 +314,7 @@ Seamlessly integrate review stars with your site design—no generic yellow star
 Control how many reviews display per page before pagination.
 
 **The Benefit:**
-Optimize the review display for your layout—show more or fewer reviews based on your design.
+Optimize the review display for your layout - show more or fewer reviews based on your design.
 
 **Why It Matters:**
 - Numeric setting
@@ -334,7 +335,7 @@ Optimize the review display for your layout—show more or fewer reviews based o
 Built with accessibility in mind, including keyboard navigation and screen reader support.
 
 **The Benefit:**
-Ensure all members can use review functionality regardless of ability—inclusive by design.
+Ensure all members can use review functionality regardless of ability - inclusive by design.
 
 **Why It Matters:**
 - Proper ARIA labels
@@ -347,7 +348,7 @@ Ensure all members can use review functionality regardless of ability—inclusiv
 
 ### Theme Compatibility
 
-![Reviews tab in BuddyX dark mode](../../.wordpress-org/screenshot-2.png)
+![The same group and Reviews tab in BuddyX dark mode](../../docs/website/images/group-reviews-tab-dark-mode.webp)
 *Reviews display beautifully across popular BuddyPress themes*
 
 **What It Does:**
@@ -371,7 +372,7 @@ Works beautifully out of the box with the themes your community likely uses.
 Optionally remove all plugin data when uninstalling, leaving no database clutter.
 
 **The Benefit:**
-GDPR-friendly and respectful of your database—when you're done, you're done.
+GDPR-friendly and respectful of your database - when you're done, you're done.
 
 **Why It Matters:**
 - Optional complete data removal
