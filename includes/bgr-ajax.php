@@ -347,8 +347,13 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 					'exclude_groups'        => $exclude_groups,
 				);
 				update_option( 'bgr_admin_general_settings', $bgr_admin_settings );
-				echo 'admin-general-settings-saved';
-				wp_die();
+				// Hand the stored (clamped) page size back so the field shows what was saved.
+				wp_send_json_success(
+					array(
+						'message'          => 'admin-general-settings-saved',
+						'reviews_per_page' => $reviews_per_page,
+					)
+				);
 			}
 		}
 
@@ -449,9 +454,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			}
 
 			// Check if group is excluded from reviews.
-			$bgr_admin_settings   = get_option( 'bgr_admin_general_settings', array() );
-			$admin_exclude_groups = isset( $bgr_admin_settings['exclude_groups'] ) ? array_map( 'absint', (array) $bgr_admin_settings['exclude_groups'] ) : array();
-			if ( ! empty( $admin_exclude_groups ) && in_array( absint( $form_group_id ), $admin_exclude_groups, true ) ) {
+			if ( bgr_is_group_excluded( $form_group_id ) ) {
 				wp_send_json_error( new WP_Error( '008', esc_html__( 'Reviews are not enabled for this group.', 'bp-group-reviews' ), 'group_excluded' ) );
 			}
 

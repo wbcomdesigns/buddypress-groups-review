@@ -269,12 +269,11 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			}
 			global $bgr;
 			$review_div       = 'form';
-			$exclude_groups   = isset( $bgr['exclude_groups'] ) ? array_map( 'absint', (array) $bgr['exclude_groups'] ) : array();
 			$current_group_id = absint( bp_get_current_group_id() );
 			$current_user_id  = bp_loggedin_user_id();
 
 			// Check if current group is excluded from reviews.
-			if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) {
+			if ( bgr_is_group_excluded( $current_group_id ) ) {
 				return;
 			}
 
@@ -293,7 +292,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			$current_group_link = bgr_get_group_url( $current_group );
 			$current_group_link .= 'add-' . bp_group_review_tab_slug();
 			?>
-			<div class="group-button group-actions-absolute public generic-button" id="add-review-groupbutton">
+			<div class="group-button public generic-button" id="add-review-groupbutton">
 				<a href='<?php echo esc_url( $current_group_link ); ?>' class="group-button button" show ="<?php echo esc_attr( $review_div ); ?>">
 					<?php
 					/* translators: %1$s is replaced with bp_group_review_add_review_tab_name() */
@@ -323,8 +322,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			}
 
 			$current_group_id = absint( bp_get_group_id() );
-			$exclude_groups   = isset( $bgr['exclude_groups'] ) ? array_map( 'absint', (array) $bgr['exclude_groups'] ) : array();
-			if ( ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) || ! bgr_can_view_group_reviews( $current_group_id ) ) {
+			if ( bgr_is_group_excluded( $current_group_id ) || ! bgr_can_view_group_reviews( $current_group_id ) ) {
 				return;
 			}
 
@@ -364,8 +362,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 			}
 
 			$current_group_id = absint( bp_get_group_id() );
-			$exclude_groups   = isset( $bgr['exclude_groups'] ) ? array_map( 'absint', (array) $bgr['exclude_groups'] ) : array();
-			if ( ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) || ! bgr_can_view_group_reviews( $current_group_id ) ) {
+			if ( bgr_is_group_excluded( $current_group_id ) || ! bgr_can_view_group_reviews( $current_group_id ) ) {
 				return;
 			}
 

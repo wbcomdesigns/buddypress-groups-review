@@ -37,6 +37,7 @@ jQuery(document).ready(function (e) {
 
   // Accept review
   jQuery(document).on("click", ".accept-button", function () {
+    var $btn = jQuery(this);
     var accept_review_id = jQuery(this).next().val();
     var accept_gid = jQuery(this).attr("data-group-type");
     jQuery.post(
@@ -47,14 +48,13 @@ jQuery(document).ready(function (e) {
         accept_review_id: accept_review_id,
         group_id: accept_gid,
       },
-      function (response) {
-        location.reload();
-      }
+      bgrHandleManageResponse($btn)
     );
   });
 
   // Deny review
   jQuery(document).on("click", ".deny-button", function () {
+    var $btn = jQuery(this);
     var deny_review_id = jQuery(this).next().val();
     var deny_gid = jQuery(this).attr("data-group-type");
     jQuery.post(
@@ -65,14 +65,13 @@ jQuery(document).ready(function (e) {
         deny_review_id: deny_review_id,
         group_id: deny_gid,
       },
-      function (response) {
-        location.reload();
-      }
+      bgrHandleManageResponse($btn)
     );
   });
 
   // Delete review
   jQuery(document).on("click", ".remove-review-button", function () {
+    var $btn = jQuery(this);
     var remove_review_id = jQuery(this).next().val();
     jQuery.post(
       ajaxurl,
@@ -81,9 +80,7 @@ jQuery(document).ready(function (e) {
         nonce: bgr_front_js_object.wbcom_nonce,
         remove_review_id: remove_review_id,
       },
-      function (response) {
-        location.reload();
-      }
+      bgrHandleManageResponse($btn)
     );
   });
 
@@ -213,6 +210,33 @@ jQuery(document).ready(function (e) {
 
 
 });
+
+/**
+ * Handle the reply to Accept, Deny and Remove. A refusal shows the server message
+ * in a BuddyPress notice inside the review row and leaves the page alone; only
+ * success reloads.
+ *
+ * @param {jQuery} $btn Clicked button.
+ * @return {Function} jQuery.post success callback.
+ */
+function bgrHandleManageResponse($btn) {
+  return function (response) {
+    var $row = $btn.closest(".bgr-row");
+    if (!$row.length) {
+      $row = $btn.parent();
+    }
+    $row.find(".bgr-manage-error").remove();
+    if (response && typeof response === "object" && false === response.success) {
+      var data = response.data;
+      var message = Array.isArray(data) && data[0] && data[0].message ? data[0].message : "";
+      jQuery('<div class="bp-feedback error bgr-manage-error" role="alert"><span class="bp-icon" aria-hidden="true"></span><p></p></div>')
+        .find("p").text(message || bgr_front_js_object.submit_error_text).end()
+        .prependTo($row);
+      return;
+    }
+    location.reload();
+  };
+}
 
 /**
  * Handle the review submit response. Success is the plain-text message; a

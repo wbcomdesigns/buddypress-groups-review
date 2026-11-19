@@ -153,6 +153,23 @@ function bgr_get_group_review_stats( $group_id ) {
 }
 
 /**
+ * Whether a group is excluded from reviews (General tab > Exclude Groups).
+ *
+ * The one place that reads the exclusion list. The tab, the form, the AJAX
+ * submit, the REST routes and the JSON-LD markup all ask this.
+ *
+ * @since 3.9.2
+ *
+ * @param int $group_id Group ID.
+ * @return bool
+ */
+function bgr_is_group_excluded( $group_id ) {
+	$settings = get_option( 'bgr_admin_general_settings', array() );
+	$excluded = isset( $settings['exclude_groups'] ) ? array_map( 'absint', (array) $settings['exclude_groups'] ) : array();
+	return in_array( absint( $group_id ), $excluded, true );
+}
+
+/**
  * Clamp the "Reviews Per Page" setting to a safe page size.
  *
  * @param mixed $value Raw setting value.
@@ -170,11 +187,7 @@ function bgr_sanitize_reviews_per_page( $value ) {
  * @return void
  */
 function bp_group_review_remove_add_review_tab() {
-	$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
-	$exclude_groups             = isset( $bgr_admin_general_settings['exclude_groups'] ) ? array_map( 'absint', (array) $bgr_admin_general_settings['exclude_groups'] ) : array();
-	$current_group_id           = absint( bp_get_current_group_id() );
-
-	if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) {
+	if ( bgr_is_group_excluded( bp_get_current_group_id() ) ) {
 		// Hide review tabs for excluded groups - CSS fallback for excluded groups.
 		wp_register_style( 'bgr-excluded-group', false, array(), BGR_PLUGIN_VERSION );
 		wp_enqueue_style( 'bgr-excluded-group' );

@@ -98,7 +98,8 @@ jQuery(document).ready(function () {
         enable_group_criteria: bgr_enable_group_criteria
       },
       function (response) {
-        if (response === "admin-general-settings-saved") {
+        if (response && response.success && response.data) {
+          jQuery("#reviews_per_page").val(response.data.reviews_per_page);
           jQuery("#bgr-settings-updated").show();
           jQuery("#bgr-save-admin-general-settings").removeClass(
             "bgr-btn-ajax"

@@ -51,15 +51,9 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 
 			// Check if current group is excluded from reviews.
 			$current_group_id  = absint( bp_get_current_group_id() );
-			$is_group_excluded = false;
-			$exclude_groups    = array();
-
-			if ( ! empty( $bgr_admin_general_settings ) && isset( $bgr_admin_general_settings['exclude_groups'] ) ) {
-				$exclude_groups = array_map( 'absint', (array) $bgr_admin_general_settings['exclude_groups'] );
-				if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) {
-					$enabled           = false;
-					$is_group_excluded = true;
-				}
+			$is_group_excluded = bgr_is_group_excluded( $current_group_id );
+			if ( $is_group_excluded ) {
+				$enabled = false;
 			}
 
 			// Only proceed with tab creation if group is not excluded.
@@ -296,14 +290,9 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			// has no current group, so read the id BuddyPress itself uses there.
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only, picks the group whose box is shown.
 			$current_group_id  = absint( is_admin() && isset( $_GET['gid'] ) ? wp_unslash( $_GET['gid'] ) : bp_get_current_group_id() );
-			$is_group_excluded = false;
-
-			if ( ! empty( $bgr_admin_general_settings ) && isset( $bgr_admin_general_settings['exclude_groups'] ) ) {
-				$exclude_groups = array_map( 'absint', (array) $bgr_admin_general_settings['exclude_groups'] );
-				if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) {
-					$enabled           = false;
-					$is_group_excluded = true;
-				}
+			$is_group_excluded = bgr_is_group_excluded( $current_group_id );
+			if ( $is_group_excluded ) {
+				$enabled = false;
 			}
 
 			if ( ! $is_group_excluded ) {

@@ -41,7 +41,7 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 			}
 
 			$group_id = bp_get_current_group_id();
-			if ( ! $group_id || ! bgr_can_view_group_reviews( $group_id ) ) {
+			if ( ! $group_id || bgr_is_group_excluded( $group_id ) || ! bgr_can_view_group_reviews( $group_id ) ) {
 				return;
 			}
 

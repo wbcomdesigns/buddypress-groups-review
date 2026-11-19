@@ -169,6 +169,12 @@ class BGR_Activity {
 	public function bp_group_review_group_post_activity_after_approval( $new_status, $old_status, $post ) {
 		global $bp;
 		global $bgr;
+		// transition_post_status fires for every post type, and before init for some
+		// (bp-email publishing), when $bgr is not built yet. Bail on anything that is
+		// not a group review before reading $bgr.
+		if ( 'review' !== $post->post_type || ! is_array( $bgr ) ) {
+			return false;
+		}
 		$allow_activity       = $bgr['allow_activity'];
 		$post_status          = get_post_status( $post->ID );
 		$auto_approve_reviews = $bgr['auto_approve_reviews'];
@@ -180,7 +186,7 @@ class BGR_Activity {
 		}
 
 		if ( 'yes' === $allow_activity ) {
-			if ( ( 'publish' === $new_status && 'publish' !== $old_status ) && 'review' === $post->post_type ) {
+			if ( 'publish' === $new_status && 'publish' !== $old_status ) {
 				$group_id = get_post_meta( $post->ID, 'linked_group', true );
 
 				// The 'review' CPT is shared with BuddyPress Member Reviews. Only

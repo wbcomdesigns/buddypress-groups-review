@@ -262,6 +262,11 @@ Star colour, CSV export and theme layout fixes.
 * Fix      - A blank, zero or negative Reviews Per Page value no longer hides every review in the group tab or makes the Manage list unbounded; the setting is kept between 1 and 100.
 * Fix      - The REST list of group reviews now caps its page size at 100 and treats page 0 as page 1.
 * Fix      - Excluded-group CSS, the rating colour fallback and the rating markup now use WordPress enqueue and script-tag helpers instead of raw inline tags.
+* Fix      - Saving Reviews Per Page now puts the stored value back in the field, so a typed 500 shows as 100 straight away.
+* Fix      - Accept, Deny and Delete on the group Manage tab show the server message in a notice when refused instead of reloading the page.
+* Fix      - Groups excluded from reviews no longer print rating markup; one shared check now decides exclusion for the tab, form, AJAX, REST and markup.
+* Fix      - The group header Add Review button no longer overlaps the rating row and Sort select on BuddyBoss and Reign at phone width.
+* Fix      - PHP warnings from the activity hook when a non-review post, such as a BuddyPress email, is published before init.
 * Security - The review CSV export now neutralises cells that start with =, +, -, @, tab or return, so a review cannot run as a spreadsheet formula.
 * Dev      - Replaced the deprecated jQuery .bind() call on the admin criteria screen with .on().
 * Dev      - Uninstall no longer flushes the whole object cache, and bin/local-ci.sh and bin/build-release.sh are added.
