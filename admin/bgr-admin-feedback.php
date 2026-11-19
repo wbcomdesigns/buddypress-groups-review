@@ -101,9 +101,8 @@ if ( ! class_exists( 'BGR_Admin_Feedback' ) ) :
 
 			if ( isset( $screen->base ) && 'plugins' === $screen->base ) {
 				$no_bug_url = wp_nonce_url( admin_url( '?' . $this->nobug_option . '=true' ), 'bp-group-reviews-feedback-nounce' );
+				ob_start();
 				?>
-
-<style>
 .notice.bp-group-reviews-notice {
 	border-left-color: #008ec2 !important;
 	padding: 20px;
@@ -203,7 +202,11 @@ if ( ! class_exists( 'BGR_Admin_Feedback' ) ) :
 		margin-left: 15px;
 	}
 }
-</style>
+<?php
+				wp_register_style( 'bgr-feedback-notice', false, array(), BGR_PLUGIN_VERSION );
+				wp_enqueue_style( 'bgr-feedback-notice' );
+				wp_add_inline_style( 'bgr-feedback-notice', ob_get_clean() );
+				?>
 			<div class="notice updated bp-group-reviews-notice">
 				<div class="bp-group-reviews-notice-inner">
 					<div class="bp-group-reviews-notice-icon">

@@ -116,7 +116,7 @@ FAQ - BuddyPress Group Reviews | Common Questions Answered
   "@type": "SoftwareApplication",
   "name": "BuddyPress Group Reviews",
   "applicationCategory": "WordPress Plugin",
-  "operatingSystem": "WordPress 6.0+",
+  "operatingSystem": "WordPress 6.5+",
   "offers": {
     "@type": "Offer",
     "price": "0",

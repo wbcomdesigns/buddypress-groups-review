@@ -98,7 +98,8 @@ jQuery(document).ready(function () {
         enable_group_criteria: bgr_enable_group_criteria
       },
       function (response) {
-        if (response === "admin-general-settings-saved") {
+        if (response && response.success && response.data) {
+          jQuery("#reviews_per_page").val(response.data.reviews_per_page);
           jQuery("#bgr-settings-updated").show();
           jQuery("#bgr-save-admin-general-settings").removeClass(
             "bgr-btn-ajax"
@@ -138,7 +139,7 @@ jQuery(document).ready(function () {
   });
 
   /*** Add new criteria field ***/
-  jQuery("#bgr-field-add").bind("click", function () {
+  jQuery("#bgr-field-add").on("click", function () {
     var div = jQuery("<div class='rating-review-div' />");
     div.html(BGRGetBGRDynamicTextBox(""));
     jQuery("#bgr-textbox-container")

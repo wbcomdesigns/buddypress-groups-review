@@ -37,8 +37,8 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		 */
 		public function __construct() {
 			add_action( 'bgr_display_ratings', array( $this, 'bp_group_review_select_rating_type' ) );
-			add_action( 'bgr_display_widget_average_ratings', array( $this, 'bp_group_review_widget_average_ratings' ) );
-			add_action( 'bgr_display_group_average_ratings', array( $this, 'bp_group_review_average_group_ratings' ) );
+			add_action( 'bgr_display_widget_average_ratings', array( $this, 'bp_group_review_average_stars' ) );
+			add_action( 'bgr_display_group_average_ratings', array( $this, 'bp_group_review_average_stars' ) );
 		}
 
 		/**
@@ -117,7 +117,7 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 				// Check if this criterion is currently active.
 				$is_archived = ! in_array( $review_field, $active_criteria, true );
 				?>
-				<div class="multi-review <?php echo $is_archived ? 'bgr-archived-criteria' : ''; ?>">
+				<div class="multi-review bgr-criteria-row <?php echo $is_archived ? 'bgr-archived-criteria' : ''; ?>">
 					<div class="bgr-col-6">
 						<?php
 						echo esc_html( bp_group_review_get_criteria_label( $review_field ) ) . ' : ';
@@ -152,59 +152,20 @@ if ( ! class_exists( 'BGR_Rating_Display' ) ) {
 		}
 
 		/**
-		 *  Actions performed for rating display in  Widgets
+		 * Print the stars for an average rating (0-5); a whole rating never gets a half star.
 		 *
-		 *  @since   1.0.0
-		 *  @author  Wbcom Designs
+		 * Stars only. The caller owns the wrapper and any text label, so the
+		 * markup is balanced wherever the stars are used.
 		 *
-		 * @param Array $review_groups Revie Groups.
+		 * @since 3.9.2
+		 *
+		 * @param float $avg_rating Average rating.
 		 */
-		public function bp_group_review_widget_average_ratings( $review_groups ) {
-			global $bgr;
-			$group_avg_rating = $review_groups;
-			$remaining        = $group_avg_rating - (int) $group_avg_rating;
-
-			if ( $remaining > 0 ) {
-					$stars_on   = intval( $group_avg_rating );
-					$stars_half = 1;
-					$stars_off  = 5 - ( $stars_on + $stars_half );
-			} else {
-					$stars_on   = $group_avg_rating;
-					$stars_off  = 5 - $group_avg_rating;
-					$stars_half = 0;
-			}
-
-			$this->bp_group_review_average_star_rating( $stars_on, $stars_half, $stars_off );
-
-			$group_avg_rating = round( $group_avg_rating, 2 );
-			echo '</div><div class="bupr-meta">';
-			/* translators: %s: average star rating value, e.g. "4.5". */
-			printf( esc_html__( 'Rating : (%s)', 'bp-group-reviews' ), esc_html( $group_avg_rating ) );
-		}
-
-		/**
-		 *  Actions performed for rating display in  Group Header
-		 *
-		 *  @since   1.0.0
-		 *  @author  Wbcom Designs
-		 *
-		 * @param string $avg_rating Average Rating.
-		 */
-		public function bp_group_review_average_group_ratings( $avg_rating ) {
-			global $bgr;
-			$type = gettype( $avg_rating );
-			$var  = (int) $avg_rating - $avg_rating;
-			if ( 0 === $var ) {
-					$stars_on   = $avg_rating;
-					$stars_off  = 5 - $avg_rating;
-					$stars_half = 0;
-			} else {
-					$stars_on   = intval( $avg_rating );
-					$stars_half = 1;
-					$stars_off  = 5 - ( $stars_on + $stars_half );
-			}
-
-			$this->bp_group_review_average_star_rating( $stars_on, $stars_half, $stars_off );
+		public function bp_group_review_average_stars( $avg_rating ) {
+			$avg_rating = (float) $avg_rating;
+			$stars_on   = (int) $avg_rating;
+			$stars_half = ( $avg_rating - $stars_on ) > 0 ? 1 : 0;
+			$this->bp_group_review_average_star_rating( $stars_on, $stars_half, 5 - $stars_on - $stars_half );
 		}
 
 		/**

@@ -133,18 +133,6 @@ parameters:
 			path: includes/bgr-ajax.php
 
 		-
-			message: '#^Parameter \#1 \$text of function esc_html expects string, float given\.$#'
-			identifier: argument.type
-			count: 1
-			path: includes/bgr-ajax.php
-
-		-
-			message: '#^Parameter \#1 \$user_id of function bp_core_get_userlink expects int, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: includes/bgr-ajax.php
-
-		-
 			message: '#^Variable \$group_obj in empty\(\) always exists and is not falsy\.$#'
 			identifier: empty.variable
 			count: 1
@@ -205,12 +193,6 @@ parameters:
 			path: includes/bgr-filters.php
 
 		-
-			message: '#^Ternary operator condition is always true\.$#'
-			identifier: ternary.alwaysTrue
-			count: 1
-			path: includes/bgr-filters.php
-
-		-
 			message: '#^Comparison operation "\>" between int\<1, max\> and 0 is always true\.$#'
 			identifier: greater.alwaysTrue
 			count: 2
@@ -253,50 +235,8 @@ parameters:
 			path: includes/bgr-notifications.php
 
 		-
-			message: '#^Binary operation "\-" between 5 and array results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: includes/bgr-rating-display.php
-
-		-
-			message: '#^Binary operation "\-" between 5 and string results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: includes/bgr-rating-display.php
-
-		-
-			message: '#^Binary operation "\-" between array and 0\|1 results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: includes/bgr-rating-display.php
-
-		-
-			message: '#^Binary operation "\-" between int and string results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: includes/bgr-rating-display.php
-
-		-
-			message: '#^Parameter \#1 \$num of function round expects float\|int, array given\.$#'
-			identifier: argument.type
-			count: 1
-			path: includes/bgr-rating-display.php
-
-		-
-			message: '#^Unreachable statement \- code above always terminates\.$#'
-			identifier: deadCode.unreachable
-			count: 1
-			path: includes/bgr-rating-display.php
-
-		-
 			message: '#^Comparison operation "\>" between int\<1, max\> and 0 is always true\.$#'
 			identifier: greater.alwaysTrue
-			count: 1
-			path: includes/bgr-schema.php
-
-		-
-			message: '#^Negated boolean expression is always false\.$#'
-			identifier: booleanNot.alwaysFalse
 			count: 1
 			path: includes/bgr-schema.php
 
@@ -401,54 +341,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: includes/templates/bgr-group-criteria-settings.php
-
-		-
-			message: '#^Parameter \#1 \$group_id of function groups_get_group expects int, array\<string, \(int\|string\)\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: includes/widgets/bgr-review.php
-
-		-
-			message: '#^Parameter \#1 \$group_id of function groups_get_group expects int, array\<string, int\<min, \-1\>\|int\<1, max\>\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: includes/widgets/group-rating.php
-
-		-
-			message: '#^Parameter \#1 \$text of function esc_attr expects string, int\<1, max\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: includes/widgets/group-rating.php
-
-		-
-			message: '#^Parameter \#1 \$text of function esc_html expects string, float given\.$#'
-			identifier: argument.type
-			count: 1
-			path: includes/widgets/group-rating.php
-
-		-
-			message: '#^Parameter \#1 \$user_id of function bp_core_get_userlink expects int, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: includes/widgets/group-rating.php
-
-		-
-			message: '#^Variable \$post_num might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: includes/widgets/group-rating.php
-
-		-
-			message: '#^Variable \$rating_default might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: includes/widgets/group-rating.php
-
-		-
-			message: '#^Variable \$widget_title might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: includes/widgets/group-rating.php
 
 		-
 			message: '#^Access to an undefined property BuddyPress\:\:\$bgr_bp_review\.$#'

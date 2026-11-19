@@ -3,7 +3,7 @@ Contributors: wbcomdesigns, vapvarun
 Tags: buddypress, groups, reviews, ratings, community
 Requires at least: 6.5
 Tested up to: 7.1
-Stable tag: 3.9.1
+Stable tag: 3.9.2
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -107,9 +107,9 @@ Our dedicated support team is ready to help you get the most out of this plugin.
 * Styled for the BuddyX and Reign themes, including their dark mode
 * Youzify: the average rating and review button appear in the Youzify group header
 
-= What's New in 3.9.1 =
+= What's New in 3.9.2 =
 
-Privacy, moderation email and theme fixes. Reviewers are now emailed when a review is approved or denied from wp-admin, bulk actions or the editor, review notifications respect the BuddyPress Notifications setting, the CSV export runs in batches for large sites, and uninstalling no longer touches BuddyPress Member Reviews data. See the changelog for the full list.
+Star colour, CSV export and theme layout fixes. Group Reviews no longer recolours BuddyPress Member Reviews stars, the CSV export can no longer carry spreadsheet formulas, and the rating row, criteria options and form colours are corrected on Reign and BuddyX. See the changelog for the full list.
 
 == More from Wbcom Designs ==
 
@@ -245,6 +245,33 @@ We'd like you to use [Wbcom Designs](https://wbcomdesigns.com/contact/) for all 
 5. Admin Criteria manager - add, reorder, and enable rating criteria.
 
 == Changelog ==
+
+= 3.9.2 - November 2026 =
+
+Star colour, CSV export and theme layout fixes.
+
+* Fix      - Group Reviews no longer recolours BuddyPress Member Reviews stars in the activity stream, so each plugin keeps its own star colour.
+* Fix      - The rating row in the group directory and group header no longer adds extra height or shrinks the stars on Reign and BuddyX.
+* Fix      - The rating line under the stars in the group header is readable on the cover image in Reign's cover layouts, and the review count in the Top Rated Groups shortcode now meets text contrast.
+* Fix      - The group Review Criteria mode options show each radio beside its label, with the description underneath and no grey band.
+* Fix      - Required-field markers and review form error messages now meet text contrast in light and dark mode.
+* Fix      - The note in the Current Active Criteria box is now readable against its tinted background.
+* Fix      - The Group Review and Group Rating widgets show 50px avatars with 8px corners on group pages, 15px text, review counts that read 1 Review or 3 Reviews, and the same empty message.
+* Fix      - Group Reviews styles no longer restyle pop-ups, close buttons, group header buttons or pagination from the theme or other plugins.
+* Fix      - The REST API no longer lists reviews of a group that has reviews turned off.
+* Fix      - Removing a group criterion checks existing reviews in pages of 200 instead of loading every review of the group at once.
+* Fix      - A blank, zero or negative Reviews Per Page value no longer hides every review in the group tab or makes the Manage list unbounded; the setting is kept between 1 and 100.
+* Fix      - The REST list of group reviews now caps its page size at 100 and treats page 0 as page 1.
+* Fix      - Excluded-group CSS, the rating colour fallback and the rating markup now use WordPress enqueue and script-tag helpers instead of raw inline tags.
+* Fix      - Saving Reviews Per Page now puts the stored value back in the field, so a typed 500 shows as 100 straight away.
+* Fix      - Accept, Deny and Delete on the group Manage tab show the server message in a notice when refused instead of reloading the page.
+* Fix      - Groups excluded from reviews no longer print rating markup; one shared check now decides exclusion for the tab, form, AJAX, REST and markup.
+* Fix      - The group header Add Review button no longer overlaps the rating row and Sort select on BuddyBoss and Reign at phone width.
+* Fix      - PHP warnings from the activity hook when a non-review post, such as a BuddyPress email, is published before init.
+* Security - The review CSV export now neutralises cells that start with =, +, -, @, tab or return, so a review cannot run as a spreadsheet formula.
+* Dev      - Replaced the deprecated jQuery .bind() call on the admin criteria screen with .on().
+* Dev      - Uninstall no longer flushes the whole object cache, and bin/local-ci.sh and bin/build-release.sh are added.
+* Dev      - Documentation moved into docs/website in the standard format.
 
 = 3.9.1 - October 2026 =
 
@@ -558,10 +585,11 @@ UI pass: BuddyX/Reign dark-mode token mapping, accessibility focus rings, and CS
 
 == Upgrade Notice ==
 
+= 3.9.2 =
+Security hardening for the review CSV export, plus star colour and theme layout fixes. Recommended update.
+
 = 3.9.1 =
 Privacy fix: reviews and ratings of private and hidden groups are no longer visible to non-members. Also fixes moderation emails and uninstall. Recommended update.
 
 = 3.9.0 =
 UI and accessibility pass. Dark mode now renders correctly on BuddyX and Reign and follows the theme toggle rather than the OS setting. Settings and saved reviews are unchanged.
-</content>
-</invoke>

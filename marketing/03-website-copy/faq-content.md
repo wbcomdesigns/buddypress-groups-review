@@ -8,8 +8,8 @@
 BuddyPress Group Reviews is a WordPress plugin that allows members of your BuddyPress community to rate and review groups. Members can submit text reviews along with star ratings based on multiple criteria you define. Reviews help other members find quality groups and give group admins feedback on how to improve.
 
 ### What are the requirements to use this plugin?
-- WordPress 6.0 or higher
-- PHP 7.4 or higher
+- WordPress 6.5 or higher
+- PHP 8.0 or higher
 - BuddyPress 12.0 or higher with the Groups component active
 - Also compatible with BuddyBoss Platform
 

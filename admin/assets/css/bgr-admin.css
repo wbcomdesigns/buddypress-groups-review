@@ -8,6 +8,11 @@
  * .bgr-admin) the same palette. Values mirror the modern panel.
  */
 :root {
+    --bgr-admin-accordion-bg: #dedede;
+    --bgr-admin-accordion-text: #454545;
+    --bgr-admin-accordion-active: #2196f3;
+    --bgr-admin-accordion-active-text: #fff;
+    --bgr-admin-accordion-icon: #787878;
     --bgr-admin-accent: #2563eb;
     --bgr-admin-white: #ffffff;
     --bgr-admin-surface-1: #f8fafc;
@@ -253,11 +258,11 @@ button.bgr-faq-accordion:hover {
 }
 
 button.bgr-accordion {
-    background-color: #dedede;
+    background-color: var(--bgr-admin-accordion-bg);
     border: medium none;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-    color: #454545;
+    color: var(--bgr-admin-accordion-text);
     cursor: pointer;
     font-size: 15px;
     margin: 0 5%;
@@ -271,8 +276,8 @@ button.bgr-accordion {
 
 button.bgr-accordion.active,
 button.bgr-accordion:hover {
-    background-color: #2196f3;
-    color: #fff;
+    background-color: var(--bgr-admin-accordion-active);
+    color: var(--bgr-admin-accordion-active-text);
 }
 
 div.panel {
@@ -286,7 +291,7 @@ div.panel {
 }
 
 button.bgr-accordion::after {
-    color: #787878;
+    color: var(--bgr-admin-accordion-icon);
     content: "+";
     float: right;
     font-size: 13px;

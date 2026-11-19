@@ -41,7 +41,7 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 			}
 
 			$group_id = bp_get_current_group_id();
-			if ( ! $group_id || ! bgr_can_view_group_reviews( $group_id ) ) {
+			if ( ! $group_id || bgr_is_group_excluded( $group_id ) || ! bgr_can_view_group_reviews( $group_id ) ) {
 				return;
 			}
 
@@ -86,21 +86,14 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 
 			// Get group object safely to avoid BuddyBoss template errors.
 			$group = groups_get_group( $group_id );
-			if ( ! $group ) {
+			if ( empty( $group->id ) ) {
 				return;
 			}
 
 			$group_name        = bp_get_group_name( $group );
 			$group_description = bp_get_group_description( $group );
 
-			// Build group URL safely without relying on template globals.
-			if ( function_exists( 'bp_get_group_url' ) ) {
-				// BuddyPress 12.0+ URL function.
-				$group_link = bp_get_group_url( $group );
-			} else {
-				// Fallback: build URL manually to avoid template dependency.
-				$group_link = bp_get_groups_directory_permalink() . $group->slug . '/';
-			}
+			$group_link = bgr_get_group_url( $group );
 
 			// Aggregate rating from the cached stats (covers all reviews).
 			$total_reviews  = (int) $stats['total_reviews'];
@@ -168,9 +161,10 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 			}
 
 			// Output JSON-LD.
-			echo '<script type="application/ld+json">';
-			echo wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT );
-			echo '</script>' . "\n";
+			wp_print_inline_script_tag(
+				wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ),
+				array( 'type' => 'application/ld+json' )
+			);
 		}
 	}
 

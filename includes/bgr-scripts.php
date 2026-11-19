@@ -235,6 +235,7 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 					array(
 						'view_more_text'       => esc_html__( 'View More..', 'bp-group-reviews' ),
 						'view_less_text'       => esc_html__( 'View Less..', 'bp-group-reviews' ),
+						'submit_error_text'    => esc_html__( 'Your review could not be submitted. Please try again.', 'bp-group-reviews' ),
 						'wbcom_nonce'          => wp_create_nonce( 'ajax-nonce' ),
 						'auto_approve_reviews' => $auto_approve_reviews,
 						'exclude_groups'       => $exclude_groups,
@@ -255,44 +256,59 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 
 			// Enqueue group criteria admin script on group admin pages.
 			if ( function_exists( 'bp_is_group' ) && bp_is_group() && bp_is_group_admin_page() ) {
-				// Toast + confirm helpers replace native alert()/confirm()
-				// in the criteria management UI (dev rules 10 + 12).
-				wp_register_script( 'bgr-toast', BGR_PLUGIN_URL . 'public/js/toast.js', array(), BGR_PLUGIN_VERSION, true );
-				wp_register_script( 'bgr-confirm', BGR_PLUGIN_URL . 'public/js/confirm.js', array( 'wp-i18n' ), BGR_PLUGIN_VERSION, true );
-				wp_set_script_translations( 'bgr-confirm', 'bp-group-reviews', BGR_PLUGIN_PATH . 'languages' );
-				wp_enqueue_script( 'bgr-toast' );
-				wp_enqueue_script( 'bgr-confirm' );
-
-				// Ensure the toast/confirm CSS (bundled in bgr-reviews.css)
-				// is present on the group admin screen.
+				// Plugin styles for the other group manage screens.
 				if ( ! wp_style_is( 'bgr-reviews-css', 'enqueued' ) ) {
 					wp_register_style( 'bgr-reviews-css', BGR_PLUGIN_URL . 'assets/css' . $style_path . '/bgr-reviews' . $style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
 					wp_enqueue_style( 'bgr-reviews-css' );
 				}
 
-				// Criteria settings screen styles. Extracted from a 125-line
-				// inline <style> block in the criteria template (UI-005).
-				wp_register_style( 'bgr-group-criteria-admin-css', BGR_PLUGIN_URL . 'assets/css' . $style_path . '/bgr-group-criteria-admin' . $style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
-				wp_enqueue_style( 'bgr-group-criteria-admin-css' );
-
-				wp_register_script(
-					'bgr-group-criteria-admin-js',
-					BGR_PLUGIN_URL . 'assets/js' . $script_path . '/bgr-group-criteria-admin' . $script_extension,
-					array( 'jquery', 'wp-i18n', 'bgr-toast', 'bgr-confirm' ),
-					BGR_PLUGIN_VERSION,
-					true
-				);
-				wp_set_script_translations( 'bgr-group-criteria-admin-js', 'bp-group-reviews', BGR_PLUGIN_PATH . 'languages' );
-				wp_enqueue_script( 'bgr-group-criteria-admin-js' );
-				wp_localize_script(
-					'bgr-group-criteria-admin-js',
-					'bgr_group_criteria',
-					array(
-						'ajaxurl' => admin_url( 'admin-ajax.php' ),
-						'nonce'   => wp_create_nonce( 'bgr_group_criteria_nonce' ),
-					)
-				);
+				$this->enqueue_group_criteria_assets( $style_path, $style_extension, $script_path, $script_extension );
 			}
+		}
+
+		/**
+		 * Assets for the Review Criteria box: the front-end group admin screen
+		 * and the wp-admin Edit Group screen.
+		 *
+		 * @since 3.9.2
+		 *
+		 * @param string $style_path       CSS sub-directory ('', '/min' or '/rtl').
+		 * @param string $style_extension  CSS file extension.
+		 * @param string $script_path      JS sub-directory ('' or '/min').
+		 * @param string $script_extension JS file extension.
+		 * @return void
+		 */
+		private function enqueue_group_criteria_assets( $style_path, $style_extension, $script_path, $script_extension ) {
+			// Toast + confirm helpers replace native alert()/confirm()
+			// in the criteria management UI (dev rules 10 + 12).
+			wp_register_script( 'bgr-toast', BGR_PLUGIN_URL . 'public/js/toast.js', array(), BGR_PLUGIN_VERSION, true );
+			wp_register_script( 'bgr-confirm', BGR_PLUGIN_URL . 'public/js/confirm.js', array( 'wp-i18n' ), BGR_PLUGIN_VERSION, true );
+			wp_set_script_translations( 'bgr-confirm', 'bp-group-reviews', BGR_PLUGIN_PATH . 'languages' );
+			wp_enqueue_script( 'bgr-toast' );
+			wp_enqueue_script( 'bgr-confirm' );
+
+			// Criteria settings screen styles. Extracted from a 125-line
+			// inline <style> block in the criteria template (UI-005).
+			wp_register_style( 'bgr-group-criteria-admin-css', BGR_PLUGIN_URL . 'assets/css' . $style_path . '/bgr-group-criteria-admin' . $style_extension, array(), BGR_PLUGIN_VERSION, 'all' );
+			wp_enqueue_style( 'bgr-group-criteria-admin-css' );
+
+			wp_register_script(
+				'bgr-group-criteria-admin-js',
+				BGR_PLUGIN_URL . 'assets/js' . $script_path . '/bgr-group-criteria-admin' . $script_extension,
+				array( 'jquery', 'wp-i18n', 'bgr-toast', 'bgr-confirm' ),
+				BGR_PLUGIN_VERSION,
+				true
+			);
+			wp_set_script_translations( 'bgr-group-criteria-admin-js', 'bp-group-reviews', BGR_PLUGIN_PATH . 'languages' );
+			wp_enqueue_script( 'bgr-group-criteria-admin-js' );
+			wp_localize_script(
+				'bgr-group-criteria-admin-js',
+				'bgr_group_criteria',
+				array(
+					'ajaxurl' => admin_url( 'admin-ajax.php' ),
+					'nonce'   => wp_create_nonce( 'bgr_group_criteria_nonce' ),
+				)
+			);
 		}
 
 		/**
@@ -322,6 +338,11 @@ if ( ! class_exists( 'BGRScriptsStyles' ) ) {
 			$curr_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 			$screen   = get_current_screen();
 			$page     = filter_input( INPUT_GET, 'page' );
+
+			// BuddyPress wp-admin Edit Group screen (Groups > Edit): Review Criteria box.
+			if ( 'bp-groups' === $page && 'edit' === filter_input( INPUT_GET, 'action' ) && filter_input( INPUT_GET, 'gid', FILTER_VALIDATE_INT ) ) {
+				$this->enqueue_group_criteria_assets( $style_path, $style_extension, $script_path, $script_extension );
+			}
 
 			if ( ( 'review' == get_post_type() ) || ( 'wb-plugins_page_group-review-settings' == $screen->base ) || ( 'group-review-settings' == $page ) || 'toplevel_page_wbcomplugins' == $screen->base ) {
 

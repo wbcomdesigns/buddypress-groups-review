@@ -113,9 +113,8 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 				if ( function_exists( 'groups_is_user_admin' ) && ! groups_is_user_admin( $user_id, $group_id ) ) {
 					// Check if group is excluded.
 					$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
-					$exclude_groups             = isset( $bgr_admin_general_settings['exclude_groups'] ) ? array_map( 'absint', (array) $bgr_admin_general_settings['exclude_groups'] ) : array();
 
-					if ( ! in_array( absint( $group_id ), $exclude_groups, true ) ) {
+					if ( ! bgr_is_group_excluded( $group_id ) ) {
 						// Check if multiple reviews allowed or user hasn't reviewed yet.
 						$multi_reviews = isset( $bgr_admin_general_settings['multi_reviews'] ) ? $bgr_admin_general_settings['multi_reviews'] : 'no';
 
@@ -201,11 +200,16 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 								'sanitize_callback' => 'absint',
 							),
 							'page'     => array(
+								'type'              => 'integer',
+								'minimum'           => 1,
 								'default'           => 1,
 								'sanitize_callback' => 'absint',
 							),
 							'per_page' => array(
+								'type'              => 'integer',
 								'default'           => 10,
+								'minimum'           => 1,
+								'maximum'           => 100,
 								'sanitize_callback' => 'absint',
 							),
 						),
@@ -322,8 +326,9 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 		 */
 		public function get_group_reviews( $request ) {
 			$group_id = $request->get_param( 'group_id' );
-			$page     = $request->get_param( 'page' );
-			$per_page = $request->get_param( 'per_page' );
+			// Clamp here: schema min/max are not enforced when a sanitize_callback is set.
+			$page     = max( 1, absint( $request->get_param( 'page' ) ) );
+			$per_page = min( 100, max( 1, absint( $request->get_param( 'per_page' ) ) ) );
 
 			$args = array(
 				'post_type'      => 'review',
@@ -387,9 +392,8 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 
 			// Check if group is excluded.
 			$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
-			$exclude_groups             = isset( $bgr_admin_general_settings['exclude_groups'] ) ? array_map( 'absint', (array) $bgr_admin_general_settings['exclude_groups'] ) : array();
 
-			if ( in_array( absint( $group_id ), $exclude_groups, true ) ) {
+			if ( bgr_is_group_excluded( $group_id ) ) {
 				return new WP_Error( 'rest_group_excluded', __( 'Reviews are disabled for this group.', 'bp-group-reviews' ), array( 'status' => 403 ) );
 			}
 
@@ -623,6 +627,10 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 
 			if ( empty( $group->id ) ) {
 				return new WP_Error( 'rest_invalid_group', __( 'Invalid group ID.', 'bp-group-reviews' ), array( 'status' => 404 ) );
+			}
+
+			if ( bgr_is_group_excluded( $group->id ) ) {
+				return new WP_Error( 'rest_group_excluded', __( 'Reviews are disabled for this group.', 'bp-group-reviews' ), array( 'status' => 403 ) );
 			}
 
 			if ( bgr_can_view_group_reviews( $group ) ) {

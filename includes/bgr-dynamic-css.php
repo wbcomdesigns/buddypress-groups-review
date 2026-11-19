@@ -20,7 +20,9 @@ defined( 'ABSPATH' ) || exit;
  * primary wp_add_inline_style() path and the wp_head fallback so the selector
  * list + !important overrides never drift out of sync (previously duplicated).
  * The !important is required: it overrides the theme/plugin colour set on the
- * star pseudo-elements from the admin "rating color" setting.
+ * star pseudo-elements from the admin "rating color" setting. Every selector
+ * carries a bgr- class: the generic .stars class is shared with BuddyPress
+ * Member Reviews, and painting it recoloured that plugin's stars.
  *
  * @param string $rating_color Sanitized hex colour (e.g. #ffb900).
  * @return string CSS rules, or empty string when no colour supplied.
@@ -38,10 +40,6 @@ function bp_group_review_get_rating_color_css( $rating_color ) {
 		.far.fa-star.bgr-star-rate::before,
 		.fas.fa-star-half-alt.bgr-star-rate::before,
 		.fas.fa-star-half-alt.bgr-star-rate::after,
-		.fas.fa-star.stars::before,
-		.far.fa-star.stars::before,
-		.fas.fa-star-half-alt.stars::before,
-		.fas.fa-star-half-alt.stars::after,
 		.far.fa-star.bgr-stars::before { color: {$rating_color} !important; }
 	";
 }
@@ -112,7 +110,9 @@ function bp_group_review_rating_color_fallback() {
 	if ( ! empty( $custom_css ) ) {
 		// Same rules as the primary inline-style path (shared helper) so the
 		// admin colour setting overrides theme/plugin styles consistently.
-		echo '<style id="bgr-rating-color-fallback">' . wp_kses_post( $custom_css ) . '</style>' . "\n";
+		wp_register_style( 'bgr-rating-color-fallback', false, array(), BGR_PLUGIN_VERSION );
+		wp_enqueue_style( 'bgr-rating-color-fallback' );
+		wp_add_inline_style( 'bgr-rating-color-fallback', $custom_css );
 	}
 }
-add_action( 'wp_head', 'bp_group_review_rating_color_fallback', 999 );
+add_action( 'wp_enqueue_scripts', 'bp_group_review_rating_color_fallback', 30 );

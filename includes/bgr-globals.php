@@ -163,6 +163,10 @@ function bp_group_review_globals() {
 	$review_label        = bp_group_review_add_review_tab_name();
 	$manage_review_label = bp_group_review_tab_name();
 
+	// A blank, zero or negative page size (saved by an older build) would hide every review
+	// in the tab and make the Manage list unbounded, so heal it here for every reader.
+	$reviews_per_page = bgr_sanitize_reviews_per_page( $reviews_per_page );
+
 	$bgr = array(
 		'multi_reviews'               => $multi_reviews,
 		'auto_approve_reviews'        => $auto_approve_reviews,
@@ -219,6 +223,25 @@ function bp_group_review_add_review_tab_name() {
 	$group_add_review_tab_name  = '' !== $stored ? $stored : esc_html__( 'Review', 'bp-group-reviews' );
 
 	return apply_filters( 'bp_group_review_add_review_tab_name', $group_add_review_tab_name );
+}
+/**
+ * Review count with the singular or plural review label, e.g. "1 Review",
+ * "3 Reviews". Every count label goes through here so they pluralise alike.
+ *
+ * @since 3.9.2
+ *
+ * @param int $count Number of reviews.
+ * @return string Unescaped label.
+ */
+function bgr_review_count_label( $count ) {
+	$count = (int) $count;
+	return sprintf(
+		/* translators: 1: number of reviews, 2: singular review label (e.g. "Review"), 3: plural review label (e.g. "Reviews"). */
+		_n( '%1$s %2$s', '%1$s %3$s', $count, 'bp-group-reviews' ), // phpcs:ignore WordPress.WP.I18n.MismatchedPlaceholders -- Each form picks its own owner-set label.
+		number_format_i18n( $count ),
+		bp_group_review_add_review_tab_name(),
+		bp_group_review_tab_name()
+	);
 }
 /**
  * BGR group review tab slug (singular base, e.g. "review").

@@ -12,7 +12,6 @@
     --bgr-text-muted: #888;
     --bgr-bg-white: #fff;
     --bgr-bg-light: #f5f5f5;
-    --bgr-modal-overlay: rgba(0, 0, 0, 0.4);
     --bgr-focus-color: #3b82f6;
     /* Accent follows the active theme's button colours (BuddyX modern ->
        BuddyX legacy -> Reign -> block theme preset -> WordPress blue), with
@@ -39,13 +38,13 @@ html[data-bx-mode="dark"],
 }
 
 #group-reviews-list,
-.group-add-form textarea,
-.group-add-form input,
-.group-add-form button {
+.bgr-add-form textarea,
+.bgr-add-form input,
+.bgr-add-form button {
     width: 100%;
 }
 
-.group-add-form p {
+.bgr-add-form p {
     text-align: center;
 }
 
@@ -57,189 +56,138 @@ html[data-bx-mode="dark"],
     display: block;
 }
 
-#request-review-list input[type="submit"] {
-    display: none;
-}
-
-
-/****************** MODAL CSS ***********************/
-
-
-/* The Modal (background) */
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    right: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: var(--bgr-modal-overlay, rgba(0, 0, 0, 0.4));
-    z-index: 9999;
-}
-
-
-/* Modal Content */
-
-.modal-content {
-    position: relative;
-    background-color: var(--bgr-bg-white, #fefefe);
-    margin: auto;
-    padding: 0;
-    border: 1px solid var(--bgr-text-muted, #888);
-    width: 26%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    -webkit-animation-name: animatetop;
-    animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-duration: 0.4s;
-}
-
-@media (max-width: 1024px) {
-    #bgr-add-review-modal .modal-content {
-        min-width: 300px;
-    }
-}
-
-
-/* Add Animation */
-
-@-webkit-keyframes animatetop {
-    from {
-        top: -300px;
-        opacity: 0;
-    }
-
-    to {
-        top: 0;
-        opacity: 1;
-    }
-}
-
-@keyframes animatetop {
-    from {
-        top: -300px;
-        opacity: 0;
-    }
-
-    to {
-        top: 0;
-        opacity: 1;
-    }
-}
-
-
-/* The Close Button */
-
-.close {
-    color: var(--bgr-text-light, white);
-    float: left;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    left: 10px;
-}
-
-.close:hover,
-.close:focus {
-    color: var(--bgr-text-dark, #000);
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal-header {
-    padding: 19px 24px 6px 0;
-    background-color: var(--bgr-text-muted, #c5c5c5);
-    color: var(--bgr-text-light, white);
-    position: relative;
-}
-
-.modal-body {
-    padding: 2px 16px;
-}
 
 .bgr-group-review-add-block {
     overflow: hidden;
 }
 
-.widget-area .widget.buddypress div.item-options#bp-group-rating-list-options a,
-.youzify-sidebar .buddypress div.item-options#bp-group-rating-list-options a {
+/* Group Reviews widgets: the theme's widget card is the only card, so these
+   rules add no box, border or shadow; colours come from theme tokens only. */
+.widget_bp_group_review_tab ul.bgr-widget-list {
+    list-style: none;
     margin: 0;
-}
-
-.bp-nouveau .widget-area .widget.buddypress #bp-group-rating div.item,
-.youzify-sidebar .buddypress #bp-group-rating div.item {
     padding: 0;
 }
 
-ul.bupr-group-main li.bupr-group .bupr-img-widget {
-    float: right;
+.widget_bp_group_review_tab .bgr-widget-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
-.widget ul#bp-group-rating .item-avatar,
-ul.bupr-group-main li.bupr-group img.avatar,
-.youzify-sidebar ul#bp-group-rating .item-avatar,
-.youzify-sidebar ul.bupr-group-main li.bupr-group img.avatar {
+.widget_bp_group_review_tab .bgr-widget-row + .bgr-widget-row {
+    margin-block-start: 12px;
+}
+
+.widget_bp_group_review_tab .bgr-widget-avatar {
+    flex: 0 0 50px;
+    line-height: 0;
+}
+
+/* List-scoped so it outranks theme and BP Nouveau avatar radius rules such as
+   .bp-nouveau .buddypress-wrap .avatar on the group sidebar, without !important. */
+.widget_bp_group_review_tab .bgr-widget-list .bgr-widget-row .bgr-widget-avatar img {
     width: 50px;
     height: 50px;
-    float: right;
-}
-
-.widget ul#bp-group-rating .item,
-.youzify-sidebar ul#bp-group-rating .item {
-    margin-right: 70px;
-}
-
-.widget.widget_bp_group_review_tab .bupr-img-widget+.bupr-content-widget,
-.youzify-sidebar .widget_bp_group_review_tab .bupr-img-widget+.bupr-content-widget {
-    margin-right: 70px;
-}
-
-.widget_bp_group_review_tab ul.bupr-group-main li.bupr-group,
-.widget ul#bp-group-rating li,
-.youzify-sidebar .widget_bp_group_review_tab ul.bupr-group-main li.bupr-group,
-.youzify-sidebar ul#bp-group-rating li {
-    height: auto;
-    width: 100%;
-    position: relative;
-    display: block;
+    max-width: none;
+    border-radius: 8px;
     margin: 0;
-    padding: 0.5em 0;
+    object-fit: cover;
 }
 
-.widget_bp_group_review_tab ul.bupr-member-main li:first-child,
-.widget ul#bp-member-rating li:first-child,
-.youzify-sidebar .widget_bp_group_review_tab ul.bupr-member-main li:first-child,
-.youzify-sidebar ul#bp-member-rating li:first-child {
-    padding-top: 0;
+.widget_bp_group_review_tab .bgr-widget-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
 }
 
-ul.bupr-group-main {
+.widget_bp_group_review_tab .bgr-widget-name,
+.widget_bp_group_review_tab .bgr-widget-name a {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.widget_bp_group_review_tab .bgr-widget-stars {
+    display: inline-flex;
+    gap: 2px;
+}
+
+.widget_bp_group_review_tab .bgr-widget-meta,
+.widget_bp_group_review_tab .bgr-widget-empty {
     margin: 0;
+    font-size: 15px;
+    color: var(--bx-color-fg-muted, var(--reign-site-alternate-text-color, var(--color-meta, inherit)));
+}
+
+.widget_bp_group_review_tab .bgr-widget-empty {
     list-style: none;
-    padding: 0px;
 }
 
-ul.bupr-group-main li.bupr-group .bupr-meta {
-    display: block;
-    font-size: 90%;
-    line-height: normal;
-    margin-top: 5px;
+.widget_bp_group_review_tab .bgr-widget-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-block-end: 15px;
 }
 
-.group-add-form,
+/* Scoped under the filter group so the controls outrank BP Nouveau's
+   .buddypress .buddypress-wrap button (0,2,1) and its :hover/:focus (0,3,1),
+   which otherwise repaint every button white and hide the selected state. */
+.widget_bp_group_review_tab .bgr-widget-filters .bgr-widget-filter {
+    flex: 1 1 auto;
+    min-height: 40px;
+    margin: 0;
+    padding-block: 0;
+    padding-inline: 12px;
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    background: transparent;
+    color: inherit;
+    border: 1px solid var(--bx-color-border, var(--reign-site-border-color, var(--global-border-color, currentColor)));
+    border-radius: 8px;
+}
+
+.widget_bp_group_review_tab .bgr-widget-filters .bgr-widget-filter:hover,
+.widget_bp_group_review_tab .bgr-widget-filters .bgr-widget-filter:focus {
+    background: transparent;
+    border-color: var(--bgr-primary-color);
+    color: inherit;
+}
+
+.widget_bp_group_review_tab .bgr-widget-filters .bgr-widget-filter.selected,
+.widget_bp_group_review_tab .bgr-widget-filters .bgr-widget-filter[aria-pressed="true"] {
+    background: var(--bgr-primary-color);
+    border-color: var(--bgr-primary-color);
+    color: var(--bgr-on-primary);
+    font-weight: 600;
+}
+
+.widget_bp_group_review_tab .bgr-widget-filters .bgr-widget-filter:focus-visible {
+    outline: 2px solid var(--bgr-primary-color);
+    outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+    .widget_bp_group_review_tab .bgr-widget-filters .bgr-widget-filter {
+        min-height: 44px;
+    }
+}
+
+.bgr-add-form,
 .bgr-group-reviews-block {
     background: var(--bgr-bg-white, #fff);
     margin-top: 15px;
     padding: 15px;
 }
 
-.group-add-form p {
+.bgr-add-form p {
     text-align: right;
     margin: 10px 0;
 }
@@ -257,11 +205,15 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     outline: none;
 }
 
-.review-ratings {
+.bgr-row .review-ratings {
     margin-top: 10px;
 }
 
-.multi-review {
+/* Criterion row. Targeted through the plugin's own .bgr-criteria-row class so
+   these rules never restyle a .multi-review element output by another plugin
+   or theme. Two classes (0,2,0) also beat a theme's bare
+   `.multi-review` rule that loads later, where #buddypress is absent. */
+.multi-review.bgr-criteria-row {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -277,11 +229,11 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
    specificity that loads after this plugin and paints a grey/dark row behind
    every criterion. Scope through #buddypress (1,1,0) to reclaim a transparent
    background without deleting the structural flex wrapper the star JS relies on. */
-#buddypress .multi-review {
+#buddypress .bgr-criteria-row {
     background: transparent;
 }
 
-.multi-review>div {
+.bgr-criteria-row>div {
     padding: 0;
 }
 
@@ -321,7 +273,7 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     gap: 10px;
 }
 
-.group-request-list .review-description {
+.bgr-row .review-description {
     margin: 10px 0;
 }
 
@@ -341,7 +293,7 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
     margin-right: 60px;
 }
 
-.remove-review.generic-button {
+.bgr-row .remove-review.generic-button {
     margin-right: 60px;
     margin-top: 5px;
     width: 100%;
@@ -359,7 +311,7 @@ ul.bupr-group-main li.bupr-group .bupr-meta {
 }
 
 @media screen and (max-width: 767px) {
-    .multi-review {
+    .bgr-criteria-row {
         flex-flow: row wrap;
     }
 
@@ -390,30 +342,31 @@ body[class*="youzify"] #youzify-group-body .group-reviews {
     margin: 0;
 }
 
-body[class*="youzify"] #youzify-group-body #request-review-list .item-list.group-request-list {
+body[class*="youzify"] #youzify-group-body #request-review-list .bgr-row.group-request-list {
     margin: 20px 0;
     padding-bottom: 10px;
 }
 
-body[class*="youzify"] #youzify-group-body #request-review-list .item-list.group-request-list:last-child {
+body[class*="youzify"] #youzify-group-body #request-review-list .bgr-row.group-request-list:last-child {
     border: none;
     padding-bottom: 0;
 }
 
-body[class*="youzify"] #youzify-group-body .group-request-list .item-title {
+body[class*="youzify"] #youzify-group-body .bgr-row .item-title {
     margin-bottom: 10px;
     display: block;
     font-weight: bold;
 }
 
-body[class*="youzify"] #youzify-group-header .rating-text {
+body[class*="youzify"] #youzify-group-header .bgr-group-header-ratings .rating-text {
     margin-top: 10px;
-    color: var(--bgr-bg-white, #fff);
+    /* Light text on Youzify's cover in every colour mode; --bgr-bg-white turns dark in dark mode. */
+    color: var(--bgr-header-rating-color, #fff);
 }
 
 body[class*="youzify"] button.btn.btn-default.bgr-submit-review,
 body[class*="youzify"] .bgr-col-2.bgr-generic-button .bgr-col-12.generic-button a,
-body[class*="youzify"] .generic-button a.button {
+body[class*="youzify"] .bgr-row .generic-button a.button {
     min-width: 100%;
     /* 40px minimum tap target (WCAG 2.5.5 / Wbcom responsive contract):
        padding 11px + line-height 18px ≈ 40px tall. */
@@ -433,13 +386,13 @@ body[class*="youzify"] .generic-button a.button {
     cursor: pointer;
 }
 
-body[class*="youzify"] .group-request-list .avatar,
+body[class*="youzify"] .bgr-row .avatar,
 body[class*="youzify"] .bgr-group-profiles img.avatar {
     border-radius: 100px;
 }
 
 body[class*="youzify"] button.btn.btn-default.bgr-submit-review,
-body[class*="youzify"] .generic-button a.button {
+body[class*="youzify"] .bgr-row .generic-button a.button {
     padding: 12px 20px;
     min-width: auto;
     border: none;
@@ -458,7 +411,7 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
     align-items: center;
 }
 
-.youzify .review-description {
+.youzify .bgr-row .review-description {
     line-height: 1.5;
 }
 
@@ -490,13 +443,8 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
 }
 
 /* Widgets with Youzify */
-.youzify-sidebar ul.bupr-group-main,
-.youzify-sidebar #bp-group-rating {
+.youzify-sidebar .widget_bp_group_review_tab ul.bgr-widget-list {
     padding: 25px 40px;
-}
-
-.youzify-sidebar .bupr-content-widget,
-.youzify-sidebar #bp-group-rating {
     line-height: 1.5;
 }
 
@@ -527,9 +475,9 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
 }
 
 /* Review Pagination - single canonical style shared by the Reviews tab and
-   the admin Manage screen. Token-driven so it adapts to light/dark themes;
+   the group Manage screen. Token-driven so it adapts to light/dark themes;
    40px targets meet the tap-target minimum. */
-.review-pagination {
+.bgr-review-pagination {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -538,7 +486,7 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
     margin-top: 24px;
 }
 
-.review-pagination .page-numbers {
+.bgr-review-pagination .page-numbers {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -559,151 +507,30 @@ body[class*="youzify"] .youzify-main-column .item-list-tabs #add-review-groups-l
     transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-.review-pagination a.page-numbers:hover {
+.bgr-review-pagination a.page-numbers:hover {
     color: var(--bgr-primary-color, #0073aa);
     border-color: var(--bgr-primary-color, #0073aa);
     background-color: var(--bgr-bg-light, #f5f5f5);
 }
 
-.review-pagination span.page-numbers.current,
-.review-pagination .page-numbers.current {
+.bgr-review-pagination span.page-numbers.current,
+.bgr-review-pagination .page-numbers.current {
     color: var(--bgr-on-primary, #fff);
     background-color: var(--bgr-primary-color, #0073aa);
     border-color: var(--bgr-primary-color, #0073aa);
     font-weight: 600;
 }
 
-.review-pagination .page-numbers.dots {
+.bgr-review-pagination .page-numbers.dots {
     min-width: auto;
     padding: 0 4px;
     border-color: transparent;
     background-color: transparent;
 }
 
-.review-pagination a.page-numbers:focus-visible {
+.bgr-review-pagination a.page-numbers:focus-visible {
     outline: 2px solid var(--bgr-focus-color, #3b82f6);
     outline-offset: 2px;
 }
 
-/* ───────────────────────────────────────────────────────────
-   Front-end toast + confirm helpers (replace native alert/confirm
-   on the group criteria management screen). Added in 3.9.0.
-   ─────────────────────────────────────────────────────────── */
-
-.bgr-toast-container {
-    position: fixed;
-    left: 24px;
-    bottom: 24px;
-    z-index: 100000;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    pointer-events: none;
-}
-
-.bgr-toast {
-    background: var(--bgr-text-slate, #1e293b);
-    color: var(--bgr-bg-white, #fff);
-    padding: 12px 16px;
-    border-radius: 6px;
-    font-size: 14px;
-    line-height: 1.4;
-    max-width: 360px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
-    pointer-events: auto;
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.2s, transform 0.2s;
-}
-
-.bgr-toast--visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.bgr-toast--success {
-    background: var(--bgr-success, #16a34a);
-}
-
-.bgr-toast--warning {
-    background: var(--bgr-warning-text, #b45309);
-}
-
-.bgr-toast--error {
-    background: var(--bgr-danger, #dc2626);
-}
-
-.bgr-confirm-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.5);
-    z-index: 100001;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    opacity: 0;
-    transition: opacity 0.2s;
-}
-
-.bgr-confirm-overlay--visible {
-    opacity: 1;
-}
-
-.bgr-confirm-box {
-    background: var(--bgr-bg-white, #fff);
-    border: 1px solid var(--bgr-border-color, transparent);
-    border-radius: 8px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    max-width: 420px;
-    width: 100%;
-    padding: 24px;
-}
-
-.bgr-confirm-box__title {
-    font-size: 16px;
-    font-weight: 700;
-    margin: 0 0 8px;
-    color: var(--bgr-text-dark, #1e293b);
-}
-
-.bgr-confirm-box__message {
-    font-size: 14px;
-    color: var(--bgr-text-muted, #475569);
-    margin: 0 0 18px;
-    line-height: 1.5;
-}
-
-.bgr-confirm-box__actions {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
-}
-
-.bgr-confirm-box__btn {
-    min-height: 40px;
-    padding: 8px 16px;
-    border-radius: 6px;
-    border: 1px solid transparent;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-.bgr-confirm-box__btn--cancel {
-    background: var(--bgr-bg-white, #fff);
-    color: var(--bgr-text-dark, #1e293b);
-    border-color: var(--bgr-border-color, #cbd5e1);
-}
-
-.bgr-confirm-box__btn--confirm {
-    background: var(--bgr-accent, #2563eb);
-    color: var(--bgr-on-accent, #fff);
-    border-color: var(--bgr-accent, #2563eb);
-}
-
-.bgr-confirm-box__btn--dangerous {
-    background: var(--bgr-danger, #dc2626);
-    border-color: var(--bgr-danger, #dc2626);
-}
 /*# sourceMappingURL=bgr-reviews.rtl.css.map */

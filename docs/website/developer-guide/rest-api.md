@@ -12,11 +12,11 @@ The BuddyPress Group Reviews plugin extends the native **BuddyPress REST API** (
 
 ## Why BuddyPress REST API?
 
-✅ **Discoverable** - Automatic discovery through BuddyPress API
-✅ **Consistent** - Follows BuddyPress conventions and patterns
-✅ **Integrated** - Review data appears in group responses
-✅ **Standard** - Uses established BP authentication methods
-✅ **Future-proof** - Maintained alongside BuddyPress core
+Yes: **Discoverable** - Automatic discovery through BuddyPress API
+Yes: **Consistent** - Follows BuddyPress conventions and patterns
+Yes: **Integrated** - Review data appears in group responses
+Yes: **Standard** - Uses established BP authentication methods
+Yes: **Future-proof** - Maintained alongside BuddyPress core
 
 ---
 
@@ -67,7 +67,7 @@ GET /wp-json/buddypress/v1/groups/123
 
 **Endpoint:** `GET /wp-json/buddypress/v1/groups/{group_id}/reviews`
 
-**Authentication:** None (public reviews)
+**Authentication:** None for public groups. Reviews of private and hidden groups need group membership or `bp_moderate` (since 3.9.1).
 
 **Parameters:**
 | Parameter | Type | Default | Description |
@@ -391,7 +391,7 @@ usort( $high_rated_groups, function( $a, $b ) {
 
 foreach ( $high_rated_groups as $group ) {
     echo sprintf(
-        '%s - ⭐ %.1f (%d reviews)<br>',
+        '%s - %.1f (%d reviews)<br>',
         $group['name'],
         $group['reviews']['average_rating'],
         $group['reviews']['total_reviews']
@@ -453,14 +453,14 @@ Returns schema and available methods.
 ## Permissions & Capabilities
 
 ### Who Can Review?
-- ✅ Logged-in members
-- ❌ Group admins (cannot review own group)
-- ❌ Users who already reviewed (if multiple reviews disabled)
-- ❌ Members of excluded groups
+- Yes: Logged-in members
+- No: Group admins (cannot review own group)
+- No: Users who already reviewed (if multiple reviews disabled)
+- No: Members of excluded groups
 
 ### Review Permissions:
 - **Create**: `is_user_logged_in()`
-- **Read**: Public (anyone)
+- **Read**: Anyone for public groups; members or `bp_moderate` for private and hidden groups
 - **Update**: `edit_review` capability (author or admin)
 - **Delete**: `delete_review` capability (author or admin)
 
@@ -614,9 +614,9 @@ curl http://yoursite.local/wp-json/buddypress/v1/groups | jq '.[0].reviews'
 
 ## Version Compatibility
 
-- **BuddyPress**: 5.0.0+
-- **WordPress**: 5.0+
-- **PHP**: 7.4+
+- **BuddyPress** or BuddyBoss Platform with the Groups component active
+- **WordPress**: 6.5+
+- **PHP**: 8.0+
 
 ---
 

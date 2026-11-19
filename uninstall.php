@@ -105,7 +105,4 @@ function bgr_delete_plugin_data() {
 			$role->remove_cap( $cap );
 		}
 	}
-
-	// Clear any cached data.
-	wp_cache_flush();
 }

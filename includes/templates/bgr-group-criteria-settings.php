@@ -14,7 +14,8 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-$group_id          = bp_get_current_group_id();
+// wp-admin Edit Group passes the id; there is no current group in wp-admin.
+$group_id          = ! empty( $group_id ) ? absint( $group_id ) : bp_get_current_group_id();
 $criteria          = bgr_group_criteria();
 $settings          = $criteria->get_group_settings( $group_id );
 $bgr_criteria_mode = $settings['mode'];

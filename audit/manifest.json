@@ -3,8 +3,8 @@
   "plugin": {
     "slug": "buddypress-groups-review",
     "name": "Wbcom Designs - BuddyPress Group Reviews",
-    "version": "3.9.1",
-    "version_note": "Release 3.9.1: plugin header (review-bp-grps.php:18), BGR_PLUGIN_VERSION (review-bp-grps.php:59), readme Stable tag and package.json all read 3.9.1. Support floors: Requires at least 6.5, Requires PHP 8.0 (since 3.9.0).",
+    "version": "3.9.2",
+    "version_note": "Release 3.9.2: plugin header (review-bp-grps.php:18), BGR_PLUGIN_VERSION (review-bp-grps.php:59), readme Stable tag and package.json all read 3.9.2. Support floors: Requires at least 6.5, Requires PHP 8.0 (since 3.9.0).",
     "namespace": "global functions (bp_group_review_*, bgr_*) + classes BGR_*",
     "main_file": "review-bp-grps.php",
     "text_domain": "bp-group-reviews",
@@ -646,28 +646,28 @@
       "name": "bgr_listing_cat",
       "type": "filter",
       "args_count": 1,
-      "where": "includes/widgets/bgr-review.php:147",
+      "where": "includes/widgets/bgr-review.php:154",
       "consumed_by": []
     },
     {
       "name": "bgr_post_num",
       "type": "filter",
       "args_count": 1,
-      "where": "includes/widgets/bgr-review.php:148",
+      "where": "includes/widgets/bgr-review.php:155",
       "consumed_by": []
     },
     {
       "name": "bgr_thumbnail",
       "type": "filter",
       "args_count": 1,
-      "where": "includes/widgets/bgr-review.php:149",
+      "where": "includes/widgets/bgr-review.php:156",
       "consumed_by": []
     },
     {
       "name": "bgr_widget_title",
       "type": "filter",
       "args_count": 1,
-      "where": "includes/widgets/bgr-review.php:146",
+      "where": "includes/widgets/bgr-review.php:152",
       "consumed_by": []
     },
     {
@@ -729,8 +729,8 @@
     {
       "name": "widget_title",
       "type": "filter",
-      "args_count": 1,
-      "where": "includes/widgets/group-rating.php:117",
+      "args_count": 3,
+      "where": "includes/widgets/group-rating.php:125, includes/widgets/bgr-review.php:153",
       "consumed_by": [],
       "note": "WP core filter name applied by this plugin's widget."
     },
@@ -738,7 +738,7 @@
       "name": "post_num",
       "type": "filter",
       "args_count": 1,
-      "where": "includes/widgets/group-rating.php:118",
+      "where": "includes/widgets/group-rating.php:126",
       "consumed_by": [],
       "note": "Non-namespaced filter name (should be bgr-prefixed)."
     },
@@ -746,7 +746,7 @@
       "name": "rating_default",
       "type": "filter",
       "args_count": 1,
-      "where": "includes/widgets/group-rating.php:119",
+      "where": "includes/widgets/group-rating.php:127",
       "consumed_by": [],
       "note": "Non-namespaced filter name (should be bgr-prefixed)."
     },
@@ -772,13 +772,17 @@
       "class": "Bgr_Review_Widget",
       "id_base": "bgr_group_review_widget",
       "name": "BP Group Review Widget",
-      "source": "includes/widgets/bgr-review.php:26 (registered @:281, widgets_init @:284)"
+      "source": "includes/widgets/bgr-review.php:26 (registered @:290, widgets_init @:293)",
+      "settings": "title (legacy widget_title read as fallback), listing_cat, post_num (1-20), thumbnail",
+      "note": "Bgr_Review_Widget::get_title() is the shared title reader for both widgets; Bgr_Review_Widget::empty_text() is the one empty-state sentence for both widgets and the rating sort AJAX."
     },
     {
       "class": "Bgr_Single_Group_Rating_Widget",
       "id_base": "bgr_group_rating_widget",
       "name": "BP Displayed Group Rating Widget",
-      "source": "includes/widgets/group-rating.php:26 (registered @:268)"
+      "source": "includes/widgets/group-rating.php:26 (registered @:230)",
+      "settings": "title (legacy widget_title read as fallback), post_num (1-20), rating_default",
+      "note": "Contextual: renders only on a single group page (place it in the group sidebar area). Rows come from the static render_rows(), shared with the bp_group_review_filter_ratings AJAX sort."
     }
   ],
   "group_nav": [
@@ -911,7 +915,8 @@
       "button": "restrict_manage_posts (includes/bgr-filters.php:45, renderer @:521)",
       "handler": "admin_init (includes/bgr-filters.php:46, bp_group_review_handle_csv_export @:549)",
       "capability": "manage_options (includes/bgr-filters.php:554)",
-      "output": "group-reviews-{Y-m-d-His}.csv streamed via php://output"
+      "output": "group-reviews-{Y-m-d-His}.csv streamed via php://output",
+      "formula_guard": "BGR_Custom_Hooks::csv_safe() (includes/bgr-filters.php:679) prefixes a quote to text cells starting with = + - @ tab or CR; numeric columns are written raw (since 3.9.2)"
     },
     "pending_badge": "admin/bgr-admin.php:139+ appends a pending-review count badge to the Reviews menu item."
   },
@@ -936,6 +941,7 @@
       "assets/css/admin.css (modern card panel, enqueued by includes/admin/class-bgr-admin-panel.php:201)",
       "admin/assets/css/bgr-admin.css (bgr-css-admin; 3.9.0 tokenized onto shared --bgr-admin-* vocabulary)"
     ],
+    "scope_rule": "3.9.2: every selector in bgr-reviews.css and bgr-front.css carries a plugin-owned token (bgr-*, #add-review*, manage-review, widget_bp_group_review_tab), because both sheets load site-wide when a widget is active. Generic classes are reached through .bgr-row, .bgr-add-form and .bgr-review-pagination; theme header layout rules use :has(#add-review-groupbutton). The dead modal CSS (markup removed in 351095a) was deleted.",
     "min_rtl": "assets/css/min + assets/css/rtl + assets/js/min built by grunt; includes/bgr-scripts.php swaps $style_path/$style_extension per environment.",
     "dynamic_css": "includes/bgr-dynamic-css.php:75 (bp_group_review_dynamic_rating_method on wp_enqueue_scripts prio 20).",
     "css_note_3_9_0": "Dark mode across bgr-front/bgr-reviews/bgr-ratings/bgr-group-criteria-admin uses explicit selectors only ([data-bx-mode=dark], .buddyx-dark-theme, html.dark-mode, body.dark-scheme, body.dark) with a BuddyX --bx-color-* -> Reign --reign-* -> dark-literal fallback chain. No prefers-color-scheme (owner rule). Theme detection centralized in includes/class-bgr-theme-integration.php (BGR_Theme_Integration).",
@@ -1033,6 +1039,18 @@
     "php_file_count": 43
   },
   "functions": [
+    {
+      "name": "bgr_review_count_label",
+      "source": "includes/bgr-globals.php:232",
+      "since": "3.9.2",
+      "purpose": "Review count with the owner-set singular or plural label via _n() (\"1 Review\", \"3 Reviews\"). Used by the group header rating line, the Group Review widget and the top groups shortcode; build every count label through it."
+    },
+    {
+      "name": "bgr_sanitize_reviews_per_page",
+      "source": "includes/bgr-functions.php",
+      "since": "3.9.2",
+      "purpose": "Clamps the Reviews Per Page setting to 1-100 (blank or invalid = 5). Used on save (bgr-ajax.php) and when $bgr is built (bgr-globals.php), so the Reviews tab, the Manage tab and every reader share one value."
+    },
     {
       "name": "bgr_get_group_review_stats",
       "source": "includes/bgr-functions.php:36",

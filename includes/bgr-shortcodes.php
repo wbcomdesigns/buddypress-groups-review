@@ -165,7 +165,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			?>
 			<form id="bgr-add-review-form" method="POST">
 				<input type="hidden" id="reviews_pluginurl"  name="reviews_pluginurl" value="<?php echo esc_attr( BGR_PLUGIN_URL ); ?>">
-				<div class="group-add-form">
+				<div class="group-add-form bgr-add-form">
 					<h4>
 						<?php
 						/* translators: %1$s is used for review label */
@@ -246,7 +246,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				foreach ( $review_rating_fields as $review_rating_field ) :
 					if ( in_array( $review_rating_field, $active_rating_fields, true ) ) {
 						?>
-							<div class="multi-review">
+							<div class="multi-review bgr-criteria-row">
 								<div class="bgr-col-4 "><?php echo esc_html( bp_group_review_get_criteria_label( $review_rating_field ) ); ?> <span class="required"> * </span>  </div>
 								<div id="review<?php echo esc_html( $field_counter ); ?>" class="bgr-col-4">
 										<input type="hidden" id="<?php echo 'clicked' . esc_html( $field_counter ); ?>" value="not_clicked">
@@ -266,7 +266,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 			} else {
 				$field_counter = 1;
 				?>
-				<div class="multi-review">
+				<div class="multi-review bgr-criteria-row">
 					<div class="bgr-col-4"><?php esc_html_e( 'Your Rating', 'bp-group-reviews' ); ?><span class="required"> * </span> </div>
 					<div id="review" class="bgr-col-4">
 						<input type="hidden" id="<?php echo 'clicked'; ?>" value="not_clicked">
@@ -465,7 +465,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 		$output .= '<div class="bgr-leaderboard-list">';
 
 		foreach ( $groups as $group ) {
-			$group_url    = bp_get_group_permalink( $group );
+			$group_url    = bgr_get_group_url( $group );
 			$group_avatar = bp_core_fetch_avatar(
 				array(
 					'item_id'    => $group->id,
@@ -514,8 +514,7 @@ if ( ! class_exists( 'BGR_Shortcodes' ) ) {
 				$output .= '</div>';
 
 				$output .= '<div class="bgr-members">';
-				$output .= '<span class="bgr-member-count">' . esc_html( $group->review_count ) . '</span> ';
-				$output .= '<span class="bgr-member-label">' . esc_html__( 'reviews', 'bp-group-reviews' ) . '</span>';
+				$output .= '<span class="bgr-member-label">' . esc_html( bgr_review_count_label( (int) $group->review_count ) ) . '</span>';
 				$output .= '</div>';
 				$output .= '</div>'; // End bgr-item-stats
 			}

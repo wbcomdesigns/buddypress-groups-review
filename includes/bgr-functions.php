@@ -153,35 +153,48 @@ function bgr_get_group_review_stats( $group_id ) {
 }
 
 /**
+ * Whether a group is excluded from reviews (General tab > Exclude Groups).
+ *
+ * The one place that reads the exclusion list. The tab, the form, the AJAX
+ * submit, the REST routes and the JSON-LD markup all ask this.
+ *
+ * @since 3.9.2
+ *
+ * @param int $group_id Group ID.
+ * @return bool
+ */
+function bgr_is_group_excluded( $group_id ) {
+	$settings = get_option( 'bgr_admin_general_settings', array() );
+	$excluded = isset( $settings['exclude_groups'] ) ? array_map( 'absint', (array) $settings['exclude_groups'] ) : array();
+	return in_array( absint( $group_id ), $excluded, true );
+}
+
+/**
+ * Clamp the "Reviews Per Page" setting to a safe page size.
+ *
+ * @param mixed $value Raw setting value.
+ * @return int 1-100, default 5 when blank or invalid.
+ */
+function bgr_sanitize_reviews_per_page( $value ) {
+	$value = absint( $value );
+	return $value < 1 ? 5 : min( $value, 100 );
+}
+
+/**
  * This code removes extra tab ('Add Review') from group navigation
  * due to BP_Group_Extension.
  *
  * @return void
  */
 function bp_group_review_remove_add_review_tab() {
-	$bgr_admin_general_settings = get_option( 'bgr_admin_general_settings' );
-	$exclude_groups             = isset( $bgr_admin_general_settings['exclude_groups'] ) ? array_map( 'absint', (array) $bgr_admin_general_settings['exclude_groups'] ) : array();
-	$current_group_id           = absint( bp_get_current_group_id() );
-
-	if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) {
-		?>
-		<style>
-			/* Hide review tabs for excluded groups - CSS fallback for excluded groups */
-			#nav-add-review-groups-li,
-			li.add-review,
-			li#add-review,
-			li.reviews,
-			li#reviews,
-			#subnav li.add-review,
-			#subnav li.reviews,
-			.group-button#add-review-groupbutton {
-				display: none !important;
-			}
-		</style>
-		<?php
+	if ( bgr_is_group_excluded( bp_get_current_group_id() ) ) {
+		// Hide review tabs for excluded groups - CSS fallback for excluded groups.
+		wp_register_style( 'bgr-excluded-group', false, array(), BGR_PLUGIN_VERSION );
+		wp_enqueue_style( 'bgr-excluded-group' );
+		wp_add_inline_style( 'bgr-excluded-group', '#nav-add-review-groups-li,li.add-review,li#add-review,li.reviews,li#reviews,#subnav li.add-review,#subnav li.reviews,.group-button#add-review-groupbutton{display:none !important;}' );
 	}
 }
-add_action( 'wp_head', 'bp_group_review_remove_add_review_tab' );
+add_action( 'wp_enqueue_scripts', 'bp_group_review_remove_add_review_tab' );
 /**
  * Whether the current user may see a group's reviews, including its ratings.
  *
@@ -207,6 +220,91 @@ function bgr_can_view_group_reviews( $group ) {
 		|| bp_current_user_can( 'bp_moderate' )
 		|| groups_is_user_member( get_current_user_id(), $group->id );
 }
+
+/**
+ * A group's permalink, trailing slash included, on BuddyPress 12+ and BuddyBoss.
+ *
+ * @since 3.9.2
+ *
+ * @param BP_Groups_Group|null $group Group; null for the current group.
+ * @return string
+ */
+function bgr_get_group_url( $group = null ) {
+	$group = $group ? $group : groups_get_current_group();
+	return trailingslashit( function_exists( 'bp_get_group_url' ) ? bp_get_group_url( $group ) : bp_get_group_permalink( $group ) );
+}
+
+/**
+ * URL of one review's view inside its group (.../reviews/view/{id}/).
+ *
+ * @since 3.9.2
+ *
+ * @param BP_Groups_Group|null $group     Group the review belongs to.
+ * @param int                  $review_id Review post ID.
+ * @return string
+ */
+function bgr_get_review_url( $group, $review_id ) {
+	return bgr_get_group_url( $group ) . bp_group_review_manage_tab_slug() . '/view/' . absint( $review_id ) . '/';
+}
+
+/**
+ * Whether the current viewer may read one review on a group's single-review view.
+ *
+ * The review must belong to the group being viewed. A published review follows
+ * the group's review visibility; an unapproved one is shown only to its author,
+ * the group's admins and moderators, and site moderators.
+ *
+ * @since 3.9.2
+ *
+ * @param WP_Post $review   Review post.
+ * @param int     $group_id Group the view is rendered under.
+ * @return bool
+ */
+function bgr_can_view_review( $review, $group_id ) {
+	$group_id = absint( $group_id );
+	if ( ! $group_id || absint( get_post_meta( $review->ID, 'linked_group', true ) ) !== $group_id ) {
+		return false;
+	}
+	if ( 'publish' === $review->post_status ) {
+		return bgr_can_view_group_reviews( $group_id );
+	}
+	if ( ! in_array( $review->post_status, array( 'draft', 'pending' ), true ) ) {
+		return false;
+	}
+	$user_id = get_current_user_id();
+	return $user_id && (
+		absint( $review->post_author ) === $user_id
+		|| bp_current_user_can( 'bp_moderate' )
+		|| groups_is_user_admin( $user_id, $group_id )
+		|| groups_is_user_mod( $user_id, $group_id )
+	);
+}
+
+/**
+ * Send the core single URL of a group review (/review/<slug>/) to the group's
+ * guarded review view, so the post type's own permalink never bypasses
+ * bgr_can_view_review(). Unpublished group reviews 404 here.
+ *
+ * @since 3.9.2
+ */
+function bgr_redirect_review_single() {
+	if ( ! is_singular( 'review' ) ) {
+		return;
+	}
+	$review_id = get_queried_object_id();
+	$group     = groups_get_group( absint( get_post_meta( $review_id, 'linked_group', true ) ) );
+	if ( empty( $group->id ) ) {
+		return;
+	}
+	if ( 'publish' === get_post_status( $review_id ) ) {
+		wp_safe_redirect( bgr_get_review_url( $group, $review_id ), 301 );
+		exit;
+	}
+	global $wp_query;
+	$wp_query->set_404();
+	status_header( 404 );
+}
+add_action( 'template_redirect', 'bgr_redirect_review_single' );
 
 /**
  * Apply the side effects of a moderation decision on a group review.
@@ -282,7 +380,7 @@ function bgr_handle_review_decision( $new_status, $old_status, $post ) {
 	}
 
 	// The reviewer is pointed at the group's reviews, never at wp-admin.
-	$group_url   = function_exists( 'bp_get_group_url' ) ? bp_get_group_url( $group ) : bp_get_group_permalink( $group );
+	$group_url   = bgr_get_group_url( $group );
 	$review_link = $group_url . bp_group_review_manage_tab_slug() . '/';
 	$message     = str_replace(
 		array( '[group-name]', '[user-name]', '[review-link]', '[site-name]' ),
@@ -349,7 +447,7 @@ function bgr_handle_review_submitted( $author_id, $group_id, $review_id ) {
 	$site_name    = get_bloginfo( 'name' );
 
 	if ( 'yes' === $bgr['auto_approve_reviews'] ) {
-		$group_url = function_exists( 'bp_get_group_url' ) ? bp_get_group_url( $group ) : bp_get_group_permalink( $group );
+		$group_url = bgr_get_group_url( $group );
 		$mail_link = esc_url( $group_url . bp_group_review_manage_tab_slug() . '/' );
 	} else {
 		$mail_link = '<a href="' . esc_url( admin_url( 'edit.php?post_type=review' ) ) . '">' . esc_html( admin_url( 'edit.php?post_type=review' ) ) . '</a>';

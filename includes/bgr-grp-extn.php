@@ -51,15 +51,9 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 
 			// Check if current group is excluded from reviews.
 			$current_group_id  = absint( bp_get_current_group_id() );
-			$is_group_excluded = false;
-			$exclude_groups    = array();
-
-			if ( ! empty( $bgr_admin_general_settings ) && isset( $bgr_admin_general_settings['exclude_groups'] ) ) {
-				$exclude_groups = array_map( 'absint', (array) $bgr_admin_general_settings['exclude_groups'] );
-				if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) {
-					$enabled           = false;
-					$is_group_excluded = true;
-				}
+			$is_group_excluded = bgr_is_group_excluded( $current_group_id );
+			if ( $is_group_excluded ) {
+				$enabled = false;
 			}
 
 			// Only proceed with tab creation if group is not excluded.
@@ -113,17 +107,8 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		 * @return void
 		 */
 		public function edit_screen( $group_id = null ) {
-			global $bp, $wpdb, $post, $wp_query;
-			// Admin Settings.
-			$bgr_admin_settings = get_option( 'bgr_admin_general_settings' );
-			if ( ! empty( $bgr_admin_settings ) ) {
-				$reviews_per_page = $bgr_admin_settings['reviews_per_page'];
-				if ( empty( $reviews_per_page ) ) {
-					$reviews_per_page = -1;
-				}
-			} else {
-				$reviews_per_page = -1;
-			}
+			global $bp, $wpdb, $post, $wp_query, $bgr;
+			$reviews_per_page = $bgr['reviews_per_page'];
 
 			// Only used for the plural "Sorry, no %s were found." empty state below,
 			// so this resolves the plural label. The old code read the singular
@@ -217,7 +202,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					$total_pages = $reviews->max_num_pages;
 					if ( $total_pages > 1 ) {
 						?>
-						<div class="review-pagination">
+						<div class="review-pagination bgr-review-pagination">
 							<?php
 							$current_page = max( 1, get_query_var( 'paged', 1 ) ); // Ensures default value is 1.
 							$format       = '?paged=%#%';
@@ -233,7 +218,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 							);
 
 							if ( $pagination ) {
-								echo wp_kses_post( '<div class="review-pagination">' . $pagination . '</div>' );
+								echo wp_kses_post( '<div class="review-pagination bgr-review-pagination">' . $pagination . '</div>' );
 							}
 							?>
 						</div>
@@ -301,16 +286,13 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				return; // Feature not enabled, don't register this extension.
 			}
 
-			// Check if current group is excluded from reviews.
-			$current_group_id  = absint( bp_get_current_group_id() );
-			$is_group_excluded = false;
-
-			if ( ! empty( $bgr_admin_general_settings ) && isset( $bgr_admin_general_settings['exclude_groups'] ) ) {
-				$exclude_groups = array_map( 'absint', (array) $bgr_admin_general_settings['exclude_groups'] );
-				if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) {
-					$enabled           = false;
-					$is_group_excluded = true;
-				}
+			// Check if current group is excluded from reviews. wp-admin Edit Group
+			// has no current group, so read the id BuddyPress itself uses there.
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only, picks the group whose box is shown.
+			$current_group_id  = absint( is_admin() && isset( $_GET['gid'] ) ? wp_unslash( $_GET['gid'] ) : bp_get_current_group_id() );
+			$is_group_excluded = bgr_is_group_excluded( $current_group_id );
+			if ( $is_group_excluded ) {
+				$enabled = false;
 			}
 
 			if ( ! $is_group_excluded ) {

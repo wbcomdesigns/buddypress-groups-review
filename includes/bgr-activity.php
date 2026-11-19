@@ -125,13 +125,7 @@ class BGR_Activity {
 		$group_obj      = groups_get_group( $group_id );
 		$review_data    = get_post( $posts_id );
 		$review_content = $review_data->post_content;
-		// Build group URL safely for both BuddyPress and BuddyBoss.
-		if ( function_exists( 'bp_get_group_url' ) ) {
-			$group_link = bp_get_group_url( $group_obj );
-		} else {
-			// Fallback for older versions - build URL manually.
-			$group_link = bp_get_groups_directory_permalink() . $group_obj->slug . '/';
-		}
+		$group_link = bgr_get_group_url( $group_obj );
 		$group_link_html = '<a href="' . esc_url( $group_link ) . '">' . $group_name . '</a>';
 		$action          = sprintf(
 			apply_filters(
@@ -175,6 +169,12 @@ class BGR_Activity {
 	public function bp_group_review_group_post_activity_after_approval( $new_status, $old_status, $post ) {
 		global $bp;
 		global $bgr;
+		// transition_post_status fires for every post type, and before init for some
+		// (bp-email publishing), when $bgr is not built yet. Bail on anything that is
+		// not a group review before reading $bgr.
+		if ( 'review' !== $post->post_type || ! is_array( $bgr ) ) {
+			return false;
+		}
 		$allow_activity       = $bgr['allow_activity'];
 		$post_status          = get_post_status( $post->ID );
 		$auto_approve_reviews = $bgr['auto_approve_reviews'];
@@ -186,7 +186,7 @@ class BGR_Activity {
 		}
 
 		if ( 'yes' === $allow_activity ) {
-			if ( ( 'publish' === $new_status && 'publish' !== $old_status ) && 'review' === $post->post_type ) {
+			if ( 'publish' === $new_status && 'publish' !== $old_status ) {
 				$group_id = get_post_meta( $post->ID, 'linked_group', true );
 
 				// The 'review' CPT is shared with BuddyPress Member Reviews. Only
@@ -208,13 +208,7 @@ class BGR_Activity {
 				$group_obj      = groups_get_group( $group_id );
 				$review_data    = get_post( $posts_id );
 				$review_content = $review_data->post_content;
-				// Build group URL safely for both BuddyPress and BuddyBoss.
-				if ( function_exists( 'bp_get_group_url' ) ) {
-					$group_link = bp_get_group_url( $group_obj );
-				} else {
-					// Fallback for older versions - build URL manually.
-					$group_link = bp_get_groups_directory_permalink() . $group_obj->slug . '/';
-				}
+				$group_link = bgr_get_group_url( $group_obj );
 				$group_link_html = '<a href="' . esc_url( $group_link ) . '">' . $group_name . '</a>';
 				$action          = sprintf(
 					apply_filters(
@@ -255,6 +249,12 @@ class BGR_Activity {
 	 */
 	public function bp_group_review_added_activity_star_rating( $activity_content, $activity ) {
 		global $bgr;
+		// Only a group review activity: secondary_item_id is a review of the activity's
+		// group (type is activity_status under Youzify, so the type alone is not enough).
+		if ( ! $activity instanceof BP_Activity_Activity || 'groups' !== $activity->component || 'review' !== get_post_type( (int) $activity->secondary_item_id )
+			|| absint( get_post_meta( (int) $activity->secondary_item_id, 'linked_group', true ) ) !== absint( $activity->item_id ) ) {
+			return $activity_content;
+		}
 		$post_id              = $activity->secondary_item_id;
 		$review_rating_fields = $bgr['review_rating_fields'];
 		$review_ratings       = get_post_meta( $post_id, 'review_star_rating', false );
@@ -263,7 +263,7 @@ class BGR_Activity {
 			$review_start .= '<div class="bgr-multi-review">';
 			foreach ( $review_rating_fields as $review_field ) {
 				if ( array_key_exists( $review_field, $review_ratings[0] ) ) {
-					$review_start .= '<div class="multi-review">';
+					$review_start .= '<div class="multi-review bgr-criteria-row">';
 					$review_start .= '<div class="bgr-col-6">' . esc_html( bp_group_review_get_criteria_label( $review_field ) ) . '</div>';
 					$review_start .= '<div class="bgr-col-6">';
 					// Display star ratings.
