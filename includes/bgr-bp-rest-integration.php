@@ -201,11 +201,16 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 								'sanitize_callback' => 'absint',
 							),
 							'page'     => array(
+								'type'              => 'integer',
+								'minimum'           => 1,
 								'default'           => 1,
 								'sanitize_callback' => 'absint',
 							),
 							'per_page' => array(
+								'type'              => 'integer',
 								'default'           => 10,
+								'minimum'           => 1,
+								'maximum'           => 100,
 								'sanitize_callback' => 'absint',
 							),
 						),
@@ -322,8 +327,9 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 		 */
 		public function get_group_reviews( $request ) {
 			$group_id = $request->get_param( 'group_id' );
-			$page     = $request->get_param( 'page' );
-			$per_page = $request->get_param( 'per_page' );
+			// Clamp here: schema min/max are not enforced when a sanitize_callback is set.
+			$page     = max( 1, absint( $request->get_param( 'page' ) ) );
+			$per_page = min( 100, max( 1, absint( $request->get_param( 'per_page' ) ) ) );
 
 			$args = array(
 				'post_type'      => 'review',

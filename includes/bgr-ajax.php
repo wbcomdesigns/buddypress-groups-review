@@ -330,7 +330,7 @@ if ( ! class_exists( 'BGR_AJAX' ) ) {
 			if ( isset( $_POST['action'] ) && 'bp_group_review_save_admin_general_settings' === $_POST['action'] && current_user_can( 'manage_options' ) ) {
 				$multi_reviews         = isset( $_POST['multi_reviews'] ) ? sanitize_text_field( wp_unslash( $_POST['multi_reviews'] ) ) : '';
 				$auto_approve_reviews  = isset( $_POST['bgr_auto_approve_reviews'] ) ? sanitize_text_field( wp_unslash( $_POST['bgr_auto_approve_reviews'] ) ) : '';
-				$reviews_per_page      = isset( $_POST['reviews_per_page'] ) ? sanitize_text_field( wp_unslash( $_POST['reviews_per_page'] ) ) : '';
+				$reviews_per_page      = bgr_sanitize_reviews_per_page( isset( $_POST['reviews_per_page'] ) ? sanitize_text_field( wp_unslash( $_POST['reviews_per_page'] ) ) : '' );
 				$allow_notification    = isset( $_POST['allow_notification'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_notification'] ) ) : '';
 				$allow_activity        = isset( $_POST['allow_activity'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_activity'] ) ) : '';
 				$enable_group_criteria = isset( $_POST['enable_group_criteria'] ) ? sanitize_text_field( wp_unslash( $_POST['enable_group_criteria'] ) ) : 'no';

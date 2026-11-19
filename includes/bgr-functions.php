@@ -153,6 +153,17 @@ function bgr_get_group_review_stats( $group_id ) {
 }
 
 /**
+ * Clamp the "Reviews Per Page" setting to a safe page size.
+ *
+ * @param mixed $value Raw setting value.
+ * @return int 1-100, default 5 when blank or invalid.
+ */
+function bgr_sanitize_reviews_per_page( $value ) {
+	$value = absint( $value );
+	return $value < 1 ? 5 : min( $value, 100 );
+}
+
+/**
  * This code removes extra tab ('Add Review') from group navigation
  * due to BP_Group_Extension.
  *
@@ -164,24 +175,13 @@ function bp_group_review_remove_add_review_tab() {
 	$current_group_id           = absint( bp_get_current_group_id() );
 
 	if ( ! empty( $exclude_groups ) && in_array( $current_group_id, $exclude_groups, true ) ) {
-		?>
-		<style>
-			/* Hide review tabs for excluded groups - CSS fallback for excluded groups */
-			#nav-add-review-groups-li,
-			li.add-review,
-			li#add-review,
-			li.reviews,
-			li#reviews,
-			#subnav li.add-review,
-			#subnav li.reviews,
-			.group-button#add-review-groupbutton {
-				display: none !important;
-			}
-		</style>
-		<?php
+		// Hide review tabs for excluded groups - CSS fallback for excluded groups.
+		wp_register_style( 'bgr-excluded-group', false, array(), BGR_PLUGIN_VERSION );
+		wp_enqueue_style( 'bgr-excluded-group' );
+		wp_add_inline_style( 'bgr-excluded-group', '#nav-add-review-groups-li,li.add-review,li#add-review,li.reviews,li#reviews,#subnav li.add-review,#subnav li.reviews,.group-button#add-review-groupbutton{display:none !important;}' );
 	}
 }
-add_action( 'wp_head', 'bp_group_review_remove_add_review_tab' );
+add_action( 'wp_enqueue_scripts', 'bp_group_review_remove_add_review_tab' );
 /**
  * Whether the current user may see a group's reviews, including its ratings.
  *

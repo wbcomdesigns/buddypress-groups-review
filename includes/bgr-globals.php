@@ -163,6 +163,10 @@ function bp_group_review_globals() {
 	$review_label        = bp_group_review_add_review_tab_name();
 	$manage_review_label = bp_group_review_tab_name();
 
+	// A blank, zero or negative page size (saved by an older build) would hide every review
+	// in the tab and make the Manage list unbounded, so heal it here for every reader.
+	$reviews_per_page = bgr_sanitize_reviews_per_page( $reviews_per_page );
+
 	$bgr = array(
 		'multi_reviews'               => $multi_reviews,
 		'auto_approve_reviews'        => $auto_approve_reviews,

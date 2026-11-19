@@ -113,17 +113,8 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		 * @return void
 		 */
 		public function edit_screen( $group_id = null ) {
-			global $bp, $wpdb, $post, $wp_query;
-			// Admin Settings.
-			$bgr_admin_settings = get_option( 'bgr_admin_general_settings' );
-			if ( ! empty( $bgr_admin_settings ) ) {
-				$reviews_per_page = $bgr_admin_settings['reviews_per_page'];
-				if ( empty( $reviews_per_page ) ) {
-					$reviews_per_page = -1;
-				}
-			} else {
-				$reviews_per_page = -1;
-			}
+			global $bp, $wpdb, $post, $wp_query, $bgr;
+			$reviews_per_page = $bgr['reviews_per_page'];
 
 			// Only used for the plural "Sorry, no %s were found." empty state below,
 			// so this resolves the plural label. The old code read the singular
