@@ -161,9 +161,10 @@ if ( ! class_exists( 'BGR_Schema' ) ) {
 			}
 
 			// Output JSON-LD.
-			echo '<script type="application/ld+json">';
-			echo wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT );
-			echo '</script>' . "\n";
+			wp_print_inline_script_tag(
+				wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ),
+				array( 'type' => 'application/ld+json' )
+			);
 		}
 	}
 

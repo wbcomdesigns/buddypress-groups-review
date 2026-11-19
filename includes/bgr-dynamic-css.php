@@ -110,7 +110,9 @@ function bp_group_review_rating_color_fallback() {
 	if ( ! empty( $custom_css ) ) {
 		// Same rules as the primary inline-style path (shared helper) so the
 		// admin colour setting overrides theme/plugin styles consistently.
-		echo '<style id="bgr-rating-color-fallback">' . wp_kses_post( $custom_css ) . '</style>' . "\n";
+		wp_register_style( 'bgr-rating-color-fallback', false, array(), BGR_PLUGIN_VERSION );
+		wp_enqueue_style( 'bgr-rating-color-fallback' );
+		wp_add_inline_style( 'bgr-rating-color-fallback', $custom_css );
 	}
 }
-add_action( 'wp_head', 'bp_group_review_rating_color_fallback', 999 );
+add_action( 'wp_enqueue_scripts', 'bp_group_review_rating_color_fallback', 30 );
