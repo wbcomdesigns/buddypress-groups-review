@@ -245,7 +245,7 @@ class BGR_Activity {
 		global $bgr;
 		// Only a group review activity: secondary_item_id is a review of the activity's
 		// group (type is activity_status under Youzify, so the type alone is not enough).
-		if ( ! is_object( $activity ) || 'groups' !== $activity->component || 'review' !== get_post_type( (int) $activity->secondary_item_id )
+		if ( ! $activity instanceof BP_Activity_Activity || 'groups' !== $activity->component || 'review' !== get_post_type( (int) $activity->secondary_item_id )
 			|| absint( get_post_meta( (int) $activity->secondary_item_id, 'linked_group', true ) ) !== absint( $activity->item_id ) ) {
 			return $activity_content;
 		}

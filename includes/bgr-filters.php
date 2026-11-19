@@ -339,7 +339,7 @@ if ( ! class_exists( 'BGR_Custom_Hooks' ) ) {
 				<div class="bupr-meta">
 					<?php
 					/* translators: %s: average star rating value, e.g. "4.5". */
-					printf( esc_html__( 'Rating : (%s)', 'bp-group-reviews' ), esc_html( round( $avg_rating, 2 ) ) );
+					printf( esc_html__( 'Rating : (%s)', 'bp-group-reviews' ), esc_html( (string) round( $avg_rating, 2 ) ) );
 					?>
 				</div>
 			</div></div>

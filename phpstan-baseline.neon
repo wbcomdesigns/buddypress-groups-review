@@ -235,42 +235,6 @@ parameters:
 			path: includes/bgr-notifications.php
 
 		-
-			message: '#^Binary operation "\-" between 5 and array results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: includes/bgr-rating-display.php
-
-		-
-			message: '#^Binary operation "\-" between 5 and string results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: includes/bgr-rating-display.php
-
-		-
-			message: '#^Binary operation "\-" between array and 0\|1 results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: includes/bgr-rating-display.php
-
-		-
-			message: '#^Binary operation "\-" between int and string results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: includes/bgr-rating-display.php
-
-		-
-			message: '#^Parameter \#1 \$num of function round expects float\|int, array given\.$#'
-			identifier: argument.type
-			count: 1
-			path: includes/bgr-rating-display.php
-
-		-
-			message: '#^Unreachable statement \- code above always terminates\.$#'
-			identifier: deadCode.unreachable
-			count: 1
-			path: includes/bgr-rating-display.php
-
-		-
 			message: '#^Comparison operation "\>" between int\<1, max\> and 0 is always true\.$#'
 			identifier: greater.alwaysTrue
 			count: 1
