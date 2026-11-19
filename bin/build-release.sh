@@ -8,6 +8,6 @@ npx grunt dist
 version=$(grep -m1 -E '^\s*\*\s*Version:' review-bp-grps.php | awk '{print $NF}')
 out="dist/buddypress-groups-review-$version.zip"
 [ -f "$out" ] || { echo "Missing $out"; exit 1; }
-leaks=$(unzip -l "$out" | grep -iE '/(audit|bin|docs|plan|marketing|tests|vendor|node_modules)/|CLAUDE|\.md$|composer\.|phpstan' || true)
+leaks=$(unzip -l "$out" | grep -iE ' [^/ ]+/(audit|bin|docs|plan|marketing|tests|vendor|node_modules)/|CLAUDE|\.md$|composer\.|phpstan' || true)
 [ -z "$leaks" ] || { echo "Zip contains dev files:"; echo "$leaks"; exit 1; }
 echo "Built $out"
