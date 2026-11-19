@@ -1046,6 +1046,12 @@
       "purpose": "Review count with the owner-set singular or plural label via _n() (\"1 Review\", \"3 Reviews\"). Used by the group header rating line, the Group Review widget and the top groups shortcode; build every count label through it."
     },
     {
+      "name": "bgr_sanitize_reviews_per_page",
+      "source": "includes/bgr-functions.php",
+      "since": "3.9.2",
+      "purpose": "Clamps the Reviews Per Page setting to 1-100 (blank or invalid = 5). Used on save (bgr-ajax.php) and when $bgr is built (bgr-globals.php), so the Reviews tab, the Manage tab and every reader share one value."
+    },
+    {
       "name": "bgr_get_group_review_stats",
       "source": "includes/bgr-functions.php:36",
       "purpose": "Cached per-group aggregate (average, index, criteria totals); transient bgr_review_rating_{group_id}, 1 hour. The stats array carries a `criteria` key since 3.9.1 (cache entries lacking it are rebuilt, :53)."

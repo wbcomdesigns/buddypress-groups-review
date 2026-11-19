@@ -91,5 +91,5 @@ Both plugins print stars. Group Reviews colors only its own `bgr-` classes, so y
 
 ## Related
 
-- [Developer Guide](DEVELOPER-GUIDE.md)
-- [Documentation Index](INDEX.md)
+- [Hooks and Filters](hooks-and-filters.md)
+- [REST API](rest-api.md)

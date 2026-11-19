@@ -12,11 +12,11 @@ The BuddyPress Group Reviews plugin extends the native **BuddyPress REST API** (
 
 ## Why BuddyPress REST API?
 
-✅ **Discoverable** - Automatic discovery through BuddyPress API
-✅ **Consistent** - Follows BuddyPress conventions and patterns
-✅ **Integrated** - Review data appears in group responses
-✅ **Standard** - Uses established BP authentication methods
-✅ **Future-proof** - Maintained alongside BuddyPress core
+Yes: **Discoverable** - Automatic discovery through BuddyPress API
+Yes: **Consistent** - Follows BuddyPress conventions and patterns
+Yes: **Integrated** - Review data appears in group responses
+Yes: **Standard** - Uses established BP authentication methods
+Yes: **Future-proof** - Maintained alongside BuddyPress core
 
 ---
 
@@ -391,7 +391,7 @@ usort( $high_rated_groups, function( $a, $b ) {
 
 foreach ( $high_rated_groups as $group ) {
     echo sprintf(
-        '%s - ⭐ %.1f (%d reviews)<br>',
+        '%s - %.1f (%d reviews)<br>',
         $group['name'],
         $group['reviews']['average_rating'],
         $group['reviews']['total_reviews']
@@ -453,10 +453,10 @@ Returns schema and available methods.
 ## Permissions & Capabilities
 
 ### Who Can Review?
-- ✅ Logged-in members
-- ❌ Group admins (cannot review own group)
-- ❌ Users who already reviewed (if multiple reviews disabled)
-- ❌ Members of excluded groups
+- Yes: Logged-in members
+- No: Group admins (cannot review own group)
+- No: Users who already reviewed (if multiple reviews disabled)
+- No: Members of excluded groups
 
 ### Review Permissions:
 - **Create**: `is_user_logged_in()`

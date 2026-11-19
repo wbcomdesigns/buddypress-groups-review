@@ -259,8 +259,13 @@ Star colour, CSV export and theme layout fixes.
 * Fix      - The Group Review and Group Rating widgets show 50px avatars with 8px corners on group pages, 15px text, review counts that read 1 Review or 3 Reviews, and the same empty message.
 * Fix      - Group Reviews styles no longer restyle pop-ups, close buttons, group header buttons or pagination from the theme or other plugins.
 * Fix      - Removing a group criterion checks existing reviews in pages of 200 instead of loading every review of the group at once.
+* Fix      - A blank, zero or negative Reviews Per Page value no longer hides every review in the group tab or makes the Manage list unbounded; the setting is kept between 1 and 100.
+* Fix      - The REST list of group reviews now caps its page size at 100 and treats page 0 as page 1.
+* Fix      - Excluded-group CSS, the rating colour fallback and the rating markup now use WordPress enqueue and script-tag helpers instead of raw inline tags.
 * Security - The review CSV export now neutralises cells that start with =, +, -, @, tab or return, so a review cannot run as a spreadsheet formula.
 * Dev      - Replaced the deprecated jQuery .bind() call on the admin criteria screen with .on().
+* Dev      - Uninstall no longer flushes the whole object cache, and bin/local-ci.sh and bin/build-release.sh are added.
+* Dev      - Documentation moved into docs/website in the standard format.
 
 = 3.9.1 - October 2026 =
 
