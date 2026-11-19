@@ -629,6 +629,10 @@ if ( ! class_exists( 'BGR_BP_REST_Integration' ) ) {
 				return new WP_Error( 'rest_invalid_group', __( 'Invalid group ID.', 'bp-group-reviews' ), array( 'status' => 404 ) );
 			}
 
+			if ( bgr_is_group_excluded( $group->id ) ) {
+				return new WP_Error( 'rest_group_excluded', __( 'Reviews are disabled for this group.', 'bp-group-reviews' ), array( 'status' => 403 ) );
+			}
+
 			if ( bgr_can_view_group_reviews( $group ) ) {
 				return true;
 			}

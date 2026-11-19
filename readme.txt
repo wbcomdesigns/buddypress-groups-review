@@ -258,6 +258,7 @@ Star colour, CSV export and theme layout fixes.
 * Fix      - The note in the Current Active Criteria box is now readable against its tinted background.
 * Fix      - The Group Review and Group Rating widgets show 50px avatars with 8px corners on group pages, 15px text, review counts that read 1 Review or 3 Reviews, and the same empty message.
 * Fix      - Group Reviews styles no longer restyle pop-ups, close buttons, group header buttons or pagination from the theme or other plugins.
+* Fix      - The REST API no longer lists reviews of a group that has reviews turned off.
 * Fix      - Removing a group criterion checks existing reviews in pages of 200 instead of loading every review of the group at once.
 * Fix      - A blank, zero or negative Reviews Per Page value no longer hides every review in the group tab or makes the Manage list unbounded; the setting is kept between 1 and 100.
 * Fix      - The REST list of group reviews now caps its page size at 100 and treats page 0 as page 1.
