@@ -13,7 +13,13 @@
  */
 
 :root {
+	--bgr-hex-383d41: #383d41;
+	--bgr-hex-46b450: #46b450;
+	--bgr-hex-d6d8db: #d6d8db;
+	--bgr-hex-dc3232: #dc3232;
 	--bgr-border-color: #ddd;
+	--bgr-badge-inactive-bg: #ffeeba;
+	--bgr-badge-inactive-text: #856404;
 	--bgr-accent: var(--bx-color-button-bg, var(--button-background-color, var(--reign-site-button-bg-color, var(--wp--preset--color--primary, var(--wp--preset--color--contrast, #0073aa)))));
 	--bgr-text-muted: #666;
 	--bgr-bg-item: #f9f9f9;
@@ -124,13 +130,13 @@ html[data-bx-mode="dark"],
 }
 
 .bgr-badge-inactive {
-	background: #ffeeba;
-	color: #856404;
+	background: var(--bgr-badge-inactive-bg);
+	color: var(--bgr-badge-inactive-text);
 }
 
 .bgr-badge-archived {
-	background: #d6d8db;
-	color: #383d41;
+	background: var(--bgr-hex-d6d8db);
+	color: var(--bgr-hex-383d41);
 }
 
 .bgr-custom-criteria-item {
@@ -182,11 +188,11 @@ html[data-bx-mode="dark"],
 }
 
 .bgr-save-status.success {
-	color: #46b450;
+	color: var(--bgr-hex-46b450);
 }
 
 .bgr-save-status.error {
-	color: #dc3232;
+	color: var(--bgr-hex-dc3232);
 }
 
 .bgr-preview-section {
