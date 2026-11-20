@@ -10,7 +10,7 @@ The plugin exposes group reviews under the BuddyPress REST namespace `buddypress
 
 | Method | Auth | Purpose |
 |---|---|---|
-| GET | Public | List a group's reviews. Supports `page` (default 1) and `per_page` (default 10). |
+| GET | Public for public groups; members or `bp_moderate` for private and hidden groups (since 3.9.1) | List a group's reviews. Supports `page` (default 1; `0` is treated as `1`) and `per_page` (default 10; values above 100 are capped at 100). |
 | POST | Logged-in user, must be a member of the group | Create a review. |
 
 Create parameters: `subject` (required), `description` (required), `ratings` (optional array of per-criterion scores).
@@ -21,13 +21,14 @@ Create parameters: `subject` (required), `description` (required), `ratings` (op
 
 | Method | Auth | Purpose |
 |---|---|---|
-| GET | Public | Fetch one review. |
+| GET | Public for public groups; members or `bp_moderate` for private and hidden groups (since 3.9.1) | Fetch one review. |
 | PUT / PATCH | Permission check (author or capable user) | Update `subject`, `description`, or `ratings`. |
 | DELETE | Permission check (author or capable user) | Delete the review. |
 
 ## Notes
 
-- The collection GET and single GET are public (`__return_true`); listing returns the group's reviews.
+- The collection GET and single GET are public for public groups. For private and hidden groups they need group membership or `bp_moderate` (since 3.9.1).
+- A group excluded from reviews returns `403` with the code `rest_group_excluded` on both listing and creating (since 3.9.2).
 - Creating a review requires an authenticated user who is a member of the target group; non-members are rejected.
 - `group_id` and `review_id` are validated as numeric and sanitized with `absint`.
 - Both routes expose a schema via the endpoint's `schema` callback.

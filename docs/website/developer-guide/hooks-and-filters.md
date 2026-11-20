@@ -8,7 +8,7 @@ These are the hooks the plugin fires or exposes for extension. Only hooks presen
 |---|---|---|
 | `bgr_group_add_review` | A review is added, before notifying the group admin. | `$group_id`, `$group_admin` |
 | `bgr_group_after_review_submit` | After a review is submitted. | `$post_author_id`, `$group_id`, `$review_id` |
-| `bgr_group_review_after_review_insert` | After the review post is inserted. | none |
+| `bgr_group_review_after_review_insert` | After the review row and meta are saved. Also fires for reviews created through the REST API. | `$review_id`, `$group_id`, `$reviewer_id` |
 | `bgr_group_accept_review` | A review is approved. | `$review_id` |
 | `bgr_group_deny_review` | A review is denied. | `$review_id` |
 | `bgr_display_ratings` | Rendering a single review's ratings. | `$post_id` |
@@ -38,6 +38,7 @@ Widget-related filters (`bgr_widget_title`, `bgr_post_num`, `bgr_thumbnail`, `bg
 
 ## Helper functions
 
+- `bgr_can_view_group_reviews( $group )` - whether the current visitor may see a group's reviews and ratings. Private and hidden groups are limited to members and `bp_moderate`. Use it in integrations so your output follows the same rule (since 3.9.1).
 - `bgr_get_effective_criteria( $group_id )` - the criteria a group actually uses (group-level if enabled, otherwise global).
 - `bgr_is_using_custom_criteria( $group_id )` - whether the group uses its own criteria.
 - `bgr_get_criteria_mode( $group_id )` - the group's criteria mode.
