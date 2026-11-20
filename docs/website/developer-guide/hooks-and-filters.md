@@ -9,7 +9,7 @@
 | `bgr_group_after_review_submit` | After a review is submitted, from the form and the REST API. Arguments: author ID, group ID, review ID. |
 | `bgr_group_accept_review` | A pending review is approved. |
 | `bgr_group_deny_review` | A pending review is denied. |
-| `bgr_group_review_after_review_insert` | After the review row and meta are saved. |
+| `bgr_group_review_after_review_insert` | After the review row and meta are saved. Receives the review ID, group ID and reviewer ID. Also fires for reviews created through the REST API. |
 | `bgr_display_group_average_ratings` | Renders the average stars. |
 | `bgr_display_ratings` | Renders a set of stars. |
 
@@ -25,6 +25,10 @@
 | `bp_group_review_tab_name` | Group tab name. |
 | `bp_group_review_tab_slug` | Group tab address. |
 | `bgr_add_roles_capability` | Roles that receive the review capabilities. |
+
+## Functions
+
+`bgr_can_view_group_reviews( $group )` - returns whether the current visitor may see a group's reviews and ratings. Private and hidden groups are limited to members and `bp_moderate`. Use it in integrations so your output follows the same rule (since 3.9.1).
 
 ## Constants
 
