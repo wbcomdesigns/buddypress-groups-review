@@ -67,14 +67,14 @@ GET /wp-json/buddypress/v1/groups/123
 
 **Endpoint:** `GET /wp-json/buddypress/v1/groups/{group_id}/reviews`
 
-**Authentication:** None for public groups. Reviews of private and hidden groups need group membership or `bp_moderate` (since 3.9.1).
+**Authentication:** None for public groups. Reviews of private and hidden groups need group membership or `bp_moderate` (since 3.9.1). A group excluded from reviews returns `403` with the code `rest_group_excluded` (since 3.9.2).
 
 **Parameters:**
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | group_id | integer | - | BuddyPress group ID (required) |
-| page | integer | 1 | Page number for pagination |
-| per_page | integer | 10 | Reviews per page (1-100) |
+| page | integer | 1 | Page number for pagination. `0` is treated as `1`. |
+| per_page | integer | 10 | Reviews per page. Values above 100 are capped at 100 (since 3.9.2). |
 
 **Example Request:**
 ```bash
