@@ -16,6 +16,8 @@ A group member or the admin of a different group cannot approve, deny or remove 
 - On the group: **Manage > Manage Review** (the name follows your Review Label) lists pending reviews with **Approve** and **Deny** buttons.
 - In wp-admin: **Reviews** has row actions and bulk actions.
 
+If Approve, Deny or Delete is refused (for example the review was already handled), the message from the server appears in a notice instead of the page reloading.
+
 Denied reviews move to the trash. The reviewer gets an email if you enabled it.
 
 ![Pending reviews](../images/manage-reviews-pending.webp)
