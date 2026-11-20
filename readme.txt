@@ -268,6 +268,7 @@ Star colour, CSV export and theme layout fixes.
 * Fix      - Groups excluded from reviews no longer print rating markup; one shared check now decides exclusion for the tab, form, AJAX, REST and markup.
 * Fix      - The group header Add Review button no longer overlaps the rating row and Sort select on BuddyBoss and Reign at phone width.
 * Fix      - PHP warnings from the activity hook when a non-review post, such as a BuddyPress email, is published before init.
+* Fix      - Group review star ratings show again in the sitewide, group and single activity streams.
 * Security - The review CSV export now neutralises cells that start with =, +, -, @, tab or return, so a review cannot run as a spreadsheet formula.
 * Dev      - Replaced the deprecated jQuery .bind() call on the admin criteria screen with .on().
 * Dev      - Uninstall no longer flushes the whole object cache, and bin/local-ci.sh and bin/build-release.sh are added.
