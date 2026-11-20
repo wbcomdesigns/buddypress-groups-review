@@ -244,14 +244,15 @@ class BGR_Activity {
 	 * BGR added star rating in activity.
 	 *
 	 * @param string $activity_content Activity Content.
-	 * @param object $activity         Activity Object.
+	 * @param mixed  $activity         Activity row: a stdClass in the BuddyPress loop, a BP_Activity_Activity elsewhere.
 	 * @return string Modified activity content.
 	 */
 	public function bp_group_review_added_activity_star_rating( $activity_content, $activity ) {
 		global $bgr;
 		// Only a group review activity: secondary_item_id is a review of the activity's
 		// group (type is activity_status under Youzify, so the type alone is not enough).
-		if ( ! $activity instanceof BP_Activity_Activity || 'groups' !== $activity->component || 'review' !== get_post_type( (int) $activity->secondary_item_id )
+		// Never test for the BP_Activity_Activity class: the loop hands this filter a stdClass.
+		if ( ! is_object( $activity ) || 'groups' !== $activity->component || 'review' !== get_post_type( (int) $activity->secondary_item_id )
 			|| absint( get_post_meta( (int) $activity->secondary_item_id, 'linked_group', true ) ) !== absint( $activity->item_id ) ) {
 			return $activity_content;
 		}
