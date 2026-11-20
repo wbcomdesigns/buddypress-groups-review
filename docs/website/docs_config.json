@@ -1,0 +1,120 @@
+{
+  "product": "BuddyPress Group Reviews",
+  "productType": "plugin",
+  "shortId": "bpgroupreviews",
+  "sections": [
+    {
+      "name": "Getting Started",
+      "folder": "getting-started",
+      "description": "Install the plugin and get your first review live.",
+      "pages": [
+        {
+          "slug": "introduction",
+          "title": "What BuddyPress Group Reviews Does"
+        },
+        {
+          "slug": "installation",
+          "title": "Installation and Requirements"
+        },
+        {
+          "slug": "quick-start",
+          "title": "Quick Start"
+        }
+      ]
+    },
+    {
+      "name": "Features",
+      "folder": "features",
+      "description": "What the plugin does for members and group admins.",
+      "pages": [
+        {
+          "slug": "feature-overview",
+          "title": "Feature Overview"
+        }
+      ]
+    },
+    {
+      "name": "Usage",
+      "folder": "usage",
+      "description": "Guides for members, group admins and site owners.",
+      "pages": [
+        {
+          "slug": "member-adding-a-review",
+          "title": "Adding a Review (Members)"
+        },
+        {
+          "slug": "moderating-reviews",
+          "title": "Moderating Reviews (Group Admins)"
+        },
+        {
+          "slug": "group-level-criteria",
+          "title": "Group-Level Review Criteria"
+        },
+        {
+          "slug": "settings",
+          "title": "Site Admin Settings"
+        },
+        {
+          "slug": "ratings-on-directory-and-header",
+          "title": "Ratings on the Directory and Group Header"
+        },
+        {
+          "slug": "widgets",
+          "title": "Rating Widgets"
+        }
+      ]
+    },
+    {
+      "name": "Shortcodes",
+      "folder": "shortcodes",
+      "description": "Shortcodes for the review form and the top-groups leaderboard.",
+      "pages": [
+        {
+          "slug": "shortcodes",
+          "title": "Shortcodes"
+        }
+      ]
+    },
+    {
+      "name": "Developer Guide",
+      "folder": "developer-guide",
+      "description": "REST API, hooks and filters, and how reviews are stored.",
+      "pages": [
+        {
+          "slug": "rest-api",
+          "title": "REST API"
+        },
+        {
+          "slug": "hooks-and-filters",
+          "title": "Hooks and Filters"
+        },
+        {
+          "slug": "data-storage",
+          "title": "How Reviews Are Stored"
+        }
+      ]
+    },
+    {
+      "name": "FAQ",
+      "folder": "faq",
+      "description": "Quick answers to common questions.",
+      "pages": [
+        {
+          "slug": "faq",
+          "title": "Frequently Asked Questions"
+        }
+      ]
+    },
+    {
+      "name": "Troubleshooting",
+      "folder": "troubleshooting",
+      "description": "Fixes for the most common problems.",
+      "pages": [
+        {
+          "slug": "troubleshooting",
+          "title": "Troubleshooting"
+        }
+      ]
+    }
+  ]
+}

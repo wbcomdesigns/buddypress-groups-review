@@ -9,10 +9,10 @@ Stored in the `bgr_admin_general_settings` option.
 | Setting | Default | What it does |
 |---|---|---|
 | Auto approve reviews | Off (`no`) | Publish reviews immediately instead of holding them for approval. |
-| Reviews per page | 5 | Page size for the group's Manage Reviews list. |
+| Reviews per page | 5 | Page size for the group's Manage Reviews list. Allowed range 1 to 100; a blank, zero or negative value falls back to 5. |
 | Allow notification | On (`yes`) | Send BuddyPress notifications for review events. |
 | Allow activity | On (`yes`) | Post a BuddyPress activity entry when a review is published. |
-| Exclude groups | none | Groups to exclude from reviews (no tabs, form, or ratings). |
+| Exclude groups | none | Groups to exclude from reviews (no tabs, form, or ratings). The REST API refuses both listing and submitting reviews for them, and their pages print no rating markup. |
 | Multiple reviews | Off (`no`) | Allow a member to submit more than one review per group. |
 | Enable group-level criteria | Off (`no`) | Show the per-group Review Criteria tab. See [Group-Level Review Criteria](group-level-criteria.md). |
 
