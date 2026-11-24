@@ -5,7 +5,7 @@
   "license": "GPL-2.0+",
   "description": "This plugin allows BuddyPress Members to give reviews to BuddyPress groups on the site. The review form allows users to give text reviews and even rate the group based on multiple criteria.",
   "devDependencies": {
-    "grunt": "^1.3.0",
+    "grunt": "^1.6.3",
     "grunt-checktextdomain": "^1.0.1",
     "grunt-contrib-clean": "^2.0.1",
     "grunt-contrib-compress": "^2.0.0",
