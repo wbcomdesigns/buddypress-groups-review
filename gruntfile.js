@@ -198,7 +198,6 @@ module.exports = function (grunt) {
         // Task for cleaning dist directory
         clean: {
             dist: ['dist'],
-            postbuild: ['dist/buddypress-groups-review'], // Clean only the temp folder, keep ZIP
         },
 
         // Task for copying files to dist
@@ -248,23 +247,8 @@ module.exports = function (grunt) {
                     'assets/js/min/**',
                     'admin/assets/js/min/**',
                 ],
-                dest: 'dist/buddypress-groups-review/',
-            },
-        },
-
-        // Task for creating ZIP file
-        compress: {
-            dist: {
-                options: {
-                    archive: 'dist/buddypress-groups-review-<%= pkg.version %>.zip',
-                },
-                files: [
-                    {
-                        cwd: 'dist/buddypress-groups-review/',
-                        src: ['**'],
-                        dest: 'buddypress-groups-review/',
-                    },
-                ],
+                // Staging folder = WordPress.org slug; bin/build-release.sh zips it.
+                dest: 'dist/review-buddypress-groups/',
             },
         }
     });
@@ -279,12 +263,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-compress');
 
     // Register default tasks
     grunt.registerTask('default', ['cssmin', 'uglify', 'checktextdomain', 'rtlcss', 'shell', 'watch']);
 
-    // Register dist task (alias for build, skips POT regeneration).
+    // Register dist task (alias for build, skips POT regeneration). It stages the plugin;
+    // bin/build-release.sh is the only zip builder.
     //
     // shell:i18nbuild is NOT optional here even though POT generation is: the
     // zip must carry .mo, .l10n.php and languages/*.json rebuilt from the
@@ -296,9 +280,7 @@ module.exports = function (grunt) {
         'uglify',           // Minify JS
         'rtlcss',           // Generate RTL CSS
         'shell:i18nbuild',  // Rebuild .mo + .l10n.php + JS JSON from .po
-        'copy:dist',        // Copy files to dist
-        'compress:dist',    // Create ZIP file
-        'clean:postbuild'   // Clean temp folder, keep ZIP
+        'copy:dist'         // Stage files in dist/review-buddypress-groups/ for bin/build-release.sh
     ]);
 
     // Register build task for WordPress.org distribution
@@ -309,8 +291,6 @@ module.exports = function (grunt) {
         'uglify',           // Minify JS
         'rtlcss',           // Generate RTL CSS
         'shell',            // Regenerate POT, then .mo + .l10n.php + JS JSON
-        'copy:dist',        // Copy files to dist
-        'compress:dist',    // Create ZIP file
-        'clean:postbuild'   // Clean temp folder, keep ZIP
+        'copy:dist'         // Stage files in dist/review-buddypress-groups/ for bin/build-release.sh
     ]);
 };
